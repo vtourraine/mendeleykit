@@ -1,0 +1,235 @@
+[
+  {
+    "name": "Processes in Social Networks",
+    "description": "Papers in this group should shed light on either how information travels though networks (propagation) or on how certain processes (such as homophily, social influence) affect the topology.\n\nHowever please don't put \"link prediction\" literature here. Although link prediction would certainly fit here, it's become such a large field of research that I think it should have its own collection, and it does: I have another group called \"Link Prediction.\"",
+    "disciplines": [
+      "Computer and Information Science",
+      "Social Sciences"
+    ],
+    "tags": [
+      "homophily",
+      "information diffusion",
+      "propagation",
+      "social influence",
+      "social networks",
+      "topology"
+    ],
+    "photo": {
+      "original": "http://s3.amazonaws.com/mendeley-photos/72/38/723851d8e2e92eaa81c5e9e1fb19eab1208bc552.png",
+      "standard": "http://s3.amazonaws.com/mendeley-photos/72/38/723851d8e2e92eaa81c5e9e1fb19eab1208bc552std.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/72/38/723851d8e2e92eaa81c5e9e1fb19eab1208bc552-square.jpg"
+    },
+    "id": "21d8e70d-a421-3db5-80a1-b0d5affd24db",
+    "created": "2010-10-05T13:44:37.000Z",
+    "owning_profile_id": "6b5fa40e-374b-3951-9bbf-9f0317f2deee",
+    "link": "http://www.mendeley.com/groups/486591/processes-in-social-networks/",
+    "role": "user",
+    "access_level": "public"
+  },
+  {
+    "name": "Cloud Computing",
+    "disciplines": [
+      "Business Administration",
+      "Computer and Information Science",
+      "Engineering"
+    ],
+    "tags": [
+      "Cloud",
+      "Computing",
+      "Grid",
+      "IaaS",
+      "PaaS",
+      "SaaS",
+      "Virtualization"
+    ],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/business-administration.png"
+    },
+    "id": "77ebd449-6853-3b5e-bde8-e95008c0f770",
+    "created": "2010-10-05T13:44:49.000Z",
+    "owning_profile_id": "f817620c-b0e7-3d5a-995d-4ff6708aeb74",
+    "link": "http://www.mendeley.com/groups/498701/cloud-computing/",
+    "role": "user",
+    "access_level": "public"
+  },
+  {
+    "name": "eHealth",
+    "description": "Articles on eHealth, an emerging discipline that uses technology to improve health care organisation, delivery and management.",
+    "disciplines": [
+      "Computer and Information Science",
+      "Medicine",
+      "Design"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/computer-and-information-science.png"
+    },
+    "id": "1df54654-dc16-31a4-9db5-5e802e5939a2",
+    "created": "2010-10-05T13:45:46.000Z",
+    "owning_profile_id": "03b75765-b880-382e-bf4d-552f09254df3",
+    "link": "http://www.mendeley.com/groups/534921/ehealth/",
+    "role": "user",
+    "access_level": "public"
+  },
+  {
+    "name": "Mendeley Public",
+    "description": "Tutorials  zu Mendeley",
+    "disciplines": [
+      "Computer and Information Science"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/computer-and-information-science.png"
+    },
+    "id": "df3397f3-4c1d-3bd9-8011-719b0ce46b8a",
+    "created": "2010-10-05T13:46:06.000Z",
+    "owning_profile_id": "dbe9a704-66af-3f07-92dd-37296a59eead",
+    "link": "http://www.mendeley.com/groups/548131/mendeley-public/",
+    "role": "user",
+    "access_level": "public"
+  },
+  {
+    "name": "Semantics and ontologies in biology",
+    "description": "Articles and books related to the handling, analysis and visualization of biological knowledge and knowledge growth.",
+    "disciplines": [
+      "Biological Sciences",
+      "Computer and Information Science",
+      "Medicine"
+    ],
+    "tags": [
+      "biological ontology",
+      "Information theory",
+      "OBO",
+      "Ontology",
+      "OWL",
+      "Philosophy",
+      "Semantics"
+    ],
+    "photo": {
+      "original": "http://s3.amazonaws.com/mendeley-photos/57/9b/579b8993e58cbcb7cebcbd695a8667ca5fc2865e.png",
+      "standard": "http://s3.amazonaws.com/mendeley-photos/57/9b/579b8993e58cbcb7cebcbd695a8667ca5fc2865e-standard.jpg",
+      "square": "http://s3.amazonaws.com/mendeley-photos/57/9b/579b8993e58cbcb7cebcbd695a8667ca5fc2865e-square.jpg"
+    },
+    "id": "24236260-d94a-3e4d-93aa-0e5555e7d439",
+    "created": "2010-10-05T13:46:34.000Z",
+    "owning_profile_id": "b2cbe222-f95d-3024-9e33-ded33760622c",
+    "link": "http://www.mendeley.com/groups/560681/semantics-and-ontologies-in-biology/",
+    "role": "user",
+    "access_level": "public"
+  },
+  {
+    "name": "Broken PDFs",
+    "description": "PDF files that don't display on iOS",
+    "disciplines": [
+      "Design"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/design.png"
+    },
+    "id": "a28d8bb1-e7fb-3faf-a3e1-6feccbe91f85",
+    "created": "2012-11-02T12:24:16.000Z",
+    "owning_profile_id": "e8c6f844-d356-398c-956d-6e2051ab6d26",
+    "link": "http://www.mendeley.com/groups/2754151/broken-pdfs/",
+    "role": "user",
+    "access_level": "private"
+  },
+  {
+    "name": "Non-coding RNAs",
+    "description": "This course is one of many Advanced Undergraduate Seminars offered by the Biology Department at MIT.",
+    "disciplines": [
+      "Arts and Literature"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/arts-and-literature.png"
+    },
+    "id": "fbe077a3-3dde-3454-a398-25b1ece1dcb2",
+    "created": "2013-02-13T11:35:34.000Z",
+    "owning_profile_id": "ba136588-ed45-37e2-b059-605bd132f7c3",
+    "link": "http://www.mendeley.com/groups/3065211/non-coding-rnas/",
+    "role": "user",
+    "access_level": "private"
+  },
+  {
+    "name": "Peter's Invite Only Group",
+    "description": "Invite Only group for testing",
+    "disciplines": [
+      "Computer and Information Science"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/computer-and-information-science.png"
+    },
+    "webpage": "",
+    "id": "1ca4e9d8-2622-355b-bcb2-ecd99aebb353",
+    "created": "2013-07-16T09:12:09.000Z",
+    "owning_profile_id": "1b17179a-08d6-342b-a63d-ab0a9264aac8",
+    "link": "http://www.mendeley.com/groups/3517511/peter-s-invite-only-group/",
+    "role": "owner",
+    "access_level": "invite_only"
+  },
+  {
+    "name": "Peter's Private Test Group",
+    "description": "group for testing",
+    "disciplines": [
+      "Computer and Information Science"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/computer-and-information-science.png"
+    },
+    "webpage": "",
+    "id": "7163f9d8-b34a-33d2-a1cf-2a344673f370",
+    "created": "2013-07-16T09:56:04.000Z",
+    "owning_profile_id": "1b17179a-08d6-342b-a63d-ab0a9264aac8",
+    "link": "http://www.mendeley.com/groups/3517681/peter-s-private-test-group/",
+    "role": "owner",
+    "access_level": "private"
+  },
+  {
+    "name": "Peter's Secondary Private Group",
+    "description": "",
+    "disciplines": [
+      "Computer and Information Science"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/computer-and-information-science.png"
+    },
+    "webpage": "",
+    "id": "720de484-ac48-309f-baa4-cfd39aed99c9",
+    "created": "2013-07-17T10:42:04.000Z",
+    "owning_profile_id": "1b17179a-08d6-342b-a63d-ab0a9264aac8",
+    "link": "http://www.mendeley.com/groups/3521001/peter-s-secondary-private-group/",
+    "role": "owner",
+    "access_level": "private"
+  },
+  {
+    "name": "Test group",
+    "description": "test",
+    "disciplines": [
+      "Computer and Information Science"
+    ],
+    "tags": [],
+    "photo": {
+      "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+      "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/computer-and-information-science.png"
+    },
+    "webpage": "",
+    "id": "85b5ad82-7050-3e24-bddc-83a893f987f3",
+    "created": "2014-01-09T11:36:48.000Z",
+    "owning_profile_id": "123d8435-fd8f-38ee-a583-211bbe514d34",
+    "link": "http://www.mendeley.com/groups/4026401/test-group/",
+    "role": "user",
+    "access_level": "private"
+  }
+]

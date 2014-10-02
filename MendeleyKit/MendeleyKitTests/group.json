@@ -1,0 +1,27 @@
+{
+  "name": "Cloud Computing",
+  "disciplines": [
+    "Business Administration",
+    "Computer and Information Science",
+    "Engineering"
+  ],
+  "tags": [
+    "Cloud",
+    "Computing",
+    "Grid",
+    "IaaS",
+    "PaaS",
+    "SaaS",
+    "Virtualization"
+  ],
+  "photo": {
+    "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+    "square": "http://s3.amazonaws.com/mendeley-photos/disciplines/small/business-administration.png"
+  },
+  "id": "77ebd449-6853-3b5e-bde8-e95008c0f770",
+  "created": "2010-10-05T13:44:49.000Z",
+  "owning_profile_id": "f817620c-b0e7-3d5a-995d-4ff6708aeb74",
+  "link": "http://www.mendeley.com/groups/498701/cloud-computing/",
+  "role": "user",
+  "access_level": "public"
+}

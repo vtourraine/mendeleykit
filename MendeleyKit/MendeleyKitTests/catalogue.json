@@ -1,0 +1,85 @@
+{
+  "id": "ca7a641f-e3db-36c4-88b3-5ea69c210e4e",
+  "title": "Differential Synchronization",
+  "type": "conference_proceedings",
+  "authors": [
+    {
+      "first_name": "Neil",
+      "last_name": "Fraser"
+    }
+  ],
+  "year": 2009,
+  "source": "Proceedings of the 9th ACM symposium on Document engineering",
+  "identifiers": {
+    "scopus": "2-s2.0-70450235169",
+    "isbn": "9781605585758",
+    "doi": "10.1145/1600193.1600198"
+  },
+  "keywords": [
+    "collaboration",
+    "synchronization"
+  ],
+  "pages": "13-20",
+  "issue": "January",
+  "websites": [
+    "http://portal.acm.org/citation.cfm?doid=1600193.1600198"
+  ],
+  "publisher": "ACM Press",
+  "city": "New York, NY, USA",
+  "series": "DocEng 09",
+  "file_attached": false,
+  "link": "http://www.mendeley.com/research/differential-synchronization",
+  "reader_count": 43,
+  "reader_count_by_academic_status": {
+    "Professor": 2,
+    "Assistant Professor": 1,
+    "Post Doc": 2,
+    "Ph.D. Student": 8,
+    "Researcher (at an Academic Institution)": 4,
+    "Researcher (at a non-Academic Institution)": 2,
+    "Other Professional": 8,
+    "Student (Master)": 13,
+    "Student (Bachelor)": 3
+  },
+  "reader_count_by_subdiscipline": {
+    "Engineering": {
+      "Miscellaneous": 2
+    },
+    "Business Administration": {
+      "Management Information Systems": 1
+    },
+    "Computer and Information Science": {
+      "Multimedia Systems and Applications": 2,
+      "Miscellaneous": 25,
+      "Information Science": 2,
+      "Software Engineering": 3,
+      "Computer Security": 1,
+      "Human-Computer Interaction": 1,
+      "Algorithms and Computational Theory": 1,
+      "Artificial Intelligence": 1
+    },
+    "Electrical and Electronic Engineering": {
+      "Robotics and Automation": 1
+    },
+    "Biological Sciences": {
+      "Miscellaneous": 1
+    },
+    "Mathematics": {
+      "Miscellaneous": 2
+    }
+  },
+  "reader_count_by_country": {
+    "France": 2,
+    "Portugal": 1,
+    "United States": 3,
+    "Czech Republic": 1,
+    "Brazil": 1,
+    "Austria": 1,
+    "Netherlands": 1,
+    "Germany": 2,
+    "Algeria": 1,
+    "United Kingdom": 3,
+    "India": 1
+  },
+  "abstract": "This paper describes the Differential Synchronization (DS) method for keeping documents synchronized. The key feature of DS is that it is simple and well suited for use in both novel and existing state-based applications without requiring application redesign. DS uses deltas to make efficient use of bandwidth, and is fault-tolerant, allowing copies to converge in spite of occasional errors. We consider practical implementation of DS and describe some techniques to improve its performance in a browser environment."
+}

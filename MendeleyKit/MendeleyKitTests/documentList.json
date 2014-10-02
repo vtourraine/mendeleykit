@@ -1,0 +1,353 @@
+[
+    {
+        "id" : "6e7f4efb-e162-36f7-bae8-ce8f1a55860d",
+        "title" : "iPhone Forensics: Recovering Evidence, Personal Data, and Corporate Assets",
+        "type" : "book",
+        "authors" : [
+            {
+                "first_name" : "J.",
+                "last_name" : "Zdziarski"
+            }
+        ],
+        "year" : 2008,
+        "source" : "Journal of the Electrochemical Society",
+        "identifiers" : {
+            "isbn" : "9780596153588"
+        },
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "120",
+        "volume" : "129",
+        "websites" : [
+            "http://books.google.com/books?id=R1XArTHPn9QC"
+        ],
+        "file_attached" : true,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-22T15:55:29.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "abstract" : "Describes how to recover, analyze, and destroy data from an iPhone, iPhone 3G, and an iPod Touch.",
+        "website" : "http://books.google.com/books?id=R1XArTHPn9QC"
+    },
+    {
+        "id" : "7c75e04a-0c37-373e-87f3-ee9bc82e9c6d",
+        "title" : "iPhone apps for smoking cessation: A content analysis",
+        "type" : "journal",
+        "authors" : [
+            {
+                "first_name" : "Lorien C.",
+                "last_name" : "Abroms"
+            },
+            {
+                "first_name" : "Nalini",
+                "last_name" : "Padmanabhan"
+            },
+            {
+                "first_name" : "Lalida",
+                "last_name" : "Thaweethai"
+            },
+            {
+                "first_name" : "Todd",
+                "last_name" : "Phillips"
+            }
+        ],
+        "year" : 2011,
+        "source" : "American Journal of Preventive Medicine",
+        "identifiers" : {
+            "issn" : "07493797",
+            "isbn" : "07493797 (ISSN)",
+            "doi" : "10.1016/j.amepre.2010.10.032",
+            "pmid" : "21335258"
+        },
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "279-285",
+        "volume" : "40",
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:25:02.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "Background: With the proliferation of smartphones such as the iPhone, mobile phones are being used in novel ways to promote smoking cessation. Purpose: This study set out to examine the content of the 47 iPhone applications (apps) for smoking cessation that were distributed through the online iTunes store, as of June 24, 2009. Methods: Each app was independently coded by two reviewers for its (1) approach to smoking cessation and (2) adherence to the U.S. Public Health Service's 2008 Clinical Practice Guidelines for Treating Tobacco Use and Dependence. Each app was also coded for its (3) frequency of downloads. Results: Apps identified for smoking cessation were found to have low levels of adherence to key guidelines in the index. Few, if any, apps recommended or linked the user to proven treatments such as pharmacotherapy, counseling, and/or a quitline. Conclusions: iPhone apps for smoking cessation rarely adhere to established guidelines for smoking cessation. It is recommended that current apps be revised and future apps be developed around evidence-based practices for smoking cessation. ?? 2011 American Journal of Preventive Medicine."
+    },
+    {
+        "id" : "9a16e5a0-9835-327a-9a9c-5a361b10c64b",
+        "title" : "Invention of the Year: The iPhone. (Cover story)",
+        "type" : "journal",
+        "authors" : [
+            {
+                "first_name" : "Lev",
+                "last_name" : "Grossman"
+            }
+        ],
+        "year" : 2007,
+        "source" : "Time",
+        "identifiers" : {
+            "issn" : "0040781X",
+            "doi" : "Article"
+        },
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "60-62",
+        "volume" : "170",
+        "websites" : [
+            "http://ezproxy.gsu.edu:2048/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=a9h&AN=27363520&site=ehost-live"
+        ],
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:30:53.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "The article suggests that the Apple iPhone is the invention of the year for 2007 and lists 5 major reasons why this is so. A few of the reasons are that the iPhone is a good looking device, it has a touch screen, and it will make other cellular phone manufacturers want to improve their own products. The article also suggests that the iPhone is such a breakthrough because it is the first genuine hand held computer.",
+        "website" : "http://ezproxy.gsu.edu:2048/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=a9h&AN=27363520&site=ehost-live"
+    },
+    {
+        "id" : "9aac3e00-73ba-3033-9b26-e9cd2ec340f3",
+        "title" : "How iPhone innovators changed their consumption in iDay2: Hedonic post or brand devotion",
+        "type" : "journal",
+        "authors" : [
+            {
+                "first_name" : "E. J M",
+                "last_name" : "Arruda-Filho"
+            },
+            {
+                "first_name" : "Mark M.",
+                "last_name" : "Lennon"
+            }
+        ],
+        "year" : 2011,
+        "source" : "International Journal of Information Management",
+        "identifiers" : {
+            "issn" : "02684012",
+            "isbn" : "0268-4012",
+            "doi" : "10.1016/j.ijinfomgt.2011.04.007"
+        },
+        "keywords" : [
+            "Consumer behavior",
+            "Hedonism",
+            "Innovative usage",
+            "Latest consumer",
+            "Mobile phones",
+            "Netnographic studies",
+            "Utilitarian and social presence",
+            "iPhone"
+        ],
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "524-532",
+        "volume" : "31",
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:30:52.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "Using netnographic evidence on iPhone usage, this study suggests that devoted and innovative consumers adopt and use new technology for hedonic experiences and social positioning, which generates experiential outcomes. This article presents an interpretive analysis of consumption behavior of iPhone users after their experience with iPhone v1 and its successive iterations, prior to the release of Apple's latest model the iPhone 4. The day the iPhone v1 was released was dubbed iDay1 by Apple brand aficionados, and the anticipated release date of the iPhone 4 iDay2. While the original iPhone v1 was seen as very cutting edge, successive releases (the iPhone 3G and iPhone 3GS), were far less innovative. Each successive iPhone release has not had as devout a following as the original. This raises the question: will innovation seeking consumers abandon the iPhone for a newer, more technologically innovative device? This study suggests that innovators prefer really new products instead of upgraded ones, because they cannot see the advantage of using an upgraded version of a product which has already been widely adopted. ?? 2011 Elsevier Ltd. All rights reserved."
+    },
+    {
+        "id" : "f6d344d0-eff8-3c1d-bf86-f4d18af5fe8e",
+        "title" : "iPhone application development",
+        "type" : "conference_proceedings",
+        "authors" : [
+            {
+                "first_name" : "Javier",
+                "last_name" : "Gonzalez-Sanchez"
+            },
+            {
+                "first_name" : "Maria Elena",
+                "last_name" : "Chavez-Echeagaray"
+            }
+        ],
+        "year" : 2010,
+        "source" : "Proceedings of the ACM international conference companion on Object oriented programming systems languages and applications companion - SPLASH '10",
+        "identifiers" : {
+            "isbn" : "9781450302401",
+            "doi" : "10.1145/1869542.1869629"
+        },
+        "keywords" : [
+            "2007",
+            "2008 british technology awards",
+            "and it was the",
+            "apple technology",
+            "big winner in the",
+            "development",
+            "iphone sdk",
+            "mobile applications",
+            "objective-c",
+            "several awards such as",
+            "the best device in",
+            "times magazine",
+            "xcode"
+        ],
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "321",
+        "websites" : [
+            "http://portal.acm.org/citation.cfm?doid=1869542.1869629"
+        ],
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:30:52.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "Apple's mobile handheld devices have been a huge success, be- ginning with the launching of the iPhone in 2007 and continuing until the present with the launching of the iPad in 2010. There are now more than 85,000 apps available for more than 50 million iPhone and iPod touch customers worldwide and over 125,000 developers registered in Apple’s iPhone Developer Program. iPhone is a new and widely extended platform for developing object-oriented applications. The iPhone platform involves several unique technologies that makes developing applications both a challenging and an engaging activity for experienced program- mers willing to learn about a mobile device, and a great option for students or novices to learn foundational programming skills. Both novices and experts will find the power of the iPhone librar- ies and development tools helpful for quickly building powerful iPhone apps. In this tutorial, we will be using Xcode under Mac OS X as our integrated development environment (IDE), and Ob- jective-C and iPhone API as our programming tools to create basic to medium level iPhone applications. We’ll start with the classic “Hello World” sample application and continue to develop more advanced applications using graphical user interfaces, han- dling multi-touch and motion detection, communication interfac- es, and integrating different media.",
+        "website" : "http://portal.acm.org/citation.cfm?doid=1869542.1869629"
+    },
+    {
+        "id" : "984724c0-15a5-3554-b949-a932efe0238b",
+        "title" : "iPhone 3GS Forensics : Logical analysis using Apple iTunes Backup Utility",
+        "type" : "journal",
+        "authors" : [
+            {
+                "first_name" : "Mona",
+                "last_name" : "Bader"
+            },
+            {
+                "first_name" : "Ibrahim",
+                "last_name" : "Baggili"
+            }
+        ],
+        "year" : 2010,
+        "source" : "Small Scale Digital Device Forensics Journal",
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "1-15",
+        "volume" : "4",
+        "websites" : [
+            "http://securitylearn.net/wp-content/uploads/iOS Resources/iPhone 3GS Forensics Logical analysis using Apple iTunes Backup Utility.pdf"
+        ],
+        "file_attached" : true,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:30:53.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "Page 7 - to see History.plist (log of searched locations) and com.apple.Maps.plist (last viewed lat and long) Page 13 - extracting iPhone files using iPhone Backup Extractor (windows-based)",
+        "website" : "http://securitylearn.net/wp-content/uploads/iOS Resources/iPhone 3GS Forensics Logical analysis using Apple iTunes Backup Utility.pdf"
+    },
+    {
+        "id" : "a0037354-f00d-3a7e-9cf9-295d80a74a04",
+        "title" : "The iPhone in Medical Libraries",
+        "type" : "generic",
+        "authors" : [
+            {
+                "first_name" : "Colleen",
+                "last_name" : "Cuddy"
+            }
+        ],
+        "year" : 2008,
+        "source" : "Journal of Electronic Resources in Medical Libraries",
+        "identifiers" : {
+            "issn" : "1542-4065",
+            "isbn" : "1542406080",
+            "doi" : "10.1080/15424060802222513"
+        },
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "287-292",
+        "volume" : "5",
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:30:53.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "ABSTRACT This article provides an overview of the Apple iPhone, compares the phone to PDAs (Personal Digital Assistants) and other smartphones on the market, and examines possible uses of the iPhone in medical libraries. Medical software applications that are available for the iPhone via the Safari Web browser, such as Unbound Medicine, Epocrates, and Skyscape, are also discussed.\\nABSTRACT This article provides an overview of the Apple iPhone, compares the phone to PDAs (Personal Digital Assistants) and other smartphones on the market, and examines possible uses of the iPhone in medical libraries. Medical software applications that are available for the iPhone via the Safari Web browser, such as Unbound Medicine, Epocrates, and Skyscape, are also discussed."
+    },
+    {
+        "id" : "8fec4681-d3d3-3596-af55-998b44da491e",
+        "title" : "Infectious diseases resources for the iPhone.",
+        "type" : "journal",
+        "authors" : [
+            {
+                "first_name" : "Richard L",
+                "last_name" : "Oehler"
+            },
+            {
+                "first_name" : "Kevin",
+                "last_name" : "Smith"
+            },
+            {
+                "first_name" : "John F",
+                "last_name" : "Toney"
+            }
+        ],
+        "year" : 2010,
+        "source" : "Clinical infectious diseases : an official publication of the Infectious Diseases Society of America",
+        "identifiers" : {
+            "issn" : "1537-6591",
+            "isbn" : "10584838 (ISSN)",
+            "doi" : "10.1086/651602",
+            "pmid" : "20233061"
+        },
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "1268-1274",
+        "volume" : "50",
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:30:53.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "Modern technology has revolutionized the clinician's ability to have vast information resources available literally at one's fingertips. The advent of the smartphone--an integration of the mobile phone with an ultraportable computer, web browser, multimedia player, and camera, has given clinicians the capability to merge their information and communication resources into one compact handheld instrument. Apple's iPhone, and its sister device, the iPod touch, with a combined customer base of more than 50 million users and more than 100,000 downloadable applications, are now the leading handheld platforms for medical personnel to access personal information, medical reference, clinical data, and medically oriented \"apps\" on the go. The purpose of this article is to provide an overview of some of the diverse infectious diseases-oriented resources available to the iPhone/iPod touch user."
+    },
+    {
+        "id" : "7121470d-388c-3f14-90ef-457d07068650",
+        "title" : "iPhone Human Interface Guidelines",
+        "type" : "journal",
+        "authors" : [
+            {
+                "first_name" : "User",
+                "last_name" : "Experience"
+            }
+        ],
+        "year" : 2010,
+        "source" : "Control",
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "1-152",
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-22T15:55:12.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "abstract" : "lecture slides on course iPhone Application Development at Graz University of Technology"
+    },
+    {
+        "id" : "db91439e-a241-3721-bb81-affe0744c85b",
+        "title" : "iPhone privacy",
+        "type" : "journal",
+        "authors" : [
+            {
+                "first_name" : "Nicolas",
+                "last_name" : "Seriot"
+            }
+        ],
+        "year" : 2010,
+        "source" : "Black Hat DC",
+        "created" : "2014-05-22T15:55:06.000Z",
+        "pages" : "30",
+        "file_attached" : false,
+        "profile_id" : "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+        "last_modified" : "2014-05-28T15:25:02.000Z",
+        "read" : false,
+        "starred" : false,
+        "authored" : false,
+        "confirmed" : true,
+        "hidden" : false,
+        "abstract" : "It is a little known fact that, despite Apple’s claims, any applica- tions downloaded from the App Store to a standard iPhone can access a significant quantity of personal data. This paper explains what data are at risk and how to get them pro- grammatically without the user’s knowledge. These data include the phone number, email accounts settings (except passwords), keyboard cache entries, Safari searches and the most recent GPS location. This paper shows how malicious applications could pass themanda- tory App Store review unnoticed and harvest data through officially sanctioned Apple APIs. Some attack scenarios and recommendations are also presented."
+    }
+]

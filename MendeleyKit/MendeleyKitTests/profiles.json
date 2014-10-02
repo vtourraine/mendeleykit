@@ -1,0 +1,19 @@
+{
+  "id": "1b17179a-08d6-342b-a63d-ab0a9264aac8",
+  "first_name": "Peter",
+  "last_name": "Schmidt",
+  "display_name": "Peter Schmidt",
+  "email": "peter.schmidt@mendeley.com",
+  "link": "http://www.mendeley.com/profiles/peter-schmidt12/",
+  "academic_status": "Post Doc",
+  "discipline": {
+    "name": "Computer and Information Science"
+  },
+  "photo": {
+    "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
+    "square": "http://s3.amazonaws.com/mendeley-photos/awaiting_square.png"
+  },
+  "verified": true,
+  "user_type": "normal",
+  "created": "2013-06-03T17:04:04.000Z"
+}

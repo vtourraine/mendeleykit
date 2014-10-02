@@ -1,0 +1,33 @@
+[
+  {
+    "id": "aa8f6f59-d138-484b-90e0-5f1b9fdda5db",
+    "name": "smallFolder",
+    "created": "2013-07-18T15:53:47.000Z"
+  },
+  {
+    "id": "9927e367-b16a-4309-936b-24d7e8c57b82",
+    "name": "LargeFolder",
+    "created": "2013-07-18T15:53:47.000Z"
+  },
+  {
+    "id": "827b7859-85e3-44ab-88b5-005a6a5c39d6",
+    "name": "9 folder with number start",
+    "created": "2013-07-18T15:54:06.000Z"
+  },
+  {
+    "id": "e469a319-9bd6-46d7-8c65-83a15b1dd212",
+    "name": "noLargePrintFolder",
+    "created": "2013-07-18T15:57:43.000Z"
+  },
+  {
+    "id": "9c7afc10-46a3-4384-8605-74563ba9fde2",
+    "name": "Testfolder",
+    "created": "2014-05-23T13:37:08.000Z"
+  },
+  {
+    "id": "f2b5e632-79ad-4da2-867d-24b65354e358",
+    "name": "Subfolder",
+    "created": "2014-06-26T12:34:23.000Z",
+    "parent_id": "9927e367-b16a-4309-936b-24d7e8c57b82"
+  }
+]

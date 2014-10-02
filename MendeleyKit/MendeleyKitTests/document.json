@@ -1,0 +1,30 @@
+{
+    "id": "6e7f4efb-e162-36f7-bae8-ce8f1a55860d",
+    "title": "iPhone Forensics: Recovering Evidence, Personal Data, and Corporate Assets",
+    "type": "book",
+    "authors": [
+                {
+                "first_name": "J.",
+                "last_name": "Zdziarski"
+                }
+                ],
+    "year": 2008,
+    "source": "Journal of the Electrochemical Society",
+    "identifiers": {
+        "isbn": "9780596153588"
+    },
+    "created": "2014-05-22T15:55:06.000Z",
+    "pages": "120",
+    "volume": "129",
+    "websites": [
+                 "http://books.google.com/books?id=R1XArTHPn9QC"
+                 ],
+    "file_attached": true,
+    "profile_id": "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
+    "last_modified": "2014-05-22T15:55:29.000Z",
+    "read": false,
+    "starred": false,
+    "authored": false,
+    "confirmed": true,
+    "abstract": "Describes how to recover, analyze, and destroy data from an iPhone, iPhone 3G, and an iPod Touch.",
+}
