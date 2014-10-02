@@ -20,16 +20,36 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MendeleyTaskFactory : NSObject
-
+@interface MendeleyTaskProvider : NSObject
+/**
+   This creates a generic NSURLSessionTask
+   @param request
+   @param session
+   @param completionBlock
+ */
 + (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                                       session:(NSURLSession *)session
                               completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
-+ (NSURLSessionDownloadTask *)downloadTaskWithRequest:(NSURLRequest *)request session:(NSURLSession *)session
+/**
+   This creates a download task
+   @param request
+   @param session
+   @param progressBlock
+   @param completionBlock
+ */
++ (NSURLSessionDownloadTask *)downloadTaskWithRequest:(NSURLRequest *)request
+                                              session:(NSURLSession *)session
                                         progressBlock:(MendeleyResponseProgressBlock)progressBlock
                                       completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
+/**
+   This creates a download task
+   @param request
+   @param session
+   @param progressBlock
+   @param completionBlock
+ */
 + (NSURLSessionUploadTask *)uploadTaskWithRequest:(NSURLRequest *)request
                                           session:(NSURLSession *)session
                                     progressBlock:(MendeleyResponseProgressBlock)progressBlock

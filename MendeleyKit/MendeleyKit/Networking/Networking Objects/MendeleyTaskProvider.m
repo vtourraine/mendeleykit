@@ -18,11 +18,11 @@
  *****************************************************************************
  */
 
-#import "MendeleyTaskFactory.h"
+#import "MendeleyTaskProvider.h"
 #import "MendeleyResponse.h"
 #import "NSError+MendeleyError.h"
 
-@implementation MendeleyTaskFactory
+@implementation MendeleyTaskProvider
 
 + (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                                       session:(NSURLSession *)session

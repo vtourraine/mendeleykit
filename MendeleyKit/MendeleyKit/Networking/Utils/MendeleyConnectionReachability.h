@@ -22,7 +22,15 @@
 
 
 @interface MendeleyConnectionReachability : NSObject
+/**
+   @name MendeleyConnectionReachability checks the availability of the Mendeley server.
+   The class also provides helper methods to check the availability of individual API calls
+   e.g. /documents
+ */
 
+/**
+   returns a singleton
+ */
 + (MendeleyConnectionReachability *)sharedInstance;
 
 /**

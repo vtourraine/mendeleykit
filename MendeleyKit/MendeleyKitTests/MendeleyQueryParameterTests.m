@@ -135,13 +135,13 @@
 {
     MendeleyCatalogParameters *parameters = [MendeleyCatalogParameters new];
 
-    BOOL exists = [parameters propertyExists:@"pmid"];
+    BOOL exists = [parameters hasQueryParameterWithName:@"pmid"];
 
     XCTAssertTrue(exists, @"property should exist");
-    exists = [parameters propertyExists:@"filehash"];
+    exists = [parameters hasQueryParameterWithName:@"filehash"];
     XCTAssertTrue(exists, @"filehash property should exist");
 
-    exists = [parameters propertyExists:@"someOtherProperty"];
+    exists = [parameters hasQueryParameterWithName:@"someOtherProperty"];
     XCTAssertFalse(exists, @"someOtherProperty should not exist");
 
 }

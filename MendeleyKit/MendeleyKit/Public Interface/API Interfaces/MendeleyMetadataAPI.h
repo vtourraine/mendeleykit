@@ -21,8 +21,17 @@
 #import "MendeleyObjectAPI.h"
 
 @interface MendeleyMetadataAPI : MendeleyObjectAPI
+/**
+   @name MendeleyMetadataAPI
+   This class provides access methods to the REST metadata API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
 
 /**
+   @param queryParameters
+   @param completionBlock
  */
 - (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;

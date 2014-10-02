@@ -21,11 +21,16 @@
 #import <Foundation/Foundation.h>
 
 @interface MendeleySimpleNetworkTask : NSObject
-
-- (instancetype)initWithSessionTask:(NSURLSessionTask *)sessionTask completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
-
 @property (nonatomic, copy, readonly) MendeleyResponseCompletionBlock completionBlock;
 @property (nonatomic, strong, readonly) NSURLSessionTask *sessionTask;
+
+/**
+   creates a simple network task based on a NSURLSession object
+   @param sessionTask
+   @param completionBlock
+ */
+- (instancetype)initWithSessionTask:(NSURLSessionTask *)sessionTask
+                    completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 
 @end

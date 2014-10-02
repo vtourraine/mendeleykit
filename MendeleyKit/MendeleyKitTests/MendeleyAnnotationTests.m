@@ -27,7 +27,7 @@
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) NSDictionary *colorDictionary;
 
-@property (nonatomic, strong) MendeleyHighlighBox *highlightBox;
+@property (nonatomic, strong) MendeleyHighlightBox *highlightBox;
 @property (nonatomic, strong) NSDictionary *boxDictionary;
 @end
 
@@ -42,7 +42,7 @@
     CGFloat x = 145.3185;
     CGFloat y = 701.9816;
     CGRect frame = CGRectMake(x, y, 0, 0);
-    self.highlightBox = [MendeleyHighlighBox new];
+    self.highlightBox = [MendeleyHighlightBox new];
     self.highlightBox.box = frame;
     self.highlightBox.page = [NSNumber numberWithInt:1];
 
@@ -72,7 +72,8 @@
 
 - (void)testColorFromColorParameters
 {
-    UIColor *color = [MendeleyAnnotation colorFromParameters:self.colorDictionary];
+    NSError *error = nil;
+    UIColor *color = [MendeleyAnnotation colorFromParameters:self.colorDictionary error:&error];
 
     XCTAssertNotNil(color, @"colour must not be nil");
 
@@ -91,7 +92,8 @@
 
 - (void)testJSONColorParametersFromColor
 {
-    NSDictionary *dictionary = [MendeleyAnnotation jsonColorFromColor:self.color];
+    NSError *error = nil;
+    NSDictionary *dictionary = [MendeleyAnnotation jsonColorFromColor:self.color error:&error];
 
     XCTAssertNotNil(dictionary, @"dictionary should not be nil");
     NSNumber *red = [dictionary objectForKey:kMendeleyJSONColorRed];
@@ -106,7 +108,8 @@
 
 - (void)testBoxFromJSONParameters
 {
-    MendeleyHighlighBox *box = [MendeleyHighlighBox boxFromJSONParameters:self.boxDictionary];
+    NSError *error = nil;
+    MendeleyHighlightBox *box = [MendeleyHighlightBox boxFromJSONParameters:self.boxDictionary error:&error];
 
     XCTAssertNotNil(box, @"we should get a not nil box back");
     XCTAssertNotNil(box.page, @"box page should not be nil");
@@ -127,7 +130,8 @@
 
 - (void)testJSONBoxFromHighlightBox
 {
-    NSDictionary *dict = [MendeleyHighlighBox jsonBoxFromHighlightBox:self.highlightBox];
+    NSError *error = nil;
+    NSDictionary *dict = [MendeleyHighlightBox jsonBoxFromHighlightBox:self.highlightBox error:&error];
 
     XCTAssertNotNil(dict, @"the dictionary should not be nil");
 

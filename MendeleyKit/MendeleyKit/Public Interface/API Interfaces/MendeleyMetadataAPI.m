@@ -45,15 +45,10 @@
         }
         return;
     }
-    NSDictionary *query = [queryParameters valueStringDictionary];
-    NSMutableDictionary *mutableQuery = [NSMutableDictionary dictionaryWithDictionary:query];
-    if (nil != [mutableQuery objectForKey:kMendeleyRESTAPIQueryLimit])
-    {
-        [mutableQuery removeObjectForKey:kMendeleyRESTAPIQueryLimit];
-    }
+    NSDictionary *query = [queryParameters valueStringDictionaryWithNoLimit];
 
     [self.helper mendeleyObjectOfType:kMendeleyModelMetadataLookup
-                           parameters:mutableQuery
+                           parameters:query
                                   api:kMendeleyRESTAPIMetadata
                     additionalHeaders:[self defaultServiceRequestHeaders]
                       completionBlock:completionBlock];

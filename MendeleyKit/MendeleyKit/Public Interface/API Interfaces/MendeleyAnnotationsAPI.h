@@ -24,7 +24,13 @@
 @class MendeleyAnnotationParameters;
 
 @interface MendeleyAnnotationsAPI : MendeleyObjectAPI
-
+/**
+   @name MendeleyAnnotationsAPI
+   This class provides access methods to the REST annotations API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
 /**
    @param annotationID
    @param completionBlock

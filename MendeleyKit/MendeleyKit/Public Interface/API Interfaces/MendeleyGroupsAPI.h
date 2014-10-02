@@ -22,6 +22,13 @@
 #import "MendeleyGroup.h"
 
 @interface MendeleyGroupsAPI : MendeleyObjectAPI
+/**
+   @name MendeleyGroupsAPI
+   This class provides access methods to the REST groups API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
 
 /**
    @param queryParameters

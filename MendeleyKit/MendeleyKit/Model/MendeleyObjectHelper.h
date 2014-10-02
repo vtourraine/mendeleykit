@@ -88,17 +88,22 @@
    @param error will be nill if method call is successfull
    @return YES if the propertyName of the model object contains a custom object, otherwise NO.
  */
-+ (BOOL)isCustomizableModelObject:(id)modelObject forPropertyName:(NSString *)propertyName error:(NSError **)error;
++ (BOOL)isCustomizableModelObject:(id)modelObject
+                  forPropertyName:(NSString *)propertyName
+                            error:(NSError **)error;
 
 /**
    Returns a custom initialized object corresponding to the receiving raw value for a specific model object and propertyName.
-   @param rawValue the raw value to be converted
+   @param rawValue the raw object to be converted
    @param modelObject the model object
    @param propertyName the property name
    @param error will be nill if method call is successfull
    @return the custom initialized value if the propertyName of the model object contains a custom object.
  */
-+ (id)customObjectFromRawValue:(id)rawValue modelObject:(id)modelObject propertyName:(NSString *)propertyName error:(NSError **)error;
++ (id)customObjectFromRawValue:(id)rawValue
+                   modelObject:(id)modelObject
+                  propertyName:(NSString *)propertyName
+                         error:(NSError **)error;
 
 /**
    Returns a raw value corresponding to the receiving custom object for a specific model object and propertyName.
@@ -108,6 +113,9 @@
    @param error will be nill if method call is successfull
    @return the raw value if the propertyName of the model object contains a custom object.
  */
-+ (id)rawValueFromCustomObject:(id)customObject modelObject:(id)modelObject propertyName:(NSString *)propertyName error:(NSError **)error;
++ (id)rawValueFromCustomObject:(id)customObject
+                   modelObject:(id)modelObject
+                  propertyName:(NSString *)propertyName
+                         error:(NSError **)error;
 
 @end

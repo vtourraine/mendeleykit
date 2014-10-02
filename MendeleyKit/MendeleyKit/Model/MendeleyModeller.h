@@ -58,6 +58,8 @@
     "id" : "xxxxx-xxxx-xxxx-xxxxxxxxx"
    }
    @param objectID
+   @param error
+   @return JSON object as NSData or nil if error
  */
 - (NSData *)jsonObjectForID:(NSString *)objectID error:(NSError **)error;
 @end

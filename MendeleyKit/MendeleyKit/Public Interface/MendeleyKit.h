@@ -26,6 +26,9 @@
 
 @interface MendeleyKit : NSObject
 @property (nonatomic, assign, readonly) BOOL isAuthenticated;
+/**
+   @name General methods
+ */
 
 /**
    singleton for MendeleyKit. Do we actually need a singleton here?
@@ -38,9 +41,6 @@
  */
 - (void)changeNetworkProviderWithClassName:(NSString *)networkProviderClassName;
 
-/**
-   @name Document (and trash) API methods
- */
 /**
    Clears out any stored authentication.
    After calling this users will need to log in again.
@@ -72,6 +72,9 @@
 #pragma mark -
 #pragma mark Profiles
 /**
+   @name Profile API methods
+ */
+/**
    The completionBlock returns an instance of MendeleyUserProfile
    @param completionBlock
  */
@@ -88,6 +91,9 @@
 
 #pragma mark -
 #pragma mark Documents
+/**
+   @name documents, trash and catalog API methods
+ */
 
 /**
    This method is only used when paging through a list of documents on the server.
@@ -101,7 +107,7 @@
 
 /**
    obtains a list of documents for the first page.
-   @param parameters the parameter set to be used in the request
+   @param queryParameters the parameter set to be used in the request
    @param completionBlock
  */
 - (void)documentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
@@ -142,7 +148,7 @@
 
 /**
    modify/update a document with ID. The server will return a JSON object with the updated data
-   @param updatedMendeleyDocument
+   @param updatedDocument
    @param completionBlock
  */
 - (void)updateDocument:(MendeleyDocument *)updatedDocument
@@ -170,6 +176,8 @@
 /**
    This method returns a list of document IDs that were permanently deleted. The list of deleted IDs will be kept on
    the server for a limited period of time.
+   @param deletedSince
+   @param completionBlock
  */
 - (void)deletedDocumentsSince:(NSDate *)deletedSince
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -188,7 +196,7 @@
 /**
    This method obtains a list for the 'first' page of 'trashed' documents
    based on a list of query parameters.
-   @param parameters the parameter set to be used in the request
+   @param queryParameters the parameter set to be used in the request
    @param completionBlock
  */
 - (void)trashedDocumentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
@@ -224,6 +232,9 @@
 
 #pragma mark -
 #pragma mark Metadata
+/**
+   @name Metadata API
+ */
 
 /**
    obtains metadata
@@ -234,21 +245,32 @@
                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 #pragma mark -
-#pragma mark Document Types
+#pragma mark Document and Identifier Types
+/**
+   @name documentTypes and identifierTypes APIs methods
+ */
 
+/**
+   obtains the list of document types (e.g. journal, book etc) currently available
+   @param completionBlock
+ */
 - (void)documentTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Identifier Types
-
+/**
+   obtains the list of identifier types (e.g. arxiv, doi, pmid) currently available
+   @param completionBlock
+ */
 - (void)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark -
 #pragma mark Files
+/**
+   @name files API methods
+ */
 
 /**
    obtains a list of files for the first page.
-   @param parameters the parameter set to be used in the request
+   @param queryParameters the parameter set to be used in the request
    @param completionBlock
  */
 - (void)fileListWithQueryParameters:(MendeleyFileParameters *)queryParameters
@@ -270,6 +292,7 @@
    this creates a file based on the mendeley object model provided in the argument.
    The server will respond with the JSON data structure for the new object
    @param fileURL
+   @param documentURLPath
    @param progressBlock
    @param completionBlock
  */
@@ -281,7 +304,7 @@
 /**
    this method will remove a file with given ID permanently. The file data cannot be retrieved.
    However, the user will be able to get a list of permanently removed IDs
-   @param documentID
+   @param fileID
    @param completionBlock
  */
 - (void)deleteFileWithID:(NSString *)fileID
@@ -291,8 +314,12 @@
 #pragma mark Folders
 
 /**
+   @name folders API methods
+ */
+/**
    Obtain a list of documents belonging to a specific folder
    @param folderID
+   @param queryParameters
    @param completionBlock
  */
 - (void)documentListFromFolderWithID:(NSString *)folderID
@@ -372,6 +399,9 @@
 #pragma mark -
 #pragma mark Groups
 /**
+   @name groups API methods
+ */
+/**
    Obtain a list of groups where the logged in user is a member
    @param queryParameters
    @param iconType (original, square or standard)
@@ -434,6 +464,9 @@
 #pragma mark Annotations
 
 /**
+   @name annotations API methods
+ */
+/**
    Obtain details for the annotation identified by the given annotationID
    @param annotationID
    @param completionBlock
@@ -481,8 +514,10 @@
 - (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+#pragma mark --
+#pragma mark Cancellation
 /**
-   @name annotation diff sync calls
+   @name cancellation methods
  */
 /**
    cancels a specific MendeleyTask

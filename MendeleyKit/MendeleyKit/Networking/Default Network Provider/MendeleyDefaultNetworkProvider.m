@@ -26,7 +26,7 @@
 #import "MendeleyURLBuilder.h"
 #import "MendeleyUploadHelper.h"
 #import "MendeleyDownloadHelper.h"
-#import "MendeleyTaskFactory.h"
+#import "MendeleyTaskProvider.h"
 #include "MendeleyDataHelper.h"
 
 

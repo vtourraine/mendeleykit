@@ -21,8 +21,17 @@
 #import <Foundation/Foundation.h>
 
 @interface NSDictionary (Merge)
-
+/**
+   merges 2 dictionaries. Used to combined e.g. query parameters
+   @param dict1
+   @param dict2
+ */
 + (NSDictionary *)dictionaryByMerging:(NSDictionary *)dict1 with:(NSDictionary *)dict2;
+
+/**
+   Merges this dictionary with values provided in the parameter
+   @param dict
+ */
 - (NSDictionary *)dictionaryByMergingWith:(NSDictionary *)dict;
 
 @end

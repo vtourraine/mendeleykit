@@ -23,6 +23,12 @@
 #import "MendeleyTask.h"
 
 @protocol MendeleyNetworkProvider <NSObject>
+/**
+   @name MendeleyNetworkProvider
+   This protocol provides general network methods used in the MendeleyKit
+   Any custom provider implementation must implement the required methods
+   to ensure proper execution of network operations.
+ */
 @required
 
 /**

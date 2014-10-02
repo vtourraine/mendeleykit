@@ -24,12 +24,31 @@
 
 @interface MendeleyDownloadHelper : NSObject
 
+/**
+   @name This class handles feedback from download tasks. Used in conjunction with DefaultNetworkProvider
+   (NSURLSession based)
+ */
+
+/**
+   This method is used to provide progress feedback for download tasks
+   @param session
+   @param downloadTask
+   @param bytesWritten
+   @param totalBytesWritten
+   @param totalBytesExpectedToWrite
+ */
 - (void)           URLSession:(NSURLSession *)session
                  downloadTask:(MendeleyNetworkDownloadTask *)downloadTask
                  didWriteData:(int64_t)bytesWritten
             totalBytesWritten:(int64_t)totalBytesWritten
     totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite;
 
+/**
+   this method notifies when the download terminates
+   @param session
+   @param downloadTask
+   @param location
+ */
 - (void)           URLSession:(NSURLSession *)session
                  downloadTask:(MendeleyNetworkDownloadTask *)downloadTask
     didFinishDownloadingToURL:(NSURL *)location;

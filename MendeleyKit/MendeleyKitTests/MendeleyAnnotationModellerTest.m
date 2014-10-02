@@ -95,7 +95,7 @@
                              XCTAssertNotNil(positions, @"positions should not be nil");
                              XCTAssertTrue(0 < positions.count, @"We should have a few annotation positions in there");
 
-                             for (MendeleyHighlighBox * box in positions)
+                             for (MendeleyHighlightBox * box in positions)
                              {
                                  CGRect frame = box.box;
                                  NSNumber *page = box.page;
@@ -151,7 +151,7 @@
     CGFloat height = botY - topY;
 
 
-    MendeleyHighlighBox *box = [MendeleyHighlighBox new];
+    MendeleyHighlightBox *box = [MendeleyHighlightBox new];
     box.page = [NSNumber numberWithInt:2];
     box.box = CGRectMake(topX, topY, width, height);
 

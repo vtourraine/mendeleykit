@@ -391,7 +391,7 @@
             if ([rawValue isKindOfClass:[NSDictionary class]])
             {
                 id color = [MendeleyAnnotation
-                            colorFromParameters:(NSDictionary *) rawValue];
+                            colorFromParameters:(NSDictionary *) rawValue error:error];
                 return color;
             }
         }
@@ -403,34 +403,20 @@
                 NSMutableArray *parsedData = [NSMutableArray array];
                 [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                      NSDictionary *dict = (NSDictionary *) obj;
-                     MendeleyHighlighBox *box = [MendeleyHighlighBox boxFromJSONParameters:dict];
-                     [parsedData addObject:box];
+                     MendeleyHighlightBox *box = [MendeleyHighlightBox boxFromJSONParameters:dict error:error];
+                     if (nil != box)
+                     {
+                         [parsedData addObject:box];
+                     }
+                     else
+                     {
+                         *stop = YES;
+                     }
                  }];
                 return parsedData;
             }
         }
     }
-
-
-//    if ([modelObject isKindOfClass:[MendeleyDocument class]])
-//    {
-//        if ([propertyName isEqualToString:kMendeleyJSONIdentifiers])
-//        {
-//            if ([rawValue isKindOfClass:[NSDictionary class]])
-//            {
-//                NSDictionary *dict = (NSDictionary *) rawValue;
-//                NSMutableArray *identifiers = [NSMutableArray new];
-//                for (NSString *key in dict.allKeys)
-//                {
-//                    MendeleyIdentifierType *identifierType = [MendeleyIdentifierType new];
-//                    [identifierType setObject_ID:[dict objectForKey:key]];
-//                    [identifierType setName:key];
-//                    [identifiers addObject:identifierType];
-//                }
-//                return identifiers;
-//            }
-//        }
-//    }
     return nil;
 }
 
@@ -462,22 +448,6 @@
         }
         return nil;
     }
-
-//    if ([modelObject isKindOfClass:[MendeleyDocument class]])
-//    {
-//        if ([propertyName isEqualToString:kMendeleyJSONIdentifiers])
-//        {
-//            if ([customObject isKindOfClass:[NSArray class]])
-//            {
-//                NSMutableDictionary *rawIdentifiers = [NSMutableDictionary new];
-//                for (MendeleyIdentifierType *identifierType in(NSArray *) customObject)
-//                {
-//                    [rawIdentifiers setObject:identifierType.object_ID forKey:identifierType.name];
-//                }
-//                return rawIdentifiers;
-//            }
-//        }
-//    }
 
     NSString *modelName = NSStringFromClass([modelObject class]);
     NSString *customName = NSStringFromClass([customObject class]);
@@ -589,7 +559,7 @@
     {
         if ([propertyName isEqualToString:kMendeleyJSONColor])
         {
-            NSDictionary *dictionary = [MendeleyAnnotation jsonColorFromColor:customObject];
+            NSDictionary *dictionary = [MendeleyAnnotation jsonColorFromColor:customObject error:error];
             return dictionary;
         }
         else if ([propertyName isEqualToString:kMendeleyJSONPositions])
@@ -598,10 +568,17 @@
             {
                 NSMutableArray *positionDicts = [NSMutableArray array];
                 NSArray *boxes = (NSArray *) customObject;
-                [boxes enumerateObjectsUsingBlock:^(MendeleyHighlighBox *box, NSUInteger idx, BOOL *stop) {
-                     NSDictionary *boxDict = [MendeleyHighlighBox jsonBoxFromHighlightBox:box];
+                [boxes enumerateObjectsUsingBlock:^(MendeleyHighlightBox *box, NSUInteger idx, BOOL *stop) {
+                     NSDictionary *boxDict = [MendeleyHighlightBox jsonBoxFromHighlightBox:box error:error];
+                     if (nil != boxDict)
+                     {
+                         [positionDicts addObject:boxDict];
+                     }
+                     else
+                     {
+                         *stop = YES;
+                     }
 
-                     [positionDicts addObject:boxDict];
                  }];
                 return positionDicts;
             }

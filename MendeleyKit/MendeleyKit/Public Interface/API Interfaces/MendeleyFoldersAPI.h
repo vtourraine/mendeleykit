@@ -25,11 +25,19 @@
 @class MendeleyFolder;
 
 @interface MendeleyFoldersAPI : MendeleyObjectAPI
+/**
+   @name MendeleyFoldersAPI
+   This class provides access methods to the REST folders API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
 
 
 /**
    Obtain a list of documents belonging to a specific folder.
    @param folderID
+   @param parameters
    @param completionBlock - the array contained in the completionBlock will be an array of strings
  */
 - (void)documentListFromFolderWithID:(NSString *)folderID

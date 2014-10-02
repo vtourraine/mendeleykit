@@ -23,6 +23,13 @@
 @class MendeleyFileParameters;
 
 @interface MendeleyFilesAPI : MendeleyObjectAPI
+/**
+   @name MendeleyFilesAPI
+   This class provides access methods to the REST file API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
 
 /**
    obtains a list of files for the first page.
@@ -48,6 +55,7 @@
    this creates a file based on the mendeley object model provided in the argument.
    The server will respond with the JSON data structure for the new object
    @param fileURL
+   @param documentURLPath
    @param progressBlock
    @param completionBlock
  */
@@ -65,6 +73,10 @@
 - (void)deleteFileWithID:(NSString *)fileID
          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+/**
+   @param linkURL
+   @param completionBlock
+ */
 - (void)fileListWithLinkedURL:(NSURL *)linkURL
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 @end

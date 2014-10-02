@@ -64,7 +64,9 @@
    @param syncInfo
    @param error
  */
-- (void)executeWithArray:(NSArray *)array syncInfo:(MendeleySyncInfo *)syncInfo error:(NSError *)error;
+- (void)executeWithArray:(NSArray *)array
+                syncInfo:(MendeleySyncInfo *)syncInfo
+                   error:(NSError *)error;
 
 
 /**
@@ -80,7 +82,9 @@
    @param syncInfo
    @param error
  */
-- (void)executeWithMendeleyObject:(MendeleyObject *)mendeleyObject syncInfo:(MendeleySyncInfo *)syncInfo error:(NSError *)error;
+- (void)executeWithMendeleyObject:(MendeleyObject *)mendeleyObject
+                         syncInfo:(MendeleySyncInfo *)syncInfo
+                            error:(NSError *)error;
 
 /**
    executes the MendeleyDictionaryCompletionBlock on the main thread

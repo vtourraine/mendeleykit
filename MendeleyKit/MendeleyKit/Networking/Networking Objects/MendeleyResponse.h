@@ -51,6 +51,8 @@
    the body content is of type JSON.
    Don't use for binary data
    @param rawResponseData
+   @param error
+   @return YES if successful (error is nil) or NO otherwise
  */
 - (BOOL)deserialiseRawResponseData:(NSData *)rawResponseData error:(NSError **)error;
 

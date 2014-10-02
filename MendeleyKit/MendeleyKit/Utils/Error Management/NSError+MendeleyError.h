@@ -21,7 +21,10 @@
 #import <Foundation/Foundation.h>
 
 @interface NSError (MendeleyKit)
-
+/**
+   @name NSError (MendeleyKit)
+   provides convenience methods to create Mendeley specific errors
+ */
 /**
    @param code
    @param localizedDescription

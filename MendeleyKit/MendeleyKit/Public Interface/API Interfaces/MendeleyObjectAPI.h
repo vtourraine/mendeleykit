@@ -29,11 +29,14 @@
 #import "NSDictionary+Merge.h"
 
 @interface MendeleyObjectAPI : NSObject <MendeleyKitHelperDelegate>
-
-- (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider baseURL:(NSURL *)baseURL;
-
 @property (nonatomic, strong) id <MendeleyNetworkProvider> provider;
 @property (nonatomic, strong) NSURL *baseURL;
 @property (nonatomic, strong) MendeleyKitHelper *helper;
 
+/**
+   A general creator of MendeleyObjectAPI
+   @param provider the network provider. By default the MendeleyDefaultNetworkProvider is taken. This is based on NSURLSession
+   @param baseURL
+ */
+- (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider baseURL:(NSURL *)baseURL;
 @end

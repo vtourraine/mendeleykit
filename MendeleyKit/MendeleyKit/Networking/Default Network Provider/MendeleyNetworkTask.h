@@ -20,44 +20,86 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+   @name MendeleyNetworkTask
+ */
 @interface MendeleyNetworkTask : NSObject  <NSURLSessionTaskDelegate>
-
-- (instancetype)initTaskWithRequest:(NSURLRequest *)request
-                            session:(NSURLSession *)session
-                    completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
-- (void)executeTask;
-- (void)cancelTaskWithCompletionBlock:(MendeleyCompletionBlock)completionBlock;
-
 @property (strong, nonatomic) NSURLResponse *response;
 @property (nonatomic, strong, readonly) NSNumber *taskID;
 @property (copy, nonatomic, readonly) MendeleyResponseCompletionBlock completionBlock;
 
+/**
+   initialises a network task
+   @param request
+   @param session
+   @param completionBlock
+ */
+- (instancetype)initTaskWithRequest:(NSURLRequest *)request
+                            session:(NSURLSession *)session
+                    completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+
+/**
+   executes a tasks
+ */
+- (void)executeTask;
+
+/**
+   cancels a task
+   @param completionBlock
+ */
+- (void)cancelTaskWithCompletionBlock:(MendeleyCompletionBlock)completionBlock;
+
 @end
 
+/**
+   @name MendeleyNetworkUploadTask
+ */
 @interface MendeleyNetworkUploadTask : MendeleyNetworkTask
+@property (copy, nonatomic, readonly) MendeleyResponseProgressBlock progressBlock;
 
+/**
+   @param request
+   @param session
+   @param fileURL - location of file to be uploaded
+   @param progressBlock
+   @param completionBlock
+ */
 - (instancetype)initUploadTaskWithRequest:(NSURLRequest *)request
                                   session:(NSURLSession *)session
                                   fileURL:(NSURL *)fileURL
                             progressBlock:(MendeleyResponseProgressBlock)progressBlock
                           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
-@property (copy, nonatomic, readonly) MendeleyResponseProgressBlock progressBlock;
 
 @end
 
+/**
+   @name MendeleyNetworkDownloadTask
+ */
 @interface MendeleyNetworkDownloadTask : MendeleyNetworkTask
+@property (copy, nonatomic, readonly) NSURL *fileURL;
+@property (copy, nonatomic, readonly) MendeleyResponseProgressBlock progressBlock;
 
+/**
+   initialises a MendeleyNetworkDownloadTask
+   @param request
+   @param session
+   @param fileURL - download file location
+   @param progressBlock
+   @param completionBlock
+ */
 - (instancetype)initDownloadTaskWithRequest:(NSURLRequest *)request
                                     session:(NSURLSession *)session
                                     fileURL:(NSURL *)fileURL
                               progressBlock:(MendeleyResponseProgressBlock)progressBlock
                             completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
+/**
+   Adds a NSURLSessionDownloadTask to the object for execution
+   @param downloadTask
+ */
 - (void)addRealDownloadTask:(NSURLSessionDownloadTask *)downloadTask;
 
-@property (copy, nonatomic, readonly) NSURL *fileURL;
-@property (copy, nonatomic, readonly) MendeleyResponseProgressBlock progressBlock;
 
 @end
 

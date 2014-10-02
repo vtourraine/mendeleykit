@@ -22,7 +22,10 @@
 #import "MendeleyOAuthProvider.h"
 
 @interface MendeleyLoginController : UIViewController <UIWebViewDelegate>
-
+/**
+   @name MendeleyLoginController is a helper class for iOS based clients.
+   It provides a UIViewController with a UIWebView for user authentication
+ */
 /**
    initialises the login view controller with Client App details
    @param clientKey

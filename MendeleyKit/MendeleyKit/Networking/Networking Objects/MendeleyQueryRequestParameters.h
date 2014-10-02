@@ -26,9 +26,27 @@
 @property (nonatomic, strong) NSDate *deleted_since;
 @property (nonatomic, strong) NSNumber *include_trashed;
 @property (nonatomic, strong) NSString *group_id;
+/**
+   This method convers parameters defined in the request parameter objects into a
+   string-key/value based map - for use as query parameters in API calls.
 
+   NOTE: this method will return limit as a parameter.
+ */
 - (NSDictionary *)valueStringDictionary;
 
+/**
+   As above, this method returns a map of string-key objects and non-nil values to be used
+   as query parameters in API calls.
+   NOTE: this method will NOT contain limit as a parameter
+ */
+- (NSDictionary *)valueStringDictionaryWithNoLimit;
+
+/**
+   checks if a property with the provided name exists in the MendeleyQueryRequestParameters object
+   and the subclass calling it
+   @param propertyName
+ */
+- (BOOL)hasQueryParameterWithName:(NSString *)queryParameterName;
 @end
 
 @interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
@@ -72,7 +90,6 @@
 @property (nonatomic, strong) NSString *authors;
 @property (nonatomic, strong) NSString *year;
 @property (nonatomic, strong) NSString *source;
-- (BOOL)propertyExists:(NSString *)propertyName;
 @end
 
 
@@ -85,7 +102,6 @@
 @property (nonatomic, strong) NSString *scopus;
 @property (nonatomic, strong) NSString *filehash;
 @property (nonatomic, strong) NSString *view;
-- (BOOL)propertyExists:(NSString *)propertyName;
 @end
 
 @interface MendeleyGroupParameters : MendeleyQueryRequestParameters

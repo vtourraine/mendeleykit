@@ -19,12 +19,18 @@
  */
 
 #import "MendeleyAnnotation.h"
+#import "NSError+MendeleyError.h"
 
 @implementation MendeleyAnnotation
-+ (id)colorFromParameters:(NSDictionary *)colorParameters
++ (id)colorFromParameters:(NSDictionary *)colorParameters error:(NSError **)error
 {
     if (nil == colorParameters || 3 != colorParameters.allValues.count)
     {
+        if (NULL != *error)
+        {
+            *error = [NSError errorWithCode:kMendeleyJSONTypeObjectNilErrorCode
+                       localizedDescription:@"Annotation color components are either nil or not in the correct format."];
+        }
         return nil;
     }
     CGFloat red = [[colorParameters objectForKey:kMendeleyJSONColorRed] floatValue] / 255.f;
@@ -37,8 +43,9 @@
     return color;
 }
 
-+ (NSDictionary *)jsonColorFromColor:(id)color
++ (NSDictionary *)jsonColorFromColor:(id)color error:(NSError **)error
 {
+
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
 #if TARGET_OS_IPHONE
@@ -49,7 +56,12 @@
     }
     else
     {
-        return dictionary;
+        if (NULL != error)
+        {
+            *error = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode
+                       localizedDescription:@"The color object is either nil or it is neither UIColor nor NSColor"];
+        }
+        return nil;
     }
     CGFloat red = 0;
     CGFloat green = 0;
@@ -68,10 +80,20 @@
 @end
 
 
-@implementation MendeleyHighlighBox
-+ (MendeleyHighlighBox *)boxFromJSONParameters:(NSDictionary *)boxParameters
+@implementation MendeleyHighlightBox
++ (MendeleyHighlightBox *)boxFromJSONParameters:(NSDictionary *)boxParameters
+                                          error:(NSError **)error
 {
-    MendeleyHighlighBox *box = [MendeleyHighlighBox new];
+    if (nil == boxParameters )
+    {
+        if (NULL != *error)
+        {
+            *error = [NSError errorWithCode:kMendeleyJSONTypeObjectNilErrorCode
+                       localizedDescription:@"Annotation position info is nil."];
+        }
+        return nil;
+    }
+    MendeleyHighlightBox *box = [MendeleyHighlightBox new];
 
 
     NSDictionary *topDict = [boxParameters objectForKey:kMendeleyJSONTopLeft];
@@ -91,8 +113,18 @@
     return box;
 }
 
-+ (NSDictionary *)jsonBoxFromHighlightBox:(MendeleyHighlighBox *)box
++ (NSDictionary *)jsonBoxFromHighlightBox:(MendeleyHighlightBox *)box
+                                    error:(NSError **)error
 {
+    if (nil == box)
+    {
+        if (NULL != error)
+        {
+            *error = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode
+                       localizedDescription:@"The position object is nil."];
+        }
+        return nil;
+    }
     NSMutableDictionary *boxDictionary = [NSMutableDictionary dictionary];
     CGRect frame = box.box;
     CGFloat botX = frame.origin.x + frame.size.width;

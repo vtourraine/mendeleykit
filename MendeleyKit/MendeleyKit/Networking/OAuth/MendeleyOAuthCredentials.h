@@ -19,9 +19,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "MendeleyObject.h"
 
-@interface MendeleyOAuthCredentials : MendeleyObject
+@interface MendeleyOAuthCredentials : NSObject <NSSecureCoding>
 @property (nonatomic, strong) NSString *access_token;
 @property (nonatomic, strong) NSString *refresh_token;
 @property (nonatomic, strong) NSString *token_type;

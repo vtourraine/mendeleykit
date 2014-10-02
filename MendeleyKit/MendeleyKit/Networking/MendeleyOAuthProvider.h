@@ -24,6 +24,11 @@
 @protocol MendeleyOAuthProvider <NSObject>
 @property (nonatomic, assign, readonly) BOOL isTrustedSSLServer;
 /**
+   @name MendeleyOAuthProvider
+   A protocol defining methods handling OAuth2 authentication processes.
+   Any custom provider must implement ALL methods defined in this protocol to
+   ensure correct execution.
+
    set up the SDK with necessary OAuth configurations.
    Required parameters are
  ** kMendeleyOAuth2ClientIDKey - the client ID as per app registration

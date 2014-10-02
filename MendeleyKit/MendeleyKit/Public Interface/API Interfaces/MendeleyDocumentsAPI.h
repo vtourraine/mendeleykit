@@ -23,6 +23,13 @@
 @class MendeleyDocumentParameters;
 
 @interface MendeleyDocumentsAPI : MendeleyObjectAPI
+/**
+   @name MendeleyDocumentsAPI
+   This class provides access methods to the REST documents API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
 
 /**
    This method is only used when paging through a list of documents on the server.

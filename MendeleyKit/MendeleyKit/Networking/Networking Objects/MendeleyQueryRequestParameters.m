@@ -54,6 +54,36 @@
     return values;
 }
 
+- (NSDictionary *)valueStringDictionaryWithNoLimit
+{
+    NSDictionary *dictionary = [MendeleyObjectHelper propertiesAndAttributesForModel:self];
+
+    __block NSMutableDictionary *values = [NSMutableDictionary dictionary];
+
+    [dictionary enumerateKeysAndObjectsUsingBlock: ^(NSString *propertyName, NSString *attribute, BOOL *stop) {
+         id value = [self valueForKey:propertyName];
+         NSString *valueString = [self valueStringForProperty:propertyName value:value];
+         if (nil != valueString && ![propertyName isEqualToString:kMendeleyRESTAPIQueryLimit])
+         {
+             [values setValue:valueString forKey:propertyName];
+         }
+     }];
+
+    return values;
+}
+
+- (BOOL)hasQueryParameterWithName:(NSString *)queryParameterName
+{
+    NSArray *propertyNames = [MendeleyObjectHelper propertyNamesForModel:self];
+
+    if (nil == propertyNames || 0 == propertyNames.count)
+    {
+        return NO;
+    }
+    return [propertyNames containsObject:queryParameterName];
+}
+
+
 - (NSString *)valueStringForProperty:(NSString *)property value:(id)value
 {
     if (nil == value || nil == property)
@@ -216,16 +246,6 @@
 @end
 
 @implementation MendeleyMetadataParameters
-- (BOOL)propertyExists:(NSString *)propertyName
-{
-    NSArray *propertyNames = [MendeleyObjectHelper propertyNamesForModel:self];
-
-    if (nil == propertyNames || 0 == propertyNames.count)
-    {
-        return NO;
-    }
-    return [propertyNames containsObject:propertyName];
-}
 @end
 
 @implementation MendeleyCatalogParameters
@@ -239,15 +259,4 @@
     }
     return self;
 }
-- (BOOL)propertyExists:(NSString *)propertyName
-{
-    NSArray *propertyNames = [MendeleyObjectHelper propertyNamesForModel:self];
-
-    if (nil == propertyNames || 0 == propertyNames.count)
-    {
-        return NO;
-    }
-    return [propertyNames containsObject:propertyName];
-}
-
 @end

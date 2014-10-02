@@ -22,11 +22,20 @@
 
 @interface MendeleyProfilesAPI : MendeleyObjectAPI
 /**
+   @name MendeleyProfilesAPI
+   This class provides access methods to the REST profiles API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
+/**
+   Pulls the users profile
    @param completionBlock
  */
 - (void)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
+   Pulls the profile of a user with a given ID
    @param profileID
    @param completionBlock
  */

@@ -23,11 +23,11 @@
 
 
 @interface MendeleyDefaultNetworkProvider : NSObject <MendeleyNetworkProvider, NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
-{
-}
-
 @property (nonatomic, strong, readonly) NSURLSession *currentSession;
 
+/**
+   MendeleyDefaultNetworkProvider singleton
+ */
 + (MendeleyDefaultNetworkProvider *)sharedInstance;
 
 @end

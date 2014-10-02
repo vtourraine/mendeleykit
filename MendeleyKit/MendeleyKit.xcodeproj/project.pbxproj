@@ -73,7 +73,7 @@
 		C4A1350C19DADE950069DB7A /* MendeleyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1350319DADE950069DB7A /* MendeleyResponse.m */; };
 		C4A1350D19DADE950069DB7A /* MendeleySyncInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1350519DADE950069DB7A /* MendeleySyncInfo.m */; };
 		C4A1350E19DADE950069DB7A /* MendeleyTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1350719DADE950069DB7A /* MendeleyTask.m */; };
-		C4A1350F19DADE950069DB7A /* MendeleyTaskFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1350919DADE950069DB7A /* MendeleyTaskFactory.m */; };
+		C4A1350F19DADE950069DB7A /* MendeleyTaskProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1350919DADE950069DB7A /* MendeleyTaskProvider.m */; };
 		C4A1351219DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351119DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m */; };
 		C4A1351D19DADEB20069DB7A /* MendeleyDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351419DADEB20069DB7A /* MendeleyDataHelper.m */; };
 		C4A1351E19DADEB20069DB7A /* MendeleyDefaultNetworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351619DADEB20069DB7A /* MendeleyDefaultNetworkProvider.m */; };
@@ -237,8 +237,8 @@
 		C4A1350519DADE950069DB7A /* MendeleySyncInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleySyncInfo.m; path = "Networking/Networking Objects/MendeleySyncInfo.m"; sourceTree = "<group>"; };
 		C4A1350619DADE950069DB7A /* MendeleyTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyTask.h; path = "Networking/Networking Objects/MendeleyTask.h"; sourceTree = "<group>"; };
 		C4A1350719DADE950069DB7A /* MendeleyTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyTask.m; path = "Networking/Networking Objects/MendeleyTask.m"; sourceTree = "<group>"; };
-		C4A1350819DADE950069DB7A /* MendeleyTaskFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyTaskFactory.h; path = "Networking/Networking Objects/MendeleyTaskFactory.h"; sourceTree = "<group>"; };
-		C4A1350919DADE950069DB7A /* MendeleyTaskFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyTaskFactory.m; path = "Networking/Networking Objects/MendeleyTaskFactory.m"; sourceTree = "<group>"; };
+		C4A1350819DADE950069DB7A /* MendeleyTaskProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyTaskProvider.h; path = "Networking/Networking Objects/MendeleyTaskProvider.h"; sourceTree = "<group>"; };
+		C4A1350919DADE950069DB7A /* MendeleyTaskProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyTaskProvider.m; path = "Networking/Networking Objects/MendeleyTaskProvider.m"; sourceTree = "<group>"; };
 		C4A1351019DADEA40069DB7A /* MendeleyDefaultOAuthProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyDefaultOAuthProvider.h; path = "Networking/Default OAuth Provider/MendeleyDefaultOAuthProvider.h"; sourceTree = "<group>"; };
 		C4A1351119DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyDefaultOAuthProvider.m; path = "Networking/Default OAuth Provider/MendeleyDefaultOAuthProvider.m"; sourceTree = "<group>"; };
 		C4A1351319DADEB20069DB7A /* MendeleyDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyDataHelper.h; path = "Networking/Default Network Provider/MendeleyDataHelper.h"; sourceTree = "<group>"; };
@@ -533,8 +533,8 @@
 				C4A1350519DADE950069DB7A /* MendeleySyncInfo.m */,
 				C4A1350619DADE950069DB7A /* MendeleyTask.h */,
 				C4A1350719DADE950069DB7A /* MendeleyTask.m */,
-				C4A1350819DADE950069DB7A /* MendeleyTaskFactory.h */,
-				C4A1350919DADE950069DB7A /* MendeleyTaskFactory.m */,
+				C4A1350819DADE950069DB7A /* MendeleyTaskProvider.h */,
+				C4A1350919DADE950069DB7A /* MendeleyTaskProvider.m */,
 			);
 			name = "Networking Objects";
 			sourceTree = "<group>";
@@ -869,7 +869,7 @@
 				C4A134CF19DADDD10069DB7A /* MendeleyCatalogDocument.m in Sources */,
 				C4A134D419DADDD10069DB7A /* MendeleyGroup.m in Sources */,
 				C4A134FD19DADE850069DB7A /* MendeleyOAuthTokenHelper.m in Sources */,
-				C4A1350F19DADE950069DB7A /* MendeleyTaskFactory.m in Sources */,
+				C4A1350F19DADE950069DB7A /* MendeleyTaskProvider.m in Sources */,
 				C4A134D519DADDD10069DB7A /* MendeleyIdentifierType.m in Sources */,
 				C4A1354419DADF750069DB7A /* MendeleyKitConfiguration.m in Sources */,
 				C4A1351219DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m in Sources */,

@@ -30,13 +30,18 @@ typedef NS_ENUM (NSInteger, MendeleyReservedErrorCode) {
 };
 
 @protocol MendeleyUserInfoProvider <NSObject>
-
+/**
+   Returns the userInfo for a given error code
+   @param errorCode
+ */
 - (NSDictionary *)userInfoWithErrorCode:(NSInteger)errorCode;
 
 @end
 
 @interface MendeleyErrorManager : NSObject
-
+/**
+   returns a singleton MendeleyErrorManager instance
+ */
 + (instancetype)sharedInstance;
 
 /**
@@ -44,7 +49,8 @@ typedef NS_ENUM (NSInteger, MendeleyReservedErrorCode) {
    @param helper
    @param errorDomain
  */
-- (void)addUserInfoHelper:(id <MendeleyUserInfoProvider> )helper errorDomain:(NSString *)errorDomain;
+- (void)addUserInfoHelper:(id <MendeleyUserInfoProvider> )helper
+              errorDomain:(NSString *)errorDomain;
 
 /**
  * remove the user info builder for a specific errorDomain. Does anything if the domain does not exists. Raises an exception if the errorDomain is nil or empty
@@ -58,7 +64,8 @@ typedef NS_ENUM (NSInteger, MendeleyReservedErrorCode) {
    @param errorCode
    @return NSError
  */
-- (NSError *)errorWithDomain:(NSString *)errorDomain code:(NSInteger)errorCode;
+- (NSError *)errorWithDomain:(NSString *)errorDomain
+                        code:(NSInteger)errorCode;
 
 /**
  *  create an NSError object whose user info contains a list of the given errors. If one of the given errors is nil, the result error is the other one, nil if both are nil
@@ -66,6 +73,7 @@ typedef NS_ENUM (NSInteger, MendeleyReservedErrorCode) {
    @param secondError
    @return NSError
  */
-- (NSError *)errorFromOriginalError:(NSError *)originalError error:(NSError *)secondError;
+- (NSError *)errorFromOriginalError:(NSError *)originalError
+                              error:(NSError *)secondError;
 
 @end

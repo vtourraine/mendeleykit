@@ -22,8 +22,19 @@
 
 @class MendeleyNetworkUploadTask;
 
+/**
+   @name MendeleyUploadHelper
+   provides feedback when uploading a file to the Mendeley Server
+ */
 @interface MendeleyUploadHelper : NSObject
 
+/**
+   @param session
+   @param uploadTask
+   @param bytesSent
+   @param totalBytesSent
+   @param totalBytesExpectedToSend
+ */
 - (void)          URLSession:(NSURLSession *)session
                         task:(MendeleyNetworkUploadTask *)uploadTask
              didSendBodyData:(int64_t)bytesSent
