@@ -501,26 +501,22 @@
     __block MendeleyTask *cancellationRequest;
 
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-                       NSString *destinationPath = [documentsPath stringByAppendingPathComponent:@"downloadedFile"];
-                       NSURL *destinationURL = [NSURL fileURLWithPath:destinationPath];
-                       cancellationRequest = [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeDownloadToFileURL:destinationURL
-                                                                                                                          baseURL:self.testURL
-                                                                                                                              api:@"drip"
-                                                                                                                additionalHeaders:nil
-                                                                                                                  queryParameters:delayQueryParameters
-                                                                                                           authenticationRequired:NO
-                                                                                                                    progressBlock: ^(NSNumber *progress) {
-                                                  *hasCalledBack = YES;
-                                              }
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *destinationPath = [documentsPath stringByAppendingPathComponent:@"downloadedFile"];
+    NSURL *destinationURL = [NSURL fileURLWithPath:destinationPath];
 
-                                                                                                                  completionBlock:^(MendeleyResponse *response, NSError *error) {
+    cancellationRequest = [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeDownloadToFileURL:destinationURL
+                                                                                                       baseURL:self.testURL
+                                                                                                           api:@"drip"
+                                                                                             additionalHeaders:nil
+                                                                                               queryParameters:delayQueryParameters
+                                                                                        authenticationRequired:NO
+                                                                                                 progressBlock: ^(NSNumber *progress) {
+                           }
 
-                                              }];
+                                                                                               completionBlock:^(MendeleyResponse *response, NSError *error) {                                              }];
 
 
-                   });
 
 
     waitForBlock (^(BOOL *hasCalledBack) {

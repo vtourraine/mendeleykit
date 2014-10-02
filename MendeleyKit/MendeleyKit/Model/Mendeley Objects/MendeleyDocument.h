@@ -41,12 +41,13 @@
 @property (nonatomic, strong) NSNumber *hidden;
 
 /**
-   NSArray types (Person)
+   NSArray types
  */
 @property (nonatomic, strong) NSArray *authors;
 @property (nonatomic, strong) NSArray *editors;
 @property (nonatomic, strong) NSArray *websites;
 @property (nonatomic, strong) NSArray *keywords;
+@property (nonatomic, strong) NSArray *tags;
 
 /**
    NSDictionary type (Identifiers, e.g. arxiv)
