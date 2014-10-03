@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
   s.authors      = { "Peter Schmidt" => "peter.schmidt@mendeley.com", "Stefano Piamonti" => "stefano.piamonti@mendeley.com", "Luigi Trevisi" => "luigi.trevisi@mendeley.com" }
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '6.0'
 
   s.requires_arc  = true
 

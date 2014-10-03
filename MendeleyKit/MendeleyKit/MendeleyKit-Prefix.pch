@@ -20,6 +20,7 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
+
     #import "MendeleyLog.h"
     #import "MendeleyGlobals.h"
     #import "MendeleyError.h"
