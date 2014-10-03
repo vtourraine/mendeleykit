@@ -23,6 +23,7 @@
 #import "MendeleyURLBuilder.h"
 #import "MendeleyKitTestBaseClass.h"
 
+
 @interface MendeleyDefaultNetworkProvider (CHANGE_VISIBILITY_FOR_TEST)
 
 @property (nonatomic, strong, readwrite) NSMutableDictionary *taskDictionary;
@@ -48,6 +49,7 @@
 - (void)setUp
 {
     [super setUp];
+    [[MendeleyKitConfiguration sharedInstance] resetToDefault];
     self.testURL = [NSURL URLWithString:@"http://httpbin.org"];
 
     self.queryParameters = @{ @"Parameter1": [[NSUUID UUID] UUIDString],

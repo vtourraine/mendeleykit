@@ -232,7 +232,7 @@
         NSError *mockError = self.expectedError;
         if (nil == mockError)
         {
-            mockError = [NSError errorWithCode:MendeleyErrorUnknown];
+            mockError = [NSError errorWithCode:kMendeleyResponseTypeUnknownErrorCode];
         }
         completionBlock(nil, mockError);
     }
