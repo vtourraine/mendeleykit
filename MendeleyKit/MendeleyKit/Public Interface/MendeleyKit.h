@@ -1,4 +1,4 @@
-/*
+/**
  ******************************************************************************
  * Copyright (C) 2014-2017 Elsevier/Mendeley.
  *
@@ -37,7 +37,7 @@
 
 /**
    changes the default network provider
-   @param networkProviderClassName
+   @param networkProviderClassName the name of the class used as network provider
  */
 - (void)changeNetworkProviderWithClassName:(NSString *)networkProviderClassName;
 
@@ -62,7 +62,7 @@
 
    @param linkURL the full HTTP link to the document listings page
    @param expectedModel the name of the expected model class to return in the array
-   @param completionBlock
+   @param completionBlock returning array of objects, syncinfo and error
  */
 - (void)pagedListOfObjectsWithLinkedURL:(NSURL *)linkURL
                           expectedModel:(NSString *)expectedModel
@@ -76,14 +76,14 @@
  */
 /**
    The completionBlock returns an instance of MendeleyUserProfile
-   @param completionBlock
+   @param completionBlock returning the profile object if found
  */
 - (void)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    The completionBlock returns an instance of MendeleyProfile
-   @param profileID
-   @param completionBlock
+   @param profileID the user profile ID
+   @param completionBlock returning the profile object if found
  */
 - (void)pullProfile:(NSString *)profileID
     completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
@@ -100,7 +100,7 @@
    All required parameters are provided in the linkURL, which should not be modified
 
    @param linkURL the full HTTP link to the document listings page
-   @param completionBlock
+   @param completionBlock returning array of documents
  */
 - (void)documentListWithLinkedURL:(NSURL *)linkURL
                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -108,31 +108,31 @@
 /**
    obtains a list of documents for the first page.
    @param queryParameters the parameter set to be used in the request
-   @param completionBlock
+   @param completionBlock returning array of documents
  */
 - (void)documentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    obtains a document for given ID from the library
-   @param documentID
-   @param completionBlock
+   @param documentID the UUID of the document
+   @param completionBlock returning the document
  */
 - (void)documentWithDocumentID:(NSString *)documentID
                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    This method returns a catalog document for a given catalog ID
-   @param catalogID
-   @param completionBlock
+   @param catalogID the catalog UUID
+   @param completionBlock returning the catalog document
  */
 - (void)catalogDocumentWithCatalogID:(NSString *)catalogID
                      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    This method obtains a list of documents based on a filter. The filter should not be nil or empty
-   @param queryParameters
-   @param completionBlock
+   @param queryParameters query parameters for the URL request
+   @param completionBlock returning the list of found catalog documents
  */
 - (void)catalogDocumentWithParameters:(MendeleyCatalogParameters *)queryParameters
                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -140,16 +140,16 @@
 /**
    this creates a document based on the mendeley object model provided in the argument.
    The server will respond with the JSON data structure for the new object
-   @param mendeleyDocument
-   @param completionBlock
+   @param mendeleyDocument the document to be created
+   @param completionBlock returns the document created on the server with the UUID
  */
 - (void)createDocument:(MendeleyDocument *)mendeleyDocument
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    modify/update a document with ID. The server will return a JSON object with the updated data
-   @param updatedDocument
-   @param completionBlock
+   @param updatedDocument the document to be updated
+   @param completionBlock returns the updated document from the server
  */
 - (void)updateDocument:(MendeleyDocument *)updatedDocument
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
@@ -158,8 +158,8 @@
 /**
    this method will remove a document with given ID permanently. The document data cannot be retrieved.
    However, the user will be able to get a list of permanently removed IDs
-   @param documentID
-   @param completionBlock
+   @param documentID the document UUID
+   @param completionBlock returns bool/error
  */
 - (void)deleteDocumentWithID:(NSString *)documentID
              completionBlock:(MendeleyCompletionBlock)completionBlock;
@@ -167,8 +167,8 @@
 /**
    This method will move a document of given ID into the trash on the server. Data in trash can be restored
    (as opposed to using the deleteDocumentWithID:completionBlock: method which permanently removes them)
-   @param documentID
-   @param completionBlock
+   @param documentID the document UUID
+   @param completionBlock the success block upon completion
  */
 - (void)trashDocumentWithID:(NSString *)documentID
             completionBlock:(MendeleyCompletionBlock)completionBlock;
@@ -176,8 +176,8 @@
 /**
    This method returns a list of document IDs that were permanently deleted. The list of deleted IDs will be kept on
    the server for a limited period of time.
-   @param deletedSince
-   @param completionBlock
+   @param deletedSince passed to the server to get list of documents that were deleted since that date
+   @param completionBlock a list of document UUIDs if found
  */
 - (void)deletedDocumentsSince:(NSDate *)deletedSince
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -188,7 +188,7 @@
    All required parameters are provided in the linkURL, which should not be modified
 
    @param linkURL the full HTTP link to the document listings page
-   @param completionBlock
+   @param completionBlock returns a list of trashed documents if found
  */
 - (void)trashedDocumentListWithLinkedURL:(NSURL *)linkURL
                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -197,7 +197,7 @@
    This method obtains a list for the 'first' page of 'trashed' documents
    based on a list of query parameters.
    @param queryParameters the parameter set to be used in the request
-   @param completionBlock
+   @param completionBlock the list of trashed documents
  */
 - (void)trashedDocumentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -206,8 +206,8 @@
    this method will remove a trashed document with given ID permanently.
    The document data cannot be retrieved.
    However, the user will be able to get a list of permanently removed IDs
-   @param documentID
-   @param completionBlock
+   @param documentID the UUID of the trashed document
+   @param completionBlock a success block for the operation
  */
 - (void)deleteTrashedDocumentWithID:(NSString *)documentID
                     completionBlock:(MendeleyCompletionBlock)completionBlock;
@@ -215,8 +215,8 @@
 /**
    this method will restore a trashed document.
    In essence this means the document must be retrieved using the /documents API
-   @param documentID
-   @param completionBlock
+   @param documentID the UUID of the document to be restored from trash
+   @param completionBlock the success block
  */
 - (void)restoreTrashedDocumentWithID:(NSString *)documentID
                      completionBlock:(MendeleyCompletionBlock)completionBlock;
@@ -224,8 +224,8 @@
 
 /**
    obtains a document for given ID from the library
-   @param documentID
-   @param completionBlock
+   @param documentID the UUID of the trashed document
+   @param completionBlock returns the found trashed document
  */
 - (void)trashedDocumentWithDocumentID:(NSString *)documentID
                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
@@ -237,9 +237,9 @@
  */
 
 /**
-   obtains metadata
-   @param queryParameters
-   @param completionBlock
+   obtains metadata lookup based on specified search parameters
+   @param queryParameters the search parameters to be used in the request
+   @param completionBlock the metadata lookup containing the catalog id and score - if found
  */
 - (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
@@ -252,13 +252,13 @@
 
 /**
    obtains the list of document types (e.g. journal, book etc) currently available
-   @param completionBlock
+   @param completionBlock returns the list of document types
  */
 - (void)documentTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    obtains the list of identifier types (e.g. arxiv, doi, pmid) currently available
-   @param completionBlock
+   @param completionBlock returns the list of identifier types
  */
 - (void)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
@@ -271,17 +271,17 @@
 /**
    obtains a list of files for the first page.
    @param queryParameters the parameter set to be used in the request
-   @param completionBlock
+   @param completionBlock returns the list of files if found
  */
 - (void)fileListWithQueryParameters:(MendeleyFileParameters *)queryParameters
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    obtains a file for given ID from the library
-   @param fileID
-   @param fileURL
-   @param progressBlock
-   @param completionBlock
+   @param fileID the file UUID
+   @param fileURL the location of the file to be saved into
+   @param progressBlock a callback block to capture progress
+   @param completionBlock the final completion block indicating success/failure
  */
 - (MendeleyTask *)fileWithFileID:(NSString *)fileID
                        saveToURL:(NSURL *)fileURL
@@ -291,10 +291,10 @@
 /**
    this creates a file based on the mendeley object model provided in the argument.
    The server will respond with the JSON data structure for the new object
-   @param fileURL
-   @param documentURLPath
-   @param progressBlock
-   @param completionBlock
+   @param fileURL the location of the file to be created
+   @param documentURLPath the relative URL path of the associated document
+   @param progressBlock a callback block to capture progress
+   @param completionBlock the success/failure block
  */
 - (void)           createFile:(NSURL *)fileURL
     relativeToDocumentURLPath:(NSString *)documentURLPath
@@ -304,8 +304,8 @@
 /**
    this method will remove a file with given ID permanently. The file data cannot be retrieved.
    However, the user will be able to get a list of permanently removed IDs
-   @param fileID
-   @param completionBlock
+   @param fileID the file UUID
+   @param completionBlock the success/failure block
  */
 - (void)deleteFileWithID:(NSString *)fileID
          completionBlock:(MendeleyCompletionBlock)completionBlock;
@@ -318,9 +318,9 @@
  */
 /**
    Obtain a list of documents belonging to a specific folder
-   @param folderID
-   @param queryParameters
-   @param completionBlock
+   @param folderID the folder UUID
+   @param queryParameters the query parameters used in the API request
+   @param completionBlock the list of folders returned if found
  */
 - (void)documentListFromFolderWithID:(NSString *)folderID
                           parameters:(MendeleyFolderParameters *)queryParameters
@@ -328,9 +328,9 @@
 
 /**
    Add a previously created document in a specific folder
-   @param mendeleyDocumentId
-   @param folderID
-   @param completionBlock
+   @param mendeleyDocumentId the UUID of the folder document
+   @param folderID the folder UUID
+   @param completionBlock the success/failure block
  */
 - (void)addDocument:(NSString *)mendeleyDocumentId
            folderID:(NSString *)folderID
@@ -338,8 +338,8 @@
 
 /**
    Create a folder
-   @param mendeleyFolder
-   @param completionBlock
+   @param mendeleyFolder the folder to be created
+   @param completionBlock returns the folder as created on the server with UUID
  */
 - (void)createFolder:(MendeleyFolder *)mendeleyFolder
      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
@@ -349,48 +349,48 @@
    All required parameters are provided in the linkURL, which should not be modified
 
    @param linkURL the full HTTP link to the document listings page
-   @param completionBlock
+   @param completionBlock the list of folders if any
  */
 - (void)folderListWithLinkedURL:(NSURL *)linkURL
                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    Obtain a list of folders for the logged-in user
-   @param queryParameters
-   @param completionBlock
+   @param queryParameters the query parameters to be used in the REST API request
+   @param completionBlock the list of folders returned if any
  */
 - (void)folderListWithQueryParameters:(MendeleyFolderParameters *)queryParameters
                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    Obtain a folder identified by the given folderID
-   @param folderID
-   @param completionBlock
+   @param folderID the folder UUID
+   @param completionBlock the returned folder for given ID if found
  */
 - (void)folderWithFolderID:(NSString *)folderID
            completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    Delete a folder identified by the given folderID
-   @param folderID
-   @param completionBlock
+   @param folderID the folder UUID
+   @param completionBlock the success/failure block for the operation
  */
 - (void)deleteFolderWithID:(NSString *)folderID
            completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
    Update a folder's name, or move it to a new parent
-   @param updatedFolder
-   @param completionBlock
+   @param updatedFolder the folder to be updated
+   @param completionBlock the success/failure block
  */
 - (void)updateFolder:(MendeleyFolder *)updatedFolder
      completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
    Delete a document identified by the given documentID and belonging to a folder identified by the given folderID
-   @param documentID
-   @param folderID
-   @param completionBlock
+   @param documentID the document UUID to be deleted in folder
+   @param folderID the folder UUID
+   @param completionBlock the success/failure block
  */
 - (void)deleteDocumentWithID:(NSString *)documentID
             fromFolderWithID:(NSString *)folderID
@@ -403,9 +403,9 @@
  */
 /**
    Obtain a list of groups where the logged in user is a member
-   @param queryParameters
+   @param queryParameters the parameters to be used in the API request
    @param iconType (original, square or standard)
-   @param completionBlock
+   @param completionBlock the list of groups if found
  */
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
                             iconType:(MendeleyGroupIconType)iconType
@@ -417,7 +417,7 @@
 
    @param linkURL the full HTTP link to the document listings page
    @param iconType (original, square or standard)
-   @param completionBlock
+   @param completionBlock the list of groups if found
  */
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
                       iconType:(MendeleyGroupIconType)iconType
@@ -425,9 +425,9 @@
 
 /**
    Obtain details for the group identified by the given groupID
-   @param groupID
+   @param groupID the group UUID
    @param iconType (original, square or standard)
-   @param completionBlock
+   @param completionBlock returns the group
  */
 - (void)groupWithGroupID:(NSString *)groupID
                 iconType:(MendeleyGroupIconType)iconType
@@ -436,8 +436,8 @@
 /**
    Obtain a list of groups where the logged in user is a member
    If provided, it will include the square icon for the group
-   @param queryParameters
-   @param completionBlock
+   @param queryParameters the parameters to be used in the API request
+   @param completionBlock the list of groups if found
  */
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -447,15 +447,15 @@
    All required parameters are provided in the linkURL, which should not be modified
 
    @param linkURL the full HTTP link to the document listings page
-   @param completionBlock
+   @param completionBlock the list of groups if found
  */
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    Obtain details for the group identified by the given groupID
-   @param groupID
-   @param completionBlock
+   @param groupID the group UUID
+   @param completionBlock the group
  */
 - (void)groupWithGroupID:(NSString *)groupID
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
@@ -468,39 +468,39 @@
  */
 /**
    Obtain details for the annotation identified by the given annotationID
-   @param annotationID
-   @param completionBlock
+   @param annotationID the annotation UUID
+   @param completionBlock the found annotation object
  */
 - (void)annotationWithAnnotationID:(NSString *)annotationID
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    Delete the annotation identified by the given annotationID
-   @param annotationID
-   @param completionBlock
+   @param annotationID the annotation UUID
+   @param completionBlock the success/failure block
  */
 - (void)deleteAnnotationWithID:(NSString *)annotationID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
    Update the annotation identified by the given annotationID with the given updateMendeleyAnnotation
-   @param updateMendeleyAnnotation
-   @param completionBlock
+   @param updatedMendeleyAnnotation the updated annotation object
+   @param completionBlock the updated annotation object from the server
  */
 - (void)updateAnnotation:(MendeleyAnnotation *)updatedMendeleyAnnotation
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 /**
    Create an annotation composed by the parameters of the given mendeletAnnotation
-   @param mendeleyAnnotation
-   @param completionBlock
+   @param mendeleyAnnotation the annotation to be created on the server
+   @param completionBlock returns the created annotation with UUID
  */
 - (void)createAnnotation:(MendeleyAnnotation *)mendeleyAnnotation
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    a speficic page/download link for getting annotations.
-   @param linkURL
-   @param completionBlock
+   @param linkURL the link to be used for obtaining annotations in a paged manner
+   @param completionBlock the list of annotations
  */
 - (void)annotationListWithLinkedURL:(NSURL *)linkURL
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -508,8 +508,8 @@
 /**
    Obtain a list of annotations. This is for the first call to getting a list of annotations.
    The queryParameters should contain the limit of the page size
-   @param queryParameters
-   @param completionBlock
+   @param queryParameters the parameters to be used in the request
+   @param completionBlock the list of annotations
  */
 - (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
@@ -521,15 +521,15 @@
  */
 /**
    cancels a specific MendeleyTask
-   @param task
-   @param completionBlock
+   @param task the mendeley network task
+   @param completionBlock the success/failure block
  */
 - (void) cancelTask:(MendeleyTask *)task
     completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
    cancels ALL existing tasks
-   @param completionBlock
+   @param completionBlock the success/failure block
  */
 - (void)cancelAllTasks:(MendeleyCompletionBlock)completionBlock;
 
