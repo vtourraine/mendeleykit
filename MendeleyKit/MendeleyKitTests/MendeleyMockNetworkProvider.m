@@ -208,13 +208,29 @@
 - (void) cancelTask:(MendeleyTask *)task
     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-
+    [self executeMockCompletionBlock:completionBlock];
 }
 
 - (void)cancelAllTasks:(MendeleyCompletionBlock)completionBlock
 {
+    [self executeMockCompletionBlock:completionBlock];
+}
 
-
+- (void)executeMockCompletionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    if (self.expectedSuccess)
+    {
+        completionBlock(YES, nil);
+    }
+    else
+    {
+        NSError *mockError = self.expectedError;
+        if (nil == mockError)
+        {
+            mockError = [NSError errorWithCode:kMendeleyResponseTypeUnknownErrorCode];
+        }
+        completionBlock(NO, mockError);
+    }
 }
 
 - (MendeleyTask *)executeMockTaskWithCompletionBlock:(MendeleyResponseCompletionBlock)completionBlock
