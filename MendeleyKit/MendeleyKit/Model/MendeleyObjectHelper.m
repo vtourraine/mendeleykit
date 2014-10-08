@@ -61,6 +61,7 @@
     dispatch_once(&onceToken, ^{
                       map = @{ kMendeleyJSONAuthors : kMendeleyModelPerson,
                                kMendeleyJSONEditors : kMendeleyModelPerson,
+                               kMendeleyJSONTranslators : kMendeleyModelPerson,
                                kMendeleyJSONEmployment : kMendeleyModelEmployment,
                                kMendeleyJSONEducation : kMendeleyModelEducation,
                                kMendeleyJSONWebsites : kMendeleyModelWebsites,

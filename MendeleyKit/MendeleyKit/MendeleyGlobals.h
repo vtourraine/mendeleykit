@@ -254,6 +254,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyJSONIdentifiers                          @"identifiers"
 #define kMendeleyJSONProfileID                            @"profile_id"
 #define kMendeleyJSONAuthors                              @"authors"
+#define kMendeleyJSONTranslators                          @"translators"
 #define kMendeleyJSONCreated                              @"created"
 #define kMendeleyJSONTrashed                              @"trashed"
 #define kMendeleyJSONPages                                @"pages"
@@ -281,6 +282,24 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyJSONReaderCountByCountry                 @"reader_count_by_country"
 #define kMendeleyJSONReaderCountByDiscipline              @"reader_count_by_subdiscipline"
 #define kMendeleyJSONReaderCountByAcademicStatus          @"reader_count_by_academic_status"
+
+#define kMendeleyJSONCitationKey                          @"citation_key"
+#define kMendeleyJSONSourceType                           @"source_type"
+#define kMendeleyJSONLanguage                             @"language"
+#define kMendeleyJSONShortTitle                           @"short_title"
+#define kMendeleyJSONReprintEdition                       @"reprint_edition"
+#define kMendeleyJSONGenre                                @"genre"
+#define kMendeleyJSONCountry                              @"country"
+#define kMendeleyJSONSeriesEditor                         @"series_editor"
+#define kMendeleyJSONCode                                 @"code"
+#define kMendeleyJSONMedium                               @"medium"
+#define kMendeleyJSONUserContext                          @"user_context"
+#define kMendeleyJSONDepartment                           @"department"
+#define kMendeleyJSONPatentOwner                          @"patent_owner"
+#define kMendeleyJSONPatentApplicationNumber              @"patent_application_number"
+#define kMendeleyJSONPatentLegalStatus                    @"patent_legal_status"
+#define kMendeleyJSONAccessed                             @"accessed"
+
 
 
 /***********************************************

@@ -45,6 +45,7 @@
  */
 @property (nonatomic, strong) NSArray *authors;
 @property (nonatomic, strong) NSArray *editors;
+@property (nonatomic, strong) NSArray *translators;
 @property (nonatomic, strong) NSArray *websites;
 @property (nonatomic, strong) NSArray *keywords;
 @property (nonatomic, strong) NSArray *tags;
@@ -79,6 +80,23 @@
 @property (nonatomic, strong) NSString *institution;
 @property (nonatomic, strong) NSString *series;
 @property (nonatomic, strong) NSString *chapter;
+@property (nonatomic, strong) NSString *accessed;
+
+@property (nonatomic, strong) NSString *citation_key;
+@property (nonatomic, strong) NSString *source_type;
+@property (nonatomic, strong) NSString *language;
+@property (nonatomic, strong) NSString *short_title;
+@property (nonatomic, strong) NSString *reprint_edition;
+@property (nonatomic, strong) NSString *genre;
+@property (nonatomic, strong) NSString *country;
+@property (nonatomic, strong) NSString *series_editor;
+@property (nonatomic, strong) NSString *code;
+@property (nonatomic, strong) NSString *medium;
+@property (nonatomic, strong) NSString *user_context;
+@property (nonatomic, strong) NSString *department;
+@property (nonatomic, strong) NSString *patent_owner;
+@property (nonatomic, strong) NSString *patent_application_number;
+@property (nonatomic, strong) NSString *patent_legal_status;
 
 @end
 
