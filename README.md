@@ -1,6 +1,6 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
-Version: 0.5.0 alpha
+Version: 0.6.0 alpha
 
 Released: October 2014
 
