@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>A83873DF-5A45-4FEA-B7A4-0B7CB0998770</string>
+	<string>186531BB-9DEA-43AF-AFA9-836E058E843B</string>
 	<key>IDESourceControlProjectName</key>
 	<string>MendeleyKit</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E61DD488-0806-4DE0-8FC2-480995D52D91</key>
-		<string>https://git.mendeley.com/scm/mob/mendeleysdk-objectivec.git</string>
+		<key>08CA1A66-4C14-4587-A745-7CE3370EFCD5</key>
+		<string>https://github.com/Mendeley/mendeleykit.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>MendeleyKit/MendeleyKit.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E61DD488-0806-4DE0-8FC2-480995D52D91</key>
+		<key>08CA1A66-4C14-4587-A745-7CE3370EFCD5</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://git.mendeley.com/scm/mob/mendeleysdk-objectivec.git</string>
+	<string>https://github.com/Mendeley/mendeleykit.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E61DD488-0806-4DE0-8FC2-480995D52D91</string>
+	<string>08CA1A66-4C14-4587-A745-7CE3370EFCD5</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E61DD488-0806-4DE0-8FC2-480995D52D91</string>
+			<string>08CA1A66-4C14-4587-A745-7CE3370EFCD5</string>
 			<key>IDESourceControlWCCName</key>
-			<string>MendeleyKit</string>
+			<string>mendeleykit</string>
 		</dict>
 	</array>
 </dict>
