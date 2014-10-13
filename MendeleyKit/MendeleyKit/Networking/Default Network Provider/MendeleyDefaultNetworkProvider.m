@@ -655,6 +655,24 @@
 
 }
 
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler
+{
+    NSURLRequest *redirectRequest = request;
+    if (nil != response)
+    {
+        if (303 == response.statusCode)
+        {
+            redirectRequest = [NSURLRequest requestWithURL:request.URL];
+        }
+    }
+    
+    if (nil != completionHandler)
+    {
+        completionHandler(redirectRequest);
+    }
+}
+
+
 #pragma mark -
 #pragma mark - NSURLSessionDataDelegate methods
 
