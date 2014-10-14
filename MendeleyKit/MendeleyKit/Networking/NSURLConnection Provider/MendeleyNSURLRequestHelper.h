@@ -22,15 +22,15 @@
 #import "MendeleyRequest.h"
 #import "MendeleyResponse.h"
 #import "MendeleyTask.h"
+#import "MendeleyCancellableRequest.h"
 
-@interface MendeleyNSURLRequestHelper : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface MendeleyNSURLRequestHelper : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate, MendeleyCancellableRequest>
 @property (nonatomic, copy) MendeleyResponseCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyRequest *mendeleyRequest;
 @property (nonatomic, strong) NSURLConnection *thisConnection;
 @property (nonatomic, strong) NSMutableData *responseBody;
 @property (nonatomic, strong) NSHTTPURLResponse *response;
 @property (nonatomic, strong) MendeleyResponse *mendeleyResponse;
-
 /**
  initialises the connection with a MendeleyRequest. The MendeleyRequest object holds all the data we need
  to make the network connection

@@ -89,6 +89,7 @@
         self.bytesExpected = response.expectedContentLength;
     }
     self.bytesDownloaded = 0;
+    self.mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response fileURL:self.fileURL];
     if (nil != self.outputStream)
     {
         BOOL isStreamReady = self.outputStream.streamStatus == NSStreamStatusOpen;
@@ -100,13 +101,92 @@
         
         if (!isStreamReady)
         {
-                //            [connection cancel];
+            [connection cancel];
             
             if (self.completionBlock)
             {
+                NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyErrorNetworkBaseCode];
+                self.completionBlock(nil, error);
             }
+            self.completionBlock = nil;
+            self.thisConnection = nil;
         }
     }
 }
 
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    if (self.outputStream == nil)
+    { // if there is no outputStream then store data in memory in self.data
+        [super connection:connection didReceiveData:data];
+    }
+    else
+    {
+        const uint8_t *bytes = data.bytes;
+        NSUInteger length = data.length;
+        NSUInteger offset = 0;
+        do {
+            NSUInteger written = [self.outputStream write:&bytes[offset] maxLength:length - offset];
+            if (written <= 0) {
+                [connection cancel];
+                return;
+            } else {
+                offset += written;
+            }
+        } while (offset < length);
+    }
+    
+    self.bytesDownloaded += data.length;
+    if (self.progressBlock)
+    {
+        double progressValue = -1.0;
+        if (-1 != self.bytesExpected)
+        {
+            progressValue = (double) self.bytesDownloaded / (double) self.bytesExpected;
+            NSNumber *progressNumber = [NSNumber numberWithDouble:progressValue];
+            self.progressBlock(progressNumber);
+        }
+    }
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [self.outputStream close];
+    
+    self.progressBlock = nil;
+    
+    [super connection:connection didFailWithError:error];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    [self.outputStream close];
+    
+    self.progressBlock = nil;
+    
+    if (nil != self.completionBlock)
+    {
+        NSError *error = nil;
+        if (nil == self.mendeleyResponse)
+        {
+            error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyErrorNetworkBaseCode];
+        }
+        self.completionBlock(self.mendeleyResponse, error);
+    }
+    
+    self.completionBlock = nil;
+    
+    self.thisConnection = nil;
+    
+    
+}
+
+- (void)cancelConnection
+{
+    [self.outputStream close];
+    
+    self.progressBlock = nil;
+    [super cancelConnection];
+}
 @end

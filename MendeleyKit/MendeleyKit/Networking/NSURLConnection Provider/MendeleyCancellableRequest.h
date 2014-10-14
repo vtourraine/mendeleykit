@@ -18,30 +18,11 @@
  *****************************************************************************
  */
 
-#import "MendeleyRequest.h"
-#import "MendeleyCancellableRequest.h"
+#import <Foundation/Foundation.h>
 
-@interface MendeleyTask : MendeleyRequest
+@protocol MendeleyCancellableRequest <NSObject>
 /**
- @name MendeleyTask can be used in both NSURLSession and NSURLConnection APIs
- However, only one property gets populated for each.
- - for NSURLSession use initWithTaskID
- - for NSURLConnection use initWithRequestObject
+ this cancels the current active NSURLConnection
  */
-
-@property (nonatomic, strong, readonly) NSNumber *taskID;
-@property (nonatomic, strong, readonly) id<MendeleyCancellableRequest> requestObject;
-
-
-/**
-   @param taskID
-   @return an instance of type MendeleyCancellationRequest
- */
-- (instancetype)initWithTaskID:(NSNumber *)taskID;
-
-/**
- @param taskObject
- @return a cancellable task/request object
- */
-- (instancetype)initWithRequestObject:(id<MendeleyCancellableRequest>)requestObject;
+- (void)cancelConnection;
 @end

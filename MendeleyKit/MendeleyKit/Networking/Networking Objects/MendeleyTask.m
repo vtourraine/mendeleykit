@@ -23,7 +23,7 @@
 @interface MendeleyTask ()
 
 @property (nonatomic, strong, readwrite) NSNumber *taskID;
-@property (nonatomic, strong, readwrite) id requestObject;
+@property (nonatomic, strong, readwrite) id<MendeleyCancellableRequest> requestObject;
 
 @end
 

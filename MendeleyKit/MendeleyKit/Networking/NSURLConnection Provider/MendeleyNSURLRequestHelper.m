@@ -23,13 +23,17 @@
 
 @implementation MendeleyNSURLRequestHelper
 
-- (id)initWithMendeleyRequest:(MendeleyRequest *)mendeleyRequest completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (id)initWithMendeleyRequest:(MendeleyRequest *)mendeleyRequest
+              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     self = [super init];
     if (nil != self)
     {
         _mendeleyRequest = mendeleyRequest;
         _completionBlock = completionBlock;
+        _thisConnection = nil;
+        _response = nil;
+        _mendeleyResponse = nil;
     }
     return self;
 }
@@ -56,8 +60,12 @@
     return YES;
 }
 
+#pragma mark --
+#pragma mark NSURLConnection delegate methods
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    self.mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
     self.responseBody = [[NSMutableData alloc] init];
     if ([response isKindOfClass:NSHTTPURLResponse.class]) {
         self.response = (NSHTTPURLResponse*)response;
@@ -71,11 +79,56 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    if (self.completionBlock)
+    {
+        NSError *mendeleyError = nil;
+        mendeleyError = [[MendeleyErrorManager sharedInstance] errorFromOriginalError:error error:mendeleyError];
+        self.completionBlock(nil, mendeleyError);
+    }
+    
+    self.completionBlock = nil;
+    
+    self.thisConnection = nil;
     
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    if (self.completionBlock)
+    {
+        NSError *mendeleyError = nil;
+        if (nil != self.mendeleyResponse && nil != self.responseBody && 0 < self.responseBody.length)
+        {
+            [self.mendeleyResponse deserialiseRawResponseData:self.responseBody error:&mendeleyError];
+        }
+        self.completionBlock(self.mendeleyResponse, mendeleyError);
+    }
     
+    self.completionBlock = nil;
+    
+    self.thisConnection = nil;
+    
+}
+
+#pragma mark --
+#pragma mark MendeleyCancellableRequest method(s)
+
+- (void)cancelConnection
+{
+    if (nil != self.thisConnection) {
+        MendeleyResponseCompletionBlock completionBlock = self.completionBlock;
+        
+        self.completionBlock = nil; // prevent potential NSURLConnection delegate callbacks to invoke the completion block redundantly
+        
+        [self.thisConnection cancel];
+        
+        self.thisConnection = nil;
+        
+        NSError *cancelError = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyCancelledRequestErrorCode];
+        if (nil != completionBlock)
+        {
+            completionBlock(nil, cancelError);
+        }
+    }
 }
 @end

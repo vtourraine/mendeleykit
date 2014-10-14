@@ -10,6 +10,7 @@
 		0B387EDF19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B387EDE19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.m */; };
 		0B387EE519ED15CD00ACCBE1 /* MendeleyNSURLRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B387EE419ED15CD00ACCBE1 /* MendeleyNSURLRequestHelper.m */; };
 		0B387EE819ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B387EE719ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.m */; };
+		0B387EEE19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B387EED19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m */; };
 		C24E70A3E1A44058A40FBE96 /* libPods-MendeleyKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */; };
 		C462882D19DB160700127ECE /* annotation.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882219DB160700127ECE /* annotation.json */; };
 		C462882E19DB160700127ECE /* catalogue.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882319DB160700127ECE /* catalogue.json */; };
@@ -147,6 +148,9 @@
 		0B387EE419ED15CD00ACCBE1 /* MendeleyNSURLRequestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyNSURLRequestHelper.m; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestHelper.m"; sourceTree = "<group>"; };
 		0B387EE619ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNSURLRequestDownloadHelper.h; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestDownloadHelper.h"; sourceTree = "<group>"; };
 		0B387EE719ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyNSURLRequestDownloadHelper.m; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestDownloadHelper.m"; sourceTree = "<group>"; };
+		0B387EE919ED59C500ACCBE1 /* MendeleyCancellableRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyCancellableRequest.h; path = "Networking/NSURLConnection Provider/MendeleyCancellableRequest.h"; sourceTree = "<group>"; };
+		0B387EEC19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNSURLRequestUploadHelper.h; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestUploadHelper.h"; sourceTree = "<group>"; };
+		0B387EED19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyNSURLRequestUploadHelper.m; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestUploadHelper.m"; sourceTree = "<group>"; };
 		0F7FE6F8D2A0E0F2771226C7 /* Pods-MendeleyKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		8302971636AF25A993EDBA94 /* Pods-MendeleyKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -352,12 +356,15 @@
 		0B387EDC19ED106800ACCBE1 /* NSURLConnection Provider */ = {
 			isa = PBXGroup;
 			children = (
+				0B387EE919ED59C500ACCBE1 /* MendeleyCancellableRequest.h */,
 				0B387EDD19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.h */,
 				0B387EDE19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.m */,
 				0B387EE319ED15CD00ACCBE1 /* MendeleyNSURLRequestHelper.h */,
 				0B387EE419ED15CD00ACCBE1 /* MendeleyNSURLRequestHelper.m */,
 				0B387EE619ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.h */,
 				0B387EE719ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.m */,
+				0B387EEC19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.h */,
+				0B387EED19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m */,
 			);
 			name = "NSURLConnection Provider";
 			sourceTree = "<group>";
@@ -899,6 +906,7 @@
 				C4A134D919DADDD10069DB7A /* MendeleyProfile.m in Sources */,
 				C4A134DA19DADDD10069DB7A /* MendeleyUserRole.m in Sources */,
 				C4CD514619DAD9E400C8EB8D /* MendeleyKit.m in Sources */,
+				0B387EEE19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m in Sources */,
 				C4A134CF19DADDD10069DB7A /* MendeleyCatalogDocument.m in Sources */,
 				C4A134D419DADDD10069DB7A /* MendeleyGroup.m in Sources */,
 				C4A134FD19DADE850069DB7A /* MendeleyOAuthTokenHelper.m in Sources */,

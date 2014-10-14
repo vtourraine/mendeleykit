@@ -18,30 +18,26 @@
  *****************************************************************************
  */
 
+#import <Foundation/Foundation.h>
 #import "MendeleyRequest.h"
-#import "MendeleyCancellableRequest.h"
+#import "MendeleyResponse.h"
+#import "MendeleyTask.h"
+#import "MendeleyNSURLRequestHelper.h"
 
-@interface MendeleyTask : MendeleyRequest
+@interface MendeleyNSURLRequestUploadHelper : MendeleyNSURLRequestHelper
 /**
- @name MendeleyTask can be used in both NSURLSession and NSURLConnection APIs
- However, only one property gets populated for each.
- - for NSURLSession use initWithTaskID
- - for NSURLConnection use initWithRequestObject
+ @name MendeleyNSURLRequestUploadHelper handles file upload requests only
  */
 
-@property (nonatomic, strong, readonly) NSNumber *taskID;
-@property (nonatomic, strong, readonly) id<MendeleyCancellableRequest> requestObject;
-
-
 /**
-   @param taskID
-   @return an instance of type MendeleyCancellationRequest
+ @param mendeleyRequest the request object holding all info we need to start NSURLConnection
+ @param fromFileURL the location to be uploaded from
+ @param progressBlock a callback block for monitoring progress. Optional
+ @param completionBlock the completion handling block. Required
  */
-- (instancetype)initWithTaskID:(NSNumber *)taskID;
+- (id)initWithMendeleyRequest:(MendeleyRequest *)mendeleyRequest
+                  fromFileURL:(NSURL *)fromFileURL
+                progressBlock:(MendeleyResponseProgressBlock)progressBlock
+              completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
-/**
- @param taskObject
- @return a cancellable task/request object
- */
-- (instancetype)initWithRequestObject:(id<MendeleyCancellableRequest>)requestObject;
 @end
