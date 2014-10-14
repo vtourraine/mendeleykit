@@ -46,7 +46,7 @@
 - (id)init
 {
     self = [super init];
-    if (self)
+    if (nil != self)
     {
         _sdkConfiguration = [MendeleyKitConfiguration sharedInstance];
     }

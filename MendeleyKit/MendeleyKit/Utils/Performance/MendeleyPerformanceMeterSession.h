@@ -26,14 +26,38 @@
 @property (nonatomic, strong) NSString *sessionID;
 @property (nonatomic, strong) NSString *name;
 
+/**
+ returns a performance meter session with given name
+ @param sessionName
+ */
 + (MendeleyPerformanceMeterSession *)sessionWithName:(NSString *)sessionName;
 
+/**
+ creates a timer with a gien name
+ @param timerName
+ @return timer Id
+ */
 - (NSString *)createTimerWithName:(NSString *)timerName;
+
+/**
+ @param timerID
+ */
 - (void)startTimerWithID:(NSString *)timerID;
+
+/**
+ @param timerID
+ */
 - (void)stopTimerWithID:(NSString *)timerID;
 
+/**
+ returns a report for a given timerID as dictionary
+ @param timerID
+ */
 - (NSDictionary *)reportWithTimerID:(NSString *)timerID;
 
+/**
+ returns the results for a session as dictionary
+ */
 - (NSDictionary *)finishSessionAndGetResults;
 
 @end

@@ -30,7 +30,7 @@
 {
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          if (error)
+                                          if (nil != error)
                                           {
                                               completionBlock(nil, error);
                                           }
