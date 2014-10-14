@@ -182,7 +182,7 @@
 	        NSArray *subArray = [self arrayFromModelArray:obj error:error];
 	        [array addObject:subArray];
 		}
-	    else if ([obj isKindOfClass:[NSString class]]) {
+	    else {
 	        [array addObject:obj];
 		}
 	}];
