@@ -26,6 +26,13 @@
 #import "FilesWithDocumentTableViewController.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "GroupListTableViewController.h"
+/**
+ By default the MendeleyKit uses NSURLSession based network actions - called in and used by the
+ MendeleyDefaultNetworkProvider.
+ If instead of using NSURLSession API you want to use NSURLConnection API uncomment the include below
+ Also, see viewDidLoad comment to override the default network provider with the NSURLConnection based provider
+ */
+//#import "MendeleyNSURLConnectionProvider.h"
 
 static NSDictionary * clientOAuthConfig()
 {
@@ -44,6 +51,23 @@ static NSDictionary * clientOAuthConfig()
 {
     [super viewDidLoad];
     [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:clientOAuthConfig()];
+    
+    /**
+     MendeleyKit comes with a network provider based on NSURLConnection (instead of the default one which
+     is based on NSURLSession).
+     you can enable the MendeleyNSURLConnectionProvider by
+     1. uncommenting #import "MendeleyNSURLConnectionProvider.h"
+     2. uncommenting the 2 lines below
+     
+     The code also demonstrates how to override the network provider with any other custom provider.
+     Generally only the network provider needs to be overwritten. 
+     You may also override the use of a custom OAuth provider - although this is not really encouraged.
+     */
+    
+    /**
+     NSDictionary *networkProviderParameters = @{kMendeleyNetworkProviderKey: NSStringFromClass([MendeleyNSURLConnectionProvider class])};
+     [[MendeleyKitConfiguration sharedInstance] changeConfigurationWithParameters:networkProviderParameters];
+     */
 
     if ([[MendeleyKit sharedInstance] isAuthenticated])
     {
