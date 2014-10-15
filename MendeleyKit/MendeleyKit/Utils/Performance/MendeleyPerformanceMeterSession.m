@@ -63,15 +63,15 @@
 {
     MendeleyTimer *aTimer = [MendeleyTimer timerWithName:timerName];
 
-    [_onGoingTimers addEntriesFromDictionary:@{ aTimer.timerID: aTimer }];
+    [self.onGoingTimers addEntriesFromDictionary:@{ aTimer.timerID: aTimer }];
     return aTimer.timerID;
 }
 
 - (void)startTimerWithID:(NSString *)timerID
 {
-    if (_onGoingTimers[timerID])
+    if (self.onGoingTimers[timerID])
     {
-        [(MendeleyTimer *) _onGoingTimers[timerID] start];
+        [(MendeleyTimer *) self.onGoingTimers[timerID] start];
     }
     else
     {
@@ -81,11 +81,11 @@
 
 - (void)stopTimerWithID:(NSString *)timerID
 {
-    if (_onGoingTimers[timerID])
+    if (self.onGoingTimers[timerID])
     {
-        [(MendeleyTimer *) _onGoingTimers[timerID] stop];
-        [_sessionResults addObject:[self createReportWithTimer:_onGoingTimers[timerID]]];
-        [_onGoingTimers removeObjectForKey:timerID];
+        [(MendeleyTimer *) self.onGoingTimers[timerID] stop];
+        [self.sessionResults addObject:[self createReportWithTimer:self.onGoingTimers[timerID]]];
+        [self.onGoingTimers removeObjectForKey:timerID];
     }
     else
     {
@@ -108,7 +108,7 @@
 
 - (NSDictionary *)reportWithTimerID:(NSString *)timerID
 {
-    NSUInteger resultIndex = [_sessionResults indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+    NSUInteger resultIndex = [self.sessionResults indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
                                   NSDictionary *result = (NSDictionary *) obj;
                                   if ([result[kMendeleyPerformanceReportFileKeyTimerID] isEqualToString:timerID])
                                   {
@@ -122,7 +122,7 @@
 
     if (resultIndex != NSNotFound)
     {
-        results = [_sessionResults objectAtIndex:resultIndex];
+        results = [self.sessionResults objectAtIndex:resultIndex];
     }
 
     if (results)
@@ -131,10 +131,10 @@
     }
     else
     {
-        if (_onGoingTimers[timerID])
+        if (self.onGoingTimers[timerID])
         {
-            [(MendeleyTimer *) _onGoingTimers[timerID] invalidate];
-            return [self createReportWithTimer:_onGoingTimers[timerID]];
+            [(MendeleyTimer *) self.onGoingTimers[timerID] invalidate];
+            return [self createReportWithTimer:self.onGoingTimers[timerID]];
         }
         else
         {
@@ -148,25 +148,25 @@
 {
     UInt64 totalTimeElapsed = 0;
 
-    for (NSDictionary *aStopWatchResults in _sessionResults)
+    for (NSDictionary *aStopWatchResults in self.sessionResults)
     {
         totalTimeElapsed += [aStopWatchResults[kMendeleyPerformanceReportFileKeyTimerElapsedTime] unsignedLongLongValue];
     }
     NSDictionary *results = @{ kMendeleyPerformanceReportFileKeySessionTitle : _name,
                                kMendeleyPerformanceReportFileKeySessionID : _sessionID,
                                kMendeleyPerformanceReportFileKeySessionTotalTime: [NSNumber numberWithLongLong:totalTimeElapsed],
-                               kMendeleyPerformanceReportFileKeySessionJobList: _sessionResults };
+                               kMendeleyPerformanceReportFileKeySessionJobList: self.sessionResults };
     MendeleyLogMessage(kMendeleyPerformanceDomain, kSDKLogLevelInfo, @"Report created for session: %@ \n %@", _name, results);
     return results;
 }
 
 - (NSDictionary *)finishSessionAndGetResults
 {
-    for (NSString *aTimerID in[_onGoingTimers allKeys])
+    for (NSString *aTimerID in[self.onGoingTimers allKeys])
     {
-        [(MendeleyTimer *) _onGoingTimers[aTimerID] invalidate];
+        [(MendeleyTimer *) self.onGoingTimers[aTimerID] invalidate];
     }
-    [_onGoingTimers removeAllObjects];
+    [self.onGoingTimers removeAllObjects];
 
     return [self sessionReport];
 }

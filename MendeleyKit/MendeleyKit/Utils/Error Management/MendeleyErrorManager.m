@@ -43,7 +43,7 @@
 - (id)init
 {
     self = [super init];
-    if (self)
+    if (nil != self)
     {
         _helpers = [NSMutableDictionary new];
     }

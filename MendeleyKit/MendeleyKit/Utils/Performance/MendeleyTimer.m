@@ -90,7 +90,7 @@
     self = [super init];
 
     // Handle errors.
-    if (!self)
+    if (nil == self)
     {
         return nil;
     }

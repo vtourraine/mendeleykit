@@ -190,7 +190,8 @@
     {
         return;
     }
-    if ([sortValue isEqualToString:kMendeleyRESTAPIQuerySortAsc] || [sortValue isEqualToString:kMendeleyRESTAPIQuerySortDesc])
+    if ([sortValue isEqualToString:kMendeleyRESTAPIQuerySortAsc] ||
+        [sortValue isEqualToString:kMendeleyRESTAPIQuerySortDesc])
     {
         _sort = sortValue;
     }

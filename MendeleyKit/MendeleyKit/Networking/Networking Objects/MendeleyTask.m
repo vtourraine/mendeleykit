@@ -23,6 +23,7 @@
 @interface MendeleyTask ()
 
 @property (nonatomic, strong, readwrite) NSNumber *taskID;
+@property (nonatomic, strong, readwrite) id<MendeleyCancellableRequest> requestObject;
 
 @end
 
@@ -34,8 +35,19 @@
     if (nil != self)
     {
         _taskID = taskID;
+        _requestObject = nil;
     }
     return self;
 }
 
+- (instancetype)initWithRequestObject:(id)requestObject
+{
+    self = [super init];
+    if (nil != self)
+    {
+        _taskID = nil;
+        _requestObject = requestObject;
+    }
+    return self;
+}
 @end

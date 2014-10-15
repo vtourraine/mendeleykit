@@ -31,23 +31,40 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSDate *absoluteStartTime;
 
-// Starts or restarts the timer.
+/**
+ Starts or restarts the timer.
+ */
 - (void)start;
 
-// Captures the timer.
+/**
+ Captures the timer.
+ */
 - (void)stop;
 
-// Returns the elapsed time in nanoseconds of the last capture.
+/**
+ Returns the elapsed time in nanoseconds of the last capture.
+ */
 - (UInt64)nsElapsed;
 
-// Returns the elapsed time in milliseconds of the last capture.
+/**
+ Returns the elapsed time in milliseconds of the last capture.
+ */
 - (UInt32)msElapsed;
 
-// Returns a string containing a representation of the elapsed time.
+/**
+ Returns a string containing a representation of the elapsed time.
+ */
 - (NSString *)stringWithElapsedTime;
 
+/**
+ returns a timer for a given name
+ @param name
+ @return the MendeleyTimer object if found
+ */
 + (MendeleyTimer *)timerWithName:(NSString *)name;
 
+/**
+ invalidates the timer
+ */
 - (void)invalidate;
-
 @end

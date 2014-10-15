@@ -25,7 +25,7 @@
 - (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider baseURL:(NSURL *)baseURL
 {
     self = [super init];
-    if (self)
+    if (nil != self)
     {
         _provider = provider;
         _baseURL = baseURL;

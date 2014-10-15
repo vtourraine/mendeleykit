@@ -110,7 +110,7 @@
 
 
 
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -160,7 +160,7 @@
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
 #warning HTTP_POST could be not specified
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -217,7 +217,7 @@
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -263,7 +263,7 @@
     [NSError assertArgumentNotNil:api argumentName:@"api"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -359,7 +359,7 @@
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
 
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -404,7 +404,7 @@
     [NSError assertArgumentNotNil:api argumentName:@"api"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -453,7 +453,7 @@
     [NSError assertArgumentNotNil:api argumentName:@"api"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -502,7 +502,7 @@
     [NSError assertArgumentNotNil:jsonData argumentName:@"jsonData"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
@@ -547,7 +547,7 @@
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    MendeleyRequest *request;
+    MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL api:api requestType:HTTP_HEAD];

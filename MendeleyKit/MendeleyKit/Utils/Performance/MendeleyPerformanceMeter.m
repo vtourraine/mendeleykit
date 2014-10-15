@@ -61,7 +61,7 @@
 
 - (NSString *)createSimpleTimerWithName:(NSString *)timerName
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
         return [self addTimerWithName:timerName ToSession:kSpareTimersSessionName];
     }
@@ -73,7 +73,7 @@
 
 - (void)startSimpleTimerWithID:(NSString *)timerID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
         [self startTimerWithID:timerID inSession:kSpareTimersSessionName];
     }
@@ -81,11 +81,11 @@
 
 - (NSString *)stopAndSaveSimpleTimerWithID:(NSString *)timerID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
         [self stopTimerWithID:timerID inSession:kSpareTimersSessionName];
         NSDictionary *timerReport =  [self reportForTimerWithID:timerID];
-        if (_configuration == kMendeleyPerformanceMeterConfigurationConsoleAndDiskReport)
+        if (self.configuration == kMendeleyPerformanceMeterConfigurationConsoleAndDiskReport)
         {
             NSString *filePath = [self getFullPerformanceReportPath];
 
@@ -105,7 +105,7 @@
 
 - (NSDictionary *)reportForTimerWithID:(NSString *)timerID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
         return [self reportForTimerWithID:timerID inSession:kSpareTimersSessionName];
     }
@@ -117,11 +117,11 @@
 
 - (NSString *)createNewSessionWithName:(NSString *)sessionName
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
         MendeleyPerformanceMeterSession *aSession = [MendeleyPerformanceMeterSession sessionWithName:sessionName];
 
-        [_onGoingSessions addEntriesFromDictionary:@{ aSession.sessionID: aSession }];
+        [self.onGoingSessions addEntriesFromDictionary:@{ aSession.sessionID: aSession }];
         return aSession.sessionID;
     }
     else
@@ -132,11 +132,11 @@
 
 - (NSString *)addTimerWithName:(NSString *)timerName ToSession:(NSString *)sessionID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
-        if (_onGoingSessions[sessionID])
+        if (self.onGoingSessions[sessionID])
         {
-            return [(MendeleyPerformanceMeterSession *) _onGoingSessions[sessionID] createTimerWithName : timerName];
+            return [(MendeleyPerformanceMeterSession *) self.onGoingSessions[sessionID] createTimerWithName : timerName];
         }
         else
         {
@@ -152,11 +152,11 @@
 
 - (void)startTimerWithID:(NSString *)timerID inSession:(NSString *)sessionID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
-        if (_onGoingSessions[sessionID])
+        if (self.onGoingSessions[sessionID])
         {
-            [(MendeleyPerformanceMeterSession *) _onGoingSessions[sessionID] startTimerWithID : timerID];
+            [(MendeleyPerformanceMeterSession *) self.onGoingSessions[sessionID] startTimerWithID : timerID];
         }
         else
         {
@@ -167,11 +167,11 @@
 
 - (void)stopTimerWithID:(NSString *)timerID inSession:(NSString *)sessionID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
-        if (_onGoingSessions[sessionID])
+        if (self.onGoingSessions[sessionID])
         {
-            [(MendeleyPerformanceMeterSession *) _onGoingSessions[sessionID] stopTimerWithID : timerID];
+            [(MendeleyPerformanceMeterSession *) self.onGoingSessions[sessionID] stopTimerWithID : timerID];
         }
         else
         {
@@ -182,11 +182,11 @@
 
 - (NSDictionary *)reportForTimerWithID:(NSString *)timerID inSession:(NSString *)sessionID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
-        if (_onGoingSessions[sessionID])
+        if (self.onGoingSessions[sessionID])
         {
-            return [(MendeleyPerformanceMeterSession *) _onGoingSessions[sessionID] reportWithTimerID : timerID];
+            return [(MendeleyPerformanceMeterSession *) self.onGoingSessions[sessionID] reportWithTimerID : timerID];
         }
         else
         {
@@ -202,15 +202,15 @@
 
 - (NSString *)saveReportAndFinalizeSession:(NSString *)sessionID
 {
-    if (_configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
+    if (self.configuration != kMendeleyPerformanceMeterConfigurationDeactivated)
     {
-        if (_onGoingSessions[sessionID])
+        if (self.onGoingSessions[sessionID])
         {
-            NSDictionary *sessionReport = [(MendeleyPerformanceMeterSession *) _onGoingSessions[sessionID] finishSessionAndGetResults];
+            NSDictionary *sessionReport = [(MendeleyPerformanceMeterSession *) self.onGoingSessions[sessionID] finishSessionAndGetResults];
 
-            [_onGoingSessions removeObjectForKey:sessionID];
+            [self.onGoingSessions removeObjectForKey:sessionID];
 
-            if (_configuration == kMendeleyPerformanceMeterConfigurationConsoleAndDiskReport)
+            if (self.configuration == kMendeleyPerformanceMeterConfigurationConsoleAndDiskReport)
             {
                 NSString *filePath = [self getFullPerformanceReportPath];
                 [self saveDictionary:sessionReport InAFileAsynchronously:filePath];

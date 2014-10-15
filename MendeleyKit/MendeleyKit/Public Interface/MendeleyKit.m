@@ -74,7 +74,7 @@
 - (id)init
 {
     self = [super init];
-    if (self)
+    if (nil != self)
     {
         _configuration = [MendeleyKitConfiguration sharedInstance];
         _networkProvider =  [MendeleyKitConfiguration sharedInstance].networkProvider;

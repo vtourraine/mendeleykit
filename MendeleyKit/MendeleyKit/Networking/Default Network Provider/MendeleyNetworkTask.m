@@ -44,7 +44,7 @@
 //        self.task = [session dataTaskWithRequest:request];
 //                self.completionBlock = completionBlock;
         self.task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                         if (error)
+                         if (nil != error)
                          {
                              completionBlock(nil, error);
                          }
@@ -107,15 +107,12 @@
                           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     self = [super init];
-    if (self)
+    if (nil != self)
     {
 
-//        self.task = [session uploadTaskWithRequest:request
-//                                          fromFile:fileURL];
-//                self.completionBlock = completionBlock;
         self.task = [session uploadTaskWithRequest:request
                                           fromFile:fileURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                         if (error)
+                         if (nil != error)
                          {
                              completionBlock(nil, error);
                          }
@@ -167,7 +164,7 @@
                             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     self = [super init];
-    if (self)
+    if (nil != self)
     {
         self.fileURL = fileURL;
         self.task = [session dataTaskWithRequest:request];

@@ -37,7 +37,7 @@
 - (instancetype)initWithDelegate:(id <MendeleyKitHelperDelegate> )delegate
 {
     self = [super init];
-    if (self)
+    if (nil != self)
     {
         [NSError assertArgumentNotNil:delegate argumentName:@"delegate"];
         _delegate = delegate;

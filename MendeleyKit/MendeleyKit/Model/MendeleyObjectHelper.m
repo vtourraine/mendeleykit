@@ -240,17 +240,6 @@
             return YES;
         }
     }
-
-
-
-//    if ([modelObject isKindOfClass:[MendeleyDocument class]])
-//    {
-//        if ([propertyName isEqualToString:kMendeleyJSONIdentifiers])
-//        {
-//            return YES;
-//        }
-//    }
-
     return NO;
 }
 

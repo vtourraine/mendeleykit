@@ -19,45 +19,25 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "MendeleyTimer.h"
+#import "MendeleyRequest.h"
+#import "MendeleyResponse.h"
+#import "MendeleyTask.h"
+#import "MendeleyNSURLRequestHelper.h"
 
-@interface MendeleyPerformanceMeterSession : NSObject
-
-@property (nonatomic, strong) NSString *sessionID;
-@property (nonatomic, strong) NSString *name;
+@interface MendeleyNSURLRequestUploadHelper : MendeleyNSURLRequestHelper
+/**
+ @name MendeleyNSURLRequestUploadHelper handles file upload requests only
+ */
 
 /**
- returns a performance meter session with given name
- @param sessionName
+ @param mendeleyRequest the request object holding all info we need to start NSURLConnection
+ @param fromFileURL the location to be uploaded from
+ @param progressBlock a callback block for monitoring progress. Optional
+ @param completionBlock the completion handling block. Required
  */
-+ (MendeleyPerformanceMeterSession *)sessionWithName:(NSString *)sessionName;
-
-/**
- creates a timer with a gien name
- @param timerName
- @return timer Id
- */
-- (NSString *)createTimerWithName:(NSString *)timerName;
-
-/**
- @param timerID
- */
-- (void)startTimerWithID:(NSString *)timerID;
-
-/**
- @param timerID
- */
-- (void)stopTimerWithID:(NSString *)timerID;
-
-/**
- returns a report for a given timerID as dictionary
- @param timerID
- */
-- (NSDictionary *)reportWithTimerID:(NSString *)timerID;
-
-/**
- returns the results for a session as dictionary
- */
-- (NSDictionary *)finishSessionAndGetResults;
+- (id)initWithMendeleyRequest:(MendeleyRequest *)mendeleyRequest
+                  fromFileURL:(NSURL *)fromFileURL
+                progressBlock:(MendeleyResponseProgressBlock)progressBlock
+              completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 @end
