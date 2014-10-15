@@ -57,6 +57,13 @@
 {
     if (nil == self.fileURL)
     {
+        if (nil != self.completionBlock)
+        {
+            NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyFileNotAvailableForTransfer];
+            self.completionBlock(nil, error);
+        }
+        self.progressBlock = nil;
+        self.completionBlock = nil;
         return NO;
     }
     
@@ -64,6 +71,13 @@
     NSFileManager *manager = [NSFileManager defaultManager];
     if (![manager fileExistsAtPath:filePath])
     {
+        if (nil != self.completionBlock)
+        {
+            NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyFileNotAvailableForTransfer];
+            self.completionBlock(nil, error);
+        }
+        self.progressBlock = nil;
+        self.completionBlock = nil;
         return NO;
     }
     NSError *error = nil;
@@ -79,11 +93,19 @@
     }
     
     self.inputStream = [NSInputStream inputStreamWithFileAtPath:filePath];
-    if (nil == self.mendeleyRequest && nil != self.mendeleyRequest.mutableURLRequest)
+    if (nil != self.mendeleyRequest && nil != self.mendeleyRequest.mutableURLRequest)
     {
         self.mendeleyRequest.mutableURLRequest.HTTPBodyStream = self.inputStream;
         return [super startRequest];
     }
+
+    if (nil != self.completionBlock)
+    {
+        NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyConnectionCannotBeStarted];
+        self.completionBlock(nil, error);
+    }
+    self.progressBlock = nil;
+    self.completionBlock = nil;
     
     return NO;
 }

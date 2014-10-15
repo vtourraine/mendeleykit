@@ -50,6 +50,7 @@
 		C462886B19DB17D200127ECE /* MendeleyAnnotationsAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886919DB17D200127ECE /* MendeleyAnnotationsAPITests.m */; };
 		C462886F19DB17F100127ECE /* MendeleyMockNetworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886D19DB17F100127ECE /* MendeleyMockNetworkProvider.m */; };
 		C462887019DB17F100127ECE /* MendeleyMockNetworkProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886E19DB17F100127ECE /* MendeleyMockNetworkProviderTests.m */; };
+		C47E53AF19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E53AE19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m */; };
 		C4A134CE19DADDD10069DB7A /* MendeleyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A134B519DADDD10069DB7A /* MendeleyAnnotation.m */; };
 		C4A134CF19DADDD10069DB7A /* MendeleyCatalogDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A134B719DADDD10069DB7A /* MendeleyCatalogDocument.m */; };
 		C4A134D019DADDD10069DB7A /* MendeleyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A134B919DADDD10069DB7A /* MendeleyDocument.m */; };
@@ -195,6 +196,7 @@
 		C462886C19DB17F100127ECE /* MendeleyMockNetworkProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MendeleyMockNetworkProvider.h; sourceTree = "<group>"; };
 		C462886D19DB17F100127ECE /* MendeleyMockNetworkProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyMockNetworkProvider.m; sourceTree = "<group>"; };
 		C462886E19DB17F100127ECE /* MendeleyMockNetworkProviderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyMockNetworkProviderTests.m; sourceTree = "<group>"; };
+		C47E53AE19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyNSURLConnectionProviderTests.m; sourceTree = "<group>"; };
 		C4A134B419DADDD10069DB7A /* MendeleyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyAnnotation.h; path = "Model/Mendeley Objects/MendeleyAnnotation.h"; sourceTree = "<group>"; };
 		C4A134B519DADDD10069DB7A /* MendeleyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyAnnotation.m; path = "Model/Mendeley Objects/MendeleyAnnotation.m"; sourceTree = "<group>"; };
 		C4A134B619DADDD10069DB7A /* MendeleyCatalogDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyCatalogDocument.h; path = "Model/Mendeley Objects/MendeleyCatalogDocument.h"; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				C462885319DB175500127ECE /* MendeleyReachabilityTests.m */,
 				C462885419DB175500127ECE /* MendeleyResponseTests.m */,
 				C462885519DB175500127ECE /* MendeleySimpleNetworkProviderTests.m */,
+				C47E53AE19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -983,6 +986,7 @@
 				C462884C19DB171900127ECE /* MendeleyLogTests.m in Sources */,
 				C462884319DB166B00127ECE /* MendeleyKitTestBaseClass.m in Sources */,
 				C462886719DB17A700127ECE /* MendeleyObjectHelperTests.m in Sources */,
+				C47E53AF19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m in Sources */,
 				C462883C19DB164600127ECE /* MendeleyProfilesAPITests.m in Sources */,
 				C462885D19DB176C00127ECE /* MendeleyQueryParameterTests.m in Sources */,
 				C462884519DB16B100127ECE /* MendeleyKitTestsThreadHelper.m in Sources */,

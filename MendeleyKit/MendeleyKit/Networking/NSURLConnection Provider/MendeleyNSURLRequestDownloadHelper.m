@@ -53,6 +53,13 @@
 {
     if (nil == self.fileURL)
     {
+        if (nil != self.completionBlock)
+        {
+            NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyFileNotAvailableForTransfer];
+            self.completionBlock(nil, error);
+        }
+        self.progressBlock = nil;
+        self.completionBlock = nil;
         return NO;
     }
     NSString *filePath = [self.fileURL path];

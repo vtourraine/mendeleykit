@@ -42,6 +42,12 @@
 {
     if (nil == self.mendeleyRequest || nil == self.mendeleyRequest.mutableURLRequest)
     {
+        if (nil != self.completionBlock)
+        {
+            NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyConnectionCannotBeStarted];
+            self.completionBlock(nil, error);
+        }
+        self.completionBlock = nil;
         return NO;
     }
     NSMutableURLRequest *urlRequest = self.mendeleyRequest.mutableURLRequest;
@@ -51,7 +57,7 @@
         if (nil != self.completionBlock)
         {
             NSError *error = nil;
-            error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyNetworkUnreachable];
+            error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyConnectionCannotBeStarted];
             self.completionBlock(nil, error);
         }
         return NO;

@@ -100,6 +100,22 @@
             failureReasonString = @"Paging is not enabled for this type of object";
             recoverySuggestionString = @"Paging is not enabled for this type of object";
             break;
+        case kMendeleyFileNotAvailableForTransfer:
+            descriptionString = @"File for upload or downloaded file cannot be found";
+            failureReasonString = @"File for upload or downloaded file cannot be found";
+            recoverySuggestionString = @"File for upload or downloaded file cannot be found";
+            break;
+        case kMendeleyConnectionCannotBeStarted:
+            descriptionString = @"The network/API call could not be launched";
+            failureReasonString = @"The network/API call could not be launched";
+            recoverySuggestionString = @"The network/API call could not be launched";
+            break;
+        case kMendeleyConnectionFinishedWithError:
+            descriptionString = @"The network/API call finished with an error";
+            failureReasonString = @"The network/API call finished with an error";
+            recoverySuggestionString = @"The network/API call finished with an error";
+            break;
+            
         default:
             return nil;
     }
