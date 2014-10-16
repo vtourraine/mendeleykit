@@ -49,6 +49,7 @@ When running the MendeleyKitExample app, please ensure you have
 - client ID
 - client secret key
 - redirect URI
+
 They need to be entered in the ViewController.h file.
 Note: code containing client IDs, client secrets, redirect URI will not be accepted in pull requests!
 
