@@ -16,7 +16,7 @@ Note, this is an alpha version of the MendeleyKit.
 ## Minimum Requirements ##
 
 XCode 5.1.1
-iOS 6.x, Mac OSX 10.8
+iOS 7.x or higher
 
 ## Installation/Cocoapod ##
 The easiest way to include MendeleyKit in your project is to use cocoapods.
