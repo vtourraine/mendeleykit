@@ -51,5 +51,14 @@ They need to be entered in the ViewController.h file.
 
 [Mendeley API](http://dev.mendeley.com) has links to create your app client id, key and redirect URIs.
 
+## How to submit code ##
+This is an early-bird version of the MendeleyKit. We welcome your thoughts and suggestions. If you would like to make active contributions, e.g. code changes/additions,
+
+- code submissions should only be made to Development branch via pull requests. 
+- you may create your own subbranches from Development and submit to it at will. However, if you want to merge it into Development then you would need to create a pull request
+
+## Software Releases ##
+All official releases of the MendeleyKit are tagged versions on master. Mendeley reserves the rights to merge changes made to Development into master.
+Each release will contain a RELEASE text file outlining changes made.
 
 
