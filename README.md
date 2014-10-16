@@ -67,4 +67,8 @@ This is an early-bird version of the MendeleyKit. We welcome your thoughts and s
 All official releases of the MendeleyKit are tagged versions on master. Mendeley reserves the rights to merge changes made to Development into master.
 Each release will contain a RELEASE text file outlining changes made.
 
+## Reporting Issues ##
+Please use the Issues feature on github to report any problems you encounter with the MendeleyKit. 
+For feedback/suggestions please contact: api@mendeley.com
+
 
