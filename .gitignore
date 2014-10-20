@@ -13,6 +13,7 @@ profile
 *.moved-aside
 
 .DS_Store
+MendeleyKit/Podfile.lock
 MendeleyKit/Pods/
 /Pods/
 
