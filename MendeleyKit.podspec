@@ -16,9 +16,9 @@ Pod::Spec.new do |s|
 
   s.homepage     = "https://github.com/Mendeley/mendeleykit"
 
-  s.license      = 'GPL v3'
+  s.license      = 'Apache Licence, Version 2.0'
 
-  s.authors      = { "Peter Schmidt" => "peter.schmidt@mendeley.com", "Stefano Piamonti" => "stefano.piamonti@mendeley.com", "Luigi Trevisi" => "luigi.trevisi@mendeley.com" }
+  s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
 
   s.platform     = :ios, '6.0'
 
