@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup;
 
 @protocol MendeleyNetworkProvider;
 
@@ -402,7 +402,8 @@
    @name groups API methods
  */
 /**
-   Obtain a list of groups where the logged in user is a member
+   Obtain a list of groups where the logged in user is a member. 
+   This method also downloads the group icons for each group in the same call
    @param queryParameters the parameters to be used in the API request
    @param iconType (original, square or standard)
    @param completionBlock the list of groups if found
@@ -414,6 +415,7 @@
 /**
    This method is only used when paging through a list of groups on the server.
    All required parameters are provided in the linkURL, which should not be modified
+   This method also downloads the group icons for each group in the same call
 
    @param linkURL the full HTTP link to the document listings page
    @param iconType (original, square or standard)
@@ -424,7 +426,7 @@
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   Obtain details for the group identified by the given groupID
+   Obtain details for the group identified by the given groupID. It also downloads the group icon.
    @param groupID the group UUID
    @param iconType (original, square or standard)
    @param completionBlock returns the group
@@ -435,7 +437,8 @@
 
 /**
    Obtain a list of groups where the logged in user is a member
-   If provided, it will include the square icon for the group
+   Note: this method only obtains the group metadata (including any MendeleyPhoto properties)
+   It does not download the group icons.
    @param queryParameters the parameters to be used in the API request
    @param completionBlock the list of groups if found
  */
@@ -445,6 +448,8 @@
 /**
    This method is only used when paging through a list of groups on the server.
    All required parameters are provided in the linkURL, which should not be modified
+   Note: this method only obtains the group metadata (including any MendeleyPhoto properties)
+   It does not download the group icons.
 
    @param linkURL the full HTTP link to the document listings page
    @param completionBlock the list of groups if found
@@ -453,12 +458,34 @@
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   Obtain details for the group identified by the given groupID
+   Obtain metadata for the group identified by the given groupID.
+   Note: this method only obtains the metadata for a group with ID (including any MendeleyPhoto properties)
+   It does not download its group icon.
    @param groupID the group UUID
    @param completionBlock the group
  */
 - (void)groupWithGroupID:(NSString *)groupID
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ A convenience method to obtain the group icon for a given MendeleyGroup object
+ @param group
+ @param iconType
+ @param completionBlock returning the image data as NSData
+ */
+- (void)groupIconForGroup:(MendeleyGroup *)group
+                 iconType:(MendeleyGroupIconType)iconType
+          completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+
+
+/**
+ Obtains a group icon based on the given link URL string 
+ The URL string for a given icon is supplied with the MendeleyGroup metadata (see MendeleyPhoto property)
+ @param iconURLString
+ @param completionBlock returning the image data as NSData
+ */
+- (void)groupIconForIconURLString:(NSString *)iconURLString
+                  completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 #pragma mark -
 #pragma mark Annotations

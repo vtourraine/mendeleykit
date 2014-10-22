@@ -24,7 +24,7 @@
 #import "MendeleyError.h"
 
 @interface MockHTTPURLResponse : NSHTTPURLResponse
-@property(readwrite, nonatomic) NSInteger statusCode;
+@property(readwrite, atomic) NSInteger statusCode;
 @end
 
 @implementation MockHTTPURLResponse

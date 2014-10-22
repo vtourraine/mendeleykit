@@ -20,12 +20,28 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Note: the defines below must NEVER be checked into the mendeley github
+ repository.
+ Any pull requests containing any real values for the defines below will be rejected
+ and/or removed
+ */
 #define kMyClientSecret      @"<YOUR CLIENT SECRET>"
 #define kMyClientID          @"<YOUR CLIENT ID>"
 #define kMyClientRedirectURI @"<YOUR REDIRECT URI>"
 
 
 @interface ViewController : UITableViewController
+/**
+ @name ViewController
+ This is the entry point to the MendeleyKitExample app.
+ It allows the following actions
+ - login/logout
+ - get documents (no check if attached files)
+ - get documents (with check if attached files)
+ - get groups (with automatic icon download)
+ - get groups (with lazy loading of icons)
+ */
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
 - (IBAction)loginOrOut:(id)sender;
 @end

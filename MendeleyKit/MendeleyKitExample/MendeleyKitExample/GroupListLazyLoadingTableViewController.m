@@ -18,16 +18,18 @@
  *****************************************************************************
  */
 
-#import "GroupListTableViewController.h"
+#import "GroupListLazyLoadingTableViewController.h"
 #import "MendeleyModels.h"
 #import "MendeleyKit.h"
 #import "MendeleyQueryRequestParameters.h"
 
-@interface GroupListTableViewController ()
+@interface GroupListLazyLoadingTableViewController ()
 @property (nonatomic, strong) NSArray *groups;
+@property (nonatomic, strong) NSMutableDictionary *iconDictionary;
 @end
 
-@implementation GroupListTableViewController
+
+@implementation GroupListLazyLoadingTableViewController
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -35,6 +37,7 @@
     if (nil != self)
     {
         _groups = [NSArray array];
+        _iconDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -54,19 +57,17 @@
     MendeleyGroupParameters *parameters = [MendeleyGroupParameters new];
     
     /**
-     This is the code that downloads the groups with icons.
-     The standard icon type used is 'SquareIcon'. OriginalIcon uses the original size, StandardIcon
-     is a larger rectangle.
+     This is the code that downloads the groups without icons.
      */
-    [[MendeleyKit sharedInstance] groupListWithQueryParameters:parameters iconType:SquareIcon completionBlock:^(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error) {
+    [[MendeleyKit sharedInstance] groupListWithQueryParameters:parameters completionBlock:^(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error) {
         if (nil != array && 0 < array.count)
         {
             self.groups = [NSArray arrayWithArray:array];
             [self.tableView reloadData];
         }
     }];
-
-
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,20 +92,54 @@
 {
     NSString *identifier = @"GroupcellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-
+    
     if (nil == cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-
-    MendeleyGroup *group = [self.groups objectAtIndex:indexPath.row];
-    cell.textLabel.text = group.name;
     
-    if (nil != group.photo && nil != group.photo.squareImageData)
+    MendeleyGroup *group = [self.groups objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = group.name;
+    UIImage *iconImage = [self.iconDictionary objectForKey:indexPath];
+    if (nil != iconImage)
     {
-        cell.imageView.image = [UIImage imageWithData:group.photo.squareImageData];
+        cell.imageView.image = iconImage;
     }
-
+    else
+    {
+        if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
+        {
+            [self downloadIconForGroup:group indexPath:indexPath];
+        }
+        cell.imageView.image = [self blankImage];
+    }
+    
     return cell;
 }
+
+
+- (void)downloadIconForGroup:(MendeleyGroup *)group indexPath:(NSIndexPath *)indexPath;
+{
+    [[MendeleyKit sharedInstance] groupIconForGroup:group iconType:SquareIcon completionBlock:^(NSData *binaryData, NSError *dataError) {
+        if (nil != binaryData)
+        {
+            UIImage *image = [UIImage imageWithData:binaryData];
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            cell.imageView.image = image;
+            [self.iconDictionary setObject:image forKey:indexPath];
+        }
+    }];
+
+}
+
+
+- (UIImage *)blankImage
+{
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(29, 29), NO, 0.0);
+    UIImage *blank = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return blank;
+}
+
 @end

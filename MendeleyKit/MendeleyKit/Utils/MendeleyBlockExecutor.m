@@ -26,6 +26,7 @@
 @property (nonatomic, copy) MendeleyObjectCompletionBlock objectCompletionBlock;
 @property (nonatomic, copy) MendeleyDictionaryResponseBlock dictionaryCompletionBlock;
 @property (nonatomic, copy) MendeleyStringArrayCompletionBlock stringArrayCompletionBlock;
+@property (nonatomic, copy) MendeleyBinaryDataCompletionBlock binaryDataCompletionBlock;
 @end
 
 @implementation MendeleyBlockExecutor
@@ -89,6 +90,16 @@
     return self;
 }
 
+- (instancetype)initWithBinaryDataCompletionBlock:(MendeleyBinaryDataCompletionBlock)binaryDataCompletionBlock
+{
+    self = [super init];
+    if (nil != self)
+    {
+        _binaryDataCompletionBlock = binaryDataCompletionBlock;
+    }
+    return self;
+}
+
 
 - (void)executeWithArray:(NSArray *)array syncInfo:(MendeleySyncInfo *)syncInfo error:(NSError *)error
 {
@@ -135,4 +146,14 @@
 
 }
 
+- (void)executeWithBinaryData:(NSData *)binaryData error:(NSError *)error
+{
+    if (nil == self.binaryDataCompletionBlock)
+    {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.binaryDataCompletionBlock(binaryData, error);
+    });
+}
 @end

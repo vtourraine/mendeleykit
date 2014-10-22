@@ -64,7 +64,7 @@
                   }
                   else
                   {
-                      [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithArray:nil syncInfo:syncInfo error:parseError];
                   }
               }];
          }
@@ -101,7 +101,7 @@
                   }
                   else
                   {
-                      [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithArray:nil syncInfo:syncInfo error:parseError];
                   }
               }];
          }
@@ -123,24 +123,33 @@
 
               if (nil != mendeleyObject)
               {
-                  MendeleyGroup *group = (MendeleyGroup *) mendeleyObject;
-                  [self groupIconForGroup:group iconType:iconType completionBlock:^(BOOL success, NSError *error) {
-                       [blockExec executeWithMendeleyObject:mendeleyObject syncInfo:syncInfo error:parseError];
-                   }];
+                  __block MendeleyGroup *group = (MendeleyGroup *) mendeleyObject;
+                  [self groupIconForGroup:group iconType:iconType completionBlock:^(NSData *binaryData, NSError *dataError) {
+                      if (nil != binaryData)
+                      {
+                          switch (iconType)
+                          {
+                              case StandardIcon:
+                                  group.photo.standardImageData = binaryData;
+                                  break;
+                              case SquareIcon:
+                                  group.photo.squareImageData = binaryData;
+                                  break;
+                              case OriginalIcon:
+                                  group.photo.originalImageData = binaryData;
+                                  break;
+                          }
+                      }
+                      [blockExec executeWithMendeleyObject:group syncInfo:syncInfo error:nil];
+                  }];
               }
               else
               {
-                  [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                  [blockExec executeWithMendeleyObject:nil syncInfo:syncInfo error:parseError];
               }
           }];
 
      }];
-
-    [self.helper mendeleyObjectOfType:kMendeleyModelGroup
-                           parameters:nil
-                                  api:apiEndPoint
-                    additionalHeaders:[self defaultServiceRequestHeaders]
-                      completionBlock:completionBlock];
 }
 
 - (void)groupMemberListWithGroupID:(NSString *)groupID
@@ -153,6 +162,68 @@
     NSString *apiEndPoint = [NSString stringWithFormat:kMendeleyRESTAPIMembersInGroupWithID, groupID];
     [self.helper mendeleyObjectListOfType:kMendeleyModelUserRole api:apiEndPoint parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]] additionalHeaders:[self membersRequestHeaders] completionBlock:completionBlock];
 }
+
+
+- (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
+                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    NSDictionary *query = [queryParameters valueStringDictionary];
+    NSDictionary *mergedQuery = [NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]];
+    
+    [self.provider invokeGET:self.baseURL api:kMendeleyRESTAPIGroups additionalHeaders:[self defaultServiceRequestHeaders] queryParameters:mergedQuery authenticationRequired:YES completionBlock:^(MendeleyResponse *response, NSError *error) {
+        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+        if (![self.helper isSuccessForResponse:response error:&error])
+        {
+            [blockExec executeWithArray:nil syncInfo:nil error:error];
+        }
+        else
+        {
+            MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+            [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelGroup completionBlock: ^(NSArray *groups, NSError *parseError) {
+                MendeleySyncInfo *syncInfo = (nil != parseError) ? nil : response.syncHeader;
+                [blockExec executeWithArray:groups syncInfo:syncInfo error:parseError];
+            }];
+        }
+    }];
+    
+}
+
+- (void)groupListWithLinkedURL:(NSURL *)linkURL
+               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    
+    [self.provider invokeGET:linkURL api:nil additionalHeaders:[self defaultServiceRequestHeaders] queryParameters:nil authenticationRequired:YES completionBlock: ^(MendeleyResponse *response, NSError *error) {
+        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+        if (![self.helper isSuccessForResponse:response error:&error])
+        {
+            [blockExec executeWithArray:nil syncInfo:nil error:error];
+        }
+        else
+        {
+            MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+            [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelGroup completionBlock: ^(NSArray *groups, NSError *parseError) {
+                MendeleySyncInfo *syncInfo = (nil != parseError) ? nil : response.syncHeader;
+                [blockExec executeWithArray:groups syncInfo:syncInfo error:parseError];
+            }];
+        }
+    }];
+}
+
+- (void)groupWithGroupID:(NSString *)groupID
+         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertStringArgumentNotNilOrEmpty:groupID argumentName:@"groupID "];
+    NSString *apiEndPoint = [NSString stringWithFormat:kMendeleyRESTAPIGroupWithID, groupID];
+    [self.helper mendeleyObjectOfType:kMendeleyModelGroup
+                           parameters:nil
+                                  api:apiEndPoint
+                    additionalHeaders:[self defaultServiceRequestHeaders]
+                      completionBlock:completionBlock];
+    
+}
+
 
 - (void)groupIconsForGroupArray:(NSArray *)groups
                      groupIndex:(NSUInteger)groupIndex
@@ -169,8 +240,8 @@
         }
         return;
     }
-    MendeleyGroup *group = [groups objectAtIndex:groupIndex];
-    [self groupIconForGroup:group iconType:iconType completionBlock:^(BOOL success, NSError *error) {
+    __block MendeleyGroup *group = [groups objectAtIndex:groupIndex];
+    [self groupIconForGroup:group iconType:iconType completionBlock:^(NSData *imageData, NSError *error) {
          NSError *nextError = nil;
          NSUInteger nextIndex = groupIndex + 1;
          if (nil == previousError)
@@ -181,6 +252,22 @@
          {
              nextError = previousError;
          }
+         if (nil != imageData)
+         {
+            switch (iconType)
+            {
+                case OriginalIcon:
+                    group.photo.originalImageData = imageData;
+                    break;
+                case SquareIcon:
+                    group.photo.squareImageData = imageData;
+                    break;
+                case StandardIcon:
+                    group.photo.standardImageData = imageData;
+                    break;
+            }
+         }
+        
          [self groupIconsForGroupArray:groups
                             groupIndex:nextIndex
                               iconType:iconType
@@ -190,49 +277,51 @@
 
 }
 
+
 - (void)groupIconForGroup:(MendeleyGroup *)group
                  iconType:(MendeleyGroupIconType)iconType
-          completionBlock:(MendeleyCompletionBlock)completionBlock
+          completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:group argumentName:@"group"];
     NSError *error = nil;
     NSString *linkURLString = [self linkFromPhoto:group.photo iconType:iconType error:&error];
     if (nil == linkURLString)
     {
-        error = [NSError errorWithDomain:@"com.mendeleykit" code:100 userInfo:nil];
-        completionBlock(NO, error);
+        error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
+                                                                  code:kMendeleyDataNotAvailableErrorCode];
+        completionBlock(nil, error);
         return;
     }
-    NSURL *url = [NSURL URLWithString:linkURLString];
-    NSDictionary *requestHeader = [self requestHeaderForImageLink:linkURLString];
+    [self groupIconForIconURLString:linkURLString completionBlock:completionBlock];
+}
+
+
+- (void)groupIconForIconURLString:(NSString *)iconURLString
+                  completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:iconURLString argumentName:@"iconURLString"];
+    NSURL *url = [NSURL URLWithString:iconURLString];
+    NSDictionary *requestHeader = [self requestHeaderForImageLink:iconURLString];
     [self.provider invokeGET:url api:nil additionalHeaders:requestHeader queryParameters:nil authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
-         if (![self.helper isSuccessForResponse:response error:&error])
-         {
-             completionBlock(NO, error);
-         }
-         else
-         {
-             id bodyData = response.responseBody;
-             if ([bodyData isKindOfClass:[NSData class]])
-             {
-                 switch (iconType)
-                 {
-                     case OriginalIcon:
-                         group.photo.originalImageData = bodyData;
-                         break;
-                     case SquareIcon:
-                         group.photo.squareImageData = bodyData;
-                         break;
-                     case StandardIcon:
-                         group.photo.standardImageData = bodyData;
-                         break;
-                 }
-             }
-             completionBlock(YES, nil);
-         }
-     }];
-
-
+        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithBinaryDataCompletionBlock:completionBlock];
+        if (![self.helper isSuccessForResponse:response error:&error])
+        {
+            [blockExec executeWithBinaryData:nil error:error];
+        }
+        else
+        {
+            id bodyData = response.responseBody;
+            if ([bodyData isKindOfClass:[NSData class]])
+            {
+                [blockExec executeWithBinaryData:bodyData error:nil];
+            }
+            else
+            {
+                [blockExec executeWithBinaryData:nil error:error];
+            }
+        }
+    }];
+    
 }
 
 
@@ -244,7 +333,8 @@
     {
         if (NULL != *error)
         {
-            *error = [NSError errorWithDomain:@"com.MendeleyKit" code:100 userInfo:nil];
+            *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
+                                                                       code:kMendeleyMissingDataProvidedErrorCode];
         }
         return nil;
     }
@@ -266,7 +356,8 @@
     {
         if (NULL != *error)
         {
-            *error = [NSError errorWithDomain:@"com.mendeleykit" code:100 userInfo:nil];
+            *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
+                                                                       code:kMendeleyMissingDataProvidedErrorCode];
             return nil;
         }
     }

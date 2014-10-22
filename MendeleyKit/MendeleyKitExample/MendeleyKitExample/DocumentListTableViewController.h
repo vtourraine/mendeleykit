@@ -21,5 +21,22 @@
 #import <UIKit/UIKit.h>
 
 @interface DocumentListTableViewController : UITableViewController
+/**
+ @name DocumentListTableViewController
+ This class demonstrates the access and visualisation of a list of documents.
+ It also shows how paging is done using the MendeleyKit.
+ Paging is enabled for the following APIs
+ - /documents
+ - /groups
+ - /annotations
+ - /folders
+ - /files
+ 
+ In all cases, the page size maybe up to 500. By default MendeleyKit uses a page size of 50.
+ This value may be changed in the setting of the 'limit' property in the appropriate
+ MendeleyQueryRequestParameters subclasses.
+ The use of the paging algorithm is demonstrated with documents API but also applies to the
+ other APIs facilitating paging (see list above).
+ */
 
 @end

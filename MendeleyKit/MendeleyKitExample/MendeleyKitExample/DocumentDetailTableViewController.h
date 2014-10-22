@@ -23,7 +23,10 @@
 
 
 @interface DocumentDetailTableViewController : UITableViewController
-
+/**
+ @name DocumentDetailTableViewController
+ This class demonstrates the access and visualisation of MendeleyDocument metadata
+ */
 - (id)initWithDocument:(MendeleyDocument *)document file:(MendeleyFile *)file;
 
 @end
