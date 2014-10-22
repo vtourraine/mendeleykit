@@ -20,12 +20,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GroupListTableViewController : UITableViewController
+@interface GroupListLazyLoadingTableViewController : UITableViewController
 /**
- @name GroupListTableViewController
- This class demonstrates how group icons can be downloaded together with group metadata.
- However, this combination of downloads has a performance hit.
- To see how icons and group metadata can be downloaded separately, visit the
- GroupListLazyLoadingTableViewController
+ @name GroupListLazyLoadingTableViewController
+ This class demonstrates how group icons can be lazy-downloaded
+ I.e. we separate the download of group metadata from download of group icons
  */
 @end

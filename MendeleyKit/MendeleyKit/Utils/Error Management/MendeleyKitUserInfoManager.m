@@ -115,6 +115,16 @@
             failureReasonString = @"The network/API call finished with an error";
             recoverySuggestionString = @"The network/API call finished with an error";
             break;
+        case kMendeleyDataNotAvailableErrorCode:
+            descriptionString = @"The requested data are not available";
+            failureReasonString = @"The requested data are not available";
+            recoverySuggestionString = @"The requested data are not available";
+            break;
+        case kMendeleyMissingDataProvidedErrorCode:
+            descriptionString = @"The request failed because one of the properties in the requests is either missing or nil";
+            failureReasonString = @"The request failed because one of the properties in the requests is either missing or nil";
+            recoverySuggestionString = @"The request failed because one of the properties in the requests is either missing or nil";
+            break;
             
         default:
             return nil;

@@ -1092,19 +1092,96 @@
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
-    [self groupListWithQueryParameters:queryParameters iconType:SquareIcon completionBlock:completionBlock];
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.groupsAPI groupListWithQueryParameters:queryParameters
+                                             completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
 }
 
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
-    [self groupListWithLinkedURL:linkURL iconType:SquareIcon completionBlock:completionBlock];
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.groupsAPI groupListWithLinkedURL:linkURL
+                                       completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
 }
 
-- (void)groupWithGroupID:(NSString *)groupID completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (void)groupWithGroupID:(NSString *)groupID
+         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
-    [self groupWithGroupID:groupID iconType:SquareIcon completionBlock:completionBlock];
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.groupsAPI groupWithGroupID:groupID
+                                 completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
 }
+
+- (void)groupIconForGroup:(MendeleyGroup *)group
+                 iconType:(MendeleyGroupIconType)iconType
+          completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+     Note: this call doesn't require an authentication header
+     */
+    [self.groupsAPI groupIconForGroup:group iconType:iconType completionBlock:completionBlock];
+}
+
+
+- (void)groupIconForIconURLString:(NSString *)iconURLString
+                  completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+     Note: this call doesn't require an authentication header
+     */
+    [self.groupsAPI groupIconForIconURLString:iconURLString completionBlock:completionBlock];
+    
+}
+
 
 #pragma mark -
 #pragma mark Annotations

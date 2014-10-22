@@ -23,6 +23,7 @@
 #import "MendeleyKit.h"
 #import "MendeleyQueryRequestParameters.h"
 #import "MendeleySyncInfo.h"
+#import "DocumentDetailTableViewController.h"
 
 @interface DocumentListTableViewController ()
 @property (nonatomic, strong) NSArray *documents;
@@ -47,7 +48,8 @@
     /**
        This call gets the first page of documents - default size 20 - from the library.
      */
-    [[MendeleyKit sharedInstance] documentListWithQueryParameters:nil completionBlock:^(NSArray *objectArray, MendeleySyncInfo *syncInfo, NSError *error) {
+    MendeleyDocumentParameters *parameters = [MendeleyDocumentParameters new];
+    [[MendeleyKit sharedInstance] documentListWithQueryParameters:parameters completionBlock:^(NSArray *objectArray, MendeleySyncInfo *syncInfo, NSError *error) {
          if (nil == objectArray)
          {
              UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -136,5 +138,13 @@
 
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MendeleyDocument *document = [self.documents objectAtIndex:indexPath.row];
+    DocumentDetailTableViewController *controller = [[DocumentDetailTableViewController alloc] initWithDocument:document file:nil];
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 @end
