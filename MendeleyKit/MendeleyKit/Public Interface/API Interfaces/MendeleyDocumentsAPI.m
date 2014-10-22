@@ -42,6 +42,14 @@
     return [[MendeleyDocumentParameters new] valueStringDictionary];
 }
 
+- (NSDictionary *)defaultQueryParametersWithoutViewParameter
+{
+    MendeleyDocumentParameters *params = [MendeleyDocumentParameters new];
+
+    params.view = nil;
+    return [params valueStringDictionary];
+}
+
 - (NSDictionary *)defaultViewQueryParameters
 {
     MendeleyDocumentParameters *params = [MendeleyDocumentParameters new];
@@ -75,7 +83,7 @@
     [self.provider invokeGET:linkURL
                          api:nil
            additionalHeaders:[self defaultServiceRequestHeaders]
-             queryParameters:nil // we don't need to specify parameters because are inehrits from the previous call
+             queryParameters:nil       // we don't need to specify parameters because are inehrits from the previous call
       authenticationRequired:YES
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
@@ -140,7 +148,6 @@
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
                       completionBlock:completionBlock];
-
 }
 
 - (void)catalogDocumentWithParameters:(MendeleyCatalogParameters *)queryParameters
@@ -153,9 +160,7 @@
                                parameters:query
                         additionalHeaders:[self defaultServiceRequestHeaders]
                           completionBlock:completionBlock];
-
 }
-
 
 - (void)createDocument:(MendeleyDocument *)mendeleyDocument
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock
@@ -223,7 +228,7 @@
     [self.provider invokeGET:self.baseURL
                          api:kMendeleyRESTAPIDocuments
            additionalHeaders:[self defaultServiceRequestHeaders]
-             queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
+             queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParametersWithoutViewParameter]]
       authenticationRequired:YES
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
@@ -233,28 +238,21 @@
          }
          else
          {
-             NSData *jsonResponse = response.responseBody;
-             if (nil != jsonResponse)
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             id jsonData = response.responseBody;
+             if ([jsonData isKindOfClass:[NSArray class]])
              {
-                 NSError *readError = nil;
-                 id jsonObj = [NSJSONSerialization JSONObjectWithData:jsonResponse
-                                                              options:NSJSONReadingAllowFragments
-                                                                error:&readError];
-                 if (nil == jsonObj)
-                 {
-                     [blockExec executeWithArray:nil syncInfo:nil error:readError];
-                 }
-                 else
-                 {
-                     if ([jsonObj isKindOfClass:[NSArray class]])
-                     {
-                         [blockExec executeWithArray:(NSArray *) jsonObj syncInfo:response.syncHeader error:nil];
-                     }
-                     else
-                     {
-                         ///DO SOME ERROR HANDLING
-                     }
-                 }
+                 NSArray *jsonArray = (NSArray *) jsonData;
+                 [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock: ^(NSArray *arrayOfStrings, NSError *parseError) {
+                      if (nil != parseError)
+                      {
+                          [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      }
+                      else
+                      {
+                          [blockExec executeWithArray:arrayOfStrings syncInfo:response.syncHeader error:nil];
+                      }
+                  }];
              }
          }
      }];
