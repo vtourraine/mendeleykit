@@ -140,4 +140,45 @@
                         additionalHeaders:[self defaultServiceRequestHeaders]
                           completionBlock:completionBlock];
 }
+
+- (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:deletedSince argumentName:@"deletedSince"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    NSString *deletedSinceString = [[MendeleyObjectHelper jsonDateFormatter] stringFromDate:deletedSince];
+    NSDictionary *query = @{ kMendeleyRESTAPIQueryDeletedSince : deletedSinceString };
+    [self.provider invokeGET:self.baseURL
+                         api:kMendeleyRESTAPIAnnotations
+           additionalHeaders:[self defaultServiceRequestHeaders]
+             queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
+      authenticationRequired:YES
+             completionBlock: ^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithArray:nil syncInfo:nil error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             id jsonData = response.responseBody;
+             if ([jsonData isKindOfClass:[NSArray class]])
+             {
+                 NSArray *jsonArray = (NSArray *) jsonData;
+                 [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock: ^(NSArray *arrayOfStrings, NSError *parseError) {
+                      if (nil != parseError)
+                      {
+                          [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      }
+                      else
+                      {
+                          [blockExec executeWithArray:arrayOfStrings syncInfo:response.syncHeader error:nil];
+                      }
+                  }];
+             }
+         }
+     }];
+}
+
 @end

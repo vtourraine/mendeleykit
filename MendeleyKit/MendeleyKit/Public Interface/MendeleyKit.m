@@ -792,6 +792,29 @@
     }
 }
 
+- (void)deletedFilesSince:(NSDate *)deletedSince
+          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI deletedFilesSince:deletedSince completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+}
+
 
 #pragma mark -
 #pragma mark Folder
@@ -1095,16 +1118,16 @@
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-            if (success)
-            {
-                [self.groupsAPI groupListWithQueryParameters:queryParameters
-                                             completionBlock:completionBlock];
-            }
-            else
-            {
-                completionBlock(nil, nil, error);
-            }
-        }];
+             if (success)
+             {
+                 [self.groupsAPI groupListWithQueryParameters:queryParameters
+                                              completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
     }
     else
     {
@@ -1119,16 +1142,16 @@
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-            if (success)
-            {
-                [self.groupsAPI groupListWithLinkedURL:linkURL
-                                       completionBlock:completionBlock];
-            }
-            else
-            {
-                completionBlock(nil, nil, error);
-            }
-        }];
+             if (success)
+             {
+                 [self.groupsAPI groupListWithLinkedURL:linkURL
+                                        completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
     }
     else
     {
@@ -1143,16 +1166,16 @@
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-            if (success)
-            {
-                [self.groupsAPI groupWithGroupID:groupID
-                                 completionBlock:completionBlock];
-            }
-            else
-            {
-                completionBlock(nil, nil, error);
-            }
-        }];
+             if (success)
+             {
+                 [self.groupsAPI groupWithGroupID:groupID
+                                  completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
     }
     else
     {
@@ -1166,7 +1189,7 @@
           completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     /*
-     Note: this call doesn't require an authentication header
+       Note: this call doesn't require an authentication header
      */
     [self.groupsAPI groupIconForGroup:group iconType:iconType completionBlock:completionBlock];
 }
@@ -1176,10 +1199,10 @@
                   completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     /*
-     Note: this call doesn't require an authentication header
+       Note: this call doesn't require an authentication header
      */
     [self.groupsAPI groupIconForIconURLString:iconURLString completionBlock:completionBlock];
-    
+
 }
 
 
@@ -1314,6 +1337,29 @@
              if (success)
              {
                  [self.annotationsAPI annotationListWithQueryParameters:queryParameters completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+}
+
+- (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.annotationsAPI deletedAnnotationsSince:deletedSince completionBlock:completionBlock];
              }
              else
              {

@@ -310,6 +310,15 @@
 - (void)deleteFileWithID:(NSString *)fileID
          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+/**
+   This method returns a list of files IDs that were permanently deleted. The list of deleted IDs will be kept on
+   the server for a limited period of time.
+   @param deletedSince passed to the server to get list of files that were deleted since that date
+   @param completionBlock a list of document UUIDs if found
+ */
+- (void)deletedFilesSince:(NSDate *)deletedSince
+          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 #pragma mark -
 #pragma mark Folders
 
@@ -402,7 +411,7 @@
    @name groups API methods
  */
 /**
-   Obtain a list of groups where the logged in user is a member. 
+   Obtain a list of groups where the logged in user is a member.
    This method also downloads the group icons for each group in the same call
    @param queryParameters the parameters to be used in the API request
    @param iconType (original, square or standard)
@@ -468,10 +477,10 @@
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
- A convenience method to obtain the group icon for a given MendeleyGroup object
- @param group
- @param iconType
- @param completionBlock returning the image data as NSData
+   A convenience method to obtain the group icon for a given MendeleyGroup object
+   @param group
+   @param iconType
+   @param completionBlock returning the image data as NSData
  */
 - (void)groupIconForGroup:(MendeleyGroup *)group
                  iconType:(MendeleyGroupIconType)iconType
@@ -479,10 +488,10 @@
 
 
 /**
- Obtains a group icon based on the given link URL string 
- The URL string for a given icon is supplied with the MendeleyGroup metadata (see MendeleyPhoto property)
- @param iconURLString
- @param completionBlock returning the image data as NSData
+   Obtains a group icon based on the given link URL string
+   The URL string for a given icon is supplied with the MendeleyGroup metadata (see MendeleyPhoto property)
+   @param iconURLString
+   @param completionBlock returning the image data as NSData
  */
 - (void)groupIconForIconURLString:(NSString *)iconURLString
                   completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
@@ -541,8 +550,16 @@
 - (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#pragma mark --
-#pragma mark Cancellation
+/**
+   This method returns a list of annotations IDs that were permanently deleted. The list of deleted IDs will be kept on
+   the server for a limited period of time.
+   @param deletedSince passed to the server to get list of annotations that were deleted since that date
+   @param completionBlock a list of document UUIDs if found
+ */
+- (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+#pragma mark - Cancellation
 /**
    @name cancellation methods
  */

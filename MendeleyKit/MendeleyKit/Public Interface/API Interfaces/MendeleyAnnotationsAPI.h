@@ -71,4 +71,14 @@
  */
 - (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   This method returns a list of annotations IDs that were permanently deleted. The list of deleted IDs will be kept on
+   the server for a limited period of time.
+   @param deletedSince the parameter set to be used in the request
+   @param completionBlock
+ */
+- (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 @end
