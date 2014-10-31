@@ -589,27 +589,31 @@
     }
 }
 
-- (void)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
+    __block MendeleyTask *task;
+    
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
             if (success)
             {
-                [self.documentsAPI documentFromFileWithURL:fileURL mimeType:mimeType completionBlock:completionBlock];
+                task = [self.documentsAPI documentFromFileWithURL:fileURL mimeType:mimeType completionBlock:completionBlock];
             }
             else
             {
+                task = nil;
                 completionBlock(nil, nil, error);
             }
         }];
     }
     else
     {
+        task = nil;
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(nil, nil, unauthorisedError);
     }
-    
+    return task;
 }
 
 

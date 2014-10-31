@@ -181,6 +181,6 @@
  @param mimeType e.g. 'application/pdf'
  @param completionBlock
  */
-- (void)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 @end

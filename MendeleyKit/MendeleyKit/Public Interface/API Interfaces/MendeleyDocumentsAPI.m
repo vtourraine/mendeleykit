@@ -367,7 +367,7 @@
                           completionBlock:completionBlock];
 }
 
-- (void)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
     if (nil == mimeType)
@@ -382,7 +382,7 @@
                            kMendeleyRESTRequestContentType: mimeType,
                            kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType };
     
-    [self.provider invokeUploadForFileURL:fileURL baseURL:self.baseURL api:kMendeleyRESTAPIDocuments additionalHeaders:header authenticationRequired:YES progressBlock:^(NSNumber *progress) {
+    MendeleyTask* task = [self.provider invokeUploadForFileURL:fileURL baseURL:self.baseURL api:kMendeleyRESTAPIDocuments additionalHeaders:header authenticationRequired:YES progressBlock:^(NSNumber *progress) {
     } completionBlock:^(MendeleyResponse *response, NSError *error) {
         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
                                             initWithObjectCompletionBlock:completionBlock];
@@ -405,6 +405,7 @@
             }];
         }
     }];
+    return task;
 }
 
 @end
