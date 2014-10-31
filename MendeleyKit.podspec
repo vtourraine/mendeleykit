@@ -20,7 +20,8 @@ Pod::Spec.new do |s|
 
   s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
 
-  s.platform     = :ios, '6.0'
+  s.ios.deployment_target = '6.0'
+  s.osx.deployment_target = '10.8'
 
   s.requires_arc  = true
 
@@ -28,6 +29,8 @@ Pod::Spec.new do |s|
 
   s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}'
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
+  s.ios.exclude_files = 'MendeleyKit/**/AppKit/*.{h,m}'
+  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
 
   s.ios.frameworks  = 'MobileCoreServices', 'SystemConfiguration', 'Security', 'Foundation'
 
