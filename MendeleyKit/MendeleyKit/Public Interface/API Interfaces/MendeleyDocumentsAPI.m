@@ -367,4 +367,44 @@
                           completionBlock:completionBlock];
 }
 
+- (void)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
+    if (nil == mimeType)
+    {
+        mimeType = kMendeleyRESTRequestValuePDF;
+    }
+    
+    NSString *filename = [fileURL lastPathComponent];
+    NSString *contentDisposition = [NSString stringWithFormat:@"%@; filename=\"%@\"",kMendeleyRESTRequestValueAttachment,filename];
+    
+    NSDictionary *header= @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
+                           kMendeleyRESTRequestContentType: mimeType,
+                           kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType };
+    
+    [self.provider invokeUploadForFileURL:fileURL baseURL:self.baseURL api:kMendeleyRESTAPIDocuments additionalHeaders:header authenticationRequired:YES progressBlock:^(NSNumber *progress) {
+    } completionBlock:^(MendeleyResponse *response, NSError *error) {
+        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
+                                            initWithObjectCompletionBlock:completionBlock];
+        if (![self.helper isSuccessForResponse:response error:&error])
+        {
+            [blockExec executeWithArray:nil syncInfo:nil error:error];
+        }
+        else
+        {
+            MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+            [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelDocument completionBlock:^(id parsedObject, NSError *parseError) {
+                if (nil != parseError)
+                {
+                    [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                }
+                else
+                {
+                    [blockExec executeWithMendeleyObject:parsedObject syncInfo:response.syncHeader error:nil];
+                }
+            }];
+        }
+    }];
+}
+
 @end

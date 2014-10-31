@@ -175,4 +175,12 @@
  */
 - (void)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+/**
+ uploads a file from a location and returns a Mendeley Document in the completion handler
+ @param fileURL the location of the file
+ @param mimeType e.g. 'application/pdf'
+ @param completionBlock
+ */
+- (void)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
 @end
