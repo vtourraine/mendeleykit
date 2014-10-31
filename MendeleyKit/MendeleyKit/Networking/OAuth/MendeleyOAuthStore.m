@@ -71,7 +71,12 @@ static NSMutableDictionary * keychainQueryDictionaryWithIdentifier()
 
 - (BOOL)removeOAuthCredentials
 {
+#if TARGET_OS_IPHONE
     NSMutableDictionary *keychainDictionary = keychainQueryDictionaryWithIdentifier();
+#else
+    NSMutableDictionary *keychainDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:(__bridge id) kSecClassGenericPassword, kSecClass, kMendeleyOAuthCredentialServiceName, kSecAttrService, nil];
+#endif
+    
     OSStatus status = SecItemDelete((__bridge CFDictionaryRef) keychainDictionary);
 
     if (status != errSecSuccess)
