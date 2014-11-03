@@ -27,6 +27,7 @@
 #import "NSError+MendeleyError.h"
 
 @interface MendeleyLoginController ()
+
 @property (nonatomic, strong) WebView *webView;
 @property (nonatomic, strong) NSURL *oauthServer;
 @property (nonatomic, strong) NSString *clientID;
@@ -34,6 +35,7 @@
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
+
 @end
 
 @implementation MendeleyLoginController
@@ -56,8 +58,16 @@
                   completionBlock:(MendeleyCompletionBlock)completionBlock
               customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
 {
-    self = [super init];
-    if (nil != self)
+    NSRect frame = NSMakeRect(0, 0, 550, 450);
+    NSUInteger styleMask = NSTitledWindowMask | NSResizableWindowMask | NSClosableWindowMask;
+    NSWindow *window = [[NSWindow alloc]
+                        initWithContentRect:frame
+                        styleMask:styleMask
+                        backing:NSBackingStoreBuffered
+                        defer:YES];
+
+    self = [super initWithWindow:window];
+    if (self)
     {
         if (nil == customOAuthProvider)
         {
@@ -74,21 +84,37 @@
         _completionBlock = completionBlock;
         _clientID = clientKey;
         _redirectURI = redirectURI;
+
+        NSView *view = [[NSView alloc] initWithFrame:frame];
+        window.contentView = view;
+
+        const CGFloat margin = 8;
+        NSButton *cancelButton = [[NSButton alloc] init];
+        [cancelButton setAction:@selector(cancel:)];
+        [cancelButton setButtonType:NSPushOnPushOffButton];
+        [cancelButton setBezelStyle:NSRoundedBezelStyle];
+        [cancelButton setTitle:NSLocalizedString(@"Cancel", nil)];
+        [cancelButton sizeToFit];
+        cancelButton.frame = NSMakeRect(margin, margin, NSWidth(cancelButton.frame), NSHeight(cancelButton.frame));
+        [view addSubview:cancelButton];
+
+        WebView *webView = [[WebView alloc] initWithFrame:NSMakeRect(0, NSHeight(cancelButton.frame) + 2*margin,
+                                                                     NSWidth(frame), NSHeight(frame) - (NSHeight(cancelButton.frame) + 2*margin))];
+        webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        webView.policyDelegate = self;
+        webView.frameLoadDelegate = self;
+        [view addSubview:webView];
+        self.webView = webView;
+
+        [self startLoginProcess];
     }
+
     return self;
 }
 
-- (void)loadView
+- (IBAction)cancel:(id)sender
 {
-    WebView *webView = [[WebView alloc] initWithFrame:NSZeroRect];
-    webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    self.view = webView;
-
-    webView.policyDelegate = self;
-    webView.frameLoadDelegate = self;
-    self.webView = webView;
-
-    [self startLoginProcess];
+    [NSApp endSheet:self.window returnCode:NSModalResponseAbort];
 }
 
 #pragma mark Webview delegates methods
