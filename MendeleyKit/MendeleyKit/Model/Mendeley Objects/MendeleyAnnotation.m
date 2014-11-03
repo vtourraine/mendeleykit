@@ -39,6 +39,8 @@
     id color = nil;
 #if TARGET_OS_IPHONE
     color = [UIColor colorWithRed:red green:green blue:blue alpha:1.f];
+#else
+    color = [NSColor colorWithSRGBRed:red green:green blue:blue alpha:1.f];
 #endif
     return color;
 }
