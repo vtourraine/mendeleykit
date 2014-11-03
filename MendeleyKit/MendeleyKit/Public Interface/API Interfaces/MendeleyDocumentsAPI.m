@@ -388,7 +388,7 @@
                                             initWithObjectCompletionBlock:completionBlock];
         if (![self.helper isSuccessForResponse:response error:&error])
         {
-            [blockExec executeWithArray:nil syncInfo:nil error:error];
+            [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
         }
         else
         {
