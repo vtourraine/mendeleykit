@@ -30,9 +30,13 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFileType };
 }
 
-- (NSDictionary *)uploadFileHeadersWithLinkRel:(NSString *)linkRel
+- (NSDictionary *)uploadFileHeadersWithDocumentURLPath:(NSString *)documentURLPath
+                                          documentName:(NSString *)documentName
 {
-    return @{ kMendeleyRESTRequestContentDisposition: kMendeleyRESTRequestValueAttachment,
+    NSString *linkRel = [NSString stringWithFormat:@"<%@>; rel=\"document\"", documentURLPath];
+    NSString *contentDisposition = [kMendeleyRESTRequestValueAttachment stringByAppendingString:@"; filename=\"example.pdf\""];
+
+    return @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
               kMendeleyRESTRequestContentType: kMendeleyRESTRequestValuePDF,
               kMendeleyRESTRequestLink: linkRel,
               kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFileType };
@@ -77,8 +81,7 @@
     [NSError assertStringArgumentNotNilOrEmpty:documentURLPath argumentName:@"documentURLPath"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
-    NSString *linkRel = [NSString stringWithFormat:@"<%@>; rel=" "document" "", documentURLPath];
-    [self.provider invokeUploadForFileURL:fileURL baseURL:self.baseURL api:kMendeleyRESTAPIFiles additionalHeaders:[self uploadFileHeadersWithLinkRel:linkRel] authenticationRequired:YES progressBlock:progressBlock completionBlock: ^(MendeleyResponse *response, NSError *error) {
+    [self.provider invokeUploadForFileURL:fileURL baseURL:self.baseURL api:kMendeleyRESTAPIFiles additionalHeaders:[self uploadFileHeadersWithDocumentURLPath:documentURLPath documentName:documentURLPath.lastPathComponent] authenticationRequired:YES progressBlock:progressBlock completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
