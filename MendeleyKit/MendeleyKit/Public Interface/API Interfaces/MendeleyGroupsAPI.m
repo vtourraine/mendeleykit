@@ -125,23 +125,23 @@
               {
                   __block MendeleyGroup *group = (MendeleyGroup *) mendeleyObject;
                   [self groupIconForGroup:group iconType:iconType completionBlock:^(NSData *binaryData, NSError *dataError) {
-                      if (nil != binaryData)
-                      {
-                          switch (iconType)
-                          {
-                              case StandardIcon:
-                                  group.photo.standardImageData = binaryData;
-                                  break;
-                              case SquareIcon:
-                                  group.photo.squareImageData = binaryData;
-                                  break;
-                              case OriginalIcon:
-                                  group.photo.originalImageData = binaryData;
-                                  break;
-                          }
-                      }
-                      [blockExec executeWithMendeleyObject:group syncInfo:syncInfo error:nil];
-                  }];
+                       if (nil != binaryData)
+                       {
+                           switch (iconType)
+                           {
+                               case StandardIcon:
+                                   group.photo.standardImageData = binaryData;
+                                   break;
+                               case SquareIcon:
+                                   group.photo.squareImageData = binaryData;
+                                   break;
+                               case OriginalIcon:
+                                   group.photo.originalImageData = binaryData;
+                                   break;
+                           }
+                       }
+                       [blockExec executeWithMendeleyObject:group syncInfo:syncInfo error:nil];
+                   }];
               }
               else
               {
@@ -169,23 +169,23 @@
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
     NSDictionary *mergedQuery = [NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]];
-    
+
     [self.provider invokeGET:self.baseURL api:kMendeleyRESTAPIGroups additionalHeaders:[self defaultServiceRequestHeaders] queryParameters:mergedQuery authenticationRequired:YES completionBlock:^(MendeleyResponse *response, NSError *error) {
-        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
-        if (![self.helper isSuccessForResponse:response error:&error])
-        {
-            [blockExec executeWithArray:nil syncInfo:nil error:error];
-        }
-        else
-        {
-            MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
-            [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelGroup completionBlock: ^(NSArray *groups, NSError *parseError) {
-                MendeleySyncInfo *syncInfo = (nil != parseError) ? nil : response.syncHeader;
-                [blockExec executeWithArray:groups syncInfo:syncInfo error:parseError];
-            }];
-        }
-    }];
-    
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithArray:nil syncInfo:nil error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelGroup completionBlock: ^(NSArray *groups, NSError *parseError) {
+                  MendeleySyncInfo *syncInfo = (nil != parseError) ? nil : response.syncHeader;
+                  [blockExec executeWithArray:groups syncInfo:syncInfo error:parseError];
+              }];
+         }
+     }];
+
 }
 
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
@@ -193,22 +193,22 @@
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    
+
     [self.provider invokeGET:linkURL api:nil additionalHeaders:[self defaultServiceRequestHeaders] queryParameters:nil authenticationRequired:YES completionBlock: ^(MendeleyResponse *response, NSError *error) {
-        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
-        if (![self.helper isSuccessForResponse:response error:&error])
-        {
-            [blockExec executeWithArray:nil syncInfo:nil error:error];
-        }
-        else
-        {
-            MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
-            [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelGroup completionBlock: ^(NSArray *groups, NSError *parseError) {
-                MendeleySyncInfo *syncInfo = (nil != parseError) ? nil : response.syncHeader;
-                [blockExec executeWithArray:groups syncInfo:syncInfo error:parseError];
-            }];
-        }
-    }];
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithArray:nil syncInfo:nil error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelGroup completionBlock: ^(NSArray *groups, NSError *parseError) {
+                  MendeleySyncInfo *syncInfo = (nil != parseError) ? nil : response.syncHeader;
+                  [blockExec executeWithArray:groups syncInfo:syncInfo error:parseError];
+              }];
+         }
+     }];
 }
 
 - (void)groupWithGroupID:(NSString *)groupID
@@ -221,7 +221,7 @@
                                   api:apiEndPoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
                       completionBlock:completionBlock];
-    
+
 }
 
 
@@ -254,20 +254,20 @@
          }
          if (nil != imageData)
          {
-            switch (iconType)
-            {
-                case OriginalIcon:
-                    group.photo.originalImageData = imageData;
-                    break;
-                case SquareIcon:
-                    group.photo.squareImageData = imageData;
-                    break;
-                case StandardIcon:
-                    group.photo.standardImageData = imageData;
-                    break;
-            }
+             switch (iconType)
+             {
+                 case OriginalIcon:
+                     group.photo.originalImageData = imageData;
+                     break;
+                 case SquareIcon:
+                     group.photo.squareImageData = imageData;
+                     break;
+                 case StandardIcon:
+                     group.photo.standardImageData = imageData;
+                     break;
+             }
          }
-        
+
          [self groupIconsForGroupArray:groups
                             groupIndex:nextIndex
                               iconType:iconType
@@ -278,9 +278,9 @@
 }
 
 
-- (void)groupIconForGroup:(MendeleyGroup *)group
-                 iconType:(MendeleyGroupIconType)iconType
-          completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+- (MendeleyTask *)groupIconForGroup:(MendeleyGroup *)group
+                           iconType:(MendeleyGroupIconType)iconType
+                    completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:group argumentName:@"group"];
     NSError *error = nil;
@@ -290,38 +290,39 @@
         error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
                                                                   code:kMendeleyDataNotAvailableErrorCode];
         completionBlock(nil, error);
-        return;
+#warning MOB-1073: the return type cannot be nil!
+        return nil;
     }
-    [self groupIconForIconURLString:linkURLString completionBlock:completionBlock];
+    return [self groupIconForIconURLString:linkURLString completionBlock:completionBlock];
 }
 
 
-- (void)groupIconForIconURLString:(NSString *)iconURLString
-                  completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+- (MendeleyTask *)groupIconForIconURLString:(NSString *)iconURLString
+                            completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:iconURLString argumentName:@"iconURLString"];
     NSURL *url = [NSURL URLWithString:iconURLString];
     NSDictionary *requestHeader = [self requestHeaderForImageLink:iconURLString];
-    [self.provider invokeGET:url api:nil additionalHeaders:requestHeader queryParameters:nil authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
-        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithBinaryDataCompletionBlock:completionBlock];
-        if (![self.helper isSuccessForResponse:response error:&error])
-        {
-            [blockExec executeWithBinaryData:nil error:error];
-        }
-        else
-        {
-            id bodyData = response.responseBody;
-            if ([bodyData isKindOfClass:[NSData class]])
-            {
-                [blockExec executeWithBinaryData:bodyData error:nil];
-            }
-            else
-            {
-                [blockExec executeWithBinaryData:nil error:error];
-            }
-        }
-    }];
-    
+    MendeleyTask *task = [self.provider invokeGET:url api:nil additionalHeaders:requestHeader queryParameters:nil authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
+                              MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithBinaryDataCompletionBlock:completionBlock];
+                              if (![self.helper isSuccessForResponse:response error:&error])
+                              {
+                                  [blockExec executeWithBinaryData:nil error:error];
+                              }
+                              else
+                              {
+                                  id bodyData = response.responseBody;
+                                  if ([bodyData isKindOfClass:[NSData class]])
+                                  {
+                                      [blockExec executeWithBinaryData:bodyData error:nil];
+                                  }
+                                  else
+                                  {
+                                      [blockExec executeWithBinaryData:nil error:error];
+                                  }
+                              }
+                          }];
+    return task;
 }
 
 

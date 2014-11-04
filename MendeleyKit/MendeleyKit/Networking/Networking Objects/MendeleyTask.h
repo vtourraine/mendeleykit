@@ -29,15 +29,15 @@
  - for NSURLConnection use initWithRequestObject
  */
 
-@property (nonatomic, strong, readonly) NSNumber *taskID;
-@property (nonatomic, strong, readonly) id<MendeleyCancellableRequest> requestObject;
+@property (nonatomic, strong, readonly) NSString *taskID;
+@property (nonatomic, strong) id<MendeleyCancellableRequest> requestObject;
 
 
 /**
    @param taskID
    @return an instance of type MendeleyCancellationRequest
  */
-- (instancetype)initWithTaskID:(NSNumber *)taskID;
+- (instancetype)initWithTaskID:(NSString *)taskID;
 
 /**
  @param taskObject
