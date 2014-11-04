@@ -30,16 +30,20 @@
  */
 /**
    Pulls the users profile
+   @param task
    @param completionBlock
  */
-- (void)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock;
+- (void)pullMyProfileWithTask:(MendeleyTask *)task
+              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    Pulls the profile of a user with a given ID
    @param profileID
+   @param task
    @param completionBlock
  */
 - (void)pullProfile:(NSString *)profileID
+               task:(MendeleyTask *)task
     completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 @end

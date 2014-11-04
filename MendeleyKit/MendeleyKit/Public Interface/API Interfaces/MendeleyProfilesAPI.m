@@ -27,7 +27,7 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONProfilesType };
 }
 
-- (void)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock
+- (void)pullMyProfileWithTask:(MendeleyTask *)task completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [self.helper mendeleyObjectOfType:kMendeleyModelUserProfile
@@ -38,6 +38,7 @@
 }
 
 - (void)pullProfile:(NSString *)profileID
+               task:(MendeleyTask *)task
     completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:profileID argumentName:@"profileID"];

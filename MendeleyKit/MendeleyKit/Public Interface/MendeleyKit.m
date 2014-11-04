@@ -154,31 +154,38 @@
 {
     if ([expectedModel isEqualToString:NSStringFromClass([MendeleyDocument class])])
     {
-        return [self documentListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self documentListWithLinkedURL:linkURL
+                               completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyFolder class])])
     {
-        return [self folderListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self folderListWithLinkedURL:linkURL
+                             completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyGroup class])])
     {
-        return [self groupListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self groupListWithLinkedURL:linkURL
+                            completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyFile class])])
     {
-        return [self fileListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self fileListWithLinkedURL:linkURL
+                           completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:kMendeleyModelDocumentId])
     {
-        return [self documentListInFolderWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self documentListInFolderWithLinkedURL:linkURL
+                                       completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyAnnotation class])])
     {
-        return [self annotationListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self annotationListWithLinkedURL:linkURL
+                                 completionBlock:completionBlock];
     }
     else
     {
-        NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyPagingNotProvidedForThisType];
+        NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
+                                                                           code:kMendeleyPagingNotProvidedForThisType];
         completionBlock(nil, nil, error);
         return nil;
     }
@@ -196,7 +203,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.profilesAPI pullMyProfile:completionBlock];
+                 [self.profilesAPI pullMyProfileWithTask:task
+                                         completionBlock:completionBlock];
              }
              else
              {
@@ -223,7 +231,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.profilesAPI pullProfile:profileID completionBlock:completionBlock];
+                 [self.profilesAPI pullProfile:profileID
+                                          task:task
+                               completionBlock:completionBlock];
              }
              else
              {
@@ -255,7 +265,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI documentListWithLinkedURL:linkURL completionBlock:completionBlock];
+                 [self.documentsAPI documentListWithLinkedURL:linkURL
+                                                         task:task
+                                              completionBlock:completionBlock];
              }
              else
              {
@@ -282,7 +294,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI documentListWithQueryParameters:queryParameters completionBlock:completionBlock];
+                 [self.documentsAPI documentListWithQueryParameters:queryParameters
+                                                               task:task
+                                                    completionBlock:completionBlock];
              }
              else
              {
@@ -310,6 +324,7 @@
              if (success)
              {
                  [self.documentsAPI documentWithDocumentID:documentID
+                                                      task:task
                                            completionBlock:completionBlock];
              }
              else
@@ -339,6 +354,7 @@
              if (success)
              {
                  [self.documentsAPI catalogDocumentWithCatalogID:catalogID
+                                                            task:task
                                                  completionBlock:completionBlock];
              }
              else
@@ -367,6 +383,7 @@
              if (success)
              {
                  [self.documentsAPI catalogDocumentWithParameters:queryParameters
+                                                             task:task
                                                   completionBlock:completionBlock];
              }
              else
@@ -395,7 +412,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI createDocument:mendeleyDocument completionBlock:completionBlock];
+                 [self.documentsAPI createDocument:mendeleyDocument
+                                              task:task
+                                   completionBlock:completionBlock];
              }
              else
              {
@@ -422,7 +441,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI updateDocument:updatedDocument completionBlock:completionBlock];
+                 [self.documentsAPI updateDocument:updatedDocument
+                                              task:task
+                                   completionBlock:completionBlock];
              }
              else
              {
@@ -450,7 +471,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI deleteDocumentWithID:documentID completionBlock:completionBlock];
+                 [self.documentsAPI deleteDocumentWithID:documentID
+                                                    task:task
+                                         completionBlock:completionBlock];
              }
              else
              {
@@ -477,7 +500,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI trashDocumentWithID:documentID completionBlock:completionBlock];
+                 [self.documentsAPI trashDocumentWithID:documentID
+                                                   task:task
+                                        completionBlock:completionBlock];
              }
              else
              {
@@ -504,7 +529,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI deletedDocumentsSince:deletedSince completionBlock:completionBlock];
+                 [self.documentsAPI deletedDocumentsSince:deletedSince
+                                                     task:task
+                                          completionBlock:completionBlock];
              }
              else
              {
@@ -531,7 +558,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI trashedDocumentListWithLinkedURL:linkURL completionBlock:completionBlock];
+                 [self.documentsAPI trashedDocumentListWithLinkedURL:linkURL
+                                                                task:task
+                                                     completionBlock:completionBlock];
              }
              else
              {
@@ -558,7 +587,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI trashedDocumentListWithQueryParameters:queryParameters completionBlock:completionBlock];
+                 [self.documentsAPI trashedDocumentListWithQueryParameters:queryParameters
+                                                                      task:task
+                                                           completionBlock:completionBlock];
              }
              else
              {
@@ -585,7 +616,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI deleteTrashedDocumentWithID:documentID completionBlock:completionBlock];
+                 [self.documentsAPI deleteTrashedDocumentWithID:documentID
+                                                           task:task
+                                                completionBlock:completionBlock];
              }
              else
              {
@@ -612,7 +645,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI restoreTrashedDocumentWithID:documentID completionBlock:completionBlock];
+                 [self.documentsAPI restoreTrashedDocumentWithID:documentID
+                                                            task:task
+                                                 completionBlock:completionBlock];
              }
              else
              {
@@ -639,7 +674,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI trashedDocumentWithDocumentID:documentID completionBlock:completionBlock];
+                 [self.documentsAPI trashedDocumentWithDocumentID:documentID
+                                                             task:task
+                                                  completionBlock:completionBlock];
              }
              else
              {
@@ -656,7 +693,9 @@
     return task;
 }
 
-- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL
+                                 mimeType:(NSString *)mimeType
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -665,7 +704,10 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI documentFromFileWithURL:fileURL mimeType:mimeType completionBlock:completionBlock];
+                 [self.documentsAPI documentFromFileWithURL:fileURL
+                                                   mimeType:mimeType
+                                                       task:task
+                                            completionBlock:completionBlock];
              }
              else
              {
@@ -686,7 +728,8 @@
 #pragma mark -
 #pragma mark Metadata
 
-- (MendeleyTask *)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
+                                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -696,6 +739,7 @@
              if (success)
              {
                  [self.metedataAPI metadataLookupWithQueryParameters:queryParameters
+                                                                task:task
                                                      completionBlock:completionBlock];
              }
              else
@@ -725,7 +769,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI documentTypesWithCompletionBlock:completionBlock];
+                 [self.documentsAPI documentTypesWithTask:task
+                                          completionBlock:completionBlock];
              }
              else
              {
@@ -754,7 +799,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.documentsAPI identifierTypesWithCompletionBlock:completionBlock];
+                 [self.documentsAPI identifierTypesWithTask:task
+                                            completionBlock:completionBlock];
              }
              else
              {
@@ -784,7 +830,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.filesAPI fileListWithQueryParameters:queryParameters completionBlock:completionBlock];
+                 [self.filesAPI fileListWithQueryParameters:queryParameters
+                                                       task:task
+                                            completionBlock:completionBlock];
              }
              else
              {
@@ -813,7 +861,10 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.filesAPI fileWithFileID:fileID saveToURL:fileURL progressBlock:progressBlock completionBlock:completionBlock];
+                 [self.filesAPI fileWithFileID:fileID saveToURL:fileURL
+                                          task:task
+                                 progressBlock:progressBlock
+                               completionBlock:completionBlock];
              }
              else
              {
@@ -842,7 +893,11 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.filesAPI createFile:fileURL relativeToDocumentURLPath:documentURLPath progressBlock:progressBlock completionBlock:completionBlock];
+                 [self.filesAPI createFile:fileURL
+                  relativeToDocumentURLPath:documentURLPath
+                                       task:task
+                              progressBlock:progressBlock
+                            completionBlock:completionBlock];
              }
              else
              {
@@ -869,7 +924,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.filesAPI deleteFileWithID:fileID completionBlock:completionBlock];
+                 [self.filesAPI deleteFileWithID:fileID
+                                            task:task
+                                 completionBlock:completionBlock];
              }
              else
              {
@@ -896,7 +953,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.filesAPI fileListWithLinkedURL:linkURL completionBlock:completionBlock];
+                 [self.filesAPI fileListWithLinkedURL:linkURL
+                                                 task:task
+                                      completionBlock:completionBlock];
              }
              else
              {
@@ -923,7 +982,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.filesAPI deletedFilesSince:deletedSince completionBlock:completionBlock];
+                 [self.filesAPI deletedFilesSince:deletedSince
+                                             task:task
+                                  completionBlock:completionBlock];
              }
              else
              {
@@ -955,7 +1016,10 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI documentListFromFolderWithID:folderID parameters:queryParameters completionBlock:completionBlock];
+                 [self.foldersAPI documentListFromFolderWithID:folderID
+                                                    parameters:queryParameters
+                                                          task:task
+                                               completionBlock:completionBlock];
              }
              else
              {
@@ -983,7 +1047,10 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI addDocument:mendeleyDocumentId folderID:folderID completionBlock:completionBlock];
+                 [self.foldersAPI addDocument:mendeleyDocumentId
+                                     folderID:folderID
+                                         task:task
+                              completionBlock:completionBlock];
              }
              else
              {
@@ -1000,7 +1067,8 @@
     return task;
 }
 
-- (MendeleyTask *)createFolder:(MendeleyFolder *)mendeleyFolder completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)createFolder:(MendeleyFolder *)mendeleyFolder
+               completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -1009,7 +1077,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI createFolder:mendeleyFolder completionBlock:completionBlock];
+                 [self.foldersAPI createFolder:mendeleyFolder
+                                          task:task
+                               completionBlock:completionBlock];
              }
              else
              {
@@ -1036,7 +1106,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI folderListWithLinkedURL:linkURL completionBlock:completionBlock];
+                 [self.foldersAPI folderListWithLinkedURL:linkURL
+                                                     task:task
+                                          completionBlock:completionBlock];
              }
              else
              {
@@ -1063,7 +1135,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI documentListInFolderWithLinkedURL:linkURL completionBlock:completionBlock];
+                 [self.foldersAPI documentListInFolderWithLinkedURL:linkURL
+                                                               task:task
+                                                    completionBlock:completionBlock];
              }
              else
              {
@@ -1080,7 +1154,8 @@
     return task;
 }
 
-- (MendeleyTask *)folderListWithQueryParameters:(MendeleyFolderParameters *)queryParameters completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (MendeleyTask *)folderListWithQueryParameters:(MendeleyFolderParameters *)queryParameters
+                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -1089,7 +1164,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI folderListWithQueryParameters:queryParameters completionBlock:completionBlock];
+                 [self.foldersAPI folderListWithQueryParameters:queryParameters
+                                                           task:task
+                                                completionBlock:completionBlock];
              }
              else
              {
@@ -1106,7 +1183,8 @@
     return task;
 }
 
-- (MendeleyTask *)folderWithFolderID:(NSString *)folderID completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)folderWithFolderID:(NSString *)folderID
+                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -1115,7 +1193,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI folderWithFolderID:folderID completionBlock:completionBlock];
+                 [self.foldersAPI folderWithFolderID:folderID
+                                                task:task
+                                     completionBlock:completionBlock];
              }
              else
              {
@@ -1132,7 +1212,8 @@
     return task;
 }
 
-- (MendeleyTask *)deleteFolderWithID:(NSString *)folderID completionBlock:(MendeleyCompletionBlock)completionBlock
+- (MendeleyTask *)deleteFolderWithID:(NSString *)folderID
+                     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -1141,7 +1222,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI deleteFolderWithID:folderID completionBlock:completionBlock];
+                 [self.foldersAPI deleteFolderWithID:folderID
+                                                task:task
+                                     completionBlock:completionBlock];
              }
              else
              {
@@ -1168,7 +1251,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI updateFolder:updatedFolder completionBlock:completionBlock];
+                 [self.foldersAPI updateFolder:updatedFolder
+                                          task:task
+                               completionBlock:completionBlock];
              }
              else
              {
@@ -1194,7 +1279,10 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.foldersAPI deleteDocumentWithID:documentID fromFolderWithID:folderID completionBlock:completionBlock];
+                 [self.foldersAPI deleteDocumentWithID:documentID
+                                      fromFolderWithID:folderID
+                                                  task:task
+                                       completionBlock:completionBlock];
              }
              else
              {
@@ -1226,6 +1314,7 @@
              {
                  [self.groupsAPI groupListWithQueryParameters:queryParameters
                                                      iconType:iconType
+                                                         task:task
                                               completionBlock:completionBlock];
              }
              else
@@ -1257,6 +1346,7 @@
              {
                  [self.groupsAPI groupListWithLinkedURL:linkURL
                                                iconType:iconType
+                                                   task:task
                                         completionBlock:completionBlock];
              }
              else
@@ -1288,6 +1378,7 @@
              {
                  [self.groupsAPI groupWithGroupID:groupID
                                          iconType:iconType
+                                             task:task
                                   completionBlock:completionBlock];
              }
              else
@@ -1317,6 +1408,7 @@
              if (success)
              {
                  [self.groupsAPI groupListWithQueryParameters:queryParameters
+                                                         task:task
                                               completionBlock:completionBlock];
              }
              else
@@ -1345,6 +1437,7 @@
              if (success)
              {
                  [self.groupsAPI groupListWithLinkedURL:linkURL
+                                                   task:task
                                         completionBlock:completionBlock];
              }
              else
@@ -1373,6 +1466,7 @@
              if (success)
              {
                  [self.groupsAPI groupWithGroupID:groupID
+                                             task:task
                                   completionBlock:completionBlock];
              }
              else
@@ -1397,7 +1491,12 @@
     /*
        Note: this call doesn't require an authentication header
      */
-    return [self.groupsAPI groupIconForGroup:group iconType:iconType completionBlock:completionBlock];
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.groupsAPI groupIconForGroup:group iconType:iconType
+                                 task:task
+                      completionBlock:completionBlock];
+    return task;
 }
 
 
@@ -1407,7 +1506,12 @@
     /*
        Note: this call doesn't require an authentication header
      */
-    return [self.groupsAPI groupIconForIconURLString:iconURLString completionBlock:completionBlock];
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.groupsAPI groupIconForIconURLString:iconURLString
+                                         task:task
+                              completionBlock:completionBlock];
+    return task;
 
 }
 
@@ -1425,7 +1529,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI annotationWithAnnotationID:annotationID completionBlock:completionBlock];
+                 [self.annotationsAPI annotationWithAnnotationID:annotationID task:task
+                                                 completionBlock:completionBlock];
              }
              else
              {
@@ -1452,7 +1557,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI deleteAnnotationWithID:annotationID completionBlock:completionBlock];
+                 [self.annotationsAPI deleteAnnotationWithID:annotationID task:task
+                                             completionBlock:completionBlock];
              }
              else
              {
@@ -1479,7 +1585,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI updateAnnotation:updatedMendeleyAnnotation completionBlock:completionBlock];
+                 [self.annotationsAPI updateAnnotation:updatedMendeleyAnnotation task:task
+                                       completionBlock:completionBlock];
              }
              else
              {
@@ -1506,7 +1613,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI createAnnotation:mendeleyAnnotation completionBlock:completionBlock];
+                 [self.annotationsAPI createAnnotation:mendeleyAnnotation task:task
+                                       completionBlock:completionBlock];
              }
              else
              {
@@ -1533,14 +1641,13 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI annotationListWithLinkedURL:linkURL completionBlock:completionBlock];
+                 [self.annotationsAPI annotationListWithLinkedURL:linkURL task:task
+                                                  completionBlock:completionBlock];
              }
              else
              {
                  completionBlock(nil, nil, error);
              }
-
-
          }];
     }
     else
@@ -1564,7 +1671,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI annotationListWithQueryParameters:queryParameters completionBlock:completionBlock];
+                 [self.annotationsAPI annotationListWithQueryParameters:queryParameters task:task
+                                                        completionBlock:completionBlock];
              }
              else
              {
@@ -1591,7 +1699,8 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI deletedAnnotationsSince:deletedSince completionBlock:completionBlock];
+                 [self.annotationsAPI deletedAnnotationsSince:deletedSince task:task
+                                              completionBlock:completionBlock];
              }
              else
              {
@@ -1611,7 +1720,8 @@
 - (void) cancelTask:(MendeleyTask *)task
     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [self.networkProvider cancelTask:task completionBlock:completionBlock];
+    [self.networkProvider cancelTask:task
+                     completionBlock:completionBlock];
 }
 
 - (void)cancelAllTasks:(MendeleyCompletionBlock)completionBlock

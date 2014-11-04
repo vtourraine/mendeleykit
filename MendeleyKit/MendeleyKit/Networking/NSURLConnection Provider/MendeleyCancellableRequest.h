@@ -22,7 +22,7 @@
 
 @protocol MendeleyCancellableRequest <NSObject>
 /**
- this cancels the current active NSURLConnection
+   this cancels the current active NSURLConnection
  */
 - (void)cancelConnection;
 @end

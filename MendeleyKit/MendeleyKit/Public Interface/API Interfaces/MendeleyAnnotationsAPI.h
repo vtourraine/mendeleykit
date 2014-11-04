@@ -33,52 +33,66 @@
  */
 /**
    @param annotationID
+   @param task
    @param completionBlock
  */
 - (void)annotationWithAnnotationID:(NSString *)annotationID
+                              task:(MendeleyTask *)task
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    @param annotationID
+   @param task
    @param completionBlock
  */
 - (void)deleteAnnotationWithID:(NSString *)annotationID
+                          task:(MendeleyTask *)task
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
    @param updatedMendeleyAnnotation
+   @param task
    @param completionBlock
  */
 - (void)updateAnnotation:(MendeleyAnnotation *)updatedMendeleyAnnotation
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 /**
    @param mendeleyAnnotation
+   @param task
    @param completionBlock
  */
 - (void)createAnnotation:(MendeleyAnnotation *)mendeleyAnnotation
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    @param linkURL
+   @param task
    @param completionBlock
  */
 - (void)annotationListWithLinkedURL:(NSURL *)linkURL
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    @param queryParameters
+   @param task
    @param completionBlock
  */
 - (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
+                                     task:(MendeleyTask *)task
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    This method returns a list of annotations IDs that were permanently deleted. The list of deleted IDs will be kept on
    the server for a limited period of time.
    @param deletedSince the parameter set to be used in the request
+   @param task
    @param completionBlock
  */
 - (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                           task:(MendeleyTask *)task
                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 @end

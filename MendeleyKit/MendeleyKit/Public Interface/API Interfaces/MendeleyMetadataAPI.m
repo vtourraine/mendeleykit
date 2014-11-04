@@ -31,7 +31,9 @@
 
 #pragma mark -
 
-- (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
+                                     task:(MendeleyTask *)task
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     if (nil == queryParameters)
     {

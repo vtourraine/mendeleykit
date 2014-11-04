@@ -45,6 +45,7 @@
 #pragma mark -
 
 - (void)annotationWithAnnotationID:(NSString *)annotationID
+                              task:(MendeleyTask *)task
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:annotationID argumentName:@"annotationID"];
@@ -57,6 +58,7 @@
 }
 
 - (void)deleteAnnotationWithID:(NSString *)annotationID
+                          task:(MendeleyTask *)task
                completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:annotationID argumentName:@"annotationID"];
@@ -66,6 +68,7 @@
 }
 
 - (void)updateAnnotation:(MendeleyAnnotation *)updatedMendeleyAnnotation
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyAnnotation argumentName:@"updatedMendeleyAnnotation"];
@@ -78,6 +81,7 @@
 }
 
 - (void)createAnnotation:(MendeleyAnnotation *)mendeleyAnnotation
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [self.helper createMendeleyObject:mendeleyAnnotation
@@ -89,6 +93,7 @@
 
 
 - (void)annotationListWithLinkedURL:(NSURL *)linkURL
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
@@ -103,7 +108,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -130,6 +137,7 @@
 
 
 - (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
+                                     task:(MendeleyTask *)task
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -142,6 +150,7 @@
 }
 
 - (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                           task:(MendeleyTask *)task
                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:deletedSince argumentName:@"deletedSince"];
@@ -157,7 +166,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -169,11 +180,15 @@
                  [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock: ^(NSArray *arrayOfStrings, NSError *parseError) {
                       if (nil != parseError)
                       {
-                          [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                          [blockExec executeWithArray:nil
+                                             syncInfo:nil
+                                                error:parseError];
                       }
                       else
                       {
-                          [blockExec executeWithArray:arrayOfStrings syncInfo:response.syncHeader error:nil];
+                          [blockExec executeWithArray:arrayOfStrings
+                                             syncInfo:response.syncHeader
+                                                error:nil];
                       }
                   }];
              }

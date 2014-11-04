@@ -106,7 +106,8 @@
 
          if (nil == response)
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
@@ -118,17 +119,20 @@
                       BOOL success = [oauthStore storeOAuthCredentials:credentials];
                       if (success)
                       {
-                          [blockExec executeWithBool:YES error:nil];
+                          [blockExec executeWithBool:YES
+                                               error:nil];
                       }
                       else
                       {
                           NSError *innerError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-                          [blockExec executeWithBool:NO error:innerError];
+                          [blockExec executeWithBool:NO
+                                               error:innerError];
                       }
                   }
                   else
                   {
-                      [blockExec executeWithBool:NO error:parseError];
+                      [blockExec executeWithBool:NO
+                                           error:parseError];
                   }
               }];
 

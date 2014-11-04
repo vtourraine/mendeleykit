@@ -33,10 +33,12 @@
 /**
    @param queryParameters
    @param iconType
+   @param task
    @param completionBlock
  */
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
                             iconType:(MendeleyGroupIconType)iconType
+                                task:(MendeleyTask *)task
                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -45,28 +47,34 @@
 
    @param linkURL the full HTTP link to the document listings page
    @param iconType
+   @param task
    @param completionBlock
  */
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
                       iconType:(MendeleyGroupIconType)iconType
+                          task:(MendeleyTask *)task
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    @param groupID
    @param iconType
+   @param task
    @param completionBlock
  */
 - (void)groupWithGroupID:(NSString *)groupID
                 iconType:(MendeleyGroupIconType)iconType
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    @param groupID
    @param queryParameters
+   @param task
    @param completionBlock
  */
 - (void)groupMemberListWithGroupID:(NSString *)groupID
                         parameters:(MendeleyGroupParameters *)queryParameters
+                              task:(MendeleyTask *)task
                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 
@@ -75,9 +83,11 @@
    Obtain a list of groups where the logged in user is a member
    If provided, it will include the square icon for the group
    @param queryParameters the parameters to be used in the API request
+   @param task
    @param completionBlock the list of groups if found
  */
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
+                                task:(MendeleyTask *)task
                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -85,17 +95,21 @@
    All required parameters are provided in the linkURL, which should not be modified
 
    @param linkURL the full HTTP link to the document listings page
+   @param task
    @param completionBlock the list of groups if found
  */
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
+                          task:(MendeleyTask *)task
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
    Obtain details for the group identified by the given groupID
    @param groupID the group UUID
+   @param task
    @param completionBlock the group
  */
 - (void)groupWithGroupID:(NSString *)groupID
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 
@@ -103,19 +117,23 @@
    Obtains a group icon for a specified MendeleyGroup and icon type (maybe standard, square, original)
    @param group
    @param iconType
+   @param task
    @param completionBlock returning the image data as NSData
  */
-- (MendeleyTask *)groupIconForGroup:(MendeleyGroup *)group
-                           iconType:(MendeleyGroupIconType)iconType
-                    completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+- (void)groupIconForGroup:(MendeleyGroup *)group
+                 iconType:(MendeleyGroupIconType)iconType
+                     task:(MendeleyTask *)task
+          completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 
 /**
    Obtains a group icon based on the given link URL string
    @param iconURLString
+   @param task
    @param completionBlock returning the image data as NSData
  */
-- (MendeleyTask *)groupIconForIconURLString:(NSString *)iconURLString
-                            completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+- (void)groupIconForIconURLString:(NSString *)iconURLString
+                             task:(MendeleyTask *)task
+                  completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 @end

@@ -31,9 +31,11 @@
 
 /**
    @param queryParameters
+   @param task
    @param completionBlock
  */
 - (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
+                                     task:(MendeleyTask *)task
                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 @end

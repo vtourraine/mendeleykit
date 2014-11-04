@@ -32,18 +32,18 @@
 @property (nonatomic, strong) NSHTTPURLResponse *response;
 @property (nonatomic, strong) MendeleyResponse *mendeleyResponse;
 /**
- initialises the connection with a MendeleyRequest. The MendeleyRequest object holds all the data we need
- to make the network connection
- @param mendeleyRequest
- @param completionBlock
- @return an instance of MendeleyNSURLRequestHelper
+   initialises the connection with a MendeleyRequest. The MendeleyRequest object holds all the data we need
+   to make the network connection
+   @param mendeleyRequest
+   @param completionBlock
+   @return an instance of MendeleyNSURLRequestHelper
  */
 - (id)initWithMendeleyRequest:(MendeleyRequest *)mendeleyRequest
               completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
- starts the actual NSURLConnection request
- @return BOOL if successful
+   starts the actual NSURLConnection request
+   @return BOOL if successful
  */
 - (BOOL)startRequest;
 @end

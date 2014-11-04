@@ -75,6 +75,7 @@
 #pragma mark -
 
 - (void)documentListWithLinkedURL:(NSURL *)linkURL
+                             task:(MendeleyTask *)task
                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
@@ -89,7 +90,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -115,6 +118,7 @@
 }
 
 - (void)documentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
+                                   task:(MendeleyTask *)task
                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -127,6 +131,7 @@
 }
 
 - (void)documentWithDocumentID:(NSString *)documentID
+                          task:(MendeleyTask *)task
                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -139,6 +144,7 @@
 }
 
 - (void)catalogDocumentWithCatalogID:(NSString *)catalogID
+                                task:(MendeleyTask *)task
                      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:catalogID argumentName:@"catalogID"];
@@ -151,6 +157,7 @@
 }
 
 - (void)catalogDocumentWithParameters:(MendeleyCatalogParameters *)queryParameters
+                                 task:(MendeleyTask *)task
                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -163,6 +170,7 @@
 }
 
 - (void)createDocument:(MendeleyDocument *)mendeleyDocument
+                  task:(MendeleyTask *)task
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [self.helper createMendeleyObject:mendeleyDocument
@@ -173,6 +181,7 @@
 }
 
 - (void)updateDocument:(MendeleyDocument *)updatedMendeleyDocument
+                  task:(MendeleyTask *)task
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyDocument argumentName:@"updatedMendeleyDocument"];
@@ -185,6 +194,7 @@
 }
 
 - (void)deleteDocumentWithID:(NSString *)documentID
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -194,6 +204,7 @@
 }
 
 - (void)trashDocumentWithID:(NSString *)documentID
+                       task:(MendeleyTask *)task
             completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -209,16 +220,19 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
 
 - (void)deletedDocumentsSince:(NSDate *)deletedSince
+                         task:(MendeleyTask *)task
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:deletedSince argumentName:@"deletedSince"];
@@ -234,7 +248,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -246,11 +262,15 @@
                  [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock: ^(NSArray *arrayOfStrings, NSError *parseError) {
                       if (nil != parseError)
                       {
-                          [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                          [blockExec executeWithArray:nil
+                                             syncInfo:nil
+                                                error:parseError];
                       }
                       else
                       {
-                          [blockExec executeWithArray:arrayOfStrings syncInfo:response.syncHeader error:nil];
+                          [blockExec executeWithArray:arrayOfStrings
+                                             syncInfo:response.syncHeader
+                                                error:nil];
                       }
                   }];
              }
@@ -259,6 +279,7 @@
 }
 
 - (void)trashedDocumentListWithLinkedURL:(NSURL *)linkURL
+                                    task:(MendeleyTask *)task
                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
@@ -272,7 +293,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -280,11 +303,15 @@
              [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelDocument completionBlock: ^(NSArray *documents, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithArray:nil
+                                         syncInfo:nil
+                                            error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithArray:documents syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithArray:documents
+                                         syncInfo:response.syncHeader
+                                            error:nil];
                   }
               }];
          }
@@ -292,6 +319,7 @@
 }
 
 - (void)trashedDocumentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
+                                          task:(MendeleyTask *)task
                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -304,6 +332,7 @@
 }
 
 - (void)deleteTrashedDocumentWithID:(NSString *)documentID
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -313,6 +342,7 @@
 }
 
 - (void)restoreTrashedDocumentWithID:(NSString *)documentID
+                                task:(MendeleyTask *)task
                      completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -328,16 +358,19 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
 
 - (void)trashedDocumentWithDocumentID:(NSString *)documentID
+                                 task:(MendeleyTask *)task
                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -349,7 +382,8 @@
                       completionBlock:completionBlock];
 }
 
-- (void)documentTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (void)documentTypesWithTask:(MendeleyTask *)task
+              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [self.helper mendeleyObjectListOfType:kMendeleyModelDocumentType
                                       api:kMendeleyRESTAPIDocumentTypes
@@ -358,7 +392,8 @@
                           completionBlock:completionBlock];
 }
 
-- (void)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (void)identifierTypesWithTask:(MendeleyTask *)task
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [self.helper mendeleyObjectListOfType:kMendeleyModelIdentifierType
                                       api:kMendeleyRESTAPIIdentifierTypes
@@ -367,45 +402,58 @@
                           completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (void)documentFromFileWithURL:(NSURL *)fileURL
+                       mimeType:(NSString *)mimeType
+                           task:(MendeleyTask *)task
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
     if (nil == mimeType)
     {
         mimeType = kMendeleyRESTRequestValuePDF;
     }
-    
+
     NSString *filename = [fileURL lastPathComponent];
-    NSString *contentDisposition = [NSString stringWithFormat:@"%@; filename=\"%@\"",kMendeleyRESTRequestValueAttachment,filename];
-    
-    NSDictionary *header= @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
-                           kMendeleyRESTRequestContentType: mimeType,
-                           kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType };
-    
-    MendeleyTask* task = [self.provider invokeUploadForFileURL:fileURL baseURL:self.baseURL api:kMendeleyRESTAPIDocuments additionalHeaders:header authenticationRequired:YES progressBlock:^(NSNumber *progress) {
-    } completionBlock:^(MendeleyResponse *response, NSError *error) {
-        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
-                                            initWithObjectCompletionBlock:completionBlock];
-        if (![self.helper isSuccessForResponse:response error:&error])
-        {
-            [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
-        }
-        else
-        {
-            MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
-            [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelDocument completionBlock:^(id parsedObject, NSError *parseError) {
-                if (nil != parseError)
-                {
-                    [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
-                }
-                else
-                {
-                    [blockExec executeWithMendeleyObject:parsedObject syncInfo:response.syncHeader error:nil];
-                }
-            }];
-        }
-    }];
-    return task;
+    NSString *contentDisposition = [NSString stringWithFormat:@"%@; filename=\"%@\"", kMendeleyRESTRequestValueAttachment, filename];
+
+    NSDictionary *header = @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
+                              kMendeleyRESTRequestContentType: mimeType,
+                              kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType };
+
+    [self.provider invokeUploadForFileURL:fileURL
+                                  baseURL:self.baseURL
+                                      api:kMendeleyRESTAPIDocuments
+                        additionalHeaders:header
+                   authenticationRequired:YES
+                            progressBlock:^(NSNumber *progress) {
+     } completionBlock:^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
+                                             initWithObjectCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             [jsonModeller parseJSONData:response.responseBody
+                            expectedType:kMendeleyModelDocument
+                         completionBlock:^(id parsedObject, NSError *parseError) {
+                  if (nil != parseError)
+                  {
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
+                  }
+                  else
+                  {
+                      [blockExec executeWithMendeleyObject:parsedObject
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
+                  }
+              }];
+         }
+     }];
 }
 
 @end

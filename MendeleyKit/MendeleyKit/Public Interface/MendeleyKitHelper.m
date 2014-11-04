@@ -85,7 +85,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -93,11 +95,15 @@
              [jsonModeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(NSArray *folders, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithArray:nil
+                                         syncInfo:nil
+                                            error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithArray:folders syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithArray:folders
+                                         syncInfo:response.syncHeader
+                                            error:nil];
                   }
               }];
          }
@@ -123,7 +129,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -135,11 +143,15 @@
                  [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock:^(NSArray *arrayOfStrings, NSError *parseError) {
                       if (nil != arrayOfStrings)
                       {
-                          [blockExec executeWithArray:arrayOfStrings syncInfo:response.syncHeader error:nil];
+                          [blockExec executeWithArray:arrayOfStrings
+                                             syncInfo:response.syncHeader
+                                                error:nil];
                       }
                       else
                       {
-                          [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                          [blockExec executeWithArray:nil
+                                             syncInfo:nil
+                                                error:parseError];
                       }
 
                   }];
@@ -171,7 +183,9 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+             [blockExec executeWithMendeleyObject:nil
+                                         syncInfo:nil
+                                            error:error];
          }
          else
          {
@@ -179,11 +193,15 @@
              [modeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(MendeleyObject *object, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleyObject:object syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithMendeleyObject:object
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
@@ -205,7 +223,8 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:mendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithBool:NO error:serialiseError];
+        [blockExec executeWithBool:NO
+                             error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -218,11 +237,13 @@
                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
@@ -246,7 +267,9 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:mendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithMendeleyObject:nil syncInfo:nil error:serialiseError];
+        [blockExec executeWithMendeleyObject:nil
+                                    syncInfo:nil
+                                       error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -259,18 +282,24 @@
                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+             [blockExec executeWithMendeleyObject:nil
+                                         syncInfo:nil
+                                            error:error];
          }
          else
          {
              [modeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(MendeleyObject *object, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleyObject:object syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithMendeleyObject:object
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
@@ -299,7 +328,8 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:updatedMendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithBool:NO error:serialiseError];
+        [blockExec executeWithBool:NO
+                             error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -312,11 +342,13 @@
                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
@@ -339,7 +371,9 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:updatedMendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithMendeleyObject:nil syncInfo:nil error:serialiseError];
+        [blockExec executeWithMendeleyObject:nil
+                                    syncInfo:nil
+                                       error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -352,18 +386,24 @@
                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+             [blockExec executeWithMendeleyObject:nil
+                                         syncInfo:nil
+                                            error:error];
          }
          else
          {
              [modeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(MendeleyObject *object, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleyObject:object syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithMendeleyObject:object
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
@@ -386,11 +426,13 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
@@ -415,16 +457,19 @@
                               MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
                               if (![self isSuccessForResponse:response error:&error])
                               {
-                                  [blockExec executeWithBool:NO error:error];
+                                  [blockExec executeWithBool:NO
+                                                       error:error];
                               }
                               else if (![[NSFileManager defaultManager] fileExistsAtPath:fileURL.path])
                               {
                                   NSError *pathError = [NSError errorWithCode:kMendeleyPathNotFoundErrorCode];
-                                  [blockExec executeWithBool:NO error:pathError];
+                                  [blockExec executeWithBool:NO
+                                                       error:pathError];
                               }
                               else
                               {
-                                  [blockExec executeWithBool:YES error:nil];
+                                  [blockExec executeWithBool:YES
+                                                       error:nil];
                               }
                           }];
     return task;

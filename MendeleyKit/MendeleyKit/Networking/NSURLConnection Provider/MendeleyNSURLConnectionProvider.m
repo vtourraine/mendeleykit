@@ -36,11 +36,11 @@
 {
     static MendeleyNSURLConnectionProvider *sharedInstance = nil;
     static dispatch_once_t onceToken;
-    
+
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[MendeleyNSURLConnectionProvider alloc] init];
-            // Do any other initialisation stuff here
-    });
+                      sharedInstance = [[MendeleyNSURLConnectionProvider alloc] init];
+                      // Do any other initialisation stuff here
+                  });
     return sharedInstance;
 }
 
@@ -65,17 +65,17 @@
         }
         return;
     }
-    
+
     [self.tasks enumerateObjectsUsingBlock:^(MendeleyTask *task, NSUInteger idx, BOOL *stop) {
-        id<MendeleyCancellableRequest>cancellableTask = task.requestObject;
-        if (nil != cancellableTask)
-        {
-            [cancellableTask cancelConnection];
-        }
-    }];
-    
+         id<MendeleyCancellableRequest>cancellableTask = task.requestObject;
+         if (nil != cancellableTask)
+         {
+             [cancellableTask cancelConnection];
+         }
+     }];
+
     [self.tasks removeAllObjects];
-    
+
 
     if (completionBlock)
     {
@@ -100,17 +100,17 @@
     {
         [cancellableTask cancelConnection];
     }
-    
+
     if (nil != self.tasks && 0 < self.tasks.count && [self.tasks containsObject:mendeleyTask])
     {
         [self.tasks removeObject:mendeleyTask];
     }
-    
+
     if (completionBlock)
     {
         completionBlock(YES, nil);
     }
-    
+
 }
 
 - (MendeleyTask *)invokeDownloadToFileURL:(NSURL *)fileURL
@@ -125,21 +125,21 @@
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    
+
     MendeleyRequest *request = nil;
     if (authenticationRequired)
     {
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
                                                                api:api
                                                        requestType:HTTP_GET
-                   ];
+            ];
     }
     else
     {
         request = [MendeleyRequest requestWithBaseURL:baseURL
                                                   api:api
                                           requestType:HTTP_GET
-                   ];
+            ];
     }
     if (nil != additionalHeaders)
     {
@@ -149,12 +149,12 @@
     {
         [request addParametersToURL:queryParameters isQuery:YES];
     }
-    
+
     MendeleyNSURLRequestDownloadHelper *downloadHelper = [[MendeleyNSURLRequestDownloadHelper alloc]
                                                           initWithMendeleyRequest:request
-                                                          toFileURL:fileURL
-                                                          progressBlock:progressBlock
-                                                          completionBlock:completionBlock];
+                                                                        toFileURL:fileURL
+                                                                    progressBlock:progressBlock
+                                                                  completionBlock:completionBlock];
     MendeleyTask *task = [[MendeleyTask alloc] initWithRequestObject:downloadHelper];
     BOOL hasStarted = [downloadHelper startRequest];
     if (!hasStarted)
@@ -200,9 +200,9 @@
 
     MendeleyNSURLRequestUploadHelper *uploadHelper = [[MendeleyNSURLRequestUploadHelper alloc]
                                                       initWithMendeleyRequest:request
-                                                      fromFileURL:fileURL
-                                                      progressBlock:progressBlock
-                                                      completionBlock:completionBlock];
+                                                                  fromFileURL:fileURL
+                                                                progressBlock:progressBlock
+                                                              completionBlock:completionBlock];
     MendeleyTask *task = [[MendeleyTask alloc] initWithRequestObject:uploadHelper];
     BOOL hasStarted = [uploadHelper startRequest];
     if (!hasStarted)
@@ -223,11 +223,11 @@
             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     return [self invokeGET:linkURL
-                       api:nil
-         additionalHeaders:additionalHeaders
-           queryParameters:queryParameters
-    authenticationRequired:authenticationRequired
-           completionBlock:completionBlock];
+                               api:nil
+                 additionalHeaders:additionalHeaders
+                   queryParameters:queryParameters
+            authenticationRequired:authenticationRequired
+                   completionBlock:completionBlock];
 }
 
 - (MendeleyTask *)invokeGET:(NSURL *)baseURL
@@ -252,7 +252,7 @@
                                                   api:api
                                           requestType:HTTP_GET];
     }
-    
+
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
@@ -280,14 +280,14 @@
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
                                                                api:api
                                                        requestType:HTTP_PATCH
-                   ];
+            ];
     }
     else
     {
         request = [MendeleyRequest requestWithBaseURL:baseURL
                                                   api:api
                                           requestType:HTTP_PATCH
-                   ];
+            ];
     }
     if (nil != additionalHeaders)
     {
@@ -318,14 +318,14 @@
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
                                                                api:api
                                                        requestType:HTTP_PATCH
-                   ];
+            ];
     }
     else
     {
         request = [MendeleyRequest requestWithBaseURL:baseURL
                                                   api:api
                                           requestType:HTTP_PATCH
-                   ];
+            ];
     }
     if (nil != additionalHeaders)
     {
@@ -362,7 +362,7 @@
         request = [MendeleyRequest requestWithBaseURL:baseURL api:api
                                           requestType:HTTP_POST];
     }
-    
+
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
@@ -392,16 +392,16 @@
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
                                                                api:api
                                                        requestType:HTTP_POST
-                   ];
+            ];
     }
     else
     {
         request = [MendeleyRequest requestWithBaseURL:baseURL
                                                   api:api
                                           requestType:HTTP_POST
-                   ];
+            ];
     }
-    
+
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
@@ -426,14 +426,14 @@
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
                                                                api:api
                                                        requestType:HTTP_PUT
-                   ];
+            ];
     }
     else
     {
         request = [MendeleyRequest requestWithBaseURL:baseURL
                                                   api:api
                                           requestType:HTTP_PUT
-                   ];
+            ];
     }
     if (nil != additionalHeaders)
     {
@@ -463,16 +463,16 @@
         request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
                                                                api:api
                                                        requestType:HTTP_DELETE
-                   ];
+            ];
     }
     else
     {
         request = [MendeleyRequest requestWithBaseURL:baseURL
                                                   api:api
                                           requestType:HTTP_DELETE
-                   ];
+            ];
     }
-    
+
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
@@ -499,7 +499,7 @@
     {
         request = [MendeleyRequest requestWithBaseURL:baseURL api:api requestType:HTTP_HEAD];
     }
-    
+
     MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
     return task;
 }
@@ -510,6 +510,7 @@
     MendeleyNSURLRequestHelper *requestHelper = [[MendeleyNSURLRequestHelper alloc] initWithMendeleyRequest:request completionBlock:completionBlock];
     MendeleyTask *task = [[MendeleyTask alloc] initWithRequestObject:requestHelper];
     BOOL hasStarted = [requestHelper startRequest];
+
     if (!hasStarted)
     {
         return nil;
