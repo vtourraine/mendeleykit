@@ -55,6 +55,7 @@
                                       api:kMendeleyRESTAPIFiles
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -66,7 +67,11 @@
 {
     [NSError assertArgumentNotNil:fileID argumentName:@"fileID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFileWithID, fileID];
-    [self.helper downloadFileWithAPI:apiEndpoint saveToURL:fileURL progressBlock:progressBlock completionBlock:completionBlock];
+    [self.helper downloadFileWithAPI:apiEndpoint
+                           saveToURL:fileURL
+                                task:task
+                       progressBlock:progressBlock
+                     completionBlock:completionBlock];
 }
 
 - (void)           createFile:(NSURL *)fileURL
@@ -85,6 +90,7 @@
                                       api:kMendeleyRESTAPIFiles
                         additionalHeaders:[self uploadFileHeadersWithLinkRel:linkRel]
                    authenticationRequired:YES
+                                     task:task
                             progressBlock:progressBlock
                           completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
@@ -120,7 +126,9 @@
 {
     [NSError assertArgumentNotNil:fileID argumentName:@"fileID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFileWithID, fileID];
-    [self.helper deleteMendeleyObjectWithAPI:apiEndpoint completionBlock:completionBlock];
+    [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
+                             completionBlock:completionBlock];
 }
 
 - (void)fileListWithLinkedURL:(NSURL *)linkURL
@@ -135,6 +143,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -177,6 +186,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])

@@ -104,7 +104,11 @@
 {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     id <MendeleyNetworkProvider> networkProvider = [self.sdkConfiguration networkProvider];
-    [networkProvider invokeHEAD:self.sdkConfiguration.baseAPIURL api:apiString authenticationRequired:YES completionBlock: ^(MendeleyResponse *response, NSError *error) {
+    [networkProvider invokeHEAD:self.sdkConfiguration.baseAPIURL
+                            api:apiString
+         authenticationRequired:YES
+                           task:nil
+                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          completionBlock(nil != response, error);
      }];
 }

@@ -94,21 +94,20 @@
 
 #pragma mark - Public Methods
 
-- (MendeleyTask *)invokeDownloadToFileURL:(NSURL *)fileURL
-                                  baseURL:(NSURL *)baseURL
-                                      api:(NSString *)api
-                        additionalHeaders:(NSDictionary *)additionalHeaders
-                          queryParameters:(NSDictionary *)queryParameters
-                   authenticationRequired:(BOOL)authenticationRequired
-                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                          completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)invokeDownloadToFileURL:(NSURL *)fileURL
+                        baseURL:(NSURL *)baseURL
+                            api:(NSString *)api
+              additionalHeaders:(NSDictionary *)additionalHeaders
+                queryParameters:(NSDictionary *)queryParameters
+         authenticationRequired:(BOOL)authenticationRequired
+                           task:(MendeleyTask *)task
+                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-
-
 
     MendeleyRequest *request = nil;
     if (authenticationRequired)
@@ -134,25 +133,23 @@
         [request addParametersToURL:queryParameters isQuery:YES];
     }
 
-    MendeleyNetworkDownloadTask *task = [[MendeleyNetworkDownloadTask alloc] initDownloadTaskWithRequest:request.mutableURLRequest
-                                                                                                 session:self.currentSession
-                                                                                                 fileURL:(NSURL *) fileURL
-                                                                                           progressBlock:progressBlock
-                                                                                         completionBlock:completionBlock
+    MendeleyNetworkDownloadTask *networkTask = [[MendeleyNetworkDownloadTask alloc] initDownloadTaskWithRequest:request.mutableURLRequest
+                                                                                                        session:self.currentSession
+                                                                                                        fileURL:(NSURL *) fileURL
+                                                                                                  progressBlock:progressBlock
+                                                                                                completionBlock:completionBlock
         ];
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-
-    return cancellationRequest;
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokeUploadForFileURL:(NSURL *)fileURL
-                                 baseURL:(NSURL *)baseURL
-                                     api:(NSString *)api
-                       additionalHeaders:(NSDictionary *)additionalHeaders
-                  authenticationRequired:(BOOL)authenticationRequired
-                           progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                         completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)invokeUploadForFileURL:(NSURL *)fileURL
+                       baseURL:(NSURL *)baseURL
+                           api:(NSString *)api
+             additionalHeaders:(NSDictionary *)additionalHeaders
+        authenticationRequired:(BOOL)authenticationRequired
+                          task:(MendeleyTask *)task
+                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
+               completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertURLArgumentNotNilOrMissing:fileURL argumentName:@"fileURL"];
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
@@ -179,40 +176,40 @@
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
-    __block MendeleyNetworkUploadTask *task = [[MendeleyNetworkUploadTask alloc] initUploadTaskWithRequest:request.mutableURLRequest
-                                                                                                   session:self.currentSession
-                                                                                                   fileURL:fileURL
-                                                                                             progressBlock:progressBlock
-                                                                                           completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                                   [self.taskDictionary removeObjectForKey:task.taskID];
-                                                   completionBlock(response, error);
-                                               }];
-
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
+    __block MendeleyNetworkUploadTask *networkTask = [[MendeleyNetworkUploadTask alloc] initUploadTaskWithRequest:request.mutableURLRequest
+                                                                                                          session:self.currentSession
+                                                                                                          fileURL:fileURL
+                                                                                                    progressBlock:progressBlock
+                                                                                                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                          [self.taskDictionary removeObjectForKey:task.taskID];
+                                                          completionBlock(response, error);
+                                                      }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokeGET:(NSURL *)linkURL
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokeGET:(NSURL *)linkURL
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     return [self invokeGET:linkURL
                                api:nil
                  additionalHeaders:additionalHeaders
                    queryParameters:queryParameters
             authenticationRequired:authenticationRequired
+                              task:task
                    completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokeGET:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokeGET:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -240,24 +237,22 @@
         [request addParametersToURL:queryParameters isQuery:YES];
     }
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokePUT:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-             bodyParameters:(NSDictionary *)bodyParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -289,25 +284,23 @@
     }
 
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-              bodyParameters:(NSDictionary *)bodyParameters
-                      isJSON:(BOOL)isJSON
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+                    isJSON:(BOOL)isJSON
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -335,23 +328,22 @@
                                 isJSON:isJSON];
     }
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-                    jsonData:(NSData *)jsonData
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -381,24 +373,22 @@
     }
     [request addBodyData:jsonData];
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokeDELETE:(NSURL *)baseURL
-                           api:(NSString *)api
-             additionalHeaders:(NSDictionary *)additionalHeaders
-                bodyParameters:(NSDictionary *)bodyParameters
-        authenticationRequired:(BOOL)authenticationRequired
-               completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)      invokeDELETE:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -430,24 +420,22 @@
                                 isJSON:NO];
     }
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-               bodyParameters:(NSDictionary *)bodyParameters
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -478,24 +466,22 @@
                                 isJSON:NO];
     }
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-                     jsonData:(NSData *)jsonData
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -526,23 +512,20 @@
         [request.mutableURLRequest setHTTPBody:jsonData];
     }
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-
-    MendeleyTask *cancellationRequest = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationRequest;
-
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
-- (MendeleyTask *)invokeHEAD:(NSURL *)baseURL
-                         api:(NSString *)api
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokeHEAD:(NSURL *)baseURL
+                       api:(NSString *)api
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -557,15 +540,13 @@
         request = [MendeleyRequest requestWithBaseURL:baseURL api:api requestType:HTTP_HEAD];
     }
 
-    __block MendeleyNetworkTask *task = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
-                                                                                 session:self.currentSession
-                                                                         completionBlock:^(MendeleyResponse *response, NSError *error) {
-                                             [self.taskDictionary removeObjectForKey:task.taskID];
-                                             completionBlock(response, error);
-                                         }];
-    MendeleyTask *cancellationTask = [[MendeleyTask alloc] initWithTaskID:task.taskID];
-    [self executeTask:task];
-    return cancellationTask;
+    __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
+                                                                                        session:self.currentSession
+                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                    [self.taskDictionary removeObjectForKey:task.taskID];
+                                                    completionBlock(response, error);
+                                                }];
+    [self executeNetworkTask:networkTask];
 }
 
 - (void) cancelTask:(MendeleyTask *)task
@@ -590,7 +571,7 @@
 
 #pragma mark - Task Lifecycle Methods
 
-- (void)executeTask:(MendeleyNetworkTask *)task
+- (void)executeNetworkTask:(MendeleyNetworkTask *)task
 {
     [self.taskDictionary setObject:task forKey:task.taskID];
     [task executeTask];
@@ -652,10 +633,13 @@
 #warning needs implementing
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes
 {
-
 }
 
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler
+- (void)            URLSession:(NSURLSession *)session
+                          task:(NSURLSessionTask *)task
+    willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                    newRequest:(NSURLRequest *)request
+             completionHandler:(void (^)(NSURLRequest *))completionHandler
 {
     NSURLRequest *redirectRequest = request;
 
@@ -673,14 +657,12 @@
     }
 }
 
-
 #pragma mark -
 #pragma mark - NSURLSessionDataDelegate methods
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
     didReceiveData:(NSData *)data
 {
-
 }
 
 - (void)    URLSession:(NSURLSession *)session

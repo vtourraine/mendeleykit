@@ -54,6 +54,7 @@
                            parameters:nil
                                   api:apiEndPoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -64,6 +65,7 @@
     [NSError assertStringArgumentNotNilOrEmpty:annotationID argumentName:@"annotationID"];
     NSString *apiEndPoint = [NSString stringWithFormat:kMendeleyRESTAPIAnnotationWithID, annotationID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndPoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 
@@ -77,6 +79,7 @@
                                   api:apiEndpoint
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelAnnotation
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -88,6 +91,7 @@
                                   api:kMendeleyRESTAPIAnnotations
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelAnnotation
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -104,6 +108,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil // we don't need to specify parameters because are inehrits from the previous call
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -146,6 +151,7 @@
                                       api:kMendeleyRESTAPIAnnotations
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -162,6 +168,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])

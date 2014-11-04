@@ -86,6 +86,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil       // we don't need to specify parameters because are inehrits from the previous call
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -127,6 +128,7 @@
                                       api:kMendeleyRESTAPIDocuments
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -140,6 +142,7 @@
                            parameters:[self defaultViewQueryParameters]
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -153,6 +156,7 @@
                            parameters:[self defaultCatalogViewQueryParameters]
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -166,6 +170,7 @@
                                       api:kMendeleyRESTAPICatalog
                                parameters:query
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -177,6 +182,7 @@
                                   api:kMendeleyRESTAPIDocuments
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelDocument
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -190,6 +196,7 @@
                                   api:apiEndpoint
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelDocument
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -200,6 +207,7 @@
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIDocumentWithID, documentID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 
@@ -216,6 +224,7 @@
                bodyParameters:nil
                        isJSON:NO
        authenticationRequired:YES
+                         task:task
               completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -244,6 +253,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParametersWithoutViewParameter]]
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -289,6 +299,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:[self defaultQueryParameters]
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -328,6 +339,7 @@
                                       api:kMendeleyRESTAPITrashedDocuments
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -338,6 +350,7 @@
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPITrashedDocumentWithID, documentID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 
@@ -354,6 +367,7 @@
                bodyParameters:nil
                        isJSON:NO
        authenticationRequired:YES
+                         task:task
               completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -379,6 +393,7 @@
                            parameters:[self defaultViewQueryParameters]
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -389,6 +404,7 @@
                                       api:kMendeleyRESTAPIDocumentTypes
                                parameters:nil
                         additionalHeaders:nil
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -399,6 +415,7 @@
                                       api:kMendeleyRESTAPIIdentifierTypes
                                parameters:nil
                         additionalHeaders:nil
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -425,6 +442,7 @@
                                       api:kMendeleyRESTAPIDocuments
                         additionalHeaders:header
                    authenticationRequired:YES
+                                     task:task
                             progressBlock:^(NSNumber *progress) {
      } completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]

@@ -101,7 +101,14 @@
     NSURL *baseURL = [MendeleyKitConfiguration sharedInstance].baseAPIURL;
     NSURL *oauthURL = [NSURL URLWithString:kMendeleyOAuthPathOAuth2Token relativeToURL:baseURL];
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
-    [networkProvider invokePOST:oauthURL api:nil additionalHeaders:requestHeader bodyParameters:parameters isJSON:NO authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
+    [networkProvider invokePOST:oauthURL
+                            api:nil
+              additionalHeaders:requestHeader
+                 bodyParameters:parameters
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:nil
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
 
          if (nil == response)
@@ -187,7 +194,14 @@
                                       completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
-    [networkProvider invokePOST:[MendeleyKitConfiguration sharedInstance].baseAPIURL api:kMendeleyOAuthPathOAuth2Token additionalHeaders:requestHeader bodyParameters:requestBody isJSON:NO authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
+    [networkProvider invokePOST:[MendeleyKitConfiguration sharedInstance].baseAPIURL
+                            api:kMendeleyOAuthPathOAuth2Token
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBody
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:nil
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
          if (nil == response)
          {
              completionBlock(nil, error);

@@ -64,6 +64,7 @@
     [self.helper mendeleyIDStringListForAPI:apiEndpoint
                                  parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                           additionalHeaders:[self defaultFolderDocumentIDsRequestHeaders]
+                                       task:task
                             completionBlock:completionBlock];
 }
 
@@ -94,6 +95,7 @@
             additionalHeaders:[self defaultAddDocumentToFolderRequestHeaders]
                      jsonData:jsonData
        authenticationRequired:YES
+                         task:task
               completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self.helper isSuccessForResponse:response error:&error])
          {
@@ -112,7 +114,12 @@
                 task:(MendeleyTask *)task
      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
-    [self.helper createMendeleyObject:mendeleyFolder api:kMendeleyRESTAPIFolders additionalHeaders:[self defaultUploadRequestHeaders] expectedType:kMendeleyModelFolder completionBlock:completionBlock];
+    [self.helper createMendeleyObject:mendeleyFolder
+                                  api:kMendeleyRESTAPIFolders
+                    additionalHeaders:[self defaultUploadRequestHeaders]
+                         expectedType:kMendeleyModelFolder
+                                 task:task
+                      completionBlock:completionBlock];
 }
 
 - (void)folderListWithLinkedURL:(NSURL *)linkURL
@@ -127,6 +134,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -169,6 +177,7 @@
            additionalHeaders:[self defaultFolderDocumentIDsRequestHeaders]
              queryParameters:nil
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -215,6 +224,7 @@
                                       api:kMendeleyRESTAPIFolders
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -228,6 +238,7 @@
                            parameters:nil
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -238,6 +249,7 @@
     [NSError assertArgumentNotNil:folderID argumentName:@"folderID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFolderWithID, folderID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 
@@ -250,6 +262,7 @@
     [self.helper updateMendeleyObject:updatedFolder
                                   api:apiEndpoint
                     additionalHeaders:[self defaultUploadRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -262,6 +275,7 @@
     [NSError assertArgumentNotNil:folderID argumentName:@"folderID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIDocumentWithIDInFolderWithID, folderID, documentID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 

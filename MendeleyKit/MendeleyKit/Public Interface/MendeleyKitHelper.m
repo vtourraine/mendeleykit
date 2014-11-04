@@ -68,6 +68,7 @@
                              api:(NSString *)apiString
                       parameters:(NSDictionary *)queryParameters
                additionalHeaders:(NSDictionary *)additionalHeaders
+                            task:(MendeleyTask *)task
                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:objectTypeString argumentName:@"objectTypeString"];
@@ -81,6 +82,7 @@
              additionalHeaders:additionalHeaders
                queryParameters:queryParameters
         authenticationRequired:YES
+                          task:task
                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
@@ -113,6 +115,7 @@
 - (void)mendeleyIDStringListForAPI:(NSString *)apiString
                         parameters:(NSDictionary *)queryParameters
                  additionalHeaders:(NSDictionary *)additionalHeaders
+                              task:(MendeleyTask *)task
                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:apiString argumentName:@"apiString"];
@@ -125,6 +128,7 @@
              additionalHeaders:additionalHeaders
                queryParameters:queryParameters
         authenticationRequired:YES
+                          task:task
                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
@@ -167,6 +171,7 @@
                   parameters:(NSDictionary *)queryParameters
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:objectTypeString argumentName:@"objectTypeString"];
@@ -179,6 +184,7 @@
              additionalHeaders:additionalHeaders
                queryParameters:queryParameters
         authenticationRequired:YES
+                          task:task
                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
@@ -210,6 +216,7 @@
 
 - (void)createMendeleyObject:(MendeleyObject *)mendeleyObject
                          api:(NSString *)apiString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:mendeleyObject argumentName:@"mendeleyObject"];
@@ -234,6 +241,7 @@
               additionalHeaders:nil
                        jsonData:jsonData
          authenticationRequired:YES
+                           task:task
                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
@@ -253,6 +261,7 @@
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:mendeleyObject argumentName:@"mendeleyObject"];
@@ -279,6 +288,7 @@
               additionalHeaders:additionalHeaders
                        jsonData:jsonData
          authenticationRequired:YES
+                           task:task
                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
@@ -308,14 +318,20 @@
 
 - (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
                          api:(NSString *)apiString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [self updateMendeleyObject:updatedMendeleyObject api:apiString additionalHeaders:nil completionBlock:completionBlock];
+    [self updateMendeleyObject:updatedMendeleyObject
+                           api:apiString
+             additionalHeaders:nil
+                          task:task
+               completionBlock:completionBlock];
 }
 
 - (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyObject argumentName:@"updatedMendeleyObject"];
@@ -339,6 +355,7 @@
                additionalHeaders:additionalHeaders
                         jsonData:jsonData
           authenticationRequired:YES
+                            task:task
                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
@@ -359,6 +376,7 @@
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyObject argumentName:@"updatedMendeleyObject"];
@@ -383,6 +401,7 @@
                additionalHeaders:additionalHeaders
                         jsonData:jsonData
           authenticationRequired:YES
+                            task:task
                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
@@ -411,6 +430,7 @@
 }
 
 - (void)deleteMendeleyObjectWithAPI:(NSString *)apiString
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:apiString argumentName:@"apiString"];
@@ -422,6 +442,7 @@
                 additionalHeaders:nil
                    bodyParameters:nil
            authenticationRequired:YES
+                             task:task
                   completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
@@ -437,42 +458,43 @@
      }];
 }
 
-- (MendeleyTask *)downloadFileWithAPI:(NSString *)apiString
-                            saveToURL:(NSURL *)fileURL
-                        progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                      completionBlock:(MendeleyCompletionBlock)completionBlock
+- (void)downloadFileWithAPI:(NSString *)apiString
+                  saveToURL:(NSURL *)fileURL
+                       task:(MendeleyTask *)task
+              progressBlock:(MendeleyResponseProgressBlock)progressBlock
+            completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:apiString argumentName:@"apiString"];
     [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    MendeleyTask *task = [self.provider invokeDownloadToFileURL:fileURL
-                                                        baseURL:[self URL]
-                                                            api:apiString
-                                              additionalHeaders:nil
-                                                queryParameters:nil
-                                         authenticationRequired:YES
-                                                  progressBlock:progressBlock
-                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                              MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
-                              if (![self isSuccessForResponse:response error:&error])
-                              {
-                                  [blockExec executeWithBool:NO
-                                                       error:error];
-                              }
-                              else if (![[NSFileManager defaultManager] fileExistsAtPath:fileURL.path])
-                              {
-                                  NSError *pathError = [NSError errorWithCode:kMendeleyPathNotFoundErrorCode];
-                                  [blockExec executeWithBool:NO
-                                                       error:pathError];
-                              }
-                              else
-                              {
-                                  [blockExec executeWithBool:YES
-                                                       error:nil];
-                              }
-                          }];
-    return task;
+    [self.provider invokeDownloadToFileURL:fileURL
+                                   baseURL:[self URL]
+                                       api:apiString
+                         additionalHeaders:nil
+                           queryParameters:nil
+                    authenticationRequired:YES
+                                      task:task
+                             progressBlock:progressBlock
+                           completionBlock: ^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
+         if (![self isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithBool:NO
+                                  error:error];
+         }
+         else if (![[NSFileManager defaultManager] fileExistsAtPath:fileURL.path])
+         {
+             NSError *pathError = [NSError errorWithCode:kMendeleyPathNotFoundErrorCode];
+             [blockExec executeWithBool:NO
+                                  error:pathError];
+         }
+         else
+         {
+             [blockExec executeWithBool:YES
+                                  error:nil];
+         }
+     }];
 }
 
 #pragma mark -

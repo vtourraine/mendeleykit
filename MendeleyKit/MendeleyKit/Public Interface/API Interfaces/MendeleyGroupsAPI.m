@@ -50,6 +50,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:mergedQuery
       authenticationRequired:YES
+                        task:task
              completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -104,6 +105,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -155,6 +157,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil
       authenticationRequired:YES
+                        task:task
              completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
          MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
@@ -212,6 +215,7 @@
                                       api:apiEndPoint
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self membersRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
@@ -228,6 +232,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:mergedQuery
       authenticationRequired:YES
+                        task:task
              completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -261,6 +266,7 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
@@ -292,6 +298,7 @@
                            parameters:nil
                                   api:apiEndPoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 
 }
@@ -391,6 +398,7 @@
            additionalHeaders:requestHeader
              queryParameters:nil
       authenticationRequired:NO
+                        task:task
              completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithBinaryDataCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])

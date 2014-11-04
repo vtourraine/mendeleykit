@@ -43,14 +43,15 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokeDownloadToFileURL:(NSURL *)fileURL
-                                  baseURL:(NSURL *)baseURL
-                                      api:(NSString *)api
-                        additionalHeaders:(NSDictionary *)additionalHeaders
-                          queryParameters:(NSDictionary *)queryParameters
-                   authenticationRequired:(BOOL)authenticationRequired
-                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                          completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)invokeDownloadToFileURL:(NSURL *)fileURL
+                        baseURL:(NSURL *)baseURL
+                            api:(NSString *)api
+              additionalHeaders:(NSDictionary *)additionalHeaders
+                queryParameters:(NSDictionary *)queryParameters
+         authenticationRequired:(BOOL)authenticationRequired
+                           task:(MendeleyTask *)task
+                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    uploading files method
@@ -62,13 +63,14 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokeUploadForFileURL:(NSURL * )fileURL
-                                 baseURL:(NSURL *)baseURL
-                                     api:(NSString *)api
-                       additionalHeaders:(NSDictionary *)additionalHeaders
-                  authenticationRequired:(BOOL)authenticationRequired
-                           progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                         completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)invokeUploadForFileURL:(NSURL * )fileURL
+                       baseURL:(NSURL *)baseURL
+                           api:(NSString *)api
+             additionalHeaders:(NSDictionary *)additionalHeaders
+        authenticationRequired:(BOOL)authenticationRequired
+                          task:(MendeleyTask *)task
+                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
+               completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 
 /**
@@ -82,11 +84,12 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokeGET:(NSURL *)linkURL
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)         invokeGET:(NSURL *)linkURL
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will GET HTTP method to download data from the server
@@ -98,12 +101,13 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokeGET:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)         invokeGET:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will PUT HTTP method to upload & update data to the server.
@@ -115,12 +119,13 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokePUT:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-             bodyParameters:(NSDictionary *)bodyParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will POST HTTP method to upload data to the server.
@@ -134,13 +139,14 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-              bodyParameters:(NSDictionary *)bodyParameters
-                      isJSON:(BOOL)isJSON
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+                    isJSON:(BOOL)isJSON
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will POST HTTP method to upload data to the server.
@@ -152,12 +158,13 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-                    jsonData:(NSData *)jsonData
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will create a DELETE HTTP request.
@@ -168,12 +175,13 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokeDELETE:(NSURL *)baseURL
-                           api:(NSString *)api
-             additionalHeaders:(NSDictionary *)additionalHeaders
-                bodyParameters:(NSDictionary *)bodyParameters
-        authenticationRequired:(BOOL)authenticationRequired
-               completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)      invokeDELETE:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will create a PATCH HTTP request.
@@ -185,12 +193,13 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-               bodyParameters:(NSDictionary *)bodyParameters
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will create a PATCH HTTP request.
@@ -202,12 +211,13 @@
    @param completionBlock
    @return a cancellable request
  */
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-                     jsonData:(NSData *)jsonData
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    this method will create a HEAD request.
@@ -215,10 +225,11 @@
    @param api
    @param completionBlock
  */
-- (MendeleyTask *)invokeHEAD:(NSURL *)baseURL
-                         api:(NSString *)api
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+- (void)        invokeHEAD:(NSURL *)baseURL
+                       api:(NSString *)api
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
 /**
    cancels a specific MendeleyTask

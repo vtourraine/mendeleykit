@@ -34,6 +34,7 @@
                            parameters:nil
                                   api:kMendeleyRESTAPIProfilesMe
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
@@ -48,6 +49,7 @@
                            parameters:nil
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 
 

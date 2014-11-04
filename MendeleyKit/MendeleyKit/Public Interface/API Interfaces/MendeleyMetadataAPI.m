@@ -53,6 +53,7 @@
                            parameters:query
                                   api:kMendeleyRESTAPIMetadata
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
