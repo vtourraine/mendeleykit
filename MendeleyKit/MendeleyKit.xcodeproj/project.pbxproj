@@ -117,6 +117,7 @@
 		C4CD515019DAD9E400C8EB8D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CD514F19DAD9E400C8EB8D /* UIKit.framework */; };
 		C4CD515319DAD9E400C8EB8D /* libMendeleyKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CD513B19DAD9E400C8EB8D /* libMendeleyKit.a */; };
 		C4CD515919DAD9E400C8EB8D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4CD515719DAD9E400C8EB8D /* InfoPlist.strings */; };
+		C883D3BD1A0A633A0001281D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C883D3BC1A0A633A0001281D /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -327,6 +328,8 @@
 		C4CD514F19DAD9E400C8EB8D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C4CD515619DAD9E400C8EB8D /* MendeleyKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MendeleyKitTests-Info.plist"; sourceTree = "<group>"; };
 		C4CD515819DAD9E400C8EB8D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C883D3BB1A0A633A0001281D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		C883D3BC1A0A633A0001281D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -726,6 +729,7 @@
 		C4CD514019DAD9E400C8EB8D /* MendeleyKit */ = {
 			isa = PBXGroup;
 			children = (
+				C883D3BA1A0A63270001281D /* External */,
 				C4A134AF19DADBBE0069DB7A /* Model */,
 				C4A134B019DADBD20069DB7A /* Networking */,
 				C4A134B119DADBE30069DB7A /* Public Interface */,
@@ -775,6 +779,15 @@
 				C4CD515719DAD9E400C8EB8D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C883D3BA1A0A63270001281D /* External */ = {
+			isa = PBXGroup;
+			children = (
+				C883D3BB1A0A633A0001281D /* Reachability.h */,
+				C883D3BC1A0A633A0001281D /* Reachability.m */,
+			);
+			name = External;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -946,6 +959,7 @@
 				C4A1352619DADEC40069DB7A /* MendeleyLoginController.m in Sources */,
 				C4A134FB19DADE850069DB7A /* MendeleyOAuthCredentials.m in Sources */,
 				C4A1350C19DADE950069DB7A /* MendeleyResponse.m in Sources */,
+				C883D3BD1A0A633A0001281D /* Reachability.m in Sources */,
 				C4A134FC19DADE850069DB7A /* MendeleyOAuthStore.m in Sources */,
 				C4A1356B19DAE0A20069DB7A /* MendeleyTimer.m in Sources */,
 				C4A1353D19DADF280069DB7A /* MendeleyMetadataAPI.m in Sources */,
