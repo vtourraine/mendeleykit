@@ -22,6 +22,7 @@
 #import "NSError+MendeleyError.h"
 #import "MendeleyRequest.h"
 #import "MendeleyKitConfiguration.h"
+#import "Reachability.h"
 
 @interface MendeleyConnectionReachability ()
 
@@ -53,18 +54,14 @@
     return self;
 }
 
+- (BOOL)isWifiConnection
+{
+    return [Reachability reachabilityForLocalWiFi];
+}
+
 - (BOOL)isNetworkReachable
 {
-    CFNetDiagnosticRef dReference;
-
-    dReference = CFNetDiagnosticCreateWithURL(NULL, (__bridge CFURLRef) [NSURL URLWithString:@""]);
-
-    CFNetDiagnosticStatus status;
-    status = CFNetDiagnosticCopyNetworkStatusPassively(dReference, NULL);
-
-    CFRelease(dReference);
-
-    return (status == kCFNetDiagnosticConnectionUp);
+    return [Reachability reachabilityForInternetConnection];
 }
 
 - (void)mendeleyServerIsReachableWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
@@ -102,11 +99,17 @@
 
 - (void)mendeleyService:(NSString *)apiString isReachableWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    id <MendeleyNetworkProvider> networkProvider = [self.sdkConfiguration networkProvider];
-    [networkProvider invokeHEAD:self.sdkConfiguration.baseAPIURL api:apiString authenticationRequired:YES completionBlock: ^(MendeleyResponse *response, NSError *error) {
-         completionBlock(nil != response, error);
-     }];
+    NSString *remoteHostName = [NSString stringWithFormat:@"%@/%@", self.sdkConfiguration.baseAPIURL, apiString];
+
+    if ([self isNetworkReachable])
+    {
+        BOOL serviceReachable = [Reachability reachabilityWithHostName:remoteHostName];
+        completionBlock(serviceReachable, nil);
+    }
+    else
+    {
+        completionBlock(NO, nil);
+    }
 }
 
 @end
