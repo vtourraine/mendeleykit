@@ -84,7 +84,7 @@
                                                                             additionalHeaders:nil
                                                                               queryParameters:self.queryParameters
                                                                        authenticationRequired:NO
-                                                                                         task:nil
+                                                                                         task:[MendeleyTask new]
                                                                               completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -127,7 +127,7 @@
                                                                             additionalHeaders:nil
                                                                               queryParameters:nil
                                                                        authenticationRequired:NO
-                                                                                         task:nil
+                                                                                         task:[MendeleyTask new]
                                                                               completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -158,7 +158,7 @@
                                                                             additionalHeaders:self.additionalHeaders
                                                                                bodyParameters:self.bodyParameters
                                                                        authenticationRequired:NO
-                                                                                         task:nil
+                                                                                         task:[MendeleyTask new]
                                                                               completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -204,7 +204,7 @@
                                                                                 bodyParameters:self.bodyParameters
                                                                                         isJSON:YES
                                                                         authenticationRequired:NO
-                                                                                          task:nil
+                                                                                          task:[MendeleyTask new]
                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -236,7 +236,7 @@
                                                                              additionalHeaders:nil
                                                                                       jsonData:bodyData
                                                                         authenticationRequired:NO
-                                                                                          task:nil
+                                                                                          task:[MendeleyTask new]
                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -266,7 +266,7 @@
                                                                               additionalHeaders:nil
                                                                                  bodyParameters:self.bodyParameters
                                                                          authenticationRequired:NO
-                                                                                           task:nil
+                                                                                           task:[MendeleyTask new]
                                                                                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -296,7 +296,7 @@
                                                                                additionalHeaders:self.additionalHeaders
                                                                                   bodyParameters:self.bodyParameters
                                                                           authenticationRequired:NO
-                                                                                            task:nil
+                                                                                            task:[MendeleyTask new]
                                                                                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -337,7 +337,7 @@
                        [[MendeleyKitConfiguration sharedInstance].networkProvider invokeHEAD:self.testURL
                                                                                          api:@""
                                                                       authenticationRequired:NO
-                                                                                        task:nil
+                                                                                        task:[MendeleyTask new]
                                                                              completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             *hasCalledBack = YES;
@@ -372,7 +372,7 @@
                                                                                           additionalHeaders:nil
                                                                                             queryParameters:delayQueryParameters
                                                                                      authenticationRequired:NO
-                                                                                                       task:nil
+                                                                                                       task:[MendeleyTask new]
                                                                                               progressBlock: ^(NSNumber *progress) {
                             NSLog(@"Update Received: %.2f", [progress floatValue]);
                             isProgressCalled = YES;
@@ -414,7 +414,7 @@
                                                                                                        api:@"post"
                                                                                          additionalHeaders:nil
                                                                                     authenticationRequired:NO
-                                                                                                      task:nil
+                                                                                                      task:[MendeleyTask new]
                                                                                              progressBlock:
                         ^(NSNumber *progress) {
                             NSLog(@"Update received: %.2f", progress.doubleValue);
@@ -481,7 +481,7 @@
                                                              additionalHeaders:nil
                                                                queryParameters:nil
                                                         authenticationRequired:NO
-                                                                          task:nil
+                                                                          task:[MendeleyTask new]
                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          }];
     }

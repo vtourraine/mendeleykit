@@ -131,12 +131,12 @@
 {
     if (cancellationTaskID)
     {
-        [self.cancellationTaskDictionary removeObjectForKey:cancellationTaskID];
         NSNumber *networkTaskID = [self networkTaskIDFromCancellationTaskID:cancellationTaskID];
         if (networkTaskID)
         {
             [self.networkTaskDictionary removeObjectForKey:networkTaskID];
         }
+        [self.cancellationTaskDictionary removeObjectForKey:cancellationTaskID];
     }
 }
 
