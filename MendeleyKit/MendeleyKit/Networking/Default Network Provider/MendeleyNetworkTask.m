@@ -81,7 +81,10 @@
 - (void)cancelTaskWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [self.task cancel];
-    completionBlock(YES, nil);
+    if (completionBlock)
+    {
+        completionBlock(YES, nil);
+    }
 }
 
 @end
@@ -184,7 +187,10 @@
 {
     [self.task cancel];
     [self.downloadTask cancel];
-    completionBlock(YES, nil);
+    if (completionBlock)
+    {
+        completionBlock(YES, nil);
+    }
 }
 
 @end
