@@ -109,7 +109,7 @@
     XCTAssertFalse(parameterNotFound, @"Problem with the query parameters. One or more parameters setted weren't received by the server");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -141,7 +141,7 @@
     XCTAssertTrue(((NSData *) deserializedResponse && [[(NSData *) deserializedResponse subdataWithRange: NSMakeRange(0, 4)] isEqualToData:validPDF]), @"The object returned is not a PDF");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -186,7 +186,7 @@
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -217,7 +217,7 @@
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -250,7 +250,7 @@
     XCTAssertTrue([testString isEqualToString:dataReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -280,7 +280,7 @@
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -324,7 +324,7 @@
     XCTAssertTrue([bodyParamtersstring isEqualToString:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -346,7 +346,7 @@
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during PATCH request: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -397,7 +397,7 @@
     XCTAssertTrue(errorOnRemoving == nil, @"An error was encounterd while removing the file: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -431,7 +431,7 @@
     XCTAssertTrue(isProgressCalled, @"Progress status never called");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -463,7 +463,7 @@
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0 && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 }
@@ -501,7 +501,7 @@
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the requests: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0 && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 }
@@ -542,7 +542,7 @@
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionaryPippo] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0 && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 }
