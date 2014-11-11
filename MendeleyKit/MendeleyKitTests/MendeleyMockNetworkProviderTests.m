@@ -55,7 +55,12 @@
     self.provider.expectedSuccess = YES;
     self.provider.expectedResponseBody = self.expectedBody;
 
-    [self.provider invokeGET:nil additionalHeaders:nil queryParameters:nil authenticationRequired:NO task:[MendeleyTask new] completionBlock:^(MendeleyResponse *response, NSError *error) {
+    [self.provider invokeGET:nil
+           additionalHeaders:nil
+             queryParameters:nil
+      authenticationRequired:NO
+                        task:[MendeleyTask new]
+             completionBlock:^(MendeleyResponse *response, NSError *error) {
          XCTAssertNotNil(response, @"The response should not be nil, ie successful");
          if (nil != response)
          {

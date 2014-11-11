@@ -56,126 +56,85 @@
 }
 
 
-- (MendeleyTask *)invokeDownloadToFileURL:(NSURL *)fileURL
-                                  baseURL:(NSURL *)baseURL
-                                      api:(NSString *)api
-                        additionalHeaders:(NSDictionary *)additionalHeaders
-                          queryParameters:(NSDictionary *)queryParameters
-                   authenticationRequired:(BOOL)authenticationRequired
-                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                          completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)invokeDownloadToFileURL:(NSURL *)fileURL
+                        baseURL:(NSURL *)baseURL
+                            api:(NSString *)api
+              additionalHeaders:(NSDictionary *)additionalHeaders
+                queryParameters:(NSDictionary *)queryParameters
+         authenticationRequired:(BOOL)authenticationRequired
+                           task:(MendeleyTask *)task
+                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
+    [self executeMockTaskWithCompletionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokeUploadForFileURL:(NSURL * )fileURL
-                                 baseURL:(NSURL *)baseURL
-                                     api:(NSString *)api
-                       additionalHeaders:(NSDictionary *)additionalHeaders
-                  authenticationRequired:(BOOL)authenticationRequired
-                           progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                         completionBlock:(MendeleyResponseCompletionBlock)completionBlock
-{
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
-}
-
-
-- (MendeleyTask *)invokeGET:(NSURL *)linkURL
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
-{
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
-}
-
-- (MendeleyTask *)invokeGET:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
-{
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
-}
-
-
-- (MendeleyTask *)invokePUT:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-             bodyParameters:(NSDictionary *)bodyParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
-{
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
-}
-
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-              bodyParameters:(NSDictionary *)bodyParameters
-                      isJSON:(BOOL)isJSON
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
-{
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
-}
-
-
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-                    jsonData:(NSData *)jsonData
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
-{
-    if (self.checkValidJSONInputData)
-    {
-        NSError *parseError = nil;
-        id expectedObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
-        if (nil == expectedObject)
-        {
-            completionBlock(nil, parseError);
-            return nil;
-        }
-        if (![expectedObject isKindOfClass:[NSDictionary class]] && ![expectedObject isKindOfClass:[NSArray class]])
-        {
-            NSError *error = [NSError errorWithCode:kMendeleyJSONTypeUnrecognisedErrorCode];
-            completionBlock(nil, error);
-            return nil;
-        }
-    }
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
-}
-
-- (MendeleyTask *)invokeDELETE:(NSURL *)baseURL
+- (void)invokeUploadForFileURL:(NSURL * )fileURL
+                       baseURL:(NSURL *)baseURL
                            api:(NSString *)api
              additionalHeaders:(NSDictionary *)additionalHeaders
-                bodyParameters:(NSDictionary *)bodyParameters
         authenticationRequired:(BOOL)authenticationRequired
+                          task:(MendeleyTask *)task
+                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
                completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
-
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
+    [self executeMockTaskWithCompletionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-               bodyParameters:(NSDictionary *)bodyParameters
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+
+- (void)         invokeGET:(NSURL *)linkURL
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
-
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
+    [self executeMockTaskWithCompletionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-                     jsonData:(NSData *)jsonData
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokeGET:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+                    isJSON:(BOOL)isJSON
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     if (self.checkValidJSONInputData)
     {
@@ -184,24 +143,76 @@
         if (nil == expectedObject)
         {
             completionBlock(nil, parseError);
-            return nil;
+            return;
         }
         if (![expectedObject isKindOfClass:[NSDictionary class]] && ![expectedObject isKindOfClass:[NSArray class]])
         {
             NSError *error = [NSError errorWithCode:kMendeleyJSONTypeUnrecognisedErrorCode];
             completionBlock(nil, error);
-            return nil;
+            return;
         }
     }
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
+    [self executeMockTaskWithCompletionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokeHEAD:(NSURL *)baseURL
-                         api:(NSString *)api
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)      invokeDELETE:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
-    return [self executeMockTaskWithCompletionBlock:completionBlock];
+
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    if (self.checkValidJSONInputData)
+    {
+        NSError *parseError = nil;
+        id expectedObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&parseError];
+        if (nil == expectedObject)
+        {
+            completionBlock(nil, parseError);
+            return;
+        }
+        if (![expectedObject isKindOfClass:[NSDictionary class]] && ![expectedObject isKindOfClass:[NSArray class]])
+        {
+            NSError *error = [NSError errorWithCode:kMendeleyJSONTypeUnrecognisedErrorCode];
+            completionBlock(nil, error);
+            return;
+        }
+    }
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+- (void)        invokeHEAD:(NSURL *)baseURL
+                       api:(NSString *)api
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [self executeMockTaskWithCompletionBlock:completionBlock];
 }
 
 
@@ -233,7 +244,7 @@
     }
 }
 
-- (MendeleyTask *)executeMockTaskWithCompletionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)executeMockTaskWithCompletionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     self.mockResponse.success = self.expectedSuccess;
@@ -254,9 +265,8 @@
     }
 
     self.taskCounter++;
-    MendeleyTask *task = [[MendeleyTask alloc] initWithTaskID:@(self.taskCounter)];
+    MendeleyTask *task = [[MendeleyTask alloc] initWithTaskID:[NSString stringWithFormat:@"%lu", (unsigned long) self.taskCounter]];
     [self.taskArray addObject:task];
-    return task;
 }
 
 @end
