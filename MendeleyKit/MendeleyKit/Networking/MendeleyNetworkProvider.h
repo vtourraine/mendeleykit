@@ -39,9 +39,9 @@
    @param additionalHeaders any additional headers to be used in the request
    @param queryParameters this will be a set of query parameters
    @param authenticationRequired
+   @param task
    @param progressBlock
    @param completionBlock
-   @return a cancellable request
  */
 - (void)invokeDownloadToFileURL:(NSURL *)fileURL
                         baseURL:(NSURL *)baseURL
@@ -59,9 +59,9 @@
    @param baseURL
    @param api
    @param additionalHeaders any additional headers to be used in the request
+   @param task
    @param progressBlock
    @param completionBlock
-   @return a cancellable request
  */
 - (void)invokeUploadForFileURL:(NSURL * )fileURL
                        baseURL:(NSURL *)baseURL
@@ -81,8 +81,8 @@
    @param api
    @param additionalHeaders any additional headers to be used in the request
    @param queryParameters this will be a set of query parameters
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)         invokeGET:(NSURL *)linkURL
          additionalHeaders:(NSDictionary *)additionalHeaders
@@ -98,8 +98,8 @@
    @param additionalHeaders any additional headers to be used in the request
    @param queryParameters this will be a set of query parameters
    @param authenticationRequired - some GET methods may not require authentication
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)         invokeGET:(NSURL *)baseURL
                        api:(NSString *)api
@@ -116,8 +116,8 @@
    @param api
    @param additionalHeaders any additional headers to be used in the request
    @param bodyParameters
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)         invokePUT:(NSURL *)baseURL
                        api:(NSString *)api
@@ -136,8 +136,8 @@
    @param bodyParameters a body consisting of NSString based key-value pairs
    @param usesAuthentication
    @param isJSON
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)        invokePOST:(NSURL *)baseURL
                        api:(NSString *)api
@@ -155,8 +155,8 @@
    @param api
    @param additionalHeaders any additional headers to be used in the request
    @param jsonData
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)        invokePOST:(NSURL *)baseURL
                        api:(NSString *)api
@@ -172,8 +172,8 @@
    Delete methods require authentication
    @param baseURL
    @param api
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)      invokeDELETE:(NSURL *)baseURL
                        api:(NSString *)api
@@ -190,8 +190,8 @@
    @param api
    @param additionalHeaders any additional headers to be used in the request
    @param bodyParameters
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)       invokePATCH:(NSURL *)baseURL
                        api:(NSString *)api
@@ -208,8 +208,8 @@
    @param api
    @param additionalHeaders any additional headers to be used in the request
    @param jsonData
+   @param task
    @param completionBlock
-   @return a cancellable request
  */
 - (void)       invokePATCH:(NSURL *)baseURL
                        api:(NSString *)api
@@ -223,6 +223,7 @@
    this method will create a HEAD request.
    @param baseURL
    @param api
+   @param task
    @param completionBlock
  */
 - (void)        invokeHEAD:(NSURL *)baseURL
