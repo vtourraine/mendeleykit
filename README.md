@@ -1,6 +1,10 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
-Version: 0.8.1 alpha
+Version: 0.8.9 alpha
+11 November 2014
+- all API methods in MendeleyKit now return a MendeleyTask object to allow cancellation of network calls. The method signatures for network provider and API helper classes were changed accordingly.
+- Notice: the SDK makes use of a 3rd party code provided by Apple to check on network reachability. The code is provided in accordance with Apple licence (see source code file Reachability.h/.m)
+
 
 Released: October 2014
 
