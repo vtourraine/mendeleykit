@@ -113,14 +113,15 @@
 
 }
 
-- (MendeleyTask *)invokeDownloadToFileURL:(NSURL *)fileURL
-                                  baseURL:(NSURL *)baseURL
-                                      api:(NSString *)api
-                        additionalHeaders:(NSDictionary *)additionalHeaders
-                          queryParameters:(NSDictionary *)queryParameters
-                   authenticationRequired:(BOOL)authenticationRequired
-                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                          completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)invokeDownloadToFileURL:(NSURL *)fileURL
+                        baseURL:(NSURL *)baseURL
+                            api:(NSString *)api
+              additionalHeaders:(NSDictionary *)additionalHeaders
+                queryParameters:(NSDictionary *)queryParameters
+         authenticationRequired:(BOOL)authenticationRequired
+                           task:(MendeleyTask *)task
+                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -155,26 +156,23 @@
                                                                         toFileURL:fileURL
                                                                     progressBlock:progressBlock
                                                                   completionBlock:completionBlock];
-    MendeleyTask *task = [[MendeleyTask alloc] initWithRequestObject:downloadHelper];
+    task.requestObject =  downloadHelper;
     BOOL hasStarted = [downloadHelper startRequest];
-    if (!hasStarted)
+    if (hasStarted)
     {
-        return nil;
-    }
-    else
-    {
+#warning MOB-1073
         [self.tasks addObject:task];
-        return task;
     }
 }
 
-- (MendeleyTask *)invokeUploadForFileURL:(NSURL *)fileURL
-                                 baseURL:(NSURL *)baseURL
-                                     api:(NSString *)api
-                       additionalHeaders:(NSDictionary *)additionalHeaders
-                  authenticationRequired:(BOOL)authenticationRequired
-                           progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                         completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)invokeUploadForFileURL:(NSURL *)fileURL
+                       baseURL:(NSURL *)baseURL
+                           api:(NSString *)api
+             additionalHeaders:(NSDictionary *)additionalHeaders
+        authenticationRequired:(BOOL)authenticationRequired
+                          task:(MendeleyTask *)task
+                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
+               completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"fileURL"];
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
@@ -203,39 +201,38 @@
                                                                   fromFileURL:fileURL
                                                                 progressBlock:progressBlock
                                                               completionBlock:completionBlock];
-    MendeleyTask *task = [[MendeleyTask alloc] initWithRequestObject:uploadHelper];
+    task.requestObject =  uploadHelper;
     BOOL hasStarted = [uploadHelper startRequest];
-    if (!hasStarted)
+    if (hasStarted)
     {
-        return nil;
-    }
-    else
-    {
+#warning MOB-1073
         [self.tasks addObject:task];
-        return task;
     }
 }
 
-- (MendeleyTask *)invokeGET:(NSURL *)linkURL
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokeGET:(NSURL *)linkURL
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
-    return [self invokeGET:linkURL
-                               api:nil
-                 additionalHeaders:additionalHeaders
-                   queryParameters:queryParameters
-            authenticationRequired:authenticationRequired
-                   completionBlock:completionBlock];
+    [self invokeGET:linkURL
+                        api:nil
+          additionalHeaders:additionalHeaders
+            queryParameters:queryParameters
+     authenticationRequired:authenticationRequired
+                       task:task
+            completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokeGET:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokeGET:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -261,16 +258,16 @@
     {
         [request addParametersToURL:queryParameters isQuery:YES];
     }
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-               bodyParameters:(NSDictionary *)bodyParameters
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -298,16 +295,16 @@
         [request addBodyWithParameters:bodyParameters
                                 isJSON:NO];
     }
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-                     jsonData:(NSData *)jsonData
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:jsonData argumentName:@"jsonData"];
@@ -335,18 +332,18 @@
     {
         [request.mutableURLRequest setHTTPBody:jsonData];
     }
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
 
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-              bodyParameters:(NSDictionary *)bodyParameters
-                      isJSON:(BOOL)isJSON
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+                    isJSON:(BOOL)isJSON
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -372,16 +369,16 @@
         [request addBodyWithParameters:bodyParameters
                                 isJSON:isJSON];
     }
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-                    jsonData:(NSData *)jsonData
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:jsonData argumentName:@"jsonData"];
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
@@ -407,16 +404,16 @@
         [request addHeaderWithParameters:additionalHeaders];
     }
     [request addBodyData:jsonData];
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokePUT:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-             bodyParameters:(NSDictionary *)bodyParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -444,16 +441,16 @@
         [request addBodyWithParameters:bodyParameters
                                 isJSON:NO];
     }
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokeDELETE:(NSURL *)baseURL
-                           api:(NSString *)api
-             additionalHeaders:(NSDictionary *)additionalHeaders
-                bodyParameters:(NSDictionary *)bodyParameters
-        authenticationRequired:(BOOL)authenticationRequired
-               completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)      invokeDELETE:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -482,11 +479,14 @@
         [request addBodyWithParameters:bodyParameters
                                 isJSON:NO];
     }
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokeHEAD:(NSURL *)baseURL api:(NSString *)api authenticationRequired:(BOOL)authenticationRequired completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokeHEAD:(NSURL *)baseURL
+                       api:(NSString *)api
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -500,25 +500,21 @@
         request = [MendeleyRequest requestWithBaseURL:baseURL api:api requestType:HTTP_HEAD];
     }
 
-    MendeleyTask *task = [self executeTastWithRequest:request completionBlock:completionBlock];
-    return task;
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)executeTastWithRequest:(MendeleyRequest *)request
-                         completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)executeTastWithRequest:(MendeleyRequest *)request
+                          task:(MendeleyTask *)task
+               completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     MendeleyNSURLRequestHelper *requestHelper = [[MendeleyNSURLRequestHelper alloc] initWithMendeleyRequest:request completionBlock:completionBlock];
-    MendeleyTask *task = [[MendeleyTask alloc] initWithRequestObject:requestHelper];
-    BOOL hasStarted = [requestHelper startRequest];
 
-    if (!hasStarted)
+    task.requestObject =  requestHelper;
+    BOOL hasStarted = [requestHelper startRequest];
+    if (hasStarted)
     {
-        return nil;
-    }
-    else
-    {
+#warning MOB-1073
         [self.tasks addObject:task];
-        return task;
     }
 }
 
