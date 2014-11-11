@@ -66,10 +66,9 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
     return self;
 }
 
-
 - (void)cancelAllTasks:(MendeleyCompletionBlock)completionBlock
 {
-    [self.writableTaskDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber *taskID, MendeleySimpleNetworkTask *simpleTask, BOOL *stop) {
+    [self.writableTaskDictionary enumerateKeysAndObjectsUsingBlock: ^(NSNumber *taskID, MendeleySimpleNetworkTask *simpleTask, BOOL *stop) {
          [simpleTask.sessionTask cancel];
          NSError *cancelError = [NSError errorWithCode:kMendeleyCancelledRequestErrorCode];
          simpleTask.completionBlock(nil, cancelError);
@@ -94,17 +93,17 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
             [self.writableTaskDictionary removeObjectForKey:mendeleyTask.taskID];
         }
     }
-
 }
 
-- (MendeleyTask *)invokeDownloadToFileURL:(NSURL *)fileURL
-                                  baseURL:(NSURL *)baseURL
-                                      api:(NSString *)api
-                        additionalHeaders:(NSDictionary *)additionalHeaders
-                          queryParameters:(NSDictionary *)queryParameters
-                   authenticationRequired:(BOOL)authenticationRequired
-                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                          completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)invokeDownloadToFileURL:(NSURL *)fileURL
+                        baseURL:(NSURL *)baseURL
+                            api:(NSString *)api
+              additionalHeaders:(NSDictionary *)additionalHeaders
+                queryParameters:(NSDictionary *)queryParameters
+         authenticationRequired:(BOOL)authenticationRequired
+                           task:(MendeleyTask *)task
+                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:api argumentName:@"api"];
@@ -132,7 +131,7 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
         [request addParametersToURL:queryParameters isQuery:YES];
     }
 
-    NSURLSessionDownloadTask *downloadTask = [self.session downloadTaskWithRequest:request.mutableURLRequest completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+    NSURLSessionDownloadTask *downloadTask = [self.session downloadTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSURL *location, NSURLResponse *response, NSError *error) {
                                                   MendeleyResponse *mendeleyResponse = nil;
                                                   if (nil != location)
                                                   {
@@ -149,28 +148,25 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
                                                       {
                                                           error = errorWhileMovingFile;
                                                       }
-
                                                   }
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                                      completionBlock(mendeleyResponse, error);
                                                                  });
                                               }];
 
-
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(downloadTask.taskIdentifier)];
     MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:downloadTask completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
     [downloadTask resume];
-    return mendeleyTask;
 }
 
-- (MendeleyTask *)invokeUploadForFileURL:(NSURL *)fileURL
-                                 baseURL:(NSURL *)baseURL
-                                     api:(NSString *)api
-                       additionalHeaders:(NSDictionary *)additionalHeaders
-                  authenticationRequired:(BOOL)authenticationRequired
-                           progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                         completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)invokeUploadForFileURL:(NSURL *)fileURL
+                       baseURL:(NSURL *)baseURL
+                           api:(NSString *)api
+             additionalHeaders:(NSDictionary *)additionalHeaders
+        authenticationRequired:(BOOL)authenticationRequired
+                          task:(MendeleyTask *)task
+                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
+               completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"fileURL"];
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
@@ -195,7 +191,7 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
-    NSURLSessionUploadTask *uploadTask = [self.session uploadTaskWithRequest:request.mutableURLRequest fromFile:fileURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionUploadTask *uploadTask = [self.session uploadTaskWithRequest:request.mutableURLRequest fromFile:fileURL completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
                                               MendeleyResponse *mendeleyResponse = nil;
                                               if (nil != response)
                                               {
@@ -206,34 +202,34 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
                                                              });
                                           }];
 
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(uploadTask.taskIdentifier)];
     MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:uploadTask completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
     [uploadTask resume];
-    return mendeleyTask;
-
 }
 
-- (MendeleyTask *)invokeGET:(NSURL *)linkURL
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokeGET:(NSURL *)linkURL
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     return [self invokeGET:linkURL
                                api:nil
                  additionalHeaders:additionalHeaders
                    queryParameters:queryParameters
             authenticationRequired:authenticationRequired
+                              task:task
                    completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)invokeGET:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-            queryParameters:(NSDictionary *)queryParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokeGET:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+           queryParameters:(NSDictionary *)queryParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -260,31 +256,29 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
         [request addParametersToURL:queryParameters isQuery:YES];
     }
 
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                  MendeleyResponse *mendeleyResponse = nil;
-                                  if (nil != response)
-                                  {
-                                      mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                  }
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                     completionBlock(mendeleyResponse, error);
-                                                 });
+    NSURLSessionTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                         MendeleyResponse *mendeleyResponse = nil;
+                                         if (nil != response)
+                                         {
+                                             mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                         }
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                            completionBlock(mendeleyResponse, error);
+                                                        });
+                                     }];
 
-                              }];
-
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-               bodyParameters:(NSDictionary *)bodyParameters
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -306,31 +300,29 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                  MendeleyResponse *mendeleyResponse = nil;
-                                  if (nil != response)
-                                  {
-                                      mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                  }
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                     completionBlock(mendeleyResponse, error);
-                                                 });
+    NSURLSessionTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                         MendeleyResponse *mendeleyResponse = nil;
+                                         if (nil != response)
+                                         {
+                                             mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                         }
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                            completionBlock(mendeleyResponse, error);
+                                                        });
+                                     }];
 
-                              }];
-
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
-- (MendeleyTask *)invokePATCH:(NSURL *)baseURL
-                          api:(NSString *)api
-            additionalHeaders:(NSDictionary *)additionalHeaders
-                     jsonData:(NSData *)jsonData
-       authenticationRequired:(BOOL)authenticationRequired
-              completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)       invokePATCH:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:jsonData argumentName:@"jsonData"];
@@ -354,32 +346,29 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                  MendeleyResponse *mendeleyResponse = nil;
-                                  if (nil != response)
-                                  {
-                                      mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                  }
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                     completionBlock(mendeleyResponse, error);
-                                                 });
-
-                              }];
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    NSURLSessionTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                         MendeleyResponse *mendeleyResponse = nil;
+                                         if (nil != response)
+                                         {
+                                             mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                         }
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                            completionBlock(mendeleyResponse, error);
+                                                        });
+                                     }];
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
-
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-              bodyParameters:(NSDictionary *)bodyParameters
-                      isJSON:(BOOL)isJSON
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+                    isJSON:(BOOL)isJSON
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -407,31 +396,29 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
                                 isJSON:isJSON];
     }
 
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      MendeleyResponse *mendeleyResponse = nil;
-                                      if (nil != response)
-                                      {
-                                          mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                      }
-                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                         completionBlock(mendeleyResponse, error);
-                                                     });
+    NSURLSessionDataTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                             MendeleyResponse *mendeleyResponse = nil;
+                                             if (nil != response)
+                                             {
+                                                 mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                             }
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                completionBlock(mendeleyResponse, error);
+                                                            });
+                                         }];
 
-                                  }];
-
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
-- (MendeleyTask *)invokePOST:(NSURL *)baseURL
-                         api:(NSString *)api
-           additionalHeaders:(NSDictionary *)additionalHeaders
-                    jsonData:(NSData *)jsonData
-      authenticationRequired:(BOOL)authenticationRequired
-             completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokePOST:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:jsonData argumentName:@"jsonData"];
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
@@ -455,31 +442,29 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
         [request addHeaderWithParameters:additionalHeaders];
     }
     [request addBodyData:jsonData];
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      MendeleyResponse *mendeleyResponse = nil;
-                                      if (nil != response)
-                                      {
-                                          mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                      }
-                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                         completionBlock(mendeleyResponse, error);
-                                                     });
+    NSURLSessionDataTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                             MendeleyResponse *mendeleyResponse = nil;
+                                             if (nil != response)
+                                             {
+                                                 mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                             }
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                completionBlock(mendeleyResponse, error);
+                                                            });
+                                         }];
 
-                                  }];
-
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
-- (MendeleyTask *)invokePUT:(NSURL *)baseURL
-                        api:(NSString *)api
-          additionalHeaders:(NSDictionary *)additionalHeaders
-             bodyParameters:(NSDictionary *)bodyParameters
-     authenticationRequired:(BOOL)authenticationRequired
-            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -501,30 +486,28 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      MendeleyResponse *mendeleyResponse = nil;
-                                      if (nil != response)
-                                      {
-                                          mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                      }
-                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                         completionBlock(mendeleyResponse, error);
-                                                     });
-
-                                  }];
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    NSURLSessionDataTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                             MendeleyResponse *mendeleyResponse = nil;
+                                             if (nil != response)
+                                             {
+                                                 mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                             }
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                completionBlock(mendeleyResponse, error);
+                                                            });
+                                         }];
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
-- (MendeleyTask *)invokeDELETE:(NSURL *)baseURL
-                           api:(NSString *)api
-             additionalHeaders:(NSDictionary *)additionalHeaders
-                bodyParameters:(NSDictionary *)bodyParameters
-        authenticationRequired:(BOOL)authenticationRequired
-               completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)      invokeDELETE:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+            bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -546,25 +529,26 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                  MendeleyResponse *mendeleyResponse = nil;
-                                  if (nil != response)
-                                  {
-                                      mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                  }
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                     completionBlock(mendeleyResponse, error);
-                                                 });
-
-                              }];
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    NSURLSessionTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                         MendeleyResponse *mendeleyResponse = nil;
+                                         if (nil != response)
+                                         {
+                                             mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                         }
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                            completionBlock(mendeleyResponse, error);
+                                                        });
+                                     }];
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
-- (MendeleyTask *)invokeHEAD:(NSURL *)baseURL api:(NSString *)api authenticationRequired:(BOOL)authenticationRequired completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+- (void)        invokeHEAD:(NSURL *)baseURL
+                       api:(NSString *)api
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -582,22 +566,19 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
                                                   api:api
                                           requestType:HTTP_HEAD];
     }
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                  MendeleyResponse *mendeleyResponse = nil;
-                                  if (nil != response)
-                                  {
-                                      mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
-                                  }
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                     completionBlock(mendeleyResponse, error);
-                                                 });
-
-                              }];
-    MendeleyTask *mendeleyTask = [[MendeleyTask alloc] initWithTaskID:@(task.taskIdentifier)];
-    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:task completionBlock:completionBlock];
-    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:mendeleyTask.taskID];
-    [task resume];
-    return mendeleyTask;
+    NSURLSessionTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                         MendeleyResponse *mendeleyResponse = nil;
+                                         if (nil != response)
+                                         {
+                                             mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+                                         }
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                            completionBlock(mendeleyResponse, error);
+                                                        });
+                                     }];
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
 }
 
 @end

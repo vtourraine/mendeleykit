@@ -160,7 +160,6 @@
     BOOL hasStarted = [downloadHelper startRequest];
     if (hasStarted)
     {
-#warning MOB-1073
         [self.tasks addObject:task];
     }
 }
@@ -205,7 +204,6 @@
     BOOL hasStarted = [uploadHelper startRequest];
     if (hasStarted)
     {
-#warning MOB-1073
         [self.tasks addObject:task];
     }
 }
@@ -513,7 +511,6 @@
     BOOL hasStarted = [requestHelper startRequest];
     if (hasStarted)
     {
-#warning MOB-1073
         [self.tasks addObject:task];
     }
 }
