@@ -1,5 +1,12 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
+Version: 0.9.4 alpha
+24 November 2014
+- added OSX support to MendeleyKit. MendeleyKit project now has 3 targets, MendeleyKit (iOS), MendeleyKitTests (unit tests) and MendeleyKitOSX.framework. The MendeleyKit.podspec has been updated so that users can now include MendeleyKitOSX into their MacOSX project
+- MendeleyLoginController has been renamed to MendeleyLoginViewController for iOS. For Mac OSX, use the newly created MendeleyLoginWindowController
+- MendeleyAnnotation and MendeleyURLBuilder have been updated to support Mac OSX specific classes (e.g. NSColor - instead of UIColor)
+- MendeleyKit.h has a new create file method, where developers can specify filename and content type. The existing method can still be used - it will assume PDF as content type 
+
 Version: 0.8.9 alpha
 11 November 2014
 - all API methods in MendeleyKit now return a MendeleyTask object to allow cancellation of network calls. The method signatures for network provider and API helper classes were changed accordingly.
