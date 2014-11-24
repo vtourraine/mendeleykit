@@ -27,10 +27,10 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.8'
 
-  s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}', 'MendeleyKitOSX/**/*.{h.m}'
+  s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}', 'MendeleyKitOSX/AppKit/*.{h.m}'
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
 
-  s.ios.exclude_files = 'MendeleyKitOSX/**/*.{h,m}'
+  s.ios.exclude_files = 'MendeleyKitOSX'
   s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
   s.ios.frameworks  = 'MobileCoreServices', 'SystemConfiguration', 'Security', 'Foundation'
   s.osx.frameworks  = 'Foundation', 'CoreFoundation', 'AppKit', 'Security', 'WebKit', 'CoreServices'
