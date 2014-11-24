@@ -30,10 +30,8 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFileType };
 }
 
-- (NSDictionary *)uploadFileHeadersWithDocumentURLPath:(NSString *)documentURLPath
-                                          documentName:(NSString *)documentName
+- (NSDictionary *)uploadFileHeadersWithLinkRel:(NSString *)linkRel
 {
-    NSString *linkRel = [NSString stringWithFormat:@"<%@>; rel=\"document\"", documentURLPath];
     NSString *contentDisposition = [kMendeleyRESTRequestValueAttachment stringByAppendingString:@"; filename=\"example.pdf\""];
 
     return @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
@@ -88,7 +86,7 @@
     [NSError assertStringArgumentNotNilOrEmpty:documentURLPath argumentName:@"documentURLPath"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
-    NSString *linkRel = [NSString stringWithFormat:@"<%@>; rel=" "document" "", documentURLPath];
+    NSString *linkRel = [NSString stringWithFormat:@"<%@>; rel=\"document\"", documentURLPath];
     [self.provider invokeUploadForFileURL:fileURL
                                   baseURL:self.baseURL
                                       api:kMendeleyRESTAPIFiles
