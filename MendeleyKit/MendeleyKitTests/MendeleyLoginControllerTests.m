@@ -19,11 +19,11 @@
  */
 
 #import "MendeleyOAuthConstants.h"
-#import "MendeleyLoginController.h"
+#import "MendeleyLoginViewController.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyKitTestBaseClass.h"
 
-@interface MendeleyLoginController (CHANGE_VISIBILITY_FOR_TEST)
+@interface MendeleyLoginViewController (CHANGE_VISIBILITY_FOR_TEST)
 
 @property (nonatomic, strong) NSString *clientID;
 @property (nonatomic, strong) NSString *redirectURI;
@@ -54,7 +54,7 @@
 - (void)testOAuthURLRequest
 {
     NSString *testURLString = @"https://api.mendeley.com/oauth/authorize";
-    MendeleyLoginController *controller = [[MendeleyLoginController alloc] init];
+    MendeleyLoginViewController *controller = [[MendeleyLoginViewController alloc] init];
 
     controller.clientID = @"1";
     controller.redirectURI = @"http://redirect";
@@ -81,7 +81,7 @@
 {
     NSURL *url = [NSURL URLWithString:@"http://localhost/auth_return?code=1234"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    MendeleyLoginController *controller = [[MendeleyLoginController alloc] init];
+    MendeleyLoginViewController *controller = [[MendeleyLoginViewController alloc] init];
 
     NSString *code = [controller authenticationCodeFromURLRequest:request];
 

@@ -18,16 +18,13 @@
  *****************************************************************************
  */
 
-#import <Cocoa/Cocoa.h>
-#import <AppKit/AppKit.h>
-#import <WebKit/WebKit.h>
-#import "MendeleyGlobals.h"
+#import <UIKit/UIKit.h>
 #import "MendeleyOAuthProvider.h"
 
-@interface MendeleyOSXLoginController : NSWindowController
+@interface MendeleyLoginViewController : UIViewController <UIWebViewDelegate>
 /**
-   @name MendeleyLoginController is a helper class for OS X based clients.
-   It provides a NSWindowController with a WebView for user authentication
+   @name MendeleyLoginViewController is a helper class for iOS based clients.
+   It provides a UIViewController with a UIWebView for user authentication
  */
 /**
    initialises the login view controller with Client App details
@@ -37,10 +34,10 @@
    @param completionBlock
  */
 
-- (instancetype)initWithClientKey:(NSString *)clientKey
-                     clientSecret:(NSString *)clientSecret
-                      redirectURI:(NSString *)redirectURI
-                  completionBlock:(MendeleyCompletionBlock)completionBlock;
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+        completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
    custom initialisers
@@ -51,16 +48,10 @@
    @param redirectURI
    @param completionBlock
  */
-- (instancetype)initWithClientKey:(NSString *)clientKey
-                     clientSecret:(NSString *)clientSecret
-                      redirectURI:(NSString *)redirectURI
-                  completionBlock:(MendeleyCompletionBlock)completionBlock
-              customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
-
-/**
-   Cancels the operation.
-   @param sender The event sender; can be nil.
- */
-- (IBAction)cancel:(id)sender;
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+        completionBlock:(MendeleyCompletionBlock)completionBlock
+    customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
 
 @end
