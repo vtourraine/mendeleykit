@@ -33,8 +33,8 @@
 
 /**
    obtains a list of files for the first page.
- @param parameters the parameter set to be used in the request
- @param task
+   @param parameters the parameter set to be used in the request
+   @param task
    @param completionBlock
  */
 - (void)fileListWithQueryParameters:(MendeleyFileParameters *)queryParameters
@@ -44,37 +44,43 @@
 /**
    obtains a file for given ID from the library
    @param fileID
- @param fileURL
- @param task
+   @param fileURL
+   @param task
    @param progressBlock
    @param completionBlock
  */
 - (void)fileWithFileID:(NSString *)fileID
-                       saveToURL:(NSURL *)fileURL
-                            task:(MendeleyTask *)task
-                   progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                 completionBlock:(MendeleyCompletionBlock)completionBlock;
+             saveToURL:(NSURL *)fileURL
+                  task:(MendeleyTask *)task
+         progressBlock:(MendeleyResponseProgressBlock)progressBlock
+       completionBlock:(MendeleyCompletionBlock)completionBlock;
+
 
 /**
    this creates a file based on the mendeley object model provided in the argument.
    The server will respond with the JSON data structure for the new object
    @param fileURL
- @param documentURLPath
- @param task
+   @param filename the name of the file to be given when uploading. maybe different from fileURL
+   @param contentType the contentType to be used. If none is provided, PDF will be taken
+   @param documentURLPath
+   @param task
    @param progressBlock
    @param completionBlock
  */
 - (void)           createFile:(NSURL *)fileURL
+                     filename:(NSString *)filename
+                  contentType:(NSString *)contentType
     relativeToDocumentURLPath:(NSString *)documentURLPath
                          task:(MendeleyTask *)task
                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
               completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+
 /**
    this method will remove a file with given ID permanently. The file data cannot be retrieved.
    However, the user will be able to get a list of permanently removed IDs
- @param documentID
- @param task
+   @param documentID
+   @param task
    @param completionBlock
  */
 - (void)deleteFileWithID:(NSString *)fileID
@@ -82,8 +88,8 @@
          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
- @param linkURL
- @param task
+   @param linkURL
+   @param task
    @param completionBlock
  */
 - (void)fileListWithLinkedURL:(NSURL *)linkURL
@@ -93,8 +99,8 @@
 /**
    This method returns a list of files IDs that were permanently deleted. The list of deleted IDs will be kept on
    the server for a limited period of time.
- @param deletedSince the parameter set to be used in the request
- @param task
+   @param deletedSince the parameter set to be used in the request
+   @param task
    @param completionBlock
  */
 - (void)deletedFilesSince:(NSDate *)deletedSince

@@ -321,8 +321,10 @@
                  completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
-   this creates a file based on the mendeley object model provided in the argument.
-   The server will respond with the JSON data structure for the new object
+   This creates a file on the server by uploading it. This method will assume the content type of the file
+   to be PDF. The /files API also requires a filename to be specified. This method will set the filename to be
+   example.pdf
+
    @param fileURL the location of the file to be created
    @param documentURLPath the relative URL path of the associated document
    @param progressBlock a callback block to capture progress
@@ -330,6 +332,24 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *) createFile:(NSURL *)fileURL
+    relativeToDocumentURLPath:(NSString *)documentURLPath
+                progressBlock:(MendeleyResponseProgressBlock)progressBlock
+              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+   this creates a file based on the mendeley object model provided in the argument.
+   The server will respond with the JSON data structure for the new object
+   @param fileURL the location of the file to be created
+   @param filename the name of the file (optional). If nil, the name from fileURL will be taken
+   @param contentType the type e.g. application/pdf (optional). If nil, PDF will be assumed
+   @param documentURLPath the relative URL path of the associated document
+   @param progressBlock a callback block to capture progress
+   @param completionBlock the success/failure block
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *) createFile:(NSURL *)fileURL
+                     filename:(NSString *)filename
+                  contentType:(NSString *)contentType
     relativeToDocumentURLPath:(NSString *)documentURLPath
                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
               completionBlock:(MendeleyObjectCompletionBlock)completionBlock;

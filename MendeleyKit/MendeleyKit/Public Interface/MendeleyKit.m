@@ -886,6 +886,23 @@
                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
               completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [self createFile:fileURL
+                                           filename:nil
+                                        contentType:nil
+                          relativeToDocumentURLPath:documentURLPath
+                                      progressBlock:progressBlock
+                                    completionBlock:completionBlock];
+
+    return task;
+}
+
+- (MendeleyTask *) createFile:(NSURL *)fileURL
+                     filename:(NSString *)filename
+                  contentType:(NSString *)contentType
+    relativeToDocumentURLPath:(NSString *)documentURLPath
+                progressBlock:(MendeleyResponseProgressBlock)progressBlock
+              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
     MendeleyTask *task = [MendeleyTask new];
 
     if (self.isAuthenticated)
@@ -894,6 +911,8 @@
              if (success)
              {
                  [self.filesAPI createFile:fileURL
+                                   filename:filename
+                                contentType:contentType
                   relativeToDocumentURLPath:documentURLPath
                                        task:task
                               progressBlock:progressBlock
@@ -913,6 +932,7 @@
 
     return task;
 }
+
 
 - (MendeleyTask *)deleteFileWithID:(NSString *)fileID
                    completionBlock:(MendeleyCompletionBlock)completionBlock

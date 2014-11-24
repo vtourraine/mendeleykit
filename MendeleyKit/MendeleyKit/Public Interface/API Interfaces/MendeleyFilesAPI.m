@@ -31,11 +31,28 @@
 }
 
 - (NSDictionary *)uploadFileHeadersWithLinkRel:(NSString *)linkRel
+                                      filename:(NSString *)filename
+                                   contentType:(NSString *)contentType
 {
-    NSString *contentDisposition = [kMendeleyRESTRequestValueAttachment stringByAppendingString:@"; filename=\"example.pdf\""];
+    NSString *fileAttachment = nil;
+
+    if (nil == filename)
+    {
+        fileAttachment = [NSString stringWithFormat:@"; filename=\"example.pdf\""];
+    }
+    else
+    {
+        fileAttachment = [NSString stringWithFormat:@"; filename=\"%@\"", filename];
+    }
+
+    if (nil == contentType)
+    {
+        contentType = kMendeleyRESTRequestValuePDF;
+    }
+    NSString *contentDisposition = [kMendeleyRESTRequestValueAttachment stringByAppendingString:fileAttachment];
 
     return @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
-              kMendeleyRESTRequestContentType: kMendeleyRESTRequestValuePDF,
+              kMendeleyRESTRequestContentType: contentType,
               kMendeleyRESTRequestLink: linkRel,
               kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFileType };
 }
@@ -77,6 +94,8 @@
 }
 
 - (void)           createFile:(NSURL *)fileURL
+                     filename:(NSString *)filename
+                  contentType:(NSString *)contentType
     relativeToDocumentURLPath:(NSString *)documentURLPath
                          task:(MendeleyTask *)task
                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
@@ -85,12 +104,17 @@
     [NSError assertURLArgumentNotNilOrMissing:fileURL argumentName:@"fileURL"];
     [NSError assertStringArgumentNotNilOrEmpty:documentURLPath argumentName:@"documentURLPath"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
     NSString *linkRel = [NSString stringWithFormat:@"<%@>; rel=\"document\"", documentURLPath];
+    NSDictionary *uploadHeader = [self uploadFileHeadersWithLinkRel:linkRel
+                                                           filename:filename
+                                                        contentType:contentType];
+
     [self.provider invokeUploadForFileURL:fileURL
                                   baseURL:self.baseURL
                                       api:kMendeleyRESTAPIFiles
-                        additionalHeaders:[self uploadFileHeadersWithLinkRel:linkRel]
+                        additionalHeaders:uploadHeader
                    authenticationRequired:YES
                                      task:task
                             progressBlock:progressBlock
@@ -120,7 +144,9 @@
               }];
          }
      }];
+
 }
+
 
 - (void)deleteFileWithID:(NSString *)fileID
                     task:(MendeleyTask *)task
