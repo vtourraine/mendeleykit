@@ -29,8 +29,6 @@ Pod::Spec.new do |s|
 
   s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}'
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
-  s.ios.exclude_files = 'MendeleyKit/**/AppKit/*.{h,m}'
-  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
 
   s.ios.exclude_files = 'MendeleyKit/MendeleyKitOSX'
   s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
