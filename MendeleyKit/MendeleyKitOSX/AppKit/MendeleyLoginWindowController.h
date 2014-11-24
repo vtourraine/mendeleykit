@@ -18,13 +18,16 @@
  *****************************************************************************
  */
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
+#import <WebKit/WebKit.h>
+#import "MendeleyGlobals.h"
 #import "MendeleyOAuthProvider.h"
 
-@interface MendeleyLoginController : UIViewController <UIWebViewDelegate>
+@interface MendeleyLoginWindowController : NSWindowController
 /**
-   @name MendeleyLoginController is a helper class for iOS based clients.
-   It provides a UIViewController with a UIWebView for user authentication
+   @name MendeleyLoginController is a helper class for OS X based clients.
+   It provides a NSWindowController with a WebView for user authentication
  */
 /**
    initialises the login view controller with Client App details
@@ -34,10 +37,10 @@
    @param completionBlock
  */
 
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock;
+- (instancetype)initWithClientKey:(NSString *)clientKey
+                     clientSecret:(NSString *)clientSecret
+                      redirectURI:(NSString *)redirectURI
+                  completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
    custom initialisers
@@ -48,10 +51,16 @@
    @param redirectURI
    @param completionBlock
  */
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
-    customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
+- (instancetype)initWithClientKey:(NSString *)clientKey
+                     clientSecret:(NSString *)clientSecret
+                      redirectURI:(NSString *)redirectURI
+                  completionBlock:(MendeleyCompletionBlock)completionBlock
+              customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
+
+/**
+   Cancels the operation.
+   @param sender The event sender; can be nil.
+ */
+- (IBAction)cancel:(id)sender;
 
 @end

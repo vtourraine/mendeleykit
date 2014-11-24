@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-#import "MendeleyLoginController.h"
+#import "MendeleyLoginWindowController.h"
 #import "MendeleyURLBuilder.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyOAuthConstants.h"
@@ -26,40 +26,47 @@
 #import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
 
-@interface MendeleyLoginController ()
-@property (nonatomic, strong) UIWebView *webView;
+@interface MendeleyLoginWindowController ()
+@property (nonatomic, strong) WebView *webView;
 @property (nonatomic, strong) NSURL *oauthServer;
 @property (nonatomic, strong) NSString *clientID;
 @property (nonatomic, strong) NSString *redirectURI;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
+
 @end
 
-@implementation MendeleyLoginController
+@implementation MendeleyLoginWindowController
 
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+- (instancetype)initWithClientKey:(NSString *)clientKey
+                     clientSecret:(NSString *)clientSecret
+                      redirectURI:(NSString *)redirectURI
+                  completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     return [self initWithClientKey:clientKey
                       clientSecret:clientSecret
                        redirectURI:redirectURI
                    completionBlock:completionBlock
                customOAuthProvider:nil];
-
 }
 
-
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
-    customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
+- (instancetype)initWithClientKey:(NSString *)clientKey
+                     clientSecret:(NSString *)clientSecret
+                      redirectURI:(NSString *)redirectURI
+                  completionBlock:(MendeleyCompletionBlock)completionBlock
+              customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
 {
-    self = [super init];
-    if (nil != self)
+    NSRect frame = NSMakeRect(0, 0, 550, 450);
+    NSUInteger styleMask = NSTitledWindowMask | NSResizableWindowMask | NSClosableWindowMask;
+    NSWindow *window = [[NSWindow alloc]
+                        initWithContentRect:frame
+                                  styleMask:styleMask
+                                    backing:NSBackingStoreBuffered
+                                      defer:YES];
+
+    self = [super initWithWindow:window];
+    if (self)
     {
         if (nil == customOAuthProvider)
         {
@@ -76,64 +83,71 @@
         _completionBlock = completionBlock;
         _clientID = clientKey;
         _redirectURI = redirectURI;
+
+        NSView *view = [[NSView alloc] initWithFrame:frame];
+        window.contentView = view;
+
+        const CGFloat margin = 8;
+        NSButton *cancelButton = [[NSButton alloc] init];
+        [cancelButton setAction:@selector(cancel:)];
+        [cancelButton setButtonType:NSPushOnPushOffButton];
+        [cancelButton setBezelStyle:NSRoundedBezelStyle];
+        [cancelButton setTitle:NSLocalizedString(@"Cancel", nil)];
+        [cancelButton sizeToFit];
+        cancelButton.frame = NSMakeRect(margin, margin, NSWidth(cancelButton.frame), NSHeight(cancelButton.frame));
+        [view addSubview:cancelButton];
+
+        WebView *webView = [[WebView alloc] initWithFrame:NSMakeRect(0, NSHeight(cancelButton.frame) + 2 * margin,
+                                                                     NSWidth(frame), NSHeight(frame) - (NSHeight(cancelButton.frame) + 2 * margin))];
+        webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        webView.policyDelegate = self;
+        webView.frameLoadDelegate = self;
+        [view addSubview:webView];
+        self.webView = webView;
+
+        [self startLoginProcess];
     }
+
     return self;
-
 }
 
-- (void)viewDidLoad
+- (IBAction)cancel:(id)sender
 {
-    [super viewDidLoad];
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.view.autoresizesSubviews = YES;
+    [NSApp endSheet:self.window returnCode:NSModalResponseAbort];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self startLoginProcess];
-}
+#pragma mark Webview delegates methods
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-
-#pragma mark Handle device rotations
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAll;
-}
-
-#pragma mark UIWebview delegate methods
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+- (void)                    webView:(WebView *)webView
+    decidePolicyForNavigationAction:(NSDictionary *)actionInformation
+                            request:(NSURLRequest *)request
+                              frame:(WebFrame *)frame
+                   decisionListener:(id<WebPolicyDecisionListener>)listener
 {
     if ([request.URL.absoluteString hasPrefix:[self.oauthServer absoluteString]])
     {
-        return YES;
+        [listener use];
+        return;
     }
+
     NSString *code = [self authenticationCodeFromURLRequest:request];
     if (nil != code)
     {
         MendeleyOAuthCompletionBlock oAuthCompletionBlock = self.oAuthCompletionBlock;
         [self.oauthProvider authenticateWithAuthenticationCode:code
                                                completionBlock:oAuthCompletionBlock];
-    }
-    else
-    {
-        ///TODO error handling
+        [listener ignore];
+        return;
     }
 
-    return NO;
+    ///TODO error handling
+
+    [listener ignore];
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+- (void)         webView:(WebView *)sender
+    didFailLoadWithError:(NSError *)error
+                forFrame:(WebFrame *)frame
 {
     NSDictionary *userInfo = [error userInfo];
     NSString *failingURLString = [userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
@@ -156,20 +170,15 @@
 }
 
 #pragma mark private methods
+
 - (void)startLoginProcess
 {
     [self setUpCompletionBlock];
     self.oauthServer = [MendeleyKitConfiguration sharedInstance].baseAPIURL;
     [self cleanCookiesAndURLCache];
 
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-
-    webView.delegate = self;
-    [self.view addSubview:webView];
-    self.webView = webView;
-
     NSURLRequest *loginRequest = [self oauthURLRequest];
-    [self.webView loadRequest:loginRequest];
+    [self.webView.mainFrame loadRequest:loginRequest];
 }
 
 - (void)setUpCompletionBlock
@@ -211,7 +220,6 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies])
     {
-
         NSString *cookieDomain = [cookie domain];
         if ([cookieDomain isEqualToString:kMendeleyKitURL])
         {
@@ -258,4 +266,5 @@
      }];
     return code;
 }
+
 @end
