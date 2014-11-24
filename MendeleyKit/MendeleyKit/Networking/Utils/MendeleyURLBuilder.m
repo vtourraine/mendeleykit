@@ -19,7 +19,11 @@
  */
 
 #import "MendeleyURLBuilder.h"
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
+#endif
 #import "NSError+MendeleyError.h"
 
 @implementation MendeleyURLBuilder
@@ -93,7 +97,6 @@
                       NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *) kCFBundleExecutableKey] ? : [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *) kCFBundleIdentifierKey];
                       NSString *bundleVersion = (__bridge id) CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey) ? : [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *) kCFBundleVersionKey];
 
-
                       if (nil == bundleName)
                       {
                           bundleName = @"MendeleyClient";
@@ -103,6 +106,7 @@
                       {
                           bundleVersion = @"30000";
                       }
+
                       NSMutableArray *acceptLanguagesComponents = [NSMutableArray array];
                       [[NSLocale preferredLanguages] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                            float q = 1.0f - (idx * 0.1f);
@@ -113,15 +117,41 @@
                       [header setObject:[acceptLanguagesComponents componentsJoinedByString:@", "]
                                  forKey:kMendeleyOAuth2AcceptLanguageKey];
 
-                      NSString *userAgent = [NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", bundleName, bundleVersion, [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [[UIScreen mainScreen] scale] : 1.0f)];
+                      NSString *deviceModel = nil;
+                      NSString *deviceSystemName = nil;
+                      NSString *deviceSystemVersion = nil;
+                      CGFloat screenScale = 1.0f;
+#if TARGET_OS_IPHONE
+                      deviceModel = [[UIDevice currentDevice] model];
+                      deviceSystemName = @"iOS";
+                      deviceSystemVersion = [[UIDevice currentDevice] systemVersion];
+                      if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+                      {
+                          screenScale = [[UIScreen mainScreen] scale];
+                      }
+#else
+                      deviceModel = @"Mac";
+                      deviceSystemName = @"OS X";
+                      deviceSystemVersion = [NSProcessInfo processInfo].operatingSystemVersionString;
+                      screenScale = [[NSScreen mainScreen] backingScaleFactor];
+#endif
+                      NSString *userAgent = [NSString stringWithFormat:@"%@/%@ (%@; %@ %@; Scale/%0.2f)",
+                                             bundleName,
+                                             bundleVersion,
+                                             deviceModel,
+                                             deviceSystemName,
+                                             deviceSystemVersion,
+                                             screenScale];
 
                       [header setObject:userAgent forKey:kMendeleyOAuth2UserAgentKey];
 
-                      NSString *clientVersionString = [NSString stringWithFormat:@"%@/%@ (%@ iOS %@)",
+                      NSString *clientVersionString = [NSString stringWithFormat:@"%@/%@ (%@ %@ %@)",
                                                        bundleName,
                                                        bundleVersion,
-                                                       [[UIDevice currentDevice] model],
-                                                       [[UIDevice currentDevice] systemVersion]];
+                                                       deviceModel,
+                                                       deviceSystemName,
+                                                       deviceSystemVersion];
+
                       [header setObject:clientVersionString forKey:kMendeleyOAuth2ClientVersionKey];
                   });
     return header;

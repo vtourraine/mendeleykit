@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MendeleyKit"
-  s.version      = "0.8.9"
+  s.version      = "0.9.0"
   s.summary      = "The Mendeley Objective C client SDK."
 
   s.description  = <<-DESC
@@ -20,16 +20,20 @@ Pod::Spec.new do |s|
 
   s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
 
-  s.platform     = :ios, '7.0'
-
   s.requires_arc  = true
 
   s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "0.8.9" }
 
+  s.ios.deployment_target = '7.0'
+  s.osx.deployment_target = '10.8'
+
   s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}'
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
 
+  s.ios.exclude_files = 'MendeleyKit/**/AppKit/*.{h,m}'
+  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
   s.ios.frameworks  = 'MobileCoreServices', 'SystemConfiguration', 'Security', 'Foundation'
+  s.osx.frameworks  = 'Foundation', 'CoreFoundation', 'AppKit', 'Security', 'WebKit', 'CoreServices'
 
   s.prefix_header_contents = <<-EOS
   #ifdef __OBJC__

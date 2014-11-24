@@ -39,6 +39,8 @@
     id color = nil;
 #if TARGET_OS_IPHONE
     color = [UIColor colorWithRed:red green:green blue:blue alpha:1.f];
+#else
+    color = [NSColor colorWithSRGBRed:red green:green blue:blue alpha:1.f];
 #endif
     return color;
 }
@@ -74,6 +76,33 @@
     [dictionary setObject:[NSNumber numberWithFloat:red] forKey:kMendeleyJSONColorRed];
     [dictionary setObject:[NSNumber numberWithFloat:green] forKey:kMendeleyJSONColorGreen];
     [dictionary setObject:[NSNumber numberWithFloat:blue] forKey:kMendeleyJSONColorBlue];
+#else
+    NSColor *nsColor = nil;
+    if (nil != color && [color isKindOfClass:[NSColor class]])
+    {
+        nsColor = (NSColor *) color;
+    }
+    else
+    {
+        if (NULL != error)
+        {
+            *error = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode
+                       localizedDescription:@"The color object is either nil or it is neither UIColor nor NSColor"];
+        }
+        return nil;
+    }
+    CGFloat red = 0;
+    CGFloat green = 0;
+    CGFloat blue = 0;
+    CGFloat alpha = 0;
+    [nsColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    red *= 255.f;
+    green *= 255.f;
+    blue *= 255.f;
+    [dictionary setObject:[NSNumber numberWithFloat:red] forKey:kMendeleyJSONColorRed];
+    [dictionary setObject:[NSNumber numberWithFloat:green] forKey:kMendeleyJSONColorGreen];
+    [dictionary setObject:[NSNumber numberWithFloat:blue] forKey:kMendeleyJSONColorBlue];
+
 #endif /* if TARGET_OS_IPHONE */
     return dictionary;
 }

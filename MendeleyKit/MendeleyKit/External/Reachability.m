@@ -64,8 +64,7 @@ NSString *kReachabilityChangedNotification = @"kNetworkReachabilityChangedNotifi
 
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char *comment)
 {
-#if kShouldPrintReachabilityFlags
-
+#if kShouldPrintReachabilityFlags && TARGET_OS_IPHONE
     NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
           (flags & kSCNetworkReachabilityFlagsIsWWAN) ? 'W' : '-',
           (flags & kSCNetworkReachabilityFlagsReachable) ? 'R' : '-',
@@ -263,6 +262,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
     }
 
+#if TARGET_OS_IPHONE
+
     if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
     {
         /*
@@ -270,7 +271,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
          */
         returnValue = ReachableViaWWAN;
     }
-
+#endif
     return returnValue;
 }
 
