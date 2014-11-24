@@ -101,12 +101,20 @@
     NSURL *baseURL = [MendeleyKitConfiguration sharedInstance].baseAPIURL;
     NSURL *oauthURL = [NSURL URLWithString:kMendeleyOAuthPathOAuth2Token relativeToURL:baseURL];
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
-    [networkProvider invokePOST:oauthURL api:nil additionalHeaders:requestHeader bodyParameters:parameters isJSON:NO authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
+    [networkProvider invokePOST:oauthURL
+                            api:nil
+              additionalHeaders:requestHeader
+                 bodyParameters:parameters
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:nil
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
 
          if (nil == response)
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
@@ -118,17 +126,20 @@
                       BOOL success = [oauthStore storeOAuthCredentials:credentials];
                       if (success)
                       {
-                          [blockExec executeWithBool:YES error:nil];
+                          [blockExec executeWithBool:YES
+                                               error:nil];
                       }
                       else
                       {
                           NSError *innerError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-                          [blockExec executeWithBool:NO error:innerError];
+                          [blockExec executeWithBool:NO
+                                               error:innerError];
                       }
                   }
                   else
                   {
-                      [blockExec executeWithBool:NO error:parseError];
+                      [blockExec executeWithBool:NO
+                                           error:parseError];
                   }
               }];
 
@@ -183,7 +194,14 @@
                                       completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
-    [networkProvider invokePOST:[MendeleyKitConfiguration sharedInstance].baseAPIURL api:kMendeleyOAuthPathOAuth2Token additionalHeaders:requestHeader bodyParameters:requestBody isJSON:NO authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
+    [networkProvider invokePOST:[MendeleyKitConfiguration sharedInstance].baseAPIURL
+                            api:kMendeleyOAuthPathOAuth2Token
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBody
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:nil
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
          if (nil == response)
          {
              completionBlock(nil, error);

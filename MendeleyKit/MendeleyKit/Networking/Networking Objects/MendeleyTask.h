@@ -23,25 +23,25 @@
 
 @interface MendeleyTask : MendeleyRequest
 /**
- @name MendeleyTask can be used in both NSURLSession and NSURLConnection APIs
- However, only one property gets populated for each.
- - for NSURLSession use initWithTaskID
- - for NSURLConnection use initWithRequestObject
+   @name MendeleyTask can be used in both NSURLSession and NSURLConnection APIs
+   However, only one property gets populated for each.
+   - for NSURLSession use initWithTaskID
+   - for NSURLConnection use initWithRequestObject
  */
 
-@property (nonatomic, strong, readonly) NSNumber *taskID;
-@property (nonatomic, strong, readonly) id<MendeleyCancellableRequest> requestObject;
+@property (nonatomic, strong, readonly) NSString *taskID;
+@property (nonatomic, strong) id<MendeleyCancellableRequest> requestObject;
 
 
 /**
    @param taskID
    @return an instance of type MendeleyCancellationRequest
  */
-- (instancetype)initWithTaskID:(NSNumber *)taskID;
+- (instancetype)initWithTaskID:(NSString *)taskID;
 
 /**
- @param taskObject
- @return a cancellable task/request object
+   @param taskObject
+   @return a cancellable task/request object
  */
 - (instancetype)initWithRequestObject:(id<MendeleyCancellableRequest>)requestObject;
 @end

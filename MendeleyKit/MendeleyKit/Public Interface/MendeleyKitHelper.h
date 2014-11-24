@@ -73,6 +73,7 @@
                              api:(NSString *)apiString
                       parameters:(NSDictionary *)queryParameters
                additionalHeaders:(NSDictionary *)additionalHeaders
+                            task:(MendeleyTask *)task
                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -86,6 +87,7 @@
 - (void)mendeleyIDStringListForAPI:(NSString *)apiString
                         parameters:(NSDictionary *)queryParameters
                  additionalHeaders:(NSDictionary *)additionalHeaders
+                              task:(MendeleyTask *)task
                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -100,6 +102,7 @@
                   parameters:(NSDictionary *)queryParameters
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
@@ -110,6 +113,7 @@
  */
 - (void)createMendeleyObject:(MendeleyObject *)mendeleyObject
                          api:(NSString *)apiString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
@@ -124,6 +128,7 @@
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
@@ -135,6 +140,7 @@
  */
 - (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
                          api:(NSString *)apiString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
@@ -148,6 +154,7 @@
 - (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 
@@ -164,6 +171,7 @@
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
@@ -172,6 +180,7 @@
    @param completionBlock
  */
 - (void)deleteMendeleyObjectWithAPI:(NSString *)apiString
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
@@ -181,9 +190,10 @@
    @param progressBlock
    @param completionBlock
  */
-- (MendeleyTask *)downloadFileWithAPI:(NSString *)apiString
-                            saveToURL:(NSURL *)fileURL
-                        progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                      completionBlock:(MendeleyCompletionBlock)completionBlock;
+- (void)downloadFileWithAPI:(NSString *)apiString
+                  saveToURL:(NSURL *)fileURL
+                       task:(MendeleyTask *)task
+              progressBlock:(MendeleyResponseProgressBlock)progressBlock
+            completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 @end

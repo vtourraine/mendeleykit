@@ -22,10 +22,10 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
 #endif
 
-#if TARGET_OS_MAC
-#endif
 
 @interface MendeleyAnnotation : MendeleyObject
 @property (nonatomic, strong) NSDate *created;
@@ -33,7 +33,7 @@
 #if TARGET_OS_IPHONE
 @property (nonatomic, strong) UIColor *color;
 #else
-@property (nonatomic, strong) id color;
+@property (nonatomic, strong) NSColor *color;
 #endif
 
 @property (nonatomic, strong) NSString *document_id;

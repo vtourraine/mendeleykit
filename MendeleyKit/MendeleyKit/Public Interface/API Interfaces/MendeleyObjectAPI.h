@@ -38,5 +38,6 @@
    @param provider the network provider. By default the MendeleyDefaultNetworkProvider is taken. This is based on NSURLSession
    @param baseURL
  */
-- (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider baseURL:(NSURL *)baseURL;
+- (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider
+                                baseURL:(NSURL *)baseURL;
 @end

@@ -50,6 +50,7 @@
 #pragma mark -
 
 - (void)fileListWithQueryParameters:(MendeleyFileParameters *)queryParameters
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -58,22 +59,28 @@
                                       api:kMendeleyRESTAPIFiles
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
-- (MendeleyTask *)fileWithFileID:(NSString *)fileID
-                       saveToURL:(NSURL *)fileURL
-                   progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                 completionBlock:(MendeleyCompletionBlock)completionBlock
+- (void)fileWithFileID:(NSString *)fileID
+             saveToURL:(NSURL *)fileURL
+                  task:(MendeleyTask *)task
+         progressBlock:(MendeleyResponseProgressBlock)progressBlock
+       completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:fileID argumentName:@"fileID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFileWithID, fileID];
-    MendeleyTask *task = [self.helper downloadFileWithAPI:apiEndpoint saveToURL:fileURL progressBlock:progressBlock completionBlock:completionBlock];
-    return task;
+    [self.helper downloadFileWithAPI:apiEndpoint
+                           saveToURL:fileURL
+                                task:task
+                       progressBlock:progressBlock
+                     completionBlock:completionBlock];
 }
 
 - (void)           createFile:(NSURL *)fileURL
     relativeToDocumentURLPath:(NSString *)documentURLPath
+                         task:(MendeleyTask *)task
                 progressBlock:(MendeleyResponseProgressBlock)progressBlock
               completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
@@ -81,22 +88,36 @@
     [NSError assertStringArgumentNotNilOrEmpty:documentURLPath argumentName:@"documentURLPath"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
-    [self.provider invokeUploadForFileURL:fileURL baseURL:self.baseURL api:kMendeleyRESTAPIFiles additionalHeaders:[self uploadFileHeadersWithDocumentURLPath:documentURLPath documentName:documentURLPath.lastPathComponent] authenticationRequired:YES progressBlock:progressBlock completionBlock: ^(MendeleyResponse *response, NSError *error) {
+    NSString *linkRel = [NSString stringWithFormat:@"<%@>; rel=" "document" "", documentURLPath];
+    [self.provider invokeUploadForFileURL:fileURL
+                                  baseURL:self.baseURL
+                                      api:kMendeleyRESTAPIFiles
+                        additionalHeaders:[self uploadFileHeadersWithLinkRel:linkRel]
+                   authenticationRequired:YES
+                                     task:task
+                            progressBlock:progressBlock
+                          completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+             [blockExec executeWithMendeleyObject:nil
+                                         syncInfo:nil
+                                            error:error];
          }
          else
          {
              [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelFile completionBlock: ^(MendeleyFile *file, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleyObject:file syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithMendeleyObject:file
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
@@ -104,24 +125,36 @@
 }
 
 - (void)deleteFileWithID:(NSString *)fileID
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:fileID argumentName:@"fileID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFileWithID, fileID];
-    [self.helper deleteMendeleyObjectWithAPI:apiEndpoint completionBlock:completionBlock];
+    [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
+                             completionBlock:completionBlock];
 }
 
 - (void)fileListWithLinkedURL:(NSURL *)linkURL
-              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+                         task:task
+              completionBlock:(MendeleyArrayCompletionBlock) completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    [self.provider invokeGET:linkURL api:nil additionalHeaders:[self defaultServiceRequestHeaders] queryParameters:nil authenticationRequired:YES completionBlock: ^(MendeleyResponse *response, NSError *error) {
+    [self.provider invokeGET:linkURL
+                         api:nil
+           additionalHeaders:[self defaultServiceRequestHeaders]
+             queryParameters:nil
+      authenticationRequired:YES
+                        task:task
+             completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -129,16 +162,67 @@
              [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelFile completionBlock: ^(NSArray *documents, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithArray:nil
+                                         syncInfo:nil
+                                            error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithArray:documents syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithArray:documents
+                                         syncInfo:response.syncHeader
+                                            error:nil];
                   }
               }];
          }
      }];
 }
 
+- (void)deletedFilesSince:(NSDate *)deletedSince
+                     task:(MendeleyTask *)task
+          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:deletedSince argumentName:@"deletedSince"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    NSString *deletedSinceString = [[MendeleyObjectHelper jsonDateFormatter] stringFromDate:deletedSince];
+    NSDictionary *query = @{ kMendeleyRESTAPIQueryDeletedSince : deletedSinceString };
+    [self.provider invokeGET:self.baseURL
+                         api:kMendeleyRESTAPIFiles
+           additionalHeaders:[self defaultServiceRequestHeaders]
+             queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
+      authenticationRequired:YES
+                        task:task
+             completionBlock: ^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             id jsonData = response.responseBody;
+             if ([jsonData isKindOfClass:[NSArray class]])
+             {
+                 NSArray *jsonArray = (NSArray *) jsonData;
+                 [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock: ^(NSArray *arrayOfStrings, NSError *parseError) {
+                      if (nil != parseError)
+                      {
+                          [blockExec executeWithArray:nil
+                                             syncInfo:nil
+                                                error:parseError];
+                      }
+                      else
+                      {
+                          [blockExec executeWithArray:arrayOfStrings
+                                             syncInfo:response.syncHeader
+                                                error:nil];
+                      }
+                  }];
+             }
+         }
+     }];
+}
 
 @end

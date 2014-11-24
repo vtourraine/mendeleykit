@@ -79,7 +79,8 @@
 
 - (void)getDocumentsFromServer
 {
-    [[MendeleyKit sharedInstance] documentListWithQueryParameters:nil completionBlock:^(NSArray *objectArray, MendeleySyncInfo *syncInfo, NSError *error) {
+    MendeleyDocumentParameters *parameters = [MendeleyDocumentParameters new];
+    [[MendeleyKit sharedInstance] documentListWithQueryParameters:parameters completionBlock:^(NSArray *objectArray, MendeleySyncInfo *syncInfo, NSError *error) {
          if (nil == objectArray)
          {
              UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -160,10 +161,11 @@
     UILabel *label = nil;
     UILabel *pdfLabel = nil;
 
+    NSInteger rowHeight = 44;
     if (nil == cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identfier];
-        label = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 250, self.tableView.rowHeight)];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 250, rowHeight)];
         label.backgroundColor = [UIColor clearColor];
         label.numberOfLines = 0;
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
@@ -171,7 +173,7 @@
         [cell.contentView addSubview:label];
 
 
-        pdfLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 40, self.tableView.rowHeight)];
+        pdfLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 40, rowHeight)];
         pdfLabel.textColor = [UIColor redColor];
         pdfLabel.backgroundColor = [UIColor clearColor];
         pdfLabel.tag = kPDFLabelTag;

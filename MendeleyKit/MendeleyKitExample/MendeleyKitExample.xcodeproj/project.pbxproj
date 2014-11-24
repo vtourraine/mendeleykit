@@ -21,6 +21,7 @@
 		C4A1348519DADB010069DB7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4A1348319DADB010069DB7A /* Main.storyboard */; };
 		C4A1348819DADB010069DB7A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1348719DADB010069DB7A /* ViewController.m */; };
 		C4A1348A19DADB010069DB7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A1348919DADB010069DB7A /* Images.xcassets */; };
+		C4FA861519F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FA861419F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,8 @@
 		C4A1348719DADB010069DB7A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C4A1348919DADB010069DB7A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C4A1349019DADB010069DB7A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C4FA861319F7CE2500715F41 /* GroupListLazyLoadingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupListLazyLoadingTableViewController.h; sourceTree = "<group>"; };
+		C4FA861419F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListLazyLoadingTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				C499433919DC3BE600E19A81 /* FilesWithDocumentTableViewController.m */,
 				C499433A19DC3BE600E19A81 /* GroupListTableViewController.h */,
 				C499433B19DC3BE600E19A81 /* GroupListTableViewController.m */,
+				C4FA861319F7CE2500715F41 /* GroupListLazyLoadingTableViewController.h */,
+				C4FA861419F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m */,
 				C4A1348019DADB010069DB7A /* AppDelegate.h */,
 				C4A1348119DADB010069DB7A /* AppDelegate.m */,
 				C4A1348319DADB010069DB7A /* Main.storyboard */,
@@ -194,6 +199,7 @@
 			files = (
 				C4A1348819DADB010069DB7A /* ViewController.m in Sources */,
 				C4A1348219DADB010069DB7A /* AppDelegate.m in Sources */,
+				C4FA861519F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m in Sources */,
 				C499433E19DC3BE600E19A81 /* FilesWithDocumentTableViewController.m in Sources */,
 				C499433D19DC3BE600E19A81 /* DocumentListTableViewController.m in Sources */,
 				C499433F19DC3BE600E19A81 /* GroupListTableViewController.m in Sources */,
@@ -240,7 +246,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -256,7 +262,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -278,7 +284,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -288,7 +294,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

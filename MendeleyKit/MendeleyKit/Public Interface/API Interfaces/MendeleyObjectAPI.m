@@ -22,7 +22,8 @@
 
 @implementation MendeleyObjectAPI
 
-- (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider baseURL:(NSURL *)baseURL
+- (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider
+                                baseURL:(NSURL *)baseURL
 {
     self = [super init];
     if (nil != self)

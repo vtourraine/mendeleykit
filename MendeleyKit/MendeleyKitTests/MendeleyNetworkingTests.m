@@ -26,7 +26,7 @@
 
 @interface MendeleyDefaultNetworkProvider (CHANGE_VISIBILITY_FOR_TEST)
 
-@property (nonatomic, strong, readwrite) NSMutableDictionary *taskDictionary;
+@property (nonatomic, strong, readwrite) NSMutableDictionary *networkTaskDictionary;
 
 @end
 
@@ -84,6 +84,7 @@
                                                                             additionalHeaders:nil
                                                                               queryParameters:self.queryParameters
                                                                        authenticationRequired:NO
+                                                                                         task:[MendeleyTask new]
                                                                               completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -108,7 +109,7 @@
     XCTAssertFalse(parameterNotFound, @"Problem with the query parameters. One or more parameters setted weren't received by the server");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -126,6 +127,7 @@
                                                                             additionalHeaders:nil
                                                                               queryParameters:nil
                                                                        authenticationRequired:NO
+                                                                                         task:[MendeleyTask new]
                                                                               completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -139,7 +141,7 @@
     XCTAssertTrue(((NSData *) deserializedResponse && [[(NSData *) deserializedResponse subdataWithRange: NSMakeRange(0, 4)] isEqualToData:validPDF]), @"The object returned is not a PDF");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -156,6 +158,7 @@
                                                                             additionalHeaders:self.additionalHeaders
                                                                                bodyParameters:self.bodyParameters
                                                                        authenticationRequired:NO
+                                                                                         task:[MendeleyTask new]
                                                                               completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -183,7 +186,7 @@
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -201,6 +204,7 @@
                                                                                 bodyParameters:self.bodyParameters
                                                                                         isJSON:YES
                                                                         authenticationRequired:NO
+                                                                                          task:[MendeleyTask new]
                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -213,7 +217,7 @@
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -232,6 +236,7 @@
                                                                              additionalHeaders:nil
                                                                                       jsonData:bodyData
                                                                         authenticationRequired:NO
+                                                                                          task:[MendeleyTask new]
                                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -245,7 +250,7 @@
     XCTAssertTrue([testString isEqualToString:dataReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -261,6 +266,7 @@
                                                                               additionalHeaders:nil
                                                                                  bodyParameters:self.bodyParameters
                                                                          authenticationRequired:NO
+                                                                                           task:[MendeleyTask new]
                                                                                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -274,7 +280,7 @@
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -290,6 +296,7 @@
                                                                                additionalHeaders:self.additionalHeaders
                                                                                   bodyParameters:self.bodyParameters
                                                                           authenticationRequired:NO
+                                                                                            task:[MendeleyTask new]
                                                                                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             deserializedResponse = response.responseBody;
@@ -317,7 +324,7 @@
     XCTAssertTrue([bodyParamtersstring isEqualToString:jsonReceived], @"Sent parameters aren't the same received");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -326,19 +333,20 @@
 {
     __block NSError *errorResponse;
 
-    waitForBlock (^(BOOL *hasCalledBack) {
-                      [[MendeleyKitConfiguration sharedInstance].networkProvider invokeHEAD:self.testURL
-                                                                                        api:@""
-                                                                     authenticationRequired:NO
-                                                                            completionBlock:^(MendeleyResponse *response, NSError *error) {
-                           errorResponse = error;
-                           *hasCalledBack = YES;
-                       }];
-                  });
+    waitForBlock ( ^(BOOL *hasCalledBack) {
+                       [[MendeleyKitConfiguration sharedInstance].networkProvider invokeHEAD:self.testURL
+                                                                                         api:@""
+                                                                      authenticationRequired:NO
+                                                                                        task:[MendeleyTask new]
+                                                                             completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                            errorResponse = error;
+                            *hasCalledBack = YES;
+                        }];
+                   });
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during PATCH request: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -358,13 +366,13 @@
     __block BOOL isProgressCalled = NO;
 
     waitForBlock ( ^(BOOL *hasCalledBack) {
-
                        [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeDownloadToFileURL:destinationURL
                                                                                                     baseURL:self.testURL
                                                                                                         api:@"drip"
                                                                                           additionalHeaders:nil
                                                                                             queryParameters:delayQueryParameters
                                                                                      authenticationRequired:NO
+                                                                                                       task:[MendeleyTask new]
                                                                                               progressBlock: ^(NSNumber *progress) {
                             NSLog(@"Update Received: %.2f", [progress floatValue]);
                             isProgressCalled = YES;
@@ -389,7 +397,7 @@
     XCTAssertTrue(errorOnRemoving == nil, @"An error was encounterd while removing the file: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -406,12 +414,14 @@
                                                                                                        api:@"post"
                                                                                          additionalHeaders:nil
                                                                                     authenticationRequired:NO
+                                                                                                      task:[MendeleyTask new]
                                                                                              progressBlock:
-                        ^(NSNumber *progress){
+                        ^(NSNumber *progress) {
                             NSLog(@"Update received: %.2f", progress.doubleValue);
                             isProgressCalled = YES;
                         }
-                                                                                           completionBlock:^(MendeleyResponse *response, NSError *error){
+
+                                                                                           completionBlock: ^(MendeleyResponse *response, NSError *error) {
                             errorResponse = error;
                             *hasCalledBack = YES;
                         }];
@@ -421,7 +431,7 @@
     XCTAssertTrue(isProgressCalled, @"Progress status never called");
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0, @"Task not removed automatically");
 }
@@ -430,13 +440,16 @@
 {
     __block BOOL cancelSuccess;
     __block NSError *errorResponse;
-    MendeleyTask *cancellationRequest = [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeGET:_testURL
-                                                                                                           api:@"delay/10"
-                                                                                             additionalHeaders:nil
-                                                                                               queryParameters:nil
-                                                                                        authenticationRequired:NO
-                                                                                               completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                                         }];
+    MendeleyTask *cancellationRequest = [MendeleyTask new];
+
+    [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeGET:_testURL
+                                                                       api:@"delay/10"
+                                                         additionalHeaders:nil
+                                                           queryParameters:nil
+                                                    authenticationRequired:NO
+                                                                      task:cancellationRequest
+                                                           completionBlock: ^(MendeleyResponse *response, NSError *error) {
+     }];
 
     waitForBlock ( ^(BOOL *hasCalledBack) {
                        [[[MendeleyKitConfiguration sharedInstance] networkProvider] cancelTask:cancellationRequest
@@ -450,7 +463,7 @@
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0 && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 }
@@ -468,6 +481,7 @@
                                                              additionalHeaders:nil
                                                                queryParameters:nil
                                                         authenticationRequired:NO
+                                                                          task:[MendeleyTask new]
                                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          }];
     }
@@ -487,7 +501,7 @@
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the requests: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0 && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 }
@@ -500,44 +514,37 @@
     NSDictionary *delayQueryParameters = @{ @"numbytes": @"100000",
                                             @"duration": @"3",
                                             @"delay": @"1" };
-    __block MendeleyTask *cancellationRequest;
 
+    MendeleyTask *cancellationRequest = [MendeleyTask new];
 
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *destinationPath = [documentsPath stringByAppendingPathComponent:@"downloadedFile"];
     NSURL *destinationURL = [NSURL fileURLWithPath:destinationPath];
 
-    cancellationRequest = [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeDownloadToFileURL:destinationURL
-                                                                                                       baseURL:self.testURL
-                                                                                                           api:@"drip"
-                                                                                             additionalHeaders:nil
-                                                                                               queryParameters:delayQueryParameters
-                                                                                        authenticationRequired:NO
-                                                                                                 progressBlock: ^(NSNumber *progress) {
-                           }
+    [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeDownloadToFileURL:destinationURL
+                                                                                 baseURL:self.testURL
+                                                                                     api:@"drip"
+                                                                       additionalHeaders:nil
+                                                                         queryParameters:delayQueryParameters
+                                                                  authenticationRequired:NO
+                                                                                    task:cancellationRequest
+                                                                           progressBlock:nil completionBlock: ^(MendeleyResponse *response, NSError *error) {}];
 
-                                                                                               completionBlock:^(MendeleyResponse *response, NSError *error) {                                              }];
-
-
-
-
-    waitForBlock (^(BOOL *hasCalledBack) {
-                      [[[MendeleyKitConfiguration sharedInstance] networkProvider] cancelTask:cancellationRequest
-                                                                              completionBlock: ^(BOOL success, NSError *error) {
-                           cancelSuccess = success;
-                           errorResponse = error;
-                           *hasCalledBack = YES;
-                       }];
-                  });
-
+    waitForBlock ( ^(BOOL *hasCalledBack) {
+                       [[[MendeleyKitConfiguration sharedInstance] networkProvider] cancelTask:cancellationRequest
+                                                                               completionBlock: ^(BOOL success, NSError *error) {
+                            cancelSuccess = success;
+                            errorResponse = error;
+                            *hasCalledBack = YES;
+                        }];
+                   });
 
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
-    NSUInteger tasksRunning = [[[defaultProvider taskDictionary] allKeys] count];
+    NSUInteger tasksRunning = [[[defaultProvider networkTaskDictionary] allKeys] count];
 
     XCTAssertTrue(tasksRunning == 0 && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
-
 }
 
 @end

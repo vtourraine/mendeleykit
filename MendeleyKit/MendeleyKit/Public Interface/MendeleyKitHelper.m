@@ -68,6 +68,7 @@
                              api:(NSString *)apiString
                       parameters:(NSDictionary *)queryParameters
                additionalHeaders:(NSDictionary *)additionalHeaders
+                            task:(MendeleyTask *)task
                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:objectTypeString argumentName:@"objectTypeString"];
@@ -81,11 +82,14 @@
              additionalHeaders:additionalHeaders
                queryParameters:queryParameters
         authenticationRequired:YES
+                          task:task
                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -93,11 +97,15 @@
              [jsonModeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(NSArray *folders, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithArray:nil
+                                         syncInfo:nil
+                                            error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithArray:folders syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithArray:folders
+                                         syncInfo:response.syncHeader
+                                            error:nil];
                   }
               }];
          }
@@ -107,6 +115,7 @@
 - (void)mendeleyIDStringListForAPI:(NSString *)apiString
                         parameters:(NSDictionary *)queryParameters
                  additionalHeaders:(NSDictionary *)additionalHeaders
+                              task:(MendeleyTask *)task
                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:apiString argumentName:@"apiString"];
@@ -119,11 +128,14 @@
              additionalHeaders:additionalHeaders
                queryParameters:queryParameters
         authenticationRequired:YES
+                          task:task
                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -135,11 +147,15 @@
                  [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock:^(NSArray *arrayOfStrings, NSError *parseError) {
                       if (nil != arrayOfStrings)
                       {
-                          [blockExec executeWithArray:arrayOfStrings syncInfo:response.syncHeader error:nil];
+                          [blockExec executeWithArray:arrayOfStrings
+                                             syncInfo:response.syncHeader
+                                                error:nil];
                       }
                       else
                       {
-                          [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                          [blockExec executeWithArray:nil
+                                             syncInfo:nil
+                                                error:parseError];
                       }
 
                   }];
@@ -155,6 +171,7 @@
                   parameters:(NSDictionary *)queryParameters
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:objectTypeString argumentName:@"objectTypeString"];
@@ -167,11 +184,14 @@
              additionalHeaders:additionalHeaders
                queryParameters:queryParameters
         authenticationRequired:YES
+                          task:task
                completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+             [blockExec executeWithMendeleyObject:nil
+                                         syncInfo:nil
+                                            error:error];
          }
          else
          {
@@ -179,11 +199,15 @@
              [modeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(MendeleyObject *object, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleyObject:object syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithMendeleyObject:object
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
@@ -192,6 +216,7 @@
 
 - (void)createMendeleyObject:(MendeleyObject *)mendeleyObject
                          api:(NSString *)apiString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:mendeleyObject argumentName:@"mendeleyObject"];
@@ -205,7 +230,8 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:mendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithBool:NO error:serialiseError];
+        [blockExec executeWithBool:NO
+                             error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -215,14 +241,17 @@
               additionalHeaders:nil
                        jsonData:jsonData
          authenticationRequired:YES
+                           task:task
                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
@@ -232,6 +261,7 @@
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:mendeleyObject argumentName:@"mendeleyObject"];
@@ -246,7 +276,9 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:mendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithMendeleyObject:nil syncInfo:nil error:serialiseError];
+        [blockExec executeWithMendeleyObject:nil
+                                    syncInfo:nil
+                                       error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -256,21 +288,28 @@
               additionalHeaders:additionalHeaders
                        jsonData:jsonData
          authenticationRequired:YES
+                           task:task
                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+             [blockExec executeWithMendeleyObject:nil
+                                         syncInfo:nil
+                                            error:error];
          }
          else
          {
              [modeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(MendeleyObject *object, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleyObject:object syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithMendeleyObject:object
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
@@ -279,14 +318,20 @@
 
 - (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
                          api:(NSString *)apiString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [self updateMendeleyObject:updatedMendeleyObject api:apiString additionalHeaders:nil completionBlock:completionBlock];
+    [self updateMendeleyObject:updatedMendeleyObject
+                           api:apiString
+             additionalHeaders:nil
+                          task:task
+               completionBlock:completionBlock];
 }
 
 - (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyObject argumentName:@"updatedMendeleyObject"];
@@ -299,7 +344,8 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:updatedMendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithBool:NO error:serialiseError];
+        [blockExec executeWithBool:NO
+                             error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -309,14 +355,17 @@
                additionalHeaders:additionalHeaders
                         jsonData:jsonData
           authenticationRequired:YES
+                            task:task
                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
@@ -327,6 +376,7 @@
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyObject argumentName:@"updatedMendeleyObject"];
@@ -339,7 +389,9 @@
     NSData *jsonData = [modeller jsonObjectFromModelOrModels:updatedMendeleyObject error:&serialiseError];
     if (nil == jsonData)
     {
-        [blockExec executeWithMendeleyObject:nil syncInfo:nil error:serialiseError];
+        [blockExec executeWithMendeleyObject:nil
+                                    syncInfo:nil
+                                       error:serialiseError];
         return;
     }
     id <MendeleyNetworkProvider> networkProvider = [self provider];
@@ -349,21 +401,28 @@
                additionalHeaders:additionalHeaders
                         jsonData:jsonData
           authenticationRequired:YES
+                            task:task
                  completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+             [blockExec executeWithMendeleyObject:nil
+                                         syncInfo:nil
+                                            error:error];
          }
          else
          {
              [modeller parseJSONData:response.responseBody expectedType:objectTypeString completionBlock: ^(MendeleyObject *object, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleyObject:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleyObject:object syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithMendeleyObject:object
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
@@ -371,6 +430,7 @@
 }
 
 - (void)deleteMendeleyObjectWithAPI:(NSString *)apiString
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:apiString argumentName:@"apiString"];
@@ -382,52 +442,59 @@
                 additionalHeaders:nil
                    bodyParameters:nil
            authenticationRequired:YES
+                             task:task
                   completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
 
-- (MendeleyTask *)downloadFileWithAPI:(NSString *)apiString
-                            saveToURL:(NSURL *)fileURL
-                        progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                      completionBlock:(MendeleyCompletionBlock)completionBlock
+- (void)downloadFileWithAPI:(NSString *)apiString
+                  saveToURL:(NSURL *)fileURL
+                       task:(MendeleyTask *)task
+              progressBlock:(MendeleyResponseProgressBlock)progressBlock
+            completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:apiString argumentName:@"apiString"];
     [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    MendeleyTask *task = [self.provider invokeDownloadToFileURL:fileURL
-                                                        baseURL:[self URL]
-                                                            api:apiString
-                                              additionalHeaders:nil
-                                                queryParameters:nil
-                                         authenticationRequired:YES
-                                                  progressBlock:progressBlock
-                                                completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                              MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
-                              if (![self isSuccessForResponse:response error:&error])
-                              {
-                                  [blockExec executeWithBool:NO error:error];
-                              }
-                              else if (![[NSFileManager defaultManager] fileExistsAtPath:fileURL.path])
-                              {
-                                  NSError *pathError = [NSError errorWithCode:kMendeleyPathNotFoundErrorCode];
-                                  [blockExec executeWithBool:NO error:pathError];
-                              }
-                              else
-                              {
-                                  [blockExec executeWithBool:YES error:nil];
-                              }
-                          }];
-    return task;
+    [self.provider invokeDownloadToFileURL:fileURL
+                                   baseURL:[self URL]
+                                       api:apiString
+                         additionalHeaders:nil
+                           queryParameters:nil
+                    authenticationRequired:YES
+                                      task:task
+                             progressBlock:progressBlock
+                           completionBlock: ^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
+         if (![self isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithBool:NO
+                                  error:error];
+         }
+         else if (![[NSFileManager defaultManager] fileExistsAtPath:fileURL.path])
+         {
+             NSError *pathError = [NSError errorWithCode:kMendeleyPathNotFoundErrorCode];
+             [blockExec executeWithBool:NO
+                                  error:pathError];
+         }
+         else
+         {
+             [blockExec executeWithBool:YES
+                                  error:nil];
+         }
+     }];
 }
 
 #pragma mark -

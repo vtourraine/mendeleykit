@@ -27,17 +27,19 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONProfilesType };
 }
 
-- (void)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock
+- (void)pullMyProfileWithTask:(MendeleyTask *)task completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [self.helper mendeleyObjectOfType:kMendeleyModelUserProfile
                            parameters:nil
                                   api:kMendeleyRESTAPIProfilesMe
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
 - (void)pullProfile:(NSString *)profileID
+               task:(MendeleyTask *)task
     completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:profileID argumentName:@"profileID"];
@@ -47,6 +49,7 @@
                            parameters:nil
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 
 

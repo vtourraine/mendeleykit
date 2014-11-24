@@ -57,7 +57,10 @@
  */
 - (instancetype)initWithDictionaryCompletionBlock:(MendeleyDictionaryResponseBlock)dictionaryCompletionBlock;
 
-
+/**
+ @param binaryDataCompletionBlock
+ */
+- (instancetype)initWithBinaryDataCompletionBlock:(MendeleyBinaryDataCompletionBlock)binaryDataCompletionBlock;
 /**
    executes the MendeleyArrayCompletionBlock on the main thread
    @param array
@@ -92,4 +95,11 @@
    @param error
  */
 - (void)executeWithDictionary:(NSDictionary *)dictionary error:(NSError *)error;
+
+/**
+ executes the MendeleyDictionaryCompletionBlock on the main thread
+ @param binaryData
+ @param error
+ */
+- (void)executeWithBinaryData:(NSData *)binaryData error:(NSError *)error;
 @end

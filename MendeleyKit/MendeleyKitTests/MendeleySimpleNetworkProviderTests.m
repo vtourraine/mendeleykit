@@ -67,7 +67,13 @@
 
     XCTAssertNotNil(provider, @"we expected the provider to be not nil");
     waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [provider invokeGET:self.testURL api:@"get" additionalHeaders:self.additionalHeaders queryParameters:self.queryParameters authenticationRequired:NO completionBlock:^(MendeleyResponse *response, NSError *error) {
+                       [provider invokeGET:self.testURL
+                                           api:@"get"
+                             additionalHeaders:self.additionalHeaders
+                               queryParameters:self.queryParameters
+                        authenticationRequired:NO
+                                          task:[MendeleyTask new]
+                               completionBlock:^(MendeleyResponse *response, NSError *error) {
                             XCTAssertNil(error, @"We expected the error to be nil, but got back %@", error);
                             XCTAssertNotNil(response, @"we expected a valid response but got back nil");
                             *hasCalledBack = YES;

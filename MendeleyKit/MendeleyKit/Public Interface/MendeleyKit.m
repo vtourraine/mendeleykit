@@ -148,52 +148,63 @@
     [store removeOAuthCredentials];
 }
 
-- (void)pagedListOfObjectsWithLinkedURL:(NSURL *)linkURL
-                          expectedModel:(NSString *)expectedModel
-                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (MendeleyTask *)pagedListOfObjectsWithLinkedURL:(NSURL *)linkURL
+                                    expectedModel:(NSString *)expectedModel
+                                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     if ([expectedModel isEqualToString:NSStringFromClass([MendeleyDocument class])])
     {
-        [self documentListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self documentListWithLinkedURL:linkURL
+                               completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyFolder class])])
     {
-        [self folderListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self folderListWithLinkedURL:linkURL
+                             completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyGroup class])])
     {
-        [self groupListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self groupListWithLinkedURL:linkURL
+                            completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyFile class])])
     {
-        [self fileListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self fileListWithLinkedURL:linkURL
+                           completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:kMendeleyModelDocumentId])
     {
-        [self documentListInFolderWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self documentListInFolderWithLinkedURL:linkURL
+                                       completionBlock:completionBlock];
     }
     else if ([expectedModel isEqualToString:NSStringFromClass([MendeleyAnnotation class])])
     {
-        [self annotationListWithLinkedURL:linkURL completionBlock:completionBlock];
+        return [self annotationListWithLinkedURL:linkURL
+                                 completionBlock:completionBlock];
     }
     else
     {
-        NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyPagingNotProvidedForThisType];
+        NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
+                                                                           code:kMendeleyPagingNotProvidedForThisType];
         completionBlock(nil, nil, error);
+        return nil;
     }
 }
 
 #pragma mark -
 #pragma mark Profiles
 
-- (void)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.profilesAPI pullMyProfile:completionBlock];
+                 [self.profilesAPI pullMyProfileWithTask:task
+                                         completionBlock:completionBlock];
              }
              else
              {
@@ -207,17 +218,22 @@
         completionBlock(nil, nil, unauthorisedError);
     }
 
+    return task;
 }
 
-- (void)pullProfile:(NSString *)profileID
-    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)pullProfile:(NSString *)profileID
+              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.profilesAPI pullProfile:profileID completionBlock:completionBlock];
+                 [self.profilesAPI pullProfile:profileID
+                                          task:task
+                               completionBlock:completionBlock];
              }
              else
              {
@@ -231,6 +247,7 @@
         completionBlock(nil, nil, unauthorisedError);
     }
 
+    return task;
 }
 
 
@@ -238,787 +255,18 @@
 #pragma mark -
 #pragma mark Documents
 
-- (void)documentListWithLinkedURL:(NSURL *)linkURL
-                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (MendeleyTask *)documentListWithLinkedURL:(NSURL *)linkURL
+                            completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI documentListWithLinkedURL:linkURL completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)documentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
-                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI documentListWithQueryParameters:queryParameters completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)documentWithDocumentID:(NSString *)documentID
-               completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI documentWithDocumentID:documentID
-                                           completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-
-- (void)catalogDocumentWithCatalogID:(NSString *)catalogID
-                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI catalogDocumentWithCatalogID:catalogID
-                                                 completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)catalogDocumentWithParameters:(MendeleyCatalogParameters *)queryParameters
-                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI catalogDocumentWithParameters:queryParameters
-                                                  completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-
-}
-
-- (void)createDocument:(MendeleyDocument *)mendeleyDocument
-       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI createDocument:mendeleyDocument completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)updateDocument:(MendeleyDocument *)updatedDocument
-       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI updateDocument:updatedDocument completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-
-- (void)deleteDocumentWithID:(NSString *)documentID
-             completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI deleteDocumentWithID:documentID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-- (void)trashDocumentWithID:(NSString *)documentID
-            completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI trashDocumentWithID:documentID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-- (void)deletedDocumentsSince:(NSDate *)deletedSince
-              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI deletedDocumentsSince:deletedSince completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)trashedDocumentListWithLinkedURL:(NSURL *)linkURL
-                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI trashedDocumentListWithLinkedURL:linkURL completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)trashedDocumentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
-                               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI trashedDocumentListWithQueryParameters:queryParameters completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)deleteTrashedDocumentWithID:(NSString *)documentID
-                    completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI deleteTrashedDocumentWithID:documentID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-- (void)restoreTrashedDocumentWithID:(NSString *)documentID
-                     completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI restoreTrashedDocumentWithID:documentID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-- (void)trashedDocumentWithDocumentID:(NSString *)documentID
-                      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI trashedDocumentWithDocumentID:documentID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-#pragma mark -
-#pragma mark Metadata
-
-- (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.metedataAPI metadataLookupWithQueryParameters:queryParameters
-                                                     completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-#pragma mark -
-#pragma mark Document Types
-
-- (void)documentTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI documentTypesWithCompletionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-#pragma mark -
-#pragma mark Document Identifiers
-
-- (void)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.documentsAPI identifierTypesWithCompletionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-#pragma mark -
-#pragma mark Files
-
-- (void)fileListWithQueryParameters:(MendeleyFileParameters *)queryParameters
-                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.filesAPI fileListWithQueryParameters:queryParameters completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (MendeleyTask *)fileWithFileID:(NSString *)fileID
-                       saveToURL:(NSURL *)fileURL
-                   progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                 completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    __block MendeleyTask *task;
+    MendeleyTask *task = [MendeleyTask new];
 
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 task = [self.filesAPI fileWithFileID:fileID saveToURL:fileURL progressBlock:progressBlock completionBlock:completionBlock];
-             }
-             else
-             {
-                 task = nil;
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        task = nil;
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-    return task;
-}
-
-- (void)           createFile:(NSURL *)fileURL
-    relativeToDocumentURLPath:(NSString *)documentURLPath
-                progressBlock:(MendeleyResponseProgressBlock)progressBlock
-              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.filesAPI createFile:fileURL relativeToDocumentURLPath:documentURLPath progressBlock:progressBlock completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)deleteFileWithID:(NSString *)fileID
-         completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.filesAPI deleteFileWithID:fileID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-- (void)fileListWithLinkedURL:(NSURL *)linkURL
-              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.filesAPI fileListWithLinkedURL:linkURL completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-
-#pragma mark -
-#pragma mark Folder
-
-- (void)documentListFromFolderWithID:(NSString *)folderID
-                          parameters:(MendeleyFolderParameters *)queryParameters
-                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI documentListFromFolderWithID:folderID parameters:queryParameters completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)addDocument:(NSString *)mendeleyDocumentId
-           folderID:(NSString *)folderID
-    completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI addDocument:mendeleyDocumentId folderID:folderID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-- (void)createFolder:(MendeleyFolder *)mendeleyFolder completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI createFolder:mendeleyFolder completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)folderListWithLinkedURL:(NSURL *)linkURL
-                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI folderListWithLinkedURL:linkURL completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)documentListInFolderWithLinkedURL:(NSURL *)linkURL
-                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI documentListInFolderWithLinkedURL:linkURL completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)folderListWithQueryParameters:(MendeleyFolderParameters *)queryParameters completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI folderListWithQueryParameters:queryParameters completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)folderWithFolderID:(NSString *)folderID completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI folderWithFolderID:folderID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(nil, nil, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-}
-
-- (void)deleteFolderWithID:(NSString *)folderID completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI deleteFolderWithID:folderID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-- (void)updateFolder:(MendeleyFolder *)updatedFolder
-     completionBlock:(MendeleyCompletionBlock)completionBlock;
-{
-    [self.foldersAPI updateFolder:updatedFolder completionBlock:completionBlock];
-}
-
-- (void)deleteDocumentWithID:(NSString *)documentID fromFolderWithID:(NSString *)folderID completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.foldersAPI deleteDocumentWithID:documentID fromFolderWithID:folderID completionBlock:completionBlock];
-             }
-             else
-             {
-                 completionBlock(NO, error);
-             }
-         }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(NO, unauthorisedError);
-    }
-}
-
-#pragma mark -
-#pragma mark Groups
-- (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                            iconType:(MendeleyGroupIconType)iconType
-                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-             if (success)
-             {
-                 [self.groupsAPI groupListWithQueryParameters:queryParameters
-                                                     iconType:iconType
+                 [self.documentsAPI documentListWithLinkedURL:linkURL
+                                                         task:task
                                               completionBlock:completionBlock];
              }
              else
@@ -1033,20 +281,22 @@
         completionBlock(nil, nil, unauthorisedError);
     }
 
+    return task;
 }
 
-- (void)groupListWithLinkedURL:(NSURL *)linkURL
-                      iconType:(MendeleyGroupIconType)iconType
-               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (MendeleyTask *)documentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
+                                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.groupsAPI groupListWithLinkedURL:linkURL
-                                               iconType:iconType
-                                        completionBlock:completionBlock];
+                 [self.documentsAPI documentListWithQueryParameters:queryParameters
+                                                               task:task
+                                                    completionBlock:completionBlock];
              }
              else
              {
@@ -1060,19 +310,680 @@
         completionBlock(nil, nil, unauthorisedError);
     }
 
+    return task;
 }
 
-- (void)groupWithGroupID:(NSString *)groupID
-                iconType:(MendeleyGroupIconType)iconType
-         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)documentWithDocumentID:(NSString *)documentID
+                         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.groupsAPI groupWithGroupID:groupID
-                                         iconType:iconType
+                 [self.documentsAPI documentWithDocumentID:documentID
+                                                      task:task
+                                           completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+
+- (MendeleyTask *)catalogDocumentWithCatalogID:(NSString *)catalogID
+                               completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI catalogDocumentWithCatalogID:catalogID
+                                                            task:task
+                                                 completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)catalogDocumentWithParameters:(MendeleyCatalogParameters *)queryParameters
+                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI catalogDocumentWithParameters:queryParameters
+                                                             task:task
+                                                  completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+
+}
+
+- (MendeleyTask *)createDocument:(MendeleyDocument *)mendeleyDocument
+                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI createDocument:mendeleyDocument
+                                              task:task
+                                   completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)updateDocument:(MendeleyDocument *)updatedDocument
+                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI updateDocument:updatedDocument
+                                              task:task
+                                   completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+
+- (MendeleyTask *)deleteDocumentWithID:(NSString *)documentID
+                       completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI deleteDocumentWithID:documentID
+                                                    task:task
+                                         completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)trashDocumentWithID:(NSString *)documentID
+                      completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI trashDocumentWithID:documentID
+                                                   task:task
+                                        completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)deletedDocumentsSince:(NSDate *)deletedSince
+                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI deletedDocumentsSince:deletedSince
+                                                     task:task
+                                          completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)trashedDocumentListWithLinkedURL:(NSURL *)linkURL
+                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI trashedDocumentListWithLinkedURL:linkURL
+                                                                task:task
+                                                     completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)trashedDocumentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
+                                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI trashedDocumentListWithQueryParameters:queryParameters
+                                                                      task:task
+                                                           completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)deleteTrashedDocumentWithID:(NSString *)documentID
+                              completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI deleteTrashedDocumentWithID:documentID
+                                                           task:task
+                                                completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)restoreTrashedDocumentWithID:(NSString *)documentID
+                               completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI restoreTrashedDocumentWithID:documentID
+                                                            task:task
+                                                 completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)trashedDocumentWithDocumentID:(NSString *)documentID
+                                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI trashedDocumentWithDocumentID:documentID
+                                                             task:task
+                                                  completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL
+                                 mimeType:(NSString *)mimeType
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI documentFromFileWithURL:fileURL
+                                                   mimeType:mimeType
+                                                       task:task
+                                            completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+
+#pragma mark -
+#pragma mark Metadata
+
+- (MendeleyTask *)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
+                                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.metedataAPI metadataLookupWithQueryParameters:queryParameters
+                                                                task:task
+                                                     completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+#pragma mark -
+#pragma mark Document Types
+
+- (MendeleyTask *)documentTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI documentTypesWithTask:task
+                                          completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+#pragma mark -
+#pragma mark Document Identifiers
+
+- (MendeleyTask *)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI identifierTypesWithTask:task
+                                            completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+#pragma mark -
+#pragma mark Files
+
+- (MendeleyTask *)fileListWithQueryParameters:(MendeleyFileParameters *)queryParameters
+                              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI fileListWithQueryParameters:queryParameters
+                                                       task:task
+                                            completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)fileWithFileID:(NSString *)fileID
+                       saveToURL:(NSURL *)fileURL
+                   progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                 completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI fileWithFileID:fileID saveToURL:fileURL
+                                          task:task
+                                 progressBlock:progressBlock
+                               completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *) createFile:(NSURL *)fileURL
+    relativeToDocumentURLPath:(NSString *)documentURLPath
+                progressBlock:(MendeleyResponseProgressBlock)progressBlock
+              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI createFile:fileURL
+                  relativeToDocumentURLPath:documentURLPath
+                                       task:task
+                              progressBlock:progressBlock
+                            completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)deleteFileWithID:(NSString *)fileID
+                   completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI deleteFileWithID:fileID
+                                            task:task
+                                 completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)fileListWithLinkedURL:(NSURL *)linkURL
+                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI fileListWithLinkedURL:linkURL
+                                                 task:task
+                                      completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)deletedFilesSince:(NSDate *)deletedSince
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI deletedFilesSince:deletedSince
+                                             task:task
                                   completionBlock:completionBlock];
              }
              else
@@ -1087,37 +998,28 @@
         completionBlock(nil, nil, unauthorisedError);
     }
 
+    return task;
 }
 
-- (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    [self groupListWithQueryParameters:queryParameters iconType:SquareIcon completionBlock:completionBlock];
-}
-
-- (void)groupListWithLinkedURL:(NSURL *)linkURL
-               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    [self groupListWithLinkedURL:linkURL iconType:SquareIcon completionBlock:completionBlock];
-}
-
-- (void)groupWithGroupID:(NSString *)groupID completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    [self groupWithGroupID:groupID iconType:SquareIcon completionBlock:completionBlock];
-}
 
 #pragma mark -
-#pragma mark Annotations
+#pragma mark Folder
 
-- (void)annotationWithAnnotationID:(NSString *)annotationID
-                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)documentListFromFolderWithID:(NSString *)folderID
+                                    parameters:(MendeleyFolderParameters *)queryParameters
+                               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI annotationWithAnnotationID:annotationID completionBlock:completionBlock];
+                 [self.foldersAPI documentListFromFolderWithID:folderID
+                                                    parameters:queryParameters
+                                                          task:task
+                                               completionBlock:completionBlock];
              }
              else
              {
@@ -1130,17 +1032,25 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(nil, nil, unauthorisedError);
     }
+
+    return task;
 }
 
-- (void)deleteAnnotationWithID:(NSString *)annotationID
-               completionBlock:(MendeleyCompletionBlock)completionBlock
+- (MendeleyTask *)addDocument:(NSString *)mendeleyDocumentId
+                     folderID:(NSString *)folderID
+              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI deleteAnnotationWithID:annotationID completionBlock:completionBlock];
+                 [self.foldersAPI addDocument:mendeleyDocumentId
+                                     folderID:folderID
+                                         task:task
+                              completionBlock:completionBlock];
              }
              else
              {
@@ -1153,17 +1063,23 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(NO, unauthorisedError);
     }
+
+    return task;
 }
 
-- (void)updateAnnotation:(MendeleyAnnotation *)updatedMendeleyAnnotation
-         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)createFolder:(MendeleyFolder *)mendeleyFolder
+               completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI updateAnnotation:updatedMendeleyAnnotation completionBlock:completionBlock];
+                 [self.foldersAPI createFolder:mendeleyFolder
+                                          task:task
+                               completionBlock:completionBlock];
              }
              else
              {
@@ -1176,17 +1092,23 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(nil, nil, unauthorisedError);
     }
+
+    return task;
 }
 
-- (void)createAnnotation:(MendeleyAnnotation *)mendeleyAnnotation
-         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (MendeleyTask *)folderListWithLinkedURL:(NSURL *)linkURL
+                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI createAnnotation:mendeleyAnnotation completionBlock:completionBlock];
+                 [self.foldersAPI folderListWithLinkedURL:linkURL
+                                                     task:task
+                                          completionBlock:completionBlock];
              }
              else
              {
@@ -1199,24 +1121,533 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(nil, nil, unauthorisedError);
     }
+
+    return task;
 }
 
-- (void)annotationListWithLinkedURL:(NSURL *)linkURL
-                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (MendeleyTask *)documentListInFolderWithLinkedURL:(NSURL *)linkURL
+                                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.foldersAPI documentListInFolderWithLinkedURL:linkURL
+                                                               task:task
+                                                    completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)folderListWithQueryParameters:(MendeleyFolderParameters *)queryParameters
+                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.foldersAPI folderListWithQueryParameters:queryParameters
+                                                           task:task
+                                                completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)folderWithFolderID:(NSString *)folderID
+                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.foldersAPI folderWithFolderID:folderID
+                                                task:task
+                                     completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)deleteFolderWithID:(NSString *)folderID
+                     completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.foldersAPI deleteFolderWithID:folderID
+                                                task:task
+                                     completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)updateFolder:(MendeleyFolder *)updatedFolder
+               completionBlock:(MendeleyCompletionBlock)completionBlock;
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.foldersAPI updateFolder:updatedFolder
+                                          task:task
+                               completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)deleteDocumentWithID:(NSString *)documentID fromFolderWithID:(NSString *)folderID completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.foldersAPI deleteDocumentWithID:documentID
+                                      fromFolderWithID:folderID
+                                                  task:task
+                                       completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+#pragma mark -
+#pragma mark Groups
+- (MendeleyTask *)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
+                                      iconType:(MendeleyGroupIconType)iconType
+                               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.groupsAPI groupListWithQueryParameters:queryParameters
+                                                     iconType:iconType
+                                                         task:task
+                                              completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+
+}
+
+- (MendeleyTask *)groupListWithLinkedURL:(NSURL *)linkURL
+                                iconType:(MendeleyGroupIconType)iconType
+                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.groupsAPI groupListWithLinkedURL:linkURL
+                                               iconType:iconType
+                                                   task:task
+                                        completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+
+}
+
+- (MendeleyTask *)groupWithGroupID:(NSString *)groupID
+                          iconType:(MendeleyGroupIconType)iconType
+                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.groupsAPI groupWithGroupID:groupID
+                                         iconType:iconType
+                                             task:task
+                                  completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+
+}
+
+- (MendeleyTask *)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
+                               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.groupsAPI groupListWithQueryParameters:queryParameters
+                                                         task:task
+                                              completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)groupListWithLinkedURL:(NSURL *)linkURL
+                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.groupsAPI groupListWithLinkedURL:linkURL
+                                                   task:task
+                                        completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)groupWithGroupID:(NSString *)groupID
+                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.groupsAPI groupWithGroupID:groupID
+                                             task:task
+                                  completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)groupIconForGroup:(MendeleyGroup *)group
+                           iconType:(MendeleyGroupIconType)iconType
+                    completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+       Note: this call doesn't require an authentication header
+     */
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.groupsAPI groupIconForGroup:group iconType:iconType
+                                 task:task
+                      completionBlock:completionBlock];
+    return task;
+}
+
+
+- (MendeleyTask *)groupIconForIconURLString:(NSString *)iconURLString
+                            completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+       Note: this call doesn't require an authentication header
+     */
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.groupsAPI groupIconForIconURLString:iconURLString
+                                         task:task
+                              completionBlock:completionBlock];
+    return task;
+
+}
+
+
+#pragma mark -
+#pragma mark Annotations
+
+- (MendeleyTask *)annotationWithAnnotationID:(NSString *)annotationID
+                             completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.annotationsAPI annotationWithAnnotationID:annotationID task:task
+                                                 completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)deleteAnnotationWithID:(NSString *)annotationID
+                         completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.annotationsAPI deleteAnnotationWithID:annotationID task:task
+                                             completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(NO, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)updateAnnotation:(MendeleyAnnotation *)updatedMendeleyAnnotation
+                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.annotationsAPI updateAnnotation:updatedMendeleyAnnotation task:task
+                                       completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)createAnnotation:(MendeleyAnnotation *)mendeleyAnnotation
+                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.annotationsAPI createAnnotation:mendeleyAnnotation task:task
+                                       completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)annotationListWithLinkedURL:(NSURL *)linkURL
+                              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI annotationListWithLinkedURL:linkURL completionBlock:completionBlock];
+                 [self.annotationsAPI annotationListWithLinkedURL:linkURL task:task
+                                                  completionBlock:completionBlock];
              }
              else
              {
                  completionBlock(nil, nil, error);
              }
-
-
          }];
     }
     else
@@ -1225,18 +1656,23 @@
         completionBlock(nil, nil, unauthorisedError);
     }
 
+    return task;
+
 }
 
 
-- (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
-                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (MendeleyTask *)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
+                                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
+    MendeleyTask *task = [MendeleyTask new];
+
     if (self.isAuthenticated)
     {
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI annotationListWithQueryParameters:queryParameters completionBlock:completionBlock];
+                 [self.annotationsAPI annotationListWithQueryParameters:queryParameters task:task
+                                                        completionBlock:completionBlock];
              }
              else
              {
@@ -1249,12 +1685,43 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(nil, nil, unauthorisedError);
     }
+
+    return task;
+}
+
+- (MendeleyTask *)deletedAnnotationsSince:(NSDate *)deletedSince
+                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.annotationsAPI deletedAnnotationsSince:deletedSince task:task
+                                              completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
 }
 
 - (void) cancelTask:(MendeleyTask *)task
     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [self.networkProvider cancelTask:task completionBlock:completionBlock];
+    [self.networkProvider cancelTask:task
+                     completionBlock:completionBlock];
 }
 
 - (void)cancelAllTasks:(MendeleyCompletionBlock)completionBlock

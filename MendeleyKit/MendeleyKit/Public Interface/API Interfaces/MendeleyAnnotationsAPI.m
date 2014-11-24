@@ -45,6 +45,7 @@
 #pragma mark -
 
 - (void)annotationWithAnnotationID:(NSString *)annotationID
+                              task:(MendeleyTask *)task
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:annotationID argumentName:@"annotationID"];
@@ -53,19 +54,23 @@
                            parameters:nil
                                   api:apiEndPoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
 - (void)deleteAnnotationWithID:(NSString *)annotationID
+                          task:(MendeleyTask *)task
                completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertStringArgumentNotNilOrEmpty:annotationID argumentName:@"annotationID"];
     NSString *apiEndPoint = [NSString stringWithFormat:kMendeleyRESTAPIAnnotationWithID, annotationID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndPoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 
 - (void)updateAnnotation:(MendeleyAnnotation *)updatedMendeleyAnnotation
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyAnnotation argumentName:@"updatedMendeleyAnnotation"];
@@ -74,21 +79,25 @@
                                   api:apiEndpoint
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelAnnotation
+                                 task:task
                       completionBlock:completionBlock];
 }
 
 - (void)createAnnotation:(MendeleyAnnotation *)mendeleyAnnotation
+                    task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [self.helper createMendeleyObject:mendeleyAnnotation
                                   api:kMendeleyRESTAPIAnnotations
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelAnnotation
+                                 task:task
                       completionBlock:completionBlock];
 }
 
 
 - (void)annotationListWithLinkedURL:(NSURL *)linkURL
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
@@ -99,11 +108,14 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:nil // we don't need to specify parameters because are inehrits from the previous call
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -130,6 +142,7 @@
 
 
 - (void)annotationListWithQueryParameters:(MendeleyAnnotationParameters *)queryParameters
+                                     task:(MendeleyTask *)task
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -138,6 +151,56 @@
                                       api:kMendeleyRESTAPIAnnotations
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
+
+- (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                           task:(MendeleyTask *)task
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:deletedSince argumentName:@"deletedSince"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    NSString *deletedSinceString = [[MendeleyObjectHelper jsonDateFormatter] stringFromDate:deletedSince];
+    NSDictionary *query = @{ kMendeleyRESTAPIQueryDeletedSince : deletedSinceString };
+    [self.provider invokeGET:self.baseURL
+                         api:kMendeleyRESTAPIAnnotations
+           additionalHeaders:[self defaultServiceRequestHeaders]
+             queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
+      authenticationRequired:YES
+                        task:task
+             completionBlock: ^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             id jsonData = response.responseBody;
+             if ([jsonData isKindOfClass:[NSArray class]])
+             {
+                 NSArray *jsonArray = (NSArray *) jsonData;
+                 [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock: ^(NSArray *arrayOfStrings, NSError *parseError) {
+                      if (nil != parseError)
+                      {
+                          [blockExec executeWithArray:nil
+                                             syncInfo:nil
+                                                error:parseError];
+                      }
+                      else
+                      {
+                          [blockExec executeWithArray:arrayOfStrings
+                                             syncInfo:response.syncHeader
+                                                error:nil];
+                      }
+                  }];
+             }
+         }
+     }];
+}
+
 @end

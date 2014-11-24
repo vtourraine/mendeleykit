@@ -56,7 +56,7 @@
     self.provider.expectedSuccess = YES;
     self.provider.expectedStatusCode = 204;
 
-    [self.annotationsAPI deleteAnnotationWithID:@"12345" completionBlock:^(BOOL success, NSError *error) {
+    [self.annotationsAPI deleteAnnotationWithID:@"12345" task:[MendeleyTask new] completionBlock:^(BOOL success, NSError *error) {
          XCTAssertTrue(success, @"The call is expected to succeed, but didn't");
          XCTAssertNil(error, @"The error is expected to be NIL");
      }];
@@ -69,7 +69,7 @@
     self.provider.expectedStatusCode = 404;
     self.provider.expectedError = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode localizedDescription:@"Annotations not found"];
 
-    [self.annotationsAPI deleteAnnotationWithID:@"12345" completionBlock:^(BOOL success, NSError *error) {
+    [self.annotationsAPI deleteAnnotationWithID:@"12345" task:[MendeleyTask new] completionBlock:^(BOOL success, NSError *error) {
          XCTAssertFalse(success, @"The call is expected to fail, but didn't");
          XCTAssertNotNil(error, @"The error is expected not to be NIL");
          if (nil != error)

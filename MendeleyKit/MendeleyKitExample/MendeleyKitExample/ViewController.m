@@ -26,6 +26,8 @@
 #import "FilesWithDocumentTableViewController.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "GroupListTableViewController.h"
+#import "GroupListLazyLoadingTableViewController.h"
+
 /**
  By default the MendeleyKit uses NSURLSession based network actions - called in and used by the
  MendeleyDefaultNetworkProvider.
@@ -128,7 +130,7 @@ static NSDictionary * clientOAuthConfig()
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -161,7 +163,10 @@ static NSDictionary * clientOAuthConfig()
             cell.textLabel.text = @"Get Documents (check for files)";
             break;
         case 2:
-            cell.textLabel.text = @"Get Groups";
+            cell.textLabel.text = @"Get Groups (automatic icon download)";
+            break;
+        case 3:
+            cell.textLabel.text = @"Get Groups (no icon download)";
             break;
     }
     return cell;
@@ -190,6 +195,13 @@ static NSDictionary * clientOAuthConfig()
 
         }
         break;
+        case 3:
+        {
+            GroupListLazyLoadingTableViewController *controller = [[GroupListLazyLoadingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        }
+            break;
         default:
             break;
     }

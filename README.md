@@ -1,6 +1,10 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
-Version: 0.6.0 alpha
+Version: 0.8.9 alpha
+11 November 2014
+- all API methods in MendeleyKit now return a MendeleyTask object to allow cancellation of network calls. The method signatures for network provider and API helper classes were changed accordingly.
+- Notice: the SDK makes use of a 3rd party code provided by Apple to check on network reachability. The code is provided in accordance with Apple licence (see source code file Reachability.h/.m)
+
 
 Released: October 2014
 
@@ -11,10 +15,12 @@ MendeleyKit is a standalone Objective C library providing convenience methods
 and classes for using the [Mendeley API](http://dev.mendeley.com) in Mac OSX or
 iOS applications.
 
+Note, this is an alpha version of the MendeleyKit.
+
 ## Minimum Requirements ##
 
 XCode 5.1.1
-iOS 6.x, Mac OSX 10.8
+iOS 7.x or higher
 
 ## Installation/Cocoapod ##
 The easiest way to include MendeleyKit in your project is to use cocoapods.
@@ -46,10 +52,39 @@ a complete reference set in HTML and Docset format.
 When running the MendeleyKitExample app, please ensure you have
 - client ID
 - client secret key
-- redirect URI
+- redirect URI 
+
 They need to be entered in the ViewController.h file.
+Note: code containing client IDs, client secrets, redirect URI will not be accepted in pull requests!
 
 [Mendeley API](http://dev.mendeley.com) has links to create your app client id, key and redirect URIs.
 
+## Registering a Client with the Mendeley Dev Portal ##
+Every client communicating with the server needs to be registered with the Mendeley developer portal [Mendeley API](http://dev.mendeley.com).
+
+Registration is quick, painless and free. It will give you the 3 essential ingredients you will need to supply when using the MendeleyKit in your app
+- client ID
+- client secret key
+- redirect URI
+
+These values need to match *exactly* the ones from the dev portal.
+The redirect URI should be a fully formed URL, such as - e.g. http://localhost/myredirect (rather than just 'localhost/myredirect). This avoids any pitfalls or 'Frame load interrupted' messages in the UIWebView kit.
+
+
+## How to submit code ##
+This is an early-bird version of the MendeleyKit. We welcome your thoughts and suggestions. If you would like to make active contributions, e.g. code changes/additions,
+
+- code submissions should only be made to Development branch via pull requests. 
+- you may create your own subbranches from Development and submit to it at will. However, if you want to merge it into Development then you would need to create a pull request
+- Note: code containing client IDs, client secrets, redirect URI will not be accepted in pull requests!
+
+
+## Software Releases ##
+All official releases of the MendeleyKit are tagged versions on master. Mendeley reserves the rights to merge changes made to Development into master.
+Each release will contain a RELEASE text file outlining changes made.
+
+## Reporting Issues ##
+Please use the Issues feature on github to report any problems you encounter with the MendeleyKit. 
+For feedback/suggestions please contact: api@mendeley.com
 
 

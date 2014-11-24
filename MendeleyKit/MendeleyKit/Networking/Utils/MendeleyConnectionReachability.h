@@ -39,6 +39,11 @@
 - (BOOL)isNetworkReachable;
 
 /**
+   @return YES if the Internet connection is over WiFi, NO otherwise (2G,3G,4G, etc.).
+ */
+- (BOOL)isWifiConnection;
+
+/**
    this method check the availability of the Mendeley Server
    @param completionBlock
  */

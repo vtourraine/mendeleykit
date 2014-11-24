@@ -21,5 +21,11 @@
 #import <UIKit/UIKit.h>
 
 @interface FilesWithDocumentTableViewController : UITableViewController
+/**
+ @name FilesWithDocumentTableViewController
+ This class demonstrates the access and visualisation of a list of documents.
+ It also checks whether a document has a file attached. In this case a 'PDF' icon
+ is shown in the cell.imageview
+ */
 
 @end

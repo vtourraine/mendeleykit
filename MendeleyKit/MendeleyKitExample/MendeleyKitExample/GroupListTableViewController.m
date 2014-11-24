@@ -21,6 +21,7 @@
 #import "GroupListTableViewController.h"
 #import "MendeleyModels.h"
 #import "MendeleyKit.h"
+#import "MendeleyQueryRequestParameters.h"
 
 @interface GroupListTableViewController ()
 @property (nonatomic, strong) NSArray *groups;
@@ -28,10 +29,10 @@
 
 @implementation GroupListTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self)
+    if (nil != self)
     {
         _groups = [NSArray array];
     }
@@ -41,13 +42,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[MendeleyKit sharedInstance] groupListWithQueryParameters:nil completionBlock:^(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error) {
-         if (nil != array && 0 < array.count)
-         {
-             self.groups = [NSArray arrayWithArray:array];
-             [self.tableView reloadData];
-         }
-     }];
+    
+    /**
+     This code downloads the first 'page' of groups. MendeleyKit has a default page size of 50
+     which for most users will be sufficient downloading all of their groups.
+     If paging is required - look into
+     DocumentListTableViewController
+     to see how the paging algorithm works. The paging algorithms for /files, /documents, /groups, /folders API
+     are all equivalent.
+     */
+    MendeleyGroupParameters *parameters = [MendeleyGroupParameters new];
+    
+    /**
+     This is the code that downloads the groups with icons.
+     The standard icon type used is 'SquareIcon'. OriginalIcon uses the original size, StandardIcon
+     is a larger rectangle.
+     */
+    [[MendeleyKit sharedInstance] groupListWithQueryParameters:parameters iconType:SquareIcon completionBlock:^(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error) {
+        if (nil != array && 0 < array.count)
+        {
+            self.groups = [NSArray arrayWithArray:array];
+            [self.tableView reloadData];
+        }
+    }];
 
 
 }
@@ -82,7 +99,7 @@
 
     MendeleyGroup *group = [self.groups objectAtIndex:indexPath.row];
     cell.textLabel.text = group.name;
-
+    
     if (nil != group.photo && nil != group.photo.squareImageData)
     {
         cell.imageView.image = [UIImage imageWithData:group.photo.squareImageData];

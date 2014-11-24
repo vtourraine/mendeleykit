@@ -53,6 +53,8 @@ typedef NS_ENUM (int, MendeleyErrorCode)
     kMendeleyFileNotAvailableForTransfer,
     kMendeleyConnectionCannotBeStarted,
     kMendeleyConnectionFinishedWithError,
+    kMendeleyDataNotAvailableErrorCode,
+    kMendeleyMissingDataProvidedErrorCode,
 
     kMendeleyResponseTypeUnknownErrorCode = 1984,
     kMendeleyPathNotFoundErrorCode,

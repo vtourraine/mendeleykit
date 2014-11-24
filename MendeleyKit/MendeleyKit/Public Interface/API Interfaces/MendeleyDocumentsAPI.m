@@ -42,6 +42,14 @@
     return [[MendeleyDocumentParameters new] valueStringDictionary];
 }
 
+- (NSDictionary *)defaultQueryParametersWithoutViewParameter
+{
+    MendeleyDocumentParameters *params = [MendeleyDocumentParameters new];
+
+    params.view = nil;
+    return [params valueStringDictionary];
+}
+
 - (NSDictionary *)defaultViewQueryParameters
 {
     MendeleyDocumentParameters *params = [MendeleyDocumentParameters new];
@@ -67,6 +75,7 @@
 #pragma mark -
 
 - (void)documentListWithLinkedURL:(NSURL *)linkURL
+                             task:(MendeleyTask *)task
                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
@@ -75,13 +84,16 @@
     [self.provider invokeGET:linkURL
                          api:nil
            additionalHeaders:[self defaultServiceRequestHeaders]
-             queryParameters:nil // we don't need to specify parameters because are inehrits from the previous call
+             queryParameters:nil       // we don't need to specify parameters because are inehrits from the previous call
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -107,6 +119,7 @@
 }
 
 - (void)documentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
+                                   task:(MendeleyTask *)task
                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -115,10 +128,12 @@
                                       api:kMendeleyRESTAPIDocuments
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
 - (void)documentWithDocumentID:(NSString *)documentID
+                          task:(MendeleyTask *)task
                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -127,10 +142,12 @@
                            parameters:[self defaultViewQueryParameters]
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
 - (void)catalogDocumentWithCatalogID:(NSString *)catalogID
+                                task:(MendeleyTask *)task
                      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:catalogID argumentName:@"catalogID"];
@@ -139,11 +156,12 @@
                            parameters:[self defaultCatalogViewQueryParameters]
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
-
 }
 
 - (void)catalogDocumentWithParameters:(MendeleyCatalogParameters *)queryParameters
+                                 task:(MendeleyTask *)task
                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -152,22 +170,24 @@
                                       api:kMendeleyRESTAPICatalog
                                parameters:query
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
-
 }
 
-
 - (void)createDocument:(MendeleyDocument *)mendeleyDocument
+                  task:(MendeleyTask *)task
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [self.helper createMendeleyObject:mendeleyDocument
                                   api:kMendeleyRESTAPIDocuments
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelDocument
+                                 task:task
                       completionBlock:completionBlock];
 }
 
 - (void)updateDocument:(MendeleyDocument *)updatedMendeleyDocument
+                  task:(MendeleyTask *)task
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:updatedMendeleyDocument argumentName:@"updatedMendeleyDocument"];
@@ -176,19 +196,23 @@
                                   api:apiEndpoint
                     additionalHeaders:[self defaultUploadRequestHeaders]
                          expectedType:kMendeleyModelDocument
+                                 task:task
                       completionBlock:completionBlock];
 }
 
 - (void)deleteDocumentWithID:(NSString *)documentID
+                        task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIDocumentWithID, documentID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 
 - (void)trashDocumentWithID:(NSString *)documentID
+                       task:(MendeleyTask *)task
             completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -200,20 +224,24 @@
                bodyParameters:nil
                        isJSON:NO
        authenticationRequired:YES
+                         task:task
               completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
 
 - (void)deletedDocumentsSince:(NSDate *)deletedSince
+                         task:(MendeleyTask *)task
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:deletedSince argumentName:@"deletedSince"];
@@ -223,44 +251,45 @@
     [self.provider invokeGET:self.baseURL
                          api:kMendeleyRESTAPIDocuments
            additionalHeaders:[self defaultServiceRequestHeaders]
-             queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
+             queryParameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParametersWithoutViewParameter]]
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
-             NSData *jsonResponse = response.responseBody;
-             if (nil != jsonResponse)
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             id jsonData = response.responseBody;
+             if ([jsonData isKindOfClass:[NSArray class]])
              {
-                 NSError *readError = nil;
-                 id jsonObj = [NSJSONSerialization JSONObjectWithData:jsonResponse
-                                                              options:NSJSONReadingAllowFragments
-                                                                error:&readError];
-                 if (nil == jsonObj)
-                 {
-                     [blockExec executeWithArray:nil syncInfo:nil error:readError];
-                 }
-                 else
-                 {
-                     if ([jsonObj isKindOfClass:[NSArray class]])
-                     {
-                         [blockExec executeWithArray:(NSArray *) jsonObj syncInfo:response.syncHeader error:nil];
-                     }
-                     else
-                     {
-                         ///DO SOME ERROR HANDLING
-                     }
-                 }
+                 NSArray *jsonArray = (NSArray *) jsonData;
+                 [jsonModeller parseJSONArrayOfIDDictionaries:jsonArray completionBlock: ^(NSArray *arrayOfStrings, NSError *parseError) {
+                      if (nil != parseError)
+                      {
+                          [blockExec executeWithArray:nil
+                                             syncInfo:nil
+                                                error:parseError];
+                      }
+                      else
+                      {
+                          [blockExec executeWithArray:arrayOfStrings
+                                             syncInfo:response.syncHeader
+                                                error:nil];
+                      }
+                  }];
              }
          }
      }];
 }
 
 - (void)trashedDocumentListWithLinkedURL:(NSURL *)linkURL
+                                    task:(MendeleyTask *)task
                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
@@ -270,11 +299,14 @@
            additionalHeaders:[self defaultServiceRequestHeaders]
              queryParameters:[self defaultQueryParameters]
       authenticationRequired:YES
+                        task:task
              completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithArray:nil syncInfo:nil error:error];
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
          }
          else
          {
@@ -282,11 +314,15 @@
              [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelDocument completionBlock: ^(NSArray *documents, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithArray:nil syncInfo:nil error:parseError];
+                      [blockExec executeWithArray:nil
+                                         syncInfo:nil
+                                            error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithArray:documents syncInfo:response.syncHeader error:nil];
+                      [blockExec executeWithArray:documents
+                                         syncInfo:response.syncHeader
+                                            error:nil];
                   }
               }];
          }
@@ -294,6 +330,7 @@
 }
 
 - (void)trashedDocumentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
+                                          task:(MendeleyTask *)task
                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
@@ -302,19 +339,23 @@
                                       api:kMendeleyRESTAPITrashedDocuments
                                parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
                         additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
                           completionBlock:completionBlock];
 }
 
 - (void)deleteTrashedDocumentWithID:(NSString *)documentID
+                               task:(MendeleyTask *)task
                     completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
     NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPITrashedDocumentWithID, documentID];
     [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
                              completionBlock:completionBlock];
 }
 
 - (void)restoreTrashedDocumentWithID:(NSString *)documentID
+                                task:(MendeleyTask *)task
                      completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -326,20 +367,24 @@
                bodyParameters:nil
                        isJSON:NO
        authenticationRequired:YES
+                         task:task
               completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithBool:NO error:error];
+             [blockExec executeWithBool:NO
+                                  error:error];
          }
          else
          {
-             [blockExec executeWithBool:YES error:nil];
+             [blockExec executeWithBool:YES
+                                  error:nil];
          }
      }];
 }
 
 - (void)trashedDocumentWithDocumentID:(NSString *)documentID
+                                 task:(MendeleyTask *)task
                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
@@ -348,25 +393,85 @@
                            parameters:[self defaultViewQueryParameters]
                                   api:apiEndpoint
                     additionalHeaders:[self defaultServiceRequestHeaders]
+                                 task:task
                       completionBlock:completionBlock];
 }
 
-- (void)documentTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (void)documentTypesWithTask:(MendeleyTask *)task
+              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [self.helper mendeleyObjectListOfType:kMendeleyModelDocumentType
                                       api:kMendeleyRESTAPIDocumentTypes
                                parameters:nil
                         additionalHeaders:nil
+                                     task:task
                           completionBlock:completionBlock];
 }
 
-- (void)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (void)identifierTypesWithTask:(MendeleyTask *)task
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [self.helper mendeleyObjectListOfType:kMendeleyModelIdentifierType
                                       api:kMendeleyRESTAPIIdentifierTypes
                                parameters:nil
                         additionalHeaders:nil
+                                     task:task
                           completionBlock:completionBlock];
+}
+
+- (void)documentFromFileWithURL:(NSURL *)fileURL
+                       mimeType:(NSString *)mimeType
+                           task:(MendeleyTask *)task
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
+    if (nil == mimeType)
+    {
+        mimeType = kMendeleyRESTRequestValuePDF;
+    }
+
+    NSString *filename = [fileURL lastPathComponent];
+    NSString *contentDisposition = [NSString stringWithFormat:@"%@; filename=\"%@\"", kMendeleyRESTRequestValueAttachment, filename];
+
+    NSDictionary *header = @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
+                              kMendeleyRESTRequestContentType: mimeType,
+                              kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType };
+
+    [self.provider invokeUploadForFileURL:fileURL
+                                  baseURL:self.baseURL
+                                      api:kMendeleyRESTAPIDocuments
+                        additionalHeaders:header
+                   authenticationRequired:YES
+                                     task:task
+                            progressBlock:^(NSNumber *progress) {
+     } completionBlock:^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
+                                             initWithObjectCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             [jsonModeller parseJSONData:response.responseBody
+                            expectedType:kMendeleyModelDocument
+                         completionBlock:^(id parsedObject, NSError *parseError) {
+                  if (nil != parseError)
+                  {
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
+                  }
+                  else
+                  {
+                      [blockExec executeWithMendeleyObject:parsedObject
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
+                  }
+              }];
+         }
+     }];
 }
 
 @end
