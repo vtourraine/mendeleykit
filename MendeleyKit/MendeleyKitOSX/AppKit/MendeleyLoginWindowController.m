@@ -94,7 +94,8 @@
         [cancelButton setBezelStyle:NSRoundedBezelStyle];
         [cancelButton setTitle:NSLocalizedString(@"Cancel", nil)];
         [cancelButton sizeToFit];
-        cancelButton.frame = NSMakeRect(margin, margin, NSWidth(cancelButton.frame), NSHeight(cancelButton.frame));
+        cancelButton.frame = NSMakeRect(NSWidth(frame) - (NSWidth(cancelButton.frame) + margin), margin, NSWidth(cancelButton.frame), NSHeight(cancelButton.frame));
+        cancelButton.autoresizingMask = NSViewMinXMargin;
         [view addSubview:cancelButton];
 
         WebView *webView = [[WebView alloc] initWithFrame:NSMakeRect(0, NSHeight(cancelButton.frame) + 2 * margin,
