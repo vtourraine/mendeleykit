@@ -45,7 +45,7 @@
         return [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:MendeleyErrorUnknown];
     }
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode] };
-    return [[self class] errorWithDomain:kMendeleyErrorDomain code:kMendeleyErrorNetworkBaseCode + response.statusCode userInfo:userInfo];
+    return [[self class] errorWithDomain:kMendeleyErrorDomain code:response.statusCode userInfo:userInfo];
 }
 
 @end

@@ -20,7 +20,7 @@
 
 #import "MendeleyNSURLRequestDownloadHelper.h"
 
-#define NSURLResponseUnknownLength ((long long)-1)
+#define NSURLResponseUnknownLength ((long long) -1)
 
 
 @interface MendeleyNSURLRequestDownloadHelper ()
@@ -72,19 +72,20 @@
             redirectResponse:(NSURLResponse *)response
 {
     NSInteger statusCode = 0;
+
     if ([response isKindOfClass:[NSHTTPURLResponse class]])
     {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
         statusCode = httpResponse.statusCode;
     }
 
     NSURLRequest *updatedRequest = [request copy];
-    
+
     if (303 == statusCode)
     {
         updatedRequest = [NSURLRequest requestWithURL:request.URL];
     }
-    
+
     return updatedRequest;
 }
 
@@ -105,14 +106,14 @@
             [self.outputStream open];
             isStreamReady = self.outputStream.streamStatus == NSStreamStatusOpen;
         }
-        
+
         if (!isStreamReady)
         {
             [connection cancel];
-            
+
             if (self.completionBlock)
             {
-                NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyErrorNetworkBaseCode];
+                NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyJSONTypeObjectNilErrorCode];
                 self.completionBlock(nil, error);
             }
             self.completionBlock = nil;
@@ -132,17 +133,22 @@
         const uint8_t *bytes = data.bytes;
         NSUInteger length = data.length;
         NSUInteger offset = 0;
-        do {
+        do
+        {
             NSUInteger written = [self.outputStream write:&bytes[offset] maxLength:length - offset];
-            if (written <= 0) {
+            if (written <= 0)
+            {
                 [connection cancel];
                 return;
-            } else {
+            }
+            else
+            {
                 offset += written;
             }
-        } while (offset < length);
+        }
+        while (offset < length);
     }
-    
+
     self.bytesDownloaded += data.length;
     if (self.progressBlock)
     {
@@ -154,45 +160,45 @@
             self.progressBlock(progressNumber);
         }
     }
-    
+
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     [self.outputStream close];
-    
+
     self.progressBlock = nil;
-    
+
     [super connection:connection didFailWithError:error];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     [self.outputStream close];
-    
+
     self.progressBlock = nil;
-    
+
     if (nil != self.completionBlock)
     {
         NSError *error = nil;
         if (nil == self.mendeleyResponse)
         {
-            error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyErrorNetworkBaseCode];
+            error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyNetworkGenericError];
         }
         self.completionBlock(self.mendeleyResponse, error);
     }
-    
+
     self.completionBlock = nil;
-    
+
     self.thisConnection = nil;
-    
-    
+
+
 }
 
 - (void)cancelConnection
 {
     [self.outputStream close];
-    
+
     self.progressBlock = nil;
     [super cancelConnection];
 }

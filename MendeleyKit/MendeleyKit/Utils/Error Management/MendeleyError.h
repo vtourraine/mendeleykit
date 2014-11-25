@@ -35,18 +35,19 @@
  */
 typedef NS_ENUM (int, MendeleyErrorCode)
 {
-    kMendeleyJSONTypeUnrecognisedErrorCode = 100,
+    kMendeleyJSONTypeUnrecognisedErrorCode = 1100,
     kMendeleyJSONTypeNotMappedToModelErrorCode,
     kMendeleyJSONTypeObjectNilErrorCode,
 
-    kMendeleyUnrecognisedModelErrorCode = 200,
+    kMendeleyUnrecognisedModelErrorCode = 1200,
     kMendeleyModelOrPropertyNilErrorCode,
 
-    kMendeleyUnexpectedMimeTypeErrorCode = 300,
+    kMendeleyUnexpectedMimeTypeErrorCode = 1300,
     kMendeleyUnknownDataTypeErrorCode,
     kMendeleyPagingNotProvidedForThisType,
 
-    kMendeleyUnauthorizedErrorCode = 1000,
+    kMendeleyNetworkGenericError = 1400,
+    kMendeleyUnauthorizedErrorCode,
     kMendeleyInvalidAccessTokenErrorCode,
     kMendeleyCancelledRequestErrorCode,
     kMendeleyNetworkUnreachable,
@@ -56,15 +57,13 @@ typedef NS_ENUM (int, MendeleyErrorCode)
     kMendeleyDataNotAvailableErrorCode,
     kMendeleyMissingDataProvidedErrorCode,
 
-    kMendeleyResponseTypeUnknownErrorCode = 1984,
-    kMendeleyPathNotFoundErrorCode,
+    kMendeleyResponseTypeUnknownErrorCode = 1500,
+    kMendeleyPathNotFoundErrorCode
 };
-
-#define kMendeleyErrorNetworkBaseCode 1000
 
 /**
    error domain
  */
-#define kMendeleyErrorDomain          @"com.MendeleyKit.error"
+#define kMendeleyErrorDomain @"com.MendeleyKit.error"
 
 #endif /* ifndef MendeleyKit_MendeleyError_h */

@@ -54,7 +54,7 @@
     }
     else if (!response.isSuccess)
     {
-        if (nil != *error)
+        if (nil == *error)
         {
             *error = [NSError errorWithCode:kMendeleyResponseTypeUnknownErrorCode
                        localizedDescription:response.responseMessage];
