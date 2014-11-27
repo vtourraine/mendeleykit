@@ -1,5 +1,8 @@
-Release Notes MendeleyKit v0.8.1
-Date: October 2014
+Release Notes MendeleyKit v0.9.6
+Date: November 2014
+The latest version of Mendeley Kit includes
+- Mac OSX target and definition in podspec
+- added methods for checking deleted_since for documents, files and annotations in groups as well as library
 
 
 NOTES:
