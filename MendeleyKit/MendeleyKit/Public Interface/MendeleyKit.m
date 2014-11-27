@@ -539,6 +539,7 @@
              if (success)
              {
                  [self.documentsAPI deletedDocumentsSince:deletedSince
+                                                  groupID:groupID
                                                      task:task
                                           completionBlock:completionBlock];
              }
@@ -1021,6 +1022,7 @@
              if (success)
              {
                  [self.filesAPI deletedFilesSince:deletedSince
+                                          groupID:groupID
                                              task:task
                                   completionBlock:completionBlock];
              }
@@ -1746,7 +1748,9 @@
         [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
              if (success)
              {
-                 [self.annotationsAPI deletedAnnotationsSince:deletedSince task:task
+                 [self.annotationsAPI deletedAnnotationsSince:deletedSince
+                                                      groupID:groupID
+                                                         task:task
                                               completionBlock:completionBlock];
              }
              else
