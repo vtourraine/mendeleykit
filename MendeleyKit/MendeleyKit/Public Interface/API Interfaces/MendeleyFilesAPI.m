@@ -202,13 +202,18 @@
 }
 
 - (void)deletedFilesSince:(NSDate *)deletedSince
+                  groupID:(NSString *)groupID
                      task:(MendeleyTask *)task
           completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:deletedSince argumentName:@"deletedSince"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     NSString *deletedSinceString = [[MendeleyObjectHelper jsonDateFormatter] stringFromDate:deletedSince];
-    NSDictionary *query = @{ kMendeleyRESTAPIQueryDeletedSince : deletedSinceString };
+    NSMutableDictionary *query = [NSMutableDictionary dictionaryWithDictionary:@{ kMendeleyRESTAPIQueryDeletedSince : deletedSinceString }];
+    if (groupID)
+    {
+        [query addEntriesFromDictionary:@{ kMendeleyRESTAPIQueryGroupID:groupID }];
+    }
     [self.provider invokeGET:self.baseURL
                          api:kMendeleyRESTAPIFiles
            additionalHeaders:[self defaultServiceRequestHeaders]

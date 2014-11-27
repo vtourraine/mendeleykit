@@ -92,6 +92,7 @@
    @param completionBlock
  */
 - (void)deletedAnnotationsSince:(NSDate *)deletedSince
+                        groupID:(NSString *)groupID
                            task:(MendeleyTask *)task
                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 

@@ -522,6 +522,15 @@
 - (MendeleyTask *)deletedDocumentsSince:(NSDate *)deletedSince
                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
+    return [self deletedDocumentsSince:deletedSince
+                               groupID:nil
+                       completionBlock:completionBlock];
+}
+
+- (MendeleyTask *)deletedDocumentsSince:(NSDate *)deletedSince
+                                groupID:(NSString *)groupID
+                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
     MendeleyTask *task = [MendeleyTask new];
 
     if (self.isAuthenticated)
@@ -993,6 +1002,15 @@
 }
 
 - (MendeleyTask *)deletedFilesSince:(NSDate *)deletedSince
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    return [self deletedFilesSince:deletedSince
+                           groupID:nil
+                   completionBlock:completionBlock];
+}
+
+- (MendeleyTask *)deletedFilesSince:(NSDate *)deletedSince
+                            groupID:(NSString *)groupID
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1710,6 +1728,15 @@
 }
 
 - (MendeleyTask *)deletedAnnotationsSince:(NSDate *)deletedSince
+                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    return [self deletedAnnotationsSince:deletedSince
+                                 groupID:nil
+                         completionBlock:completionBlock];
+}
+
+- (MendeleyTask *)deletedAnnotationsSince:(NSDate *)deletedSince
+                                  groupID:(NSString *)groupID
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
