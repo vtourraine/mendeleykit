@@ -186,13 +186,25 @@
                       completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
-   This method returns a list of document IDs that were permanently deleted. The list of deleted IDs will be kept on
+   This method returns a list of document IDs that were permanently deleted in the user Library. The list of deleted IDs will be kept on
    the server for a limited period of time.
    @param deletedSince passed to the server to get list of documents that were deleted since that date
    @param completionBlock a list of document UUIDs if found
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)deletedDocumentsSince:(NSDate *)deletedSince
+                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   This method returns a list of document IDs that were permanently deleted in a group. The list of deleted IDs will be kept on
+   the server for a limited period of time.
+   @param deletedSince passed to the server to get list of documents that were deleted since that date
+   @param completionBlock a list of document UUIDs if found
+   @param groupID the group UUID
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)deletedDocumentsSince:(NSDate *)deletedSince
+                                groupID:(NSString *)groupID
                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -365,13 +377,25 @@
                    completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
-   This method returns a list of files IDs that were permanently deleted. The list of deleted IDs will be kept on
+   This method returns a list of files IDs that were permanently deleted in the user Library. The list of deleted IDs will be kept on
    the server for a limited period of time.
    @param deletedSince passed to the server to get list of files that were deleted since that date
    @param completionBlock a list of document UUIDs if found
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)deletedFilesSince:(NSDate *)deletedSince
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   This method returns a list of files IDs that were permanently deleted in a group. The list of deleted IDs will be kept on
+   the server for a limited period of time.
+   @param deletedSince passed to the server to get list of files that were deleted since that date
+   @param completionBlock a list of document UUIDs if found
+   @param groupID the group UUID
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)deletedFilesSince:(NSDate *)deletedSince
+                            groupID:(NSString *)groupID
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark -
@@ -629,7 +653,7 @@
                                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   This method returns a list of annotations IDs that were permanently deleted. The list of deleted IDs will be kept on
+   This method returns a list of annotations IDs that were permanently deleted in the user Library. The list of deleted IDs will be kept on
    the server for a limited period of time.
    @param deletedSince passed to the server to get list of annotations that were deleted since that date
    @param completionBlock a list of document UUIDs if found
@@ -637,6 +661,19 @@
  */
 - (MendeleyTask *)deletedAnnotationsSince:(NSDate *)deletedSince
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   This method returns a list of annotations IDs that were permanently deleted in a group. The list of deleted IDs will be kept on
+   the server for a limited period of time.
+   @param deletedSince passed to the server to get list of annotations that were deleted since that date
+   @param groupID the group UUID
+   @param completionBlock a list of document UUIDs if found
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)deletedAnnotationsSince:(NSDate *)deletedSince
+                                  groupID:(NSString *)groupID
+                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 
 #pragma mark - Cancellation
 /**

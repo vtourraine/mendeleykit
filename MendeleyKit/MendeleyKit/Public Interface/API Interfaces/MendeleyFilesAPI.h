@@ -104,6 +104,7 @@
    @param completionBlock
  */
 - (void)deletedFilesSince:(NSDate *)deletedSince
+                  groupID:(NSString *)groupID
                      task:(MendeleyTask *)task
           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
