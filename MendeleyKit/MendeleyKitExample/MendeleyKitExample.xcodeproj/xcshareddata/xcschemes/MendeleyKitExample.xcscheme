@@ -28,16 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C4A1348E19DADB010069DB7A"
-               BuildableName = "MendeleyKitExampleTests.xctest"
-               BlueprintName = "MendeleyKitExampleTests"
-               ReferencedContainer = "container:MendeleyKitExample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

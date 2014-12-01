@@ -14,24 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C421118F1A233AC7006C044C"
-               BuildableName = "MendeleyKitOSX.framework"
-               BlueprintName = "MendeleyKitOSX"
-               ReferencedContainer = "container:MendeleyKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C42111991A233AC7006C044C"
-               BuildableName = "MendeleyKitOSXTests.xctest"
-               BlueprintName = "MendeleyKitOSXTests"
-               ReferencedContainer = "container:MendeleyKit.xcodeproj">
+               BlueprintIdentifier = "145C2DB11A2CA84A0005BFF6"
+               BuildableName = "MendeleyKitOSXExample.app"
+               BlueprintName = "MendeleyKitOSXExample"
+               ReferencedContainer = "container:MendeleyKitExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,16 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C42111991A233AC7006C044C"
-               BuildableName = "MendeleyKitOSXTests.xctest"
-               BlueprintName = "MendeleyKitOSXTests"
-               ReferencedContainer = "container:MendeleyKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
@@ -59,7 +35,7 @@
             BlueprintIdentifier = "145C2DB11A2CA84A0005BFF6"
             BuildableName = "MendeleyKitOSXExample.app"
             BlueprintName = "MendeleyKitOSXExample"
-            ReferencedContainer = "container:MendeleyKitExample/MendeleyKitExample.xcodeproj">
+            ReferencedContainer = "container:MendeleyKitExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -72,6 +48,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "145C2DB11A2CA84A0005BFF6"
+            BuildableName = "MendeleyKitOSXExample.app"
+            BlueprintName = "MendeleyKitOSXExample"
+            ReferencedContainer = "container:MendeleyKitExample.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -81,15 +66,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C421118F1A233AC7006C044C"
-            BuildableName = "MendeleyKitOSX.framework"
-            BlueprintName = "MendeleyKitOSX"
-            ReferencedContainer = "container:MendeleyKit.xcodeproj">
+            BlueprintIdentifier = "145C2DB11A2CA84A0005BFF6"
+            BuildableName = "MendeleyKitOSXExample.app"
+            BlueprintName = "MendeleyKitOSXExample"
+            ReferencedContainer = "container:MendeleyKitExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
