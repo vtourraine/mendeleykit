@@ -26,5 +26,6 @@
 @property (nonatomic, strong) NSString *parent_id;
 @property (nonatomic, strong) NSString *group_id;
 @property (nonatomic, strong) NSDate *created;
+@property (nonatomic, strong) NSDate *modified;
 
 @end
