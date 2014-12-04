@@ -55,7 +55,7 @@
 #import "MendeleyReachability.h"
 
 
-NSString *kReachabilityChangedNotification = @"kNetworkReachabilityChangedNotification";
+NSString *kMendeleyReachabilityChangedNotification = @"kNetworkReachabilityChangedNotification";
 
 
 #pragma mark - Supporting functions
@@ -90,7 +90,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     MendeleyReachability *noteObject = (__bridge MendeleyReachability *) info;
     // Post a notification to notify the client that the network reachability changed.
-    [[NSNotificationCenter defaultCenter] postNotificationName:kReachabilityChangedNotification object:noteObject];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMendeleyReachabilityChangedNotification object:noteObject];
 }
 
 
