@@ -1,7 +1,7 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
-Version: 0.9.4 alpha
-24 November 2014
+Version: 0.9.9 alpha
+5 December 2014
 - added OSX support to MendeleyKit. MendeleyKit project now has 3 targets, MendeleyKit (iOS), MendeleyKitTests (unit tests) and MendeleyKitOSX.framework. The MendeleyKit.podspec has been updated so that users can now include MendeleyKitOSX into their MacOSX project
 - MendeleyLoginController has been renamed to MendeleyLoginViewController for iOS. For Mac OSX, use the newly created MendeleyLoginWindowController
 - MendeleyAnnotation and MendeleyURLBuilder have been updated to support Mac OSX specific classes (e.g. NSColor - instead of UIColor)
