@@ -1,4 +1,8 @@
-Release Notes MendeleyKit v0.9.6
+Release Notes MendeleyKit v0.9.9
+
+Date: December 2014
+- added an OSX example target to MendeleyKit workspace
+- renamed Reachability to MendeleyReachability upon user request
 
 Date: November 2014
 
