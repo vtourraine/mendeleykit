@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MendeleyKit"
-  s.version      = "0.9.8"
+  s.version      = "0.9.9"
   s.summary      = "The Mendeley Objective C client SDK."
 
   s.description  = <<-DESC
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc  = true
 
-  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "0.9.8" }
+  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "0.9.9" }
 
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.8'
