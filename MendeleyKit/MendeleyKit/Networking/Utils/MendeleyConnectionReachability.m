@@ -22,7 +22,7 @@
 #import "NSError+MendeleyError.h"
 #import "MendeleyRequest.h"
 #import "MendeleyKitConfiguration.h"
-#import "Reachability.h"
+#import "MendeleyReachability.h"
 
 @interface MendeleyConnectionReachability ()
 
@@ -56,18 +56,12 @@
 
 - (BOOL)isWifiConnection
 {
-    Reachability *r = [Reachability reachabilityForLocalWiFi];
-    NetworkStatus status = [r currentReachabilityStatus];
-    
-    return status == ReachableViaWiFi;
+    return ([MendeleyReachability reachabilityForLocalWiFi] != nil);
 }
 
 - (BOOL)isNetworkReachable
 {
-    Reachability *r = [Reachability reachabilityForInternetConnection];
-    NetworkStatus status = [r currentReachabilityStatus];
-    
-    return status;
+    return ([MendeleyReachability reachabilityForInternetConnection] != nil);
 }
 
 - (void)mendeleyServerIsReachableWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
@@ -109,7 +103,7 @@
 
     if ([self isNetworkReachable])
     {
-        BOOL serviceReachable = [Reachability reachabilityWithHostName:remoteHostName];
+        BOOL serviceReachable = ([MendeleyReachability reachabilityWithHostName:remoteHostName] != nil);
         completionBlock(serviceReachable, nil);
     }
     else
