@@ -56,4 +56,24 @@
 
 }
 
+
+- (void)testEncodeAndDecodeHighlights
+{
+    MendeleyHighlightBox *highlight = [MendeleyHighlightBox new];
+
+    highlight.page = @(1);
+    highlight.box = CGRectMake(139, 568, 32, 16);
+
+    NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:highlight];
+    MendeleyHighlightBox *unarchivedHighlight = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
+
+    NSNumber *unarchivedPage = unarchivedHighlight.page;
+    XCTAssertTrue(1 == [unarchivedPage intValue], @"We expected the page to be 1 but it is %d", [unarchivedPage intValue]);
+
+    CGRect frame = unarchivedHighlight.box;
+    XCTAssertTrue(139 == frame.origin.x, @"We expect the x-origin to be 139 but it is %f", frame.origin.x);
+    XCTAssertTrue(568 == frame.origin.y, @"We expect the x-origin to be 568 but it is %f", frame.origin.y);
+    XCTAssertTrue(32 == frame.size.width, @"We expect the x-origin to be 32 but it is %f", frame.size.width);
+    XCTAssertTrue(16 == frame.size.height, @"We expect the x-origin to be 16 but it is %f", frame.size.height);
+}
 @end

@@ -21,7 +21,7 @@
 #import "MendeleyObject.h"
 #import "MendeleyGroup.h"
 
-@interface MendeleyLocation : NSObject
+@interface MendeleyLocation : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *latitude;
@@ -30,7 +30,7 @@
 @end
 
 
-@interface MendeleyEmployment : NSObject
+@interface MendeleyEmployment : MendeleySecureObject
 
 @property (nonatomic, strong) NSArray *classes;
 @property (nonatomic, strong) NSString *position;
@@ -42,7 +42,7 @@
 
 @end
 
-@interface MendeleyEducation : NSObject
+@interface MendeleyEducation : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *institution;
 @property (nonatomic, strong) NSDate *start_date;
@@ -52,7 +52,7 @@
 
 @end
 
-@interface MendeleyDiscipline : NSObject
+@interface MendeleyDiscipline : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSArray *subdisciplines;

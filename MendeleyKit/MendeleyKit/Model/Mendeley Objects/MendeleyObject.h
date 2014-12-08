@@ -20,7 +20,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MendeleyObject : NSObject <NSSecureCoding>
+@interface MendeleySecureObject : NSObject <NSSecureCoding>
+
+@end
+
+
+@interface MendeleyObject : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *object_ID;
 @property (nonatomic, strong) NSString *objectDescription;

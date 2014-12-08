@@ -21,9 +21,7 @@
 #import "MendeleyObject.h"
 #import "MendeleyObjectHelper.h"
 
-@implementation MendeleyObject
-
-
+@implementation MendeleySecureObject
 #pragma mark NSSecureCoding protocol
 
 + (BOOL)supportsSecureCoding
@@ -69,5 +67,10 @@
          }
      }];
 }
+
+@end
+
+
+@implementation MendeleyObject
 
 @end

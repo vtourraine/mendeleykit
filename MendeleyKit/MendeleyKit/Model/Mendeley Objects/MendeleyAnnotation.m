@@ -110,6 +110,36 @@
 
 
 @implementation MendeleyHighlightBox
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    if (nil != self.page)
+    {
+        [encoder encodeObject:self.page forKey:kMendeleyJSONPage];
+    }
+    NSValue *rectValue = [NSValue valueWithCGRect:self.box];
+    if (nil != rectValue && NULL != rectValue)
+    {
+        [encoder encodeObject:rectValue forKey:@"box"];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    if (nil != self)
+    {
+        NSValue *rectValue = [decoder decodeObjectOfClass:[self class] forKey:@"box"];
+        if (nil != rectValue)
+        {
+            _box = [rectValue CGRectValue];
+        }
+    }
+    _page = [decoder decodeObjectOfClass:[self class] forKey:kMendeleyJSONPage];
+    return self;
+}
+
+
 + (MendeleyHighlightBox *)boxFromJSONParameters:(NSDictionary *)boxParameters
                                           error:(NSError **)error
 {
