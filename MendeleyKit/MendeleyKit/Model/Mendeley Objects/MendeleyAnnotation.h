@@ -65,7 +65,7 @@
 @end
 
 
-@interface MendeleyHighlightBox : NSObject
+@interface MendeleyHighlightBox : MendeleySecureObject
 @property (nonatomic, assign) CGRect box;
 @property (nonatomic, strong) NSNumber *page;
 
