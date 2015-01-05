@@ -302,11 +302,14 @@
              else if ([obj isKindOfClass:[NSArray class]])
              {
                  NSString *type = [[MendeleyObjectHelper arrayToModelDictionary] objectForKey:matchedKey];
-                 NSError *parseError = nil;
-                 NSArray *objects = [self objectArrayFromJSONArray:(NSArray *) obj expectedType:type error:&parseError];
-                 if (nil == parseError)
+                 if (nil != type)
                  {
-                     valueToBeAdded = objects;
+                     NSError *parseError = nil;
+                     NSArray *objects = [self objectArrayFromJSONArray:(NSArray *) obj expectedType:type error:&parseError];
+                     if (nil == parseError)
+                     {
+                         valueToBeAdded = objects;
+                     }
                  }
              }
 
