@@ -56,12 +56,16 @@
 
 - (BOOL)isWifiConnection
 {
-    return ([MendeleyReachability reachabilityForLocalWiFi] != nil);
+    MendeleyReachability *r = [MendeleyReachability reachabilityForLocalWiFi];
+    NetworkStatus status = [r currentReachabilityStatus];
+    return status == ReachableViaWiFi;
 }
 
 - (BOOL)isNetworkReachable
 {
-    return ([MendeleyReachability reachabilityForInternetConnection] != nil);
+    MendeleyReachability *r = [MendeleyReachability reachabilityForInternetConnection];
+    NetworkStatus status = [r currentReachabilityStatus];
+    return status;
 }
 
 - (void)mendeleyServerIsReachableWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
