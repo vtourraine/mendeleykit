@@ -13,6 +13,23 @@
     "standard": "http://s3.amazonaws.com/mendeley-photos/awaiting.png",
     "square": "http://s3.amazonaws.com/mendeley-photos/awaiting_square.png"
   },
+  "not_expected_array_of_stuff": [
+               {
+               "url": "http://s3.amazonaws.com/mendeley-photos/38/99/38992df082cdf9925a78cdb1e937f309b0c30885.png",
+               "original": true
+               },
+               {
+               "height": 120,
+               "url": "http://s3.amazonaws.com/mendeley-photos/38/99/38992df082cdf9925a78cdb1e937f309b0c30885-standard.jpg",
+               "original": false
+               },
+               {
+               "width": 48,
+               "height": 48,
+               "url": "http://s3.amazonaws.com/mendeley-photos/38/99/38992df082cdf9925a78cdb1e937f309b0c30885-square.jpg",
+               "original": false
+               }
+               ],
   "verified": true,
   "user_type": "normal",
   "created": "2013-06-03T17:04:04.000Z"

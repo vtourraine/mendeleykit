@@ -19,6 +19,7 @@
     "websites": [
                  "http://books.google.com/books?id=R1XArTHPn9QC"
                  ],
+    "not_expected_property" : "what's inside?",
     "file_attached": true,
     "profile_id": "9fb1d5a8-c4e2-30e9-bc58-2d5e604e4827",
     "last_modified": "2014-05-22T15:55:29.000Z",
