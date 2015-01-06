@@ -1,3 +1,7 @@
+Release Notes MendeleyKit v0.9.11
+Date: January 2015
+- fix an issue with server responses containing new (i.e. new to the MendeleyKit) JSON properties
+
 Release Notes MendeleyKit v0.9.9
 
 Date: December 2014
