@@ -38,13 +38,15 @@
     return [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:code];
 }
 
-+ (id)errorWithMendeleyResponse:(MendeleyResponse *)response
++ (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url
 {
     if (nil == response)
     {
         return [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:MendeleyErrorUnknown];
     }
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode] };
+    NSString *description = [NSString stringWithFormat:@"%@: %@ (%@)", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], response.responseMessage, [url absoluteString]];
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:  description };
+
     return [[self class] errorWithDomain:kMendeleyErrorDomain code:response.statusCode userInfo:userInfo];
 }
 

@@ -42,6 +42,6 @@
    @param response
    @return an error with default Mendeley Error domain
  */
-+ (id)errorWithMendeleyResponse:(MendeleyResponse *)response;
++ (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url;
 
 @end

@@ -41,8 +41,6 @@
     self = [super init];
     if (self)
     {
-//        self.task = [session dataTaskWithRequest:request];
-//                self.completionBlock = completionBlock;
         self.task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                          if (nil != error)
                          {
@@ -62,7 +60,7 @@
                              }
                              else
                              {
-                                 responseError = [NSError errorWithMendeleyResponse:theResponse];
+                                 responseError = [NSError errorWithMendeleyResponse:theResponse requestURL:request.URL];
                                  completionBlock(theResponse, responseError);
                              }
                          }
@@ -130,7 +128,7 @@
                              }
                              else
                              {
-                                 responseError = [NSError errorWithMendeleyResponse:theResponse];
+                                 responseError = [NSError errorWithMendeleyResponse:theResponse requestURL:request.URL];
                                  completionBlock(nil, responseError);
                              }
                          }
