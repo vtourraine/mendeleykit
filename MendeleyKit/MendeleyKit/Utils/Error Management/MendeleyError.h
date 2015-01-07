@@ -27,11 +27,11 @@
 ***********************************************/
 /**
    Error codes
-   - 100 region JSON
-   - 200 region Model
-   - 300 region unexpected data types
-   - 1000 region authentication and networking
-   - 1900s General
+   - 11xx region JSON
+   - 12xx region Model
+   - 13xx region unexpected data types
+   - 14xx region authentication and networking
+   - 15xx General
  */
 typedef NS_ENUM (int, MendeleyErrorCode)
 {
