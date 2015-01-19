@@ -1,3 +1,7 @@
+Release Notes MendeleyKit v0.9.14
+Date: January 2015
+- ensure that CGRect in MendeleyAnnotation is encoded/decoded using the appropriate methods to iOS and OSX respectively.
+
 Release Notes MendeleyKit v0.9.13
 Date: January 2015
 - updated error log for 404 server errors (not found) to include failing API
