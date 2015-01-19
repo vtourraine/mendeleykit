@@ -117,7 +117,11 @@
     {
         [encoder encodeObject:self.page forKey:kMendeleyJSONPage];
     }
+#if TARGET_OS_IPHONE
     NSValue *rectValue = [NSValue valueWithCGRect:self.box];
+#else
+    NSValue *rectValue = [NSValue valueWithRect:NSRectFromCGRect(self.box)];
+#endif
     if (nil != rectValue && NULL != rectValue)
     {
         [encoder encodeObject:rectValue forKey:@"box"];
@@ -132,7 +136,11 @@
         NSValue *rectValue = [decoder decodeObjectOfClass:[self class] forKey:@"box"];
         if (nil != rectValue)
         {
+#if TARGET_OS_IPHONE
             _box = [rectValue CGRectValue];
+#else 
+            _box = NSRectToCGRect([rectValue rectValue]);
+#endif
         }
     }
     _page = [decoder decodeObjectOfClass:[self class] forKey:kMendeleyJSONPage];
