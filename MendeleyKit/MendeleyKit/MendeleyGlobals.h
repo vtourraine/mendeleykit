@@ -75,7 +75,7 @@ typedef NS_ENUM (int, MendeleyResponseBodyContentType)
     UnknownBody
 };
 
-typedef NS_ENUM (int, MendeleyGroupIconType)
+typedef NS_ENUM (int, MendeleyIconType)
 {
     OriginalIcon = 0,
     SquareIcon,

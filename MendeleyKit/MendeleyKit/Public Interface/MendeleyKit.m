@@ -254,6 +254,20 @@
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
+- (MendeleyTask *)profileIconForProfile:(MendeleyProfile *)profile
+                               iconType:(MendeleyIconType)iconType
+                        completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+     Note: this call doesn't require an authentication header
+     */
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self.profilesAPI profileIconForProfile:profile iconType:iconType
+                                       task:task
+                            completionBlock:completionBlock];
+    return task;
+}
 
     return task;
 }
@@ -274,6 +288,21 @@
     return task;
 }
 
+
+- (MendeleyTask *)profileIconForIconURLString:(NSString *)iconURLString
+                              completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+     Note: this call doesn't require an authentication header
+     */
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self.profilesAPI profileIconForIconURLString:iconURLString
+                                             task:task
+                                  completionBlock:completionBlock];
+    return task;
+    
+}
 
 #pragma mark -
 #pragma mark Documents
@@ -1365,7 +1394,7 @@
 #pragma mark -
 #pragma mark Groups
 - (MendeleyTask *)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                                      iconType:(MendeleyGroupIconType)iconType
+                                      iconType:(MendeleyIconType)iconType
                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1397,7 +1426,7 @@
 }
 
 - (MendeleyTask *)groupListWithLinkedURL:(NSURL *)linkURL
-                                iconType:(MendeleyGroupIconType)iconType
+                                iconType:(MendeleyIconType)iconType
                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1429,7 +1458,7 @@
 }
 
 - (MendeleyTask *)groupWithGroupID:(NSString *)groupID
-                          iconType:(MendeleyGroupIconType)iconType
+                          iconType:(MendeleyIconType)iconType
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1548,7 +1577,7 @@
 }
 
 - (MendeleyTask *)groupIconForGroup:(MendeleyGroup *)group
-                           iconType:(MendeleyGroupIconType)iconType
+                           iconType:(MendeleyIconType)iconType
                     completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     /*

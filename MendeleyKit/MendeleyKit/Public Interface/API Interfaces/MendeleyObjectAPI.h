@@ -40,4 +40,24 @@
  */
 - (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider
                                 baseURL:(NSURL *)baseURL;
+
+/**
+   A convenience method that returns the link for the image of the choosen type passing a MendeleyPhoto Object
+   @param the photo object
+   @param iconType
+   @param task
+   @param error
+ */
+
+- (NSString *)linkFromPhoto:(MendeleyPhoto *)photo
+                   iconType:(MendeleyIconType)iconType
+                       task:(MendeleyTask *)task
+                      error:(NSError **)error;
+
+/**
+   A convenience method that returns the request header for a image download link
+ */
+- (NSDictionary *)requestHeaderForImageLink:(NSString *)link;
+
+
 @end

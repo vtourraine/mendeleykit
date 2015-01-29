@@ -37,7 +37,7 @@
    @param completionBlock
  */
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                            iconType:(MendeleyGroupIconType)iconType
+                            iconType:(MendeleyIconType)iconType
                                 task:(MendeleyTask *)task
                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
@@ -51,7 +51,7 @@
    @param completionBlock
  */
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
-                      iconType:(MendeleyGroupIconType)iconType
+                      iconType:(MendeleyIconType)iconType
                           task:(MendeleyTask *)task
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
@@ -62,7 +62,7 @@
    @param completionBlock
  */
 - (void)groupWithGroupID:(NSString *)groupID
-                iconType:(MendeleyGroupIconType)iconType
+                iconType:(MendeleyIconType)iconType
                     task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
@@ -121,7 +121,7 @@
    @param completionBlock returning the image data as NSData
  */
 - (void)groupIconForGroup:(MendeleyGroup *)group
-                 iconType:(MendeleyGroupIconType)iconType
+                 iconType:(MendeleyIconType)iconType
                      task:(MendeleyTask *)task
           completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 

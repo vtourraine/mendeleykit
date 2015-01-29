@@ -38,7 +38,7 @@
 }
 
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                            iconType:(MendeleyGroupIconType)iconType
+                            iconType:(MendeleyIconType)iconType
                                 task:(MendeleyTask *)task
                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -93,7 +93,7 @@
 
 
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
-                      iconType:(MendeleyGroupIconType)iconType
+                      iconType:(MendeleyIconType)iconType
                           task:(MendeleyTask *)task
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -145,7 +145,7 @@
 }
 
 - (void)groupWithGroupID:(NSString *)groupID
-                iconType:(MendeleyGroupIconType)iconType
+                iconType:(MendeleyIconType)iconType
                     task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
@@ -306,7 +306,7 @@
 
 - (void)groupIconsForGroupArray:(NSArray *)groups
                      groupIndex:(NSUInteger)groupIndex
-                       iconType:(MendeleyGroupIconType)iconType
+                       iconType:(MendeleyIconType)iconType
                   previousError:(NSError *)previousError
                            task:(MendeleyTask *)task
                 completionBlock:(MendeleyCompletionBlock)completionBlock
@@ -363,7 +363,7 @@
 
 
 - (void)groupIconForGroup:(MendeleyGroup *)group
-                 iconType:(MendeleyGroupIconType)iconType
+                 iconType:(MendeleyIconType)iconType
                      task:(MendeleyTask *)task
           completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
@@ -421,60 +421,6 @@
              }
          }
      }];
-}
-
-
-- (NSString *)linkFromPhoto:(MendeleyPhoto *)photo
-                   iconType:(MendeleyGroupIconType)iconType
-                       task:(MendeleyTask *)task
-                      error:(NSError **)error
-{
-    if (nil == photo)
-    {
-        if (NULL != *error)
-        {
-            *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
-                                                                       code:kMendeleyMissingDataProvidedErrorCode];
-        }
-        return nil;
-    }
-
-    NSString *link = nil;
-    switch (iconType)
-    {
-        case OriginalIcon:
-            link = photo.original;
-            break;
-        case SquareIcon:
-            link = photo.square;
-            break;
-        case StandardIcon:
-            link = photo.standard;
-            break;
-    }
-    if (nil == link)
-    {
-        if (NULL != *error)
-        {
-            *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
-                                                                       code:kMendeleyMissingDataProvidedErrorCode];
-            return nil;
-        }
-    }
-    return link;
-}
-
-- (NSDictionary *)requestHeaderForImageLink:(NSString *)link
-{
-    if ([link hasSuffix:@".jpg"])
-    {
-        return @{ kMendeleyRESTRequestAccept : kMendeleyRESTRequestJPEGType };
-    }
-    else if ([link hasSuffix:@".png"])
-    {
-        return @{ kMendeleyRESTRequestAccept : kMendeleyRESTRequestPNGType };
-    }
-    return @{ kMendeleyRESTRequestAccept : kMendeleyRESTRequestBinaryType };
 }
 
 @end

@@ -55,4 +55,66 @@
 
 }
 
+- (void)profileIconForProfile:(MendeleyProfile *)profile
+                     iconType:(MendeleyIconType)iconType
+                         task:(MendeleyTask *)task
+              completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:profile argumentName:@"profile"];
+    NSError *error = nil;
+    NSString *linkURLString = [self linkFromPhoto:profile.photo
+                                         iconType:iconType
+                                             task:task
+                                            error:&error];
+    if (nil == linkURLString)
+    {
+        error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain
+                                                                  code:kMendeleyDataNotAvailableErrorCode];
+        completionBlock(nil, error);
+    }
+    else
+    {
+        [self profileIconForIconURLString:linkURLString task:task completionBlock:completionBlock];
+    }
+}
+
+
+- (void)profileIconForIconURLString:(NSString *)iconURLString
+                               task:(MendeleyTask *)task
+                    completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:iconURLString argumentName:@"iconURLString"];
+    NSURL *url = [NSURL URLWithString:iconURLString];
+    NSDictionary *requestHeader = [self requestHeaderForImageLink:iconURLString];
+    [self.provider invokeGET:url
+                         api:nil
+           additionalHeaders:requestHeader
+             queryParameters:nil
+      authenticationRequired:NO
+                        task:task
+             completionBlock:^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithBinaryDataCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithBinaryData:nil
+                                        error:error];
+         }
+         else
+         {
+             id bodyData = response.responseBody;
+             if ([bodyData isKindOfClass:[NSData class]])
+             {
+                 [blockExec executeWithBinaryData:bodyData
+                                            error:nil];
+             }
+             else
+             {
+                 [blockExec executeWithBinaryData:nil
+                                            error:error];
+             }
+         }
+     }];
+}
+
+
 @end

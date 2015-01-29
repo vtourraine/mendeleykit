@@ -91,6 +91,28 @@
 - (MendeleyTask *)pullProfile:(NSString *)profileID
               completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+   A convenience method to obtain the profile icon for a given MendeleyProfile object
+   @param profile
+   @param iconType
+   @param completionBlock returning the image data as NSData
+   @return a MendeleyTask object used for cancelling the operation
+ */
+
+- (MendeleyTask *)profileIconForProfile:(MendeleyProfile *)profile
+                               iconType:(MendeleyIconType)iconType
+                        completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+
+
+/**
+   Obtains a profile icon based on the given link URL string
+   The URL string for a given icon is supplied with the MendeleyProfile metadata (see MendeleyPhoto property)
+   @param iconURLString
+   @param completionBlock returning the image data as NSData
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)profileIconForIconURLString:(NSString *)iconURLString
+                              completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 
 /**
@@ -530,7 +552,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                                      iconType:(MendeleyGroupIconType)iconType
+                                      iconType:(MendeleyIconType)iconType
                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -544,7 +566,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupListWithLinkedURL:(NSURL *)linkURL
-                                iconType:(MendeleyGroupIconType)iconType
+                                iconType:(MendeleyIconType)iconType
                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -555,7 +577,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupWithGroupID:(NSString *)groupID
-                          iconType:(MendeleyGroupIconType)iconType
+                          iconType:(MendeleyIconType)iconType
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
@@ -601,7 +623,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupIconForGroup:(MendeleyGroup *)group
-                           iconType:(MendeleyGroupIconType)iconType
+                           iconType:(MendeleyIconType)iconType
                     completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 
