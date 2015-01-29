@@ -38,7 +38,7 @@
 }
 
 - (void)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                            iconType:(MendeleyGroupIconType)iconType
+                            iconType:(MendeleyIconType)iconType
                                 task:(MendeleyTask *)task
                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -93,7 +93,7 @@
 
 
 - (void)groupListWithLinkedURL:(NSURL *)linkURL
-                      iconType:(MendeleyGroupIconType)iconType
+                      iconType:(MendeleyIconType)iconType
                           task:(MendeleyTask *)task
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -145,7 +145,7 @@
 }
 
 - (void)groupWithGroupID:(NSString *)groupID
-                iconType:(MendeleyGroupIconType)iconType
+                iconType:(MendeleyIconType)iconType
                     task:(MendeleyTask *)task
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
@@ -306,7 +306,7 @@
 
 - (void)groupIconsForGroupArray:(NSArray *)groups
                      groupIndex:(NSUInteger)groupIndex
-                       iconType:(MendeleyGroupIconType)iconType
+                       iconType:(MendeleyIconType)iconType
                   previousError:(NSError *)previousError
                            task:(MendeleyTask *)task
                 completionBlock:(MendeleyCompletionBlock)completionBlock
@@ -363,7 +363,7 @@
 
 
 - (void)groupIconForGroup:(MendeleyGroup *)group
-                 iconType:(MendeleyGroupIconType)iconType
+                 iconType:(MendeleyIconType)iconType
                      task:(MendeleyTask *)task
           completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {

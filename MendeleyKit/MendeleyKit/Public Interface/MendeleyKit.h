@@ -100,7 +100,7 @@
  */
 
 - (MendeleyTask *)profileIconForProfile:(MendeleyProfile *)profile
-                               iconType:(MendeleyGroupIconType)iconType
+                               iconType:(MendeleyIconType)iconType
                         completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 
@@ -529,7 +529,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
-                                      iconType:(MendeleyGroupIconType)iconType
+                                      iconType:(MendeleyIconType)iconType
                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -543,7 +543,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupListWithLinkedURL:(NSURL *)linkURL
-                                iconType:(MendeleyGroupIconType)iconType
+                                iconType:(MendeleyIconType)iconType
                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
@@ -554,7 +554,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupWithGroupID:(NSString *)groupID
-                          iconType:(MendeleyGroupIconType)iconType
+                          iconType:(MendeleyIconType)iconType
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
@@ -600,7 +600,7 @@
    @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)groupIconForGroup:(MendeleyGroup *)group
-                           iconType:(MendeleyGroupIconType)iconType
+                           iconType:(MendeleyIconType)iconType
                     completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 

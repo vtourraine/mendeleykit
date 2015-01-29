@@ -56,7 +56,7 @@
 }
 
 - (void)profileIconForProfile:(MendeleyProfile *)profile
-                     iconType:(MendeleyGroupIconType)iconType
+                     iconType:(MendeleyIconType)iconType
                          task:(MendeleyTask *)task
               completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {

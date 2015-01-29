@@ -46,7 +46,7 @@
 }
 
 - (NSString *)linkFromPhoto:(MendeleyPhoto *)photo
-                   iconType:(MendeleyGroupIconType)iconType
+                   iconType:(MendeleyIconType)iconType
                        task:(MendeleyTask *)task
                       error:(NSError **)error
 {

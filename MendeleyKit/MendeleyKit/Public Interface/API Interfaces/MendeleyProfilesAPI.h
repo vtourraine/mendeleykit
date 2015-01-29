@@ -54,7 +54,7 @@
    @param completionBlock returning the image data as NSData
  */
 - (void)profileIconForProfile:(MendeleyProfile *)profile
-                     iconType:(MendeleyGroupIconType)iconType
+                     iconType:(MendeleyIconType)iconType
                          task:(MendeleyTask *)task
               completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
