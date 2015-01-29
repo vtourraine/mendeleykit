@@ -46,4 +46,30 @@
                task:(MendeleyTask *)task
     completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+   Creates a new profile
+   Six mandatory fields must be provided to create a new profile successfully:
+   first_name, last_name, email, password, main discipline and academic status.
+   The email must be unique
+   @param profile - the new profile to be created
+   @param task - the cancellable MendeleyTask
+   @param completionBlock - returns the created object from the server (does it?)
+   @return a MendeleyTask object used for cancelling the operation
+ */
+
+- (void)createProfile:(MendeleyProfile *)profile
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+   This updates the user's existing profile
+   @param myProfile - the user's profile with updated entries
+   @param task - the cancellable MendeleyTask
+   @param completionBlock - the completion handler
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (void)updateMyProfile:(MendeleyProfile *)myProfile
+                   task:(MendeleyTask *)task
+        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
 @end

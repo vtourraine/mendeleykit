@@ -250,6 +250,29 @@
     return task;
 }
 
+- (MendeleyTask *)createProfile:(MendeleyProfile *)profile
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    return task;
+}
+
+- (MendeleyTask *)updateMyProfile:(MendeleyProfile *)myProfile
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+    return task;
+}
 
 
 #pragma mark -
