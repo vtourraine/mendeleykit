@@ -46,4 +46,27 @@
                task:(MendeleyTask *)task
     completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+   Obtains a profile icon for a specified MendeleyProfile and icon type (maybe standard, square, original)
+   @param profile
+   @param iconType
+   @param task
+   @param completionBlock returning the image data as NSData
+ */
+- (void)profileIconForProfile:(MendeleyProfile *)profile
+                     iconType:(MendeleyGroupIconType)iconType
+                         task:(MendeleyTask *)task
+              completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+
+
+/**
+   Obtains a profile icon based on the given link URL string
+   @param iconURLString
+   @param task
+   @param completionBlock returning the image data as NSData
+ */
+- (void)profileIconForIconURLString:(NSString *)iconURLString
+                               task:(MendeleyTask *)task
+                    completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+
 @end

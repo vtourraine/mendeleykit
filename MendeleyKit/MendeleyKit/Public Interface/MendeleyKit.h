@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile;
 
 @protocol MendeleyNetworkProvider;
 
@@ -91,6 +91,28 @@
 - (MendeleyTask *)pullProfile:(NSString *)profileID
               completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+   A convenience method to obtain the profile icon for a given MendeleyProfile object
+   @param profile
+   @param iconType
+   @param completionBlock returning the image data as NSData
+   @return a MendeleyTask object used for cancelling the operation
+ */
+
+- (MendeleyTask *)profileIconForProfile:(MendeleyProfile *)profile
+                               iconType:(MendeleyGroupIconType)iconType
+                        completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+
+
+/**
+   Obtains a profile icon based on the given link URL string
+   The URL string for a given icon is supplied with the MendeleyProfile metadata (see MendeleyPhoto property)
+   @param iconURLString
+   @param completionBlock returning the image data as NSData
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)profileIconForIconURLString:(NSString *)iconURLString
+                              completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 #pragma mark -
 #pragma mark Documents

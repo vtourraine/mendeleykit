@@ -250,7 +250,36 @@
     return task;
 }
 
+- (MendeleyTask *)profileIconForProfile:(MendeleyProfile *)profile
+                               iconType:(MendeleyGroupIconType)iconType
+                        completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+     Note: this call doesn't require an authentication header
+     */
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self.profilesAPI profileIconForProfile:profile iconType:iconType
+                                       task:task
+                            completionBlock:completionBlock];
+    return task;
+}
 
+
+- (MendeleyTask *)profileIconForIconURLString:(NSString *)iconURLString
+                              completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
+{
+    /*
+     Note: this call doesn't require an authentication header
+     */
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self.profilesAPI profileIconForIconURLString:iconURLString
+                                             task:task
+                                  completionBlock:completionBlock];
+    return task;
+    
+}
 
 #pragma mark -
 #pragma mark Documents

@@ -40,4 +40,13 @@
  */
 - (instancetype)initWithNetworkProvider:(id <MendeleyNetworkProvider> )provider
                                 baseURL:(NSURL *)baseURL;
+
+- (NSString *)linkFromPhoto:(MendeleyPhoto *)photo
+                   iconType:(MendeleyGroupIconType)iconType
+                       task:(MendeleyTask *)task
+                      error:(NSError **)error;
+
+- (NSDictionary *)requestHeaderForImageLink:(NSString *)link;
+
+
 @end
