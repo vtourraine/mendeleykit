@@ -249,25 +249,25 @@
 
     return task;
 }
-
-- (MendeleyTask *)createProfile:(MendeleyProfile *)profile
-                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    MendeleyTask *task = [MendeleyTask new];
 - (MendeleyTask *)profileIconForProfile:(MendeleyProfile *)profile
                                iconType:(MendeleyIconType)iconType
                         completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     /*
-     Note: this call doesn't require an authentication header
+       Note: this call doesn't require an authentication header
      */
     MendeleyTask *task = [MendeleyTask new];
-    
+
     [self.profilesAPI profileIconForProfile:profile iconType:iconType
                                        task:task
                             completionBlock:completionBlock];
     return task;
 }
+
+- (MendeleyTask *)createProfile:(MendeleyProfile *)profile
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
 
     return task;
 }
@@ -293,15 +293,15 @@
                               completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
 {
     /*
-     Note: this call doesn't require an authentication header
+       Note: this call doesn't require an authentication header
      */
     MendeleyTask *task = [MendeleyTask new];
-    
+
     [self.profilesAPI profileIconForIconURLString:iconURLString
                                              task:task
                                   completionBlock:completionBlock];
     return task;
-    
+
 }
 
 #pragma mark -
