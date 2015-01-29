@@ -195,7 +195,10 @@
 
     NSString *modelName = NSStringFromClass([modelObject class]);
     NSString *groupName = NSStringFromClass([MendeleyGroup class]);
-    if ([modelName isEqualToString:groupName])
+    NSString *profileName = NSStringFromClass([MendeleyProfile class]);
+    NSString *userProfileName = NSStringFromClass([MendeleyUserProfile class]);
+
+    if ([modelName isEqualToString:groupName] || [modelName isEqualToString:profileName] || [modelName isEqualToString:userProfileName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONPhoto])
         {
@@ -203,7 +206,6 @@
         }
     }
 
-    NSString *profileName = NSStringFromClass([MendeleyProfile class]);
     if ([modelName isEqualToString:profileName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONPhoto])
