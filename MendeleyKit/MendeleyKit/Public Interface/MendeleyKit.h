@@ -114,29 +114,6 @@
 - (MendeleyTask *)profileIconForIconURLString:(NSString *)iconURLString
                               completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
-
-/**
-   Creates a new profile
-   Six mandatory fields must be provided to create a new profile successfully:
-   first_name, last_name, email, password, main discipline and academic status.
-   The email must be unique
-   @param profile - the new profile to be created
-   @param completionBlock - returns the created object from the server (does it?)
-   @return a MendeleyTask object used for cancelling the operation
- */
-
-- (MendeleyTask *)createProfile:(MendeleyProfile *)profile
-                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-/**
-   This updates the user's existing profile
-   @param myProfile - the user's profile with updated entries
-   @param completionBlock - the completion handler
-   @return a MendeleyTask object used for cancelling the operation
- */
-- (MendeleyTask *)updateMyProfile:(MendeleyProfile *)myProfile
-                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
 #pragma mark -
 #pragma mark Documents
 /**
