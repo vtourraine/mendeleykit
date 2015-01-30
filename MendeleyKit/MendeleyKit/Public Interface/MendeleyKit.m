@@ -37,6 +37,7 @@
 #import "MendeleyMetadataAPI.h"
 #import "NSError+MendeleyError.h"
 #import "MendeleyProfilesAPI.h"
+#import "MendeleyDisciplinesAPI.h"
 
 
 @interface MendeleyKit ()
@@ -51,7 +52,7 @@
 @property (nonatomic, strong) MendeleyGroupsAPI *groupsAPI;
 @property (nonatomic, strong) MendeleyMetadataAPI *metedataAPI;
 @property (nonatomic, strong) MendeleyProfilesAPI *profilesAPI;
-
+@property (nonatomic, strong) MendeleyDisciplinesAPI *disciplinesAPI;
 @end
 
 @implementation MendeleyKit
@@ -115,6 +116,8 @@
     self.metedataAPI = [[MendeleyMetadataAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
 
     self.profilesAPI = [[MendeleyProfilesAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
+
+    self.disciplinesAPI = [[MendeleyDisciplinesAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
 }
 
 - (BOOL)isAuthenticated
@@ -189,6 +192,18 @@
         completionBlock(nil, nil, error);
         return nil;
     }
+}
+
+#pragma mark -
+#pragma mark Disciplines
+- (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.disciplinesAPI disciplinesWithTask:task
+                             completionBlock:completionBlock];
+    return task;
+
 }
 
 #pragma mark -

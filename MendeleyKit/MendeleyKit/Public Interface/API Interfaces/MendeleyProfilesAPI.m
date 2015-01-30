@@ -206,6 +206,14 @@
                    task:(MendeleyTask *)task
         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
+    [NSError assertArgumentNotNil:myProfile argumentName:@"myProfile"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    [self.helper updateMendeleyObject:myProfile
+                                  api:kMendeleyRESTAPIProfilesMe
+                    additionalHeaders:[self defaultServiceRequestHeaders]
+                         expectedType:kMendeleyModelProfile
+                                 task:task
+                      completionBlock:completionBlock];
 
 }
 
