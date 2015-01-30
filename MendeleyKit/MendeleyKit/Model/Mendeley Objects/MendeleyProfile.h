@@ -76,6 +76,10 @@
 @property (nonatomic, strong) NSNumber *verified;
 @property (nonatomic, strong) NSArray *education;
 @property (nonatomic, strong) NSArray *employment;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *old_password;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSNumber *marketing;
 
 @end
 

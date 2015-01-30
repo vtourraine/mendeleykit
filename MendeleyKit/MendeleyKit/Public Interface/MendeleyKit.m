@@ -279,6 +279,48 @@
 
 }
 
+- (MendeleyTask *)createProfile:(MendeleyProfile *)profile
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.profilesAPI createProfile:profile
+                               task:task
+                    completionBlock:completionBlock];
+    return task;
+}
+
+- (MendeleyTask *)updateMyProfile:(MendeleyProfile *)myProfile
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.profilesAPI updateMyProfile:myProfile
+                                              task:task
+                                   completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+
+}
+
+
 #pragma mark -
 #pragma mark Documents
 

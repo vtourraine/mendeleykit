@@ -124,6 +124,9 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTRequestJSONUserRoleType              @"application/vnd.mendeley-membership.1+json"
 #define kMendeleyRESTRequestJSONLookup                    @"application/vnd.mendeley-lookup.1+json"
 #define kMendeleyRESTRequestJSONProfilesType              @"application/vnd.mendeley-profiles.1+json"
+#define kMendeleyRESTRequestJSONNewProfilesType           @"application/vnd.mendeley-new-profile.1+json"
+#define kMendeleyRESTRequestJSONProfilesVerificationType  @"application/vnd.mendeley-profile-verification.1+json"
+#define kMendeleyRESTRequestJSONDisciplineType            @"application/vnd.mendeley-discipline.1+json"
 #define kMendeleyOAuth2ClientVersionKey                   @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                       @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                  @"Accept-Language"
@@ -170,6 +173,8 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTAPIAnnotationsSyncWithID             @"documents/%@/annotations_sync/%@"
 #define kMendeleyRESTAPIProfilesMe                        @"profiles/me"
 #define kMendeleyRESTAPIProfilesWithID                    @"profiles/%@"
+#define kMendeleyRESTAPIProfiles                          @"profiles"
+#define kMendeleyRESTAPIDisciplines                       @"disciplines"
 
 /***********************************************
    @name REST API Query Parameters
@@ -222,7 +227,9 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
 #define kMendeleyModelKeywords                            @"NSArray"
+#define kMendeleyModelDiscipline                          @"MendeleyDiscipline"
 #define kMendeleyModelDisciplines                         @"NSArray"
+#define kMendeleyModelSubdisciplines                      @"NSArray"
 #define kMendeleyModelReaderCountByCountry                @"NSDictionary"
 #define kMendeleyModelReaderCountByDiscipline             @"NSDictionary"
 #define kMendeleyModelReaderCountByAcademicStatus         @"NSDictionary"

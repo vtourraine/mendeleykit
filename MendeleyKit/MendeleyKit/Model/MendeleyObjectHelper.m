@@ -67,6 +67,7 @@
                                kMendeleyJSONWebsites : kMendeleyModelWebsites,
                                kMendeleyJSONTags : kMendeleyModelTags,
                                kMendeleyJSONKeywords : kMendeleyModelKeywords,
+                               kMendeleyJSONSubdisciplines: kMendeleyModelSubdisciplines,
                                kMendeleyJSONDisciplines : kMendeleyModelDisciplines,
                                kMendeleyJSONReaderCountByAcademicStatus : kMendeleyModelReaderCountByAcademicStatus,
                                kMendeleyJSONReaderCountByCountry : kMendeleyModelReaderCountByCountry,
@@ -173,7 +174,9 @@
     return model;
 }
 
-+ (BOOL)isCustomizableModelObject:(id)modelObject forPropertyName:(NSString *)propertyName error:(NSError **)error
++ (BOOL)isCustomizableModelObject:(id)modelObject
+                  forPropertyName:(NSString *)propertyName
+                            error:(NSError **)error
 {
     if (nil == propertyName)
     {

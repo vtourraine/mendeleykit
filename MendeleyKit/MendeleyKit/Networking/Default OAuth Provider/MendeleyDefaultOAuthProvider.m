@@ -187,6 +187,21 @@
                                         completionBlock:completionBlock];
 }
 
+- (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock
+{
+    NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey : kMendeleyOAuthClientCredentials,
+                                   kMendeleyOAuth2ScopeKey : kMendeleyOAuth2Scope,
+                                   kMendeleyOAuth2ClientSecretKey : self.clientSecret,
+                                   kMendeleyOAuth2ClientIDKey : self.clientID };
+    NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
+                                     kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
+
+    [self executeAuthenticationRequestWithRequestHeader:requestHeader
+                                            requestBody:requestBody
+                                        completionBlock:completionBlock];
+}
+
+
 #pragma mark private methods
 
 - (void)executeAuthenticationRequestWithRequestHeader:(NSDictionary *)requestHeader
