@@ -1,5 +1,10 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
+Version: 0.9.16 alpha
+30 January 2015
+- added icon/photo support for user profiles in MendeleyKit
+- other improvements and bug fixes
+
 Version: 0.9.9 alpha
 5 December 2014
 - added OSX support to MendeleyKit. MendeleyKit project now has 3 targets, MendeleyKit (iOS), MendeleyKitTests (unit tests) and MendeleyKitOSX.framework. The MendeleyKit.podspec has been updated so that users can now include MendeleyKitOSX into their MacOSX project
