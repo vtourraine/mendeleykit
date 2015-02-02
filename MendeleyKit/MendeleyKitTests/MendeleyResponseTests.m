@@ -23,20 +23,6 @@
 #import "MendeleyKitTestBaseClass.h"
 #import "MendeleyError.h"
 
-@interface MockHTTPURLResponse : NSHTTPURLResponse
-@property(readwrite, atomic) NSInteger statusCode;
-@end
-
-@implementation MockHTTPURLResponse
-
-- (id)init
-{
-    self = [super init];
-    return self;
-}
-
-@end
-
 @interface MendeleyResponse (CHANGE_VISIBILITY_FOR_TEST)
 
 - (BOOL)jsonObjectHasValidData:(id)jsonObject error:(NSError **)error;
@@ -88,10 +74,10 @@
 
 - (void)testParseURLResponse
 {
-    MockHTTPURLResponse *mockResponse = [[MockHTTPURLResponse alloc] init];
+    NSURLResponse *mockResponse = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:404 HTTPVersion:@"5.0" headerFields:nil];
 
-    mockResponse.statusCode = 404;
     MendeleyResponse *response = [[MendeleyResponse alloc] init];
+
     [response parseURLResponse:mockResponse];
 
     XCTAssertFalse(response.success, @"The response should not have been successful");
@@ -101,9 +87,9 @@
         NSRange foundRange = [[response.responseMessage lowercaseString] rangeOfString:@"not found"];
         XCTAssertFalse(foundRange.location == NSNotFound, @"The 'not found' string should be present");
     }
-    for (int i = 200; i < 300; i++)
+    for (NSInteger iStatus = 200; iStatus < 300; iStatus++)
     {
-        mockResponse.statusCode = i;
+        mockResponse = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:iStatus HTTPVersion:@"5.0" headerFields:nil];
         [response parseURLResponse:mockResponse];
         XCTAssertTrue(response.success, @"The response should be successful for status code 200 to 299");
     }
