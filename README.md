@@ -1,5 +1,9 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
+Version: 0.9.17
+09 February 2015
+- ensure that cancelling file downloads calls the completion handler
+
 Version: 0.9.16 alpha
 30 January 2015
 - added icon/photo support for user profiles in MendeleyKit
