@@ -521,24 +521,27 @@
     NSString *destinationPath = [documentsPath stringByAppendingPathComponent:@"downloadedFile"];
     NSURL *destinationURL = [NSURL fileURLWithPath:destinationPath];
 
-    [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeDownloadToFileURL:destinationURL
-                                                                                 baseURL:self.testURL
-                                                                                     api:@"drip"
-                                                                       additionalHeaders:nil
-                                                                         queryParameters:delayQueryParameters
-                                                                  authenticationRequired:NO
-                                                                                    task:cancellationRequest
-                                                                           progressBlock:nil completionBlock: ^(MendeleyResponse *response, NSError *error) {}];
-
     waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [[[MendeleyKitConfiguration sharedInstance] networkProvider] cancelTask:cancellationRequest
-                                                                               completionBlock: ^(BOOL success, NSError *error) {
-                            cancelSuccess = success;
-                            errorResponse = error;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+        [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeDownloadToFileURL:destinationURL
+                                                                                     baseURL:self.testURL
+                                                                                         api:@"drip"
+                                                                           additionalHeaders:nil
+                                                                             queryParameters:delayQueryParameters
+                                                                      authenticationRequired:NO
+                                                                                        task:cancellationRequest
+                                                                               progressBlock:nil
+                                                                             completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                                                                                 *hasCalledBack = YES;
+                                                                             }];
+        [[[MendeleyKitConfiguration sharedInstance] networkProvider] cancelTask:cancellationRequest
+                                                                completionBlock: ^(BOOL success, NSError *error) {
+                                                                    cancelSuccess = success;
+                                                                    errorResponse = error;
+                                                                }];
+    });
 
+
+    
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 
     MendeleyDefaultNetworkProvider *defaultProvider = (MendeleyDefaultNetworkProvider *) [[MendeleyKitConfiguration sharedInstance] networkProvider];
