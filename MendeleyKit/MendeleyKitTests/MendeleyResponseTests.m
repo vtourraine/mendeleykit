@@ -75,6 +75,7 @@
 - (void)testParseURLResponse
 {
     NSURLResponse *mockResponse = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:404 HTTPVersion:@"5.0" headerFields:nil];
+
     MendeleyResponse *response = [[MendeleyResponse alloc] init];
 
     [response parseURLResponse:mockResponse];

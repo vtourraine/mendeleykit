@@ -165,7 +165,9 @@
 {
     if (networkTask)
     {
-        [self removeTaskWithNetworkTaskID:networkTask.taskID];
+        if (![networkTask isKindOfClass:[MendeleyNetworkDownloadTask class]]) {
+            [self removeTaskWithNetworkTaskID:networkTask.taskID];
+        }
         [networkTask cancelTaskWithCompletionBlock:completionBlock];
     }
 }

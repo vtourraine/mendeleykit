@@ -1,5 +1,9 @@
+Release Notes MendeleyKit v0.9.17
+Date: February 2015
+- ensure that completion handling block is called when cancelling file downloads
+
 Release Notes MendeleyKit v0.9.16
-Date: January 2016
+Date: January 2015
 - added 2 methods in MendeleyKit to allow getting user's profile photos/icons. 
 
 Date: January 2015
