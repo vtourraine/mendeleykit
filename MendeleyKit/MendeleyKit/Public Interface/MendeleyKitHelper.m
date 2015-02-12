@@ -52,12 +52,16 @@
     {
         return NO;
     }
+    else if ((*error).code == NSURLErrorCancelled)
+    {
+        return NO;
+    }
     else if (!response.isSuccess)
     {
         if (nil == *error)
         {
             *error = [NSError errorWithCode:kMendeleyResponseTypeUnknownErrorCode
-                       localizedDescription:response.responseMessage];
+                       localizedDescription      :response.responseMessage];
         }
         return NO;
     }
