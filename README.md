@@ -1,5 +1,9 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
+Version: 0.9.18
+12 Feb 2015
+- MendeleyKitHelper:isSuccessForResponse will return false if network operation is cancelled
+
 Version: 0.9.17
 09 February 2015
 - ensure that cancelling file downloads calls the completion handler

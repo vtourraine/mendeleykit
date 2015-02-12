@@ -1,4 +1,7 @@
-Release Notes MendeleyKit v0.9.17
+Release Notes MendeleyKit v0.9.18
+Date: February 2015
+- we need to have a way of capturing cancelled network ops. We amended the MendeleyKit:isSuccessForResponse to return false if the network operation is cancelled.
+
 Date: February 2015
 - ensure that completion handling block is called when cancelling file downloads
 
