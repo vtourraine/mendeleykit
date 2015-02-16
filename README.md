@@ -1,5 +1,9 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
+Version: 0.9.19
+16 Feb 2015
+- added properties to the profiles model to be in line with the official /profiles API
+
 Version: 0.9.18
 12 Feb 2015
 - MendeleyKitHelper:isSuccessForResponse will return false if network operation is cancelled

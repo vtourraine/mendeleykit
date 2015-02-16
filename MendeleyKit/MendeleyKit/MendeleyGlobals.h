@@ -230,6 +230,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyModelDiscipline                          @"MendeleyDiscipline"
 #define kMendeleyModelDisciplines                         @"NSArray"
 #define kMendeleyModelSubdisciplines                      @"NSArray"
+#define kMendeleyModelPhotos                              @"NSArray"
 #define kMendeleyModelReaderCountByCountry                @"NSDictionary"
 #define kMendeleyModelReaderCountByDiscipline             @"NSDictionary"
 #define kMendeleyModelReaderCountByAcademicStatus         @"NSDictionary"
@@ -355,6 +356,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 ***********************************************/
 #define kMendeleyJSONLink                                 @"link"
 #define kMendeleyJSONPhoto                                @"photo"
+#define kMendeleyJSONPhotos                               @"photos"
 #define kMendeleyJSONName                                 @"name"
 #define kMendeleyJSONOriginal                             @"original"
 #define kMendeleyJSONSquare                               @"square"

@@ -1,4 +1,8 @@
-Release Notes MendeleyKit v0.9.18
+Release Notes MendeleyKit v0.9.19
+Date: February 2015
+- aligned MendeleyProfile model with latest version of /profiles API
+
+Previous Releases
 Date: February 2015
 - we need to have a way of capturing cancelled network ops. We amended the MendeleyKit:isSuccessForResponse to return false if the network operation is cancelled.
 
