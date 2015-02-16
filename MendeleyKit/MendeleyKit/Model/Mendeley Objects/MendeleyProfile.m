@@ -29,6 +29,9 @@
 @implementation MendeleyDiscipline
 @end
 
+@implementation MendeleyImage
+@end
+
 @implementation MendeleyEmployment
 
 - (void)setIs_main_employment:(NSNumber *)is_main_employment

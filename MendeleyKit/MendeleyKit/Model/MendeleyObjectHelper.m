@@ -35,9 +35,9 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        map = @{ kMendeleyJSONID : kMendeleyObjectID,
-                 kMendeleyJSONDescription : kMendeleyObjectDescription };
-    });
+                      map = @{ kMendeleyJSONID : kMendeleyObjectID,
+                               kMendeleyJSONDescription : kMendeleyObjectDescription };
+                  });
     return map;
 }
 
@@ -47,9 +47,9 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        map = @{ kMendeleyObjectID : kMendeleyJSONID,
-                 kMendeleyObjectDescription : kMendeleyJSONDescription };
-    });
+                      map = @{ kMendeleyObjectID : kMendeleyJSONID,
+                               kMendeleyObjectDescription : kMendeleyJSONDescription };
+                  });
     return map;
 }
 
@@ -59,19 +59,19 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        map = @{ kMendeleyJSONAuthors : kMendeleyModelPerson,
-                 kMendeleyJSONEditors : kMendeleyModelPerson,
-                 kMendeleyJSONTranslators : kMendeleyModelPerson,
-                 kMendeleyJSONEmployment : kMendeleyModelEmployment,
-                 kMendeleyJSONEducation : kMendeleyModelEducation,
-                 kMendeleyJSONWebsites : kMendeleyModelWebsites,
-                 kMendeleyJSONTags : kMendeleyModelTags,
-                 kMendeleyJSONKeywords : kMendeleyModelKeywords,
-                 kMendeleyJSONDisciplines : kMendeleyModelDisciplines,
-                 kMendeleyJSONReaderCountByAcademicStatus : kMendeleyModelReaderCountByAcademicStatus,
-                 kMendeleyJSONReaderCountByCountry : kMendeleyModelReaderCountByCountry,
-                 kMendeleyJSONReaderCountByDiscipline : kMendeleyModelReaderCountByDiscipline };
-    });
+                      map = @{ kMendeleyJSONAuthors : kMendeleyModelPerson,
+                               kMendeleyJSONEditors : kMendeleyModelPerson,
+                               kMendeleyJSONTranslators : kMendeleyModelPerson,
+                               kMendeleyJSONEmployment : kMendeleyModelEmployment,
+                               kMendeleyJSONEducation : kMendeleyModelEducation,
+                               kMendeleyJSONWebsites : kMendeleyModelWebsites,
+                               kMendeleyJSONTags : kMendeleyModelTags,
+                               kMendeleyJSONKeywords : kMendeleyModelKeywords,
+                               kMendeleyJSONDisciplines : kMendeleyModelDisciplines,
+                               kMendeleyJSONReaderCountByAcademicStatus : kMendeleyModelReaderCountByAcademicStatus,
+                               kMendeleyJSONReaderCountByCountry : kMendeleyModelReaderCountByCountry,
+                               kMendeleyJSONReaderCountByDiscipline : kMendeleyModelReaderCountByDiscipline };
+                  });
     return map;
 }
 
@@ -81,11 +81,11 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        formatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        [formatter setLocale:enUSPOSIXLocale];
-        [formatter setDateFormat:kMendeleyJSONDateTimeFormat];
-    });
+                      formatter = [[NSDateFormatter alloc] init];
+                      NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+                      [formatter setLocale:enUSPOSIXLocale];
+                      [formatter setDateFormat:kMendeleyJSONDateTimeFormat];
+                  });
     return formatter;
 }
 
@@ -213,6 +213,10 @@
         {
             return YES;
         }
+        else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return YES;
+        }
         else if ([propertyName isEqualToString:kMendeleyJSONLocation])
         {
             return YES;
@@ -261,7 +265,10 @@
     return nil;
 }
 
-+ (id)customObjectFromRawValue:(id)rawValue modelObject:(id)modelObject propertyName:(NSString *)propertyName error:(NSError **)error
++ (id)customObjectFromRawValue:(id)rawValue
+                   modelObject:(id)modelObject
+                  propertyName:(NSString *)propertyName
+                         error:(NSError **)error
 {
     if (nil == propertyName)
     {
@@ -347,6 +354,22 @@
                 return educationArray;
             }
         }
+        else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            if ([rawValue isKindOfClass:[NSArray class]])
+            {
+                NSMutableArray *imageArray = [NSMutableArray array];
+                NSArray *array = (NSArray *) rawValue;
+                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                     id object = [[self class] setPropertiesToObjectOfClass:[MendeleyImage class] fromRawValue:obj];
+                     if (object)
+                     {
+                         [imageArray addObject:object];
+                     }
+                 }];
+                return imageArray;
+            }
+        }
     }
 
     NSString *annotation = NSStringFromClass([MendeleyAnnotation class]);
@@ -386,7 +409,10 @@
     return nil;
 }
 
-+ (id)rawValueFromCustomObject:(id)customObject modelObject:(id)modelObject propertyName:(NSString *)propertyName error:(NSError **)error
++ (id)rawValueFromCustomObject:(id)customObject
+                   modelObject:(id)modelObject
+                  propertyName:(NSString *)propertyName
+                         error:(NSError **)error
 {
     if (nil == propertyName)
     {
@@ -507,6 +533,12 @@
                 }
             }
 
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            if ([customName isEqualToString:NSStringFromClass([MendeleyImage class])])
+            {
+            }
         }
         else if ([propertyName isEqualToString:kMendeleyJSONEducation])
         {

@@ -21,6 +21,7 @@
 #import "MendeleyObject.h"
 #import "MendeleyGroup.h"
 
+
 @interface MendeleyLocation : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *name;
@@ -59,24 +60,43 @@
 
 @end
 
+
+@interface MendeleyImage : MendeleySecureObject
+@property (nonatomic, strong) NSNumber *width;
+@property (nonatomic, strong) NSNumber *height;
+/**
+   a boolean flag indicating whether this is the original image
+   not to be confused with a property of the same name in
+   MendeleyPhoto
+ */
+@property (nonatomic, strong) NSNumber *original;
+@property (nonatomic, strong) NSString *url;
+@end
+
+
 @interface MendeleyProfile : MendeleyObject
 
-@property (nonatomic, strong) MendeleyLocation *location;
-@property (nonatomic, strong) NSString *display_name;
-@property (nonatomic, strong) NSString *user_type;
-@property (nonatomic, strong) NSString *academic_status;
-@property (nonatomic, strong) NSDate *created;
-@property (nonatomic, strong) NSString *research_interests;
-@property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *first_name;
 @property (nonatomic, strong) NSString *last_name;
+@property (nonatomic, strong) NSString *display_name;
+@property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *link;
+@property (nonatomic, strong) NSString *institution;
+@property (nonatomic, strong) NSString *research_interests;
+@property (nonatomic, strong) NSString *academic_status;
 @property (nonatomic, strong) MendeleyDiscipline *discipline;
+@property (nonatomic, strong) NSArray *disciplines;
 @property (nonatomic, strong) MendeleyPhoto *photo;
+@property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSNumber *verified;
+@property (nonatomic, strong) NSNumber *marketing;
+@property (nonatomic, strong) NSString *user_type;
+@property (nonatomic, strong) MendeleyLocation *location;
+@property (nonatomic, strong) NSDate *created;
 @property (nonatomic, strong) NSArray *education;
 @property (nonatomic, strong) NSArray *employment;
-
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *biography;
 @end
 
 @interface MendeleyUserProfile : MendeleyProfile
