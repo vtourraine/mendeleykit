@@ -98,9 +98,6 @@
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *old_password;
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSNumber *marketing;
-
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *biography;
 @end
 
