@@ -12,9 +12,14 @@
 #import "MendeleyModels.h"
 #import "MendeleyKitTestBaseClass.h"
 
+#define kExampleName           @"a name"
+#define KExampleSubdisciplines @[@"first subdiscipline", @"second subdiscipline"]
+
 @interface MendeleyDisciplineModellerTest : MendeleyKitTestBaseClass
 @property (nonatomic, strong) NSData *jsonArrayData;
+@property (nonatomic, strong) MendeleyDiscipline *exampleDiscipline;
 @end
+
 
 @implementation MendeleyDisciplineModellerTest
 
@@ -25,6 +30,10 @@
     NSString *jsonArrayPath = [bundle pathForResource:@"disciplines.json" ofType:nil];
     NSData *jsonArray = [NSData dataWithContentsOfFile:jsonArrayPath];
     self.jsonArrayData = jsonArray;
+
+    self.exampleDiscipline = [[MendeleyDiscipline alloc] init];
+    self.exampleDiscipline.name = kExampleName;
+    self.exampleDiscipline.subdisciplines = KExampleSubdisciplines;
 }
 
 - (void)tearDown
@@ -54,7 +63,7 @@
                  {
                      XCTAssertTrue(0 < ((NSArray *) parsedObject).count, @"There should be some disciplines in the array");
                      BOOL foundDisciplines = NO;
-                     for (MendeleyDiscipline  * discipline in(NSArray *) parsedObject)
+                     for (MendeleyDiscipline *discipline in (NSArray *) parsedObject)
                      {
                          NSString *name = discipline.name;
                          if ([name isEqualToString:@"Earth Sciences"])
@@ -71,4 +80,46 @@
          }];
     }
 }
+
+- (void)testParseDisciplineObject
+{
+    XCTAssertTrue(self.exampleDiscipline, @"We expected the example discipline to be not NIL");
+    MendeleyDiscipline *discipline = (MendeleyDiscipline *) self.exampleDiscipline;
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+
+    NSError *writeError = nil;
+    NSData *jsonData = [modeller jsonObjectFromModelOrModels:discipline error:&writeError];
+    XCTAssertNotNil(jsonData, @"we expected the conversion to JSON data to succeed");
+    if (nil != jsonData)
+    {
+        id jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&writeError];
+        XCTAssertNotNil(jsonObj, @"We expected the parsed JSON data to be valid");
+        if (nil != jsonObj)
+        {
+            XCTAssertTrue([jsonObj isKindOfClass:[NSDictionary class]], @"We expected the json object to be of type NSDictionary, but got back %@", NSStringFromClass([jsonObj class]));
+
+            if ([jsonObj isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary *dict = (NSDictionary *) jsonObj;
+                id dictObj = [dict objectForKey:kMendeleyJSONName];
+                XCTAssertNotNil(dictObj, @"we should have a name");
+                XCTAssertTrue([dictObj isKindOfClass:[NSString class]], @"The class should be of type NSString but is %@", NSStringFromClass([dictObj class]));
+                if ([dictObj isKindOfClass:[NSString class]])
+                {
+                    XCTAssertTrue([dictObj isEqualToString:kExampleName]);
+                }
+
+                dictObj = [dict objectForKey:kMendeleyJSONSubdisciplines];
+                XCTAssertNotNil(dictObj, @"expected a subdiscipline");
+                XCTAssertTrue([dictObj isKindOfClass:[NSArray class]], @"The class should be of type NSArray but is %@", NSStringFromClass([dictObj class]));
+                if ([dictObj isKindOfClass:[NSArray class]])
+                {
+                    NSArray* theArray = KExampleSubdisciplines;
+                    XCTAssertTrue([dictObj isEqualToArray:theArray], @"Unexpected array value");
+                }
+            }
+        }
+    }
+}
+
 @end

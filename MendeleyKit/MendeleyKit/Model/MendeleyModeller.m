@@ -23,6 +23,7 @@
 #import "MendeleyObjectHelper.h"
 #import "NSError+MendeleyError.h"
 #import "MendeleyModels.h"
+#import "MendeleyObject.h"
 
 @implementation MendeleyModeller
 
@@ -71,7 +72,7 @@
     {
         return [self jsonArrayFromObjects:(NSArray *) model error:error];
     }
-    else if ([model isKindOfClass:[MendeleyObject class]])
+    else if ([model isKindOfClass:[MendeleyObject class]] || [model isKindOfClass:[MendeleySecureObject class]])
     {
         return [self jsonDictionaryFromModel:model error:error];
     }
