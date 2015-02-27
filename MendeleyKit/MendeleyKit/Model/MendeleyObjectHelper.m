@@ -228,6 +228,10 @@
         {
             return YES;
         }
+        else if ([propertyName isEqualToString:kMendeleyJSONDisciplines])
+        {
+            return YES;
+        }
         else if ([propertyName isEqualToString:kMendeleyJSONEmployment])
         {
             return YES;
@@ -264,6 +268,24 @@
              [object setValue:rawValue[key] forKeyPath:key];
          }];
         return object;
+    }
+    return nil;
+}
+
++ (NSArray *)objectArrayForClass:(Class)klass fromRawValue:(id)rawValue
+{
+    if ([rawValue isKindOfClass:[NSArray class]])
+    {
+        NSMutableArray *objectArray = [NSMutableArray array];
+        NSArray *array = (NSArray *) rawValue;
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+             id object = [[self class] setPropertiesToObjectOfClass:klass fromRawValue:obj];
+             if (object)
+             {
+                 [objectArray addObject:object];
+             }
+         }];
+        return objectArray;
     }
     return nil;
 }
@@ -327,51 +349,19 @@
         }
         else if ([propertyName isEqualToString:kMendeleyJSONEmployment])
         {
-            if ([rawValue isKindOfClass:[NSArray class]])
-            {
-                NSMutableArray *employmentArray = [NSMutableArray array];
-                NSArray *array = (NSArray *) rawValue;
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     id object = [[self class] setPropertiesToObjectOfClass:[MendeleyEmployment class] fromRawValue:obj];
-                     if (object)
-                     {
-                         [employmentArray addObject:object];
-                     }
-                 }];
-                return employmentArray;
-            }
+            return [[self class] objectArrayForClass:[MendeleyEmployment class] fromRawValue:rawValue];
         }
         else if ([propertyName isEqualToString:kMendeleyJSONEducation])
         {
-            if ([rawValue isKindOfClass:[NSArray class]])
-            {
-                NSMutableArray *educationArray = [NSMutableArray array];
-                NSArray *array = (NSArray *) rawValue;
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     id object = [[self class] setPropertiesToObjectOfClass:[MendeleyEducation class] fromRawValue:obj];
-                     if (object)
-                     {
-                         [educationArray addObject:object];
-                     }
-                 }];
-                return educationArray;
-            }
+            return [[self class] objectArrayForClass:[MendeleyEducation class] fromRawValue:rawValue];
         }
         else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
         {
-            if ([rawValue isKindOfClass:[NSArray class]])
-            {
-                NSMutableArray *imageArray = [NSMutableArray array];
-                NSArray *array = (NSArray *) rawValue;
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     id object = [[self class] setPropertiesToObjectOfClass:[MendeleyImage class] fromRawValue:obj];
-                     if (object)
-                     {
-                         [imageArray addObject:object];
-                     }
-                 }];
-                return imageArray;
-            }
+            return [[self class] objectArrayForClass:[MendeleyImage class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONDisciplines])
+        {
+            return [[self class] objectArrayForClass:[MendeleyDiscipline class] fromRawValue:rawValue];
         }
     }
 
@@ -537,6 +527,7 @@
             }
 
         }
+        ///TODO: these properties will be implemented properly in a future release
         else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
         {
             if ([customName isEqualToString:NSStringFromClass([MendeleyImage class])])
