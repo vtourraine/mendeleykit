@@ -126,6 +126,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTRequestJSONProfilesType              @"application/vnd.mendeley-profiles.1+json"
 #define kMendeleyRESTRequestJSONNewProfilesType           @"application/vnd.mendeley-new-profile.1+json"
 #define kMendeleyRESTRequestJSONProfilesVerificationType  @"application/vnd.mendeley-profile-verification.1+json"
+#define kMendeleyRESTRequestJSONProfileUpdateType         @"application/vnd.mendeley-profile-amendment.1+json"
 #define kMendeleyRESTRequestJSONDisciplineType            @"application/vnd.mendeley-discipline.1+json"
 #define kMendeleyRESTRequestJSONAcademicStatuses          @"application/vnd.mendeley-academic-status.1+json"
 #define kMendeleyOAuth2ClientVersionKey                   @"Client-Version"

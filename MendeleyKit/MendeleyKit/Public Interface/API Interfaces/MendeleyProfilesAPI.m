@@ -41,6 +41,18 @@
     return requestHeader;
 }
 
+- (NSDictionary *)updateProfileRequestHeader
+{
+    NSMutableDictionary *requestHeader = [NSMutableDictionary new];
+
+    [requestHeader addEntriesFromDictionary:[self defaultServiceRequestHeaders]];
+
+    [requestHeader setObject:kMendeleyRESTRequestJSONProfileUpdateType
+                      forKey:kMendeleyRESTRequestContentType];
+
+    return requestHeader;
+}
+
 - (NSDictionary *)defaultServiceRequestHeaders
 {
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONProfilesType };
@@ -70,8 +82,6 @@
                     additionalHeaders:[self defaultServiceRequestHeaders]
                                  task:task
                       completionBlock:completionBlock];
-
-
 }
 
 - (void)profileIconForProfile:(MendeleyProfile *)profile
@@ -97,7 +107,6 @@
     }
 }
 
-
 - (void)profileIconForIconURLString:(NSString *)iconURLString
                                task:(MendeleyTask *)task
                     completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
@@ -111,7 +120,7 @@
              queryParameters:nil
       authenticationRequired:NO
                         task:task
-             completionBlock:^(MendeleyResponse *response, NSError *error) {
+             completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithBinaryDataCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
@@ -142,8 +151,7 @@
     [NSError assertArgumentNotNil:profile argumentName:@"profile"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    [[MendeleyKitConfiguration sharedInstance].oauthProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
-
+    [[MendeleyKitConfiguration sharedInstance].oauthProvider authenticateClientWithCompletionBlock: ^(MendeleyOAuthCredentials *credentials, NSError *error) {
          if (nil == credentials)
          {
              completionBlock(nil, nil, error);
@@ -196,10 +204,8 @@
                        }];
                   }
               }];
-
          }
      }];
-
 }
 
 - (void)updateMyProfile:(MendeleyProfile *)myProfile
@@ -210,11 +216,10 @@
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [self.helper updateMendeleyObject:myProfile
                                   api:kMendeleyRESTAPIProfilesMe
-                    additionalHeaders:[self defaultServiceRequestHeaders]
+                    additionalHeaders:[self updateProfileRequestHeader]
                          expectedType:kMendeleyModelProfile
                                  task:task
                       completionBlock:completionBlock];
-
 }
 
 @end
