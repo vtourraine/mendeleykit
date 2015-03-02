@@ -29,6 +29,7 @@
 #import "MendeleySyncInfo.h"
 #import "MendeleyQueryRequestParameters.h"
 #import "MendeleyBlockExecutor.h"
+#import "MendeleyAcademicStatusesAPI.h"
 #import "MendeleyAnnotationsAPI.h"
 #import "MendeleyDocumentsAPI.h"
 #import "MendeleyFilesAPI.h"
@@ -53,6 +54,7 @@
 @property (nonatomic, strong) MendeleyMetadataAPI *metedataAPI;
 @property (nonatomic, strong) MendeleyProfilesAPI *profilesAPI;
 @property (nonatomic, strong) MendeleyDisciplinesAPI *disciplinesAPI;
+@property (nonatomic, strong) MendeleyAcademicStatusesAPI *academicStatusesAPI;
 @end
 
 @implementation MendeleyKit
@@ -98,26 +100,42 @@
 {
     NSURL *baseURL = self.configuration.baseAPIURL;
 
-    self.documentsAPI = [[MendeleyDocumentsAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                      baseURL:baseURL];
+    self.documentsAPI = [[MendeleyDocumentsAPI alloc]
+                         initWithNetworkProvider:self.networkProvider
+                                         baseURL:baseURL];
 
-    self.filesAPI = [[MendeleyFilesAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                              baseURL:baseURL];
+    self.filesAPI = [[MendeleyFilesAPI alloc]
+                     initWithNetworkProvider:self.networkProvider
+                                     baseURL:baseURL];
 
-    self.foldersAPI = [[MendeleyFoldersAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                  baseURL:baseURL];
+    self.foldersAPI = [[MendeleyFoldersAPI alloc]
+                       initWithNetworkProvider:self.networkProvider
+                                       baseURL:baseURL];
 
-    self.groupsAPI = [[MendeleyGroupsAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                baseURL:baseURL];
+    self.groupsAPI = [[MendeleyGroupsAPI alloc]
+                      initWithNetworkProvider:self.networkProvider
+                                      baseURL:baseURL];
 
-    self.annotationsAPI = [[MendeleyAnnotationsAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                          baseURL:baseURL];
+    self.annotationsAPI = [[MendeleyAnnotationsAPI alloc]
+                           initWithNetworkProvider:self.networkProvider
+                                           baseURL:baseURL];
 
-    self.metedataAPI = [[MendeleyMetadataAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
+    self.metedataAPI = [[MendeleyMetadataAPI alloc]
+                        initWithNetworkProvider:self.networkProvider
+                                        baseURL:baseURL];
 
-    self.profilesAPI = [[MendeleyProfilesAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
+    self.profilesAPI = [[MendeleyProfilesAPI alloc]
+                        initWithNetworkProvider:self.networkProvider
+                                        baseURL:baseURL];
 
-    self.disciplinesAPI = [[MendeleyDisciplinesAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
+    self.disciplinesAPI = [[MendeleyDisciplinesAPI alloc]
+                           initWithNetworkProvider:self.networkProvider
+                                           baseURL:baseURL];
+
+    self.academicStatusesAPI = [[MendeleyAcademicStatusesAPI alloc]
+                                initWithNetworkProvider:self.networkProvider
+                                                baseURL:baseURL];
+
 }
 
 - (BOOL)isAuthenticated
@@ -193,6 +211,19 @@
         return nil;
     }
 }
+
+#pragma mark -
+#pragma mark Academic Status
+- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.academicStatusesAPI academicStatusesWithTask:task
+                                       completionBlock:completionBlock];
+
+    return task;
+}
+
 
 #pragma mark -
 #pragma mark Disciplines

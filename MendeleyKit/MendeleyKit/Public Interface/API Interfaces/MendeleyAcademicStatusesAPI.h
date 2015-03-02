@@ -20,13 +20,14 @@
 
 #import "MendeleyObjectAPI.h"
 
-@interface MendeleyDisciplinesAPI : MendeleyObjectAPI
+
+@interface MendeleyAcademicStatusesAPI : MendeleyObjectAPI
 /**
-   This method gets all registered Mendeley disciplines (and their subdisciplines)
+   This method gets all registered Mendeley academic statuses
    @param task the cancellable MendeleyTask
-   @param completionBlock will return an array of MendeleyDiscipline objects
+   @param completionBlock will return an array of MendeleyAcademicStatus objects
  */
-- (void)disciplinesWithTask:(MendeleyTask *)task
-            completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+- (void)academicStatusesWithTask:(MendeleyTask *)task
+                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 @end

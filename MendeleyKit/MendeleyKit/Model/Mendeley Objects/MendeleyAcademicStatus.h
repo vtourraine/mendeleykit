@@ -18,15 +18,9 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+#import "MendeleyObject.h"
 
-@interface MendeleyDisciplinesAPI : MendeleyObjectAPI
-/**
-   This method gets all registered Mendeley disciplines (and their subdisciplines)
-   @param task the cancellable MendeleyTask
-   @param completionBlock will return an array of MendeleyDiscipline objects
- */
-- (void)disciplinesWithTask:(MendeleyTask *)task
-            completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+@interface MendeleyAcademicStatus : MendeleySecureObject
+@property (nonatomic, strong) NSString *objectDescription;
 @end

@@ -1,0 +1,47 @@
+[
+  {
+    "description": "Post Doc"
+  },
+  {
+    "description": "Doctoral Student"
+  },
+  {
+    "description": "Ph.D. Student"
+  },
+  {
+    "description": "Student (Postgraduate)"
+  },
+  {
+    "description": "Student (Master)"
+  },
+  {
+    "description": "Student (Bachelor)"
+  },
+  {
+    "description": "Professor"
+  },
+  {
+    "description": "Associate Professor"
+  },
+  {
+    "description": "Assistant Professor"
+  },
+  {
+    "description": "Senior Lecturer"
+  },
+  {
+    "description": "Lecturer"
+  },
+  {
+    "description": "Researcher (at an Academic Institution)"
+  },
+  {
+    "description": "Librarian"
+  },
+  {
+    "description": "Researcher (at a non-Academic Institution)"
+  },
+  {
+    "description": "Other Professional"
+  }
+]

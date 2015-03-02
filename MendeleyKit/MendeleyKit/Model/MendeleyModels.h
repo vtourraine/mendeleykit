@@ -22,6 +22,7 @@
 #define MendeleyKit_MendeleyModels_h
 
 #import "MendeleyAnnotation.h"
+#import "MendeleyAcademicStatus.h"
 #import "MendeleyDocument.h"
 #import "MendeleyCatalogDocument.h"
 #import "MendeleyDocumentType.h"

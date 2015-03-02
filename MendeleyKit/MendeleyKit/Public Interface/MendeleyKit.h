@@ -69,6 +69,14 @@
                                     expectedModel:(NSString *)expectedModel
                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+#pragma mark -
+#pragma mark Academic Statuses
+/**
+   This method gets all registered Mendeley academic statuses
+   @param completionBlock will return an array of MendeleyAcademicStatus objects
+   @return a cancellable task
+ */
+- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark -
 #pragma mark Disciplines
