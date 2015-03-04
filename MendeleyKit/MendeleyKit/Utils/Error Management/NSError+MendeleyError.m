@@ -57,13 +57,13 @@
         return [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:MendeleyErrorUnknown];
     }
 
-    NSString *description = [NSString stringWithFormat:@"%i %@ (%@)", response.statusCode, response.responseMessage, [url absoluteString]];
+    NSString *description = [NSString stringWithFormat:@"%lu %@ (%@)", (unsigned long)response.statusCode, response.responseMessage, [url absoluteString]];
     NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey:  description } mutableCopy];
 
     if (0 != body.length)
     {
         NSError *failureError;
-        id failureReason = [NSJSONSerialization JSONObjectWithData:body options:NSJSONWritingPrettyPrinted error:&failureError];
+        id failureReason = [NSJSONSerialization JSONObjectWithData:body options:NSJSONReadingAllowFragments error:&failureError];
         if (!failureError && failureReason)
         {
             userInfo[NSLocalizedFailureReasonErrorKey] = failureReason;
