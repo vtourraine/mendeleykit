@@ -44,4 +44,6 @@
  */
 + (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url;
 
++ (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url failureBody:(NSData *)body;
+
 @end
