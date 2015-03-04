@@ -78,7 +78,7 @@
    @param task
    @param completionBlock - the completionHandler.
  */
-- (void)createProfile:(MendeleyProfile *)profile
+- (void)createProfile:(MendeleyNewProfile *)profile
                  task:(MendeleyTask *)task
       completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
@@ -91,7 +91,7 @@
    @param task
    @param completionBlock - the completionHandler.
  */
-- (void)updateMyProfile:(MendeleyProfile *)myProfile
+- (void)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                    task:(MendeleyTask *)task
         completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 

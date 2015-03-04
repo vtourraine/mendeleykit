@@ -73,7 +73,6 @@
 @property (nonatomic, strong) NSString *url;
 @end
 
-
 @interface MendeleyProfile : MendeleyObject
 
 @property (nonatomic, strong) NSString *first_name;
@@ -83,6 +82,7 @@
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSString *institution;
 @property (nonatomic, strong) NSString *research_interests;
+@property (nonatomic, strong) NSArray *research_interests_list;
 @property (nonatomic, strong) NSString *academic_status;
 @property (nonatomic, strong) MendeleyDiscipline *discipline;
 @property (nonatomic, strong) NSArray *disciplines;
@@ -95,8 +95,6 @@
 @property (nonatomic, strong) NSDate *created;
 @property (nonatomic, strong) NSArray *education;
 @property (nonatomic, strong) NSArray *employment;
-@property (nonatomic, strong) NSString *password;
-@property (nonatomic, strong) NSString *old_password;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *biography;
 @end
@@ -104,3 +102,34 @@
 @interface MendeleyUserProfile : MendeleyProfile
 
 @end
+
+@interface MendeleyNewProfile : MendeleySecureObject
+
+@property (nonatomic, strong) NSString *first_name;
+@property (nonatomic, strong) NSString *last_name;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *discipline;
+@property (nonatomic, strong) NSString *academic_status;
+@property (nonatomic, strong) NSString *institution;
+@property (nonatomic, strong) NSNumber *marketing;
+
+@end
+
+@interface MendeleyAmendmentProfile : MendeleySecureObject
+
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *old_password;
+@property (nonatomic, strong) NSString *first_name;
+@property (nonatomic, strong) NSString *last_name;
+@property (nonatomic, strong) NSString *academic_status;
+@property (nonatomic, strong) NSString *institution;
+@property (nonatomic, strong) NSString *biography;
+@property (nonatomic, strong) NSNumber *marketing;
+@property (nonatomic, strong) NSArray *disciplines;
+@property (nonatomic, strong) NSArray *research_interests_list;
+
+@end
+

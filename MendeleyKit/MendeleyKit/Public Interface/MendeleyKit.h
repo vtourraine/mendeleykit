@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile;
 
 @protocol MendeleyNetworkProvider;
 
@@ -142,7 +142,7 @@
    @param completionBlock - the completionHandler.
    @return a cancellable MendeleyTask object
  */
-- (MendeleyTask *)createProfile:(MendeleyProfile *)profile
+- (MendeleyTask *)createProfile:(MendeleyNewProfile *)profile
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
@@ -154,7 +154,7 @@
    @param completionBlock - the completionHandler.
    @return a cancellable MendeleyTask object
  */
-- (MendeleyTask *)updateMyProfile:(MendeleyProfile *)myProfile
+- (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 #pragma mark -

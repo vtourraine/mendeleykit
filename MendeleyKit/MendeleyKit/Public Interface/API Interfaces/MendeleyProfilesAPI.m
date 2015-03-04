@@ -144,7 +144,7 @@
      }];
 }
 
-- (void)createProfile:(MendeleyProfile *)profile
+- (void)createProfile:(MendeleyNewProfile *)profile
                  task:(MendeleyTask *)task
       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
@@ -208,7 +208,7 @@
      }];
 }
 
-- (void)updateMyProfile:(MendeleyProfile *)myProfile
+- (void)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                    task:(MendeleyTask *)task
         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {

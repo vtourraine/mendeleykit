@@ -513,19 +513,19 @@
         {
             if ([customName isEqualToString:NSStringFromClass([MendeleyDiscipline class])])
             {
-                //                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-                //                id subdisciplines = [customObject valueForKey:kMendeleyJSONSubdisciplines];
-                //                if (nil != subdisciplines && [subdisciplines isKindOfClass:[NSArray class]])
-                //                {
-                //                    [dictionary setObject:subdisciplines forKey:kMendeleyJSONSubdisciplines];
-                //                }
-                //                id name = [customObject valueForKey:kMendeleyJSONName];
-                //                if (nil != name && [name isKindOfClass:[NSString class]])
-                //                {
-                //                    [dictionary setObject:name forKey:kMendeleyJSONName];
-                //                }
-                //                return dictionary;
-                return [customObject valueForKey:kMendeleyJSONName];
+                                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+                                id subdisciplines = [customObject valueForKey:kMendeleyJSONSubdisciplines];
+                                if (nil != subdisciplines && [subdisciplines isKindOfClass:[NSArray class]])
+                                {
+                                    [dictionary setObject:subdisciplines forKey:kMendeleyJSONSubdisciplines];
+                                }
+                                id name = [customObject valueForKey:kMendeleyJSONName];
+                                if (nil != name && [name isKindOfClass:[NSString class]])
+                                {
+                                    [dictionary setObject:name forKey:kMendeleyJSONName];
+                                }
+                                return dictionary;
+//                return [customObject valueForKey:kMendeleyJSONName];
             }
         }
         ///TODO: these properties will be implemented properly in a future release

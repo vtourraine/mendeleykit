@@ -325,7 +325,7 @@
 
 }
 
-- (MendeleyTask *)createProfile:(MendeleyProfile *)profile
+- (MendeleyTask *)createProfile:(MendeleyNewProfile *)profile
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -336,7 +336,7 @@
     return task;
 }
 
-- (MendeleyTask *)updateMyProfile:(MendeleyProfile *)myProfile
+- (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
