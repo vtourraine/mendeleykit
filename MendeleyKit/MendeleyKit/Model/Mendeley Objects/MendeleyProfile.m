@@ -57,3 +57,9 @@
 
 @implementation MendeleyUserProfile
 @end
+
+@implementation MendeleyNewProfile
+@end
+
+@implementation MendeleyAmendmentProfile
+@end
