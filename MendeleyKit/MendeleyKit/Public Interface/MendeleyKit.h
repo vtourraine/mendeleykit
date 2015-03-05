@@ -132,7 +132,7 @@
                               completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
 /**
-   Creates a new profile based on the MendeleyProfile argument passed in. The following properties MUST be
+   Creates a new profile based on the MendeleyNewProfile argument passed in. The following properties MUST be
    provided to be able to create a new profile
    first_name, last_name, email, password, main discipline, academic status, marketing
    Note: the email MUST be unique
@@ -146,7 +146,7 @@
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
-   Updates aa existing user's profile based on the MendeleyProfile argument passed in.
+   Updates an existing user's profile based on the MendeleyAmendmentProfile argument passed in.
    If the user wants to update his password the following properties must be provided
    - password (i.e. the new password)
    - old_password (i.e the previous password to be replaced)
