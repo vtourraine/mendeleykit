@@ -1,4 +1,8 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 0.9.20
+6 March 2015
+- added functionality to create and update profiles
+- added functionality to retrieve Mendeley registered academic status and discipline types
 
 Version: 0.9.19
 16 Feb 2015

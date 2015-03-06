@@ -1,8 +1,20 @@
-Release Notes MendeleyKit v0.9.19
+Release Notes MendeleyKit v0.9.20
+Date: March 2015
+- we added 4 new methods to the MendeleyKit
+- academicStatusesWithCompletionBlock to obtain a list of Mendeley academic status types
+- disciplinesWithCompletionBlock to obtain a list of Mendeley discipline types
+- createProfile:completionBlock creating a new profile
+- updateMyProfile:completionBlock updating an existing profile
+Additional Notes:
+- createProfile and updateMyProfile use 'special' profile classes. (MendeleyNewProfile and MendeleyAmendmentProfile). This is due to the fact that the expected JSON body in both cases differ in subtle ways from the default profiles JSON body.
+- an additional method was added to the MendeleyOAuthProvider (and its MendeleyDefaultOAuthProvider implementation) to authenticate with username and password. This will allow clients to create profiles using the new MendeleyKit methods. 
+- clients can ONLY create profiles and/or authenticate with username/password if the client has been approved for this service by the Mendeley team. To apply for your client to be approved visit http://dev.mendeley.com. 
+
+
+Previous Releases
 Date: February 2015
 - aligned MendeleyProfile model with latest version of /profiles API
 
-Previous Releases
 Date: February 2015
 - we need to have a way of capturing cancelled network ops. We amended the MendeleyKit:isSuccessForResponse to return false if the network operation is cancelled.
 
