@@ -50,4 +50,27 @@
     return [[self class] errorWithDomain:kMendeleyErrorDomain code:response.statusCode userInfo:userInfo];
 }
 
++ (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url failureBody:(NSData *)body
+{
+    if (nil == response)
+    {
+        return [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:MendeleyErrorUnknown];
+    }
+
+    NSString *description = [NSString stringWithFormat:@"%lu %@ (%@)", (unsigned long)response.statusCode, response.responseMessage, [url absoluteString]];
+    NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey:  description } mutableCopy];
+
+    if (0 != body.length)
+    {
+        NSError *failureError;
+        id failureReason = [NSJSONSerialization JSONObjectWithData:body options:NSJSONReadingAllowFragments error:&failureError];
+        if (!failureError && failureReason)
+        {
+            userInfo[NSLocalizedFailureReasonErrorKey] = failureReason;
+        }
+    }
+
+    return [[self class] errorWithDomain:kMendeleyErrorDomain code:response.statusCode userInfo:userInfo];
+}
+
 @end

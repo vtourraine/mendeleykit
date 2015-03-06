@@ -60,7 +60,7 @@
                              }
                              else
                              {
-                                 responseError = [NSError errorWithMendeleyResponse:theResponse requestURL:request.URL];
+                                 responseError = [NSError errorWithMendeleyResponse:theResponse requestURL:request.URL failureBody:data];
                                  completionBlock(theResponse, responseError);
                              }
                          }

@@ -29,6 +29,7 @@
 #import "MendeleySyncInfo.h"
 #import "MendeleyQueryRequestParameters.h"
 #import "MendeleyBlockExecutor.h"
+#import "MendeleyAcademicStatusesAPI.h"
 #import "MendeleyAnnotationsAPI.h"
 #import "MendeleyDocumentsAPI.h"
 #import "MendeleyFilesAPI.h"
@@ -37,6 +38,7 @@
 #import "MendeleyMetadataAPI.h"
 #import "NSError+MendeleyError.h"
 #import "MendeleyProfilesAPI.h"
+#import "MendeleyDisciplinesAPI.h"
 
 
 @interface MendeleyKit ()
@@ -51,7 +53,8 @@
 @property (nonatomic, strong) MendeleyGroupsAPI *groupsAPI;
 @property (nonatomic, strong) MendeleyMetadataAPI *metedataAPI;
 @property (nonatomic, strong) MendeleyProfilesAPI *profilesAPI;
-
+@property (nonatomic, strong) MendeleyDisciplinesAPI *disciplinesAPI;
+@property (nonatomic, strong) MendeleyAcademicStatusesAPI *academicStatusesAPI;
 @end
 
 @implementation MendeleyKit
@@ -97,24 +100,42 @@
 {
     NSURL *baseURL = self.configuration.baseAPIURL;
 
-    self.documentsAPI = [[MendeleyDocumentsAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                      baseURL:baseURL];
+    self.documentsAPI = [[MendeleyDocumentsAPI alloc]
+                         initWithNetworkProvider:self.networkProvider
+                                         baseURL:baseURL];
 
-    self.filesAPI = [[MendeleyFilesAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                              baseURL:baseURL];
+    self.filesAPI = [[MendeleyFilesAPI alloc]
+                     initWithNetworkProvider:self.networkProvider
+                                     baseURL:baseURL];
 
-    self.foldersAPI = [[MendeleyFoldersAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                  baseURL:baseURL];
+    self.foldersAPI = [[MendeleyFoldersAPI alloc]
+                       initWithNetworkProvider:self.networkProvider
+                                       baseURL:baseURL];
 
-    self.groupsAPI = [[MendeleyGroupsAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                baseURL:baseURL];
+    self.groupsAPI = [[MendeleyGroupsAPI alloc]
+                      initWithNetworkProvider:self.networkProvider
+                                      baseURL:baseURL];
 
-    self.annotationsAPI = [[MendeleyAnnotationsAPI alloc] initWithNetworkProvider:self.networkProvider
-                                                                          baseURL:baseURL];
+    self.annotationsAPI = [[MendeleyAnnotationsAPI alloc]
+                           initWithNetworkProvider:self.networkProvider
+                                           baseURL:baseURL];
 
-    self.metedataAPI = [[MendeleyMetadataAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
+    self.metedataAPI = [[MendeleyMetadataAPI alloc]
+                        initWithNetworkProvider:self.networkProvider
+                                        baseURL:baseURL];
 
-    self.profilesAPI = [[MendeleyProfilesAPI alloc] initWithNetworkProvider:self.networkProvider baseURL:baseURL];
+    self.profilesAPI = [[MendeleyProfilesAPI alloc]
+                        initWithNetworkProvider:self.networkProvider
+                                        baseURL:baseURL];
+
+    self.disciplinesAPI = [[MendeleyDisciplinesAPI alloc]
+                           initWithNetworkProvider:self.networkProvider
+                                           baseURL:baseURL];
+
+    self.academicStatusesAPI = [[MendeleyAcademicStatusesAPI alloc]
+                                initWithNetworkProvider:self.networkProvider
+                                                baseURL:baseURL];
+
 }
 
 - (BOOL)isAuthenticated
@@ -189,6 +210,31 @@
         completionBlock(nil, nil, error);
         return nil;
     }
+}
+
+#pragma mark -
+#pragma mark Academic Status
+- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.academicStatusesAPI academicStatusesWithTask:task
+                                       completionBlock:completionBlock];
+
+    return task;
+}
+
+
+#pragma mark -
+#pragma mark Disciplines
+- (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.disciplinesAPI disciplinesWithTask:task
+                             completionBlock:completionBlock];
+    return task;
+
 }
 
 #pragma mark -
@@ -278,6 +324,48 @@
     return task;
 
 }
+
+- (MendeleyTask *)createProfile:(MendeleyNewProfile *)profile
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self.profilesAPI createProfile:profile
+                               task:task
+                    completionBlock:completionBlock];
+    return task;
+}
+
+- (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.profilesAPI updateMyProfile:myProfile
+                                              task:task
+                                   completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+
+}
+
 
 #pragma mark -
 #pragma mark Documents

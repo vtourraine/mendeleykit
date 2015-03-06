@@ -366,7 +366,7 @@
     __block BOOL isProgressCalled = NO;
 
     waitForBlock ( ^(BOOL *hasCalledBack) {
-                       NSURL *fileURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"Getting_Started_Guide" withExtension:@"pdf"];
+                       NSURL *fileURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"GettingStartedGuide" withExtension:@"pdf"];
                        [self.networkProvider invokeUploadForFileURL:fileURL
                                                             baseURL:self.testURL
                                                                 api:@"post"

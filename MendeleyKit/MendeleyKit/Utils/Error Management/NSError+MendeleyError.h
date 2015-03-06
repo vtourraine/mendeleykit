@@ -40,8 +40,17 @@
 
 /**
    @param response
+   @param url
    @return an error with default Mendeley Error domain
  */
 + (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url;
+
+/**
+   @param response
+   @param url
+   @param body
+   @return an error with default Mendeley Error domain
+ */
++ (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url failureBody:(NSData *)body;
 
 @end

@@ -19,8 +19,39 @@
  */
 
 #import "MendeleyProfilesAPI.h"
+#import "MendeleyKitConfiguration.h"
+#import "MendeleyOAuthCredentials.h"
 
 @implementation MendeleyProfilesAPI
+
+- (NSDictionary *)newProfileRequestHeaderFromCredentials:(MendeleyOAuthCredentials *)credentials
+{
+    if (nil == credentials)
+    {
+        return nil;
+    }
+    NSDictionary *authenticationHeader = [credentials authenticationHeader];
+    NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
+    [requestHeader setObject:kMendeleyRESTRequestJSONProfilesType
+                      forKey:kMendeleyRESTRequestAccept];
+
+    [requestHeader setObject:kMendeleyRESTRequestJSONNewProfilesType
+                      forKey:kMendeleyRESTRequestContentType];
+
+    return requestHeader;
+}
+
+- (NSDictionary *)updateProfileRequestHeader
+{
+    NSMutableDictionary *requestHeader = [NSMutableDictionary new];
+
+    [requestHeader addEntriesFromDictionary:[self defaultServiceRequestHeaders]];
+
+    [requestHeader setObject:kMendeleyRESTRequestJSONProfileUpdateType
+                      forKey:kMendeleyRESTRequestContentType];
+
+    return requestHeader;
+}
 
 - (NSDictionary *)defaultServiceRequestHeaders
 {
@@ -51,8 +82,6 @@
                     additionalHeaders:[self defaultServiceRequestHeaders]
                                  task:task
                       completionBlock:completionBlock];
-
-
 }
 
 - (void)profileIconForProfile:(MendeleyProfile *)profile
@@ -78,7 +107,6 @@
     }
 }
 
-
 - (void)profileIconForIconURLString:(NSString *)iconURLString
                                task:(MendeleyTask *)task
                     completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock
@@ -92,7 +120,7 @@
              queryParameters:nil
       authenticationRequired:NO
                         task:task
-             completionBlock:^(MendeleyResponse *response, NSError *error) {
+             completionBlock: ^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithBinaryDataCompletionBlock:completionBlock];
          if (![self.helper isSuccessForResponse:response error:&error])
          {
@@ -116,5 +144,82 @@
      }];
 }
 
+- (void)createProfile:(MendeleyNewProfile *)profile
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:profile argumentName:@"profile"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+
+    [[MendeleyKitConfiguration sharedInstance].oauthProvider authenticateClientWithCompletionBlock: ^(MendeleyOAuthCredentials *credentials, NSError *error) {
+         if (nil == credentials)
+         {
+             completionBlock(nil, nil, error);
+         }
+         else
+         {
+             NSDictionary *requestHeader = [self newProfileRequestHeaderFromCredentials:credentials];
+
+             MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
+             MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+
+             NSError *serialiseError = nil;
+             NSData *jsonData = [modeller jsonObjectFromModelOrModels:profile error:&serialiseError];
+             if (nil == jsonData)
+             {
+                 [blockExec executeWithMendeleyObject:nil
+                                             syncInfo:nil
+                                                error:serialiseError];
+                 return;
+             }
+             id <MendeleyNetworkProvider> networkProvider = [self provider];
+             [networkProvider invokePOST:self.baseURL
+                                     api:kMendeleyRESTAPIProfiles
+                       additionalHeaders:requestHeader
+                                jsonData:jsonData
+                  authenticationRequired:NO
+                                    task:task
+                         completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                  if (![self.helper isSuccessForResponse:response error:&error])
+                  {
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:error];
+                  }
+                  else
+                  {
+                      [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelProfile completionBlock: ^(MendeleyObject *object, NSError *parseError) {
+                           if (nil != parseError)
+                           {
+                               [blockExec executeWithMendeleyObject:nil
+                                                           syncInfo:nil
+                                                              error:parseError];
+                           }
+                           else
+                           {
+                               [blockExec executeWithMendeleyObject:object
+                                                           syncInfo:response.syncHeader
+                                                              error:nil];
+                           }
+                       }];
+                  }
+              }];
+         }
+     }];
+}
+
+- (void)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
+                   task:(MendeleyTask *)task
+        completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:myProfile argumentName:@"myProfile"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    [self.helper updateMendeleyObject:myProfile
+                                  api:kMendeleyRESTAPIProfilesMe
+                    additionalHeaders:[self updateProfileRequestHeader]
+                         expectedType:kMendeleyModelProfile
+                                 task:task
+                      completionBlock:completionBlock];
+}
 
 @end

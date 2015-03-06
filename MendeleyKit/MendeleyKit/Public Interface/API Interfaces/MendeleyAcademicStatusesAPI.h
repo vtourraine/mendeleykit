@@ -18,22 +18,16 @@
  *****************************************************************************
  */
 
-#ifndef MendeleyKit_MendeleyModels_h
-#define MendeleyKit_MendeleyModels_h
+#import "MendeleyObjectAPI.h"
 
-#import "MendeleyAnnotation.h"
-#import "MendeleyAcademicStatus.h"
-#import "MendeleyDocument.h"
-#import "MendeleyCatalogDocument.h"
-#import "MendeleyDocumentType.h"
-#import "MendeleyFile.h"
-#import "MendeleyFolder.h"
-#import "MendeleyGroup.h"
-#import "MendeleyIdentifierType.h"
-#import "MendeleyMetadataLookup.h"
-#import "MendeleyObject.h"
-#import "MendeleyPerson.h"
-#import "MendeleyUserRole.h"
-#import "MendeleyProfile.h"
 
-#endif
+@interface MendeleyAcademicStatusesAPI : MendeleyObjectAPI
+/**
+   This method gets all registered Mendeley academic statuses
+   @param task the cancellable MendeleyTask
+   @param completionBlock will return an array of MendeleyAcademicStatus objects
+ */
+- (void)academicStatusesWithTask:(MendeleyTask *)task
+                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+@end

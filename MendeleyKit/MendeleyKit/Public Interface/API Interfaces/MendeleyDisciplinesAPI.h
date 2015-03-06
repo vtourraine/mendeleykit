@@ -18,22 +18,15 @@
  *****************************************************************************
  */
 
-#ifndef MendeleyKit_MendeleyModels_h
-#define MendeleyKit_MendeleyModels_h
+#import "MendeleyObjectAPI.h"
 
-#import "MendeleyAnnotation.h"
-#import "MendeleyAcademicStatus.h"
-#import "MendeleyDocument.h"
-#import "MendeleyCatalogDocument.h"
-#import "MendeleyDocumentType.h"
-#import "MendeleyFile.h"
-#import "MendeleyFolder.h"
-#import "MendeleyGroup.h"
-#import "MendeleyIdentifierType.h"
-#import "MendeleyMetadataLookup.h"
-#import "MendeleyObject.h"
-#import "MendeleyPerson.h"
-#import "MendeleyUserRole.h"
-#import "MendeleyProfile.h"
+@interface MendeleyDisciplinesAPI : MendeleyObjectAPI
+/**
+   This method gets all registered Mendeley disciplines (and their subdisciplines)
+   @param task the cancellable MendeleyTask
+   @param completionBlock will return an array of MendeleyDiscipline objects
+ */
+- (void)disciplinesWithTask:(MendeleyTask *)task
+            completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#endif
+@end

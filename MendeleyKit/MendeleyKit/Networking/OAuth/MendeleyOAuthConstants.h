@@ -37,6 +37,7 @@
 #define kMendeleyRefreshTokenKey            @"refresh_token"
 #define kMendeleyExpiryDateKey              @"expires_in"
 #define kMendeleyOAuthCredentialServiceName @"MendeleyOAuthCredentialService"
+#define kMendeleyOAuthClientCredentials     @"client_credentials"
 
 #define kMendeleyKeyChainAccessTokenKey     @"accessToken"
 #define kMendeleyKeyChainRefreshTokenKey    @"refreshToken"

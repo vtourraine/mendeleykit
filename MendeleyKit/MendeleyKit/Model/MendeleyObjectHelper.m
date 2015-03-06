@@ -35,9 +35,9 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-                      map = @{ kMendeleyJSONID : kMendeleyObjectID,
-                               kMendeleyJSONDescription : kMendeleyObjectDescription };
-                  });
+        map = @{ kMendeleyJSONID : kMendeleyObjectID,
+                 kMendeleyJSONDescription : kMendeleyObjectDescription };
+    });
     return map;
 }
 
@@ -47,9 +47,9 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-                      map = @{ kMendeleyObjectID : kMendeleyJSONID,
-                               kMendeleyObjectDescription : kMendeleyJSONDescription };
-                  });
+        map = @{ kMendeleyObjectID : kMendeleyJSONID,
+                 kMendeleyObjectDescription : kMendeleyJSONDescription };
+    });
     return map;
 }
 
@@ -59,19 +59,20 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-                      map = @{ kMendeleyJSONAuthors : kMendeleyModelPerson,
-                               kMendeleyJSONEditors : kMendeleyModelPerson,
-                               kMendeleyJSONTranslators : kMendeleyModelPerson,
-                               kMendeleyJSONEmployment : kMendeleyModelEmployment,
-                               kMendeleyJSONEducation : kMendeleyModelEducation,
-                               kMendeleyJSONWebsites : kMendeleyModelWebsites,
-                               kMendeleyJSONTags : kMendeleyModelTags,
-                               kMendeleyJSONKeywords : kMendeleyModelKeywords,
-                               kMendeleyJSONDisciplines : kMendeleyModelDisciplines,
-                               kMendeleyJSONReaderCountByAcademicStatus : kMendeleyModelReaderCountByAcademicStatus,
-                               kMendeleyJSONReaderCountByCountry : kMendeleyModelReaderCountByCountry,
-                               kMendeleyJSONReaderCountByDiscipline : kMendeleyModelReaderCountByDiscipline };
-                  });
+        map = @{ kMendeleyJSONAuthors : kMendeleyModelPerson,
+                 kMendeleyJSONEditors : kMendeleyModelPerson,
+                 kMendeleyJSONTranslators : kMendeleyModelPerson,
+                 kMendeleyJSONEmployment : kMendeleyModelEmployment,
+                 kMendeleyJSONEducation : kMendeleyModelEducation,
+                 kMendeleyJSONWebsites : kMendeleyModelWebsites,
+                 kMendeleyJSONTags : kMendeleyModelTags,
+                 kMendeleyJSONKeywords : kMendeleyModelKeywords,
+                 kMendeleyJSONSubdisciplines: kMendeleyModelSubdisciplines,
+                 kMendeleyJSONDisciplines : kMendeleyModelDisciplines,
+                 kMendeleyJSONReaderCountByAcademicStatus : kMendeleyModelReaderCountByAcademicStatus,
+                 kMendeleyJSONReaderCountByCountry : kMendeleyModelReaderCountByCountry,
+                 kMendeleyJSONReaderCountByDiscipline : kMendeleyModelReaderCountByDiscipline };
+    });
     return map;
 }
 
@@ -81,11 +82,11 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-                      formatter = [[NSDateFormatter alloc] init];
-                      NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-                      [formatter setLocale:enUSPOSIXLocale];
-                      [formatter setDateFormat:kMendeleyJSONDateTimeFormat];
-                  });
+        formatter = [[NSDateFormatter alloc] init];
+        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        [formatter setLocale:enUSPOSIXLocale];
+        [formatter setDateFormat:kMendeleyJSONDateTimeFormat];
+    });
     return formatter;
 }
 
@@ -173,7 +174,9 @@
     return model;
 }
 
-+ (BOOL)isCustomizableModelObject:(id)modelObject forPropertyName:(NSString *)propertyName error:(NSError **)error
++ (BOOL)isCustomizableModelObject:(id)modelObject
+                  forPropertyName:(NSString *)propertyName
+                            error:(NSError **)error
 {
     if (nil == propertyName)
     {
@@ -225,6 +228,10 @@
         {
             return YES;
         }
+        else if ([propertyName isEqualToString:kMendeleyJSONDisciplines])
+        {
+            return YES;
+        }
         else if ([propertyName isEqualToString:kMendeleyJSONEmployment])
         {
             return YES;
@@ -261,6 +268,24 @@
              [object setValue:rawValue[key] forKeyPath:key];
          }];
         return object;
+    }
+    return nil;
+}
+
++ (NSArray *)objectArrayForClass:(Class)klass fromRawValue:(id)rawValue
+{
+    if ([rawValue isKindOfClass:[NSArray class]])
+    {
+        NSMutableArray *objectArray = [NSMutableArray array];
+        NSArray *array = (NSArray *) rawValue;
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+             id object = [[self class] setPropertiesToObjectOfClass:klass fromRawValue:obj];
+             if (object)
+             {
+                 [objectArray addObject:object];
+             }
+         }];
+        return objectArray;
     }
     return nil;
 }
@@ -324,51 +349,19 @@
         }
         else if ([propertyName isEqualToString:kMendeleyJSONEmployment])
         {
-            if ([rawValue isKindOfClass:[NSArray class]])
-            {
-                NSMutableArray *employmentArray = [NSMutableArray array];
-                NSArray *array = (NSArray *) rawValue;
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     id object = [[self class] setPropertiesToObjectOfClass:[MendeleyEmployment class] fromRawValue:obj];
-                     if (object)
-                     {
-                         [employmentArray addObject:object];
-                     }
-                 }];
-                return employmentArray;
-            }
+            return [[self class] objectArrayForClass:[MendeleyEmployment class] fromRawValue:rawValue];
         }
         else if ([propertyName isEqualToString:kMendeleyJSONEducation])
         {
-            if ([rawValue isKindOfClass:[NSArray class]])
-            {
-                NSMutableArray *educationArray = [NSMutableArray array];
-                NSArray *array = (NSArray *) rawValue;
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     id object = [[self class] setPropertiesToObjectOfClass:[MendeleyEducation class] fromRawValue:obj];
-                     if (object)
-                     {
-                         [educationArray addObject:object];
-                     }
-                 }];
-                return educationArray;
-            }
+            return [[self class] objectArrayForClass:[MendeleyEducation class] fromRawValue:rawValue];
         }
         else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
         {
-            if ([rawValue isKindOfClass:[NSArray class]])
-            {
-                NSMutableArray *imageArray = [NSMutableArray array];
-                NSArray *array = (NSArray *) rawValue;
-                [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     id object = [[self class] setPropertiesToObjectOfClass:[MendeleyImage class] fromRawValue:obj];
-                     if (object)
-                     {
-                         [imageArray addObject:object];
-                     }
-                 }];
-                return imageArray;
-            }
+            return [[self class] objectArrayForClass:[MendeleyImage class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONDisciplines])
+        {
+            return [[self class] objectArrayForClass:[MendeleyDiscipline class] fromRawValue:rawValue];
         }
     }
 
@@ -520,20 +513,22 @@
         {
             if ([customName isEqualToString:NSStringFromClass([MendeleyDiscipline class])])
             {
-                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-                id subdisciplines = [customObject valueForKey:kMendeleyJSONSubdisciplines];
-                if (nil != subdisciplines && [subdisciplines isKindOfClass:[NSArray class]])
-                {
-                    [dictionary setObject:subdisciplines forKey:kMendeleyJSONSubdisciplines];
-                }
-                id name = [customObject valueForKey:kMendeleyJSONName];
-                if (nil != name && [name isKindOfClass:[NSString class]])
-                {
-                    [dictionary setObject:name forKey:kMendeleyJSONName];
-                }
+                                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+                                id subdisciplines = [customObject valueForKey:kMendeleyJSONSubdisciplines];
+                                if (nil != subdisciplines && [subdisciplines isKindOfClass:[NSArray class]])
+                                {
+                                    [dictionary setObject:subdisciplines forKey:kMendeleyJSONSubdisciplines];
+                                }
+                                id name = [customObject valueForKey:kMendeleyJSONName];
+                                if (nil != name && [name isKindOfClass:[NSString class]])
+                                {
+                                    [dictionary setObject:name forKey:kMendeleyJSONName];
+                                }
+                                return dictionary;
+//                return [customObject valueForKey:kMendeleyJSONName];
             }
-
         }
+        ///TODO: these properties will be implemented properly in a future release
         else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
         {
             if ([customName isEqualToString:NSStringFromClass([MendeleyImage class])])

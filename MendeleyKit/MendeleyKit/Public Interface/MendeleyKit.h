@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile;
 
 @protocol MendeleyNetworkProvider;
 
@@ -69,6 +69,23 @@
                                     expectedModel:(NSString *)expectedModel
                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+#pragma mark -
+#pragma mark Academic Statuses
+/**
+   This method gets all registered Mendeley academic statuses
+   @param completionBlock will return an array of MendeleyAcademicStatus objects
+   @return a cancellable task
+ */
+- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+#pragma mark -
+#pragma mark Disciplines
+/**
+   This method gets all registered Mendeley disciplines (and their subdisciplines)
+   @param completionBlock will return an array of MendeleyDiscipline objects
+   @return a cancellable task
+ */
+- (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark -
 #pragma mark Profiles
@@ -113,6 +130,32 @@
  */
 - (MendeleyTask *)profileIconForIconURLString:(NSString *)iconURLString
                               completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
+
+/**
+   Creates a new profile based on the MendeleyNewProfile argument passed in. The following properties MUST be
+   provided to be able to create a new profile
+   first_name, last_name, email, password, main discipline, academic status, marketing
+   Note: the email MUST be unique
+   Note: marketing is a boolean flag - e.g. set to false
+   Note: discipline must be a valid, existing registered discipline in Mendeley (otherwise an error will be returned)
+   @param profile - containing at least the 6 mandatory properties given above
+   @param completionBlock - the completionHandler.
+   @return a cancellable MendeleyTask object
+ */
+- (MendeleyTask *)createProfile:(MendeleyNewProfile *)profile
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+   Updates an existing user's profile based on the MendeleyAmendmentProfile argument passed in.
+   If the user wants to update his password the following properties must be provided
+   - password (i.e. the new password)
+   - old_password (i.e the previous password to be replaced)
+   @param profile - the profile containing the updated parameters.
+   @param completionBlock - the completionHandler.
+   @return a cancellable MendeleyTask object
+ */
+- (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 #pragma mark -
 #pragma mark Documents

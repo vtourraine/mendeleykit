@@ -69,4 +69,30 @@
                                task:(MendeleyTask *)task
                     completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
+/**
+   Creates a new profile based on the MendeleyNewProfile argument passed in. The following properties MUST be
+   provided to be able to create a new profile
+   first_name, last_name, email, password, main discipline, academic status
+   Note: the email MUST be unique
+   @param profile - containing at least the 6 mandatory properties given above
+   @param task
+   @param completionBlock - the completionHandler.
+ */
+- (void)createProfile:(MendeleyNewProfile *)profile
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+   Updates an existing user's profile based on the MendeleyAmendmentProfile argument passed in.
+   If the user wants to update his password the following properties must be provided
+   - password (i.e. the new password)
+   - old_password (i.e the previous password to be replaced)
+   @param profile - the profile containing the updated parameters.
+   @param task
+   @param completionBlock - the completionHandler.
+ */
+- (void)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
+                   task:(MendeleyTask *)task
+        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
 @end
