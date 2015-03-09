@@ -1,4 +1,9 @@
-Release Notes MendeleyKit v0.9.20
+Release Notes
+It's time to make this release the official 1.0.0 version of MendeleyKit.
+This version has a minor upgrade from 0.9.20
+- fixing an issue with rotating login screen and resizing
+
+Previous Releases
 Date: March 2015
 - we added 4 new methods to the MendeleyKit
 - academicStatusesWithCompletionBlock to obtain a list of Mendeley academic status types
@@ -10,8 +15,6 @@ Additional Notes:
 - an additional method was added to the MendeleyOAuthProvider (and its MendeleyDefaultOAuthProvider implementation) to authenticate with username and password. This will allow clients to create profiles using the new MendeleyKit methods. 
 - clients can ONLY create profiles and/or authenticate with username/password if the client has been approved for this service by the Mendeley team. To apply for your client to be approved visit http://dev.mendeley.com. 
 
-
-Previous Releases
 Date: February 2015
 - aligned MendeleyProfile model with latest version of /profiles API
 

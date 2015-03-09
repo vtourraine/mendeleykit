@@ -1,4 +1,8 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 1.0.0
+9 March 2015
+- small fix to show proper login screen size after rotating device
+
 Version: 0.9.20
 6 March 2015
 - added functionality to create and update profiles
