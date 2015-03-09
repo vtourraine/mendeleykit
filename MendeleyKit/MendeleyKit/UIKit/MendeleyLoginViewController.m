@@ -163,7 +163,7 @@
     [self cleanCookiesAndURLCache];
 
     UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-
+    [webView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     webView.delegate = self;
     [self.view addSubview:webView];
     self.webView = webView;
@@ -182,8 +182,8 @@
             if (nil != self.completionBlock)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                                   self.completionBlock(success, nil);
-                               });
+                    self.completionBlock(success, nil);
+                });
             }
         }
         else
@@ -191,8 +191,8 @@
             if (nil != self.completionBlock)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                                   self.completionBlock(NO, error);
-                               });
+                    self.completionBlock(NO, error);
+                });
             }
         }
     };
