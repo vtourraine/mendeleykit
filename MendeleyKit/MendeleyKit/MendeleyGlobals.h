@@ -129,6 +129,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTRequestJSONProfileUpdateType         @"application/vnd.mendeley-profile-amendment.1+json"
 #define kMendeleyRESTRequestJSONDisciplineType            @"application/vnd.mendeley-discipline.1+json"
 #define kMendeleyRESTRequestJSONAcademicStatuses          @"application/vnd.mendeley-academic-status.1+json"
+#define kMendeleyRESTRequestJSONRecentlyRead              @"application/vnd.mendeley-recently-read.1+json"
 #define kMendeleyOAuth2ClientVersionKey                   @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                       @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                  @"Accept-Language"
@@ -178,6 +179,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTAPIProfiles                          @"profiles"
 #define kMendeleyRESTAPIDisciplines                       @"disciplines"
 #define kMendeleyRESTAPIAcademicStatuses                  @"academic_statuses"
+#define kMendeleyRESTAPIRecentlyRead                      @"recently_read"
 
 /***********************************************
    @name REST API Query Parameters
@@ -227,6 +229,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyModelUserProfile                         @"MendeleyUserProfile"
 #define kMendeleyModelEmployment                          @"MendeleyEmployment"
 #define kMendeleyModelEducation                           @"MendeleyEducation"
+#define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyReadInfo"
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
 #define kMendeleyModelKeywords                            @"NSArray"

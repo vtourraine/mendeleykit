@@ -30,6 +30,11 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFileType };
 }
 
+- (NSDictionary *)recentlyReadServiceHeaders
+{
+    return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONRecentlyRead };
+}
+
 - (NSDictionary *)uploadFileHeadersWithLinkRel:(NSString *)linkRel
                                       filename:(NSString *)filename
                                    contentType:(NSString *)contentType
@@ -160,8 +165,8 @@
 }
 
 - (void)fileListWithLinkedURL:(NSURL *)linkURL
-                         task:task
-              completionBlock:(MendeleyArrayCompletionBlock) completionBlock
+                         task:(MendeleyTask *)task
+              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:linkURL argumentName:@"linkURL"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
@@ -252,6 +257,48 @@
              }
          }
      }];
+}
+
+- (void)recentlyReadWithParameters:(MendeleyRecentlyReadParameters *)queryParameters
+                              task:(MendeleyTask *)task
+                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+
+    [self.provider invokeGET:self.baseURL
+                         api:kMendeleyRESTAPIRecentlyRead
+           additionalHeaders:[self recentlyReadServiceHeaders]
+             queryParameters:[queryParameters valueStringDictionary]
+      authenticationRequired:YES
+                        task:task
+             completionBlock: ^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+         if (![self.helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithArray:nil
+                                syncInfo:nil
+                                   error:error];
+         }
+         else
+         {
+             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+             [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelRecentlyRead completionBlock: ^(NSArray *recentlyReadList, NSError *parseError) {
+                  if (nil != parseError)
+                  {
+                      [blockExec executeWithArray:nil
+                                         syncInfo:nil
+                                            error:parseError];
+                  }
+                  else
+                  {
+                      [blockExec executeWithArray:recentlyReadList
+                                         syncInfo:response.syncHeader
+                                            error:nil];
+                  }
+              }];
+         }
+     }];
+
 }
 
 @end

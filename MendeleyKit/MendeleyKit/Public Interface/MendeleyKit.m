@@ -69,8 +69,8 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-                      sharedInstance = [[MendeleyKit alloc] init];
-                  });
+        sharedInstance = [[MendeleyKit alloc] init];
+    });
     return sharedInstance;
 }
 
@@ -1012,11 +1012,11 @@
               completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [self createFile:fileURL
-                                           filename:nil
-                                        contentType:nil
-                          relativeToDocumentURLPath:documentURLPath
-                                      progressBlock:progressBlock
-                                    completionBlock:completionBlock];
+                                 filename:nil
+                              contentType:nil
+                relativeToDocumentURLPath:documentURLPath
+                            progressBlock:progressBlock
+                          completionBlock:completionBlock];
 
     return task;
 }
@@ -1140,6 +1140,35 @@
                                           groupID:groupID
                                              task:task
                                   completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)recentlyReadWithParameters:(MendeleyRecentlyReadParameters *)queryParameters
+                             completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI recentlyReadWithParameters:queryParameters
+                                                      task:task
+                                           completionBlock:completionBlock];
              }
              else
              {

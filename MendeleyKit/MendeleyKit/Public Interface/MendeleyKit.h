@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters;
 
 @protocol MendeleyNetworkProvider;
 
@@ -462,6 +462,16 @@
 - (MendeleyTask *)deletedFilesSince:(NSDate *)deletedSince
                             groupID:(NSString *)groupID
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   This method returns a list of recently showed files on any device running a version of Mendeley (or a third part app) that support this feature. The number of records saved on the server is limited.
+   @param deletedSince the parameter set to be used in the request
+   @param task
+   @param completionBlock
+ */
+- (MendeleyTask *)recentlyReadWithParameters:(MendeleyRecentlyReadParameters *)queryParameters
+                                        task:(MendeleyTask *)task
+                             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark -
 #pragma mark Folders

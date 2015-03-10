@@ -50,38 +50,29 @@
 @end
 
 @interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
-
 @property (nonatomic, strong) NSDate *modified_since;
 @property (nonatomic, strong) NSString *sort;
 @property (nonatomic, strong) NSString *order;
 @property (nonatomic, strong) NSNumber *reverse;
 @property (nonatomic, strong) NSString *view;
-
 @end
 
 @interface MendeleyFileParameters : MendeleyQueryRequestParameters
-
 @property (nonatomic, strong) NSDate *added_since;
-@property (nonatomic, strong) NSString *document_id;
-
+@property (nonatomic, strong) NSString *document_id
 @end
 
 @interface MendeleyFolderParameters : MendeleyQueryRequestParameters
-
 @property (nonatomic, strong) NSString *profile_id;
-
 @end
 
 @interface MendeleyAnnotationParameters : MendeleyQueryRequestParameters
-
 @property (nonatomic, strong) NSString *document_id;
 @property (nonatomic, strong) NSString *profile_id;
 @property (nonatomic, strong) NSDate *modified_since;
-
 @end
 
 @interface MendeleyMetadataParameters : MendeleyQueryRequestParameters
-
 @property (nonatomic, strong) NSString *arxiv;
 @property (nonatomic, strong) NSString *doi;
 @property (nonatomic, strong) NSString *pmid;
@@ -105,5 +96,8 @@
 @end
 
 @interface MendeleyGroupParameters : MendeleyQueryRequestParameters
+@end
 
+@interface MendeleyRecentlyReadParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSNumber *limit;
 @end
