@@ -266,6 +266,9 @@
 		C4F095151AA47B3200C5951C /* MendeleyAcademicStatusesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F095131AA47B3200C5951C /* MendeleyAcademicStatusesAPI.h */; };
 		C4F095161AA47B3200C5951C /* MendeleyAcademicStatusesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F095141AA47B3200C5951C /* MendeleyAcademicStatusesAPI.m */; };
 		C4F095171AA47B3200C5951C /* MendeleyAcademicStatusesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F095141AA47B3200C5951C /* MendeleyAcademicStatusesAPI.m */; };
+		C8503FCE1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */; };
+		C8503FD11AB0725D00A56CE7 /* recentlyReadArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */; };
+		C8503FD21AB0725D00A56CE7 /* recentlyReadObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -498,6 +501,9 @@
 		C4F0950F1AA47AAA00C5951C /* MendeleyAcademicStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyAcademicStatus.m; path = "Model/Mendeley Objects/MendeleyAcademicStatus.m"; sourceTree = "<group>"; };
 		C4F095131AA47B3200C5951C /* MendeleyAcademicStatusesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyAcademicStatusesAPI.h; path = "Public Interface/API Interfaces/MendeleyAcademicStatusesAPI.h"; sourceTree = "<group>"; };
 		C4F095141AA47B3200C5951C /* MendeleyAcademicStatusesAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyAcademicStatusesAPI.m; path = "Public Interface/API Interfaces/MendeleyAcademicStatusesAPI.m"; sourceTree = "<group>"; };
+		C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyRecentlyReadTests.m; sourceTree = "<group>"; };
+		C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = recentlyReadArray.json; sourceTree = "<group>"; };
+		C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = recentlyReadObject.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -620,6 +626,7 @@
 				C462886119DB17A700127ECE /* MendeleyModellerTest.m */,
 				C462886219DB17A700127ECE /* MendeleyModelTest.m */,
 				C462886319DB17A700127ECE /* MendeleyObjectHelperTests.m */,
+				C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -995,6 +1002,8 @@
 		C4CD515519DAD9E400C8EB8D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */,
+				C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */,
 				C4F095071AA474D500C5951C /* academic_statuses.json */,
 				C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */,
 				C42AAA2B1A7BCA4700502358 /* disciplines.json */,
@@ -1214,11 +1223,13 @@
 				C462883319DB160700127ECE /* folders.json in Resources */,
 				C462883119DB160700127ECE /* documentList.json in Resources */,
 				C462882D19DB160700127ECE /* annotation.json in Resources */,
+				C8503FD21AB0725D00A56CE7 /* recentlyReadObject.json in Resources */,
 				C4CD515919DAD9E400C8EB8D /* InfoPlist.strings in Resources */,
 				C462882F19DB160700127ECE /* catalogueArray.json in Resources */,
 				C42AAA2C1A7BCA4700502358 /* disciplines.json in Resources */,
 				C462883719DB160700127ECE /* profiles.json in Resources */,
 				C462883519DB160700127ECE /* group.json in Resources */,
+				C8503FD11AB0725D00A56CE7 /* recentlyReadArray.json in Resources */,
 				C462883619DB160700127ECE /* groupList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1426,6 +1437,7 @@
 				C462883C19DB164600127ECE /* MendeleyProfilesAPITests.m in Sources */,
 				C462885D19DB176C00127ECE /* MendeleyQueryParameterTests.m in Sources */,
 				C462884519DB16B100127ECE /* MendeleyKitTestsThreadHelper.m in Sources */,
+				C8503FCE1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m in Sources */,
 				C462884B19DB171900127ECE /* MendeleyErrorManagerTests.m in Sources */,
 				C462886F19DB17F100127ECE /* MendeleyMockNetworkProvider.m in Sources */,
 				C462885A19DB175500127ECE /* MendeleyResponseTests.m in Sources */,

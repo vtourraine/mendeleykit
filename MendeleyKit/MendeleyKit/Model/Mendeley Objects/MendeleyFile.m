@@ -22,3 +22,6 @@
 
 @implementation MendeleyFile
 @end
+
+@implementation MendeleyRecentlyRead
+@end
