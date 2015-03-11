@@ -32,7 +32,8 @@
 
 - (NSDictionary *)recentlyReadServiceHeaders
 {
-    return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONRecentlyRead };
+    return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONRecentlyRead,
+              kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONRecentlyRead };
 }
 
 - (NSDictionary *)uploadFileHeadersWithLinkRel:(NSString *)linkRel
