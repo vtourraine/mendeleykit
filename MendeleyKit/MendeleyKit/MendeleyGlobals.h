@@ -21,7 +21,8 @@
 #ifndef MendeleyKit_MendeleyGlobals_h
 #define MendeleyKit_MendeleyGlobals_h
 
-@class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject;
+@class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject, MendeleySecureObject;
+
 /***********************************************
    @name Mendeley Server URLs as strings
 ***********************************************/
@@ -91,6 +92,7 @@ typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
 typedef void (^MendeleyCompletionBlock)(BOOL success, NSError *error);
 typedef void (^MendeleyArrayCompletionBlock)(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error);
 typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
+typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject *object, MendeleySyncInfo *syncInfo, NSError *error);
 typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary *dictionary, NSError *error);
 typedef void (^MendeleyDeserializedResponseObject)(id deserializedResponseObject, NSError *deserializeError);
 typedef void (^MendeleyBinaryDataCompletionBlock)(NSData *binaryData, NSError *dataError);
@@ -229,7 +231,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyModelUserProfile                         @"MendeleyUserProfile"
 #define kMendeleyModelEmployment                          @"MendeleyEmployment"
 #define kMendeleyModelEducation                           @"MendeleyEducation"
-#define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyReadInfo"
+#define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyRead"
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
 #define kMendeleyModelKeywords                            @"NSArray"

@@ -51,6 +51,10 @@
  */
 - (instancetype)initWithObjectCompletionBlock:(MendeleyObjectCompletionBlock)objectCompletionBlock;
 
+/**
+   @param objectCompletionBlock
+ */
+- (instancetype)initWithSecureObjectCompletionBlock:(MendeleySecureObjectCompletionBlock)secureObjectCompletionBlock;
 
 /**
    @param dictionaryCompletionBlock
@@ -58,7 +62,7 @@
 - (instancetype)initWithDictionaryCompletionBlock:(MendeleyDictionaryResponseBlock)dictionaryCompletionBlock;
 
 /**
- @param binaryDataCompletionBlock
+   @param binaryDataCompletionBlock
  */
 - (instancetype)initWithBinaryDataCompletionBlock:(MendeleyBinaryDataCompletionBlock)binaryDataCompletionBlock;
 /**
@@ -90,6 +94,16 @@
                             error:(NSError *)error;
 
 /**
+   executes the MendeleySecureObjectCompletionBlock on the main thread
+   @param mendeleySecureObject
+   @param syncInfo
+   @param error
+ */
+- (void)executeWithMendeleySecureObject:(MendeleySecureObject *)mendeleySecureObject
+                               syncInfo:(MendeleySyncInfo *)syncInfo
+                                  error:(NSError *)error;
+
+/**
    executes the MendeleyDictionaryCompletionBlock on the main thread
    @param dictionary
    @param error
@@ -97,9 +111,9 @@
 - (void)executeWithDictionary:(NSDictionary *)dictionary error:(NSError *)error;
 
 /**
- executes the MendeleyDictionaryCompletionBlock on the main thread
- @param binaryData
- @param error
+   executes the MendeleyDictionaryCompletionBlock on the main thread
+   @param binaryData
+   @param error
  */
 - (void)executeWithBinaryData:(NSData *)binaryData error:(NSError *)error;
 @end

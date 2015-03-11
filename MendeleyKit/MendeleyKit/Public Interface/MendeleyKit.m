@@ -1185,6 +1185,65 @@
     return task;
 }
 
+- (MendeleyTask *)addRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+                  completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI addRecentlyRead:recentlyRead
+                                           task:task
+                                completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+
+}
+
+- (MendeleyTask *)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+                     completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.filesAPI updateRecentlyRead:recentlyRead
+                                              task:task
+                                   completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
 
 #pragma mark -
 #pragma mark Folder

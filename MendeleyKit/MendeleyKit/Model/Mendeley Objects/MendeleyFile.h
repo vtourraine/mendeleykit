@@ -29,7 +29,7 @@
 @property (nonatomic, strong) NSNumber *size;
 @end
 
-@interface MendeleyRecentlyReadInfo : MendeleySecureObject
+@interface MendeleyRecentlyRead : MendeleySecureObject
 @property (nonatomic, strong) NSString *file_id;
 @property (nonatomic, strong) NSNumber *page;
 @property (nonatomic, strong) NSNumber *vertical_position;

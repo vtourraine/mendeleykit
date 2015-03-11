@@ -374,8 +374,6 @@
      }];
 }
 
-
-
 - (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders

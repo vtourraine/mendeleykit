@@ -59,7 +59,7 @@
 
 @interface MendeleyFileParameters : MendeleyQueryRequestParameters
 @property (nonatomic, strong) NSDate *added_since;
-@property (nonatomic, strong) NSString *document_id
+@property (nonatomic, strong) NSString *document_id;
 @end
 
 @interface MendeleyFolderParameters : MendeleyQueryRequestParameters

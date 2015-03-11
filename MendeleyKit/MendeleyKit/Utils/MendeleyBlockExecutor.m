@@ -24,6 +24,7 @@
 @property (nonatomic, copy) MendeleyArrayCompletionBlock arrayCompletionBlock;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, copy) MendeleyObjectCompletionBlock objectCompletionBlock;
+@property (nonatomic, copy) MendeleySecureObjectCompletionBlock secureObjectCompletionBlock;
 @property (nonatomic, copy) MendeleyDictionaryResponseBlock dictionaryCompletionBlock;
 @property (nonatomic, copy) MendeleyStringArrayCompletionBlock stringArrayCompletionBlock;
 @property (nonatomic, copy) MendeleyBinaryDataCompletionBlock binaryDataCompletionBlock;
@@ -80,6 +81,16 @@
 
 }
 
+- (instancetype)initWithSecureObjectCompletionBlock:(MendeleySecureObjectCompletionBlock)secureObjectCompletionBlock
+{
+    self = [super init];
+    if (nil != self)
+    {
+        _secureObjectCompletionBlock = secureObjectCompletionBlock;
+    }
+    return self;
+}
+
 - (instancetype)initWithDictionaryCompletionBlock:(MendeleyDictionaryResponseBlock)dictionaryCompletionBlock
 {
     self = [super init];
@@ -101,52 +112,72 @@
 }
 
 
-- (void)executeWithArray:(NSArray *)array syncInfo:(MendeleySyncInfo *)syncInfo error:(NSError *)error
+- (void)executeWithArray:(NSArray *)array
+                syncInfo:(MendeleySyncInfo *)syncInfo
+                   error:(NSError *)error
 {
     if (nil == self.arrayCompletionBlock)
     {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-                       self.arrayCompletionBlock(array, syncInfo, error);
-                   });
+        self.arrayCompletionBlock(array, syncInfo, error);
+    });
 }
 
-- (void)executeWithBool:(BOOL)success error:(NSError *)error
+- (void)executeWithBool:(BOOL)success
+                  error:(NSError *)error
 {
     if (nil == self.completionBlock)
     {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-                       self.completionBlock(success, error);
-                   });
+        self.completionBlock(success, error);
+    });
 }
 
-- (void)executeWithMendeleyObject:(MendeleyObject *)mendeleyObject syncInfo:(MendeleySyncInfo *)syncInfo error:(NSError *)error
+- (void)executeWithMendeleyObject:(MendeleyObject *)mendeleyObject
+                         syncInfo:(MendeleySyncInfo *)syncInfo
+                            error:(NSError *)error
 {
     if (nil == self.objectCompletionBlock)
     {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-                       self.objectCompletionBlock(mendeleyObject, syncInfo, error);
-                   });
+        self.objectCompletionBlock(mendeleyObject, syncInfo, error);
+    });
 }
 
-- (void)executeWithDictionary:(NSDictionary *)dictionary error:(NSError *)error
+- (void)executeWithMendeleySecureObject:(MendeleySecureObject *)mendeleySecureObject
+                               syncInfo:(MendeleySyncInfo *)syncInfo
+                                  error:(NSError *)error
+{
+    if (nil == self.secureObjectCompletionBlock)
+    {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.secureObjectCompletionBlock(mendeleySecureObject, syncInfo, error);
+    });
+}
+
+- (void)executeWithDictionary:(NSDictionary *)dictionary
+                        error:(NSError *)error
 {
     if (nil == self.dictionaryCompletionBlock)
     {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-                       self.dictionaryCompletionBlock(dictionary, error);
-                   });
+        self.dictionaryCompletionBlock(dictionary, error);
+    });
 
 }
 
-- (void)executeWithBinaryData:(NSData *)binaryData error:(NSError *)error
+- (void)executeWithBinaryData:(NSData *)binaryData
+                        error:(NSError *)error
 {
     if (nil == self.binaryDataCompletionBlock)
     {
