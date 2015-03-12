@@ -133,12 +133,6 @@
     return NO;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    self.webView.delegate = nil;
-    self.webView = nil;
-}
-
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     NSDictionary *userInfo = [error userInfo];
