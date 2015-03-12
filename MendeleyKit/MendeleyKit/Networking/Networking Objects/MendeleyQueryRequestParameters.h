@@ -99,5 +99,4 @@
 @end
 
 @interface MendeleyRecentlyReadParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSNumber *limit;
 @end
