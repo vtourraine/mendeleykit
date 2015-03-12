@@ -21,7 +21,8 @@
 #ifndef MendeleyKit_MendeleyGlobals_h
 #define MendeleyKit_MendeleyGlobals_h
 
-@class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject;
+@class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject, MendeleySecureObject;
+
 /***********************************************
    @name Mendeley Server URLs as strings
 ***********************************************/
@@ -91,6 +92,7 @@ typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
 typedef void (^MendeleyCompletionBlock)(BOOL success, NSError *error);
 typedef void (^MendeleyArrayCompletionBlock)(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error);
 typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
+typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject *object, MendeleySyncInfo *syncInfo, NSError *error);
 typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary *dictionary, NSError *error);
 typedef void (^MendeleyDeserializedResponseObject)(id deserializedResponseObject, NSError *deserializeError);
 typedef void (^MendeleyBinaryDataCompletionBlock)(NSData *binaryData, NSError *dataError);
@@ -129,6 +131,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTRequestJSONProfileUpdateType         @"application/vnd.mendeley-profile-amendment.1+json"
 #define kMendeleyRESTRequestJSONDisciplineType            @"application/vnd.mendeley-discipline.1+json"
 #define kMendeleyRESTRequestJSONAcademicStatuses          @"application/vnd.mendeley-academic-status.1+json"
+#define kMendeleyRESTRequestJSONRecentlyRead              @"application/vnd.mendeley-recently-read.1+json"
 #define kMendeleyOAuth2ClientVersionKey                   @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                       @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                  @"Accept-Language"
@@ -178,6 +181,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTAPIProfiles                          @"profiles"
 #define kMendeleyRESTAPIDisciplines                       @"disciplines"
 #define kMendeleyRESTAPIAcademicStatuses                  @"academic_statuses"
+#define kMendeleyRESTAPIRecentlyRead                      @"recently_read"
 
 /***********************************************
    @name REST API Query Parameters
@@ -227,6 +231,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyModelUserProfile                         @"MendeleyUserProfile"
 #define kMendeleyModelEmployment                          @"MendeleyEmployment"
 #define kMendeleyModelEducation                           @"MendeleyEducation"
+#define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyRead"
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
 #define kMendeleyModelKeywords                            @"NSArray"

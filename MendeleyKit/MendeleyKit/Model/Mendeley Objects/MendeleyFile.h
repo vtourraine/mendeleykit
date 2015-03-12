@@ -28,3 +28,10 @@
 @property (nonatomic, strong) NSString *catalog_id;
 @property (nonatomic, strong) NSNumber *size;
 @end
+
+@interface MendeleyRecentlyRead : MendeleySecureObject
+@property (nonatomic, strong) NSString *file_id;
+@property (nonatomic, strong) NSNumber *page;
+@property (nonatomic, strong) NSNumber *vertical_position;
+@property (nonatomic, strong) NSDate *date;
+@end

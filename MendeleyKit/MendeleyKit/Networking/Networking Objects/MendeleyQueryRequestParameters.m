@@ -261,3 +261,6 @@
     return self;
 }
 @end
+
+@implementation MendeleyRecentlyReadParameters
+@end

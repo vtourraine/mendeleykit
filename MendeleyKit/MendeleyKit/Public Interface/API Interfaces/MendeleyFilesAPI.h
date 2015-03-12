@@ -108,4 +108,44 @@
                      task:(MendeleyTask *)task
           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+/**
+   This method returns a list of recently showed files on any device running a version
+   of Mendeley (or a third part app) that support this feature.
+   The objects are sorted by date with the most recent first.
+   By default 20 items are returned.
+   The number of records saved on the server is limited.
+   @param queryParameters the parameter set to be used in the request
+   @param task
+   @param completionBlock
+ */
+- (void)recentlyReadWithParameters:(MendeleyRecentlyReadParameters *)queryParameters
+                              task:(MendeleyTask *)task
+                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   This method create/replace an entry of recently read for a file.
+   Any existing entry with a matching id if present is removed, and a new one is created.
+   The new one is inserted into the list at a position determined by the
+   current server time or at the time provided by the client if specified.
+   @param recentlyRead the recently read object to create
+   @param task
+   @param completionBlock
+ */
+- (void)addRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+                   task:(MendeleyTask *)task
+        completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
+
+/**
+   This method update the entry of recently read for a file.
+   If an entry with the given id exists in the history for this user,
+   its position (page and vertical_position values) are updated.
+   It is not brought to the top of the history.
+   If there is no entry with matching id in the recent history, it returns an error.
+   @param recentlyRead the recently read object to update
+   @param task
+   @param completionBlock
+ */
+- (void)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
 @end

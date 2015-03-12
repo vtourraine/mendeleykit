@@ -1,0 +1,20 @@
+[
+  {
+    "file_id": "aFileID",
+    "page": 0,
+    "vertical_position": 10,
+    "date": "2014-12-03T14:25:06.000Z"
+  },
+  {
+    "file_id": "anotherFileID",
+    "page": 1,
+    "vertical_position": 20,
+    "date": "2013-09-06T18:05:34.000Z"
+  },
+  {
+    "file_id": "justAnotherFileID",
+    "page": 2,
+    "vertical_position": 30,
+    "date": "2012-06-09T23:55:07.000Z"
+  }
+]
