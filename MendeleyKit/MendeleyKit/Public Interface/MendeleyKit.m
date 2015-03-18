@@ -169,6 +169,33 @@
     [store removeOAuthCredentials];
 }
 
+- (void)checkAuthorisationStatusWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    if (!self.isAuthenticated)
+    {
+        if (completionBlock)
+        {
+            NSError *error = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyUnauthorizedErrorCode];
+            completionBlock(NO, error);
+        }
+        return;
+    }
+    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
+    MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
+    MendeleyKitConfiguration *configuration = [MendeleyKitConfiguration sharedInstance];
+    [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error) {
+         if (nil != completionBlock)
+         {
+             BOOL success = (nil != credentials);
+             completionBlock(success, error);
+         }
+     }];
+
+
+}
+
+
+
 - (MendeleyTask *)pagedListOfObjectsWithLinkedURL:(NSURL *)linkURL
                                     expectedModel:(NSString *)expectedModel
                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock

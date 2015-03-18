@@ -52,6 +52,16 @@
  */
 - (void)updateConfiguration;
 
+
+/**
+   this method checks the validity of access and refresh token.
+   E.g. if user changes password on another client, the refresh_token will expire
+   In this case this method will return success == NO and error != nil in the completion block
+   @param completionBlock
+ */
+- (void)checkAuthorisationStatusWithCompletionBlock:(MendeleyCompletionBlock)completionBlock;
+
+
 #pragma mark -
 #pragma mark General
 
