@@ -136,6 +136,7 @@
         completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
 
 /**
+   NOTE: this service is not yet available!
    This method update the entry of recently read for a file.
    If an entry with the given id exists in the history for this user,
    its position (page and vertical_position values) are updated.
@@ -144,8 +145,8 @@
    @param recentlyRead the recently read object to update
    @param task
    @param completionBlock
- */
-- (void)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+   - (void)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
                       task:(MendeleyTask *)task
            completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
+ */
 @end

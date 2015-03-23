@@ -497,6 +497,7 @@
                   completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
 
 /**
+   Note: this service is not yet available!
    This method update the entry of recently read for a file.
    If an entry with the given id exists in the history for this user,
    its position (page and vertical_position values) are updated.
@@ -504,9 +505,9 @@
    If there is no entry with matching id in the recent history, it returns an error.
    @param recentlyRead the recently read object to update
    @param completionBlock
- */
-- (MendeleyTask *)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+   - (MendeleyTask *)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
                      completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
+ */
 
 #pragma mark -
 #pragma mark Folders

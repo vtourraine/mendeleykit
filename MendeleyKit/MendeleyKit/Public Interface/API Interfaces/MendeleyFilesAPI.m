@@ -357,10 +357,12 @@
      }];
 }
 
-- (void)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+/**
+   This service is not yet available.
+   - (void)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
                       task:(MendeleyTask *)task
            completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock
-{
+   {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [NSError assertArgumentNotNil:recentlyRead argumentName:@"recentlyRead"];
 
@@ -411,6 +413,7 @@
               }];
          }
      }];
-}
+   }
+ */
 
 @end

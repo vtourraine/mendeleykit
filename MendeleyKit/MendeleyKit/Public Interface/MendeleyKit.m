@@ -1242,9 +1242,11 @@
 
 }
 
-- (MendeleyTask *)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
+/**
+   Note: this service is not yet available
+   - (MendeleyTask *)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
                      completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock
-{
+   {
     MendeleyTask *task = [MendeleyTask new];
 
     if (self.isAuthenticated)
@@ -1269,8 +1271,8 @@
     }
 
     return task;
-}
-
+   }
+ */
 
 #pragma mark -
 #pragma mark Folder
