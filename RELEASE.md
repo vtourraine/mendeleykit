@@ -1,9 +1,16 @@
 Release Notes
+Date: March 2015
+- added checkAuthorisationStatusWithCompletionBlock to check if authentication is still valid (e.g. after user changed password elsewhere)
+- added recentlyReadWithParameters:completionBlock to get a list of recently read PDF files from the server. This is a new API service
+- added addRecentlyRead:completionBlock to allow users to mark PDFs they opened to a 'recently read' list. This is a new API service
+
+
+Previous Releases
+Date: March 2015
 It's time to make this release the official 1.0.0 version of MendeleyKit.
 This version has a minor upgrade from 0.9.20
 - fixing an issue with rotating login screen and resizing
 
-Previous Releases
 Date: March 2015
 - we added 4 new methods to the MendeleyKit
 - academicStatusesWithCompletionBlock to obtain a list of Mendeley academic status types

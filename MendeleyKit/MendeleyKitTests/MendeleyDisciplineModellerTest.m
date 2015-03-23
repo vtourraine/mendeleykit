@@ -1,6 +1,3 @@
-//
-//  MendeleyDisciplineModellerTest.m
-//  MendeleyKit
 /*
  ******************************************************************************
  * Copyright (C) 2014-2017 Elsevier/Mendeley.
@@ -78,7 +75,7 @@
                  {
                      XCTAssertTrue(0 < ((NSArray *) parsedObject).count, @"There should be some disciplines in the array");
                      BOOL foundDisciplines = NO;
-                     for (MendeleyDiscipline * discipline in(NSArray *) parsedObject)
+                     for (MendeleyDiscipline *discipline in (NSArray *) parsedObject)
                      {
                          NSString *name = discipline.name;
                          if ([name isEqualToString:@"Earth Sciences"])

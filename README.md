@@ -1,4 +1,9 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 1.0.1
+23 March 2015
+- add a convenience method to check if authentication is still valid
+- add methods for a new /recently_read API service
+
 Version: 1.0.0
 9 March 2015
 - small fix to show proper login screen size after rotating device
