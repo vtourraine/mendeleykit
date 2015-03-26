@@ -65,6 +65,12 @@
    @param binaryDataCompletionBlock
  */
 - (instancetype)initWithBinaryDataCompletionBlock:(MendeleyBinaryDataCompletionBlock)binaryDataCompletionBlock;
+
+/**
+   @param oauthCompletionBlock
+ */
+- (instancetype)initWithOAuthCompletionBlock:(MendeleyOAuthCompletionBlock)oauthCompletionBlock;
+
 /**
    executes the MendeleyArrayCompletionBlock on the main thread
    @param array
@@ -116,4 +122,13 @@
    @param error
  */
 - (void)executeWithBinaryData:(NSData *)binaryData error:(NSError *)error;
+
+
+/**
+   executes the MendeleyOAuthCompletionBlock on the main thread
+   @param credentials
+   @param error
+ */
+- (void)executeWithCredentials:(MendeleyOAuthCredentials *)credentials error:(NSError *)error;
+
 @end

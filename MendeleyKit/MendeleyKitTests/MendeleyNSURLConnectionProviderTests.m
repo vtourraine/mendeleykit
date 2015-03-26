@@ -71,25 +71,25 @@
     __block NSObject *deserializedResponse;
     __block NSError *errorResponse;
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider invokeGET:self.testURL
-                                                   api:@"get"
-                                     additionalHeaders:nil
-                                       queryParameters:self.queryParameters
-                                authenticationRequired:NO
-                                                  task:[MendeleyTask new]
-                                       completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            deserializedResponse = response.responseBody;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider invokeGET:self.testURL
+                                    api:@"get"
+                      additionalHeaders:nil
+                        queryParameters:self.queryParameters
+                 authenticationRequired:NO
+                                   task:[MendeleyTask new]
+                        completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             deserializedResponse = response.responseBody;
+             *hasCalledBack = YES;
+         }];
+    });
 
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd when downloading or parsing a JSON: %@", errorResponse);
     XCTAssertTrue(([deserializedResponse isKindOfClass:[NSDictionary class]] ||
                    [deserializedResponse isKindOfClass:[NSArray class]]), @"The object returned is not an NSDictionary or NSArray");
     BOOL parameterNotFound = NO;
-    NSDictionary *queryParametersReceivedByTheServer = [(NSDictionary *) deserializedResponse objectForKey : @"args"];
+    NSDictionary *queryParametersReceivedByTheServer = [(NSDictionary *) deserializedResponse objectForKey:@"args"];
     for (NSString *parameterName in[self.queryParameters allKeys])
     {
         if (![queryParametersReceivedByTheServer objectForKey:parameterName] ||
@@ -110,24 +110,24 @@
     __block NSObject *deserializedResponse;
     __block NSError *errorResponse;
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider invokeGET:testBaseURL
-                                                   api:@"index.php/jocl/article/viewFile/143/102"
-                                     additionalHeaders:nil
-                                       queryParameters:nil
-                                authenticationRequired:NO
-                                                  task:[MendeleyTask new]
-                                       completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            deserializedResponse = response.responseBody;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider invokeGET:testBaseURL
+                                    api:@"index.php/jocl/article/viewFile/143/102"
+                      additionalHeaders:nil
+                        queryParameters:nil
+                 authenticationRequired:NO
+                                   task:[MendeleyTask new]
+                        completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             deserializedResponse = response.responseBody;
+             *hasCalledBack = YES;
+         }];
+    });
 
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd while downloading the file: %@", errorResponse);
     XCTAssertTrue([deserializedResponse isKindOfClass:[NSData class]], @"The object returned is not an NSData");
-    NSData *validPDF = [@"%PDF" dataUsingEncoding : NSASCIIStringEncoding];
-    XCTAssertTrue(((NSData *) deserializedResponse && [[(NSData *) deserializedResponse subdataWithRange: NSMakeRange(0, 4)] isEqualToData:validPDF]), @"The object returned is not a PDF");
+    NSData *validPDF = [@"%PDF" dataUsingEncoding:NSASCIIStringEncoding];
+    XCTAssertTrue(((NSData *) deserializedResponse && [[(NSData *) deserializedResponse subdataWithRange:NSMakeRange(0, 4)] isEqualToData:validPDF]), @"The object returned is not a PDF");
 
 }
 
@@ -137,24 +137,24 @@
     __block NSError *errorResponse;
 
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider invokePUT:self.testURL
-                                                   api:@"put"
-                                     additionalHeaders:self.additionalHeaders
-                                        bodyParameters:self.bodyParameters
-                                authenticationRequired:NO
-                                                  task:[MendeleyTask new]
-                                       completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            deserializedResponse = response.responseBody;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider invokePUT:self.testURL
+                                    api:@"put"
+                      additionalHeaders:self.additionalHeaders
+                         bodyParameters:self.bodyParameters
+                 authenticationRequired:NO
+                                   task:[MendeleyTask new]
+                        completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             deserializedResponse = response.responseBody;
+             *hasCalledBack = YES;
+         }];
+    });
 
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during PUT request: %@", errorResponse);
 
     BOOL headerNotFound = NO;
-    NSDictionary *headersFieldReceivedByTheServer = [(NSDictionary *) deserializedResponse objectForKey : @"headers"];
+    NSDictionary *headersFieldReceivedByTheServer = [(NSDictionary *) deserializedResponse objectForKey:@"headers"];
 
     for (NSString *headerFieldName in[self.additionalHeaders allKeys])
     {
@@ -166,7 +166,7 @@
     }
     XCTAssertFalse(headerNotFound, @"Problem with the additional headers. One or more headers set weren't received by the server ");
 
-    NSDictionary *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey : @"form"];
+    NSDictionary *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey:@"form"];
 
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
@@ -177,23 +177,23 @@
     __block NSObject *deserializedResponse;
     __block NSError *errorResponse;
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       NSDictionary *headers = @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONType };
-                       [self.networkProvider invokePOST:self.testURL
-                                                    api:@"post"
-                                      additionalHeaders:headers
-                                         bodyParameters:self.bodyParameters
-                                                 isJSON:YES
-                                 authenticationRequired:NO
-                                                   task:[MendeleyTask new]
-                                        completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            deserializedResponse = response.responseBody;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        NSDictionary *headers = @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONType };
+        [self.networkProvider invokePOST:self.testURL
+                                     api:@"post"
+                       additionalHeaders:headers
+                          bodyParameters:self.bodyParameters
+                                  isJSON:YES
+                  authenticationRequired:NO
+                                    task:[MendeleyTask new]
+                         completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             deserializedResponse = response.responseBody;
+             *hasCalledBack = YES;
+         }];
+    });
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during POST request: %@", errorResponse);
-    NSDictionary *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey : @"json"];
+    NSDictionary *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey:@"json"];
 
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
@@ -207,22 +207,22 @@
     NSString *testString = @"test * test * test";
     NSData *bodyData = [testString dataUsingEncoding:NSUTF8StringEncoding];
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider invokePOST:self.testURL
-                                                    api:@"post"
-                                      additionalHeaders:nil
-                                               jsonData:bodyData
-                                 authenticationRequired:NO
-                                                   task:[MendeleyTask new]
-                                        completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            deserializedResponse = response.responseBody;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider invokePOST:self.testURL
+                                     api:@"post"
+                       additionalHeaders:nil
+                                jsonData:bodyData
+                  authenticationRequired:NO
+                                    task:[MendeleyTask new]
+                         completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             deserializedResponse = response.responseBody;
+             *hasCalledBack = YES;
+         }];
+    });
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during POST request: %@", errorResponse);
 
-    NSString *dataReceived = [[[(NSDictionary *) deserializedResponse objectForKey : @"form"] allKeys] lastObject];
+    NSString *dataReceived = [[[(NSDictionary *) deserializedResponse objectForKey:@"form"] allKeys] lastObject];
 
     XCTAssertTrue([testString isEqualToString:dataReceived], @"Sent parameters aren't the same received");
 
@@ -233,22 +233,22 @@
     __block NSObject *deserializedResponse;
     __block NSError *errorResponse;
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider invokePATCH:self.testURL
-                                                     api:@"patch"
-                                       additionalHeaders:nil
-                                          bodyParameters:self.bodyParameters
-                                  authenticationRequired:NO
-                                                    task:[MendeleyTask new]
-                                         completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            deserializedResponse = response.responseBody;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider invokePATCH:self.testURL
+                                      api:@"patch"
+                        additionalHeaders:nil
+                           bodyParameters:self.bodyParameters
+                   authenticationRequired:NO
+                                     task:[MendeleyTask new]
+                          completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             deserializedResponse = response.responseBody;
+             *hasCalledBack = YES;
+         }];
+    });
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during PATCH request: %@", errorResponse);
 
-    NSDictionary *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey : @"form"];
+    NSDictionary *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey:@"form"];
 
     XCTAssertTrue([self.bodyParameters isEqualToDictionary:jsonReceived], @"Sent parameters aren't the same received");
 
@@ -259,23 +259,23 @@
     __block NSObject *deserializedResponse;
     __block NSError *errorResponse;
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider invokeDELETE:self.testURL
-                                                      api:@"delete"
-                                        additionalHeaders:self.additionalHeaders
-                                           bodyParameters:self.bodyParameters
-                                   authenticationRequired:NO
-                                                     task:[MendeleyTask new]
-                                          completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            deserializedResponse = response.responseBody;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider invokeDELETE:self.testURL
+                                       api:@"delete"
+                         additionalHeaders:self.additionalHeaders
+                            bodyParameters:self.bodyParameters
+                    authenticationRequired:NO
+                                      task:[MendeleyTask new]
+                           completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             deserializedResponse = response.responseBody;
+             *hasCalledBack = YES;
+         }];
+    });
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during PATCH request: %@", errorResponse);
 
     BOOL headerNotFound = NO;
-    NSDictionary *headersFieldReceivedByTheServer = [(NSDictionary *) deserializedResponse objectForKey : @"headers"];
+    NSDictionary *headersFieldReceivedByTheServer = [(NSDictionary *) deserializedResponse objectForKey:@"headers"];
 
     for (NSString *headerFieldName in[self.additionalHeaders allKeys])
     {
@@ -288,7 +288,7 @@
     XCTAssertFalse(headerNotFound, @"Problem with the additional headers. One or more headers setted weren't received by the server ");
 
     NSString *bodyParamtersstring = [MendeleyURLBuilder httpBodyStringFromParameters:self.bodyParameters];
-    NSString *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey : @"data"];
+    NSString *jsonReceived = [(NSDictionary *) deserializedResponse objectForKey:@"data"];
 
     XCTAssertTrue([bodyParamtersstring isEqualToString:jsonReceived], @"Sent parameters aren't the same received");
 
@@ -298,16 +298,16 @@
 {
     __block NSError *errorResponse;
 
-    waitForBlock (^(BOOL *hasCalledBack) {
-                      [self.networkProvider invokeHEAD:self.testURL
-                                                   api:@""
-                                authenticationRequired:NO
-                                                  task:[MendeleyTask new]
-                                       completionBlock:^(MendeleyResponse *response, NSError *error) {
-                           errorResponse = error;
-                           *hasCalledBack = YES;
-                       }];
-                  });
+    waitForBlock(^(BOOL *hasCalledBack) {
+        [self.networkProvider invokeHEAD:self.testURL
+                                     api:@""
+                  authenticationRequired:NO
+                                    task:[MendeleyTask new]
+                         completionBlock:^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             *hasCalledBack = YES;
+         }];
+    });
     XCTAssertTrue(errorResponse == nil, @"An error was encounterd during PATCH request: %@", errorResponse);
 
 }
@@ -326,26 +326,26 @@
                                             @"delay": @"1" };
     __block BOOL isProgressCalled = NO;
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
+    waitForBlock( ^(BOOL *hasCalledBack) {
 
-                       [self.networkProvider invokeDownloadToFileURL:destinationURL
-                                                             baseURL:self.testURL
-                                                                 api:@"drip"
-                                                   additionalHeaders:nil
-                                                     queryParameters:delayQueryParameters
-                                              authenticationRequired:NO
-                                                                task:[MendeleyTask new]
-                                                       progressBlock: ^(NSNumber *progress) {
-                            NSLog(@"Update Received: %.2f", [progress floatValue]);
-                            isProgressCalled = YES;
-                        }
+        [self.networkProvider invokeDownloadToFileURL:destinationURL
+                                              baseURL:self.testURL
+                                                  api:@"drip"
+                                    additionalHeaders:nil
+                                      queryParameters:delayQueryParameters
+                               authenticationRequired:NO
+                                                 task:[MendeleyTask new]
+                                        progressBlock: ^(NSNumber *progress) {
+             NSLog(@"Update Received: %.2f", [progress floatValue]);
+             isProgressCalled = YES;
+         }
 
-                                                     completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                            errorResponse = error;
-                            fileURL = response.fileURL;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+                                      completionBlock: ^(MendeleyResponse *response, NSError *error) {
+             errorResponse = error;
+             fileURL = response.fileURL;
+             *hasCalledBack = YES;
+         }];
+    });
 
 
 
@@ -360,34 +360,34 @@
 
 }
 
-- (void)testUpload
-{
-    __block NSError *errorResponse;
-    __block BOOL isProgressCalled = NO;
-
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       NSURL *fileURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"GettingStartedGuide" withExtension:@"pdf"];
-                       [self.networkProvider invokeUploadForFileURL:fileURL
-                                                            baseURL:self.testURL
-                                                                api:@"post"
-                                                  additionalHeaders:nil
-                                             authenticationRequired:NO
-                                                               task:[MendeleyTask new]
-                                                      progressBlock:
-                        ^(NSNumber *progress){
-                            NSLog(@"Update received: %.2f", progress.doubleValue);
-                            isProgressCalled = YES;
-                        }
-                                                    completionBlock:^(MendeleyResponse *response, NSError *error){
-                            errorResponse = error;
-                            *hasCalledBack = YES;
-                        }];
-                   });
-    XCTAssertTrue(errorResponse == nil, @"An error was encountered while uploading the file: %@", errorResponse);
-
-    XCTAssertTrue(isProgressCalled, @"Progress status never called");
-
-}
+// - (void)testUpload
+// {
+//    __block NSError *errorResponse;
+//    __block BOOL isProgressCalled = NO;
+//
+//    waitForBlock( ^(BOOL *hasCalledBack) {
+//        NSURL *fileURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"GettingStartedGuide" withExtension:@"pdf"];
+//        [self.networkProvider invokeUploadForFileURL:fileURL
+//                                             baseURL:self.testURL
+//                                                 api:@"post"
+//                                   additionalHeaders:nil
+//                              authenticationRequired:NO
+//                                                task:[MendeleyTask new]
+//                                       progressBlock:
+//         ^(NSNumber *progress){
+//             NSLog(@"Update received: %.2f", progress.doubleValue);
+//             isProgressCalled = YES;
+//         }
+//                                     completionBlock:^(MendeleyResponse *response, NSError *error){
+//             errorResponse = error;
+//             *hasCalledBack = YES;
+//         }];
+//    });
+//    XCTAssertTrue(errorResponse == nil, @"An error was encountered while uploading the file: %@", errorResponse);
+//
+//    XCTAssertTrue(isProgressCalled, @"Progress status never called");
+//
+// }
 
 - (void)testCancelTask
 {
@@ -404,14 +404,14 @@
                     completionBlock: ^(MendeleyResponse *response, NSError *error) {
      }];
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider cancelTask:cancellationRequest
-                                        completionBlock: ^(BOOL success, NSError *error) {
-                            cancelSuccess = success;
-                            errorResponse = error;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider cancelTask:cancellationRequest
+                         completionBlock: ^(BOOL success, NSError *error) {
+             cancelSuccess = success;
+             errorResponse = error;
+             *hasCalledBack = YES;
+         }];
+    });
 
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);
 }
@@ -436,14 +436,14 @@
          }];
     }
 
-    waitForBlock ( ^(BOOL *hasCalledBack) {
-                       [self.networkProvider cancelAllTasks: ^(BOOL success, NSError *error) {
-                            cancelSuccess = success;
-                            errorResponse = error;
-                            numberOfDownloads--;
-                            *hasCalledBack = YES;
-                        }];
-                   });
+    waitForBlock( ^(BOOL *hasCalledBack) {
+        [self.networkProvider cancelAllTasks: ^(BOOL success, NSError *error) {
+             cancelSuccess = success;
+             errorResponse = error;
+             numberOfDownloads--;
+             *hasCalledBack = YES;
+         }];
+    });
 
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the requests: %@", errorResponse);
 
@@ -476,14 +476,14 @@
 
                                   completionBlock:^(MendeleyResponse *response, NSError *error) {                                              }];
 
-    waitForBlock (^(BOOL *hasCalledBack) {
-                      [self.networkProvider cancelTask:cancellationRequest
-                                       completionBlock: ^(BOOL success, NSError *error) {
-                           cancelSuccess = success;
-                           errorResponse = error;
-                           *hasCalledBack = YES;
-                       }];
-                  });
+    waitForBlock(^(BOOL *hasCalledBack) {
+        [self.networkProvider cancelTask:cancellationRequest
+                         completionBlock: ^(BOOL success, NSError *error) {
+             cancelSuccess = success;
+             errorResponse = error;
+             *hasCalledBack = YES;
+         }];
+    });
 
 
     XCTAssertTrue(errorResponse == nil && cancelSuccess, @"An error was encounterd while cancelling the request: %@", errorResponse);

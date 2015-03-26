@@ -28,6 +28,7 @@
 @property (nonatomic, copy) MendeleyDictionaryResponseBlock dictionaryCompletionBlock;
 @property (nonatomic, copy) MendeleyStringArrayCompletionBlock stringArrayCompletionBlock;
 @property (nonatomic, copy) MendeleyBinaryDataCompletionBlock binaryDataCompletionBlock;
+@property (nonatomic, copy) MendeleyOAuthCompletionBlock oauthCompletionBlock;
 @end
 
 @implementation MendeleyBlockExecutor
@@ -111,6 +112,16 @@
     return self;
 }
 
+- (instancetype)initWithOAuthCompletionBlock:(MendeleyOAuthCompletionBlock)oauthCompletionBlock
+{
+    self = [super init];
+    if (nil != self)
+    {
+        _oauthCompletionBlock = oauthCompletionBlock;
+    }
+    return self;
+}
+
 
 - (void)executeWithArray:(NSArray *)array
                 syncInfo:(MendeleySyncInfo *)syncInfo
@@ -187,4 +198,17 @@
         self.binaryDataCompletionBlock(binaryData, error);
     });
 }
+
+- (void)executeWithCredentials:(MendeleyOAuthCredentials *)credentials error:(NSError *)error
+{
+    if (nil == self.oauthCompletionBlock)
+    {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.oauthCompletionBlock(credentials, error);
+    });
+}
+
+
 @end

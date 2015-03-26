@@ -47,9 +47,9 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-                      sharedInstance = [[MendeleyDefaultOAuthProvider alloc] init];
+        sharedInstance = [[MendeleyDefaultOAuthProvider alloc] init];
 
-                  });
+    });
     return sharedInstance;
 
 }
@@ -217,15 +217,16 @@
          authenticationRequired:NO
                            task:nil
                 completionBlock:^(MendeleyResponse *response, NSError *error) {
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
          if (nil == response)
          {
-             completionBlock(nil, error);
+             [blockExec executeWithCredentials:nil error:error];
          }
          else
          {
              MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
              [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOAuthCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
-                  completionBlock(credentials, parseError);
+                  [blockExec executeWithCredentials:credentials error:parseError];
               }];
 
          }
