@@ -1213,7 +1213,7 @@
 }
 
 - (MendeleyTask *)addRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
-                  completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
 

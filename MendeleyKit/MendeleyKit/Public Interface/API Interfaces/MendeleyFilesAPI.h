@@ -133,7 +133,7 @@
  */
 - (void)addRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
                    task:(MendeleyTask *)task
-        completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
+        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    NOTE: this service is not yet available!
