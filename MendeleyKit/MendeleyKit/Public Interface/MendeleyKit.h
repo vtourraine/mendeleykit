@@ -494,7 +494,7 @@
    @param completionBlock
  */
 - (MendeleyTask *)addRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
-                  completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
    Note: this service is not yet available!
