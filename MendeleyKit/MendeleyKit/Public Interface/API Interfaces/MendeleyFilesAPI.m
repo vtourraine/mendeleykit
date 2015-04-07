@@ -308,7 +308,7 @@
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [NSError assertArgumentNotNil:recentlyRead argumentName:@"recentlyRead"];
 
-    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithSecureObjectCompletionBlock:completionBlock];
+    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
 
     NSError *serialiseError = nil;
