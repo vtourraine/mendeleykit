@@ -1,4 +1,8 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 1.0.3
+26 March 2015
+- minor change to ensure that completion handlers are executed on the main thread
+
 Version: 1.0.1
 23 March 2015
 - add a convenience method to check if authentication is still valid
