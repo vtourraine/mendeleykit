@@ -20,6 +20,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MendeleyOAuthCredentials.h"
+#import "MendeleyTask.h"
 
 @protocol MendeleyOAuthProvider <NSObject>
 @property (nonatomic, assign, readonly) BOOL isTrustedSSLServer;
@@ -68,6 +69,20 @@
  */
 - (void)refreshTokenWithOAuthCredentials:(MendeleyOAuthCredentials *)credentials
                          completionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
+
+/**
+ used when refreshing the access token. The completion block returns the OAuth credentials - or nil
+ if unsuccessful. When nil, an error object will be provided.
+ Threading note: refresh maybe handled on main as well as background thread.
+ @param credentials the current credentials (to be updated with the refresh)
+ @param task the task corresponding to the current operation
+ @param completionBlock
+ */
+- (void)refreshTokenWithOAuthCredentials:(MendeleyOAuthCredentials *)credentials
+                                    task:(MendeleyTask *)task
+                         completionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
+
+
 
 /**
    checks if the url string given is the Redirect URL

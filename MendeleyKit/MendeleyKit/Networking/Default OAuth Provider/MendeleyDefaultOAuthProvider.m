@@ -173,16 +173,26 @@
 - (void)refreshTokenWithOAuthCredentials:(MendeleyOAuthCredentials *)credentials
                          completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
+    [self refreshTokenWithOAuthCredentials:credentials
+                                      task:nil
+                           completionBlock:completionBlock];
+}
+
+- (void)refreshTokenWithOAuthCredentials:(MendeleyOAuthCredentials *)credentials
+                                    task:(id)task
+                         completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
+{
     [NSError assertArgumentNotNil:credentials argumentName:@"credentials"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuth2RefreshToken,
                                    kMendeleyOAuth2RefreshToken : credentials.refresh_token,
                                    kMendeleyOAuth2ClientSecretKey : self.clientSecret,
                                    kMendeleyOAuth2ClientIDKey : self.clientID };
-
+    
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
-    [self executeAuthenticationRequestWithRequestHeader:requestHeader
+    [self executeAuthenticationRequestWithTask:task
+                                 requestHeader:requestHeader
                                             requestBody:requestBody
                                         completionBlock:completionBlock];
 }
@@ -204,7 +214,8 @@
 
 #pragma mark private methods
 
-- (void)executeAuthenticationRequestWithRequestHeader:(NSDictionary *)requestHeader
+- (void)executeAuthenticationRequestWithTask:(MendeleyTask *)task
+                               requestHeader:(NSDictionary *)requestHeader
                                           requestBody:(NSDictionary *)requestBody
                                       completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
@@ -215,24 +226,30 @@
                  bodyParameters:requestBody
                          isJSON:NO
          authenticationRequired:NO
-                           task:nil
+                           task:task
                 completionBlock:^(MendeleyResponse *response, NSError *error) {
-         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
-         if (nil == response)
-         {
-             [blockExec executeWithCredentials:nil error:error];
-         }
-         else
-         {
-             MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
-             [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOAuthCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
-                  [blockExec executeWithCredentials:credentials error:parseError];
-              }];
+                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
+                    if (nil == response)
+                    {
+                        [blockExec executeWithCredentials:nil error:error];
+                    }
+                    else
+                    {
+                        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOAuthCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
+                            [blockExec executeWithCredentials:credentials error:parseError];
+                        }];
+                        
+                    }
+                    
+                }];
+}
 
-         }
-
-     }];
-
+- (void)executeAuthenticationRequestWithRequestHeader:(NSDictionary *)requestHeader
+                                          requestBody:(NSDictionary *)requestBody
+                                      completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
+{
+    [self executeAuthenticationRequestWithTask:nil requestHeader:requestHeader requestBody:requestBody completionBlock:completionBlock];
 }
 
 

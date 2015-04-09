@@ -58,8 +58,9 @@
    E.g. if user changes password on another client, the refresh_token will expire
    In this case this method will return success == NO and error != nil in the completion block
    @param completionBlock
+   @return a MendeleyTask object used for cancelling the operation
  */
-- (void)checkAuthorisationStatusWithCompletionBlock:(MendeleyCompletionBlock)completionBlock;
+- (MendeleyTask *)checkAuthorisationStatusWithCompletionBlock:(MendeleyCompletionBlock)completionBlock;
 
 
 #pragma mark -
