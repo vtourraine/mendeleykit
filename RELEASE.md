@@ -1,7 +1,7 @@
 RELEASE NOTES
 Date: April 2015:
 - checkAuthorisationStatusWithCompletionBlock now returns a cancellable MendeleyTask object
-
+- minor bug fix in addRecentlyRead to ensure the right completion handler is being executed
 
 Date: March 2015
 - a small change in the oauth handling to ensure that execution of completion handlers is done on main thread.

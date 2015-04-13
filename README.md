@@ -1,7 +1,7 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 Version: 1.0.4:
 13 April 2015
-- the method to check authorisation status now returns a cancellable MendeleyTask object
+- the method to check authorisation status now returns a cancellable MendeleyTask object and a minor bug fix
 
 Version: 1.0.3
 26 March 2015
