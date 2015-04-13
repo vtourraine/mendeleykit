@@ -308,7 +308,8 @@
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [NSError assertArgumentNotNil:recentlyRead argumentName:@"recentlyRead"];
 
-    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
+    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
+                                        initWithObjectCompletionBlock:completionBlock];
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
 
     NSError *serialiseError = nil;
@@ -332,9 +333,7 @@
               completionBlock: ^(MendeleyResponse *response, NSError *error) {
          if (![self.helper isSuccessForResponse:response error:&error])
          {
-             [blockExec executeWithMendeleySecureObject:nil
-                                               syncInfo:nil
-                                                  error:error];
+             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
          }
          else
          {
@@ -342,15 +341,15 @@
              [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelRecentlyRead completionBlock: ^(MendeleyRecentlyRead *recentlyRead, NSError *parseError) {
                   if (nil != parseError)
                   {
-                      [blockExec executeWithMendeleySecureObject:nil
-                                                        syncInfo:nil
-                                                           error:parseError];
+                      [blockExec executeWithMendeleyObject:nil
+                                                  syncInfo:nil
+                                                     error:parseError];
                   }
                   else
                   {
-                      [blockExec executeWithMendeleySecureObject:recentlyRead
-                                                        syncInfo:response.syncHeader
-                                                           error:nil];
+                      [blockExec executeWithMendeleyObject:recentlyRead
+                                                  syncInfo:response.syncHeader
+                                                     error:nil];
                   }
               }];
          }
