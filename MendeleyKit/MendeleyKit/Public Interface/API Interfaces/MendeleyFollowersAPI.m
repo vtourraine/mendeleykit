@@ -22,4 +22,111 @@
 
 @implementation MendeleyFollowersAPI
 
+- (NSDictionary *)defaultQueryParameters
+{
+    return [[MendeleyFollowersParameters new] valueStringDictionary];
+}
+
+- (NSDictionary *)defaultServiceRequestHeaders
+{
+    return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONFollowType };
+}
+
+- (void)followersForUserWithID:(NSString *)profileID
+                    parameters:(MendeleyFollowersParameters *)queryParameters
+                          task:(MendeleyTask *)task
+               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertStringArgumentNotNilOrEmpty:profileID argumentName:@"profileID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+
+    if (!queryParameters) {
+        queryParameters = [MendeleyFollowersParameters new];
+    }
+    queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
+    queryParameters.follower = profileID;
+
+    NSDictionary *query = [queryParameters valueStringDictionary];
+
+    [self.helper mendeleyObjectListOfType:kMendeleyModelFollow
+                                      api:kMendeleyRESTAPIFollowers
+                               parameters:query
+                        additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
+                          completionBlock:completionBlock];
+}
+
+- (void)followedByUserWithID:(NSString *)profileID
+                  parameters:(MendeleyFollowersParameters *)queryParameters
+                        task:(MendeleyTask *)task
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertStringArgumentNotNilOrEmpty:profileID argumentName:@"profileID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+
+    if (!queryParameters) {
+        queryParameters = [MendeleyFollowersParameters new];
+    }
+    queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
+    queryParameters.followed = profileID;
+
+    NSDictionary *query = [queryParameters valueStringDictionary];
+
+
+    [self.helper mendeleyObjectListOfType:kMendeleyModelFollow
+                                      api:kMendeleyRESTAPIFollowers
+                               parameters:query
+                        additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
+                          completionBlock:completionBlock];
+}
+
+- (void)pendingFollowersForUserWithID:(NSString *)profileID
+                           parameters:(MendeleyFollowersParameters *)queryParameters
+                                 task:(MendeleyTask *)task
+                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertStringArgumentNotNilOrEmpty:profileID argumentName:@"profileID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+
+    if (!queryParameters) {
+        queryParameters = [MendeleyFollowersParameters new];
+    }
+    queryParameters.status = kMendeleyRESTAPIQueryFollowersTypePending;
+    queryParameters.follower = profileID;
+
+    NSDictionary *query = [queryParameters valueStringDictionary];
+
+    [self.helper mendeleyObjectListOfType:kMendeleyModelFollow
+                                      api:kMendeleyRESTAPIFollowers
+                               parameters:query
+                        additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
+                          completionBlock:completionBlock];
+}
+
+- (void)pendingFollowedByUserWithID:(NSString *)profileID
+                         parameters:(MendeleyFollowersParameters *)queryParameters
+                               task:(MendeleyTask *)task
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [NSError assertStringArgumentNotNilOrEmpty:profileID argumentName:@"profileID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+
+    if (!queryParameters) {
+        queryParameters = [MendeleyFollowersParameters new];
+    }
+    queryParameters.status = kMendeleyRESTAPIQueryFollowersTypePending;
+    queryParameters.followed = profileID;
+
+    NSDictionary *query = [queryParameters valueStringDictionary];
+
+    [self.helper mendeleyObjectListOfType:kMendeleyModelFollow
+                                      api:kMendeleyRESTAPIFollowers
+                               parameters:query
+                        additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
+                          completionBlock:completionBlock];
+}
+
 @end

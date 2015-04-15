@@ -20,7 +20,7 @@
 
 #import "MendeleyObjectAPI.h"
 
-@class MendeleyFollow;
+@class MendeleyFollowersParameters;
 
 @interface MendeleyFollowersAPI : MendeleyObjectAPI
 /**
@@ -30,5 +30,54 @@
    Developers should use the methods provided in MendeleyKit rather
    than the methods listed here.
  */
+
+
+/**
+   BETA - Obtain a list of followers for a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+ */
+- (void)followersForUserWithID:(NSString *)profileID
+                    parameters:(MendeleyFollowersParameters *)parameters
+                          task:(MendeleyTask *)task
+               completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   BETA - Obtain a list of users followed by a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+ */
+- (void)followedByUserWithID:(NSString *)profileID
+                  parameters:(MendeleyFollowersParameters *)parameters
+                        task:(MendeleyTask *)task
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   BETA - Obtain a list of pending followers for a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+ */
+- (void)pendingFollowersForUserWithID:(NSString *)profileID
+                           parameters:(MendeleyFollowersParameters *)parameters
+                                 task:(MendeleyTask *)task
+                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   BETA - Obtain a list of pending users followed by a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+ */
+- (void)pendingFollowedByUserWithID:(NSString *)profileID
+                         parameters:(MendeleyFollowersParameters *)parameters
+                               task:(MendeleyTask *)task
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 @end

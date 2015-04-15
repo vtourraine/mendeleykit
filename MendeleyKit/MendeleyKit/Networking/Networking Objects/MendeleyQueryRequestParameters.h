@@ -100,3 +100,9 @@
 
 @interface MendeleyRecentlyReadParameters : MendeleyQueryRequestParameters
 @end
+
+@interface MendeleyFollowersParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSString *follower;
+@property (nonatomic, strong) NSString *followed;
+@end

@@ -132,6 +132,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTRequestJSONDisciplineType            @"application/vnd.mendeley-discipline.1+json"
 #define kMendeleyRESTRequestJSONAcademicStatuses          @"application/vnd.mendeley-academic-status.1+json"
 #define kMendeleyRESTRequestJSONRecentlyRead              @"application/vnd.mendeley-recently-read.1+json"
+#define kMendeleyRESTRequestJSONFollowType                @"application/vnd.mendeley-follow.1+json"
 #define kMendeleyOAuth2ClientVersionKey                   @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                       @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                  @"Accept-Language"
@@ -182,6 +183,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTAPIDisciplines                       @"disciplines"
 #define kMendeleyRESTAPIAcademicStatuses                  @"academic_statuses"
 #define kMendeleyRESTAPIRecentlyRead                      @"recently_read"
+#define kMendeleyRESTAPIFollowers                         @"followers"
 
 /***********************************************
    @name REST API Query Parameters
@@ -210,6 +212,8 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTAPIQueryScopus                       @"scopus"
 #define kMendeleyRESTAPIDefaultPageSize                   50
 #define kMendeleyRESTAPIMaxPageSize                       200
+#define kMendeleyRESTAPIQueryFollowersTypeFollowing       @"following"
+#define kMendeleyRESTAPIQueryFollowersTypePending         @"pending"
 
 /***********************************************
    @name Data models
@@ -232,6 +236,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyModelEmployment                          @"MendeleyEmployment"
 #define kMendeleyModelEducation                           @"MendeleyEducation"
 #define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyRead"
+#define kMendeleyModelFollow                              @"MendeleyFollow"
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
 #define kMendeleyModelKeywords                            @"NSArray"
