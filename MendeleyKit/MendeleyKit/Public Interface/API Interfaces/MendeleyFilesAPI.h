@@ -109,7 +109,7 @@
           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   This method returns a list of recently showed files on any device running a version
+   BETA - This method returns a list of recently showed files on any device running a version
    of Mendeley (or a third part app) that support this feature.
    The objects are sorted by date with the most recent first.
    By default 20 items are returned.
@@ -123,7 +123,7 @@
                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   This method create/replace an entry of recently read for a file.
+   BETA - This method create/replace an entry of recently read for a file.
    Any existing entry with a matching id if present is removed, and a new one is created.
    The new one is inserted into the list at a position determined by the
    current server time or at the time provided by the client if specified.
