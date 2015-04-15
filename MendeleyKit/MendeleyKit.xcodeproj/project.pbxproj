@@ -275,6 +275,8 @@
 		C85463911ADE8AB500754160 /* MendeleyFollowersAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C854638F1ADE8AB500754160 /* MendeleyFollowersAPI.h */; };
 		C85463921ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */; };
 		C85463931ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */; };
+		C85463951ADE997C00754160 /* MendeleyFollowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463941ADE997C00754160 /* MendeleyFollowTests.m */; };
+		C85463991ADE9BCC00754160 /* followers.json in Resources */ = {isa = PBXBuildFile; fileRef = C85463971ADE9BCC00754160 /* followers.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -514,6 +516,8 @@
 		C854638B1ADE892D00754160 /* MendeleyFollow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFollow.m; path = "Model/Mendeley Objects/MendeleyFollow.m"; sourceTree = "<group>"; };
 		C854638F1ADE8AB500754160 /* MendeleyFollowersAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyFollowersAPI.h; path = "Public Interface/API Interfaces/MendeleyFollowersAPI.h"; sourceTree = "<group>"; };
 		C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFollowersAPI.m; path = "Public Interface/API Interfaces/MendeleyFollowersAPI.m"; sourceTree = "<group>"; };
+		C85463941ADE997C00754160 /* MendeleyFollowTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyFollowTests.m; sourceTree = "<group>"; };
+		C85463971ADE9BCC00754160 /* followers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followers.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -637,6 +641,7 @@
 				C462886219DB17A700127ECE /* MendeleyModelTest.m */,
 				C462886319DB17A700127ECE /* MendeleyObjectHelperTests.m */,
 				C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */,
+				C85463941ADE997C00754160 /* MendeleyFollowTests.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1016,23 +1021,24 @@
 		C4CD515519DAD9E400C8EB8D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */,
-				C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */,
 				C4F095071AA474D500C5951C /* academic_statuses.json */,
-				C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */,
-				C42AAA2B1A7BCA4700502358 /* disciplines.json */,
 				C462882219DB160700127ECE /* annotation.json */,
 				C462882319DB160700127ECE /* catalogue.json */,
 				C462882419DB160700127ECE /* catalogueArray.json */,
+				C42AAA2B1A7BCA4700502358 /* disciplines.json */,
 				C462882519DB160700127ECE /* document.json */,
 				C462882619DB160700127ECE /* documentList.json */,
 				C462882719DB160700127ECE /* folderContent.json */,
 				C462882819DB160700127ECE /* folders.json */,
+				C85463971ADE9BCC00754160 /* followers.json */,
+				C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */,
 				C462882A19DB160700127ECE /* group.json */,
 				C462882B19DB160700127ECE /* groupList.json */,
-				C462882C19DB160700127ECE /* profiles.json */,
-				C4CD515619DAD9E400C8EB8D /* MendeleyKitTests-Info.plist */,
 				C4CD515719DAD9E400C8EB8D /* InfoPlist.strings */,
+				C4CD515619DAD9E400C8EB8D /* MendeleyKitTests-Info.plist */,
+				C462882C19DB160700127ECE /* profiles.json */,
+				C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */,
+				C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1232,6 +1238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C462882E19DB160700127ECE /* catalogue.json in Resources */,
+				C85463991ADE9BCC00754160 /* followers.json in Resources */,
 				C462883219DB160700127ECE /* folderContent.json in Resources */,
 				C4F095081AA474D500C5951C /* academic_statuses.json in Resources */,
 				C414741B1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf in Resources */,
@@ -1447,6 +1454,7 @@
 				C462883B19DB164600127ECE /* MendeleyAnnotationTests.m in Sources */,
 				C462885819DB175500127ECE /* MendeleyOAuthStoreTests.m in Sources */,
 				C462884D19DB171900127ECE /* MendeleyPerformanceMeterTests.m in Sources */,
+				C85463951ADE997C00754160 /* MendeleyFollowTests.m in Sources */,
 				C462887019DB17F100127ECE /* MendeleyMockNetworkProviderTests.m in Sources */,
 				C462886A19DB17D200127ECE /* MendeleyAnnotationModellerTest.m in Sources */,
 				C462884C19DB171900127ECE /* MendeleyLogTests.m in Sources */,
