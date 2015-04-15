@@ -269,6 +269,12 @@
 		C8503FCE1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */; };
 		C8503FD11AB0725D00A56CE7 /* recentlyReadArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */; };
 		C8503FD21AB0725D00A56CE7 /* recentlyReadObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */; };
+		C854638C1ADE892D00754160 /* MendeleyFollow.h in Headers */ = {isa = PBXBuildFile; fileRef = C854638A1ADE892D00754160 /* MendeleyFollow.h */; };
+		C854638D1ADE892D00754160 /* MendeleyFollow.m in Sources */ = {isa = PBXBuildFile; fileRef = C854638B1ADE892D00754160 /* MendeleyFollow.m */; };
+		C854638E1ADE892D00754160 /* MendeleyFollow.m in Sources */ = {isa = PBXBuildFile; fileRef = C854638B1ADE892D00754160 /* MendeleyFollow.m */; };
+		C85463911ADE8AB500754160 /* MendeleyFollowersAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C854638F1ADE8AB500754160 /* MendeleyFollowersAPI.h */; };
+		C85463921ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */; };
+		C85463931ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -504,6 +510,10 @@
 		C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyRecentlyReadTests.m; sourceTree = "<group>"; };
 		C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = recentlyReadArray.json; sourceTree = "<group>"; };
 		C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = recentlyReadObject.json; sourceTree = "<group>"; };
+		C854638A1ADE892D00754160 /* MendeleyFollow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyFollow.h; path = "Model/Mendeley Objects/MendeleyFollow.h"; sourceTree = "<group>"; };
+		C854638B1ADE892D00754160 /* MendeleyFollow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFollow.m; path = "Model/Mendeley Objects/MendeleyFollow.m"; sourceTree = "<group>"; };
+		C854638F1ADE8AB500754160 /* MendeleyFollowersAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyFollowersAPI.h; path = "Public Interface/API Interfaces/MendeleyFollowersAPI.h"; sourceTree = "<group>"; };
+		C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFollowersAPI.m; path = "Public Interface/API Interfaces/MendeleyFollowersAPI.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -747,6 +757,8 @@
 				C4A134BD19DADDD10069DB7A /* MendeleyFile.m */,
 				C4A134BE19DADDD10069DB7A /* MendeleyFolder.h */,
 				C4A134BF19DADDD10069DB7A /* MendeleyFolder.m */,
+				C854638A1ADE892D00754160 /* MendeleyFollow.h */,
+				C854638B1ADE892D00754160 /* MendeleyFollow.m */,
 				C4A134C019DADDD10069DB7A /* MendeleyGroup.h */,
 				C4A134C119DADDD10069DB7A /* MendeleyGroup.m */,
 				C4A134C219DADDD10069DB7A /* MendeleyIdentifierType.h */,
@@ -861,6 +873,8 @@
 				C4A1352D19DADF280069DB7A /* MendeleyFilesAPI.m */,
 				C4A1352E19DADF280069DB7A /* MendeleyFoldersAPI.h */,
 				C4A1352F19DADF280069DB7A /* MendeleyFoldersAPI.m */,
+				C854638F1ADE8AB500754160 /* MendeleyFollowersAPI.h */,
+				C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */,
 				C4A1353019DADF280069DB7A /* MendeleyGroupsAPI.h */,
 				C4A1353119DADF280069DB7A /* MendeleyGroupsAPI.m */,
 				C4A1353219DADF280069DB7A /* MendeleyMetadataAPI.h */,
@@ -1069,6 +1083,7 @@
 				145C2DEE1A2CAB0C0005BFF6 /* MendeleyTask.h in Headers */,
 				145C2DEF1A2CAB0C0005BFF6 /* MendeleyTaskProvider.h in Headers */,
 				145C2DF01A2CAB0D0005BFF6 /* MendeleyOAuthConstants.h in Headers */,
+				C854638C1ADE892D00754160 /* MendeleyFollow.h in Headers */,
 				145C2DF11A2CAB0D0005BFF6 /* MendeleyOAuthCredentials.h in Headers */,
 				C4F095101AA47AAA00C5951C /* MendeleyAcademicStatus.h in Headers */,
 				145C2DF21A2CAB0D0005BFF6 /* MendeleyOAuthStore.h in Headers */,
@@ -1100,6 +1115,7 @@
 				145C2E0A1A2CAB0E0005BFF6 /* MendeleyKitUserInfoManager.h in Headers */,
 				145C2E0B1A2CAB0E0005BFF6 /* NSError+Exceptions.h in Headers */,
 				145C2E0C1A2CAB0E0005BFF6 /* NSError+MendeleyError.h in Headers */,
+				C85463911ADE8AB500754160 /* MendeleyFollowersAPI.h in Headers */,
 				145C2E0D1A2CAB0E0005BFF6 /* MendeleyPerformanceMeter.h in Headers */,
 				145C2E0E1A2CAB0E0005BFF6 /* MendeleyPerformanceMeterSession.h in Headers */,
 				145C2E0F1A2CAB0E0005BFF6 /* MendeleyTimer.h in Headers */,
@@ -1280,6 +1296,7 @@
 				C42111C21A2341A9006C044C /* MendeleyDocument.m in Sources */,
 				C42111C31A2341A9006C044C /* MendeleyDocumentType.m in Sources */,
 				C42111C41A2341A9006C044C /* MendeleyFile.m in Sources */,
+				C85463931ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */,
 				C42111C51A2341A9006C044C /* MendeleyFolder.m in Sources */,
 				C42111C61A2341A9006C044C /* MendeleyGroup.m in Sources */,
 				C42111C71A2341A9006C044C /* MendeleyIdentifierType.m in Sources */,
@@ -1329,6 +1346,7 @@
 				C42111F01A2341A9006C044C /* MendeleyKitHelper.m in Sources */,
 				C42111F11A2341A9006C044C /* MendeleyLog.m in Sources */,
 				C42111F21A2341A9006C044C /* NSDictionary+Merge.m in Sources */,
+				C854638E1ADE892D00754160 /* MendeleyFollow.m in Sources */,
 				C42111F31A2341A9006C044C /* NSMutableArray+MaximumSize.m in Sources */,
 				C42111F41A2341A9006C044C /* MendeleyErrorManager.m in Sources */,
 				C42111F51A2341A9006C044C /* MendeleyKitUserInfoManager.m in Sources */,
@@ -1352,6 +1370,7 @@
 				C4A134DA19DADDD10069DB7A /* MendeleyUserRole.m in Sources */,
 				C4CD514619DAD9E400C8EB8D /* MendeleyKit.m in Sources */,
 				0B387EEE19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m in Sources */,
+				C85463921ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */,
 				C4A134CF19DADDD10069DB7A /* MendeleyCatalogDocument.m in Sources */,
 				C4A134D419DADDD10069DB7A /* MendeleyGroup.m in Sources */,
 				C4A134FD19DADE850069DB7A /* MendeleyOAuthTokenHelper.m in Sources */,
@@ -1401,6 +1420,7 @@
 				C4A1350A19DADE950069DB7A /* MendeleyQueryRequestParameters.m in Sources */,
 				C4A134E119DADDF10069DB7A /* MendeleyObjectHelper.m in Sources */,
 				C4A1350B19DADE950069DB7A /* MendeleyRequest.m in Sources */,
+				C854638D1ADE892D00754160 /* MendeleyFollow.m in Sources */,
 				C4A134CE19DADDD10069DB7A /* MendeleyAnnotation.m in Sources */,
 				C4A1355419DAE0870069DB7A /* NSDictionary+Merge.m in Sources */,
 				0B387EDF19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.m in Sources */,

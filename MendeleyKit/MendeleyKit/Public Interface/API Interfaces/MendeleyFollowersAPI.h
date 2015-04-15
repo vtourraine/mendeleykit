@@ -18,22 +18,17 @@
  *****************************************************************************
  */
 
-#ifndef MendeleyKit_MendeleyModels_h
-#define MendeleyKit_MendeleyModels_h
+#import "MendeleyObjectAPI.h"
 
-#import "MendeleyAcademicStatus.h"
-#import "MendeleyAnnotation.h"
-#import "MendeleyCatalogDocument.h"
-#import "MendeleyDocument.h"
-#import "MendeleyDocumentType.h"
-#import "MendeleyFile.h"
-#import "MendeleyFolder.h"
-#import "MendeleyFollow.h"
-#import "MendeleyGroup.h"
-#import "MendeleyIdentifierType.h"
-#import "MendeleyMetadataLookup.h"
-#import "MendeleyPerson.h"
-#import "MendeleyProfile.h"
-#import "MendeleyUserRole.h"
+@class MendeleyFollow;
 
-#endif
+@interface MendeleyFollowersAPI : MendeleyObjectAPI
+/**
+   @name MendeleyFollowersAPI
+   This class provides access methods to the REST followers API
+   All of the methods are accessed via MendeleyKit.
+   Developers should use the methods provided in MendeleyKit rather
+   than the methods listed here.
+ */
+
+@end
