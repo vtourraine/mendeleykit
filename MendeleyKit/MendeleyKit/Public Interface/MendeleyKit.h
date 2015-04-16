@@ -190,6 +190,16 @@
                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
+   obtains the first page of authored documents for another user.
+   @param profileID profile ID of the user
+   @param parameters the parameter set to be used in the request
+   @param completionBlock returning array of documents
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)authoredDocumentListForUserWithProfileID:(NSString *)profileID
+                                           queryParameters:(MendeleyDocumentParameters *)queryParameters
+                                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+/**
    obtains a document for given ID from the library
    @param documentID the UUID of the document
    @param completionBlock returning the document

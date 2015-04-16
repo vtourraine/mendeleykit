@@ -55,6 +55,8 @@
 @property (nonatomic, strong) NSString *order;
 @property (nonatomic, strong) NSNumber *reverse;
 @property (nonatomic, strong) NSString *view;
+@property (nonatomic, strong) NSString *profile_id;
+@property (nonatomic, strong) NSNumber *authored;
 @end
 
 @interface MendeleyFileParameters : MendeleyQueryRequestParameters

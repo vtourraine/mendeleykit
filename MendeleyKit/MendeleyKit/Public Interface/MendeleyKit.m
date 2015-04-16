@@ -456,6 +456,37 @@
     return task;
 }
 
+- (MendeleyTask *)authoredDocumentListForUserWithProfileID:(NSString *)profileID
+                                           queryParameters:(MendeleyDocumentParameters *)queryParameters
+                                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI authoredDocumentListForUserWithProfileID:profileID
+                                                             queryParameters:queryParameters
+                                                                        task:task
+                                                             completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
 - (MendeleyTask *)documentWithDocumentID:(NSString *)documentID
                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
