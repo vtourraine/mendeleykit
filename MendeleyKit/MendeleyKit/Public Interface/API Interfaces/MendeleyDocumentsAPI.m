@@ -138,7 +138,7 @@
                                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     queryParameters.profile_id = profileID;
-    queryParameters.authored = @(YES);
+    queryParameters.authored = @"true";
     NSDictionary *query = [queryParameters valueStringDictionary];
 
     [self.helper mendeleyObjectListOfType:kMendeleyModelDocument
