@@ -26,7 +26,6 @@
 
 @interface MendeleyFollowTests : MendeleyKitTestBaseClass
 @property (nonatomic, strong) NSData *jsonArrayData;
-@property (nonatomic, strong) NSData *jsonObjectData;
 @end
 
 @implementation MendeleyFollowTests
@@ -39,10 +38,6 @@
     NSString *jsonArrayPath = [bundle pathForResource:@"followers.json" ofType:nil];
     NSData *jsonArray = [NSData dataWithContentsOfFile:jsonArrayPath];
     self.jsonArrayData = jsonArray;
-
-    NSString *jsonObjectPath = [bundle pathForResource:@"follow.json" ofType:nil];
-    NSData *jsonObject = [NSData dataWithContentsOfFile:jsonObjectPath];
-    self.jsonObjectData = jsonObject;
 }
 
 - (void)tearDown
@@ -75,9 +70,8 @@
                      BOOL foundFollows = NO;
                      for (MendeleyFollow *follow in (NSArray *) parsedObject)
                      {
-                         // TODO: change this with follow.object_ID = d0fdf611-d314-3f01-8f05-26106607378f when services will be updated
-                         NSString *object_id = follow.followed_id;
-                         if ([object_id isEqualToString:@"e8c6f844-d356-398c-956d-6e2051ab6d26"])
+                         NSString *object_id = follow.object_ID;
+                         if ([object_id isEqualToString:@"d0fdf611-d314-3f01-8f05-26106607378f"])
                          {
                              foundFollows = YES;
                              XCTAssertTrue([follow.followed_id isEqualToString:@"e8c6f844-d356-398c-956d-6e2051ab6d26"], @"The followed_id should be e8c6f844-d356-398c-956d-6e2051ab6d26");

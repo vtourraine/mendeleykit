@@ -1,12 +1,12 @@
 [
   {
-    "relation_id": "d0fdf611-d314-3f01-8f05-26106607378f",
+    "id": "d0fdf611-d314-3f01-8f05-26106607378f",
     "follower_id": "3064564d-9b66-3693-af3a-25b84524a014",
     "followed_id": "e8c6f844-d356-398c-956d-6e2051ab6d26",
     "status": "pending"
   },
   {
-    "relation_id": "a7c3f4dd-1e5e-3438-9963-dc8350c86dde",
+    "id": "a7c3f4dd-1e5e-3438-9963-dc8350c86dde",
     "follower_id": "3064564d-9b66-3693-af3a-25b84524a014",
     "followed_id": "3c5bf20f-da3f-33ad-860b-b06bb37bc56e",
     "status": "following"
