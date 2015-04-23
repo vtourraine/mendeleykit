@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: April 2015 (v1.0.6):
+- the MendeleyDefaultOAuthProvider cannot assume the MendeleyResponse object to be nil if/when an error occurs. Proper parsing is required to ensure that error handling is appropriate.
+
 Date: April 2015:
 - checkAuthorisationStatusWithCompletionBlock now returns a cancellable MendeleyTask object
 - minor bug fix in addRecentlyRead to ensure the right completion handler is being executed

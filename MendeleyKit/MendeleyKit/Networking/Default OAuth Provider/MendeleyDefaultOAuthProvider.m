@@ -27,6 +27,7 @@
 #import "NSError+MendeleyError.h"
 #import "MendeleyURLBuilder.h"
 #import "MendeleyBlockExecutor.h"
+#import "MendeleyKitHelper.h"
 
 @interface MendeleyDefaultOAuthProvider ()
 @property (nonatomic, strong, readwrite) NSURL *oauth2BaseURL;
@@ -111,7 +112,9 @@
                 completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
 
-         if (nil == response)
+         MendeleyKitHelper *helper = [MendeleyKitHelper new];
+
+         if (![helper isSuccessForResponse:response error:&error])
          {
              [blockExec executeWithBool:NO
                                   error:error];
@@ -188,13 +191,13 @@
                                    kMendeleyOAuth2RefreshToken : credentials.refresh_token,
                                    kMendeleyOAuth2ClientSecretKey : self.clientSecret,
                                    kMendeleyOAuth2ClientIDKey : self.clientID };
-    
+
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
     [self executeAuthenticationRequestWithTask:task
                                  requestHeader:requestHeader
-                                            requestBody:requestBody
-                                        completionBlock:completionBlock];
+                                   requestBody:requestBody
+                               completionBlock:completionBlock];
 }
 
 - (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock
@@ -216,8 +219,8 @@
 
 - (void)executeAuthenticationRequestWithTask:(MendeleyTask *)task
                                requestHeader:(NSDictionary *)requestHeader
-                                          requestBody:(NSDictionary *)requestBody
-                                      completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
+                                 requestBody:(NSDictionary *)requestBody
+                             completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
     [networkProvider invokePOST:[MendeleyKitConfiguration sharedInstance].baseAPIURL
@@ -228,21 +231,23 @@
          authenticationRequired:NO
                            task:task
                 completionBlock:^(MendeleyResponse *response, NSError *error) {
-                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
-                    if (nil == response)
-                    {
-                        [blockExec executeWithCredentials:nil error:error];
-                    }
-                    else
-                    {
-                        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
-                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOAuthCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
-                            [blockExec executeWithCredentials:credentials error:parseError];
-                        }];
-                        
-                    }
-                    
-                }];
+         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
+         MendeleyKitHelper *helper = [MendeleyKitHelper new];
+
+         if (![helper isSuccessForResponse:response error:&error])
+         {
+             [blockExec executeWithCredentials:nil error:error];
+         }
+         else
+         {
+             MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+             [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOAuthCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
+                  [blockExec executeWithCredentials:credentials error:parseError];
+              }];
+
+         }
+
+     }];
 }
 
 - (void)executeAuthenticationRequestWithRequestHeader:(NSDictionary *)requestHeader

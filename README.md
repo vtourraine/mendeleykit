@@ -1,5 +1,8 @@
 # MendeleyKit the Mendeley SDK for Objective C #
-Version: 1.0.4:
+Version: 1.0.6:
+- the default OAuth provider needs to parse the response object properly
+
+Version: 1.0.5:
 13 April 2015
 - the method to check authorisation status now returns a cancellable MendeleyTask object and a minor bug fix
 
