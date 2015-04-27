@@ -34,8 +34,8 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-                      modeller = [[MendeleyModeller alloc] init];
-                  });
+        modeller = [[MendeleyModeller alloc] init];
+    });
     return modeller;
 }
 
@@ -205,7 +205,7 @@
     __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:modelArray.count];
 
     [modelArray enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-         if ([obj isKindOfClass:[MendeleyObject class]])
+         if ([obj isKindOfClass:[MendeleyObject class]] || [obj isKindOfClass:[MendeleySecureObject class]])
          {
              NSDictionary *dictionary = [self dictionaryFromModel:obj error:error];
              if (nil != dictionary)
