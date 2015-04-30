@@ -1,4 +1,10 @@
 RELEASE NOTES
+Date: April 2015 (v1.0.7)
+- Added followers/recently_read APIs
+- added a method to get a list of 'authored' documents
+- update JSON to reflect recent API changes (recently_read_id becomes id)
+- JSON modeller needs to check for MendeleyObject and MendeleySecureObject consistently
+
 Date: April 2015 (v1.0.6):
 - the MendeleyDefaultOAuthProvider cannot assume the MendeleyResponse object to be nil if/when an error occurs. Proper parsing is required to ensure that error handling is appropriate.
 

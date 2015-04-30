@@ -1,4 +1,7 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 1.0.7:
+- added followers API and some minor bug fixes in JSON to model handling
+
 Version: 1.0.6:
 - the default OAuth provider needs to parse the response object properly
 
