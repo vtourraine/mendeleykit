@@ -111,7 +111,6 @@
                            task:nil
                 completionBlock:^(MendeleyResponse *response, NSError *error) {
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
-
          MendeleyKitHelper *helper = [MendeleyKitHelper new];
 
          if (![helper isSuccessForResponse:response error:&error])

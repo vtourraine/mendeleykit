@@ -39,6 +39,7 @@
 #import "NSError+MendeleyError.h"
 #import "MendeleyProfilesAPI.h"
 #import "MendeleyDisciplinesAPI.h"
+#import "MendeleyFollowersAPI.h"
 
 
 @interface MendeleyKit ()
@@ -55,13 +56,13 @@
 @property (nonatomic, strong) MendeleyProfilesAPI *profilesAPI;
 @property (nonatomic, strong) MendeleyDisciplinesAPI *disciplinesAPI;
 @property (nonatomic, strong) MendeleyAcademicStatusesAPI *academicStatusesAPI;
+@property (nonatomic, strong) MendeleyFollowersAPI *followersAPI;
 @end
 
 @implementation MendeleyKit
 
 
-#pragma mark -
-#pragma mark SDK configuration
+#pragma mark - SDK configuration
 
 + (MendeleyKit *)sharedInstance
 {
@@ -136,6 +137,10 @@
                                 initWithNetworkProvider:self.networkProvider
                                                 baseURL:baseURL];
 
+    self.followersAPI = [[MendeleyFollowersAPI alloc]
+                         initWithNetworkProvider:self.networkProvider
+                                         baseURL:baseURL];
+
 }
 
 - (BOOL)isAuthenticated
@@ -185,12 +190,12 @@
     MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
     MendeleyKitConfiguration *configuration = [MendeleyKitConfiguration sharedInstance];
     [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error) {
-        if (nil != completionBlock)
-        {
-            BOOL success = (nil != credentials);
-            completionBlock(success, error);
-        }
-    }];
+         if (nil != completionBlock)
+         {
+             BOOL success = (nil != credentials);
+             completionBlock(success, error);
+         }
+     }];
     return task;
 }
 
@@ -239,8 +244,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Academic Status
+#pragma mark - Academic Status
 - (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -252,8 +256,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Disciplines
+#pragma mark - Disciplines
 - (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -264,8 +267,7 @@
 
 }
 
-#pragma mark -
-#pragma mark Profiles
+#pragma mark - Profiles
 
 - (MendeleyTask *)pullMyProfile:(MendeleyObjectCompletionBlock)completionBlock
 {
@@ -394,8 +396,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Documents
+#pragma mark - Documents
 
 - (MendeleyTask *)documentListWithLinkedURL:(NSURL *)linkURL
                             completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -439,6 +440,37 @@
                  [self.documentsAPI documentListWithQueryParameters:queryParameters
                                                                task:task
                                                     completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)authoredDocumentListForUserWithProfileID:(NSString *)profileID
+                                           queryParameters:(MendeleyDocumentParameters *)queryParameters
+                                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.documentsAPI authoredDocumentListForUserWithProfileID:profileID
+                                                             queryParameters:queryParameters
+                                                                        task:task
+                                                             completionBlock:completionBlock];
              }
              else
              {
@@ -877,8 +909,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Metadata
+#pragma mark - Metadata
 
 - (MendeleyTask *)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
                                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock
@@ -909,8 +940,7 @@
     return task;
 }
 
-#pragma mark -
-#pragma mark Document Types
+#pragma mark - Document Types
 
 - (MendeleyTask *)documentTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -939,8 +969,7 @@
     return task;
 }
 
-#pragma mark -
-#pragma mark Document Identifiers
+#pragma mark - Document Identifiers
 
 - (MendeleyTask *)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -969,8 +998,7 @@
     return task;
 }
 
-#pragma mark -
-#pragma mark Files
+#pragma mark - Files
 
 - (MendeleyTask *)fileListWithQueryParameters:(MendeleyFileParameters *)queryParameters
                               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -1274,8 +1302,7 @@
    }
  */
 
-#pragma mark -
-#pragma mark Folder
+#pragma mark - Folder
 
 - (MendeleyTask *)documentListFromFolderWithID:(NSString *)folderID
                                     parameters:(MendeleyFolderParameters *)queryParameters
@@ -1571,8 +1598,7 @@
     return task;
 }
 
-#pragma mark -
-#pragma mark Groups
+#pragma mark - Groups
 - (MendeleyTask *)groupListWithQueryParameters:(MendeleyGroupParameters *)queryParameters
                                       iconType:(MendeleyIconType)iconType
                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -1788,8 +1814,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Annotations
+#pragma mark - Annotations
 
 - (MendeleyTask *)annotationWithAnnotationID:(NSString *)annotationID
                              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
@@ -1999,6 +2024,135 @@
 
     return task;
 }
+
+#pragma mark - Followers
+
+- (MendeleyTask *)followersForUserWithID:(NSString *)profileID
+                              parameters:(MendeleyFollowersParameters *)parameters
+                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.followersAPI followersForUserWithID:profileID
+                                                parameters:parameters
+                                                      task:task
+                                           completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)followedByUserWithID:(NSString *)profileID
+                            parameters:(MendeleyFollowersParameters *)parameters
+                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.followersAPI followedByUserWithID:profileID
+                                              parameters:parameters
+                                                    task:task
+                                         completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)pendingFollowersForUserWithID:(NSString *)profileID
+                                     parameters:(MendeleyFollowersParameters *)parameters
+                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.followersAPI pendingFollowersForUserWithID:profileID
+                                                       parameters:parameters
+                                                             task:task
+                                                  completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)pendingFollowedByUserWithID:(NSString *)profileID
+                                   parameters:(MendeleyFollowersParameters *)parameters
+                              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+             if (success)
+             {
+                 [self.followersAPI pendingFollowedByUserWithID:profileID
+                                                     parameters:parameters
+                                                           task:task
+                                                completionBlock:completionBlock];
+             }
+             else
+             {
+                 completionBlock(nil, nil, error);
+             }
+         }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+
+#pragma mark - Cancellation
 
 - (void) cancelTask:(MendeleyTask *)task
     completionBlock:(MendeleyCompletionBlock)completionBlock

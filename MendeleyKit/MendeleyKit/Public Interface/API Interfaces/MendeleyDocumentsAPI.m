@@ -132,6 +132,23 @@
                           completionBlock:completionBlock];
 }
 
+- (void)authoredDocumentListForUserWithProfileID:(NSString *)profileID
+                                 queryParameters:(MendeleyDocumentParameters *)queryParameters
+                                            task:(MendeleyTask *)task
+                                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    queryParameters.profile_id = profileID;
+    queryParameters.authored = @"true";
+    NSDictionary *query = [queryParameters valueStringDictionary];
+
+    [self.helper mendeleyObjectListOfType:kMendeleyModelDocument
+                                      api:kMendeleyRESTAPIDocuments
+                               parameters:[NSDictionary dictionaryByMerging:query with:[self defaultQueryParameters]]
+                        additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
+                          completionBlock:completionBlock];
+}
+
 - (void)documentWithDocumentID:(NSString *)documentID
                           task:(MendeleyTask *)task
                completionBlock:(MendeleyObjectCompletionBlock)completionBlock

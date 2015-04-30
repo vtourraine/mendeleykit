@@ -18,22 +18,8 @@
  *****************************************************************************
  */
 
-#ifndef MendeleyKit_MendeleyModels_h
-#define MendeleyKit_MendeleyModels_h
-
-#import "MendeleyAcademicStatus.h"
-#import "MendeleyAnnotation.h"
-#import "MendeleyCatalogDocument.h"
-#import "MendeleyDocument.h"
-#import "MendeleyDocumentType.h"
-#import "MendeleyFile.h"
-#import "MendeleyFolder.h"
 #import "MendeleyFollow.h"
-#import "MendeleyGroup.h"
-#import "MendeleyIdentifierType.h"
-#import "MendeleyMetadataLookup.h"
-#import "MendeleyPerson.h"
-#import "MendeleyProfile.h"
-#import "MendeleyUserRole.h"
 
-#endif
+@implementation MendeleyFollow
+
+@end

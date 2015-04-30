@@ -264,3 +264,6 @@
 
 @implementation MendeleyRecentlyReadParameters
 @end
+
+@implementation MendeleyFollowersParameters
+@end

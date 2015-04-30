@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters;
 
 @protocol MendeleyNetworkProvider;
 
@@ -63,8 +63,7 @@
 - (MendeleyTask *)checkAuthorisationStatusWithCompletionBlock:(MendeleyCompletionBlock)completionBlock;
 
 
-#pragma mark -
-#pragma mark General
+#pragma mark - General
 
 /**
    This is a generic paging method for objects. The server returns a fully formed URL
@@ -80,8 +79,7 @@
                                     expectedModel:(NSString *)expectedModel
                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Academic Statuses
+#pragma mark - Academic Statuses
 /**
    This method gets all registered Mendeley academic statuses
    @param completionBlock will return an array of MendeleyAcademicStatus objects
@@ -89,8 +87,7 @@
  */
 - (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Disciplines
+#pragma mark - Disciplines
 /**
    This method gets all registered Mendeley disciplines (and their subdisciplines)
    @param completionBlock will return an array of MendeleyDiscipline objects
@@ -98,8 +95,7 @@
  */
 - (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Profiles
+#pragma mark - Profiles
 /**
    @name Profile API methods
  */
@@ -168,8 +164,7 @@
 - (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Documents
+#pragma mark - Documents
 /**
    @name documents, trash and catalog API methods
  */
@@ -194,6 +189,16 @@
 - (MendeleyTask *)documentListWithQueryParameters:(MendeleyDocumentParameters *)queryParameters
                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+/**
+   obtains the first page of authored documents for another user.
+   @param profileID profile ID of the user
+   @param parameters the parameter set to be used in the request
+   @param completionBlock returning array of documents
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)authoredDocumentListForUserWithProfileID:(NSString *)profileID
+                                           queryParameters:(MendeleyDocumentParameters *)queryParameters
+                                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 /**
    obtains a document for given ID from the library
    @param documentID the UUID of the document
@@ -345,8 +350,7 @@
  */
 - (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Metadata
+#pragma mark - Metadata
 /**
    @name Metadata API
  */
@@ -360,8 +364,7 @@
 - (MendeleyTask *)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
                                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Document and Identifier Types
+#pragma mark - Document and Identifier Types
 /**
    @name documentTypes and identifierTypes APIs methods
  */
@@ -380,8 +383,7 @@
  */
 - (MendeleyTask *)identifierTypesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Files
+#pragma mark - Files
 /**
    @name files API methods
  */
@@ -475,7 +477,7 @@
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   This method returns a list of recently showed files on any device running a version
+   BETA - This method returns a list of recently showed files on any device running a version
    of Mendeley (or a third part app) that support this feature.
    The objects are sorted by date with the most recent first.
    By default 20 items are returned.
@@ -487,7 +489,7 @@
                              completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   This method create/replace an entry of recently read for a file.
+   BETA - This method create/replace an entry of recently read for a file.
    Any existing entry with a matching id if present is removed, and a new one is created.
    The new one is inserted into the list at a position determined by the
    current server time or at the time provided by the client if specified.
@@ -510,8 +512,7 @@
                      completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
  */
 
-#pragma mark -
-#pragma mark Folders
+#pragma mark - Folders
 
 /**
    @name folders API methods
@@ -605,8 +606,7 @@
                       fromFolderWithID:(NSString *)folderID
                        completionBlock:(MendeleyCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Groups
+#pragma mark - Groups
 /**
    @name groups API methods
  */
@@ -704,8 +704,7 @@
 - (MendeleyTask *)groupIconForIconURLString:(NSString *)iconURLString
                             completionBlock:(MendeleyBinaryDataCompletionBlock)completionBlock;
 
-#pragma mark -
-#pragma mark Annotations
+#pragma mark - Annotations
 
 /**
    @name annotations API methods
@@ -786,6 +785,54 @@
                                   groupID:(NSString *)groupID
                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+#pragma mark - Followers
+/**
+   BETA - Obtain a list of followers for a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)followersForUserWithID:(NSString *)profileID
+                              parameters:(MendeleyFollowersParameters *)parameters
+                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   BETA - Obtain a list of users followed by a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)followedByUserWithID:(NSString *)profileID
+                            parameters:(MendeleyFollowersParameters *)parameters
+                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   BETA - Obtain a list of pending followers for a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)pendingFollowersForUserWithID:(NSString *)profileID
+                                     parameters:(MendeleyFollowersParameters *)parameters
+                                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+   BETA - Obtain a list of pending users followed by a given user.
+   @param profileID
+   @param parameters
+   @param task
+   @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
+   @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)pendingFollowedByUserWithID:(NSString *)profileID
+                                   parameters:(MendeleyFollowersParameters *)parameters
+                              completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark - Cancellation
 /**
