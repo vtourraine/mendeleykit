@@ -1273,7 +1273,7 @@
 /**
    Note: this service is not yet available
    - (MendeleyTask *)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
-                     completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock
+                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock
    {
     MendeleyTask *task = [MendeleyTask new];
 

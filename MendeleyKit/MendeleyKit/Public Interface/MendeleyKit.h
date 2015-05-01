@@ -509,7 +509,7 @@
    @param recentlyRead the recently read object to update
    @param completionBlock
    - (MendeleyTask *)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
-                     completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
+                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
  */
 
 #pragma mark - Folders

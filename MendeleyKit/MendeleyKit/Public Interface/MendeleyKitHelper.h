@@ -111,7 +111,7 @@
    @param apiString e.g. documents
    @param completionBlock
  */
-- (void)createMendeleyObject:(MendeleyObject *)mendeleyObject
+- (void)createMendeleyObject:(MendeleySecureObject *)mendeleyObject
                          api:(NSString *)apiString
                         task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock;
@@ -124,7 +124,7 @@
    @param objectTypeString e.g. MendeleyDocument
    @param completionBlock
  */
-- (void)createMendeleyObject:(MendeleyObject *)mendeleyObject
+- (void)createMendeleyObject:(MendeleySecureObject *)mendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
@@ -138,7 +138,7 @@
    @param apiString e.g. documents
    @param completionBlock
  */
-- (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
+- (void)updateMendeleyObject:(MendeleySecureObject *)updatedMendeleyObject
                          api:(NSString *)apiString
                         task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock;
@@ -151,7 +151,7 @@
    @param additionalHeaders - this usually includes the Accept:"****+1.json" type header to accept API specific JSON responses
    @param completionBlock
  */
-- (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
+- (void)updateMendeleyObject:(MendeleySecureObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                         task:(MendeleyTask *)task
@@ -167,7 +167,7 @@
    @param objectTypeString e.g. MendeleyDocument
    @param completionBlock
  */
-- (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
+- (void)updateMendeleyObject:(MendeleySecureObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString

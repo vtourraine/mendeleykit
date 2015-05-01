@@ -147,6 +147,6 @@
    @param completionBlock
    - (void)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
                       task:(MendeleyTask *)task
-           completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock;
+           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
  */
 @end

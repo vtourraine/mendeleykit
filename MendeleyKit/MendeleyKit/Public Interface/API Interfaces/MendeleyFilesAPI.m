@@ -360,7 +360,7 @@
    This service is not yet available.
    - (void)updateRecentlyRead:(MendeleyRecentlyRead *)recentlyRead
                       task:(MendeleyTask *)task
-           completionBlock:(MendeleySecureObjectCompletionBlock)completionBlock
+           completionBlock:(MendeleyObjectCompletionBlock)completionBlock
    {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [NSError assertArgumentNotNil:recentlyRead argumentName:@"recentlyRead"];
@@ -374,7 +374,7 @@
 
     if (nil == jsonData)
     {
-        [blockExec executeWithMendeleySecureObject:nil
+        [blockExec executeWithMendeleyObject:nil
                                           syncInfo:nil
                                              error:serialiseError];
         return;

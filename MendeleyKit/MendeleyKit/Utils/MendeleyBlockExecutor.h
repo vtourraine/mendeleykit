@@ -52,11 +52,6 @@
 - (instancetype)initWithObjectCompletionBlock:(MendeleyObjectCompletionBlock)objectCompletionBlock;
 
 /**
-   @param objectCompletionBlock
- */
-- (instancetype)initWithSecureObjectCompletionBlock:(MendeleySecureObjectCompletionBlock)secureObjectCompletionBlock;
-
-/**
    @param dictionaryCompletionBlock
  */
 - (instancetype)initWithDictionaryCompletionBlock:(MendeleyDictionaryResponseBlock)dictionaryCompletionBlock;
@@ -95,19 +90,9 @@
    @param syncInfo
    @param error
  */
-- (void)executeWithMendeleyObject:(MendeleyObject *)mendeleyObject
+- (void)executeWithMendeleyObject:(MendeleySecureObject *)mendeleyObject
                          syncInfo:(MendeleySyncInfo *)syncInfo
                             error:(NSError *)error;
-
-/**
-   executes the MendeleySecureObjectCompletionBlock on the main thread
-   @param mendeleySecureObject
-   @param syncInfo
-   @param error
- */
-- (void)executeWithMendeleySecureObject:(MendeleySecureObject *)mendeleySecureObject
-                               syncInfo:(MendeleySyncInfo *)syncInfo
-                                  error:(NSError *)error;
 
 /**
    executes the MendeleyDictionaryCompletionBlock on the main thread

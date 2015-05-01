@@ -91,8 +91,7 @@ typedef void (^MendeleyResponseCompletionBlock)(MendeleyResponse *response, NSEr
 typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
 typedef void (^MendeleyCompletionBlock)(BOOL success, NSError *error);
 typedef void (^MendeleyArrayCompletionBlock)(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject *object, MendeleySyncInfo *syncInfo, NSError *error);
+typedef void (^MendeleyObjectCompletionBlock)(MendeleySecureObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
 typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary *dictionary, NSError *error);
 typedef void (^MendeleyDeserializedResponseObject)(id deserializedResponseObject, NSError *deserializeError);
 typedef void (^MendeleyBinaryDataCompletionBlock)(NSData *binaryData, NSError *dataError);
