@@ -176,7 +176,7 @@
                 {
                     XCTAssertTrue([dictObj isEqualToString:self.exampleObject.object_ID], @"We expect the id to be \"%@\" \"instead of %@\"", self.exampleObject.object_ID, dictObj);
                 }
-                
+
                 dictObj = [dict objectForKey:@"file_id"];
                 XCTAssertNotNil(dictObj, @"we should have a file_id");
                 XCTAssertTrue([dictObj isKindOfClass:[NSString class]], @"The class should be of type NSString but is %@", NSStringFromClass([dictObj class]));
@@ -209,7 +209,7 @@
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
                     [dateFormatter setLocale:enUSPOSIXLocale];
-                    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+                    [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
 
                     NSString *iso8601String = [dateFormatter stringFromDate:self.exampleObject.date];
 
