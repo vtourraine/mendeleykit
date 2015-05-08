@@ -139,9 +139,8 @@
                      NSString *dateString = @"2015-03-10T12:52:06.000Z";
                      NSDateFormatter *dateFormatter;
                      dateFormatter = [[NSDateFormatter alloc] init];
-                     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+                     [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
                      [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-                     dateString = [dateString substringWithRange:NSMakeRange(0, [dateString length] - 5)];
                      XCTAssertTrue([recentlyRead.date isEqualToDate:[dateFormatter dateFromString:dateString]], @"The date should be %@", dateString);
                  }
              }
@@ -210,6 +209,7 @@
                     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
                     [dateFormatter setLocale:enUSPOSIXLocale];
                     [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
+                    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
 
                     NSString *iso8601String = [dateFormatter stringFromDate:self.exampleObject.date];
 
