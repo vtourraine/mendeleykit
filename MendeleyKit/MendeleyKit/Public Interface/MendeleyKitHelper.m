@@ -218,7 +218,7 @@
      }];
 }
 
-- (void)createMendeleyObject:(MendeleyObject *)mendeleyObject
+- (void)createMendeleyObject:(MendeleySecureObject *)mendeleyObject
                          api:(NSString *)apiString
                         task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
@@ -261,7 +261,7 @@
 }
 
 
-- (void)createMendeleyObject:(MendeleyObject *)mendeleyObject
+- (void)createMendeleyObject:(MendeleySecureObject *)mendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString
@@ -320,7 +320,7 @@
      }];
 }
 
-- (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
+- (void)updateMendeleyObject:(MendeleySecureObject *)updatedMendeleyObject
                          api:(NSString *)apiString
                         task:(MendeleyTask *)task
              completionBlock:(MendeleyCompletionBlock)completionBlock
@@ -332,7 +332,7 @@
                completionBlock:completionBlock];
 }
 
-- (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
+- (void)updateMendeleyObject:(MendeleySecureObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                         task:(MendeleyTask *)task
@@ -374,7 +374,7 @@
      }];
 }
 
-- (void)updateMendeleyObject:(MendeleyObject *)updatedMendeleyObject
+- (void)updateMendeleyObject:(MendeleySecureObject *)updatedMendeleyObject
                          api:(NSString *)apiString
            additionalHeaders:(NSDictionary *)additionalHeaders
                 expectedType:(NSString *)objectTypeString

@@ -72,7 +72,7 @@
     {
         return [self jsonArrayFromObjects:(NSArray *) model error:error];
     }
-    else if ([model isKindOfClass:[MendeleyObject class]] || [model isKindOfClass:[MendeleySecureObject class]])
+    else if ([model isKindOfClass:[MendeleySecureObject class]])
     {
         return [self jsonDictionaryFromModel:model error:error];
     }
@@ -205,7 +205,7 @@
     __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:modelArray.count];
 
     [modelArray enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-         if ([obj isKindOfClass:[MendeleyObject class]] || [obj isKindOfClass:[MendeleySecureObject class]])
+         if ([obj isKindOfClass:[MendeleySecureObject class]])
          {
              NSDictionary *dictionary = [self dictionaryFromModel:obj error:error];
              if (nil != dictionary)
