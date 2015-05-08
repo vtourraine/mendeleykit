@@ -1,6 +1,7 @@
 RELEASE NOTES
 Date: May 2015 (1.0.8)
 - more consistent use of MendeleySecureObject and MendeleyObject in API handling
+- updated time format to include the correct time zone
 
 Date: April 2015 (v1.0.7)
 - Added followers/recently_read APIs

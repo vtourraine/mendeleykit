@@ -1,6 +1,7 @@
 # MendeleyKit the Mendeley SDK for Objective C #
-Version: 1.0.8:
+Version: 1.0.9:
 - very minor change to make internal object handling more consistent
+- updated time format from server to include the correct timezone
 
 Version: 1.0.7:
 - added followers API and some minor bug fixes in JSON to model handling
