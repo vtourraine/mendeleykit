@@ -47,6 +47,7 @@
     self.jsonObjectData = jsonObject;
 
     self.exampleObject = [[MendeleyRecentlyRead alloc] init];
+    self.exampleObject.object_ID = [[NSUUID UUID] UUIDString];
     self.exampleObject.file_id = [[NSUUID UUID] UUIDString];
     self.exampleObject.page = @(arc4random_uniform(1984));
     self.exampleObject.vertical_position = @(arc4random_uniform(2015));
@@ -84,10 +85,11 @@
                      BOOL foundRecentlyReads = NO;
                      for (MendeleyRecentlyRead *recentlyRead in (NSArray *) parsedObject)
                      {
-                         NSString *file_id = recentlyRead.file_id;
-                         if ([file_id isEqualToString:@"aFileID"])
+                         NSString *obj_id = recentlyRead.object_ID;
+                         if ([obj_id isEqualToString:@"rr_ID1"])
                          {
                              foundRecentlyReads = YES;
+                             XCTAssertTrue([recentlyRead.file_id isEqualToString:@"aFileID"], @"The file ID should be aFileID");
                              XCTAssertTrue([recentlyRead.page isEqualToNumber:@(0)], @"The page number should be 0");
                              XCTAssertTrue([recentlyRead.vertical_position isEqualToNumber:@(10)], @"The vertical_position number should be 10");
 
@@ -97,10 +99,10 @@
                              [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
                              [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
                              dateString = [dateString substringWithRange:NSMakeRange(0, [dateString length] - 5)];
-                             XCTAssertTrue([recentlyRead.date isEqualToDate:[dateFormatter dateFromString:dateString]], @"The page number should be 0");
+                             XCTAssertTrue([recentlyRead.date isEqualToDate:[dateFormatter dateFromString:dateString]], @"The date should be %@", dateString);
                          }
                      }
-                     XCTAssertTrue(foundRecentlyReads, @"the array should contain a RecentlyRead with file_id \"aFileID\"");
+                     XCTAssertTrue(foundRecentlyReads, @"the array should contain a RecentlyRead with id rr_ID1");
                  }
 
              }
@@ -129,9 +131,10 @@
                  if ([parsedObject isKindOfClass:[MendeleyRecentlyRead class]])
                  {
                      MendeleyRecentlyRead *recentlyRead = (MendeleyRecentlyRead *) parsedObject;
-                     XCTAssertTrue([recentlyRead.file_id isEqualToString:@"fileID"], @"The page number should be 0");
-                     XCTAssertTrue([recentlyRead.page isEqualToNumber:@(12)], @"The page number should be 0");
-                     XCTAssertTrue([recentlyRead.vertical_position isEqualToNumber:@(1000)], @"The vertical_position number should be 10");
+                     XCTAssertTrue([recentlyRead.object_ID isEqualToString:@"rr_ID"], @"The object_ID should be rr_ID");
+                     XCTAssertTrue([recentlyRead.file_id isEqualToString:@"fileID"], @"The file_id should be fileID");
+                     XCTAssertTrue([recentlyRead.page isEqualToNumber:@(12)], @"The page number should be 12");
+                     XCTAssertTrue([recentlyRead.vertical_position isEqualToNumber:@(1000)], @"The vertical_position number should be 1000");
 
                      NSString *dateString = @"2015-03-10T12:52:06.000Z";
                      NSDateFormatter *dateFormatter;
@@ -166,7 +169,15 @@
             if ([jsonObj isKindOfClass:[NSDictionary class]])
             {
                 NSDictionary *dict = (NSDictionary *) jsonObj;
-                id dictObj = [dict objectForKey:@"file_id"];
+                id dictObj = [dict objectForKey:@"id"];
+                XCTAssertNotNil(dictObj, @"we should have a id");
+                XCTAssertTrue([dictObj isKindOfClass:[NSString class]], @"The class should be of type NSString but is %@", NSStringFromClass([dictObj class]));
+                if ([dictObj isKindOfClass:[NSString class]])
+                {
+                    XCTAssertTrue([dictObj isEqualToString:self.exampleObject.object_ID], @"We expect the id to be \"%@\" \"instead of %@\"", self.exampleObject.object_ID, dictObj);
+                }
+
+                dictObj = [dict objectForKey:@"file_id"];
                 XCTAssertNotNil(dictObj, @"we should have a file_id");
                 XCTAssertTrue([dictObj isKindOfClass:[NSString class]], @"The class should be of type NSString but is %@", NSStringFromClass([dictObj class]));
                 if ([dictObj isKindOfClass:[NSString class]])
@@ -198,7 +209,7 @@
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
                     [dateFormatter setLocale:enUSPOSIXLocale];
-                    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+                    [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
 
                     NSString *iso8601String = [dateFormatter stringFromDate:self.exampleObject.date];
 
