@@ -1,17 +1,20 @@
 [
   {
+    "id": "rr_ID1",
     "file_id": "aFileID",
     "page": 0,
     "vertical_position": 10,
     "date": "2014-12-03T14:25:06.000Z"
   },
   {
+    "id": "rr_ID2",
     "file_id": "anotherFileID",
     "page": 1,
     "vertical_position": 20,
     "date": "2013-09-06T18:05:34.000Z"
   },
   {
+    "id": "rr_ID3",
     "file_id": "justAnotherFileID",
     "page": 2,
     "vertical_position": 30,
