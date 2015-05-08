@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: May 2015 (1.0.8)
+- more consistent use of MendeleySecureObject and MendeleyObject in API handling
+
 Date: April 2015 (v1.0.7)
 - Added followers/recently_read APIs
 - added a method to get a list of 'authored' documents

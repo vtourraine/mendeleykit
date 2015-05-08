@@ -1,4 +1,7 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 1.0.8:
+- very minor change to make internal object handling more consistent
+
 Version: 1.0.7:
 - added followers API and some minor bug fixes in JSON to model handling
 
