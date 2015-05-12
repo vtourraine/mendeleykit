@@ -24,7 +24,7 @@ static NSDateFormatter * headerDateFormatter()
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
     [formatter setLocale:enUSPOSIXLocale];
     [formatter setDateFormat:kMendeleyHTTPHeaderDateFormat];
     return formatter;
