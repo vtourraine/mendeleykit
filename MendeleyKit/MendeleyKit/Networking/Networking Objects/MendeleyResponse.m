@@ -121,19 +121,16 @@
     {
         if (NULL != error)
         {
-            if (nil == *error)
+            NSDictionary *dict = (NSDictionary *) jsonObj;
+            NSString *message = [dict objectForKey:kMendeleyJSONErrorMessage];
+            NSDictionary *userinfo = nil;
+            if (nil != message)
             {
-                NSDictionary *dict = (NSDictionary *) jsonObj;
-                NSString *message = [dict objectForKey:kMendeleyJSONErrorMessage];
-                NSDictionary *userinfo = nil;
-                if (nil != message)
-                {
-                    userinfo = @{ NSLocalizedDescriptionKey : message };
-                }
-                *error = [NSError errorWithDomain:kMendeleyErrorDomain
-                                             code:self.statusCode
-                                         userInfo:userinfo];
+                userinfo = @{ NSLocalizedDescriptionKey : message };
             }
+            *error = [NSError errorWithDomain:kMendeleyErrorDomain
+                                         code:self.statusCode
+                                     userInfo:userinfo];
         }
     }
 
