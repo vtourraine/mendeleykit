@@ -124,7 +124,7 @@
             if (nil == *error)
             {
                 NSDictionary *dict = (NSDictionary *) jsonObj;
-                NSString *message = [dict objectForKey:@"error"];
+                NSString *message = [dict objectForKey:kMendeleyJSONErrorMessage];
                 NSDictionary *userinfo = nil;
                 if (nil != message)
                 {
