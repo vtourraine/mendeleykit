@@ -482,6 +482,7 @@
          MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
          if (![self isSuccessForResponse:response error:&error])
          {
+             [response parseFailureResponseFromFileDownloadURL:fileURL error:&error];
              [blockExec executeWithBool:NO
                                   error:error];
          }
@@ -517,5 +518,4 @@
     [NSError assertArgumentNotNil:url argumentName:@"baseAPIURL"];
     return url;
 }
-
 @end
