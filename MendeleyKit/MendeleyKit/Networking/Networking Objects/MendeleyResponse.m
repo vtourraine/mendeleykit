@@ -92,6 +92,51 @@
     return innerSuccess;
 }
 
+- (void)parseFailureResponseFromFileDownloadURL:(NSURL *)fileURL
+                                          error:(NSError **)error;
+{
+    if ([[[self class] correctStates] containsIndex:self.statusCode])
+    {
+        return;
+    }
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:fileURL.path])
+    {
+        return;
+    }
+
+    NSData *errorData = [NSData dataWithContentsOfFile:fileURL.path];
+    NSError *removeError = nil;
+    [manager removeItemAtPath:fileURL.path error:&removeError];
+
+    if (nil == errorData)
+    {
+        return;
+    }
+    NSError *jsonError = nil;
+    id jsonObj = [NSJSONSerialization JSONObjectWithData:errorData
+                                                 options:NSJSONReadingAllowFragments
+                                                   error:&jsonError];
+    if (nil != jsonObj && [jsonObj isKindOfClass:[NSDictionary class]])
+    {
+        if (NULL != error)
+        {
+            NSDictionary *dict = (NSDictionary *) jsonObj;
+            NSString *message = [dict objectForKey:kMendeleyJSONErrorMessage];
+            NSDictionary *userinfo = nil;
+            if (nil != message)
+            {
+                userinfo = @{ NSLocalizedDescriptionKey : message };
+            }
+            *error = [NSError errorWithDomain:kMendeleyErrorDomain
+                                         code:self.statusCode
+                                     userInfo:userinfo];
+        }
+    }
+
+}
+
+
 #pragma mark private methods
 
 + (NSIndexSet *)correctStates

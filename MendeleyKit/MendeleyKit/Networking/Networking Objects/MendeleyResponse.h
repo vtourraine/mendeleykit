@@ -56,4 +56,15 @@
  */
 - (BOOL)deserialiseRawResponseData:(NSData *)rawResponseData error:(NSError **)error;
 
+/**
+   By default we use optimised download streaming to a file location. In case of an error, the
+   JSON error response message would be streamed into the file location.
+   We need to ensure, that
+   a.) the error message returned from the server responds with gets passed into the error localizedDescription
+   b.) the downloaded data - which contains the JSON error message - gets removed again
+   @param fileURL the location to which the data have been downloaded
+   @param the error pointer returned from the server. If this is nil and the status code is NOT ok we will create and error here
+ */
+- (void)parseFailureResponseFromFileDownloadURL:(NSURL *)fileURL error:(NSError **)error;
+
 @end
