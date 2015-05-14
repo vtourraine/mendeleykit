@@ -1,4 +1,7 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 1.0.11:
+- improve error handling for file downloads
+
 Version: 1.0.10:
 - use of proper timezone in communication with server
 
