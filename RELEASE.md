@@ -1,4 +1,6 @@
 RELEASE NOTES
+Date: June 2015 (1.0.12)
+- the checking of refresh token validity needs to save the retrieved refresh token as it is not guaranteed to remain the same.
 
 Date: May 2015 (1.0.11)
 - more consistent use of MendeleySecureObject and MendeleyObject in API handling

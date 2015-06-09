@@ -1,4 +1,7 @@
 # MendeleyKit the Mendeley SDK for Objective C #
+Version: 1.0.12
+- refreshing the OAuth tokens: new server settings mean the refresh token gets reset at requesting new tokens. Needed to take this into account when checking validity of refresh token.
+
 Version: 1.0.11:
 - improve error handling for file downloads
 
