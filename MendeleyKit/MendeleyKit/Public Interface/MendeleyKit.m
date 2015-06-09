@@ -189,10 +189,15 @@
     MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
     MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
     MendeleyKitConfiguration *configuration = [MendeleyKitConfiguration sharedInstance];
-    [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error) {
+    [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *updatedCredentials, NSError *error) {
+         BOOL success = NO;
+         if (nil != updatedCredentials)
+         {
+             [store storeOAuthCredentials:updatedCredentials];
+             success = YES;
+         }
          if (nil != completionBlock)
          {
-             BOOL success = (nil != credentials);
              completionBlock(success, error);
          }
      }];
