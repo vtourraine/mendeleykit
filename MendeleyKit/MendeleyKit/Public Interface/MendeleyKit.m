@@ -186,18 +186,21 @@
         return nil;
     }
     MendeleyTask *task = [MendeleyTask new];
-    [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
-        if (nil != completionBlock)
-        {
-            completionBlock(success, error);
-        }
-    }];
-    
-//    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
-//    MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
-//    MendeleyKitConfiguration *configuration = [MendeleyKitConfiguration sharedInstance];
-//    [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error) {
-//     }];
+    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
+    MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
+    MendeleyKitConfiguration *configuration = [MendeleyKitConfiguration sharedInstance];
+    [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *updatedCredentials, NSError *error) {
+         BOOL success = NO;
+         if (nil != updatedCredentials)
+         {
+             [store storeOAuthCredentials:updatedCredentials];
+             success = YES;
+         }
+         if (nil != completionBlock)
+         {
+             completionBlock(success, error);
+         }
+     }];
     return task;
 }
 
