@@ -21,7 +21,55 @@
 #ifndef MendeleyKit_MendeleyGlobals_h
 #define MendeleyKit_MendeleyGlobals_h
 
+@import Foundation;
+
 @class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject, MendeleySecureObject;
+
+
+/***********************************************
+ @name Enums definitions
+ ***********************************************/
+typedef NS_ENUM(int, MendeleyHTTPRequestType)
+{
+    HTTP_GET = 0,
+    HTTP_DELETE,
+    HTTP_POST,
+    HTTP_PUT,
+    HTTP_PATCH,
+    HTTP_HEAD
+};
+
+typedef NS_ENUM(int, MendeleyResponseBodyContentType)
+{
+    JSONBody = 0,
+    PDFBody,
+    JPGBody,
+    PNGBody,
+    BinaryBody,
+    UnknownBody
+};
+
+typedef NS_ENUM(int, MendeleyIconType)
+{
+    OriginalIcon = 0,
+    SquareIcon,
+    StandardIcon
+};
+
+/***********************************************
+ @name Block definitions
+ ***********************************************/
+typedef void (^MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials *credentials, NSError *error);
+typedef void (^MendeleyResponseCompletionBlock)(MendeleyResponse *response, NSError *error);
+typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
+typedef void (^MendeleyCompletionBlock)(BOOL success, NSError *error);
+typedef void (^MendeleyArrayCompletionBlock)(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error);
+typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
+typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
+typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary *dictionary, NSError *error);
+typedef void (^MendeleyDeserializedResponseObject)(id deserializedResponseObject, NSError *deserializeError);
+typedef void (^MendeleyBinaryDataCompletionBlock)(NSData *binaryData, NSError *dataError);
+typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSError *error);
 
 /***********************************************
    @name Mendeley Server URLs as strings
@@ -53,50 +101,6 @@
 #define kMendeleyOAuth2ClientSecretKey        @"client_secret"
 #define kMendeleyOAuth2ClientIDKey            @"client_id"
 
-/***********************************************
-   @name Enums definitions
-***********************************************/
-typedef NS_ENUM (int, MendeleyHTTPRequestType)
-{
-    HTTP_GET = 0,
-    HTTP_DELETE,
-    HTTP_POST,
-    HTTP_PUT,
-    HTTP_PATCH,
-    HTTP_HEAD
-};
-
-typedef NS_ENUM (int, MendeleyResponseBodyContentType)
-{
-    JSONBody = 0,
-    PDFBody,
-    JPGBody,
-    PNGBody,
-    BinaryBody,
-    UnknownBody
-};
-
-typedef NS_ENUM (int, MendeleyIconType)
-{
-    OriginalIcon = 0,
-    SquareIcon,
-    StandardIcon
-};
-
-/***********************************************
-   @name Block definitions
-***********************************************/
-typedef void (^MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials *credentials, NSError *error);
-typedef void (^MendeleyResponseCompletionBlock)(MendeleyResponse *response, NSError *error);
-typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
-typedef void (^MendeleyCompletionBlock)(BOOL success, NSError *error);
-typedef void (^MendeleyArrayCompletionBlock)(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary *dictionary, NSError *error);
-typedef void (^MendeleyDeserializedResponseObject)(id deserializedResponseObject, NSError *deserializeError);
-typedef void (^MendeleyBinaryDataCompletionBlock)(NSData *binaryData, NSError *dataError);
-typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSError *error);
 
 /***********************************************
    @name default URL session settings

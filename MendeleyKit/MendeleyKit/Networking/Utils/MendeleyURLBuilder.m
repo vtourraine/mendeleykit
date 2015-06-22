@@ -113,8 +113,9 @@
                            [acceptLanguagesComponents addObject:[NSString stringWithFormat:@"%@;q=%0.1g", obj, q]];
                            *stop = q <= 0.5f;
                        }];
+                     NSString *languageComponents = [acceptLanguagesComponents componentsJoinedByString:@", "];
 
-                      [header setObject:[acceptLanguagesComponents componentsJoinedByString:@", "]
+                      [header setObject:languageComponents
                                  forKey:kMendeleyOAuth2AcceptLanguageKey];
 
                       NSString *deviceModel = nil;

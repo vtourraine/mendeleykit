@@ -48,5 +48,5 @@
 /**
    @return a default header to be used in HTTP requests
  */
-+ (NSDictionary *)defaultHeader;
++ (NSDictionary * __nonnull)defaultHeader;
 @end

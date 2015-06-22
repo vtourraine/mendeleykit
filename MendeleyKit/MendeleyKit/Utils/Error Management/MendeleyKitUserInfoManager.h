@@ -19,6 +19,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MendeleyErrorManager.h"
 
 @interface MendeleyKitUserInfoManager : NSObject <MendeleyUserInfoProvider>
 

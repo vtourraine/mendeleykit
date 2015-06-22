@@ -20,7 +20,7 @@
 
 #ifndef MendeleyKit_MendeleyError_h
 #define MendeleyKit_MendeleyError_h
-
+@import Foundation;
 /***********************************************
    @name Mendeley Error Codes And Descriptions
    // TODO: change
