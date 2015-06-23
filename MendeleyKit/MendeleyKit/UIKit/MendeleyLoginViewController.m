@@ -25,6 +25,7 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
 
 @interface MendeleyLoginViewController ()
 @property (nonatomic, strong) UIWebView *webView;
@@ -91,7 +92,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self startLoginProcess];
+    
+    MendeleyKitLoginHelper *helper = [MendeleyKitLoginHelper new];
+    id<MendeleyLoginHandler>loginHandler = [helper getLoginHandler];
+    [loginHandler startLoginProcess:self.clientID
+                       clientSecret:@""
+                        redirectURI:self.redirectURI
+                         controller:self
+                  completionHandler:self.completionBlock
+                       oauthHandler:self.oAuthCompletionBlock];
+
+    
+//    [self startLoginProcess];
 }
 
 - (void)didReceiveMemoryWarning

@@ -21,7 +21,10 @@
 import UIKit
 import WebKit
 
-class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate
+@available (iOS 8.0, *)
+public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
 {
 
+    public func startLoginProcess(clientID: String, clientSecret: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock, oauthHandler: MendeleyOAuthCompletionBlock) {
+    }
 }
