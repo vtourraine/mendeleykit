@@ -22,20 +22,22 @@ import UIKit
 import Foundation
 
 public class MendeleyKitLoginHelper: NSObject
-{    
-    public func getLoginHandler () -> MendeleyLoginHandler
-    {
-        if #available (iOS 9.0, *)
-        {
-            return MendeleyLoginWebKitHandler()
-        }
-        else
-        {
-            return MendeleyLoginUIWebViewHandler()
-        }        
-    }
+{
     
-    public func configureOAuthRequest(redirect: String, clientID: String) -> NSURLRequest
+    public var loginHandler: MendeleyLoginHandler {
+        get{
+            if #available (iOS 9.0, *)
+            {
+                return MendeleyLoginWebKitHandler()
+            }
+            else
+            {
+                return MendeleyLoginUIWebViewHandler()
+            }
+        }
+    }
+        
+    public func getOAuthRequest(redirect: String, clientID: String) -> NSURLRequest
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.URLByAppendingPathComponent(kMendeleyOAuthPathAuthorize)
         
@@ -51,15 +53,15 @@ public class MendeleyKitLoginHelper: NSObject
         
         request.HTTPMethod = "GET"
         request.allHTTPHeaderFields = MendeleyURLBuilder.defaultHeader() as? [String : String]
-        return request
+        return request as NSURLRequest
     }
     
-    public func getAuthenticationCode(request: NSURLRequest) -> String
+    public func getAuthenticationCode(redirectURL: NSURL) -> String?
     {
-        var code = ""
+        var code: String?
         
         
-        let queryString = request.URL?.query
+        let queryString = redirectURL.query
         if nil != queryString
         {
             let components: [String] = queryString!.componentsSeparatedByString("&")

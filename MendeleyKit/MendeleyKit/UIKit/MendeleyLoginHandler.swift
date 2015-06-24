@@ -8,9 +8,12 @@
 
 import UIKit
 
+public typealias MendeleySuccessClosure = (success: Bool, error: NSError?) -> Void
+public typealias MendeleyOAuthClosure = (credentials: MendeleyOAuthCredentials?, error: NSError?) -> Void
+
 @objc
 public protocol MendeleyLoginHandler
 {
-     func startLoginProcess(clientID: String, clientSecret: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock, oauthHandler: MendeleyOAuthCompletionBlock)
+     func startLoginProcess(clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleySuccessClosure, oauthHandler: MendeleyOAuthClosure)
 
 }

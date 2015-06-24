@@ -12,11 +12,12 @@
 		145C2DBC1A2CA84A0005BFF6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 145C2DBB1A2CA84A0005BFF6 /* Images.xcassets */; };
 		145C2DBF1A2CA84A0005BFF6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 145C2DBD1A2CA84A0005BFF6 /* MainMenu.xib */; };
 		145C2DD31A2CAA010005BFF6 /* MendeleyKitOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 145C2DD21A2CAA010005BFF6 /* MendeleyKitOSX.framework */; };
+		C415E9BF1B3A9A0300C937E3 /* MendeleyKitiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C415E9BE1B3A9A0300C937E3 /* MendeleyKitiOS.framework */; };
+		C468B9EC1B3AFCB000822EC4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C468B9EB1B3AFCB000822EC4 /* WebKit.framework */; };
 		C499433C19DC3BE600E19A81 /* DocumentDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C499433519DC3BE600E19A81 /* DocumentDetailTableViewController.m */; };
 		C499433D19DC3BE600E19A81 /* DocumentListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C499433719DC3BE600E19A81 /* DocumentListTableViewController.m */; };
 		C499433E19DC3BE600E19A81 /* FilesWithDocumentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C499433919DC3BE600E19A81 /* FilesWithDocumentTableViewController.m */; };
 		C499433F19DC3BE600E19A81 /* GroupListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C499433B19DC3BE600E19A81 /* GroupListTableViewController.m */; };
-		C499434119DC3CFD00E19A81 /* libMendeleyKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C499434019DC3CFD00E19A81 /* libMendeleyKit.a */; };
 		C4A1347219DADB010069DB7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A1347119DADB010069DB7A /* Foundation.framework */; };
 		C4A1347419DADB010069DB7A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A1347319DADB010069DB7A /* CoreGraphics.framework */; };
 		C4A1347619DADB010069DB7A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A1347519DADB010069DB7A /* UIKit.framework */; };
@@ -38,6 +39,8 @@
 		145C2DBB1A2CA84A0005BFF6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		145C2DBE1A2CA84A0005BFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		145C2DD21A2CAA010005BFF6 /* MendeleyKitOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MendeleyKitOSX.framework; path = ../build/Debug/MendeleyKitOSX.framework; sourceTree = "<group>"; };
+		C415E9BE1B3A9A0300C937E3 /* MendeleyKitiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MendeleyKitiOS.framework; path = "../build/Debug-iphoneos/MendeleyKitiOS.framework"; sourceTree = "<group>"; };
+		C468B9EB1B3AFCB000822EC4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C499433419DC3BE600E19A81 /* DocumentDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentDetailTableViewController.h; sourceTree = "<group>"; };
 		C499433519DC3BE600E19A81 /* DocumentDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentDetailTableViewController.m; sourceTree = "<group>"; };
 		C499433619DC3BE600E19A81 /* DocumentListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentListTableViewController.h; sourceTree = "<group>"; };
@@ -79,7 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C499434119DC3CFD00E19A81 /* libMendeleyKit.a in Frameworks */,
+				C468B9EC1B3AFCB000822EC4 /* WebKit.framework in Frameworks */,
+				C415E9BF1B3A9A0300C937E3 /* MendeleyKitiOS.framework in Frameworks */,
 				C4A1347419DADB010069DB7A /* CoreGraphics.framework in Frameworks */,
 				C4A1347619DADB010069DB7A /* UIKit.framework in Frameworks */,
 				C4A1347219DADB010069DB7A /* Foundation.framework in Frameworks */,
@@ -132,6 +136,8 @@
 		C4A1347019DADB010069DB7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C468B9EB1B3AFCB000822EC4 /* WebKit.framework */,
+				C415E9BE1B3A9A0300C937E3 /* MendeleyKitiOS.framework */,
 				145C2DD21A2CAA010005BFF6 /* MendeleyKitOSX.framework */,
 				C499434019DC3CFD00E19A81 /* libMendeleyKit.a */,
 				C4A1347119DADB010069DB7A /* Foundation.framework */,
@@ -411,7 +417,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -443,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -455,13 +461,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MendeleyKitExample/MendeleyKitExample-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode5.1.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"../MendeleyKit/**",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MendeleyKitExample/MendeleyKitExample-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
@@ -476,13 +480,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MendeleyKitExample/MendeleyKitExample-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode5.1.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"../MendeleyKit/**",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MendeleyKitExample/MendeleyKitExample-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
@@ -501,6 +503,7 @@
 				145C2DCD1A2CA84B0005BFF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C4A1346919DADB010069DB7A /* Build configuration list for PBXProject "MendeleyKitExample" */ = {
 			isa = XCConfigurationList;

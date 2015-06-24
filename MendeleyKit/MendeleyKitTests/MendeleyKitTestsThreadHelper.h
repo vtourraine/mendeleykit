@@ -19,6 +19,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MendeleyGlobals.h"
 
 typedef void (^testBlock)(BOOL *hasCalledBack);
 void waitForBlock(testBlock testBlock);

@@ -26,15 +26,20 @@ public class MendeleyLoginUIWebViewHandler: NSObject, UIWebViewDelegate, Mendele
     let oAuthServer: NSURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
     let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oauthProvider
     var webView: UIWebView?
+    var completionBlock: MendeleySuccessClosure?
+    var oAuthCompletionBlock: MendeleyOAuthClosure?
     
     
-    public func startLoginProcess(clientID: String, clientSecret: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock, oauthHandler: MendeleyOAuthCompletionBlock)
+    public func startLoginProcess(clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleySuccessClosure, oauthHandler: MendeleyOAuthClosure)
     {
+        completionBlock = completionHandler
+        oAuthCompletionBlock = oauthHandler
         configureWebView(controller)
+        
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
-        let request: NSURLRequest = helper.configureOAuthRequest(redirectURI, clientID: clientID)
-        webView?.loadRequest(request)
+        let request: NSURLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
+        webView!.loadRequest(request)
     }
     
     func configureWebView(controller: UIViewController)
@@ -62,6 +67,10 @@ public class MendeleyLoginUIWebViewHandler: NSObject, UIWebViewDelegate, Mendele
                 
             }
         }
+        if nil != completionBlock
+        {
+            completionBlock!(success: false, error: error)
+        }
     }
     
     
@@ -71,6 +80,18 @@ public class MendeleyLoginUIWebViewHandler: NSObject, UIWebViewDelegate, Mendele
         if(( request.URL?.absoluteString.hasPrefix(oAuthServer.absoluteString)) != nil)
         {
             return true
+        }
+        
+        let helper = MendeleyKitLoginHelper()
+        let url = request.URL
+        if nil != url
+        {
+            let code = helper.getAuthenticationCode(url!)
+            if nil != code && nil != oAuthCompletionBlock
+            {
+                oAuthProvider.authenticateWithAuthenticationCode(code!, completionBlock: oAuthCompletionBlock!)
+            }
+            
         }
         
         return false
