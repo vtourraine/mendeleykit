@@ -35,6 +35,7 @@
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
+@property (nonatomic, strong, nonnull) id<MendeleyLoginHandler> loginHandler;
 @end
 
 @implementation MendeleyLoginViewController
@@ -116,8 +117,13 @@
     };
     
     MendeleyKitLoginHelper *helper = [MendeleyKitLoginHelper new];
-    id<MendeleyLoginHandler>loginHandler = helper.loginHandler;
-    [loginHandler startLoginProcess:self.clientID
+    /**
+     login handler needs to be retained by the class otherwise we get out of scope 
+     and the callbacks to the handler never get called
+     */
+    self.loginHandler = helper.loginHandler;
+    
+    [self.loginHandler startLoginProcess:self.clientID
                         redirectURI:self.redirectURI
                          controller:self
                   completionHandler:self.completionBlock
