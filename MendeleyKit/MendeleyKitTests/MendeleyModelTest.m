@@ -18,7 +18,9 @@
  *****************************************************************************
  */
 
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyModels.h"
+#endif
 #import "MendeleyKitTestBaseClass.h"
 
 @interface MendeleyModelTest : MendeleyKitTestBaseClass

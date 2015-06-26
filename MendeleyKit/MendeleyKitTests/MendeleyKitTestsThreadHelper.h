@@ -18,8 +18,8 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
-#import "MendeleyGlobals.h"
+@import Foundation;
+@import MendeleyKitiOS;
 
 typedef void (^testBlock)(BOOL *hasCalledBack);
 void waitForBlock(testBlock testBlock);
