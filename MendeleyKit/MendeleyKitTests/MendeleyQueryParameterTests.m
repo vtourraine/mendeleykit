@@ -22,6 +22,8 @@
 
 #import "MendeleyQueryRequestParameters.h"
 #import "MendeleyObjectHelper.h"
+#import "MendeleyGlobals.h"
+#import "MendeleyError.h"
 
 @interface MendeleyQueryParameterTests : MendeleyKitTestBaseClass
 

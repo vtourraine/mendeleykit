@@ -23,6 +23,7 @@
 #ifndef MendeleyKitiOSFramework
 #import "MendeleyTask.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
 #endif
 
 @interface MendeleyResponse ()

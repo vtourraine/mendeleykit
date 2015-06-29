@@ -20,6 +20,7 @@
 
 #import "MendeleyKitTestBaseClass.h"
 
+#import "MendeleyGlobals.h"
 #import "MendeleyPerformanceMeter.h"
 #import "MendeleyTimer.h"
 

@@ -19,7 +19,10 @@
  */
 
 @import Foundation;
-@import MendeleyKitiOS;
+#import "MendeleyKitTestsBaseInclude.h"
+//#ifdef MendeleyKitiOSFramework
+//@import MendeleyKitiOS;
+//#endif
 
 typedef void (^testBlock)(BOOL *hasCalledBack);
 void waitForBlock(testBlock testBlock);

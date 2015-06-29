@@ -18,13 +18,16 @@
  *****************************************************************************
  */
 
+#import "MendeleyKitTestBaseClass.h"
+
 #ifndef MendeleyKitiOSFramework
 #import "MendeleyOAuthCredentials.h"
 #import "MendeleyModels.h"
 #import "MendeleyObjectHelper.h"
+#import "MendeleyGlobals.h"
+#import "MendeleyError.h"
 #endif
 
-#import "MendeleyKitTestBaseClass.h"
 
 @interface MendeleyObjectHelperTests : MendeleyKitTestBaseClass
 

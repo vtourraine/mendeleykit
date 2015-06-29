@@ -18,24 +18,12 @@
  *****************************************************************************
  */
 
-@import Foundation;
-#import "MendeleyKitTestsBaseInclude.h"
+#ifndef MendeleyKitTestsBaseInclude_h
+#define MendeleyKitTestsBaseInclude_h
+
+//#ifdef MendeleyKitiOSFramework
+@import MendeleyKitiOS;
+//#endif
 
 
-#ifndef MendeleyKitiOSFramework
-#import "MendeleyNetworkProvider.h"
-#import "MendeleyResponse.h"
-#endif
-
-@interface MendeleyMockNetworkProvider : NSObject <MendeleyNetworkProvider>
-@property (nonatomic, assign) BOOL expectedSuccess;
-@property (nonatomic, strong) NSError *expectedError;
-@property (nonatomic, assign) NSInteger expectedStatusCode;
-@property (nonatomic, strong) id expectedResponseBody;
-@property (nonatomic, assign) BOOL checkAdditionalHeaders;
-@property (nonatomic, assign) BOOL checkBodyParameters;
-@property (nonatomic, assign) BOOL checkValidBaseURLAndAPI;
-@property (nonatomic, assign) BOOL checkValidJSONInputData;
-@end
-
-
+#endif /* MendeleyKitTestsBaseInclude_h */

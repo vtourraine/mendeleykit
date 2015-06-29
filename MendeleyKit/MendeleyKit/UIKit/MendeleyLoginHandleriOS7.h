@@ -18,24 +18,17 @@
  *****************************************************************************
  */
 
-@import Foundation;
-#import "MendeleyKitTestsBaseInclude.h"
-
-
 #ifndef MendeleyKitiOSFramework
-#import "MendeleyNetworkProvider.h"
-#import "MendeleyResponse.h"
-#endif
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "MendeleyGlobals.h"
 
-@interface MendeleyMockNetworkProvider : NSObject <MendeleyNetworkProvider>
-@property (nonatomic, assign) BOOL expectedSuccess;
-@property (nonatomic, strong) NSError *expectedError;
-@property (nonatomic, assign) NSInteger expectedStatusCode;
-@property (nonatomic, strong) id expectedResponseBody;
-@property (nonatomic, assign) BOOL checkAdditionalHeaders;
-@property (nonatomic, assign) BOOL checkBodyParameters;
-@property (nonatomic, assign) BOOL checkValidBaseURLAndAPI;
-@property (nonatomic, assign) BOOL checkValidJSONInputData;
+@interface MendeleyLoginHandleriOS7 : NSObject <UIWebViewDelegate>
+- (void)startLoginProcessWithClientID:(NSString *)clientID
+                          redirectURI:(NSString *)redirectURI
+                           controller:(UIViewController *)controller
+                      completionBlock:(MendeleyCompletionBlock)completionBlock
+                 oauthCompletionBlock:(MendeleyOAuthCompletionBlock)oauthCompletionBlock;
+
 @end
-
-
+#endif

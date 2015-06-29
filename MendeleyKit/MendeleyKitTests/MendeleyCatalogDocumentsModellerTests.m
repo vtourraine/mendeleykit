@@ -19,11 +19,12 @@
  */
 
 #import <XCTest/XCTest.h>
+#import "MendeleyKitTestBaseClass.h"
+
 #ifndef MendeleyKitiOSFramework
 #import "MendeleyModeller.h"
 #import "MendeleyModels.h"
 #endif
-#import "MendeleyKitTestBaseClass.h"
 
 @interface MendeleyCatalogDocumentsModellerTests : MendeleyKitTestBaseClass
 @property (nonatomic, strong) NSData *jsonDictionary;

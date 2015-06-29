@@ -25,6 +25,7 @@
 #import "MendeleyNSURLConnectionProvider.h"
 #import "MendeleyURLBuilder.h"
 #import "MendeleyKitUserInfoManager.h"
+#import "MendeleyError.h"
 
 #define TIMEINTERVAL 120
 

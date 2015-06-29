@@ -25,7 +25,12 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
+
+#ifdef MendeleyKitiOSFramework
 #import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#else
+#import "MendeleyLoginHandleriOS7.h"
+#endif
 
 @interface MendeleyLoginViewController ()
 @property (nonatomic, strong) UIWebView *webView;
@@ -35,7 +40,9 @@
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
+#ifdef MendeleyKitiOSFramework
 @property (nonatomic, strong, nonnull) id<MendeleyLoginHandler> loginHandler;
+#endif
 @end
 
 @implementation MendeleyLoginViewController
@@ -116,18 +123,22 @@
         }
     };
     
+#ifdef MendeleyKitiOSFramework
     MendeleyKitLoginHelper *helper = [MendeleyKitLoginHelper new];
     /**
-     login handler needs to be retained by the class otherwise we get out of scope 
+     login handler needs to be retained by the class otherwise we get out of scope
      and the callbacks to the handler never get called
      */
     self.loginHandler = helper.loginHandler;
     
     [self.loginHandler startLoginProcess:self.clientID
-                        redirectURI:self.redirectURI
-                         controller:self
-                  completionHandler:self.completionBlock
-                       oauthHandler:oAuthCompletionBlock];
+                             redirectURI:self.redirectURI
+                              controller:self
+                       completionHandler:self.completionBlock
+                            oauthHandler:oAuthCompletionBlock];
+#else
+#endif
+    
     
 }
 
