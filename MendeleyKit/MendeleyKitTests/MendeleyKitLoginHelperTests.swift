@@ -36,6 +36,23 @@ class MendeleyKitLoginHelperTests: XCTestCase
         
     }
     
+    
+    func testAuthenticationCodeFromRequest()
+    {
+        let url = NSURL(string: "http://localhost/auth_return?code=1234")
+        
+        let helper = MendeleyKitLoginHelper()
+        
+        let codeString = helper.getAuthenticationCode(url!)
+        
+        
+        XCTAssertNotNil(codeString, "We should get a string back")
+        if nil != codeString
+        {
+            XCTAssertTrue(codeString! == "1234", "We should get back '1234' but instead get \(codeString)")
+        }
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {
