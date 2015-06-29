@@ -40,6 +40,7 @@
 #import "MendeleyProfilesAPI.h"
 #import "MendeleyDisciplinesAPI.h"
 #import "MendeleyFollowersAPI.h"
+#import "MendeleyErrorManager.h"
 
 
 @interface MendeleyKit ()

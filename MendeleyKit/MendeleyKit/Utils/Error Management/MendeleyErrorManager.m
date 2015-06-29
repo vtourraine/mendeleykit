@@ -20,6 +20,7 @@
 
 #import "MendeleyErrorManager.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
 
 @interface MendeleyErrorManager ()
 

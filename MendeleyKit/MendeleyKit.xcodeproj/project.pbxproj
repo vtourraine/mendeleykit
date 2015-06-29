@@ -157,6 +157,32 @@
 		C42AAA291A7BC3BF00502358 /* MendeleyDisciplinesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C42AAA271A7BC3BF00502358 /* MendeleyDisciplinesAPI.m */; };
 		C42AAA2A1A7BC3BF00502358 /* MendeleyDisciplinesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C42AAA271A7BC3BF00502358 /* MendeleyDisciplinesAPI.m */; };
 		C42AAA2C1A7BCA4700502358 /* disciplines.json in Resources */ = {isa = PBXBuildFile; fileRef = C42AAA2B1A7BCA4700502358 /* disciplines.json */; };
+		C43DAB551B415ED600A6900C /* MendeleyAnnotationModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886819DB17D200127ECE /* MendeleyAnnotationModellerTest.m */; };
+		C43DAB561B415EE100A6900C /* MendeleyCatalogDocumentsModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886019DB17A700127ECE /* MendeleyCatalogDocumentsModellerTests.m */; };
+		C43DAB571B415EEB00A6900C /* MendeleyDisciplineModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C41474181A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m */; };
+		C43DAB581B415EF500A6900C /* MendeleyModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886119DB17A700127ECE /* MendeleyModellerTest.m */; };
+		C43DAB591B415EFF00A6900C /* MendeleyModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886219DB17A700127ECE /* MendeleyModelTest.m */; };
+		C43DAB5A1B415F1200A6900C /* MendeleyObjectHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886319DB17A700127ECE /* MendeleyObjectHelperTests.m */; };
+		C43DAB5B1B415F3200A6900C /* MendeleyRecentlyReadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */; };
+		C43DAB5C1B415F4100A6900C /* MendeleyFollowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463941ADE997C00754160 /* MendeleyFollowTests.m */; };
+		C43DAB5D1B415F5C00A6900C /* MendeleyAnnotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883819DB164600127ECE /* MendeleyAnnotationTests.m */; };
+		C43DAB5E1B415F6800A6900C /* MendeleyProfilesAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883919DB164600127ECE /* MendeleyProfilesAPITests.m */; };
+		C43DAB5F1B415F7400A6900C /* MendeleyKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883A19DB164600127ECE /* MendeleyKitTests.m */; };
+		C43DAB621B41604D00A6900C /* MendeleyLogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884819DB171900127ECE /* MendeleyLogTests.m */; };
+		C43DAB631B41607200A6900C /* MendeleyMockNetworkProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886E19DB17F100127ECE /* MendeleyMockNetworkProviderTests.m */; };
+		C43DAB661B41614E00A6900C /* MendeleyErrorManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884719DB171900127ECE /* MendeleyErrorManagerTests.m */; };
+		C43DAB681B4161B200A6900C /* NSDictionaryMergeCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884E19DB172E00127ECE /* NSDictionaryMergeCategoryTests.m */; };
+		C43DAB691B4161BC00A6900C /* MendeleyNSURLConnectionProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E53AE19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m */; };
+		C43DAB6B1B41628E00A6900C /* MendeleyResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885419DB175500127ECE /* MendeleyResponseTests.m */; };
+		C43DAB6E1B41642B00A6900C /* MendeleyOAuthStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885219DB175500127ECE /* MendeleyOAuthStoreTests.m */; };
+		C43DAB6F1B41645600A6900C /* MendeleyNetworkingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885119DB175500127ECE /* MendeleyNetworkingTests.m */; };
+		C43DAB701B4164D300A6900C /* MendeleyReachabilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885319DB175500127ECE /* MendeleyReachabilityTests.m */; };
+		C43DAB711B41651D00A6900C /* MendeleySimpleNetworkProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885519DB175500127ECE /* MendeleySimpleNetworkProviderTests.m */; };
+		C43DAB721B41657900A6900C /* MendeleyErrorCategoriesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884619DB171900127ECE /* MendeleyErrorCategoriesTests.m */; };
+		C43DAB731B4165AD00A6900C /* MendeleyPerformanceMeterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884919DB171900127ECE /* MendeleyPerformanceMeterTests.m */; };
+		C43DAB741B41660200A6900C /* MendeleyLoginControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885019DB175500127ECE /* MendeleyLoginControllerTests.m */; };
+		C43DAB751B41666300A6900C /* MendeleyQueryParameterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885C19DB176C00127ECE /* MendeleyQueryParameterTests.m */; };
+		C43DAB761B4166AD00A6900C /* MendeleySyncInfoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885E19DB178000127ECE /* MendeleySyncInfoTests.m */; };
 		C449C4551B3D9BA8003DB68F /* MendeleyKitTestBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884019DB166B00127ECE /* MendeleyKitTestBaseClass.m */; };
 		C449C4561B3D9BAD003DB68F /* MendeleyKitTestsThreadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884419DB16B100127ECE /* MendeleyKitTestsThreadHelper.m */; };
 		C449C4571B3D9C0B003DB68F /* MendeleyAcademicStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F095091AA4771F00C5951C /* MendeleyAcademicStatusTests.m */; };
@@ -220,8 +246,6 @@
 		C46656261B37EF8A005F762A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46656251B37EF8A005F762A /* WebKit.framework */; };
 		C46656281B37F239005F762A /* MendeleyKitLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46656271B37F239005F762A /* MendeleyKitLoginHelper.swift */; };
 		C466564F1B3842AF005F762A /* MendeleyKitiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C466564E1B3842AF005F762A /* MendeleyKitiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C46656561B3842B0005F762A /* MendeleyKitiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C466564C1B3842AF005F762A /* MendeleyKitiOS.framework */; };
-		C466565B1B3842B0005F762A /* MendeleyKitiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C466565A1B3842B0005F762A /* MendeleyKitiOSTests.m */; };
 		C46656631B384365005F762A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46656251B37EF8A005F762A /* WebKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C46656651B384365005F762A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46656641B384365005F762A /* UIKit.framework */; };
 		C46656661B384391005F762A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CD513E19DAD9E400C8EB8D /* Foundation.framework */; };
@@ -759,7 +783,6 @@
 			files = (
 				C415E9C11B3ACB6D00C937E3 /* UIKit.framework in Frameworks */,
 				C415E9C01B3ACB6500C937E3 /* Foundation.framework in Frameworks */,
-				C46656561B3842B0005F762A /* MendeleyKitiOS.framework in Frameworks */,
 				154DD1C28358A9380C22F0E1 /* libPods-MendeleyKitiOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1911,12 +1934,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C43DAB5B1B415F3200A6900C /* MendeleyRecentlyReadTests.m in Sources */,
+				C43DAB761B4166AD00A6900C /* MendeleySyncInfoTests.m in Sources */,
+				C43DAB591B415EFF00A6900C /* MendeleyModelTest.m in Sources */,
 				C449C4691B3D9F0F003DB68F /* MendeleyMockNetworkProvider.m in Sources */,
-				C466565B1B3842B0005F762A /* MendeleyKitiOSTests.m in Sources */,
+				C43DAB561B415EE100A6900C /* MendeleyCatalogDocumentsModellerTests.m in Sources */,
+				C43DAB6B1B41628E00A6900C /* MendeleyResponseTests.m in Sources */,
+				C43DAB661B41614E00A6900C /* MendeleyErrorManagerTests.m in Sources */,
 				C449C4571B3D9C0B003DB68F /* MendeleyAcademicStatusTests.m in Sources */,
+				C43DAB5F1B415F7400A6900C /* MendeleyKitTests.m in Sources */,
 				C449C4681B3D9ED3003DB68F /* MendeleyAnnotationsAPITests.m in Sources */,
+				C43DAB741B41660200A6900C /* MendeleyLoginControllerTests.m in Sources */,
+				C43DAB551B415ED600A6900C /* MendeleyAnnotationModellerTest.m in Sources */,
 				C449C4561B3D9BAD003DB68F /* MendeleyKitTestsThreadHelper.m in Sources */,
+				C43DAB5E1B415F6800A6900C /* MendeleyProfilesAPITests.m in Sources */,
+				C43DAB701B4164D300A6900C /* MendeleyReachabilityTests.m in Sources */,
+				C43DAB751B41666300A6900C /* MendeleyQueryParameterTests.m in Sources */,
+				C43DAB5C1B415F4100A6900C /* MendeleyFollowTests.m in Sources */,
+				C43DAB571B415EEB00A6900C /* MendeleyDisciplineModellerTest.m in Sources */,
+				C43DAB581B415EF500A6900C /* MendeleyModellerTest.m in Sources */,
+				C43DAB6F1B41645600A6900C /* MendeleyNetworkingTests.m in Sources */,
+				C43DAB6E1B41642B00A6900C /* MendeleyOAuthStoreTests.m in Sources */,
+				C43DAB631B41607200A6900C /* MendeleyMockNetworkProviderTests.m in Sources */,
 				C449C4551B3D9BA8003DB68F /* MendeleyKitTestBaseClass.m in Sources */,
+				C43DAB711B41651D00A6900C /* MendeleySimpleNetworkProviderTests.m in Sources */,
+				C43DAB731B4165AD00A6900C /* MendeleyPerformanceMeterTests.m in Sources */,
+				C43DAB5D1B415F5C00A6900C /* MendeleyAnnotationTests.m in Sources */,
+				C43DAB5A1B415F1200A6900C /* MendeleyObjectHelperTests.m in Sources */,
+				C43DAB681B4161B200A6900C /* NSDictionaryMergeCategoryTests.m in Sources */,
+				C43DAB691B4161BC00A6900C /* MendeleyNSURLConnectionProviderTests.m in Sources */,
+				C43DAB621B41604D00A6900C /* MendeleyLogTests.m in Sources */,
+				C43DAB721B41657900A6900C /* MendeleyErrorCategoriesTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

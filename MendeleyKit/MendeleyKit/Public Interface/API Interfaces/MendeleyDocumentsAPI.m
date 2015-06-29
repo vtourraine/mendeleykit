@@ -22,6 +22,7 @@
 #import "MendeleyDocument.h"
 #import "MendeleyKitConfiguration.h"
 #import "NSDictionary+Merge.h"
+#import "NSError+Exceptions.h"
 
 @implementation MendeleyDocumentsAPI
 #pragma mark Private methods

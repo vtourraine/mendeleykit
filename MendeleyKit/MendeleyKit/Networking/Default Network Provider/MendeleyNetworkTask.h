@@ -19,7 +19,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "MendeleyGlobals.h"
 /**
    @name MendeleyNetworkTask
  */

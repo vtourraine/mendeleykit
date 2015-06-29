@@ -19,6 +19,7 @@
  */
 
 #import "MendeleyObjectAPI.h"
+#import "MendeleyErrorManager.h"
 
 @implementation MendeleyObjectAPI
 

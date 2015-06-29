@@ -25,6 +25,7 @@
 #import <AppKit/AppKit.h>
 #endif
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
 
 @implementation MendeleyURLBuilder
 + (NSURL *)urlWithBaseURL:(NSURL *)baseURL parameters:(NSDictionary *)parameters query:(BOOL)query

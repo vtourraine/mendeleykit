@@ -25,6 +25,7 @@
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyModeller.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
 
 @interface MendeleyKitHelper ()
 

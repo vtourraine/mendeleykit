@@ -19,6 +19,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MendeleyGlobals.h"
+
 @class MendeleySyncInfo;
 
 @interface MendeleyResponse : NSObject

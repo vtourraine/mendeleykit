@@ -19,6 +19,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MendeleyGlobals.h"
+#import "MendeleyError.h"
 
 @interface NSError (MendeleyKit)
 /**

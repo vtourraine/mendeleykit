@@ -21,6 +21,7 @@
 #import "MendeleyTimer.h"
 #include <mach/mach_time.h>
 #include <mach/mach.h>
+#import "MendeleyLog.h"
 
 @implementation MendeleyTimer
 {

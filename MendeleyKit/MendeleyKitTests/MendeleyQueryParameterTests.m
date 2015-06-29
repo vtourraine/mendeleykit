@@ -18,9 +18,10 @@
  *****************************************************************************
  */
 
+#import "MendeleyKitTestBaseClass.h"
+
 #import "MendeleyQueryRequestParameters.h"
 #import "MendeleyObjectHelper.h"
-#import "MendeleyKitTestBaseClass.h"
 
 @interface MendeleyQueryParameterTests : MendeleyKitTestBaseClass
 

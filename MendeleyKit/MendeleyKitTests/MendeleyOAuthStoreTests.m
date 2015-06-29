@@ -17,10 +17,10 @@
  *  limitations under the License.
  *****************************************************************************
  */
+#import "MendeleyKitTestBaseClass.h"
 
 #import "MendeleyOAuthConstants.h"
 #import "MendeleyOAuthStore.h"
-#import "MendeleyKitTestBaseClass.h"
 
 
 @interface MendeleyOAuthStoreTests : MendeleyKitTestBaseClass

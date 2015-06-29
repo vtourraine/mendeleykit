@@ -19,6 +19,8 @@
  */
 
 #import "MendeleyGroupsAPI.h"
+#import "NSError+Exceptions.h"
+#import "MendeleyErrorManager.h"
 
 @implementation MendeleyGroupsAPI
 

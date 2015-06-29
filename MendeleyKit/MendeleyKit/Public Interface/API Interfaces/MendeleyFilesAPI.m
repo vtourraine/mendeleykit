@@ -20,6 +20,7 @@
 
 #import "MendeleyFilesAPI.h"
 #import "MendeleyModels.h"
+#import "NSError+Exceptions.h"
 
 @implementation MendeleyFilesAPI
 

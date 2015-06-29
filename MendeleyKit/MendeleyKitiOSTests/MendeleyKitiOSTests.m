@@ -6,8 +6,8 @@
 //  Copyright © 2015 Mendeley. All rights reserved.
 //
 
-@import MendeleyKitiOS;
 #import <XCTest/XCTest.h>
+@import MendeleyKitiOS;
 
 
 @interface MendeleyKitiOSTests : XCTestCase

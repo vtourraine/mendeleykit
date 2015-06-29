@@ -20,6 +20,8 @@
 
 #import "NSError+MendeleyError.h"
 #import "MendeleyResponse.h"
+#import "MendeleyError.h"
+#import "MendeleyErrorManager.h"
 
 @implementation NSError (MendeleyKit)
 

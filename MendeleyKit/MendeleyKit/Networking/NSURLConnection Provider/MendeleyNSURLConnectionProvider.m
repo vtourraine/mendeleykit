@@ -22,6 +22,8 @@
 #import "MendeleyRequest.h"
 #import "MendeleyLog.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
+#import "MendeleyErrorManager.h"
 #import "MendeleyURLBuilder.h"
 #import "MendeleyNSURLRequestHelper.h"
 #import "MendeleyNSURLRequestDownloadHelper.h"

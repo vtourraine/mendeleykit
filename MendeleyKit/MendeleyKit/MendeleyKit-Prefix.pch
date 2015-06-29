@@ -19,10 +19,10 @@
  */
 
 #ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-    #import "MendeleyLog.h"
-    #import "MendeleyGlobals.h"
-    #import "MendeleyError.h"
-    #import "MendeleyErrorManager.h"
-    #import "NSError+Exceptions.h"
+    @import Foundation;
+//    #import "MendeleyLog.h"
+//    #import "MendeleyGlobals.h"
+//    #import "MendeleyError.h"
+//    #import "MendeleyErrorManager.h"
+//    #import "NSError+Exceptions.h"
 #endif

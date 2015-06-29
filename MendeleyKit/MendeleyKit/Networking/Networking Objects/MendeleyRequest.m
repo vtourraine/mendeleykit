@@ -21,6 +21,7 @@
 #import "MendeleyRequest.h"
 #import "MendeleyURLBuilder.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
 #import "MendeleyOAuthStore.h"
 #import "MendeleyOAuthCredentials.h"
 
