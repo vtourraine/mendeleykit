@@ -18,10 +18,10 @@
  *****************************************************************************
  */
 
-#import "MendeleyMockNetworkProvider.h"
 #import "MendeleyKitTestBaseClass.h"
 
 #ifndef MendeleyKitiOSFramework
+#import "MendeleyMockNetworkProvider.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyKit.h"
 #import "MendeleyAnnotationsAPI.h"

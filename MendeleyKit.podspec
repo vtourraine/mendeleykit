@@ -23,12 +23,12 @@ Pod::Spec.new do |s|
   s.requires_arc  = true
 
   s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "1.0.9" }
-
-  s.ios.deployment_target = '7.0'
+  s.module_name  = 'MendeleyKitiOS'
+  s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.8'
 
-  s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}'
-  s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
+  s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m,swift}'
+  s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample', 'MendeleyKit/MendeleyKitiOSTests'
 
   s.ios.exclude_files = 'MendeleyKit/MendeleyKitOSX'
   s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
@@ -45,11 +45,7 @@ Pod::Spec.new do |s|
       #import <SystemConfiguration/SystemConfiguration.h>
       #import <CoreServices/CoreServices.h>
     #endif
-    #import "MendeleyLog.h"
-    #import "MendeleyGlobals.h"
-    #import "MendeleyError.h"
-    #import "MendeleyErrorManager.h"
-    #import "NSError+Exceptions.h"
+    @import MendeleyKitiOS;
   #endif /* __OBJC__*/
   EOS
 

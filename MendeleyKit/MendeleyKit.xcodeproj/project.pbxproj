@@ -596,7 +596,6 @@
 		C466564E1B3842AF005F762A /* MendeleyKitiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MendeleyKitiOS.h; sourceTree = "<group>"; };
 		C46656501B3842AF005F762A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C46656551B3842B0005F762A /* MendeleyKitiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MendeleyKitiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C466565A1B3842B0005F762A /* MendeleyKitiOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MendeleyKitiOSTests.m; sourceTree = "<group>"; };
 		C466565C1B3842B0005F762A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C46656641B384365005F762A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C46657E11B385AB2005F762A /* MendeleyLoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyLoginHandler.swift; path = UIKit/MendeleyLoginHandler.swift; sourceTree = "<group>"; };
@@ -973,7 +972,6 @@
 		C46656591B3842B0005F762A /* MendeleyKitiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				C466565A1B3842B0005F762A /* MendeleyKitiOSTests.m */,
 				C466565C1B3842B0005F762A /* Info.plist */,
 			);
 			path = MendeleyKitiOSTests;
