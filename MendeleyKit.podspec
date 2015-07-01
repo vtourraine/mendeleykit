@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 
-  s.name         = "MendeleyKit"
+  s.name         = "MendeleyKitiOS"
   s.version      = "1.0.9"
   s.summary      = "The Mendeley Objective C client SDK."
 
@@ -19,11 +19,12 @@ Pod::Spec.new do |s|
   s.license      = 'Apache Licence, Version 2.0'
 
   s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
-
   s.requires_arc  = true
 
-  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "1.0.9" }
+  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git"}
+  s.header_dir   = 'MendeleyKitiOS.framework/Headers'
   s.module_name  = 'MendeleyKitiOS'
+#  s.module_map = 'MendeleyKit/MendeleyKitiOS/module.modulemap'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.8'
 
@@ -31,8 +32,9 @@ Pod::Spec.new do |s|
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample', 'MendeleyKit/MendeleyKitiOSTests'
 
   s.ios.exclude_files = 'MendeleyKit/MendeleyKitOSX'
-  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
+  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}', 'MendeleyKit/MendeleyKitiOS'
   s.ios.frameworks  = 'MobileCoreServices', 'SystemConfiguration', 'Security', 'Foundation'
+  s.ios.vendored_frameworks = 'MendeleyKitiOS/MendeleyKitiOS.framework'
   s.osx.frameworks  = 'Foundation', 'CoreFoundation', 'AppKit', 'Security', 'WebKit', 'CoreServices'
 
   s.prefix_header_contents = <<-EOS
@@ -45,7 +47,7 @@ Pod::Spec.new do |s|
       #import <SystemConfiguration/SystemConfiguration.h>
       #import <CoreServices/CoreServices.h>
     #endif
-    @import MendeleyKitiOS;
+    #import <MendeleyKitiOS/MendeleyKitiOS.h>
   #endif /* __OBJC__*/
   EOS
 
