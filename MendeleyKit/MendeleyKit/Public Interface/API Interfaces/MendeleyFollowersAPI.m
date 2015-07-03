@@ -29,8 +29,8 @@
 
 - (NSDictionary *)followRequestUploadHeaders
 {
-    return @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONFollowType,
-              kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONFollowRequestType };
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFollowType,
+              kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONFollowRequestType };
 }
 
 - (NSDictionary *)followAcceptanceUploadHeaders
