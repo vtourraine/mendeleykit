@@ -80,4 +80,36 @@
                                task:(MendeleyTask *)task
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+/**
+   BETA - Start following another user.
+   @param followedID
+   @param task
+   @param completionBlock - the object contained in the completionBlock will be a MendeleyFollow object
+ */
+- (void)followUserWithID:(NSString *)followedID
+                    task:(MendeleyTask *)task
+         completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+
+/**
+   BETA - Accept a pending follow request
+   @param requestID
+   @param task
+   @param completionBlock
+ 
+ */
+- (void)acceptFollowRequestWithID:(NSString *)requestID
+                             task:(MendeleyTask *)task
+                  completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+   BETA -Stop following a profile, cancel a follow request or reject a follow request
+   @param relationshipID
+   @param task
+   @param completionBlock
+ */
+- (void)stopOrDenyRelationshipWithID:(NSString *)relationshipID
+                          task:(MendeleyTask *)task
+               completionBlock:(MendeleyCompletionBlock)completionBlock;
+
 @end
