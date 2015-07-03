@@ -149,7 +149,7 @@
     [self.helper createMendeleyObject:followRequest
                                   api:kMendeleyRESTAPIFollowers
                     additionalHeaders:[self followRequestUploadHeaders]
-                         expectedType:kMendeleyModelDocument
+                         expectedType:kMendeleyModelFollow
                                  task:task
                       completionBlock:completionBlock];
 }
