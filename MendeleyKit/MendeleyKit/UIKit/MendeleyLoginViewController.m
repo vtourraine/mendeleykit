@@ -114,7 +114,12 @@
 #pragma mark UIWebview delegate methods
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if ([request.URL.absoluteString hasPrefix:[self.oauthServer absoluteString]])
+    if ([request.URL.absoluteString hasSuffix:@"forgot/"])
+    {
+        [[UIApplication sharedApplication] openURL:request.URL];
+        return NO;
+    }
+    else if ([request.URL.absoluteString hasPrefix:[self.oauthServer absoluteString]])
     {
         return YES;
     }
