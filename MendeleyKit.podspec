@@ -19,8 +19,9 @@ Pod::Spec.new do |s|
   s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
   s.requires_arc  = true
   s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "1.0.9" }
+  s.default_subspec = 'Standard'
 
-  s.subspec 'MendeleyKit/Standard' do |standard|
+  s.subspec 'Standard' do |standard|
      standard.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}'
      standard.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'     standard.ios.deployment_target = '7.0'
      standard.osx.deployment_target = '10.8'
@@ -47,7 +48,7 @@ Pod::Spec.new do |s|
    EOS
   end
 
-  s.subspec 'MendeleyKit/iOS_Framework' do |framework|
+  s.subspec 'iOSFramework' do |framework|
     framework.module_name = "MendeleyKitiOS"
     framework.ios.deployment_target = '8.0'
     framework.source_files  = "MendeleyKit/MendeleyKitiOS/MendeleyKitiOS.h", "MendeleyKit/MendeleyKit/*.h", "MendeleyKit/MendeleyKit/**/$
