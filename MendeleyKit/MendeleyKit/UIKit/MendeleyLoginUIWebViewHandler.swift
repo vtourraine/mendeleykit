@@ -77,7 +77,13 @@ public class MendeleyLoginUIWebViewHandler: NSObject, UIWebViewDelegate, Mendele
     
     public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool
     {
-        if(( request.URL?.absoluteString.hasPrefix(oAuthServer.absoluteString)) != nil)
+        if(request.URL!.absoluteString.hasSuffix("forgot/"))
+        {
+            UIApplication.sharedApplication().openURL(request.URL!)
+            return false
+        }
+        
+        if(request.URL!.absoluteString.hasPrefix(oAuthServer.absoluteString))
         {
             return true
         }

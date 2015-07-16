@@ -24,8 +24,8 @@ DESC
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.8'
-  s.ios.exclude_files = 'MendeleyKit/MendeleyKitOSX'
-  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}', 'MendeleyKit/MendeleyKitiOS'
+  s.ios.exclude_files = 'MendeleyKit/MendeleyKitOSX', 'MendeleyKit/MendeleyKitiOS', 'MendeleyKit/Pods'
+  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}', 'MendeleyKit/MendeleyKitiOS', 'MendeleyKit/Pods'
   s.ios.frameworks  = 'MobileCoreServices', 'SystemConfiguration', 'Security', 'Foundation'
   s.osx.frameworks  = 'Foundation', 'CoreFoundation', 'AppKit', 'Security', 'WebKit', 'CoreServices'
   s.prefix_header_contents = <<-EOS

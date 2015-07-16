@@ -42,6 +42,8 @@
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
 #ifdef MendeleyKitiOSFramework
 @property (nonatomic, strong, nonnull) id<MendeleyLoginHandler> loginHandler;
+#else
+@property (nonatomic, strong) MendeleyLoginHandleriOS7 *loginHandler;
 #endif
 @end
 
@@ -137,6 +139,12 @@
                        completionHandler:self.completionBlock
                             oauthHandler:oAuthCompletionBlock];
 #else
+    self.loginHandler = [MendeleyLoginHandleriOS7 new];
+    [self.loginHandler startLoginProcess:self.clientID
+                             redirectURI:self.redirectURI
+                              controller:self
+                       completionHandler:self.completionBlock
+                            oauthHandler:oAuthCompletionBlock];
 #endif
     
     

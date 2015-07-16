@@ -65,6 +65,11 @@
 
 - (BOOL)webView:(nonnull UIWebView *)webView shouldStartLoadWithRequest:(nonnull NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    if ([request.URL.absoluteString hasSuffix:[@"forgot/"]])
+    {
+        [[UIApplication sharedApplication] openURL:request.URL];
+        return NO;
+    }
     if ([request.URL.absoluteString hasPrefix:[self.oauthServer absoluteString]])
     {
         return YES;
