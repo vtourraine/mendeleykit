@@ -142,8 +142,8 @@
             _box = NSRectToCGRect([rectValue rectValue]);
 #endif
         }
+        _page = [decoder decodeObjectOfClass:[self class] forKey:kMendeleyJSONPage];
     }
-    _page = [decoder decodeObjectOfClass:[self class] forKey:kMendeleyJSONPage];
     return self;
 }
 
