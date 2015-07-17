@@ -30,7 +30,7 @@
 
 
 @interface MendeleyFollowTests : MendeleyKitTestBaseClass
-@property (nonatomic, strong) NSData *jsonArrayData;
+@property (nonatomic, strong) NSData *jsonData;
 @end
 
 @implementation MendeleyFollowTests
@@ -38,24 +38,26 @@
 - (void)setUp
 {
     [super setUp];
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-
-    NSString *jsonArrayPath = [bundle pathForResource:@"followers.json" ofType:nil];
-    NSData *jsonArray = [NSData dataWithContentsOfFile:jsonArrayPath];
-    self.jsonArrayData = jsonArray;
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testParseFollowJsonArray
+- (NSData *)jsonDataForFileWithName:(NSString *)fileName
 {
-    XCTAssertTrue(self.jsonArrayData, @"We expected the jsonArray to be not NIL");
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *jsonPath = [bundle pathForResource:fileName ofType:@"json"];
+    return [NSData dataWithContentsOfFile:jsonPath];
+}
+
+- (void)testDeserializeFollowJsonArray
+{
+    self.jsonData = [self jsonDataForFileWithName:@"followers"];
+    XCTAssertTrue(self.jsonData, @"We expected the jsonData to be not NIL");
     NSError *parseError = nil;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:self.jsonArrayData options:NSJSONReadingAllowFragments error:&parseError];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:self.jsonData options:NSJSONReadingAllowFragments error:&parseError];
     XCTAssertNil(parseError, @"we expected the JSON data to be parsed without error");
     if (nil != jsonObject)
     {
@@ -89,6 +91,56 @@
 
              }
          }];
+    }
+}
+
+- (void)testSerializeFollowJsonRequest
+{
+    self.jsonData = [self jsonDataForFileWithName:@"followRequest"];
+    XCTAssertTrue(self.jsonData, @"We expected the jsonData to be not NIL");
+    NSError *parseError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:self.jsonData options:NSJSONReadingAllowFragments error:&parseError];
+    XCTAssertNil(parseError, @"we expected the JSON data to be parsed without error");
+    
+    if (nil != jsonObject)
+    {
+        MendeleyFollowRequest *followRequest = [MendeleyFollowRequest new];
+        followRequest.followed = @"d0fdf611-d314-3f01-8f05-26106607378f";
+        
+        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+        NSData *jsonData = [modeller jsonObjectFromModelOrModels:followRequest error:&parseError];
+        XCTAssertNil(parseError, @"We expected the error to bi nil");
+        XCTAssertNotNil(jsonData, @"We expected the jsonData not to be nil");
+        NSString *JSONStringFromFile = [[NSString alloc] initWithData:self.jsonData encoding:NSUTF8StringEncoding];
+        NSString *cleanStringFromFile = [JSONStringFromFile stringByReplacingOccurrencesOfString:@"\\s" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, JSONStringFromFile.length)];
+        NSString *JSONStringFromObject = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSString *cleanStringFromObject = [JSONStringFromObject stringByReplacingOccurrencesOfString:@"\\s" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, JSONStringFromObject.length)];
+        XCTAssertEqualObjects(cleanStringFromFile, cleanStringFromObject, @"We expected the 2 strings to be the same");
+    }
+}
+
+- (void)testSerializeFollowJSONAcceptance
+{
+    self.jsonData = [self jsonDataForFileWithName:@"followAcceptance"];
+    XCTAssertTrue(self.jsonData, @"We expected the jsonData to be not NIL");
+    NSError *parseError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:self.jsonData options:NSJSONReadingAllowFragments error:&parseError];
+    XCTAssertNil(parseError, @"we expected the JSON data to be parsed without error");
+    
+    if (nil != jsonObject)
+    {
+        MendeletyFollowAcceptance *followAcceptance = [MendeletyFollowAcceptance new];
+        followAcceptance.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
+        
+        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+        NSData *jsonData = [modeller jsonObjectFromModelOrModels:followAcceptance error:&parseError];
+        XCTAssertNil(parseError, @"We expected the error to bi nil");
+        XCTAssertNotNil(jsonData, @"We expected the jsonData not to be nil");
+        NSString *JSONStringFromFile = [[NSString alloc] initWithData:self.jsonData encoding:NSUTF8StringEncoding];
+        NSString *cleanStringFromFile = [JSONStringFromFile stringByReplacingOccurrencesOfString:@"\\s" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, JSONStringFromFile.length)];
+        NSString *JSONStringFromObject = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSString *cleanStringFromObject = [JSONStringFromObject stringByReplacingOccurrencesOfString:@"\\s" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, JSONStringFromObject.length)];
+        XCTAssertEqualObjects(cleanStringFromFile, cleanStringFromObject, @"We expected the 2 strings to be the same");
     }
 }
 

@@ -1,7 +1,12 @@
 RELEASE NOTES
-Date: May 2015 (1.0.8)
+Date: June 2015 (1.0.12)
+- the checking of refresh token validity needs to save the retrieved refresh token as it is not guaranteed to remain the same.
+
+Date: May 2015 (1.0.11)
 - more consistent use of MendeleySecureObject and MendeleyObject in API handling
 - updated time format to include the correct time zone
+- improve error handling for file downloads. Downloaded data (including JSON error messages) are streamed directly to file location. We read the error message and ensure that the failed file download is removed.
+
 
 Date: April 2015 (v1.0.7)
 - Added followers/recently_read APIs

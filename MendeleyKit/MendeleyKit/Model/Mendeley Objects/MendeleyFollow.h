@@ -27,3 +27,15 @@
 @property (nonatomic, strong) NSString *status;
 
 @end
+
+@interface MendeleyFollowRequest : MendeleySecureObject
+
+@property (nonatomic, strong) NSString *followed;
+
+@end
+
+@interface MendeletyFollowAcceptance : MendeleySecureObject
+
+@property (nonatomic, strong) NSString *status;
+
+@end

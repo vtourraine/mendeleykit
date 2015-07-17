@@ -27,11 +27,13 @@
 
 + (id)errorWithCode:(MendeleyErrorCode)code localizedDescription:(NSString *)localizedDescription
 {
-    if (nil == localizedDescription)
+    NSDictionary *userInfo = nil;
+
+    if (nil != localizedDescription)
     {
-        localizedDescription = MendeleyErrorUnknown;
+        userInfo = @{ NSLocalizedDescriptionKey: localizedDescription };
     }
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: localizedDescription };
+
     return [[self class] errorWithDomain:kMendeleyErrorDomain code:code userInfo:userInfo];
 }
 

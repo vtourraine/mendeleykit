@@ -77,6 +77,8 @@
 		145C2E141A2CAB0E0005BFF6 /* MendeleyKitTestsThreadHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C462884119DB166B00127ECE /* MendeleyKitTestsThreadHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2E151A2CAB0E0005BFF6 /* MendeleyKitTestBaseClass.h in Headers */ = {isa = PBXBuildFile; fileRef = C462883F19DB166B00127ECE /* MendeleyKitTestBaseClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		154DD1C28358A9380C22F0E1 /* libPods-MendeleyKitiOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */; };
+		373AA4EB1B4698F800F8B0C4 /* followRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EA1B4698F800F8B0C4 /* followRequest.json */; };
+		373AA4ED1B46AAB500F8B0C4 /* followAcceptance.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */; };
 		C24E70A3E1A44058A40FBE96 /* libPods-MendeleyKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */; };
 		C41474191A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C41474181A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m */; };
 		C414741B1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */; };
@@ -524,6 +526,8 @@
 		0B387EED19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyNSURLRequestUploadHelper.m; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestUploadHelper.m"; sourceTree = "<group>"; };
 		0F7FE6F8D2A0E0F2771226C7 /* Pods-MendeleyKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitiOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		373AA4EA1B4698F800F8B0C4 /* followRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followRequest.json; sourceTree = "<group>"; };
+		373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followAcceptance.json; sourceTree = "<group>"; };
 		8302971636AF25A993EDBA94 /* Pods-MendeleyKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41474181A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyDisciplineModellerTest.m; sourceTree = "<group>"; };
@@ -1336,6 +1340,8 @@
 				C462882C19DB160700127ECE /* profiles.json */,
 				C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */,
 				C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */,
+				373AA4EA1B4698F800F8B0C4 /* followRequest.json */,
+				373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1700,6 +1706,7 @@
 				C414741B1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf in Resources */,
 				C462883019DB160700127ECE /* document.json in Resources */,
 				C462883319DB160700127ECE /* folders.json in Resources */,
+				373AA4ED1B46AAB500F8B0C4 /* followAcceptance.json in Resources */,
 				C462883119DB160700127ECE /* documentList.json in Resources */,
 				C462882D19DB160700127ECE /* annotation.json in Resources */,
 				C8503FD21AB0725D00A56CE7 /* recentlyReadObject.json in Resources */,
@@ -1709,6 +1716,7 @@
 				C462883719DB160700127ECE /* profiles.json in Resources */,
 				C462883519DB160700127ECE /* group.json in Resources */,
 				C8503FD11AB0725D00A56CE7 /* recentlyReadArray.json in Resources */,
+				373AA4EB1B4698F800F8B0C4 /* followRequest.json in Resources */,
 				C462883619DB160700127ECE /* groupList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
