@@ -92,17 +92,17 @@
     return innerSuccess;
 }
 
-- (void)parseFailureResponseFromFileDownloadURL:(NSURL *)fileURL
+- (BOOL)parseFailureResponseFromFileDownloadURL:(NSURL *)fileURL
                                           error:(NSError **)error;
 {
     if ([[[self class] correctStates] containsIndex:self.statusCode])
     {
-        return;
+        return YES;
     }
     NSFileManager *manager = [NSFileManager defaultManager];
     if (![manager fileExistsAtPath:fileURL.path])
     {
-        return;
+        return YES;
     }
 
     NSData *errorData = [NSData dataWithContentsOfFile:fileURL.path];
@@ -111,7 +111,7 @@
 
     if (nil == errorData)
     {
-        return;
+        return YES;
     }
     NSError *jsonError = nil;
     id jsonObj = [NSJSONSerialization JSONObjectWithData:errorData
@@ -131,9 +131,10 @@
             *error = [NSError errorWithDomain:kMendeleyErrorDomain
                                          code:self.statusCode
                                      userInfo:userinfo];
+            return NO;
         }
     }
-
+    return YES;
 }
 
 
