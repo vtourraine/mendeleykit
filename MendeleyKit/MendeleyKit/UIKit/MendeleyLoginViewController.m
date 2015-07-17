@@ -140,11 +140,12 @@
                             oauthHandler:oAuthCompletionBlock];
 #else
     self.loginHandler = [MendeleyLoginHandleriOS7 new];
-    [self.loginHandler startLoginProcess:self.clientID
-                             redirectURI:self.redirectURI
-                              controller:self
-                       completionHandler:self.completionBlock
-                            oauthHandler:oAuthCompletionBlock];
+    [self.loginHandler startLoginProcessWithClientID:self.clientID
+                                         redirectURI:self.redirectURI
+                                          controller:self
+                                     completionBlock:self.completionBlock
+                                oauthCompletionBlock:oAuthCompletionBlock];
+
 #endif
     
     

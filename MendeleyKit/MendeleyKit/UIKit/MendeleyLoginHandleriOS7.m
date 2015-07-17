@@ -65,7 +65,7 @@
 
 - (BOOL)webView:(nonnull UIWebView *)webView shouldStartLoadWithRequest:(nonnull NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if ([request.URL.absoluteString hasSuffix:[@"forgot/"]])
+    if ([request.URL.absoluteString hasSuffix:@"forgot/"])
     {
         [[UIApplication sharedApplication] openURL:request.URL];
         return NO;
