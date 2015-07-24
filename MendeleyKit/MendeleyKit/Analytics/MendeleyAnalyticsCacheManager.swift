@@ -76,8 +76,6 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
     
-    
-    
     public func sendAndClearAnalyticsEvents(completionHandler: MendeleySuccessClosure)
     {
         let events = eventsFromArchive()
@@ -86,34 +84,53 @@ public class MendeleyAnalyticsCacheManager: NSObject
             completionHandler(success: true, error: nil)
             return
         }
+        
         let sdk = MendeleyKit.sharedInstance()
         if sdk.isAuthenticated
         {
-//            MendeleyOAuthTokenHelper.refreshTokenWithRefreshBlock({ (success, error) -> Void in
-//                let blockExecutor = MendeleyBlockExecutor(completionBlock: completionHandler)
-//                if success
-//                {
-//                    let kit = MendeleyKitConfiguration.sharedInstance()
-//                    let baseURL = kit.baseAPIURL
-//                    let provider = kit.networkProvider
-//                    let modeller = MendeleyModeller.sharedInstance()
-//                        let data: NSData = try modeller.jsonObjectFromModelOrModels(events)
-//                        let task = MendeleyTask()
-//                        provider.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
-//                            let helper = MendeleyKitHelper()
-//                            if helper.isSuccessForResponse(response)
+            MendeleyOAuthTokenHelper.refreshTokenWithRefreshBlock({ (success, error) -> Void in
+                let blockExecutor = MendeleyBlockExecutor(completionBlock: completionHandler)
+                if success
+                {
+                    let kit = MendeleyKitConfiguration.sharedInstance()
+                    let baseURL = kit.baseAPIURL
+                    let provider = kit.networkProvider
+                    let modeller = MendeleyModeller.sharedInstance()
+                    let task = MendeleyTask()
+                    do{
+                        let data = try modeller.jsonObjectFromModelOrModels(events) as NSData!
+                        provider.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
+                            let helper = MendeleyKitHelper()
+                            try! helper.isSuccessForResponse(response!)
+                            
+//                            do{
+//                                let helper = MendeleyKitHelper()
+//                                try helper.isSuccessForResponse(response!)
+//                                self.clearCache()
+//                                blockExecutor.executeWithBool(true, error: nil)
+//                            }catch let responseFault as NSError
 //                            {
-//                                
+//                                blockExecutor.executeWithBool(false, error: responseFault)
 //                            }
-//                        })
-//                        
-//                }
-//                else
-//                {
-//                    blockExecutor.executeWithBool(false, error: error)
-//                }
-//                
-//            })
+//                            catch{
+//                                let innerError = NSError(code: MendeleyErrorCode.ResponseTypeUnknownErrorCode)
+//                                blockExecutor.executeWithBool(false, error: innerError)
+//                            }
+                        })
+                    }catch let jsonError as NSError
+                    {
+                        blockExecutor.executeWithBool(false, error: jsonError)
+                    }
+                    catch{
+                        let jsonError = NSError(code: MendeleyErrorCode.JSONTypeNotMappedToModelErrorCode)
+                        blockExecutor.executeWithBool(false, error: jsonError)
+                    }
+                }
+                else
+                {
+                    blockExecutor.executeWithBool(false, error: error)
+                }
+            })
         }
         else
         {
