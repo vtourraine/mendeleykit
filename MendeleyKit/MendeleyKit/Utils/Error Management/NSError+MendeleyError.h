@@ -32,20 +32,20 @@
    @param localizedDescription
    @return an error with default Mendeley SDK domain
  */
-+ (id)errorWithCode:(MendeleyErrorCode)code localizedDescription:(NSString *)localizedDescription;
++ (instancetype)errorWithCode:(MendeleyErrorCode)code localizedDescription:(NSString *)localizedDescription;
 
 /**
    @param code
    @return an error object with default Mendeley Error domain
  */
-+ (id)errorWithCode:(MendeleyErrorCode)code;
++ (instancetype)errorWithCode:(MendeleyErrorCode)code;
 
 /**
    @param response
    @param url
    @return an error with default Mendeley Error domain
  */
-+ (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url;
++ (instancetype)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url;
 
 /**
    @param response
@@ -53,6 +53,6 @@
    @param body
    @return an error with default Mendeley Error domain
  */
-+ (id)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url failureBody:(NSData *)body;
++ (instancetype)errorWithMendeleyResponse:(MendeleyResponse *)response requestURL:(NSURL *)url failureBody:(NSData *)body;
 
 @end
