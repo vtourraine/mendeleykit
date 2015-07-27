@@ -59,17 +59,17 @@ typedef NS_ENUM(int, MendeleyIconType)
 /***********************************************
  @name Block definitions
  ***********************************************/
-typedef void (^MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials *credentials, NSError *error);
-typedef void (^MendeleyResponseCompletionBlock)(MendeleyResponse *response, NSError *error);
+typedef void (^MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials * __nullable credentials, NSError * __nullable error);
+typedef void (^MendeleyResponseCompletionBlock)(MendeleyResponse * __nullable response, NSError * __nullable error);
 typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
-typedef void (^MendeleyCompletionBlock)(BOOL success, NSError *error);
-typedef void (^MendeleyArrayCompletionBlock)(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary *dictionary, NSError *error);
-typedef void (^MendeleyDeserializedResponseObject)(id deserializedResponseObject, NSError *deserializeError);
-typedef void (^MendeleyBinaryDataCompletionBlock)(NSData *binaryData, NSError *dataError);
-typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSError *error);
+typedef void (^MendeleyCompletionBlock)(BOOL success, NSError * __nullable error);
+typedef void (^MendeleyArrayCompletionBlock)(NSArray * __nullable array, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
+typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject * __nullable mendeleyObject, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
+typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject * __nullable mendeleyObject, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
+typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary * __nullable dictionary, NSError * __nullable error);
+typedef void (^MendeleyDeserializedResponseObject)(id __nullable deserializedResponseObject, NSError * __nullable deserializeError);
+typedef void (^MendeleyBinaryDataCompletionBlock)(NSData * __nullable binaryData, NSError * __nullable dataError);
+typedef void (^MendeleyStringArrayCompletionBlock)(NSArray * __nullable arrayOfStrings, NSError * __nullable error);
 
 /***********************************************
    @name Mendeley Server URLs as strings

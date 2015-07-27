@@ -31,7 +31,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
     let maxBatchSize = 1000
     var eventHeader = [kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONType]
     
-    var cacheFilePath: String{
+    public var cacheFilePath: String{
         get{
             let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
                 .UserDomainMask, true)
@@ -99,21 +99,30 @@ public class MendeleyAnalyticsCacheManager: NSObject
                     let task = MendeleyTask()
                     do{
                         let data = try modeller.jsonObjectFromModelOrModels(events) as NSData!
+                        
+                        
                         provider.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
-                            
-                            do{
-                                let helper = MendeleyKitHelper()
-                                try helper.isSuccessForResponse(response!)
-                                self.clearCache()
-                                blockExecutor.executeWithBool(true, error: nil)
-                            }catch let responseFault as NSError
+                            if nil != response
                             {
-                                blockExecutor.executeWithBool(false, error: responseFault)
+                                do{
+                                    let helper = MendeleyKitHelper()
+                                    try helper.isSuccessForResponse(response!)
+                                    self.clearCache()
+                                    blockExecutor.executeWithBool(true, error: nil)
+                                }catch let responseFault as NSError
+                                {
+                                    blockExecutor.executeWithBool(false, error: responseFault)
+                                }
+                                catch{
+                                    let innerError = NSError(code: MendeleyErrorCode.ResponseTypeUnknownErrorCode)
+                                    blockExecutor.executeWithBool(false, error: innerError)
+                                }
                             }
-                            catch{
-                                let innerError = NSError(code: MendeleyErrorCode.ResponseTypeUnknownErrorCode)
-                                blockExecutor.executeWithBool(false, error: innerError)
+                            else
+                            {
+                                blockExecutor.executeWithBool(false, error: responseError!)
                             }
+                            
                         })
                     }catch let jsonError as NSError
                     {
@@ -137,7 +146,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
     
-    func clearCache()
+    public func clearCache()
     {
         let path = cacheFilePath
         let fileManager = NSFileManager.defaultManager()
@@ -153,7 +162,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         
     }
     
-    func eventsFromArchive() -> [MendeleyAnalyticsEvent]
+    public func eventsFromArchive() -> [MendeleyAnalyticsEvent]
     {
         let path = cacheFilePath
         let fileManager = NSFileManager.defaultManager()
@@ -168,7 +177,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         return [MendeleyAnalyticsEvent]()
     }
     
-    func eventsToArchive(events: [MendeleyAnalyticsEvent])
+    public func eventsToArchive(events: [MendeleyAnalyticsEvent])
     {
         let path = cacheFilePath
         NSKeyedArchiver.archiveRootObject(events, toFile: path)
