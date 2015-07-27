@@ -100,22 +100,20 @@ public class MendeleyAnalyticsCacheManager: NSObject
                     do{
                         let data = try modeller.jsonObjectFromModelOrModels(events) as NSData!
                         provider.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
-                            let helper = MendeleyKitHelper()
-                            try! helper.isSuccessForResponse(response!)
                             
-//                            do{
-//                                let helper = MendeleyKitHelper()
-//                                try helper.isSuccessForResponse(response!)
-//                                self.clearCache()
-//                                blockExecutor.executeWithBool(true, error: nil)
-//                            }catch let responseFault as NSError
-//                            {
-//                                blockExecutor.executeWithBool(false, error: responseFault)
-//                            }
-//                            catch{
-//                                let innerError = NSError(code: MendeleyErrorCode.ResponseTypeUnknownErrorCode)
-//                                blockExecutor.executeWithBool(false, error: innerError)
-//                            }
+                            do{
+                                let helper = MendeleyKitHelper()
+                                try helper.isSuccessForResponse(response!)
+                                self.clearCache()
+                                blockExecutor.executeWithBool(true, error: nil)
+                            }catch let responseFault as NSError
+                            {
+                                blockExecutor.executeWithBool(false, error: responseFault)
+                            }
+                            catch{
+                                let innerError = NSError(code: MendeleyErrorCode.ResponseTypeUnknownErrorCode)
+                                blockExecutor.executeWithBool(false, error: innerError)
+                            }
                         })
                     }catch let jsonError as NSError
                     {

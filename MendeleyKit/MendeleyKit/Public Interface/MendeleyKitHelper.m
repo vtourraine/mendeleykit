@@ -51,6 +51,10 @@
 {
     if (nil == response)
     {
+        if (nil == *error)
+        {
+            *error = [NSError errorWithCode:kMendeleyDataNotAvailableErrorCode];
+        }
         return NO;
     }
     else if ((*error).code == NSURLErrorCancelled)
