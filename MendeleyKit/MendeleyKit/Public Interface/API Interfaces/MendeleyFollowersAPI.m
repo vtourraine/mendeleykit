@@ -55,7 +55,7 @@
         queryParameters = [MendeleyFollowersParameters new];
     }
     queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
-    queryParameters.follower = profileID;
+    queryParameters.followed = profileID;
 
     NSDictionary *query = [queryParameters valueStringDictionary];
 
@@ -79,7 +79,7 @@
         queryParameters = [MendeleyFollowersParameters new];
     }
     queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
-    queryParameters.followed = profileID;
+    queryParameters.follower = profileID;
 
     NSDictionary *query = [queryParameters valueStringDictionary];
 
