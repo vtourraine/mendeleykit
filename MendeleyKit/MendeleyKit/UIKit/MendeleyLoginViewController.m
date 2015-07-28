@@ -41,7 +41,7 @@
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
 #ifdef MendeleyKitiOSFramework
-@property (nonatomic, strong, nonnull) id<MendeleyLoginHandler> loginHandler;
+@property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *loginHandler;
 #else
 @property (nonatomic, strong) MendeleyLoginHandleriOS7 *loginHandler;
 #endif
@@ -126,12 +126,11 @@
     };
     
 #ifdef MendeleyKitiOSFramework
-    MendeleyKitLoginHelper *helper = [MendeleyKitLoginHelper new];
     /**
      login handler needs to be retained by the class otherwise we get out of scope
      and the callbacks to the handler never get called
      */
-    self.loginHandler = helper.loginHandler;
+    self.loginHandler = [MendeleyLoginWebKitHandler new];
     
     [self.loginHandler startLoginProcess:self.clientID
                              redirectURI:self.redirectURI

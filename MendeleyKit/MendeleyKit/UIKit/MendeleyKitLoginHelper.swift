@@ -24,19 +24,6 @@ import Foundation
 public class MendeleyKitLoginHelper: NSObject
 {
     
-    public var loginHandler: MendeleyLoginHandler {
-        get{
-            if #available (iOS 9.0, *)
-            {
-                return MendeleyLoginWebKitHandler()
-            }
-            else
-            {
-                return MendeleyLoginUIWebViewHandler()
-            }
-        }
-    }
-        
     public func getOAuthRequest(redirect: String, clientID: String) -> NSURLRequest
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.URLByAppendingPathComponent(kMendeleyOAuthPathAuthorize)
