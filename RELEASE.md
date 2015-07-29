@@ -1,4 +1,9 @@
 RELEASE NOTES
+Date: July 2015 (1.1.0)
+- support for the /followers API has been added to the SDK
+- bug fix for login window which prevented users from clicking on the 'forgot' password link
+- other minor bug fixes
+
 Date: June 2015 (1.0.12)
 - the checking of refresh token validity needs to save the retrieved refresh token as it is not guaranteed to remain the same.
 
