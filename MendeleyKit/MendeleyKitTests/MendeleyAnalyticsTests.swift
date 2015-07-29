@@ -79,4 +79,43 @@ class MendeleyAnalyticsTests: XCTestCase {
 
     }
     
+    func testLogEvent()
+    {
+        let analytics = MendeleyDefaultAnalytics.sharedInstance
+        let profileID = NSUUID().UUIDString
+        analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
+        
+        analytics.logMendeleyAnalyticsEvent("TestPDFEvent")
+        
+
+        let cachedEvents = manager.eventsFromArchive()
+        XCTAssertTrue(0 < cachedEvents.count, "We should have at least 1 event but got \(cachedEvents.count)")
+        if 1 == cachedEvents.count
+        {
+            let returnedEvent = cachedEvents[0]
+            XCTAssertTrue(returnedEvent.profile_uuid == profileID, "expected profile ID\(profileID) but got \(returnedEvent.profile_uuid)")
+            XCTAssertTrue(returnedEvent.name == "TestPDFEvent", "Expected name 'TestPDFEvent' but got \(returnedEvent.name)")
+        }
+        
+        
+    }
+    
+    func testLogEvents()
+    {
+        let analytics = MendeleyDefaultAnalytics.sharedInstance
+        let profileID = NSUUID().UUIDString
+        analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
+        var array = [MendeleyAnalyticsEvent]()
+        for var count = 0; count < 20; count++
+        {
+            let event = MendeleyAnalyticsEvent()
+            event.name = "TestPDFEvent\(count)"
+            array.append(event)
+        }
+        analytics.logMendeleyAnalyticsEvents(array)
+        let cachedEvents = manager.eventsFromArchive()
+        XCTAssertTrue(20 == cachedEvents.count, "We should have 20 events but got \(cachedEvents.count)")
+        
+    }
+    
 }

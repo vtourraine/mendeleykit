@@ -20,8 +20,7 @@
 
 import Foundation
 
-@objc
-public class MendeleyDefaultAnalytics: MendeleyAnalytics
+public class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
 {
     var cacheManager = MendeleyAnalyticsCacheManager()
     public var versionString = String()

@@ -23,7 +23,7 @@ import Foundation
 public class MendeleyAnalyticsEvent: MendeleySecureObject
 {
     public var name:String!
-    public var timestamp: NSDate!
+    public var timestamp = NSDate()
     public var profileID: String!
     public var session_ID: String!
     public var profile_uuid: String!
