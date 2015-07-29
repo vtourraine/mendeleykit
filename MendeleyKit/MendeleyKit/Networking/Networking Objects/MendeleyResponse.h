@@ -64,7 +64,8 @@
    b.) the downloaded data - which contains the JSON error message - gets removed again
    @param fileURL the location to which the data have been downloaded
    @param the error pointer returned from the server. If this is nil and the status code is NOT ok we will create and error here
+   @return YES if successful (error is nil) or NO otherwise
  */
-- (void)parseFailureResponseFromFileDownloadURL:(NSURL *)fileURL error:(NSError **)error;
+- (BOOL)parseFailureResponseFromFileDownloadURL:(NSURL *)fileURL error:(NSError **)error;
 
 @end

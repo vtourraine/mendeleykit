@@ -27,6 +27,18 @@
     return [[MendeleyFollowersParameters new] valueStringDictionary];
 }
 
+- (NSDictionary *)followRequestUploadHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFollowType,
+              kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONFollowRequestType };
+}
+
+- (NSDictionary *)followAcceptanceUploadHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFollowType,
+             kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONFollowAcceptancesRequestType };
+}
+
 - (NSDictionary *)defaultServiceRequestHeaders
 {
     return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONFollowType };
@@ -44,7 +56,7 @@
         queryParameters = [MendeleyFollowersParameters new];
     }
     queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
-    queryParameters.follower = profileID;
+    queryParameters.followed = profileID;
 
     NSDictionary *query = [queryParameters valueStringDictionary];
 
@@ -68,7 +80,7 @@
         queryParameters = [MendeleyFollowersParameters new];
     }
     queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
-    queryParameters.followed = profileID;
+    queryParameters.follower = profileID;
 
     NSDictionary *query = [queryParameters valueStringDictionary];
 
@@ -127,6 +139,44 @@
                         additionalHeaders:[self defaultServiceRequestHeaders]
                                      task:task
                           completionBlock:completionBlock];
+}
+
+- (void)followUserWithID:(NSString *)followedID
+                    task:(MendeleyTask *)task
+         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyFollowRequest *followRequest = [MendeleyFollowRequest new];
+    followRequest.followed = followedID;
+    [self.helper createMendeleyObject:followRequest
+                                  api:kMendeleyRESTAPIFollowers
+                    additionalHeaders:[self followRequestUploadHeaders]
+                         expectedType:kMendeleyModelFollow
+                                 task:task
+                      completionBlock:completionBlock];
+}
+
+- (void)acceptFollowRequestWithID:(NSString *)requestID
+                             task:(MendeleyTask *)task
+                  completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFollowersWithID, requestID];
+    MendeletyFollowAcceptance *followAcceptance = [MendeletyFollowAcceptance new];
+    followAcceptance.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
+    [self.helper updateMendeleyObject:followAcceptance
+                                  api:apiEndpoint
+                    additionalHeaders:[self followAcceptanceUploadHeaders]
+                                 task:task
+                      completionBlock:completionBlock];
+}
+
+- (void)stopOrDenyRelationshipWithID:(NSString *)relationshipID
+                          task:(MendeleyTask *)task
+               completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFollowersWithID, relationshipID];
+    [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
+                                        task:task
+                             completionBlock:completionBlock];
 }
 
 @end

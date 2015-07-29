@@ -2156,6 +2156,83 @@
     return task;
 }
 
+- (void)followUserWithID:(NSString *)followedID
+         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.followersAPI followUserWithID:followedID
+                                               task:task
+                                    completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+}
+
+- (void)acceptFollowRequestWithID:(NSString *)requestID
+                  completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.followersAPI acceptFollowRequestWithID:requestID
+                                                        task:task
+                                             completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+}
+
+- (void)stopOrDenyRelationshipWithID:(NSString *)relationshipID
+               completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.followersAPI stopOrDenyRelationshipWithID:relationshipID
+                                                     task:task
+                                          completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(NO, unauthorisedError);
+    }
+}
 
 #pragma mark - Cancellation
 

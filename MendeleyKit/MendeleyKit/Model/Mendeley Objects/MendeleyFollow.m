@@ -23,3 +23,11 @@
 @implementation MendeleyFollow
 
 @end
+
+@implementation MendeleyFollowRequest
+
+@end
+
+@implementation MendeletyFollowAcceptance
+
+@end
