@@ -172,7 +172,8 @@
                           task:(MendeleyTask *)task
                completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [self.helper deleteMendeleyObjectWithAPI:kMendeleyRESTAPIFollowers
+    NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFollowersWithID, relationshipID];
+    [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
                                         task:task
                              completionBlock:completionBlock];
 }
