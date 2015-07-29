@@ -17,3 +17,4 @@ MendeleyKit/Podfile.lock
 MendeleyKit/Pods/
 /Pods/
 
+*.xcscmblueprint
