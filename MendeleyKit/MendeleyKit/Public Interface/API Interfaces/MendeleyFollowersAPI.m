@@ -36,7 +36,8 @@
 
 - (NSDictionary *)followAcceptanceUploadHeaders
 {
-    return @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONFollowAcceptancesRequestType };
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFollowType,
+             kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONFollowAcceptancesRequestType };
 }
 
 - (NSDictionary *)defaultServiceRequestHeaders
@@ -56,7 +57,7 @@
         queryParameters = [MendeleyFollowersParameters new];
     }
     queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
-    queryParameters.follower = profileID;
+    queryParameters.followed = profileID;
 
     NSDictionary *query = [queryParameters valueStringDictionary];
 
@@ -80,7 +81,7 @@
         queryParameters = [MendeleyFollowersParameters new];
     }
     queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
-    queryParameters.followed = profileID;
+    queryParameters.follower = profileID;
 
     NSDictionary *query = [queryParameters valueStringDictionary];
 
@@ -173,7 +174,8 @@
                           task:(MendeleyTask *)task
                completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [self.helper deleteMendeleyObjectWithAPI:kMendeleyRESTAPIFollowers
+    NSString *apiEndpoint = [NSString stringWithFormat:kMendeleyRESTAPIFollowersWithID, relationshipID];
+    [self.helper deleteMendeleyObjectWithAPI:apiEndpoint
                                         task:task
                              completionBlock:completionBlock];
 }
