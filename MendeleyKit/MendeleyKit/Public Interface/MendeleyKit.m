@@ -2157,7 +2157,7 @@
     return task;
 }
 
-- (void)followUserWithID:(NSString *)followedID
+- (MendeleyTask *)followUserWithID:(NSString *)followedID
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -2181,9 +2181,10 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(nil, nil, unauthorisedError);
     }
+    return task;
 }
 
-- (void)acceptFollowRequestWithID:(NSString *)requestID
+- (MendeleyTask *)acceptFollowRequestWithID:(NSString *)requestID
                   completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -2207,9 +2208,10 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(NO, unauthorisedError);
     }
+    return task;
 }
 
-- (void)stopOrDenyRelationshipWithID:(NSString *)relationshipID
+- (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -2233,6 +2235,7 @@
         NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
         completionBlock(NO, unauthorisedError);
     }
+    return task;
 }
 
 #pragma mark - Cancellation

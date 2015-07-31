@@ -840,25 +840,27 @@
  @param followedID
  @param task
  @param completionBlock - the object contained in the completionBlock will be a MendeleyFollow object
+ @return a MendeleyTask object used for cancelling the operation
  */
-- (void)followUserWithID:(NSString *)followedID
+- (MendeleyTask *)followUserWithID:(NSString *)followedID
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
  BETA - Accept a pending follow request
  @param requestID
  @param completionBlock
- 
+ @return a MendeleyTask object used for cancelling the operation
  */
-- (void)acceptFollowRequestWithID:(NSString *)requestID
+- (MendeleyTask *)acceptFollowRequestWithID:(NSString *)requestID
                   completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
  BETA - Stop following a profile, cancel a follow request or reject a follow request
  @param relationshipID
  @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
  */
-- (void)stopOrDenyRelationshipWithID:(NSString *)relationshipID
+- (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Cancellation
