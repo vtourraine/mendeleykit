@@ -28,7 +28,7 @@
 @implementation MendeleyModeller
 
 #pragma mark public modeller methods
-+ (MendeleyModeller *)sharedInstance
++ (nonnull MendeleyModeller *)sharedInstance
 {
     static MendeleyModeller *modeller = nil;
     static dispatch_once_t onceToken;
@@ -39,9 +39,9 @@
     return modeller;
 }
 
-- (void)parseJSONData:(id)jsonData
-         expectedType:(NSString *)expectedType
-      completionBlock:(void (^) (id parsedObject, NSError *error))completionBlock
+- (void)parseJSONData:(nonnull id)jsonData
+         expectedType:(nonnull NSString *)expectedType
+      completionBlock:(nonnull void (^) (id __nullable parsedObject, NSError * __nullable error))completionBlock
 {
     NSError *parseError = nil;
 
@@ -66,7 +66,8 @@
     }
 }
 
-- (NSData *)jsonObjectFromModelOrModels:(id)model error:(NSError **)error
+- (nullable NSData *)jsonObjectFromModelOrModels:(nonnull id)model
+                                           error:(NSError * __nullable * __nullable)error
 {
     if ([model isKindOfClass:[NSArray class]])
     {
@@ -84,8 +85,8 @@
     return nil;
 }
 
-- (void)parseJSONArrayOfIDDictionaries:(NSArray *)jsonArray
-                       completionBlock:(MendeleyStringArrayCompletionBlock)completionBlock
+- (void)parseJSONArrayOfIDDictionaries:(nullable NSArray *)jsonArray
+                       completionBlock:(nullable MendeleyStringArrayCompletionBlock)completionBlock
 {
     if (nil == jsonArray)
     {
@@ -117,7 +118,8 @@
     }
 }
 
-- (NSData *)jsonObjectForID:(NSString *)objectID error:(NSError *__autoreleasing *)error
+- (nullable NSData *)jsonObjectForID:(nonnull NSString *)objectID
+                               error:(NSError * __nullable * __nullable)error
 {
     if (nil == objectID || 0 == objectID.length)
     {
@@ -134,7 +136,7 @@
 }
 
 #pragma mark serializing to JSON methods
-- (NSData *)jsonArrayFromObjects:(NSArray *)objects error:(NSError **)error
+- (nullable NSData *)jsonArrayFromObjects:(NSArray *)objects error:(NSError **)error
 {
     NSArray *serializedData = [self arrayFromModelArray:objects error:error];
 
@@ -200,7 +202,7 @@
     return properties;
 }
 
-- (NSArray *)arrayFromModelArray:(NSArray *)modelArray error:(NSError **)error
+- (nonnull NSArray *)arrayFromModelArray:(nonnull NSArray *)modelArray error:(NSError * __nullable * __nullable)error
 {
     __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:modelArray.count];
 

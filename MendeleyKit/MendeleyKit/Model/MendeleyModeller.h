@@ -26,16 +26,16 @@
 /**
    returns a singleton for the modeller
  */
-+ (MendeleyModeller *)sharedInstance;
++ (nonnull MendeleyModeller *)sharedInstance;
 
 /**
    @param jsonData should be already deserialized JSON data, either NSArray or NSDictionary
    @param expectedType
    @param completionBlock will return either a MendeleyObject type model class or an NSArray of model objects
  */
-- (void)parseJSONData:(id)jsonData
-         expectedType:(NSString *)expectedType
-      completionBlock:(void (^) (id parsedObject, NSError *error))completionBlock;
+- (void)parseJSONData:(nonnull id)jsonData
+         expectedType:(nonnull NSString *)expectedType
+      completionBlock:(nonnull void (^) (id __nullable parsedObject, NSError * __nullable error))completionBlock;
 
 /**
    converts an existing Model class into a serialized JSON object (NSData)
@@ -43,14 +43,14 @@
    @param error
    @return a serialized NSData JSON object or nil if error
  */
-- (NSData *)jsonObjectFromModelOrModels:(id)model error:(NSError **)error;
+- (nullable NSData *)jsonObjectFromModelOrModels:(nonnull id)model error:(NSError * __nullable * __nullable)error;
 
 /**
    in some cases the API returns a simple array of dictionary of ID strings. E.g.
    folders/{id}/documents
  */
-- (void)parseJSONArrayOfIDDictionaries:(NSArray *)jsonArray
-                       completionBlock:(MendeleyStringArrayCompletionBlock)completionBlock;
+- (void)parseJSONArrayOfIDDictionaries:(nullable NSArray *)jsonArray
+                       completionBlock:(nullable MendeleyStringArrayCompletionBlock)completionBlock;
 
 
 /**
@@ -62,5 +62,5 @@
    @param error
    @return JSON object as NSData or nil if error
  */
-- (NSData *)jsonObjectForID:(NSString *)objectID error:(NSError **)error;
+- (nullable NSData *)jsonObjectForID:(nonnull NSString *)objectID error:(NSError * __nullable * __nullable)error;
 @end

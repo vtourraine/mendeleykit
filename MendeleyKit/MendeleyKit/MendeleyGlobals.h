@@ -61,7 +61,7 @@ typedef NS_ENUM(int, MendeleyIconType)
  ***********************************************/
 typedef void (^MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials * __nullable credentials, NSError * __nullable error);
 typedef void (^MendeleyResponseCompletionBlock)(MendeleyResponse * __nullable response, NSError * __nullable error);
-typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
+typedef void (^MendeleyResponseProgressBlock)(NSNumber * __nonnull progress);
 typedef void (^MendeleyCompletionBlock)(BOOL success, NSError * __nullable error);
 typedef void (^MendeleyArrayCompletionBlock)(NSArray * __nullable array, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
 typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject * __nullable mendeleyObject, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
