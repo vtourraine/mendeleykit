@@ -8,9 +8,6 @@
 
 import UIKit
 
-public typealias MendeleySuccessClosure = (success: Bool, error: NSError?) -> Void
-public typealias MendeleyOAuthClosure = (credentials: MendeleyOAuthCredentials?, error: NSError?) -> Void
-
 @objc
 public protocol MendeleyLoginHandler
 {

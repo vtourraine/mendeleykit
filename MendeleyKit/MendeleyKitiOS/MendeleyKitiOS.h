@@ -62,7 +62,6 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyModels.h>
 #import <MendeleyKitiOS/MendeleyKitUserInfoManager.h>
 #import <MendeleyKitiOS/MendeleyLog.h>
-#import <MendeleyKitiOS/MendeleyKitiOS.h>
 #import <MendeleyKitiOS/MendeleyPerformanceMeter.h>
 #import <MendeleyKitiOS/MendeleySyncInfo.h>
 #import <MendeleyKitiOS/MendeleyNetworkTask.h>
