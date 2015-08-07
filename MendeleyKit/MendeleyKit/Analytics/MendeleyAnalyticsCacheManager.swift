@@ -36,7 +36,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
             let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
                 .UserDomainMask, true)
             
-            let docsDir = dirPaths[0] as String
+            let docsDir = dirPaths[0] as NSString
             let path = docsDir.stringByAppendingPathComponent("MendeleyAnalyticsEvents.cache")
             return path
         }
@@ -89,7 +89,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         if sdk.isAuthenticated
         {
             MendeleyOAuthTokenHelper.refreshTokenWithRefreshBlock({ (success, error) -> Void in
-                let blockExecutor = MendeleyBlockExecutor(completionBlock: completionHandler)
+                let blockExecutor = MendeleyBlockExecutor(completionBlock: completionHandler as! MendeleyCompletionBlock)
                 if success
                 {
                     let kit = MendeleyKitConfiguration.sharedInstance()
@@ -157,6 +157,9 @@ public class MendeleyAnalyticsCacheManager: NSObject
             }catch let error as NSError
             {
                 print("\(error.localizedDescription)")
+            }
+            catch{
+                
             }
         }
         
