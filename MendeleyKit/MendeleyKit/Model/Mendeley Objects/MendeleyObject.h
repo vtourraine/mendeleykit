@@ -27,6 +27,6 @@
 
 @interface MendeleyObject : MendeleySecureObject
 
-@property (nonatomic, strong) NSString *object_ID;
-@property (nonatomic, strong) NSString *objectDescription;
+@property (nonatomic, strong, nullable) NSString *object_ID;
+@property (nonatomic, strong, nullable) NSString *objectDescription;
 @end

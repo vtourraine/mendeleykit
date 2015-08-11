@@ -444,6 +444,39 @@
     [self executeTastWithRequest:request task:task completionBlock:completionBlock];
 }
 
+- (void)invokePUT:(NSURL *)baseURL api:(NSString *)api
+additionalHeaders:(NSDictionary *)additionalHeaders
+         jsonData:(NSData *)jsonData
+authenticationRequired:(BOOL)authenticationRequired
+             task:(MendeleyTask *)task
+  completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:jsonData argumentName:@"jsonData"];
+    [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    MendeleyRequest *request = nil;
+    if (authenticationRequired)
+    {
+        request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
+                                                               api:api
+                                                       requestType:HTTP_PUT
+                   ];
+    }
+    else
+    {
+        request = [MendeleyRequest requestWithBaseURL:baseURL
+                                                  api:api
+                                          requestType:HTTP_PUT
+                   ];
+    }
+    if (nil != additionalHeaders)
+    {
+        [request addHeaderWithParameters:additionalHeaders];
+    }
+    [request addBodyData:jsonData];
+    [self executeTastWithRequest:request task:task completionBlock:completionBlock];
+}
+
 - (void)      invokeDELETE:(NSURL *)baseURL
                        api:(NSString *)api
          additionalHeaders:(NSDictionary *)additionalHeaders
