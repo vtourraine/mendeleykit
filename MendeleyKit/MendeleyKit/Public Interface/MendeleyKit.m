@@ -40,24 +40,26 @@
 #import "MendeleyProfilesAPI.h"
 #import "MendeleyDisciplinesAPI.h"
 #import "MendeleyFollowersAPI.h"
+#import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
 
 
 @interface MendeleyKit ()
 
 @property (nonatomic, assign, readwrite) BOOL loggedIn;
-@property (nonatomic, strong) MendeleyKitConfiguration *configuration;
-@property (nonatomic, strong) id <MendeleyNetworkProvider> networkProvider;
-@property (nonatomic, strong) MendeleyAnnotationsAPI *annotationsAPI;
-@property (nonatomic, strong) MendeleyDocumentsAPI *documentsAPI;
-@property (nonatomic, strong) MendeleyFilesAPI *filesAPI;
-@property (nonatomic, strong) MendeleyFoldersAPI *foldersAPI;
-@property (nonatomic, strong) MendeleyGroupsAPI *groupsAPI;
-@property (nonatomic, strong) MendeleyMetadataAPI *metedataAPI;
-@property (nonatomic, strong) MendeleyProfilesAPI *profilesAPI;
-@property (nonatomic, strong) MendeleyDisciplinesAPI *disciplinesAPI;
-@property (nonatomic, strong) MendeleyAcademicStatusesAPI *academicStatusesAPI;
-@property (nonatomic, strong) MendeleyFollowersAPI *followersAPI;
+@property (nonatomic, strong, nonnull) MendeleyKitConfiguration *configuration;
+@property (nonatomic, strong, nonnull) id <MendeleyNetworkProvider> networkProvider;
+@property (nonatomic, strong, nonnull) MendeleyAnnotationsAPI *annotationsAPI;
+@property (nonatomic, strong, nonnull) MendeleyDocumentsAPI *documentsAPI;
+@property (nonatomic, strong, nonnull) MendeleyFilesAPI *filesAPI;
+@property (nonatomic, strong, nonnull) MendeleyFoldersAPI *foldersAPI;
+@property (nonatomic, strong, nonnull) MendeleyGroupsAPI *groupsAPI;
+@property (nonatomic, strong, nonnull) MendeleyMetadataAPI *metedataAPI;
+@property (nonatomic, strong, nonnull) MendeleyProfilesAPI *profilesAPI;
+@property (nonatomic, strong, nonnull) MendeleyDisciplinesAPI *disciplinesAPI;
+@property (nonatomic, strong, nonnull) MendeleyAcademicStatusesAPI *academicStatusesAPI;
+@property (nonatomic, strong, nonnull) MendeleyFollowersAPI *followersAPI;
+@property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
 @end
 
 @implementation MendeleyKit
@@ -141,6 +143,10 @@
     self.followersAPI = [[MendeleyFollowersAPI alloc]
                          initWithNetworkProvider:self.networkProvider
                                          baseURL:baseURL];
+    
+    self.featuresAPI = [[MendeleyApplicationFeaturesAPI alloc]
+                        initWithNetworkProvider:self.networkProvider
+                        baseURL:baseURL];
 
 }
 
@@ -2237,6 +2243,34 @@
     }
     return task;
 }
+
+#pragma mark - Features
+- (MendeleyTask *)applicationFeaturesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock:^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.featuresAPI applicationFeaturesWithTask:task
+                                              completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+    return task;
+    
+}
+
 
 #pragma mark - Cancellation
 

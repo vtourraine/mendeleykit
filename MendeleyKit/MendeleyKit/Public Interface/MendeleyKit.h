@@ -863,6 +863,10 @@
 - (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+#pragma mark - Features
+
+- (MendeleyTask *)applicationFeaturesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 #pragma mark - Cancellation
 /**
    @name cancellation methods

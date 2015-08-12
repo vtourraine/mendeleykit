@@ -139,6 +139,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONFollowType                      @"application/vnd.mendeley-follow.1+json"
 #define kMendeleyRESTRequestJSONFollowRequestType               @"application/vnd.mendeley-follow-request.1+json"
 #define kMendeleyRESTRequestJSONFollowAcceptancesRequestType    @"application/vnd.mendeley-follow-acceptance.1+json"
+#define kMendeleyRESTRequestJSONApplicationFeaturesType         @"application/vnd.mendeley-features.1+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                        @"Accept-Language"
@@ -191,6 +192,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIRecentlyRead                      @"recently_read"
 #define kMendeleyRESTAPIFollowers                         @"followers"
 #define kMendeleyRESTAPIFollowersWithID                   @"followers/%@"
+#define kMendeleyRESTAPIApplicationFeatures               @"application_features"
 
 /***********************************************
    @name REST API Query Parameters
@@ -244,6 +246,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelEducation                           @"MendeleyEducation"
 #define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyRead"
 #define kMendeleyModelFollow                              @"MendeleyFollow"
+#define kMendeleyModelApplicationFeature                  @"MendeleyFeature"
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
 #define kMendeleyModelKeywords                            @"NSArray"

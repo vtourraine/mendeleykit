@@ -459,6 +459,53 @@ static NSURLSessionConfiguration * defaultSimpleConfiguration()
     [sessionTask resume];
 }
 
+- (void)invokePUT:(NSURL *)baseURL
+              api:(NSString *)api
+additionalHeaders:(NSDictionary *)additionalHeaders
+         jsonData:(NSData *)jsonData
+authenticationRequired:(BOOL)authenticationRequired
+             task:(MendeleyTask *)task
+  completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:jsonData argumentName:@"jsonData"];
+    [NSError assertArgumentNotNil:baseURL argumentName:@"baseURL"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    
+    MendeleyRequest *request;
+    if (authenticationRequired)
+    {
+        request = [MendeleyRequest authenticatedRequestWithBaseURL:baseURL
+                                                               api:api
+                                                       requestType:HTTP_PUT];
+    }
+    else
+    {
+        request = [MendeleyRequest requestWithBaseURL:baseURL
+                                                  api:api
+                                          requestType:HTTP_PUT];
+    }
+    if (nil != additionalHeaders)
+    {
+        [request addHeaderWithParameters:additionalHeaders];
+    }
+    [request addBodyData:jsonData];
+    NSURLSessionDataTask *sessionTask = [self.session dataTaskWithRequest:request.mutableURLRequest completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+        MendeleyResponse *mendeleyResponse = nil;
+        if (nil != response)
+        {
+            mendeleyResponse = [MendeleyResponse mendeleyReponseForURLResponse:response];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(mendeleyResponse, error);
+        });
+    }];
+    
+    MendeleySimpleNetworkTask *simpleNetworkTask = [[MendeleySimpleNetworkTask alloc] initWithSessionTask:sessionTask completionBlock:completionBlock];
+    [self.writableTaskDictionary setObject:simpleNetworkTask forKey:task.taskID];
+    [sessionTask resume];
+}
+
+
 - (void)         invokePUT:(NSURL *)baseURL
                        api:(NSString *)api
          additionalHeaders:(NSDictionary *)additionalHeaders

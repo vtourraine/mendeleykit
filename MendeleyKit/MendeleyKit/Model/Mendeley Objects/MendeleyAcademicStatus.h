@@ -22,5 +22,5 @@
 
 
 @interface MendeleyAcademicStatus : MendeleySecureObject
-@property (nonatomic, strong) NSString *objectDescription;
+@property (nonatomic, strong, nullable) NSString *objectDescription;
 @end

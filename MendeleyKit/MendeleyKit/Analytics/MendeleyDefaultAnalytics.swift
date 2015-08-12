@@ -93,7 +93,7 @@ public class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     }
     
     
-    public func dispatchMendeleyAnalyticsEvents(completionHandler: MendeleySuccessClosure)
+    public func dispatchMendeleyAnalyticsEvents(completionHandler: MendeleyCompletionBlock?)
     {
         cacheManager.sendAndClearAnalyticsEvents(completionHandler)
     }

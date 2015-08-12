@@ -35,6 +35,6 @@ public protocol MendeleyAnalytics
     func logMendeleyAnalyticsEvents(events:[MendeleyAnalyticsEvent])
     
     
-    func dispatchMendeleyAnalyticsEvents(completionHandler: MendeleySuccessClosure)
+    func dispatchMendeleyAnalyticsEvents(completionHandler: MendeleyCompletionBlock?)
     
 }

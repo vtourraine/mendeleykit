@@ -76,12 +76,15 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
     
-    public func sendAndClearAnalyticsEvents(completionHandler: MendeleySuccessClosure)
+    public func sendAndClearAnalyticsEvents(completionHandler: MendeleyCompletionBlock?)
     {
         let events = eventsFromArchive()
         if 0 == events.count
         {
-            completionHandler(success: true, error: nil)
+            if nil != completionHandler
+            {
+                completionHandler!(true, nil)
+            }
             return
         }
         
@@ -89,7 +92,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         if sdk.isAuthenticated
         {
             MendeleyOAuthTokenHelper.refreshTokenWithRefreshBlock({ (success, error) -> Void in
-                let blockExecutor = MendeleyBlockExecutor(completionBlock: completionHandler as! MendeleyCompletionBlock)
+                let blockExecutor = MendeleyBlockExecutor(completionBlock: completionHandler)
                 if success
                 {
                     let kit = MendeleyKitConfiguration.sharedInstance()
@@ -142,7 +145,10 @@ public class MendeleyAnalyticsCacheManager: NSObject
         else
         {
             let error = NSError(code: MendeleyErrorCode.UnauthorizedErrorCode)
-            completionHandler(success: false, error: error)
+            if nil != completionHandler
+            {
+                completionHandler!(false, error)
+            }
         }
     }
     
