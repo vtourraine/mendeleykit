@@ -864,7 +864,10 @@
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Features
-
+/**
+ obtain a list of supported features from server
+ @param completionBlock returning an array of MendeleyFeature objects
+ */
 - (MendeleyTask *)applicationFeaturesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark - Cancellation

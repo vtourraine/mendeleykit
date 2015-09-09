@@ -33,7 +33,7 @@
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    [self.helper mendeleyObjectListOfType:@"MendeleyFeature"
+    [self.helper mendeleyObjectListOfType:kMendeleyModelApplicationFeature
                                       api:kMendeleyRESTAPIApplicationFeatures
                                parameters:nil
                         additionalHeaders:[self defaultServiceRequestHeaders]
