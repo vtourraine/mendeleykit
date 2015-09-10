@@ -102,5 +102,7 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyNSURLRequestUploadHelper.h>
 #import <MendeleyKitiOS/MendeleyNSURLConnectionProvider.h>
 #import <MendeleyKitiOS/MendeleyAnalyticsRegistry.h>
+#import <MendeleyKitiOS/MendeleyFeature.h>
+
 
 
