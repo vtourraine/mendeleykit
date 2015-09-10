@@ -56,38 +56,30 @@ public class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     {
         let event = MendeleyAnalyticsEvent()
         event.name = name
-        if versionString.characters.count > 0
+        
+        if versionString.characters.count == 0 || identityString.characters.count == 0 || profileUUID.characters.count == 0
         {
-            event.origin[kMendeleyAnalyticsJSONOriginVersion] = versionString
+            return
         }
-        if identityString.characters.count > 0
-        {
-            event.origin[kMendeleyAnalyticsJSONOriginIdentity] = identityString
-        }
-        if profileUUID.characters.count > 0
-        {
-            event.profile_uuid = profileUUID
-        }
+        
+        event.origin[kMendeleyAnalyticsJSONOriginVersion] = versionString
+        event.origin[kMendeleyAnalyticsJSONOriginIdentity] = identityString
+        event.profile_uuid = profileUUID
         cacheManager.addMendeleyAnalyticsEvent(event)
     }
     
     
     public func logMendeleyAnalyticsEvents(events:[MendeleyAnalyticsEvent])
     {
+        if versionString.characters.count == 0 || identityString.characters.count == 0 || profileUUID.characters.count == 0
+        {
+            return
+        }
         for event in events
         {
-            if versionString.characters.count > 0
-            {
-                event.origin[kMendeleyAnalyticsJSONOriginVersion] = versionString
-            }
-            if identityString.characters.count > 0
-            {
-                event.origin[kMendeleyAnalyticsJSONOriginIdentity] = identityString
-            }
-            if profileUUID.characters.count > 0
-            {
-                event.profile_uuid = profileUUID
-            }
+            event.origin[kMendeleyAnalyticsJSONOriginVersion] = versionString
+            event.origin[kMendeleyAnalyticsJSONOriginIdentity] = identityString
+            event.profile_uuid = profileUUID
         }
         cacheManager.addMendeleyAnalyticsEvents(events)
     }
