@@ -22,5 +22,4 @@ DESC
   s.module_name = "MendeleyKitiOS"
   s.ios.deployment_target = '8.0'
   s.source_files  = "MendeleyKit/MendeleyKitiOS/MendeleyKitiOS.h", "MendeleyKit/MendeleyKit/*.h", "MendeleyKit/MendeleyKit/**/*.{h,m,swift}"
-  s.pod_target_xconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => 'MendeleyKitiOSFramework'}
 end
