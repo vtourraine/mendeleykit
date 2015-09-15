@@ -18,8 +18,9 @@
  *****************************************************************************
  */
 
-#import "NSError+MendeleyError.h"
 #import "MendeleyKitTestBaseClass.h"
+
+#import "NSError+MendeleyError.h"
 #import "MendeleyKitConfiguration.h"
 
 @interface MendeleyErrorCategoriesTests : MendeleyKitTestBaseClass

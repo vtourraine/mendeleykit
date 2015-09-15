@@ -20,9 +20,10 @@
 
 #import <XCTest/XCTest.h>
 #import "MendeleyKitTestBaseClass.h"
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyModeller.h"
 #import "MendeleyModels.h"
-
+#endif
 
 @interface MendeleyProfilesAPITests : MendeleyKitTestBaseClass
 @property (nonatomic, strong) NSData *profilesJSONData;

@@ -28,6 +28,7 @@
 #import "MendeleyDocumentType.h"
 #import "MendeleyFile.h"
 #import "MendeleyFolder.h"
+#import "MendeleyFeature.h"
 #import "MendeleyFollow.h"
 #import "MendeleyGroup.h"
 #import "MendeleyIdentifierType.h"

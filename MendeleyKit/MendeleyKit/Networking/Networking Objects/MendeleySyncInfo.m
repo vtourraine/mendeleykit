@@ -19,6 +19,7 @@
  */
 
 #import "MendeleySyncInfo.h"
+#import "MendeleyGlobals.h"
 
 static NSDateFormatter * headerDateFormatter()
 {

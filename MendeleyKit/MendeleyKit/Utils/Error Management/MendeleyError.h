@@ -20,7 +20,7 @@
 
 #ifndef MendeleyKit_MendeleyError_h
 #define MendeleyKit_MendeleyError_h
-
+@import Foundation;
 /***********************************************
    @name Mendeley Error Codes And Descriptions
    // TODO: change
@@ -33,7 +33,7 @@
    - 14xx region authentication and networking
    - 15xx General
  */
-typedef NS_ENUM (int, MendeleyErrorCode)
+typedef NS_ENUM (NSInteger, MendeleyErrorCode)
 {
     kMendeleyJSONTypeUnrecognisedErrorCode = 1100,
     kMendeleyJSONTypeNotMappedToModelErrorCode,

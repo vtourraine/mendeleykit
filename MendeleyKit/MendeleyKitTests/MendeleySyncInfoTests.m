@@ -18,8 +18,10 @@
  *****************************************************************************
  */
 
-#import "MendeleySyncInfo.h"
 #import "MendeleyKitTestBaseClass.h"
+
+#import "MendeleySyncInfo.h"
+#import "MendeleyGlobals.h"
 
 static NSDictionary * headerFields()
 {

@@ -22,6 +22,8 @@
 #import "MendeleyKitTestBaseClass.h"
 #import "MendeleyErrorManager.h"
 #import "MendeleyKitConfiguration.h"
+#import "MendeleyGlobals.h"
+#import "MendeleyError.h"
 
 @interface FakeUserInfoManager : NSObject <MendeleyUserInfoProvider>
 

@@ -18,12 +18,18 @@
  *****************************************************************************
  */
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import <XCTest/XCTest.h>
+#import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyModeller.h"
 #import "MendeleyModels.h"
-#import "MendeleyKitTestBaseClass.h"
 #import "MendeleyAcademicStatus.h"
+#endif
+
 
 @interface MendeleyAcademicStatusTests : MendeleyKitTestBaseClass
 @property (nonatomic, strong) NSData *jsonArrayData;

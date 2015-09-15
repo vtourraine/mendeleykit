@@ -19,9 +19,6 @@
  */
 
 #import "DocumentDetailTableViewController.h"
-#import <MendeleyPerson.h>
-#import <MendeleyKit.h>
-#import <MendeleyFile.h>
 
 #define kAbstractTag 1
 

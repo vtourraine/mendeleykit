@@ -19,8 +19,12 @@
  */
 
 #import "MendeleyMockNetworkProvider.h"
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyTask.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
+#endif
 
 @interface MendeleyResponse ()
 @property (nonatomic, assign, readwrite) BOOL success;

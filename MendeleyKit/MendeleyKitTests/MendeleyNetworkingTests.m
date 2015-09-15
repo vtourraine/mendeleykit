@@ -18,11 +18,14 @@
  *****************************************************************************
  */
 
+
+#import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyDefaultNetworkProvider.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyURLBuilder.h"
-#import "MendeleyKitTestBaseClass.h"
-
+#endif
 
 @interface MendeleyDefaultNetworkProvider (CHANGE_VISIBILITY_FOR_TEST)
 

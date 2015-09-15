@@ -21,6 +21,8 @@
 #import "MendeleyProfilesAPI.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyOAuthCredentials.h"
+#import "NSError+Exceptions.h"
+#import "MendeleyErrorManager.h"
 
 @implementation MendeleyProfilesAPI
 

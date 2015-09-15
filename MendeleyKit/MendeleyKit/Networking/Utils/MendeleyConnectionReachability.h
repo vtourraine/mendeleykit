@@ -19,6 +19,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MendeleyGlobals.h"
 
 
 @interface MendeleyConnectionReachability : NSObject

@@ -18,9 +18,12 @@
  *****************************************************************************
  */
 
+#import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyConnectionReachability.h"
 #import "MendeleyKitConfiguration.h"
-#import "MendeleyKitTestBaseClass.h"
+#endif
 
 @interface MendeleyReachabilityTests : MendeleyKitTestBaseClass
 

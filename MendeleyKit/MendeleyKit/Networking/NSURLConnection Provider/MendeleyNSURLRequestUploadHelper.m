@@ -19,6 +19,9 @@
  */
 
 #import "MendeleyNSURLRequestUploadHelper.h"
+#import "MendeleyError.h"
+#import "MendeleyErrorManager.h"
+#import "NSError+Exceptions.h"
 
 @interface MendeleyNSURLRequestUploadHelper ()
 @property (nonatomic, strong) NSURL *fileURL;

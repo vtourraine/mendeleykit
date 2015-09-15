@@ -127,6 +127,26 @@
                       task:(MendeleyTask *)task
            completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
 
+
+/**
+ this method will PUT HTTP method to upload & update data to the server.
+ Used to update existing data on the server. All PUT methods are assumed to require authentication
+ @param baseURL
+ @param api
+ @param additionalHeaders any additional headers to be used in the request
+ @param jsonData
+ @param authenticationRequired
+ @param task
+ @param completionBlock
+ */
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock;
+
 /**
    this method will POST HTTP method to upload data to the server.
     Use this to store data on the server.
@@ -134,7 +154,7 @@
    @param api
    @param additionalHeaders any additional headers to be used in the request
    @param bodyParameters a body consisting of NSString based key-value pairs
-   @param usesAuthentication
+   @param authenticationRequired
    @param isJSON
    @param task
    @param completionBlock
@@ -155,6 +175,7 @@
    @param api
    @param additionalHeaders any additional headers to be used in the request
    @param jsonData
+   @param authenticationRequired
    @param task
    @param completionBlock
  */

@@ -20,6 +20,7 @@
 
 #import "MendeleyNSURLRequestHelper.h"
 #import "MendeleyErrorManager.h"
+#import "MendeleyError.h"
 
 @implementation MendeleyNSURLRequestHelper
 

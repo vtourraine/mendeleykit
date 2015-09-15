@@ -21,6 +21,7 @@
 #import "MendeleyAcademicStatusesAPI.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyOAuthCredentials.h"
+#import "NSError+Exceptions.h"
 
 @implementation MendeleyAcademicStatusesAPI
 - (NSDictionary *)defaultServiceRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials

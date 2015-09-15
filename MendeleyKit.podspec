@@ -12,45 +12,40 @@ Pod::Spec.new do |s|
                    * Access to Mendeley REST API endpoints and handling of JSON responses
                    * Provide model classes for essential Mendeley objects such as Mendeley documents
                    * OAuth2 authentication and login as well as automatic handling of access refresh
-                   DESC
-
+DESC
   s.homepage     = "https://github.com/Mendeley/mendeleykit"
 
   s.license      = 'Apache Licence, Version 2.0'
 
   s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
-
   s.requires_arc  = true
 
   s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "1.0.12" }
 
-  s.ios.deployment_target = '7.0'
-  s.osx.deployment_target = '10.8'
-
   s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}'
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
-
-  s.ios.exclude_files = 'MendeleyKit/MendeleyKitOSX'
-  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}'
+  s.ios.deployment_target = '7.0'
+  s.osx.deployment_target = '10.8'
+  s.ios.exclude_files = 'MendeleyKit/MendeleyKitOSX', 'MendeleyKit/MendeleyKitiOS', 'MendeleyKit/Pods'
+  s.osx.exclude_files = 'MendeleyKit/**/UIKit/*.{h,m}', 'MendeleyKit/MendeleyKitiOS', 'MendeleyKit/Pods'
   s.ios.frameworks  = 'MobileCoreServices', 'SystemConfiguration', 'Security', 'Foundation'
   s.osx.frameworks  = 'Foundation', 'CoreFoundation', 'AppKit', 'Security', 'WebKit', 'CoreServices'
-
   s.prefix_header_contents = <<-EOS
   #ifdef __OBJC__
-    #import <Security/Security.h>
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED
-      #import <SystemConfiguration/SystemConfiguration.h>
-      #import <MobileCoreServices/MobileCoreServices.h>
-    #else
-      #import <SystemConfiguration/SystemConfiguration.h>
-      #import <CoreServices/CoreServices.h>
-    #endif
-    #import "MendeleyLog.h"
-    #import "MendeleyGlobals.h"
-    #import "MendeleyError.h"
-    #import "MendeleyErrorManager.h"
-    #import "NSError+Exceptions.h"
-  #endif /* __OBJC__*/
-  EOS
+     #import <Security/Security.h>
+     #if __IPHONE_OS_VERSION_MIN_REQUIRED
+       #import <SystemConfiguration/SystemConfiguration.h>
+       #import <MobileCoreServices/MobileCoreServices.h>
+     #else
+       #import <SystemConfiguration/SystemConfiguration.h>
+       #import <CoreServices/CoreServices.h>
+     #endif
+     #import "MendeleyLog.h"
+     #import "MendeleyGlobals.h"
+     #import "MendeleyError.h"
+     #import "MendeleyErrorManager.h"
+     #import "NSError+Exceptions.h"
+   #endif /* __OBJC__*/
+EOS
 
 end

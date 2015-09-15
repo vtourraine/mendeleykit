@@ -21,6 +21,7 @@
 #import "MendeleyFoldersAPI.h"
 #import "MendeleyModels.h"
 #import "MendeleyDocument.h"
+#import "NSError+Exceptions.h"
 
 @implementation MendeleyFoldersAPI
 

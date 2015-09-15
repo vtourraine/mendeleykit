@@ -19,6 +19,8 @@
  */
 
 #import "MendeleyPerformanceMeterSession.h"
+#import "MendeleyGlobals.h"
+#import "MendeleyLog.h"
 
 
 @interface MendeleyPerformanceMeterSession ()

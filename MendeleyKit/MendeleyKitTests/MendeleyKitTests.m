@@ -18,8 +18,11 @@
  *****************************************************************************
  */
 
-#import "MendeleyKit.h"
 #import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
+#import "MendeleyKit.h"
+#endif
 
 @interface MendeleyKitTests : MendeleyKitTestBaseClass
 

@@ -19,6 +19,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MendeleyGlobals.h"
 
 @class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters;
 
@@ -861,6 +862,13 @@
  */
 - (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Features
+/**
+ obtain a list of supported features from server
+ @param completionBlock returning an array of MendeleyFeature objects
+ */
+- (MendeleyTask *)applicationFeaturesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark - Cancellation
 /**

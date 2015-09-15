@@ -19,6 +19,7 @@
  */
 
 #import "MendeleySimpleNetworkTask.h"
+#import "MendeleyGlobals.h"
 
 @interface MendeleySimpleNetworkTask ()
 

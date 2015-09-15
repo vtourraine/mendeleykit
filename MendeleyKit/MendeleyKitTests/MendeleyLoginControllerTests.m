@@ -18,10 +18,11 @@
  *****************************************************************************
  */
 
+#import "MendeleyKitTestBaseClass.h"
+
 #import "MendeleyOAuthConstants.h"
 #import "MendeleyLoginViewController.h"
 #import "MendeleyKitConfiguration.h"
-#import "MendeleyKitTestBaseClass.h"
 
 @interface MendeleyLoginViewController (CHANGE_VISIBILITY_FOR_TEST)
 

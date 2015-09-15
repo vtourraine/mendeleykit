@@ -19,9 +19,7 @@
  */
 
 #import "GroupListTableViewController.h"
-#import "MendeleyModels.h"
-#import "MendeleyKit.h"
-#import "MendeleyQueryRequestParameters.h"
+#import <MendeleyKitiOS/MendeleyKitiOS.h>
 
 @interface GroupListTableViewController ()
 @property (nonatomic, strong) NSArray *groups;
