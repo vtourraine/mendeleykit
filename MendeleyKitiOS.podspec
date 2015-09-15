@@ -18,7 +18,7 @@ DESC
 
   s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
   s.requires_arc  = true
-  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "1.0.9" }
+  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "1.1.0" }
   s.module_name = "MendeleyKitiOS"
   s.ios.deployment_target = '8.0'
   s.source_files  = "MendeleyKit/MendeleyKitiOS/MendeleyKitiOS.h", "MendeleyKit/MendeleyKit/*.h", "MendeleyKit/MendeleyKit/**/*.{h,m,swift}"
