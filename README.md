@@ -1,93 +1,76 @@
 # MendeleyKit the Mendeley SDK for Objective C #
-Version: 1.0.12
-- refreshing the OAuth tokens: new server settings mean the refresh token gets reset at requesting new tokens. Needed to take this into account when checking validity of refresh token.
 
-Version: 1.0.11:
-- improve error handling for file downloads
-
-Version: 1.0.10:
-- use of proper timezone in communication with server
-
-Version: 1.0.9:
-- very minor change to make internal object handling more consistent
-- updated time format from server to include the correct timezone
-
-Version: 1.0.7:
-- added followers API and some minor bug fixes in JSON to model handling
-
-Version: 1.0.6:
-- the default OAuth provider needs to parse the response object properly
-
-Version: 1.0.5:
-13 April 2015
-- the method to check authorisation status now returns a cancellable MendeleyTask object and a minor bug fix
-
-Version: 1.0.3
-26 March 2015
-- minor change to ensure that completion handlers are executed on the main thread
-
-Version: 1.0.1
-23 March 2015
-- add a convenience method to check if authentication is still valid
-- add methods for a new /recently_read API service
-
-Version: 1.0.0
-9 March 2015
-- small fix to show proper login screen size after rotating device
-
-Version: 0.9.20
-6 March 2015
-- added functionality to create and update profiles
-- added functionality to retrieve Mendeley registered academic status and discipline types
-
-Version: 0.9.19
-16 Feb 2015
-- added properties to the profiles model to be in line with the official /profiles API
-
-Version: 0.9.18
-12 Feb 2015
-- MendeleyKitHelper:isSuccessForResponse will return false if network operation is cancelled
-
-Version: 0.9.17
-09 February 2015
-- ensure that cancelling file downloads calls the completion handler
-
-Version: 0.9.16 alpha
-30 January 2015
-- added icon/photo support for user profiles in MendeleyKit
-- other improvements and bug fixes
-
-Version: 0.9.9 alpha
-5 December 2014
-- added OSX support to MendeleyKit. MendeleyKit project now has 3 targets, MendeleyKit (iOS), MendeleyKitTests (unit tests) and MendeleyKitOSX.framework. The MendeleyKit.podspec has been updated so that users can now include MendeleyKitOSX into their MacOSX project
-- MendeleyLoginController has been renamed to MendeleyLoginViewController for iOS. For Mac OSX, use the newly created MendeleyLoginWindowController
-- MendeleyAnnotation and MendeleyURLBuilder have been updated to support Mac OSX specific classes (e.g. NSColor - instead of UIColor)
-- MendeleyKit.h has a new create file method, where developers can specify filename and content type. The existing method can still be used - it will assume PDF as content type 
-
-Version: 0.8.9 alpha
-11 November 2014
-- all API methods in MendeleyKit now return a MendeleyTask object to allow cancellation of network calls. The method signatures for network provider and API helper classes were changed accordingly.
-- Notice: the SDK makes use of a 3rd party code provided by Apple to check on network reachability. The code is provided in accordance with Apple licence (see source code file Reachability.h/.m)
-
-
-Released: October 2014
+Released: September 2015
 
 ** Important notice: this is an early pre-release version and is subject to change **
 
-## About MendeleyKit ##
-MendeleyKit is a standalone Objective C library providing convenience methods
+## About MendeleyKit 2.0 ##
+MendeleyKit is a standalone library/framework providing convenience methods
 and classes for using the [Mendeley API](http://dev.mendeley.com) in Mac OSX or
 iOS applications.
 
-Note, this is an alpha version of the MendeleyKit.
+Since its launch in Oct 2014 MendeleyKit has gone through a number of changes and improvements.
+Version 2 of the SDK is introducing a MendeleyKitiOS dynamic framework, including Swift 2.0 code.
+In addition to that some API additions were introduced (e.g. Mendeley features API enabling remote feature enabling).
+
+Version 2 still supports MendeleyKit as a standalone static library for iOS and OSX. However, users of the SDK
+should be advised that the use of static library is deprecated and may be discontinued at a future release.
 
 ## Minimum Requirements ##
 
-XCode 5.1.1
+### Minimum Requirements - Static Library MendeleyKit ###
+XCode 6.x
 iOS 7.x or higher
 
+### Minimum Requirements - Framework ###
+XCode 7
+iOS 8 or higher
+OSX 10.9 or higher
+
 ## Installation/Cocoapod ##
-The easiest way to include MendeleyKit in your project is to use cocoapods.
+The easiest way to include MendeleyKit in your project is to use cocoapods. In order to support both
+dynamic frameworks and legacy static library of MendeleyKit, we introduced separate Podspec files
+- MendeleyKit.podspec: use this for static library of MendeleyKit (will not contain Swift code and some of the new APIs, such as analytics). Note this is deprecated and may be removed in future releases.
+- MendeleyKitiOS.podspec - the iOS dynamic Framework. Requires iOS8 min and XCode 7
+- MendeleyKitOSX.podspec - the OSX framework.
+
+### Cocoapods for frameworks ###
+
+#### Your client Podfile using the iOS Framework ####
+Use this in your Podfile:
+```
+use_frameworks!
+pod 'MendeleyKitiOS', :git => 'https://github.com/Mendeley/mendeleykit.git'
+```
+
+*Note*: the framework supports both WebKit and UIWebView for login process (the latter is deprecated). To ensure you use the WebKit version
+of the Kit you may want to include the following lines in your Podfile:
+```
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MendeleyKitiOSFramework']
+      #add any other build settings 
+    end
+  end
+end
+```
+(for cocoapods versions earlier than 0.38 use installer.project.targets.each instead of installer.pods_project.targets.each)
+
+*Note*: 
+Using *use_frameworks!* means that all included dependencies will be interpreted as frameworks. At this stage there is no provision in cocoapods to selectively mark some pods as frameworks and others as static library.
+
+Once done do a 
+```
+pod install
+```
+
+
+### Your client Podfile for using the static library (deprecated) ###
+You can use the legacy static library of MendeleyKit using the MendeleyKit.podspec
+Note: the static library of MendeleyKit will not include any Swift classes - including
+the new MendeleyAnalytics classes/methods.
+
 The Podfile in your project should include the following line
 
 ```
@@ -102,6 +85,33 @@ pod install
 For further information on Cocoapods see [Cocoapods](http://cocoapods.org/).
 
 Alternatively, you may clone the public MendeleyKit from our github repository.
+
+## Upgrading from Previous versions of MendeleyKit ##
+
+### Upgrading the headers/import in Objective C code for Framework ###
+Using the MendeleyKitiOS framework means you will need to change your headers.
+All public headers in the MendeleyKit are included in the framework umbrella header MendeleyKitiOS.h.
+Please, replace all explicit MendeleyKit imports in your code with this one header.
+
+```
+#import <MendeleyKitiOS/MendeleyKitiOS.h>
+```
+You may want to use the more modern syntax
+```
+@import MendeleyKitiOS;
+```
+### Upgrading the headers/import for use of static library ###
+*Note*: If you are using the static library version of MendeleyKit you will need to use the following syntax
+(as the workspace has now modules enabled in the build sittings)
+
+```
+#import <MendeleyKit/MendeleyKit.h>
+```
+
+### Client build settings ###
+- client should have 'Enable modules' set to Yes
+- MendeleyKit currently has bitcode disabled in its settings for backward compatibility reasons. You may need to do the same in the client using the MendeleyKit framework/lib.
+
 
 ## Getting Started ##
 MendeleyKit XCode workspace includes a MendeleyKitExample project. This demonstrates
