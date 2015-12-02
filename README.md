@@ -1,6 +1,6 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
-Released: September 2015
+Released: December 2015
 
 ** Important notice: this is an early pre-release version and is subject to change **
 
