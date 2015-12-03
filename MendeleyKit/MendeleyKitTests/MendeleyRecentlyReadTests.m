@@ -21,8 +21,11 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyFile.h"
 #import "MendeleyModeller.h"
+#endif
 #include <stdlib.h>
 
 @interface MendeleyRecentlyReadTests : MendeleyKitTestBaseClass

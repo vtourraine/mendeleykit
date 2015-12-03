@@ -21,7 +21,55 @@
 #ifndef MendeleyKit_MendeleyGlobals_h
 #define MendeleyKit_MendeleyGlobals_h
 
+@import Foundation;
+
 @class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject, MendeleySecureObject;
+
+
+/***********************************************
+ @name Enums definitions
+ ***********************************************/
+typedef NS_ENUM(int, MendeleyHTTPRequestType)
+{
+    HTTP_GET = 0,
+    HTTP_DELETE,
+    HTTP_POST,
+    HTTP_PUT,
+    HTTP_PATCH,
+    HTTP_HEAD
+};
+
+typedef NS_ENUM(int, MendeleyResponseBodyContentType)
+{
+    JSONBody = 0,
+    PDFBody,
+    JPGBody,
+    PNGBody,
+    BinaryBody,
+    UnknownBody
+};
+
+typedef NS_ENUM(int, MendeleyIconType)
+{
+    OriginalIcon = 0,
+    SquareIcon,
+    StandardIcon
+};
+
+/***********************************************
+ @name Block definitions
+ ***********************************************/
+typedef void (^ __nullable MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials * __nullable credentials, NSError * __nullable error);
+typedef void (^ __nullable MendeleyResponseCompletionBlock)(MendeleyResponse * __nullable response, NSError * __nullable error);
+typedef void (^ __nullable MendeleyResponseProgressBlock)(NSNumber * __nonnull progress);
+typedef void (^ __nullable MendeleyCompletionBlock)(BOOL success, NSError * __nullable error);
+typedef void (^ __nullable MendeleyArrayCompletionBlock)(NSArray * __nullable array, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
+typedef void (^ __nullable MendeleyObjectCompletionBlock)(MendeleyObject * __nullable mendeleyObject, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
+typedef void (^ __nullable MendeleySecureObjectCompletionBlock)(MendeleySecureObject * __nullable mendeleyObject, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
+typedef void (^ __nullable MendeleyDictionaryResponseBlock)(NSDictionary * __nullable dictionary, NSError * __nullable error);
+typedef void (^ __nullable MendeleyDeserializedResponseObject)(id __nullable deserializedResponseObject, NSError * __nullable deserializeError);
+typedef void (^ __nullable MendeleyBinaryDataCompletionBlock)(NSData * __nullable binaryData, NSError * __nullable dataError);
+typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nullable arrayOfStrings, NSError * __nullable error);
 
 /***********************************************
    @name Mendeley Server URLs as strings
@@ -53,50 +101,6 @@
 #define kMendeleyOAuth2ClientSecretKey        @"client_secret"
 #define kMendeleyOAuth2ClientIDKey            @"client_id"
 
-/***********************************************
-   @name Enums definitions
-***********************************************/
-typedef NS_ENUM (int, MendeleyHTTPRequestType)
-{
-    HTTP_GET = 0,
-    HTTP_DELETE,
-    HTTP_POST,
-    HTTP_PUT,
-    HTTP_PATCH,
-    HTTP_HEAD
-};
-
-typedef NS_ENUM (int, MendeleyResponseBodyContentType)
-{
-    JSONBody = 0,
-    PDFBody,
-    JPGBody,
-    PNGBody,
-    BinaryBody,
-    UnknownBody
-};
-
-typedef NS_ENUM (int, MendeleyIconType)
-{
-    OriginalIcon = 0,
-    SquareIcon,
-    StandardIcon
-};
-
-/***********************************************
-   @name Block definitions
-***********************************************/
-typedef void (^MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials *credentials, NSError *error);
-typedef void (^MendeleyResponseCompletionBlock)(MendeleyResponse *response, NSError *error);
-typedef void (^MendeleyResponseProgressBlock)(NSNumber *progress);
-typedef void (^MendeleyCompletionBlock)(BOOL success, NSError *error);
-typedef void (^MendeleyArrayCompletionBlock)(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleyObjectCompletionBlock)(MendeleyObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleySecureObjectCompletionBlock)(MendeleySecureObject *mendeleyObject, MendeleySyncInfo *syncInfo, NSError *error);
-typedef void (^MendeleyDictionaryResponseBlock)(NSDictionary *dictionary, NSError *error);
-typedef void (^MendeleyDeserializedResponseObject)(id deserializedResponseObject, NSError *deserializeError);
-typedef void (^MendeleyBinaryDataCompletionBlock)(NSData *binaryData, NSError *dataError);
-typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSError *error);
 
 /***********************************************
    @name default URL session settings
@@ -135,6 +139,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTRequestJSONFollowType                      @"application/vnd.mendeley-follow.1+json"
 #define kMendeleyRESTRequestJSONFollowRequestType               @"application/vnd.mendeley-follow-request.1+json"
 #define kMendeleyRESTRequestJSONFollowAcceptancesRequestType    @"application/vnd.mendeley-follow-acceptance.1+json"
+#define kMendeleyRESTRequestJSONApplicationFeaturesType         @"application/vnd.mendeley-features.1+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                        @"Accept-Language"
@@ -187,6 +192,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyRESTAPIRecentlyRead                      @"recently_read"
 #define kMendeleyRESTAPIFollowers                         @"followers"
 #define kMendeleyRESTAPIFollowersWithID                   @"followers/%@"
+#define kMendeleyRESTAPIApplicationFeatures               @"application_features"
 
 /***********************************************
    @name REST API Query Parameters
@@ -240,6 +246,7 @@ typedef void (^MendeleyStringArrayCompletionBlock)(NSArray *arrayOfStrings, NSEr
 #define kMendeleyModelEducation                           @"MendeleyEducation"
 #define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyRead"
 #define kMendeleyModelFollow                              @"MendeleyFollow"
+#define kMendeleyModelApplicationFeature                  @"MendeleyFeature"
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
 #define kMendeleyModelKeywords                            @"NSArray"

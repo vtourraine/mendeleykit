@@ -22,6 +22,7 @@
 #import "MendeleyDefaultNetworkProvider.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "MendeleyKitUserInfoManager.h"
+#import "MendeleyError.h"
 
 @interface MendeleyKitConfiguration ()
 @property (nonatomic, assign, readwrite) BOOL isTrustedSSLServer;

@@ -19,6 +19,7 @@
  */
 
 #import "MendeleyFollowersAPI.h"
+#import "NSError+Exceptions.h"
 
 @implementation MendeleyFollowersAPI
 

@@ -19,10 +19,7 @@
  */
 
 #import "FilesWithDocumentTableViewController.h"
-#import "MendeleyModels.h"
-#import "MendeleyKit.h"
-#import "MendeleyQueryRequestParameters.h"
-#import "MendeleySyncInfo.h"
+#import <MendeleyKitiOS/MendeleyKitiOS.h>
 #import "DocumentDetailTableViewController.h"
 
 #define kPDFLabelTag   99

@@ -18,9 +18,11 @@
  *****************************************************************************
  */
 
+#import "MendeleyKitTestBaseClass.h"
+
+#import "MendeleyGlobals.h"
 #import "MendeleyPerformanceMeter.h"
 #import "MendeleyTimer.h"
-#import "MendeleyKitTestBaseClass.h"
 
 #define kTimerTestDuration 1.0
 

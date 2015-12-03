@@ -25,6 +25,7 @@
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyModeller.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
 #import "MendeleyURLBuilder.h"
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKitHelper.h"

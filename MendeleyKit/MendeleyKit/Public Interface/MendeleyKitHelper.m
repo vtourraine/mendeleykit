@@ -25,6 +25,7 @@
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyModeller.h"
 #import "NSError+MendeleyError.h"
+#import "NSError+Exceptions.h"
 
 @interface MendeleyKitHelper ()
 
@@ -50,6 +51,10 @@
 {
     if (nil == response)
     {
+        if (nil == *error)
+        {
+            *error = [NSError errorWithCode:kMendeleyDataNotAvailableErrorCode];
+        }
         return NO;
     }
     else if ((*error).code == NSURLErrorCancelled)

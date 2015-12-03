@@ -19,6 +19,8 @@
  */
 
 #import "MendeleyKitUserInfoManager.h"
+#import "MendeleyGlobals.h"
+#import "MendeleyError.h"
 
 @implementation MendeleyKitUserInfoManager
 

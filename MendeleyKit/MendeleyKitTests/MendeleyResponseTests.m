@@ -18,11 +18,13 @@
  *****************************************************************************
  */
 
-#import "MendeleyResponse.h"
 #import <OCMock/OCMock.h>
 #import "MendeleyKitTestBaseClass.h"
-#import "MendeleyError.h"
 
+#ifndef MendeleyKitiOSFramework
+#import "MendeleyError.h"
+#import "MendeleyResponse.h"
+#endif
 @interface MendeleyResponse (CHANGE_VISIBILITY_FOR_TEST)
 
 - (BOOL)jsonObjectHasValidData:(id)jsonObject error:(NSError **)error;

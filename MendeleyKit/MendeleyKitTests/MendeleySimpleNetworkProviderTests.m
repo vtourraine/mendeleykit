@@ -18,8 +18,11 @@
  *****************************************************************************
  */
 
-#import "MendeleySimpleNetworkProvider.h"
 #import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
+#import "MendeleySimpleNetworkProvider.h"
+#endif
 
 #define TIMEINTERVAL 120
 

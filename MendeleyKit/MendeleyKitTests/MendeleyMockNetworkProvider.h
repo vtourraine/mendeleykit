@@ -18,9 +18,14 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+#import "MendeleyKitTestsBaseInclude.h"
+
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyNetworkProvider.h"
 #import "MendeleyResponse.h"
+#endif
 
 @interface MendeleyMockNetworkProvider : NSObject <MendeleyNetworkProvider>
 @property (nonatomic, assign) BOOL expectedSuccess;

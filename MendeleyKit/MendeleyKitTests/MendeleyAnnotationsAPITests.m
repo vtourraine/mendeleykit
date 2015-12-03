@@ -18,13 +18,17 @@
  *****************************************************************************
  */
 
+#import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyMockNetworkProvider.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyKit.h"
 #import "MendeleyAnnotationsAPI.h"
 #import "MendeleyModels.h"
 #import "NSError+MendeleyError.h"
-#import "MendeleyKitTestBaseClass.h"
+#endif
+
 
 @interface MendeleyAnnotationsAPITests : MendeleyKitTestBaseClass
 

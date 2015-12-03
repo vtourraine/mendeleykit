@@ -21,6 +21,8 @@
 #import "MendeleyPerformanceMeter.h"
 #import "MendeleyTimer.h"
 #import "MendeleyPerformanceMeterSession.h"
+#import "MendeleyLog.h"
+#import "MendeleyGlobals.h"
 
 
 #define kSpareTimersSessionName @"Single Job Session"

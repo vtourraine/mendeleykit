@@ -21,6 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleySyncInfo.h"
 #import "MendeleyModels.h"
+#import "MendeleyGlobals.h"
 
 @interface MendeleyBlockExecutor : NSObject
 

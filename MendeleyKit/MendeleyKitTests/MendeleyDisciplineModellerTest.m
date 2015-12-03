@@ -20,8 +20,10 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyModeller.h"
 #import "MendeleyModels.h"
+#endif
 #import "MendeleyKitTestBaseClass.h"
 
 #define kExampleName           @"a name"

@@ -19,6 +19,8 @@
  */
 
 #import "MendeleyNSURLRequestDownloadHelper.h"
+#import "MendeleyErrorManager.h"
+#import "MendeleyError.h"
 
 #define NSURLResponseUnknownLength ((long long) -1)
 

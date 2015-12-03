@@ -26,6 +26,12 @@
 #import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
 
+#ifdef MendeleyKitiOSFramework
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#else
+#import "MendeleyLoginHandleriOS7.h"
+#endif
+
 @interface MendeleyLoginViewController ()
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) NSURL *oauthServer;
@@ -34,6 +40,11 @@
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
+#ifdef MendeleyKitiOSFramework
+@property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *loginHandler;
+#else
+@property (nonatomic, strong) MendeleyLoginHandleriOS7 *loginHandler;
+#endif
 @end
 
 @implementation MendeleyLoginViewController
@@ -91,96 +102,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self startLoginProcess];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-
-#pragma mark Handle device rotations
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAll;
-}
-
-#pragma mark UIWebview delegate methods
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if ([request.URL.absoluteString hasSuffix:@"forgot/"])
-    {
-        [[UIApplication sharedApplication] openURL:request.URL];
-        return NO;
-    }
-    else if ([request.URL.absoluteString hasPrefix:[self.oauthServer absoluteString]])
-    {
-        return YES;
-    }
-    NSString *code = [self authenticationCodeFromURLRequest:request];
-    if (nil != code)
-    {
-        MendeleyOAuthCompletionBlock oAuthCompletionBlock = self.oAuthCompletionBlock;
-        [self.oauthProvider authenticateWithAuthenticationCode:code
-                                               completionBlock:oAuthCompletionBlock];
-    }
-    else
-    {
-        ///TODO error handling
-    }
-
-    return NO;
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    NSDictionary *userInfo = [error userInfo];
-    NSString *failingURLString = [userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
-
-    if (nil != failingURLString && [self.oauthProvider urlStringIsRedirectURI:failingURLString])
-    {
-        // ignore if redirect URI
-        return;
-    }
-
-    MendeleyCompletionBlock completionBlock = self.completionBlock;
-
-    if (completionBlock)
-    {
-        completionBlock(NO, error);
-    }
-    self.oAuthCompletionBlock = nil;
-    self.completionBlock = nil;
-    self.webView.delegate = nil;
-    self.webView = nil;
-}
-
-#pragma mark private methods
-- (void)startLoginProcess
-{
-    [self setUpCompletionBlock];
-    self.oauthServer = [MendeleyKitConfiguration sharedInstance].baseAPIURL;
-    [self cleanCookiesAndURLCache];
-
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    [webView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    webView.delegate = self;
-    [self.view addSubview:webView];
-    self.webView = webView;
-
-    NSURLRequest *loginRequest = [self oauthURLRequest];
-    [self.webView loadRequest:loginRequest];
-}
-
-- (void)setUpCompletionBlock
-{
-    MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error){
+    __strong MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error){
         if (nil != credentials)
         {
             MendeleyOAuthStore *oauthStore = [[MendeleyOAuthStore alloc] init];
@@ -202,66 +124,46 @@
             }
         }
     };
+    
+#ifdef MendeleyKitiOSFramework
+    /**
+     login handler needs to be retained by the class otherwise we get out of scope
+     and the callbacks to the handler never get called
+     */
+    self.loginHandler = [MendeleyLoginWebKitHandler new];
+    
+    [self.loginHandler startLoginProcess:self.clientID
+                             redirectURI:self.redirectURI
+                              controller:self
+                       completionHandler:self.completionBlock
+                            oauthHandler:oAuthCompletionBlock];
+#else
+    self.loginHandler = [MendeleyLoginHandleriOS7 new];
+    [self.loginHandler startLoginProcessWithClientID:self.clientID
+                                         redirectURI:self.redirectURI
+                                          controller:self
+                                     completionBlock:self.completionBlock
+                                oauthCompletionBlock:oAuthCompletionBlock];
 
-    self.oAuthCompletionBlock = oAuthCompletionBlock;
+#endif
+    
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
 }
 
 
-- (void)cleanCookiesAndURLCache
+#pragma mark Handle device rotations
+- (BOOL)shouldAutorotate
 {
-    if (nil == self.oauthServer)
-    {
-        return;
-    }
-
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies])
-    {
-
-        NSString *cookieDomain = [cookie domain];
-        if ([cookieDomain isEqualToString:kMendeleyKitURL])
-        {
-
-            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-        }
-        if ([cookieDomain isEqualToString:[self.oauthServer host]])
-        {
-            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-        }
-    }
+    return YES;
 }
 
-- (NSURLRequest *)oauthURLRequest
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    NSURL *baseOAuthURL = [self.oauthServer URLByAppendingPathComponent:kMendeleyOAuthPathAuthorize];
-    NSDictionary *parameters = @{ kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
-                                  kMendeleyOAuth2RedirectURLKey: self.redirectURI,
-                                  kMendeleyOAuth2ScopeKey: kMendeleyOAuth2Scope,
-                                  kMendeleyOAuth2ClientIDKey: self.clientID,
-                                  kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType };
-
-    baseOAuthURL = [MendeleyURLBuilder urlWithBaseURL:baseOAuthURL parameters:parameters query:YES];
-
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:baseOAuthURL];
-    request.HTTPMethod = @"GET";
-    request.allHTTPHeaderFields = [MendeleyURLBuilder defaultHeader];
-    return request;
-}
-
-- (NSString *)authenticationCodeFromURLRequest:(NSURLRequest *)request
-{
-    NSArray *urlComponents = [[[request URL] query] componentsSeparatedByString:@"&"];
-    __block NSString *code = nil;
-
-    [urlComponents enumerateObjectsUsingBlock:^(NSString *param, NSUInteger index, BOOL *stop) {
-         NSArray *parameterPair = [param componentsSeparatedByString:@"="];
-         NSString *key = [parameterPair objectAtIndex:0];
-         NSString *value = [parameterPair objectAtIndex:1];
-         if ([key isEqualToString:kMendeleyOAuth2ResponseType])
-         {
-             code = value;
-         }
-     }];
-    return code;
+    return UIInterfaceOrientationMaskAll;
 }
 @end

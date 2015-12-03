@@ -20,6 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface MendeleyURLBuilder : NSObject
 /**
    @param baseURL to be appended
@@ -50,3 +51,4 @@
  */
 + (NSDictionary *)defaultHeader;
 @end
+NS_ASSUME_NONNULL_END

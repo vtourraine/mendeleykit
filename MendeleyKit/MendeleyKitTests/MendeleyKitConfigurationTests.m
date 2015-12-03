@@ -18,9 +18,12 @@
  *****************************************************************************
  */
 
+#import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyMockNetworkProvider.h"
-#import "MendeleyKitTestBaseClass.h"
+#endif
 
 @interface MendeleyKitConfigurationTests : MendeleyKitTestBaseClass
 

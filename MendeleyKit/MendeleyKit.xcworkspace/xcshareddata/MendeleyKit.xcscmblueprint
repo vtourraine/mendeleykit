@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "88451CE373A8483FBC0FDD215687D819CC4E9788",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "88451CE373A8483FBC0FDD215687D819CC4E9788" : 0,
+    "C77AE71588039016E97DC156D54EF67EE66FA72B" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "474D5E1D-0C1E-46F5-9232-E79D281DE8C7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "88451CE373A8483FBC0FDD215687D819CC4E9788" : "MendeleyKit",
+    "C77AE71588039016E97DC156D54EF67EE66FA72B" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MendeleyKit",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MendeleyKit\/MendeleyKit.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/peter.schmidt@git.mendeley.com\/scm\/mob\/mendeleysdk-objectivec.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "88451CE373A8483FBC0FDD215687D819CC4E9788"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/luigi.trevisi@git.mendeley.com\/scm\/mob\/mendeley-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C77AE71588039016E97DC156D54EF67EE66FA72B"
+    }
+  ]
+}

@@ -21,6 +21,7 @@
 #import "MendeleyAnnotationsAPI.h"
 #import "MendeleyModels.h"
 #import "NSDictionary+Merge.h"
+#import "NSError+Exceptions.h"
 
 @implementation MendeleyAnnotationsAPI
 

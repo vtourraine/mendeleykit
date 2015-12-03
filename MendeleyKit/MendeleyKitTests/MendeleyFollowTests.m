@@ -20,9 +20,14 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "MendeleyModeller.h"
+
 #import "MendeleyKitTestBaseClass.h"
+
+#ifndef MendeleyKitiOSFramework
+#import "MendeleyModeller.h"
 #import "MendeleyFollow.h"
+#endif
+
 
 @interface MendeleyFollowTests : MendeleyKitTestBaseClass
 @property (nonatomic, strong) NSData *jsonData;

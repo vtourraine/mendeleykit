@@ -19,7 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "MendeleyModels.h"
+#import <MendeleyKitiOS/MendeleyKitiOS.h>
 
 
 @interface DocumentDetailTableViewController : UITableViewController
