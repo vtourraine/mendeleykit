@@ -1,4 +1,9 @@
 RELEASE NOTES
+Date: December 2015 (2.0.0)
+- introduced 2 more podspec files for the generation of dynamic frameworks
+- various bug fixes 
+- analytics is now part of the framework 
+
 Date: July 2015 (1.1.1)
 - follower API methods should return a MendeleyTask object rather than void
 
