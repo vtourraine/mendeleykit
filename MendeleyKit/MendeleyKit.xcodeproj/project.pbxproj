@@ -79,6 +79,12 @@
 		154DD1C28358A9380C22F0E1 /* libPods-MendeleyKitiOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */; };
 		373AA4EB1B4698F800F8B0C4 /* followRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EA1B4698F800F8B0C4 /* followRequest.json */; };
 		373AA4ED1B46AAB500F8B0C4 /* followAcceptance.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */; };
+		645F7A7D1C52603D006D7B24 /* Color+Addons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A7C1C52603D006D7B24 /* Color+Addons.swift */; };
+		645F7A7E1C52603E006D7B24 /* Color+Addons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A7C1C52603D006D7B24 /* Color+Addons.swift */; };
+		645F7A7F1C52603E006D7B24 /* Color+Addons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A7C1C52603D006D7B24 /* Color+Addons.swift */; };
+		645F7A821C5262C5006D7B24 /* ColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A811C5262C5006D7B24 /* ColorExtensionTests.swift */; };
+		645F7A871C526552006D7B24 /* ColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A811C5262C5006D7B24 /* ColorExtensionTests.swift */; };
+		645F7A881C5265B8006D7B24 /* Color+Addons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A7C1C52603D006D7B24 /* Color+Addons.swift */; };
 		725CFFDC1B7B408300AC6758 /* MendeleyFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = 725CFFDA1B7B408300AC6758 /* MendeleyFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		725CFFDD1B7B408300AC6758 /* MendeleyFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = 725CFFDA1B7B408300AC6758 /* MendeleyFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		725CFFDE1B7B408300AC6758 /* MendeleyFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFDB1B7B408300AC6758 /* MendeleyFeature.m */; };
@@ -557,6 +563,10 @@
 		373AA4EA1B4698F800F8B0C4 /* followRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followRequest.json; sourceTree = "<group>"; };
 		373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followAcceptance.json; sourceTree = "<group>"; };
 		5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitiOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		645F7A7B1C52603D006D7B24 /* MendeleyKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MendeleyKit-Bridging-Header.h"; sourceTree = "<group>"; };
+		645F7A7C1C52603D006D7B24 /* Color+Addons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Addons.swift"; sourceTree = "<group>"; };
+		645F7A801C5262C4006D7B24 /* MendeleyKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MendeleyKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		645F7A811C5262C5006D7B24 /* ColorExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensionTests.swift; sourceTree = "<group>"; };
 		725CFFDA1B7B408300AC6758 /* MendeleyFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyFeature.h; path = "Model/Mendeley Objects/MendeleyFeature.h"; sourceTree = "<group>"; };
 		725CFFDB1B7B408300AC6758 /* MendeleyFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFeature.m; path = "Model/Mendeley Objects/MendeleyFeature.m"; sourceTree = "<group>"; };
 		725CFFE11B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyApplicationFeaturesAPI.h; path = "Public Interface/API Interfaces/MendeleyApplicationFeaturesAPI.h"; sourceTree = "<group>"; };
@@ -992,6 +1002,7 @@
 				C462884719DB171900127ECE /* MendeleyErrorManagerTests.m */,
 				C462884819DB171900127ECE /* MendeleyLogTests.m */,
 				C462884919DB171900127ECE /* MendeleyPerformanceMeterTests.m */,
+				645F7A811C5262C5006D7B24 /* ColorExtensionTests.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1264,6 +1275,7 @@
 				C4A1355119DAE0870069DB7A /* NSDictionary+Merge.m */,
 				C4A1355219DAE0870069DB7A /* NSMutableArray+MaximumSize.h */,
 				C4A1355319DAE0870069DB7A /* NSMutableArray+MaximumSize.m */,
+				645F7A7C1C52603D006D7B24 /* Color+Addons.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1364,6 +1376,7 @@
 		C4CD514119DAD9E400C8EB8D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				645F7A7B1C52603D006D7B24 /* MendeleyKit-Bridging-Header.h */,
 				C4A1357019DAE6A50069DB7A /* MendeleyGlobals.h */,
 				C4CD514219DAD9E400C8EB8D /* MendeleyKit-Prefix.pch */,
 				C48EF2111B7366450023916F /* MendeleySwiftGlobals.swift */,
@@ -1389,6 +1402,7 @@
 		C4CD515519DAD9E400C8EB8D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				645F7A801C5262C4006D7B24 /* MendeleyKitTests-Bridging-Header.h */,
 				C4F095071AA474D500C5951C /* academic_statuses.json */,
 				C462882219DB160700127ECE /* annotation.json */,
 				C462882319DB160700127ECE /* catalogue.json */,
@@ -1701,7 +1715,7 @@
 		C4CD513319DAD9E400C8EB8D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Mendeley;
 				TargetAttributes = {
@@ -1906,6 +1920,7 @@
 				725CFFE61B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */,
 				C42111DB1A2341A9006C044C /* MendeleyNSURLConnectionProvider.m in Sources */,
 				C42111DC1A2341A9006C044C /* MendeleyNSURLRequestHelper.m in Sources */,
+				645F7A7E1C52603E006D7B24 /* Color+Addons.swift in Sources */,
 				C42111DD1A2341A9006C044C /* MendeleyNSURLRequestDownloadHelper.m in Sources */,
 				C42111DE1A2341A9006C044C /* MendeleyNSURLRequestUploadHelper.m in Sources */,
 				C42111DF1A2341A9006C044C /* MendeleyOAuthCredentials.m in Sources */,
@@ -2020,6 +2035,7 @@
 				C46657B31B3846DA005F762A /* MendeleyKitConfiguration.m in Sources */,
 				C46657A91B3846B5005F762A /* MendeleyGroupsAPI.m in Sources */,
 				C46657741B384598005F762A /* MendeleyObjectHelper.m in Sources */,
+				645F7A7F1C52603E006D7B24 /* Color+Addons.swift in Sources */,
 				C46657801B3845DD005F762A /* MendeleyDefaultOAuthProvider.m in Sources */,
 				C46657E31B385AB2005F762A /* MendeleyLoginHandler.swift in Sources */,
 				C46657CC1B384751005F762A /* MendeleyBlockExecutor.m in Sources */,
@@ -2042,7 +2058,9 @@
 				C449C4691B3D9F0F003DB68F /* MendeleyMockNetworkProvider.m in Sources */,
 				C43DAB6B1B41628E00A6900C /* MendeleyResponseTests.m in Sources */,
 				C43B65401B66496800B878ED /* MendeleyAnalyticsTests.swift in Sources */,
+				645F7A871C526552006D7B24 /* ColorExtensionTests.swift in Sources */,
 				C43DAB661B41614E00A6900C /* MendeleyErrorManagerTests.m in Sources */,
+				645F7A881C5265B8006D7B24 /* Color+Addons.swift in Sources */,
 				C449C4571B3D9C0B003DB68F /* MendeleyAcademicStatusTests.m in Sources */,
 				C43DAB5F1B415F7400A6900C /* MendeleyKitTests.m in Sources */,
 				C4D95B041B4186C20033FEF2 /* MendeleyKitLoginHelperTests.swift in Sources */,
@@ -2115,6 +2133,7 @@
 				0B387EE819ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.m in Sources */,
 				C4A1353819DADF280069DB7A /* MendeleyAnnotationsAPI.m in Sources */,
 				C4A1356919DAE0A20069DB7A /* MendeleyPerformanceMeter.m in Sources */,
+				645F7A7D1C52603D006D7B24 /* Color+Addons.swift in Sources */,
 				C4A1354519DADF750069DB7A /* MendeleyKitHelper.m in Sources */,
 				C4A134D319DADDD10069DB7A /* MendeleyFolder.m in Sources */,
 				725CFFDE1B7B408300AC6758 /* MendeleyFeature.m in Sources */,
@@ -2158,6 +2177,7 @@
 				C462886B19DB17D200127ECE /* MendeleyAnnotationsAPITests.m in Sources */,
 				C462883D19DB164600127ECE /* MendeleyKitTests.m in Sources */,
 				C462885619DB175500127ECE /* MendeleyLoginControllerTests.m in Sources */,
+				645F7A821C5262C5006D7B24 /* ColorExtensionTests.swift in Sources */,
 				C462883B19DB164600127ECE /* MendeleyAnnotationTests.m in Sources */,
 				C462885819DB175500127ECE /* MendeleyOAuthStoreTests.m in Sources */,
 				C462884D19DB171900127ECE /* MendeleyPerformanceMeterTests.m in Sources */,
@@ -2484,7 +2504,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKit/MendeleyKit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -2501,7 +2521,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKit/MendeleyKit-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -2509,6 +2529,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8302971636AF25A993EDBA94 /* Pods-MendeleyKitTests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2521,7 +2542,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "MendeleyKitTests/MendeleyKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKitTests/MendeleyKitTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -2530,6 +2554,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0F7FE6F8D2A0E0F2771226C7 /* Pods-MendeleyKitTests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2538,7 +2563,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MendeleyKit/MendeleyKit-Prefix.pch";
 				INFOPLIST_FILE = "MendeleyKitTests/MendeleyKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKitTests/MendeleyKitTests-Bridging-Header.h";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

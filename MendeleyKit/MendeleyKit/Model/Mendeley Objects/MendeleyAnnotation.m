@@ -21,6 +21,12 @@
 #import "MendeleyAnnotation.h"
 #import "NSError+MendeleyError.h"
 
+#ifdef MendeleyKitiOSFramework
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#else
+#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
+#endif
+
 @implementation MendeleyAnnotation
 + (id)colorFromParameters:(NSDictionary *)colorParameters error:(NSError **)error
 {
@@ -29,18 +35,18 @@
         if (NULL != *error)
         {
             *error = [NSError errorWithCode:kMendeleyJSONTypeObjectNilErrorCode
-                       localizedDescription:@"Annotation color components are either nil or not in the correct format."];
+                       localizedDescription      :@"Annotation color components are either nil or not in the correct format."];
         }
         return nil;
     }
-    CGFloat red = [[colorParameters objectForKey:kMendeleyJSONColorRed] floatValue] / 255.f;
-    CGFloat green = [[colorParameters objectForKey:kMendeleyJSONColorGreen] floatValue] / 255.f;
-    CGFloat blue = [[colorParameters objectForKey:kMendeleyJSONColorBlue] floatValue] / 255.f;
+    UInt32 red = [[colorParameters objectForKey:kMendeleyJSONColorRed] intValue];
+    UInt32 green = [[colorParameters objectForKey:kMendeleyJSONColorGreen] intValue];
+    UInt32 blue = [[colorParameters objectForKey:kMendeleyJSONColorBlue] intValue];
     id color = nil;
 #if TARGET_OS_IPHONE
-    color = [UIColor colorWithRed:red green:green blue:blue alpha:1.f];
+    color = [[UIColor alloc] initWithRedInt:red greenInt:green blueInt:blue alpha:1.f];
 #else
-    color = [NSColor colorWithSRGBRed:red green:green blue:blue alpha:1.f];
+    color = [[NSColor alloc] initWithRedInt:red greenInt:green blueInt:blue alpha:1.f];
 #endif
     return color;
 }
@@ -61,21 +67,13 @@
         if (NULL != error)
         {
             *error = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode
-                       localizedDescription:@"The color object is either nil or it is neither UIColor nor NSColor"];
+                       localizedDescription      :@"The color object is either nil or it is neither UIColor nor NSColor"];
         }
         return nil;
     }
-    CGFloat red = 0;
-    CGFloat green = 0;
-    CGFloat blue = 0;
-    CGFloat alpha = 0;
-    [uiColor getRed:&red green:&green blue:&blue alpha:&alpha];
-    red *= 255.f;
-    green *= 255.f;
-    blue *= 255.f;
-    [dictionary setObject:[NSNumber numberWithFloat:red] forKey:kMendeleyJSONColorRed];
-    [dictionary setObject:[NSNumber numberWithFloat:green] forKey:kMendeleyJSONColorGreen];
-    [dictionary setObject:[NSNumber numberWithFloat:blue] forKey:kMendeleyJSONColorBlue];
+    [dictionary setObject:[NSNumber numberWithInt:uiColor.redComponentInt] forKey:kMendeleyJSONColorRed];
+    [dictionary setObject:[NSNumber numberWithInt:uiColor.greenComponentInt] forKey:kMendeleyJSONColorGreen];
+    [dictionary setObject:[NSNumber numberWithInt:uiColor.blueComponentInt] forKey:kMendeleyJSONColorBlue];
 #else
     NSColor *nsColor = nil;
     if (nil != color && [color isKindOfClass:[NSColor class]])
@@ -87,22 +85,13 @@
         if (NULL != error)
         {
             *error = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode
-                       localizedDescription:@"The color object is either nil or it is neither UIColor nor NSColor"];
+                       localizedDescription      :@"The color object is either nil or it is neither UIColor nor NSColor"];
         }
         return nil;
     }
-    CGFloat red = 0;
-    CGFloat green = 0;
-    CGFloat blue = 0;
-    CGFloat alpha = 0;
-    [nsColor getRed:&red green:&green blue:&blue alpha:&alpha];
-    red *= 255.f;
-    green *= 255.f;
-    blue *= 255.f;
-    [dictionary setObject:[NSNumber numberWithFloat:red] forKey:kMendeleyJSONColorRed];
-    [dictionary setObject:[NSNumber numberWithFloat:green] forKey:kMendeleyJSONColorGreen];
-    [dictionary setObject:[NSNumber numberWithFloat:blue] forKey:kMendeleyJSONColorBlue];
-
+    [dictionary setObject:[NSNumber numberWithInt:nsColor.redComponentInt] forKey:kMendeleyJSONColorRed];
+    [dictionary setObject:[NSNumber numberWithInt:nsColor.greenComponentInt] forKey:kMendeleyJSONColorGreen];
+    [dictionary setObject:[NSNumber numberWithInt:nsColor.blueComponentInt] forKey:kMendeleyJSONColorBlue];
 #endif /* if TARGET_OS_IPHONE */
     return dictionary;
 }
@@ -138,7 +127,7 @@
         {
 #if TARGET_OS_IPHONE
             _box = [rectValue CGRectValue];
-#else 
+#else
             _box = NSRectToCGRect([rectValue rectValue]);
 #endif
         }
@@ -156,7 +145,7 @@
         if (NULL != *error)
         {
             *error = [NSError errorWithCode:kMendeleyJSONTypeObjectNilErrorCode
-                       localizedDescription:@"Annotation position info is nil."];
+                       localizedDescription      :@"Annotation position info is nil."];
         }
         return nil;
     }
@@ -188,7 +177,7 @@
         if (NULL != error)
         {
             *error = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode
-                       localizedDescription:@"The position object is nil."];
+                       localizedDescription      :@"The position object is nil."];
         }
         return nil;
     }
