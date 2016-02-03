@@ -20,6 +20,14 @@
 
 #import "MendeleyObject.h"
 
+/**
+ Strictly speaking there should be a class called 'MendeleyUserRoles' to replace
+ 'MendeleyAcademicStatuses' to reflect the a change in the API. 
+ Don't confuse UserRoles with UserRole, though!! The latter describes access rights for users (e.g. admin).
+ Whereas userRoles describes academic roles such 
+ However, the return values are exactly as before. Therefore the model class remains
+ MendeleyAcademicStatus
+ */
 
 @interface MendeleyAcademicStatus : MendeleySecureObject
 @property (nonatomic, strong, nullable) NSString *objectDescription;

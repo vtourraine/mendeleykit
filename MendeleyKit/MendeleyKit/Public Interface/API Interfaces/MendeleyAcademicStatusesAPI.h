@@ -28,6 +28,14 @@
    @param completionBlock will return an array of MendeleyAcademicStatus objects
  */
 - (void)academicStatusesWithTask:(MendeleyTask *)task
-                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated));
+
+/**
+ This method gets all registered Elsevier user roles.
+ @param task the cancellable MendeleyTask
+ @param completionBlock will return an array of MendeleyAcademicStatus objects
+ */
+- (void)userRolesWithTask:(MendeleyTask *)task
+          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 @end

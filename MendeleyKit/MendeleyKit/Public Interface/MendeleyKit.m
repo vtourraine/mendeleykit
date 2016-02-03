@@ -256,8 +256,8 @@
     }
 }
 
-#pragma mark - Academic Status
-- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+#pragma mark - Academic Status (deprecated)
+- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated))
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -268,8 +268,8 @@
 }
 
 
-#pragma mark - Disciplines
-- (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+#pragma mark - Disciplines (deprecated)
+- (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated))
 {
     MendeleyTask *task = [MendeleyTask new];
 
@@ -278,6 +278,23 @@
     return task;
 
 }
+
+#pragma mark - Subject areas and User roles
+- (MendeleyTask *)userRolesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self.academicStatusesAPI userRolesWithTask:task completionBlock:completionBlock];
+    return task;
+}
+
+- (MendeleyTask *)subjectAreasWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self.disciplinesAPI subjectAreasWithTask:task completionBlock:completionBlock];
+    return task;
+}
+
+
 
 #pragma mark - Profiles
 

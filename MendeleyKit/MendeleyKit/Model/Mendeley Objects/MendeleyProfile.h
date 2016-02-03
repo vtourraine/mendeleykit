@@ -53,6 +53,12 @@
 
 @end
 
+/**
+ Strictly speaking there should be a class called 'MendeleySubjectArea' to replace
+ 'MendeleyDiscipline' to reflect the a change in the API.
+ However, the return values are exactly as before. Therefore the model class remains
+ MendeleyMendeleyDiscipline
+ */
 @interface MendeleyDiscipline : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *name;
