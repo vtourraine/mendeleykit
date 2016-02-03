@@ -80,21 +80,41 @@
                                     expectedModel:(NSString *)expectedModel
                                   completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-#pragma mark - Academic Statuses
+#pragma mark - Academic Statuses (deprecated)
 /**
-   This method gets all registered Mendeley academic statuses
+   This method gets all registered Mendeley academic statuses. This method is deprecated
+   use 'userRolesWithCompletionBlock' instead
    @param completionBlock will return an array of MendeleyAcademicStatus objects
    @return a cancellable task
  */
-- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+- (MendeleyTask *)academicStatusesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated));
 
-#pragma mark - Disciplines
+#pragma mark - Disciplines (deprecated)
 /**
+   This method is deprecated. Use 'subjectAreasWithCompletionBlock' instead.
    This method gets all registered Mendeley disciplines (and their subdisciplines)
    @param completionBlock will return an array of MendeleyDiscipline objects
    @return a cancellable task
  */
-- (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+- (MendeleyTask *)disciplinesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated));
+
+#pragma mark - Subject Areas and User Roles
+/**
+ This method gets all registered Elsevier user roles (formerly called Mendeley academic statuses).
+ This method replaces 'academicStatusesWithCompletionBlock'
+ @param completionBlock will return an array of MendeleyAcademicStatus objects
+ @return a cancellable task
+ */
+- (MendeleyTask *)userRolesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+ This method gets all registered Elsevier subject areas (formerly called Mendeley disciplines).
+ This method replaces 'disciplinesWithCompletionBlock'
+ @param completionBlock will return an array of MendeleyDiscipline objects
+ @return a cancellable task
+ */
+- (MendeleyTask *)subjectAreasWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 
 #pragma mark - Profiles
 /**
