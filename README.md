@@ -1,10 +1,10 @@
 # MendeleyKit the Mendeley SDK for Objective C #
 
-Released: December 2015
+Released: February 2016 (2.1.0)
 
 ** Important notice: this is an early pre-release version and is subject to change **
 
-## About MendeleyKit 2.0 ##
+## About MendeleyKit 2.1 ##
 MendeleyKit is a standalone library/framework providing convenience methods
 and classes for using the [Mendeley API](http://dev.mendeley.com) in Mac OSX or
 iOS applications.

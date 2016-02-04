@@ -1,4 +1,9 @@
 RELEASE NOTES
+Date: February 2016 (2.1.0)
+- added custom colour handling for annotations
+- academicStatusWithCompletionBlock and disciplinesWithCompletionBlock API methods are deprecated. 
+Users should use API methods userRolesWithCompletionBlock and subjectAreasWithCompletionBlock instead
+
 Date: December 2015 (2.0.0)
 - introduced 2 more podspec files for the generation of dynamic frameworks
 - various bug fixes 
