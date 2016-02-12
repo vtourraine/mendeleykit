@@ -24,12 +24,21 @@
 #import "NSError+Exceptions.h"
 
 @implementation MendeleyDisciplinesAPI
-- (NSDictionary *)defaultServiceRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials
+- (NSDictionary *)defaultServiceRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials __attribute__((deprecated))
 {
     NSDictionary *authenticationHeader = [credentials authenticationHeader];
     NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
 
     [requestHeader setObject:kMendeleyRESTRequestJSONDisciplineType forKey:kMendeleyRESTRequestAccept];
+    return requestHeader;
+}
+
+- (NSDictionary *)defaultRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials
+{
+    NSDictionary *authenticationHeader = [credentials authenticationHeader];
+    NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
+    
+    [requestHeader setObject:kMendeleyRESTRequestJSONSubjectArea forKey:kMendeleyRESTRequestAccept];
     return requestHeader;
 }
 
@@ -103,7 +112,7 @@
         }
         else
         {
-            NSDictionary *requestHeader = [self defaultServiceRequestHeadersFromCredentials:credentials];
+            NSDictionary *requestHeader = [self defaultRequestHeadersFromCredentials:credentials];
             
             MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
             

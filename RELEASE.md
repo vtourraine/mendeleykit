@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: February 2016 (2.1.1)
+- request header accept type for /user_roles and /subject_areas endpoints changed in Mendeley API. Changes made to the relevant methods in the MendeleyKit
+
 Date: February 2016 (2.1.0)
 - added custom colour handling for annotations
 - academicStatusWithCompletionBlock and disciplinesWithCompletionBlock API methods are deprecated. 

@@ -24,7 +24,7 @@
 #import "NSError+Exceptions.h"
 
 @implementation MendeleyAcademicStatusesAPI
-- (NSDictionary *)defaultServiceRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials
+- (NSDictionary *)defaultServiceRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials __attribute__((deprecated))
 {
     NSDictionary *authenticationHeader = [credentials authenticationHeader];
     NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
@@ -32,6 +32,16 @@
     [requestHeader setObject:kMendeleyRESTRequestJSONAcademicStatuses forKey:kMendeleyRESTRequestAccept];
     return requestHeader;
 }
+
+- (NSDictionary *)defaultRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials
+{
+    NSDictionary *authenticationHeader = [credentials authenticationHeader];
+    NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
+    
+    [requestHeader setObject:kMendeleyRESTRequestJSONUserRole forKey:kMendeleyRESTRequestAccept];
+    return requestHeader;
+}
+
 
 - (void)academicStatusesWithTask:(MendeleyTask *)task
                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated))
@@ -104,7 +114,7 @@
         }
         else
         {
-            NSDictionary *requestHeader = [self defaultServiceRequestHeadersFromCredentials:credentials];
+            NSDictionary *requestHeader = [self defaultRequestHeadersFromCredentials:credentials];
             
             MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
             

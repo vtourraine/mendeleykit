@@ -135,6 +135,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONProfileUpdateType               @"application/vnd.mendeley-profile-amendment.1+json"
 #define kMendeleyRESTRequestJSONDisciplineType                  @"application/vnd.mendeley-discipline.1+json"
 #define kMendeleyRESTRequestJSONAcademicStatuses                @"application/vnd.mendeley-academic-status.1+json"
+#define kMendeleyRESTRequestJSONUserRole                        @"application/vnd.mendeley-user-role.1+json"
+#define kMendeleyRESTRequestJSONSubjectArea                     @"application/vnd.mendeley-subject-area.1+json"
 #define kMendeleyRESTRequestJSONRecentlyRead                    @"application/vnd.mendeley-recently-read.1+json"
 #define kMendeleyRESTRequestJSONFollowType                      @"application/vnd.mendeley-follow.1+json"
 #define kMendeleyRESTRequestJSONFollowRequestType               @"application/vnd.mendeley-follow-request.1+json"

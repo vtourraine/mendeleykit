@@ -74,8 +74,6 @@
 		145C2E101A2CAB0E0005BFF6 /* MendeleyBlockExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1354A19DAE0610069DB7A /* MendeleyBlockExecutor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2E111A2CAB0E0005BFF6 /* MendeleyLoginViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C42111AE1A233FE1006C044C /* MendeleyLoginViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2E121A2CAB0E0005BFF6 /* MendeleyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1357019DAE6A50069DB7A /* MendeleyGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		145C2E141A2CAB0E0005BFF6 /* MendeleyKitTestsThreadHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C462884119DB166B00127ECE /* MendeleyKitTestsThreadHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		145C2E151A2CAB0E0005BFF6 /* MendeleyKitTestBaseClass.h in Headers */ = {isa = PBXBuildFile; fileRef = C462883F19DB166B00127ECE /* MendeleyKitTestBaseClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		154DD1C28358A9380C22F0E1 /* libPods-MendeleyKitiOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */; };
 		373AA4EB1B4698F800F8B0C4 /* followRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EA1B4698F800F8B0C4 /* followRequest.json */; };
 		373AA4ED1B46AAB500F8B0C4 /* followAcceptance.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */; };
@@ -85,6 +83,10 @@
 		645F7A821C5262C5006D7B24 /* ColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A811C5262C5006D7B24 /* ColorExtensionTests.swift */; };
 		645F7A871C526552006D7B24 /* ColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A811C5262C5006D7B24 /* ColorExtensionTests.swift */; };
 		645F7A881C5265B8006D7B24 /* Color+Addons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7A7C1C52603D006D7B24 /* Color+Addons.swift */; };
+		7244EBDE1C6E0A2D00051226 /* followAcceptance.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */; };
+		7244EBDF1C6E0A3000051226 /* followRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EA1B4698F800F8B0C4 /* followRequest.json */; };
+		7244EBE01C6E0A9E00051226 /* MendeleyFollowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463941ADE997C00754160 /* MendeleyFollowTests.m */; };
+		7244EBE11C6E0CB600051226 /* MendeleyKitConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883E19DB166B00127ECE /* MendeleyKitConfigurationTests.m */; };
 		725CFFDC1B7B408300AC6758 /* MendeleyFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = 725CFFDA1B7B408300AC6758 /* MendeleyFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		725CFFDD1B7B408300AC6758 /* MendeleyFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = 725CFFDA1B7B408300AC6758 /* MendeleyFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		725CFFDE1B7B408300AC6758 /* MendeleyFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFDB1B7B408300AC6758 /* MendeleyFeature.m */; };
@@ -410,7 +412,6 @@
 		C46657DF1B38491C005F762A /* MendeleySimpleNetworkTask.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A134F019DADE760069DB7A /* MendeleySimpleNetworkTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657E01B384922005F762A /* MendeleySimpleNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A134F119DADE760069DB7A /* MendeleySimpleNetworkTask.m */; };
 		C46657E31B385AB2005F762A /* MendeleyLoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46657E11B385AB2005F762A /* MendeleyLoginHandler.swift */; };
-		C47A0DCC1B3D4C38004A7956 /* MendeleyMockNetworkProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C462886C19DB17F100127ECE /* MendeleyMockNetworkProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47E53AF19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E53AE19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m */; };
 		C48B4C731B5E4A2200578E5B /* MendeleyAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48B4C721B5E4A2200578E5B /* MendeleyAnalytics.swift */; };
 		C48B4C751B5E4CE300578E5B /* MendeleyAnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48B4C741B5E4CE300578E5B /* MendeleyAnalyticsEvent.swift */; };
@@ -515,7 +516,6 @@
 		C85463911ADE8AB500754160 /* MendeleyFollowersAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C854638F1ADE8AB500754160 /* MendeleyFollowersAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C85463921ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */; };
 		C85463931ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */; };
-		C85463951ADE997C00754160 /* MendeleyFollowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463941ADE997C00754160 /* MendeleyFollowTests.m */; };
 		C85463991ADE9BCC00754160 /* followers.json in Resources */ = {isa = PBXBuildFile; fileRef = C85463971ADE9BCC00754160 /* followers.json */; };
 /* End PBXBuildFile section */
 
@@ -1522,9 +1522,6 @@
 				145C2E101A2CAB0E0005BFF6 /* MendeleyBlockExecutor.h in Headers */,
 				145C2E111A2CAB0E0005BFF6 /* MendeleyLoginViewController.h in Headers */,
 				145C2E121A2CAB0E0005BFF6 /* MendeleyGlobals.h in Headers */,
-				C47A0DCC1B3D4C38004A7956 /* MendeleyMockNetworkProvider.h in Headers */,
-				145C2E141A2CAB0E0005BFF6 /* MendeleyKitTestsThreadHelper.h in Headers */,
-				145C2E151A2CAB0E0005BFF6 /* MendeleyKitTestBaseClass.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1785,6 +1782,8 @@
 				C449C4581B3D9CDF003DB68F /* academic_statuses.json in Resources */,
 				C449C45B1B3D9CE9003DB68F /* catalogueArray.json in Resources */,
 				C449C4661B3D9D1F003DB68F /* recentlyReadArray.json in Resources */,
+				7244EBDE1C6E0A2D00051226 /* followAcceptance.json in Resources */,
+				7244EBDF1C6E0A3000051226 /* followRequest.json in Resources */,
 				C449C4631B3D9D09003DB68F /* group.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2065,6 +2064,7 @@
 				C43DAB5F1B415F7400A6900C /* MendeleyKitTests.m in Sources */,
 				C4D95B041B4186C20033FEF2 /* MendeleyKitLoginHelperTests.swift in Sources */,
 				C449C4681B3D9ED3003DB68F /* MendeleyAnnotationsAPITests.m in Sources */,
+				7244EBE11C6E0CB600051226 /* MendeleyKitConfigurationTests.m in Sources */,
 				C43DAB551B415ED600A6900C /* MendeleyAnnotationModellerTest.m in Sources */,
 				C449C4561B3D9BAD003DB68F /* MendeleyKitTestsThreadHelper.m in Sources */,
 				C43DAB5E1B415F6800A6900C /* MendeleyProfilesAPITests.m in Sources */,
@@ -2173,6 +2173,7 @@
 			files = (
 				C462886619DB17A700127ECE /* MendeleyModelTest.m in Sources */,
 				C462885F19DB178000127ECE /* MendeleySyncInfoTests.m in Sources */,
+				7244EBE01C6E0A9E00051226 /* MendeleyFollowTests.m in Sources */,
 				C462886519DB17A700127ECE /* MendeleyModellerTest.m in Sources */,
 				C462886B19DB17D200127ECE /* MendeleyAnnotationsAPITests.m in Sources */,
 				C462883D19DB164600127ECE /* MendeleyKitTests.m in Sources */,
@@ -2181,7 +2182,6 @@
 				C462883B19DB164600127ECE /* MendeleyAnnotationTests.m in Sources */,
 				C462885819DB175500127ECE /* MendeleyOAuthStoreTests.m in Sources */,
 				C462884D19DB171900127ECE /* MendeleyPerformanceMeterTests.m in Sources */,
-				C85463951ADE997C00754160 /* MendeleyFollowTests.m in Sources */,
 				C462887019DB17F100127ECE /* MendeleyMockNetworkProviderTests.m in Sources */,
 				C462886A19DB17D200127ECE /* MendeleyAnnotationModellerTest.m in Sources */,
 				C462884C19DB171900127ECE /* MendeleyLogTests.m in Sources */,

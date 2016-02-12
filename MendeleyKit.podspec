@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MendeleyKit"
-  s.version      = "2.1.0"
+  s.version      = "2.1.1"
   s.summary      = "The Mendeley Objective C client SDK."
 
   s.description  = <<-DESC
@@ -20,7 +20,7 @@ DESC
   s.authors      = { "Mendeley iOS" => "ios@mendeley.com"}
   s.requires_arc  = true
 
-  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "2.1.0" }
+  s.source       = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "2.1.1" }
 
   s.source_files  = 'MendeleyKit', 'MendeleyKit/**/*.{h,m}'
   s.exclude_files = 'MendeleyKit/MendeleyKitTests', 'MendeleyKit/MendeleyKitExample'
