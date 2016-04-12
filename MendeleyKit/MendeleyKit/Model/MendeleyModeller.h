@@ -35,7 +35,7 @@
  */
 - (void)parseJSONData:(nonnull id)jsonData
          expectedType:(nonnull NSString *)expectedType
-      completionBlock:(nonnull void (^) (id __nullable parsedObject, NSError * __nullable error))completionBlock;
+      completionBlock:(nonnull void (^) (id __nullable parsedObject, NSError *__nullable error))completionBlock;
 
 /**
    converts an existing Model class into a serialized JSON object (NSData)
@@ -43,7 +43,7 @@
    @param error
    @return a serialized NSData JSON object or nil if error
  */
-- (nullable NSData *)jsonObjectFromModelOrModels:(nonnull id)model error:(NSError * __nullable * __nullable)error;
+- (nullable NSData *)jsonObjectFromModelOrModels:(nonnull id)model error:(NSError *__nullable *__nullable)error;
 
 /**
    in some cases the API returns a simple array of dictionary of ID strings. E.g.
@@ -62,5 +62,16 @@
    @param error
    @return JSON object as NSData or nil if error
  */
-- (nullable NSData *)jsonObjectForID:(nonnull NSString *)objectID error:(NSError * __nullable * __nullable)error;
+- (nullable NSData *)jsonObjectForID:(nonnull NSString *)objectID error:(NSError *__nullable *__nullable)error;
+
+/**
+ *    converts an existing Model class into a serialized dictionary object (NSDictionary)
+ *
+ *  @param model model is a model object
+ *  @param error error
+ *
+ *  @return dictionary object as NSDictionary or nil if error
+ */
+- (nullable NSDictionary *)dictionaryFromModel:(nonnull id)model error:(NSError *__nullable *__nullable)error;
+
 @end
