@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: April 2016 (2.1.2)
+- made one of the converter helper methods in MendeleyModeller public (dictionaryFromModel:
+
 Date: February 2016 (2.1.1)
 - request header accept type for /user_roles and /subject_areas endpoints changed in Mendeley API. Changes made to the relevant methods in the MendeleyKit
 
