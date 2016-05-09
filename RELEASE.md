@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: May 2016 (2.1.3)
+- getting ready for Carthage dependency (updated .gitignore) and some changes to make things easier for OSX (modulemap and login controller)
+
 Date: April 2016 (2.1.2)
 - made one of the converter helper methods in MendeleyModeller public (dictionaryFromModel:
 
