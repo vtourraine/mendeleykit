@@ -1658,6 +1658,7 @@
 				C46656521B3842B0005F762A /* Frameworks */,
 				C46656531B3842B0005F762A /* Resources */,
 				120B78C20A86AED3C30CDD32 /* Copy Pods Resources */,
+				09939FE7E1FAD2813F6C0730 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1695,6 +1696,7 @@
 				C4CD514819DAD9E400C8EB8D /* Frameworks */,
 				C4CD514919DAD9E400C8EB8D /* Resources */,
 				815E227FAF9B438D8C025191 /* Copy Pods Resources */,
+				AC8836685D97A921CDC3CF3C /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1817,6 +1819,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		09939FE7E1FAD2813F6C0730 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MendeleyKitiOSTests/Pods-MendeleyKitiOSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		120B78C20A86AED3C30CDD32 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1845,6 +1862,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC8836685D97A921CDC3CF3C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ACAF36624CF849239ECD9BBD /* Check Pods Manifest.lock */ = {
