@@ -64,6 +64,26 @@ Once done do a
 pod install
 ```
 
+**NOTE**: Cocoapods is generating an umbrella header in its PODs folder. This has been
+known to cause problems when compiling or doing a 'pod lint MendeleyKitiOS.podspec'.
+The error message is '...include of non-modular header in framework...'. Cocoapods has a whole message trail for this problem
+which first appeared with XCode 7.1. 
+The line below is a workaround, which basically comments out the #include "MendeleyKitiOS.h" line in the pod generated umbrella header. 
+This seems to fix the issue.
+The example below demonstrates how this can be used in a post install instruction in a Podfile 
+
+```
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MendeleyKitiOSFramework']
+      config.build_settings['ARCHS'] = '$(ARCHS_STANDARD)'
+    end
+  end
+  `sed -i '' 's,\#import \"MendeleyKitiOS.h\",\/\/#import \"MendeleyKitiOS.h\",g' 'Pods/Target Support Files/MendeleyKitiOS/MendeleyKitiOS-umbrella.h'`
+end
+```
 
 ### Your client Podfile for using the static library (deprecated) ###
 You can use the legacy static library of MendeleyKit using the MendeleyKit.podspec
