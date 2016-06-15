@@ -121,7 +121,6 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONType                            @"application/json"
 #define kMendeleyRESTRequestURLType                             @"application/x-www-form-urlencoded"
 #define kMendeleyRESTRequestJSONAnnotationType                  @"application/vnd.mendeley-annotation.1+json"
-#define kMendeleyRESTRequestJSONPlainDocumentType               @"application/vnd.mendeley-plain-document.1+json"
 #define kMendeleyRESTRequestJSONDocumentType                    @"application/vnd.mendeley-document.1+json"
 #define kMendeleyRESTRequestJSONMetadataLookupType              @"application/vnd.mendeley-document-lookup.1+json"
 #define kMendeleyRESTRequestJSONFileType                        @"application/vnd.mendeley-file.1+json"
@@ -234,7 +233,6 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 ***********************************************/
 #define kMendeleyModelDocumentType                        @"MendeleyDocumentType"
 #define kMendeleyModelMetadataLookup                      @"MendeleyMetadataLookup"
-#define kMendeleyModelMetadataExtraction                  @"MendeleyMetadataExtraction"
 #define kMendeleyModelIdentifierType                      @"MendeleyIdentifierType"
 #define kMendeleyModelDocument                            @"MendeleyDocument"
 #define kMendeleyModelDocumentId                          @"MendeleyDocumentId"

@@ -38,10 +38,4 @@
                                      task:(MendeleyTask *)task
                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
-- (void)metadataExtractionWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
-                                                   task:(MendeleyTask *)task
-                                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-
-
 @end

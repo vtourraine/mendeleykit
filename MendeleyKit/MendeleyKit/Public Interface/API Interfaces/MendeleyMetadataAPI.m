@@ -29,12 +29,6 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONMetadataLookupType };
 }
 
-- (NSDictionary *)plainDocumentServiceRequestHeaders
-{
-    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONMetadataLookupType };
-}
-
-
 #pragma mark -
 
 - (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
@@ -59,61 +53,6 @@
                            parameters:query
                                   api:kMendeleyRESTAPIMetadata
                     additionalHeaders:[self defaultServiceRequestHeaders]
-                                 task:task
-                      completionBlock:completionBlock];
-}
-
-- (void)metadataExtractionWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
-                                         task:(MendeleyTask *)task
-                                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (nil == queryParameters)
-    {
-        NSError *error = nil;
-        error = [NSError errorWithCode:kMendeleyModelOrPropertyNilErrorCode
-                  localizedDescription:@"Metadata API query parameters must not be nil"];
-        
-        if (nil != completionBlock)
-        {
-            completionBlock(nil, nil, error);
-        }
-        return;
-    }
-    NSDictionary *query = [queryParameters valueStringDictionaryWithNoLimit];
-    
-    NSString *API;
-    if (queryParameters.pmid != nil) {
-        API = [NSString stringWithFormat:@"%@/pmid/", kMendeleyRESTAPIMetadata];
-    }
-    else if (queryParameters.arxiv != nil) {
-        API = [NSString stringWithFormat:@"%@/arxiv/", kMendeleyRESTAPIMetadata];
-    }
-    else if (queryParameters.pii != nil) {
-        API = [NSString stringWithFormat:@"%@/pii/", kMendeleyRESTAPIMetadata];
-    }
-    else if (queryParameters.doi != nil) {
-        API = [NSString stringWithFormat:@"%@/doi/", kMendeleyRESTAPIMetadata];
-    }
-    else if (queryParameters.isbn != nil) {
-        API = [NSString stringWithFormat:@"%@/isbn/", kMendeleyRESTAPIMetadata];
-    }
-    else
-    {
-        NSError *error = nil;
-        error = [NSError errorWithCode:kMendeleyModelOrPropertyNilErrorCode
-                  localizedDescription:@"Metadata API query parameters must contain an external identifier"];
-        
-        if (nil != completionBlock)
-        {
-            completionBlock(nil, nil, error);
-        }
-        return;
-    }
-    
-    [self.helper mendeleyObjectOfType:kMendeleyModelMetadataExtraction
-                           parameters:query
-                                  api:API
-                    additionalHeaders:[self plainDocumentServiceRequestHeaders]
                                  task:task
                       completionBlock:completionBlock];
 }
