@@ -83,19 +83,19 @@
     
     NSString *API;
     if (queryParameters.pmid != nil) {
-        API = [NSString stringWithFormat:@"%@/pmid", kMendeleyRESTAPIMetadata];
+        API = [NSString stringWithFormat:@"%@/pmid/", kMendeleyRESTAPIMetadata];
     }
     else if (queryParameters.arxiv != nil) {
-        API = [NSString stringWithFormat:@"%@/arxiv", kMendeleyRESTAPIMetadata];
+        API = [NSString stringWithFormat:@"%@/arxiv/", kMendeleyRESTAPIMetadata];
     }
     else if (queryParameters.pii != nil) {
-        API = [NSString stringWithFormat:@"%@/pii", kMendeleyRESTAPIMetadata];
+        API = [NSString stringWithFormat:@"%@/pii/", kMendeleyRESTAPIMetadata];
     }
     else if (queryParameters.doi != nil) {
-        API = [NSString stringWithFormat:@"%@/doi", kMendeleyRESTAPIMetadata];
+        API = [NSString stringWithFormat:@"%@/doi/", kMendeleyRESTAPIMetadata];
     }
     else if (queryParameters.isbn != nil) {
-        API = [NSString stringWithFormat:@"%@/isbn", kMendeleyRESTAPIMetadata];
+        API = [NSString stringWithFormat:@"%@/isbn/", kMendeleyRESTAPIMetadata];
     }
     else
     {
