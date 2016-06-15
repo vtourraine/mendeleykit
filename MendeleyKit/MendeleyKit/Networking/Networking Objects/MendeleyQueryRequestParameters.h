@@ -78,6 +78,8 @@
 @property (nonatomic, strong) NSString *arxiv;
 @property (nonatomic, strong) NSString *doi;
 @property (nonatomic, strong) NSString *pmid;
+@property (nonatomic, strong) NSString *pii;
+@property (nonatomic, strong) NSString *isbn;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *filehash;
 @property (nonatomic, strong) NSString *authors;
