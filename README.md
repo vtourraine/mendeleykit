@@ -1,4 +1,4 @@
-# MendeleyKit the Mendeley SDK for Objective C #
+# MendeleyKit — the Mendeley SDK for Objective-C #
 
 Released: May 2016 (2.1.3)
 
