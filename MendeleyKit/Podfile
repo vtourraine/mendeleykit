@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
-target :MendeleyKitTests, :exclusive => true  do
+target :MendeleyKitTests  do
     pod 'OCMock'
 end
 
-target :MendeleyKitiOSTests, :exclusive => true do
+target :MendeleyKitiOSTests do
     pod 'OCMock'
 end
 
