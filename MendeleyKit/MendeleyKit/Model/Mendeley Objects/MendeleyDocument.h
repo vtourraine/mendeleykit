@@ -56,7 +56,7 @@
 /**
    NSDictionary type (Identifiers, e.g. arxiv)
  */
-@property (nonatomic, strong) NSDictionary *identifiers;
+@property (nonatomic, strong) NSDictionary <NSString *, NSString *> *identifiers;
 
 /**
    NSDate types (stringDate)

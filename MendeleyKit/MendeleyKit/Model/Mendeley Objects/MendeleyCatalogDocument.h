@@ -26,9 +26,9 @@
 @interface MendeleyCatalogDocument : MendeleyObject
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSNumber *reader_count;
-@property (nonatomic, strong) NSDictionary *reader_count_by_academic_status;
-@property (nonatomic, strong) NSDictionary *reader_count_by_subdiscipline;
-@property (nonatomic, strong) NSDictionary *reader_count_by_country;
+@property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *reader_count_by_academic_status;
+@property (nonatomic, strong) NSDictionary <NSString *, NSDictionary <NSString *, NSNumber *> *> *reader_count_by_subdiscipline;
+@property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *reader_count_by_country;
 /**
    NSNumber types (integer)
  */
@@ -52,7 +52,7 @@
 /**
    NSDictionary type (Identifiers, e.g. arxiv)
  */
-@property (nonatomic, strong) NSDictionary *identifiers;
+@property (nonatomic, strong) NSDictionary <NSString *, NSString *> *identifiers;
 
 /**
    NSDate types (stringDate)

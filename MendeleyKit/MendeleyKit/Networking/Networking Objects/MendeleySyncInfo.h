@@ -41,7 +41,7 @@
  */
 
 @property (nonatomic, strong, readonly) NSDate *syncDate;
-@property (nonatomic, strong, readonly) NSDictionary *linkDictionary;
+@property (nonatomic, strong, readonly) NSDictionary <NSString *, NSURL *> *linkDictionary;
 @property (nonatomic, strong, readonly) NSNumber *totalCount;
 @property (nonatomic, strong, readonly) NSString *modelVersion;
 
