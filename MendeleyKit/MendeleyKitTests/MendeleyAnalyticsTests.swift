@@ -55,7 +55,7 @@ class MendeleyAnalyticsTests: XCTestCase {
     func testAddEvents()
     {
         var array = [MendeleyAnalyticsEvent]()
-        for var count = 0; count < 20; count++
+        for count in 0 ..< 20
         {
             let event = MendeleyAnalyticsEvent()
             event.name = "TestPDFEvent\(count)"
@@ -67,14 +67,12 @@ class MendeleyAnalyticsTests: XCTestCase {
         
         let cachedEvents = manager.eventsFromArchive()
         XCTAssertTrue(20 == cachedEvents.count,"expected 20 events but got \(cachedEvents.count)")
-        var index = 0
-        for event in cachedEvents
+        for (index, event) in cachedEvents.enumerate()
         {
             let name = "TestPDFEvent\(index)"
             let profile = "ProfileID_\(index)"
             XCTAssertTrue(name == event.name,"expected name \(name) but got \(event.name)")
             XCTAssertTrue(profile == event.profile_uuid,"expected name \(profile) but got \(event.profile_uuid)")
-            index++
         }
 
     }
@@ -106,7 +104,7 @@ class MendeleyAnalyticsTests: XCTestCase {
         let profileID = NSUUID().UUIDString
         analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
         var array = [MendeleyAnalyticsEvent]()
-        for var count = 0; count < 20; count++
+        for count in 0 ..< 20
         {
             let event = MendeleyAnalyticsEvent()
             event.name = "TestPDFEvent\(count)"
