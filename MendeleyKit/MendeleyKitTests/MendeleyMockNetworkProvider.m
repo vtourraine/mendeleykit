@@ -35,7 +35,7 @@
 
 
 @interface MendeleyMockNetworkProvider ()
-@property (nonatomic, strong) NSMutableArray *taskArray;
+@property (nonatomic, strong) NSMutableArray <MendeleyTask *> *taskArray;
 @property (nonatomic, assign) NSUInteger taskCounter;
 @property (nonatomic, strong) MendeleyResponse *mockResponse;
 @end

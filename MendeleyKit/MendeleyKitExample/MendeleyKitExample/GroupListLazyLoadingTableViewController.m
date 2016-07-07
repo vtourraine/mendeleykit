@@ -22,7 +22,7 @@
 #import <MendeleyKitiOS/MendeleyKitiOS.h>
 
 @interface GroupListLazyLoadingTableViewController ()
-@property (nonatomic, strong) NSArray *groups;
+@property (nonatomic, strong) NSArray <MendeleyGroup *> *groups;
 @property (nonatomic, strong) NSMutableDictionary *iconDictionary;
 @end
 

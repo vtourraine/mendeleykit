@@ -20,6 +20,9 @@
 
 #import "MendeleyObject.h"
 
+@class MendeleyPerson;
+
+
 @interface MendeleyCatalogDocument : MendeleyObject
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSNumber *reader_count;
@@ -41,10 +44,10 @@
 /**
    NSArray types (Person)
  */
-@property (nonatomic, strong) NSArray *authors;
-@property (nonatomic, strong) NSArray *editors;
-@property (nonatomic, strong) NSArray *websites;
-@property (nonatomic, strong) NSArray *keywords;
+@property (nonatomic, strong) NSArray <MendeleyPerson *> *authors;
+@property (nonatomic, strong) NSArray <MendeleyPerson *> *editors;
+@property (nonatomic, strong) NSArray <NSString *> *websites;
+@property (nonatomic, strong) NSArray <NSString *> *keywords;
 
 /**
    NSDictionary type (Identifiers, e.g. arxiv)

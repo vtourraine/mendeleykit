@@ -22,6 +22,9 @@
 #import "MendeleyObject.h"
 #import "MendeleyDocumentType.h"
 
+@class MendeleyPerson;
+
+
 @interface MendeleyDocument : MendeleyObject
 /**
    NSNumber types (integer)
@@ -43,12 +46,12 @@
 /**
    NSArray types
  */
-@property (nonatomic, strong) NSArray *authors;
-@property (nonatomic, strong) NSArray *editors;
-@property (nonatomic, strong) NSArray *translators;
-@property (nonatomic, strong) NSArray *websites;
-@property (nonatomic, strong) NSArray *keywords;
-@property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, strong) NSArray <MendeleyPerson *> *authors;
+@property (nonatomic, strong) NSArray <MendeleyPerson *> *editors;
+@property (nonatomic, strong) NSArray <MendeleyPerson *> *translators;
+@property (nonatomic, strong) NSArray <NSString *> *websites;
+@property (nonatomic, strong) NSArray <NSString *> *keywords;
+@property (nonatomic, strong) NSArray <NSString *> *tags;
 
 /**
    NSDictionary type (Identifiers, e.g. arxiv)
