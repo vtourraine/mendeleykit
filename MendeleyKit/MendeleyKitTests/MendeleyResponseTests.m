@@ -76,7 +76,8 @@
 
 - (void)testParseURLResponse
 {
-    NSURLResponse *mockResponse = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:404 HTTPVersion:@"5.0" headerFields:nil];
+    NSURL *url = [NSURL URLWithString:@"http://example.com"];
+    NSURLResponse *mockResponse = [[NSHTTPURLResponse alloc] initWithURL:url statusCode:404 HTTPVersion:@"5.0" headerFields:nil];
 
     MendeleyResponse *response = [[MendeleyResponse alloc] init];
 
@@ -91,7 +92,7 @@
     }
     for (NSInteger iStatus = 200; iStatus < 300; iStatus++)
     {
-        mockResponse = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:iStatus HTTPVersion:@"5.0" headerFields:nil];
+        mockResponse = [[NSHTTPURLResponse alloc] initWithURL:url statusCode:iStatus HTTPVersion:@"5.0" headerFields:nil];
         [response parseURLResponse:mockResponse];
         XCTAssertTrue(response.success, @"The response should be successful for status code 200 to 299");
     }
