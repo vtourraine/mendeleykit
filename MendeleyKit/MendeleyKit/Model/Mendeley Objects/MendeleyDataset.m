@@ -18,24 +18,49 @@
  *****************************************************************************
  */
 
-#ifndef MendeleyKit_MendeleyModels_h
-#define MendeleyKit_MendeleyModels_h
-
-#import "MendeleyAcademicStatus.h"
-#import "MendeleyAnnotation.h"
-#import "MendeleyCatalogDocument.h"
 #import "MendeleyDataset.h"
-#import "MendeleyDocument.h"
-#import "MendeleyDocumentType.h"
-#import "MendeleyFile.h"
-#import "MendeleyFolder.h"
-#import "MendeleyFeature.h"
-#import "MendeleyFollow.h"
-#import "MendeleyGroup.h"
-#import "MendeleyIdentifierType.h"
-#import "MendeleyMetadataLookup.h"
-#import "MendeleyPerson.h"
-#import "MendeleyProfile.h"
-#import "MendeleyUserRole.h"
 
-#endif
+@implementation MendeleyDataset
+@end
+
+@implementation MendeleyDOI
+@end
+
+@implementation MendeleyPublicContributorDetails
+@end
+
+@implementation MendeleyInstitution
+@end
+
+@implementation MendeleyAlternativeName
+@end
+
+@implementation MendeleyVersionMetadata
+@end
+
+@implementation MendeleyFileMetadata
+@end
+
+@implementation MendeleyFileMetrics
+@end
+
+@implementation MendeleyFileData
+@end
+
+@implementation MendeleyEmbeddedArticleView
+@end
+
+@implementation MendeleyEmbeddedJournalView
+@end
+
+@implementation MendeleyCategory
+@end
+
+@implementation MendeleyDatasetMetrics
+@end
+
+@implementation MendeleyRelatedLink
+@end
+
+@implementation MendeleyLicenceInfo
+@end

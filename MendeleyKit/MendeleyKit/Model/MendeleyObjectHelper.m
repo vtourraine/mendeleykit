@@ -36,7 +36,8 @@
 
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyJSONID : kMendeleyObjectID,
-                 kMendeleyJSONDescription : kMendeleyObjectDescription };
+                 kMendeleyJSONDescription : kMendeleyObjectDescription,
+                 kMendeleyJSONVersion : kMendeleyObjectVersion };
     });
     return map;
 }
@@ -48,7 +49,8 @@
 
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyObjectID : kMendeleyJSONID,
-                 kMendeleyObjectDescription : kMendeleyJSONDescription };
+                 kMendeleyObjectDescription : kMendeleyJSONDescription,
+                 kMendeleyObjectVersion : kMendeleyJSONVersion };
     });
     return map;
 }

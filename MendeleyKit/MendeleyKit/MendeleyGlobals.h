@@ -268,10 +268,12 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 ***********************************************/
 #define kMendeleyJSONID                                   @"id"
 #define kMendeleyJSONDescription                          @"description"
+#define kMendeleyJSONVersion                              @"version"
 #define kMendeleyJSONDateTimeFormat                       @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 #define kMendeleyHTTPHeaderDateFormat                     @"EEE', 'dd' 'MMM' 'yyyy' 'HH':'mm':'ss' GMT"
 #define kMendeleyObjectID                                 @"object_ID"
 #define kMendeleyObjectDescription                        @"objectDescription"
+#define kMendeleyObjectVersion                            @"object_version"
 
 
 /***********************************************
