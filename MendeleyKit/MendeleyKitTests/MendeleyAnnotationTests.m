@@ -27,10 +27,10 @@
 
 @interface MendeleyAnnotationTests : MendeleyKitTestBaseClass
 @property (nonatomic, strong) UIColor *color;
-@property (nonatomic, strong) NSDictionary *colorDictionary;
+@property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *colorDictionary;
 
 @property (nonatomic, strong) MendeleyHighlightBox *highlightBox;
-@property (nonatomic, strong) NSDictionary *boxDictionary;
+@property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *boxDictionary;
 @end
 
 @implementation MendeleyAnnotationTests

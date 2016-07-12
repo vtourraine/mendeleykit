@@ -28,8 +28,6 @@
 @property (nonatomic, strong) NSDictionary *mergedDict;
 @property (nonatomic, strong) NSDictionary *nilDict;
 
-
-
 @end
 
 @implementation NSDictionaryMergeCategoryTests
@@ -73,7 +71,6 @@
 
     NSDictionary *staticTestDict = [NSDictionary dictionaryByMerging:self.firstDict with:self.secondDict];
     XCTAssert([staticTestDict isEqualToDictionary:self.mergedDict], @"Merge result is not as expected");
-
 }
 
 - (void)testFirstIsNil
@@ -92,7 +89,5 @@
     NSDictionary *staticTestDict = [NSDictionary dictionaryByMerging:self.firstDict with:self.nilDict];
     XCTAssert([staticTestDict isEqualToDictionary:self.firstDict], @"Merge result is not as expected");
 }
-
-
 
 @end

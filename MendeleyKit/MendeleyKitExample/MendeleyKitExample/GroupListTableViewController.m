@@ -22,7 +22,7 @@
 #import <MendeleyKitiOS/MendeleyKitiOS.h>
 
 @interface GroupListTableViewController ()
-@property (nonatomic, strong) NSArray *groups;
+@property (nonatomic, strong) NSArray <MendeleyGroup *> *groups;
 @end
 
 @implementation GroupListTableViewController

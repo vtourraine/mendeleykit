@@ -23,7 +23,7 @@
 #import "DocumentDetailTableViewController.h"
 
 @interface DocumentListTableViewController ()
-@property (nonatomic, strong) NSArray *documents;
+@property (nonatomic, strong) NSArray <MendeleyDocument *> *documents;
 @end
 
 @implementation DocumentListTableViewController

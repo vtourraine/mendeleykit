@@ -20,7 +20,8 @@
 
 #import "MendeleyObject.h"
 
-@class MendeleyPhoto;
+@class MendeleyPhoto, MendeleyDiscipline
+;
 
 @interface MendeleyGroup : MendeleyObject
 
@@ -32,8 +33,8 @@
 @property (nonatomic, strong) NSString *role;
 @property (nonatomic, strong) MendeleyPhoto *photo;
 @property (nonatomic, strong) NSString *webpage;
-@property (nonatomic, strong) NSArray *disciplines;
-@property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
+@property (nonatomic, strong) NSArray <NSString *> *tags;
 
 @end
 

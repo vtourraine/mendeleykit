@@ -26,6 +26,8 @@
 #import <AppKit/AppKit.h>
 #endif
 
+@class MendeleyHighlightBox;
+
 
 @interface MendeleyAnnotation : MendeleyObject
 @property (nonatomic, strong) NSDate *created;
@@ -39,7 +41,7 @@
 @property (nonatomic, strong) NSString *document_id;
 @property (nonatomic, strong) NSString *filehash;
 @property (nonatomic, strong) NSDate *last_modified;
-@property (nonatomic, strong) NSArray *positions;
+@property (nonatomic, strong) NSArray <MendeleyHighlightBox *> *positions;
 @property (nonatomic, strong) NSString *privacy_level;
 @property (nonatomic, strong) NSString *profile_id;
 @property (nonatomic, strong) NSString *text;
