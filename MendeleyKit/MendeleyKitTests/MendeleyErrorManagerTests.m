@@ -67,7 +67,7 @@
 
     XCTAssertNotNil(error, @"error should not be nil");
     XCTAssertEqualObjects(error.domain, kMendeleyErrorDomain, @"error domain should be %@, but is %@", kMendeleyErrorDomain, error.domain);
-    XCTAssertEqual(error.code, kMendeleyJSONTypeNotMappedToModelErrorCode, @"error code should be %d, but is %ld", kMendeleyJSONTypeNotMappedToModelErrorCode, (long) error.code);
+    XCTAssertEqual(error.code, kMendeleyJSONTypeNotMappedToModelErrorCode, @"error code should be %@, but is %ld", @(kMendeleyJSONTypeNotMappedToModelErrorCode), (long) error.code);
 }
 
 - (void)testCreateFakeError

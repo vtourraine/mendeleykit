@@ -107,11 +107,21 @@
     [self executeMockTaskWithCompletionBlock:completionBlock];
 }
 
-
 - (void)         invokePUT:(NSURL *)baseURL
                        api:(NSString *)api
          additionalHeaders:(NSDictionary *)additionalHeaders
             bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
     authenticationRequired:(BOOL)authenticationRequired
                       task:(MendeleyTask *)task
            completionBlock:(MendeleyResponseCompletionBlock)completionBlock
