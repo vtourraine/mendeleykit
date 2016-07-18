@@ -150,12 +150,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-
 #pragma mark Handle device rotations
 - (BOOL)shouldAutorotate
 {

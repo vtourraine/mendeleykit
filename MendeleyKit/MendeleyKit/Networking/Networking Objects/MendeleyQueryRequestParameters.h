@@ -108,3 +108,6 @@
 @property (nonatomic, strong) NSString *follower;
 @property (nonatomic, strong) NSString *followed;
 @end
+
+@interface MendeleyDatasetParameters : MendeleyQueryRequestParameters
+@end

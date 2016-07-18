@@ -36,6 +36,7 @@
 #import "MendeleyFoldersAPI.h"
 #import "MendeleyGroupsAPI.h"
 #import "MendeleyMetadataAPI.h"
+#import "MendeleyDatasetsAPI.h"
 #import "NSError+MendeleyError.h"
 #import "MendeleyProfilesAPI.h"
 #import "MendeleyDisciplinesAPI.h"
@@ -59,6 +60,7 @@
 @property (nonatomic, strong, nonnull) MendeleyDisciplinesAPI *disciplinesAPI;
 @property (nonatomic, strong, nonnull) MendeleyAcademicStatusesAPI *academicStatusesAPI;
 @property (nonatomic, strong, nonnull) MendeleyFollowersAPI *followersAPI;
+@property (nonatomic, strong, nonnull) MendeleyDatasetsAPI *datasetsAPI;
 @property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
 @end
 
@@ -143,7 +145,11 @@
     self.followersAPI = [[MendeleyFollowersAPI alloc]
                          initWithNetworkProvider:self.networkProvider
                                          baseURL:baseURL];
-    
+
+    self.datasetsAPI = [[MendeleyDatasetsAPI alloc]
+                         initWithNetworkProvider:self.networkProvider
+                         baseURL:baseURL];
+
     self.featuresAPI = [[MendeleyApplicationFeaturesAPI alloc]
                         initWithNetworkProvider:self.networkProvider
                         baseURL:baseURL];
@@ -2261,6 +2267,66 @@
     return task;
 }
 
+#pragma mark - Datasets
+
+- (MendeleyTask *)datasetListWithQueryParameters:(MendeleyDatasetParameters *)queryParameters
+                                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.datasetsAPI datasetListWithQueryParameters:queryParameters
+                                                            task:task
+                                                 completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
+- (MendeleyTask *)datasetListWithLinkedURL:(NSURL *)linkURL
+                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.datasetsAPI datasetListWithLinkedURL:linkURL
+                                                      task:task
+                                           completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
+}
+
 #pragma mark - Features
 - (MendeleyTask *)applicationFeaturesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -2286,6 +2352,35 @@
     }
     return task;
     
+}
+
+- (MendeleyTask *)datasetWithDatasetID:(NSString *)datasetID
+                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    if (self.isAuthenticated)
+    {
+        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
+            if (success)
+            {
+                [self.datasetsAPI datasetWithDatasetID:datasetID
+                                                  task:task
+                                       completionBlock:completionBlock];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }];
+    }
+    else
+    {
+        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
+        completionBlock(nil, nil, unauthorisedError);
+    }
+
+    return task;
 }
 
 

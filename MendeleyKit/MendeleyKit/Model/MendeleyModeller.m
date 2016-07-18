@@ -45,6 +45,13 @@
 {
     NSError *parseError = nil;
 
+    if ([expectedType isEqualToString:kMendeleyModelDataset] &&
+        [jsonData isKindOfClass:[NSDictionary class]] &&
+        jsonData[@"results"] != nil)
+    {
+        jsonData = jsonData[@"results"];
+    }
+
     if ([jsonData isKindOfClass:[NSArray class]])
     {
         NSArray *models = [self objectArrayFromJSONArray:(NSArray *) jsonData

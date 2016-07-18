@@ -98,21 +98,10 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"in numberOfRowsInSection");
     if ([self.documents isKindOfClass:[MendeleyDocument class]])
     {
         NSLog(@"What the heck happened here? This should be an array not a MendeleyDocument object");
@@ -144,4 +133,5 @@
     
     [self.navigationController pushViewController:controller animated:YES];
 }
+
 @end
