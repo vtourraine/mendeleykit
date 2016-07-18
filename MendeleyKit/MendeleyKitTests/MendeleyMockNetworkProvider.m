@@ -35,7 +35,7 @@
 
 
 @interface MendeleyMockNetworkProvider ()
-@property (nonatomic, strong) NSMutableArray *taskArray;
+@property (nonatomic, strong) NSMutableArray <MendeleyTask *> *taskArray;
 @property (nonatomic, assign) NSUInteger taskCounter;
 @property (nonatomic, strong) MendeleyResponse *mockResponse;
 @end
@@ -107,11 +107,21 @@
     [self executeMockTaskWithCompletionBlock:completionBlock];
 }
 
-
 - (void)         invokePUT:(NSURL *)baseURL
                        api:(NSString *)api
          additionalHeaders:(NSDictionary *)additionalHeaders
             bodyParameters:(NSDictionary *)bodyParameters
+    authenticationRequired:(BOOL)authenticationRequired
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyResponseCompletionBlock)completionBlock
+{
+    [self executeMockTaskWithCompletionBlock:completionBlock];
+}
+
+- (void)         invokePUT:(NSURL *)baseURL
+                       api:(NSString *)api
+         additionalHeaders:(NSDictionary *)additionalHeaders
+                  jsonData:(NSData *)jsonData
     authenticationRequired:(BOOL)authenticationRequired
                       task:(MendeleyTask *)task
            completionBlock:(MendeleyResponseCompletionBlock)completionBlock

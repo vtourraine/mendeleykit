@@ -59,7 +59,7 @@
    NSDictionary *filters = {@"my log domain" : @(kLogLevelWarning)};
    [[MendeleyLog sharedInstance] setConsoleLogFilters:filters];
  */
-@property (nonatomic, strong) NSDictionary *consoleLogFilters;
+@property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *consoleLogFilters;
 
 typedef NS_ENUM (NSUInteger, MendeleyLogLevel)
 {

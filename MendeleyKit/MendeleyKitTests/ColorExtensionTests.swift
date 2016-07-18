@@ -36,7 +36,7 @@ class ColorExtensionTests: XCTestCase {
             
             if (hexString == calculatedHexString)
             {
-                counter++
+                counter += 1
             }
         }
         
@@ -59,7 +59,7 @@ class ColorExtensionTests: XCTestCase {
             
             if (hexString == calculatedHexString)
             {
-                counter++
+                counter += 1
             }
         }
         
@@ -72,13 +72,13 @@ class ColorExtensionTests: XCTestCase {
         
         for i in 0...255
         {
-            let rgb:UInt32 = (UInt32)((Int)(i)<<16)
+            // let rgb:UInt32 = (UInt32)((Int)(i)<<16)
                         
             let color = UIColor(redInt: (UInt32)(i), greenInt: 0, blueInt: 0)
             
             if (color.redComponentInt() == (UInt32)(i))
             {
-                counter++
+                counter += 1
             }
         }
         

@@ -33,7 +33,7 @@
 
 @interface MendeleyEmployment : MendeleySecureObject
 
-@property (nonatomic, strong) NSArray *classes;
+@property (nonatomic, strong) NSArray <NSString *> *classes;
 @property (nonatomic, strong) NSString *position;
 @property (nonatomic, strong) NSNumber *is_main_employment;
 @property (nonatomic, strong) NSString *institution;
@@ -62,7 +62,7 @@
 @interface MendeleyDiscipline : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSArray *subdisciplines;
+@property (nonatomic, strong) NSArray <NSString *> *subdisciplines;
 
 @end
 
@@ -88,19 +88,19 @@
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSString *institution;
 @property (nonatomic, strong) NSString *research_interests;
-@property (nonatomic, strong) NSArray *research_interests_list;
+@property (nonatomic, strong) NSArray <NSString *> *research_interests_list;
 @property (nonatomic, strong) NSString *academic_status;
 @property (nonatomic, strong) MendeleyDiscipline *discipline;
-@property (nonatomic, strong) NSArray *disciplines;
+@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
 @property (nonatomic, strong) MendeleyPhoto *photo;
-@property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) NSArray <MendeleyPhoto *> *photos;
 @property (nonatomic, strong) NSNumber *verified;
 @property (nonatomic, strong) NSNumber *marketing;
 @property (nonatomic, strong) NSString *user_type;
 @property (nonatomic, strong) MendeleyLocation *location;
 @property (nonatomic, strong) NSDate *created;
-@property (nonatomic, strong) NSArray *education;
-@property (nonatomic, strong) NSArray *employment;
+@property (nonatomic, strong) NSArray <MendeleyEducation *> *education;
+@property (nonatomic, strong) NSArray <MendeleyEmployment *> *employment;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *biography;
 @end
@@ -134,8 +134,8 @@
 @property (nonatomic, strong) NSString *institution;
 @property (nonatomic, strong) NSString *biography;
 @property (nonatomic, strong) NSNumber *marketing;
-@property (nonatomic, strong) NSArray *disciplines;
-@property (nonatomic, strong) NSArray *research_interests_list;
+@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
+@property (nonatomic, strong) NSArray <NSString *> *research_interests_list;
 
 @end
 

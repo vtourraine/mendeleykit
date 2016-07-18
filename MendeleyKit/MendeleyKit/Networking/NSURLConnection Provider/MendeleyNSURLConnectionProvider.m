@@ -30,7 +30,7 @@
 #import "MendeleyNSURLRequestUploadHelper.h"
 
 @interface MendeleyNSURLConnectionProvider ()
-@property (nonatomic, strong, readwrite) NSMutableArray *tasks;
+@property (nonatomic, strong, readwrite) NSMutableArray <MendeleyTask *> *tasks;
 @end
 
 @implementation MendeleyNSURLConnectionProvider

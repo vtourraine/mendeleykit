@@ -26,8 +26,8 @@
 #define kTitleLabelTag 100
 
 @interface FilesWithDocumentTableViewController ()
-@property (nonatomic, strong) NSArray *documents;
-@property (nonatomic, strong) NSArray *files;
+@property (nonatomic, strong) NSArray <MendeleyDocument *> *documents;
+@property (nonatomic, strong) NSArray <MendeleyFile *> *files;
 @property (nonatomic, strong) UILabel *headerView;
 @end
 
