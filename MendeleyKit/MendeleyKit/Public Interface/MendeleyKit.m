@@ -1424,26 +1424,11 @@
 {
     MendeleyTask *task = [MendeleyTask new];
 
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-            if (success)
-            {
-                [self.datasetsAPI datasetListWithQueryParameters:queryParameters
-                                                            task:task
-                                                 completionBlock:completionBlock];
-            }
-            else
-            {
-                completionBlock(nil, nil, error);
-            }
-        }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI datasetListWithQueryParameters:queryParameters
+                                                    task:task
+                                         completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
 
     return task;
 }
@@ -1453,31 +1438,31 @@
 {
     MendeleyTask *task = [MendeleyTask new];
 
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-            if (success)
-            {
-                [self.datasetsAPI datasetListWithLinkedURL:linkURL
-                                                      task:task
-                                           completionBlock:completionBlock];
-            }
-            else
-            {
-                completionBlock(nil, nil, error);
-            }
-        }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI datasetListWithLinkedURL:linkURL
+                                              task:task
+                                   completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+
+    return task;
+}
+
+- (MendeleyTask *)datasetWithDatasetID:(NSString *)datasetID
+                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI datasetWithDatasetID:datasetID
+                                          task:task
+                               completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
 
     return task;
 }
 
 #pragma mark - Features
+
 - (MendeleyTask *)applicationFeaturesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1489,36 +1474,6 @@
 
     return task;
 }
-
-- (MendeleyTask *)datasetWithDatasetID:(NSString *)datasetID
-                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    MendeleyTask *task = [MendeleyTask new];
-
-    if (self.isAuthenticated)
-    {
-        [MendeleyOAuthTokenHelper refreshTokenWithRefreshBlock: ^(BOOL success, NSError *error) {
-            if (success)
-            {
-                [self.datasetsAPI datasetWithDatasetID:datasetID
-                                                  task:task
-                                       completionBlock:completionBlock];
-            }
-            else
-            {
-                completionBlock(nil, nil, error);
-            }
-        }];
-    }
-    else
-    {
-        NSError *unauthorisedError = [NSError errorWithCode:kMendeleyUnauthorizedErrorCode];
-        completionBlock(nil, nil, unauthorisedError);
-    }
-
-    return task;
-}
-
 
 #pragma mark - Cancellation
 
