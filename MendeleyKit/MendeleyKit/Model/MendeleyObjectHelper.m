@@ -303,6 +303,12 @@
                 id customObject = [self customObjectFromRawValue:rawValue[matchedKey] modelObject:object propertyName:matchedKey error:nil];
                 [object setValue:customObject forKeyPath:key];
             }
+            else if ([propertyNames[key] rangeOfString:@"NSDate"].location != NSNotFound)
+            {
+                NSString *dateString = (NSString *) rawValue[matchedKey];
+                NSDate *date = [[MendeleyObjectHelper jsonDateFormatter] dateFromString:dateString];
+                [object setValue:date forKey:key];
+            }
             else
             {
                 // Note that this will not work if the property of the object we are trying to assign is a primitive type
@@ -321,12 +327,13 @@
         NSMutableArray *objectArray = [NSMutableArray array];
         NSArray *array = (NSArray *) rawValue;
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-             id object = [[self class] setPropertiesToObjectOfClass:klass fromRawValue:obj];
-             if (object)
-             {
-                 [objectArray addObject:object];
-             }
-         }];
+            id object = [[self class] setPropertiesToObjectOfClass:klass fromRawValue:obj];
+
+            if (object)
+            {
+                [objectArray addObject:object];
+            }
+        }];
         return objectArray;
     }
     return nil;

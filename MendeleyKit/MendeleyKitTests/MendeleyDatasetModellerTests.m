@@ -92,7 +92,7 @@
         XCTAssertEqualObjects(dataset.objectDescription, @"This data is the network information and demand of scenario 1 for the sample network");
         XCTAssertEqualObjects(dataset.owner_id, @"c7c2d1fa-a840-31c0-92a9-c8c5f70ac307");
         XCTAssertEqualObjects(dataset.object_version, @1);
-        // XCTAssertEqualObjects(dataset.publish_date, @"2016-02-24T10:32:59.867Z");
+        XCTAssertEqualObjects(dataset.publish_date, [self dateFromJSONDateTimeFormattedString:@"2016-02-24T10:32:59.867Z"]);
 
         MendeleyLicenceInfo *licenseInfo = dataset.data_licence;
         XCTAssertTrue([licenseInfo isKindOfClass:[MendeleyLicenceInfo class]]);
@@ -115,7 +115,7 @@
         MendeleyVersionMetadata *version = dataset.versions.firstObject;
         XCTAssertTrue([version isKindOfClass:[MendeleyVersionMetadata class]]);
         XCTAssertEqualObjects(version.object_version, @1);
-        // XCTAssertEqualObjects(version.publish_date, @"2016-02-24T10:32:59.867Z");
+        XCTAssertEqualObjects(version.publish_date, [self dateFromJSONDateTimeFormattedString:@"2016-02-24T10:32:59.867Z"]);
         XCTAssertEqualObjects(version.available, @YES);
 
         XCTAssertTrue([dataset.files isKindOfClass:[NSArray class]]);
@@ -130,7 +130,7 @@
         XCTAssertEqualObjects(fileMetadata.content_details.sha256_hash, @"910ee12ba4830ab36db1e8e732ab926f2b40a4b2547595297be810593342c4d8");
         XCTAssertEqualObjects(fileMetadata.content_details.content_type, @"application/pdf");
         XCTAssertEqualObjects(fileMetadata.content_details.size, @922183);
-        // XCTAssertEqualObjects(fileMetadata.content_details.created_date, @"2016-02-24T00:00:00.000Z");
+        XCTAssertEqualObjects(fileMetadata.content_details.created_date, [self dateFromJSONDateTimeFormattedString:@"2016-02-24T00:00:00.000Z"]);
         XCTAssertEqualObjects(fileMetadata.content_details.download_url, @"https://api.mendeley.com/datasets/redirect/eyJ0eXBlIjoiZG93bmxvYWRfZmlsZSIsImRhdGFzZXRJZCI6IjRkeXB3MmR5OGMiLCJkYXRhc2V0VmVyc2lvbiI6MSwiZmlsZUlkIjoiYzE4ZTljNWYtYjY1YS00M2M1LThjZmEtYmE0M2IwZDAwMDQ3IiwiZGVzdGluYXRpb24iOiJodHRwczovL2NvbS1tZW5kZWxleS1pbnRlcm5hbC5zMy5hbWF6b25hd3MuY29tL3BsYXRmb3JtL3JkbS9wcm9kdWN0aW9uLzk2NTVjYjkyLTg3M2QtNGIwNy1iYTc2LWMzZjAzMmFmMmJiYj9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWF0dGFjaG1lbnQlM0IlMjBmaWxlbmFtZSUzRCUyMkFubmV4JTIwMS5wZGYlMjIlM0IlMjBmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3QW5uZXglMjUyMDEucGRmJnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1hcHBsaWNhdGlvbiUyRnBkZiZBV1NBY2Nlc3NLZXlJZD1BS0lBSTZEWlhPR0lDTEtWR1lFQSZFeHBpcmVzPTE0Njg0MDU3NDQmU2lnbmF0dXJlPXNiUXlZRTF4V25MQmtSb1M1ZFNvU0VCOFZGYyUzRCJ9");
         XCTAssertEqualObjects(fileMetadata.content_details.view_url, @"https://api.mendeley.com/datasets/redirect/eyJ0eXBlIjoidmlld19maWxlIiwiZGF0YXNldElkIjoiNGR5cHcyZHk4YyIsImRhdGFzZXRWZXJzaW9uIjoxLCJmaWxlSWQiOiJjMThlOWM1Zi1iNjVhLTQzYzUtOGNmYS1iYTQzYjBkMDAwNDciLCJkZXN0aW5hdGlvbiI6Imh0dHBzOi8vY29tLW1lbmRlbGV5LWludGVybmFsLnMzLmFtYXpvbmF3cy5jb20vcGxhdGZvcm0vcmRtL3Byb2R1Y3Rpb24vOTY1NWNiOTItODczZC00YjA3LWJhNzYtYzNmMDMyYWYyYmJiP3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249aW5saW5lJTNCJTIwZmlsZW5hbWUlM0QlMjJBbm5leCUyMDEucGRmJTIyJTNCJTIwZmlsZW5hbWUlMkElM0RVVEYtOCUyNyUyN0FubmV4JTI1MjAxLnBkZiZyZXNwb25zZS1jb250ZW50LXR5cGU9YXBwbGljYXRpb24lMkZwZGYmQVdTQWNjZXNzS2V5SWQ9QUtJQUk2RFpYT0dJQ0xLVkdZRUEmRXhwaXJlcz0xNDY4NDA1NzQ0JlNpZ25hdHVyZT1rQUglMkYzN3IwVUtPNGlSU0ZZYVA5RDQxeVZwTSUzRCJ9");
         // XCTAssertEqualObjects(fileMetadata.content_details.download_expiry_time, @"2016-07-13T10:29:04.689Z");

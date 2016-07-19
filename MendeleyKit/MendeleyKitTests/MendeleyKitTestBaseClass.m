@@ -20,6 +20,17 @@
 
 #import "MendeleyKitTestBaseClass.h"
 
+#import "MendeleyGlobals.h"
+
+
 @implementation MendeleyKitTestBaseClass
+
+- (nullable NSDate *)dateFromJSONDateTimeFormattedString:(nonnull NSString *)dateString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    return [dateFormatter dateFromString:dateString];
+}
 
 @end
