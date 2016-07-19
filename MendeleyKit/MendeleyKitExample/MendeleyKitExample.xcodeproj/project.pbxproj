@@ -28,6 +28,9 @@
 		C4A1348819DADB010069DB7A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1348719DADB010069DB7A /* ViewController.m */; };
 		C4A1348A19DADB010069DB7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A1348919DADB010069DB7A /* Images.xcassets */; };
 		C4FA861519F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FA861419F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m */; };
+		D706C75A1D33EE4600381886 /* DatasetListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C7591D33EE4600381886 /* DatasetListTableViewController.m */; };
+		D706C7651D35404800381886 /* DatasetDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C7641D35404800381886 /* DatasetDetailTableViewController.m */; };
+		D706C7681D354C0000381886 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D706C7661D354C0000381886 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,11 @@
 		C4A1349019DADB010069DB7A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4FA861319F7CE2500715F41 /* GroupListLazyLoadingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupListLazyLoadingTableViewController.h; sourceTree = "<group>"; };
 		C4FA861419F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListLazyLoadingTableViewController.m; sourceTree = "<group>"; };
+		D706C7581D33EE4600381886 /* DatasetListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatasetListTableViewController.h; sourceTree = "<group>"; };
+		D706C7591D33EE4600381886 /* DatasetListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatasetListTableViewController.m; sourceTree = "<group>"; };
+		D706C7631D35404800381886 /* DatasetDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatasetDetailTableViewController.h; sourceTree = "<group>"; };
+		D706C7641D35404800381886 /* DatasetDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatasetDetailTableViewController.m; sourceTree = "<group>"; };
+		D706C7671D354C0000381886 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MendeleyKitExample/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,19 +159,24 @@
 		C4A1347719DADB010069DB7A /* MendeleyKitExample */ = {
 			isa = PBXGroup;
 			children = (
-				C499433419DC3BE600E19A81 /* DocumentDetailTableViewController.h */,
-				C499433519DC3BE600E19A81 /* DocumentDetailTableViewController.m */,
 				C499433619DC3BE600E19A81 /* DocumentListTableViewController.h */,
 				C499433719DC3BE600E19A81 /* DocumentListTableViewController.m */,
+				C499433419DC3BE600E19A81 /* DocumentDetailTableViewController.h */,
+				C499433519DC3BE600E19A81 /* DocumentDetailTableViewController.m */,
 				C499433819DC3BE600E19A81 /* FilesWithDocumentTableViewController.h */,
 				C499433919DC3BE600E19A81 /* FilesWithDocumentTableViewController.m */,
 				C499433A19DC3BE600E19A81 /* GroupListTableViewController.h */,
 				C499433B19DC3BE600E19A81 /* GroupListTableViewController.m */,
 				C4FA861319F7CE2500715F41 /* GroupListLazyLoadingTableViewController.h */,
 				C4FA861419F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m */,
+				D706C7581D33EE4600381886 /* DatasetListTableViewController.h */,
+				D706C7591D33EE4600381886 /* DatasetListTableViewController.m */,
+				D706C7631D35404800381886 /* DatasetDetailTableViewController.h */,
+				D706C7641D35404800381886 /* DatasetDetailTableViewController.m */,
 				C4A1348019DADB010069DB7A /* AppDelegate.h */,
 				C4A1348119DADB010069DB7A /* AppDelegate.m */,
 				C4A1348319DADB010069DB7A /* Main.storyboard */,
+				D706C7661D354C0000381886 /* LaunchScreen.storyboard */,
 				C4A1348619DADB010069DB7A /* ViewController.h */,
 				C4A1348719DADB010069DB7A /* ViewController.m */,
 				C4A1348919DADB010069DB7A /* Images.xcassets */,
@@ -268,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4A1348A19DADB010069DB7A /* Images.xcassets in Resources */,
+				D706C7681D354C0000381886 /* LaunchScreen.storyboard in Resources */,
 				C4A1347C19DADB010069DB7A /* InfoPlist.strings in Resources */,
 				C4A1348519DADB010069DB7A /* Main.storyboard in Resources */,
 			);
@@ -290,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4A1348819DADB010069DB7A /* ViewController.m in Sources */,
+				D706C75A1D33EE4600381886 /* DatasetListTableViewController.m in Sources */,
 				C4A1348219DADB010069DB7A /* AppDelegate.m in Sources */,
 				C4FA861519F7CE2500715F41 /* GroupListLazyLoadingTableViewController.m in Sources */,
 				C499433E19DC3BE600E19A81 /* FilesWithDocumentTableViewController.m in Sources */,
@@ -297,6 +312,7 @@
 				C499433F19DC3BE600E19A81 /* GroupListTableViewController.m in Sources */,
 				C4A1347E19DADB010069DB7A /* main.m in Sources */,
 				C499433C19DC3BE600E19A81 /* DocumentDetailTableViewController.m in Sources */,
+				D706C7651D35404800381886 /* DatasetDetailTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +341,15 @@
 				C4A1348419DADB010069DB7A /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D706C7661D354C0000381886 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D706C7671D354C0000381886 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

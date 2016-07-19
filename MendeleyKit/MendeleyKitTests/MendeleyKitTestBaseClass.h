@@ -21,6 +21,9 @@
 #import <XCTest/XCTest.h>
 #import "MendeleyKitTestsThreadHelper.h"
 
+
 @interface MendeleyKitTestBaseClass : XCTestCase
+
+- (nullable NSDate *)dateFromJSONDateTimeFormattedString:(nonnull NSString *)dateString;
 
 @end

@@ -29,17 +29,7 @@
 
 @implementation DocumentDetailTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self)
-    {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (id)initWithDocument:(MendeleyDocument *)document file:(MendeleyFile *)file
+- (instancetype)initWithDocument:(MendeleyDocument *)document file:(MendeleyFile *)file
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (nil != self)
@@ -48,17 +38,6 @@
         _file = file;
     }
     return self;
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Table view data source

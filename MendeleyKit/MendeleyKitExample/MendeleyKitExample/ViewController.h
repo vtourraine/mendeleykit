@@ -21,10 +21,9 @@
 #import <UIKit/UIKit.h>
 
 /**
- Note: the defines below must NEVER be checked into the mendeley github
- repository.
+ Note: the defines below must NEVER be checked into the Mendeley GitHub repository.
  Any pull requests containing any real values for the defines below will be rejected
- and/or removed
+ and/or removed.
  */
 #define kMyClientSecret      @"<YOUR CLIENT SECRET>"
 #define kMyClientID          @"<YOUR CLIENT ID>"
@@ -42,6 +41,9 @@
  - get groups (with automatic icon download)
  - get groups (with lazy loading of icons)
  */
+
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
+
 - (IBAction)loginOrOut:(id)sender;
+
 @end

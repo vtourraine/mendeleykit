@@ -28,6 +28,7 @@
 //#import "MendeleyDefaultOAuthProvider.h"
 #import "GroupListTableViewController.h"
 #import "GroupListLazyLoadingTableViewController.h"
+#import "DatasetListTableViewController.h"
 
 /**
    By default the MendeleyKit uses NSURLSession based network actions - called in and used by the
@@ -44,9 +45,13 @@ static NSDictionary * clientOAuthConfig()
               kMendeleyOAuth2RedirectURLKey : kMyClientRedirectURI };
 }
 
-@interface ViewController ()
-
-@end
+NS_ENUM(NSInteger, MenuRow) {
+    MenuRowGetDocumentsNoFiles = 0,
+    MenuRowGetDocumentsCheckForFiles,
+    MenuRowGetGroupsAutomaticIconDownload,
+    MenuRowGetGroupsNoIconDownload,
+    MenuRowGetDatasets
+};
 
 @implementation ViewController
 
@@ -82,66 +87,58 @@ static NSDictionary * clientOAuthConfig()
     }
 }
 
+
+#pragma mark - Navigation
+
 - (IBAction)loginOrOut:(id)sender
 {
-
     if ([[MendeleyKit sharedInstance] isAuthenticated])
     {
-        [[MendeleyKit sharedInstance] clearAuthentication];
-        self.navigationItem.rightBarButtonItem.title = @"Login";
+        [self logout];
     }
     else
     {
-        MendeleyCompletionBlock loginCompletion = ^void (BOOL success, NSError *loginError){
-            if (success)
-            {
-                self.navigationItem.rightBarButtonItem.title = @"Logout";
-                UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Hurrah" message:@"We successfully logged in" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [successAlert show];
-            }
-            else
-            {
-                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't log in" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [errorAlert show];
-            }
-            [self.navigationController popViewControllerAnimated:YES];
-        };
-
-        MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc]
-                                                        initWithClientKey:kMyClientID
-                                                             clientSecret:kMyClientSecret
-                                                              redirectURI:kMyClientRedirectURI
-                                                          completionBlock:loginCompletion];
-        [self.navigationController pushViewController:loginController animated:YES];
+        [self presentLoginViewController];
     }
-
 }
 
-
-- (void)didReceiveMemoryWarning
+- (void)presentLoginViewController
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    MendeleyCompletionBlock loginCompletion = ^void (BOOL success, NSError *loginError){
+        if (success)
+        {
+            self.navigationItem.rightBarButtonItem.title = @"Logout";
+            UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Hurrah" message:@"We successfully logged in" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [successAlert show];
+        }
+        else
+        {
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't log in" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [errorAlert show];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+
+    MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc]
+                                                    initWithClientKey:kMyClientID
+                                                    clientSecret:kMyClientSecret
+                                                    redirectURI:kMyClientRedirectURI
+                                                    completionBlock:loginCompletion];
+    [self.navigationController pushViewController:loginController animated:YES];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)logout
 {
-    return 1;
+    [[MendeleyKit sharedInstance] clearAuthentication];
+    self.navigationItem.rightBarButtonItem.title = @"Login";
 }
+
+
+#pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 50;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 50;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -157,56 +154,59 @@ static NSDictionary * clientOAuthConfig()
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     switch (indexPath.row)
     {
-        case 0:
+        case MenuRowGetDocumentsNoFiles:
             cell.textLabel.text = @"Get Documents (no files)";
             break;
-        case 1:
+
+        case MenuRowGetDocumentsCheckForFiles:
             cell.textLabel.text = @"Get Documents (check for files)";
             break;
-        case 2:
+
+        case MenuRowGetGroupsAutomaticIconDownload:
             cell.textLabel.text = @"Get Groups (automatic icon download)";
             break;
-        case 3:
+
+        case MenuRowGetGroupsNoIconDownload:
             cell.textLabel.text = @"Get Groups (no icon download)";
+            break;
+
+        case MenuRowGetDatasets:
+            cell.textLabel.text = @"Get Datasets";
             break;
     }
     return cell;
 }
 
+#pragma mark - Table view delegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Class contentViewControllerClass = [self contentViewControllerClassForIndexPath:indexPath];
+    UITableViewController *viewController = [[contentViewControllerClass alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (Class)contentViewControllerClassForIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row)
     {
-        case 0:
-        {
-            DocumentListTableViewController *controller = [[DocumentListTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-        break;
-        case 1:
-        {
-            FilesWithDocumentTableViewController *controller = [[FilesWithDocumentTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-        break;
-        case 2:
-        {
-            GroupListTableViewController *controller = [[GroupListTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:controller animated:YES];
+        case MenuRowGetDocumentsNoFiles:
+            return [DocumentListTableViewController class];
 
-        }
-        break;
-        case 3:
-        {
-            GroupListLazyLoadingTableViewController *controller = [[GroupListLazyLoadingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:controller animated:YES];
+        case MenuRowGetDocumentsCheckForFiles:
+            return [FilesWithDocumentTableViewController class];
 
-        }
-        break;
-        default:
-            break;
+        case MenuRowGetGroupsAutomaticIconDownload:
+            return [GroupListTableViewController class];
+
+        case MenuRowGetGroupsNoIconDownload:
+            return [GroupListLazyLoadingTableViewController class];
+
+        case MenuRowGetDatasets:
+            return [DatasetListTableViewController class];
     }
-}
 
+    return nil;
+}
 
 @end

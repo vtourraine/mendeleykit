@@ -141,6 +141,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONFollowType                      @"application/vnd.mendeley-follow.1+json"
 #define kMendeleyRESTRequestJSONFollowRequestType               @"application/vnd.mendeley-follow-request.1+json"
 #define kMendeleyRESTRequestJSONFollowAcceptancesRequestType    @"application/vnd.mendeley-follow-acceptance.1+json"
+#define kMendeleyRESTRequestJSONDatasetType                     @"application/vnd.mendeley-public-dataset.1+json"
 #define kMendeleyRESTRequestJSONApplicationFeaturesType         @"application/vnd.mendeley-features.1+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
@@ -196,6 +197,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIRecentlyRead                      @"recently_read"
 #define kMendeleyRESTAPIFollowers                         @"followers"
 #define kMendeleyRESTAPIFollowersWithID                   @"followers/%@"
+#define kMendeleyRESTAPIDatasets                          @"datasets"
+#define kMendeleyRESTAPIDatasetWithID                     @"datasets/%@"
 #define kMendeleyRESTAPIApplicationFeatures               @"application_features"
 
 /***********************************************
@@ -250,6 +253,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelEducation                           @"MendeleyEducation"
 #define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyRead"
 #define kMendeleyModelFollow                              @"MendeleyFollow"
+#define kMendeleyModelDataset                             @"MendeleyDataset"
 #define kMendeleyModelApplicationFeature                  @"MendeleyFeature"
 #define kMendeleyModelWebsites                            @"NSArray"
 #define kMendeleyModelTags                                @"NSArray"
@@ -268,10 +272,12 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 ***********************************************/
 #define kMendeleyJSONID                                   @"id"
 #define kMendeleyJSONDescription                          @"description"
+#define kMendeleyJSONVersion                              @"version"
 #define kMendeleyJSONDateTimeFormat                       @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 #define kMendeleyHTTPHeaderDateFormat                     @"EEE', 'dd' 'MMM' 'yyyy' 'HH':'mm':'ss' GMT"
 #define kMendeleyObjectID                                 @"object_ID"
 #define kMendeleyObjectDescription                        @"objectDescription"
+#define kMendeleyObjectVersion                            @"object_version"
 
 
 /***********************************************
@@ -409,6 +415,25 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 ***********************************************/
 #define kMendeleyJSONSurname                              @"last_name"
 #define kMendeleyJSONForename                             @"first_name"
+
+/***********************************************
+ @name JSON keys Dataset
+ ***********************************************/
+#define kMendeleyJSONDOI                                  @"doi"
+#define kMendeleyJSONDataLicence                          @"data_licence"
+#define kMendeleyJSONVersions                             @"versions"
+#define kMendeleyJSONFiles                                @"files"
+#define kMendeleyJSONMetrics                              @"metrics"
+#define kMendeleyJSONContributors                         @"contributors"
+#define kMendeleyJSONArticles                             @"articles"
+#define kMendeleyJSONCategories                           @"categories"
+#define kMendeleyJSONInstitutions                         @"institutions"
+#define kMendeleyJSONRelatedLinks                         @"related_links"
+
+/***********************************************
+ @name JSON keys File metadata
+ ***********************************************/
+#define kMendeleyJSONContentDetails                       @"content_details"
 
 /***********************************************
    @name Paging

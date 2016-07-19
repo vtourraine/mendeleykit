@@ -18,19 +18,49 @@
  *****************************************************************************
  */
 
-#import "MendeleyKitTestBaseClass.h"
+#import "MendeleyDataset.h"
 
-#import "MendeleyGlobals.h"
+@implementation MendeleyDataset
+@end
 
+@implementation MendeleyDOI
+@end
 
-@implementation MendeleyKitTestBaseClass
+@implementation MendeleyPublicContributorDetails
+@end
 
-- (nullable NSDate *)dateFromJSONDateTimeFormattedString:(nonnull NSString *)dateString
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    return [dateFormatter dateFromString:dateString];
-}
+@implementation MendeleyInstitution
+@end
 
+@implementation MendeleyAlternativeName
+@end
+
+@implementation MendeleyVersionMetadata
+@end
+
+@implementation MendeleyFileMetadata
+@end
+
+@implementation MendeleyFileMetrics
+@end
+
+@implementation MendeleyFileData
+@end
+
+@implementation MendeleyEmbeddedArticleView
+@end
+
+@implementation MendeleyEmbeddedJournalView
+@end
+
+@implementation MendeleyCategory
+@end
+
+@implementation MendeleyDatasetMetrics
+@end
+
+@implementation MendeleyRelatedLink
+@end
+
+@implementation MendeleyLicenceInfo
 @end

@@ -140,11 +140,8 @@
                      XCTAssertTrue([recentlyRead.vertical_position isEqualToNumber:@(1000)], @"The vertical_position number should be 1000");
 
                      NSString *dateString = @"2015-03-10T12:52:06.000Z";
-                     NSDateFormatter *dateFormatter;
-                     dateFormatter = [[NSDateFormatter alloc] init];
-                     [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
-                     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-                     XCTAssertTrue([recentlyRead.date isEqualToDate:[dateFormatter dateFromString:dateString]], @"The date should be %@", dateString);
+                     NSDate *date = [self dateFromJSONDateTimeFormattedString:dateString];
+                     XCTAssertTrue([recentlyRead.date isEqualToDate:date], @"The date should be %@", dateString);
                  }
              }
          }];

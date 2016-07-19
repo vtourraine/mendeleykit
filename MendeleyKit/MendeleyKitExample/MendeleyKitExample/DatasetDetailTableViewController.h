@@ -18,19 +18,13 @@
  *****************************************************************************
  */
 
-#import "MendeleyKitTestBaseClass.h"
+#import <UIKit/UIKit.h>
 
-#import "MendeleyGlobals.h"
+@class MendeleyDataset;
 
 
-@implementation MendeleyKitTestBaseClass
+@interface DatasetDetailTableViewController : UITableViewController
 
-- (nullable NSDate *)dateFromJSONDateTimeFormattedString:(nonnull NSString *)dateString
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:kMendeleyJSONDateTimeFormat];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    return [dateFormatter dateFromString:dateString];
-}
+@property (nonatomic, strong, nullable) MendeleyDataset *dataset;
 
 @end

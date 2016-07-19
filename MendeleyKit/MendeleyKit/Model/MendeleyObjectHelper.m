@@ -36,7 +36,8 @@
 
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyJSONID : kMendeleyObjectID,
-                 kMendeleyJSONDescription : kMendeleyObjectDescription };
+                 kMendeleyJSONDescription : kMendeleyObjectDescription,
+                 kMendeleyJSONVersion : kMendeleyObjectVersion };
     });
     return map;
 }
@@ -48,7 +49,8 @@
 
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyObjectID : kMendeleyJSONID,
-                 kMendeleyObjectDescription : kMendeleyJSONDescription };
+                 kMendeleyObjectDescription : kMendeleyJSONDescription,
+                 kMendeleyObjectVersion : kMendeleyJSONVersion };
     });
     return map;
 }
@@ -255,6 +257,35 @@
             return YES;
         }
     }
+
+    NSString *datasetName = NSStringFromClass([MendeleyDataset class]);
+    if ([modelName isEqualToString:datasetName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDOI] ||
+            [propertyName isEqualToString:kMendeleyJSONDataLicence] ||
+            [propertyName isEqualToString:kMendeleyJSONVersions] ||
+            [propertyName isEqualToString:kMendeleyJSONFiles] ||
+            [propertyName isEqualToString:kMendeleyJSONMetrics] ||
+            [propertyName isEqualToString:kMendeleyJSONContributors] ||
+            [propertyName isEqualToString:kMendeleyJSONArticles] ||
+            [propertyName isEqualToString:kMendeleyJSONCategories] ||
+            [propertyName isEqualToString:kMendeleyJSONInstitutions] ||
+            [propertyName isEqualToString:kMendeleyJSONRelatedLinks])
+        {
+            return YES;
+        }
+    }
+
+    NSString *fileMetadataName = NSStringFromClass([MendeleyFileMetadata class]);
+    if ([modelName isEqualToString:fileMetadataName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONContentDetails] ||
+            [propertyName isEqualToString:kMendeleyJSONMetrics])
+        {
+            return YES;
+        }
+    }
+
     return NO;
 }
 
@@ -265,8 +296,24 @@
         id object = [klass new];
         NSDictionary *propertyNames = [[self class] propertiesAndAttributesForModel:object];
         [propertyNames.allKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
-             // Note that this will not work if the property of the object we are trying to assign is a primitive type
-             [object setValue:rawValue[key] forKeyPath:key];
+            NSString *matchedKey = [self matchedJSONKeyForKey:key];
+
+            if ([self isCustomizableModelObject:object forPropertyName:matchedKey error:nil])
+            {
+                id customObject = [self customObjectFromRawValue:rawValue[matchedKey] modelObject:object propertyName:matchedKey error:nil];
+                [object setValue:customObject forKeyPath:key];
+            }
+            else if ([propertyNames[key] rangeOfString:@"NSDate"].location != NSNotFound)
+            {
+                NSString *dateString = (NSString *) rawValue[matchedKey];
+                NSDate *date = [[MendeleyObjectHelper jsonDateFormatter] dateFromString:dateString];
+                [object setValue:date forKey:key];
+            }
+            else
+            {
+                // Note that this will not work if the property of the object we are trying to assign is a primitive type
+                [object setValue:rawValue[matchedKey] forKeyPath:key];
+            }
          }];
         return object;
     }
@@ -280,12 +327,13 @@
         NSMutableArray *objectArray = [NSMutableArray array];
         NSArray *array = (NSArray *) rawValue;
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-             id object = [[self class] setPropertiesToObjectOfClass:klass fromRawValue:obj];
-             if (object)
-             {
-                 [objectArray addObject:object];
-             }
-         }];
+            id object = [[self class] setPropertiesToObjectOfClass:klass fromRawValue:obj];
+
+            if (object)
+            {
+                [objectArray addObject:object];
+            }
+        }];
         return objectArray;
     }
     return nil;
@@ -400,6 +448,65 @@
             }
         }
     }
+
+    NSString *datasetName = NSStringFromClass([MendeleyDataset class]);
+    if ([modelName isEqualToString:datasetName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDOI])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyDOI class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONDataLicence])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyLicenceInfo class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONVersions])
+        {
+            return [[self class] objectArrayForClass:[MendeleyVersionMetadata class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONFiles])
+        {
+            return [[self class] objectArrayForClass:[MendeleyFileMetadata class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONMetrics])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyDatasetMetrics class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONContributors])
+        {
+            return [[self class] objectArrayForClass:[MendeleyPublicContributorDetails class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONArticles])
+        {
+            return [[self class] objectArrayForClass:[MendeleyEmbeddedArticleView class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONCategories])
+        {
+            return [[self class] objectArrayForClass:[MendeleyCategory class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONInstitutions])
+        {
+            return [[self class] objectArrayForClass:[MendeleyInstitution class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONRelatedLinks])
+        {
+            return [[self class] objectArrayForClass:[MendeleyRelatedLink class] fromRawValue:rawValue];
+        }
+    }
+
+    NSString *fileMetadataName = NSStringFromClass([MendeleyFileMetadata class]);
+    if ([modelName isEqualToString:fileMetadataName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONContentDetails])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFileData class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONMetrics])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFileMetrics class] fromRawValue:rawValue];
+        }
+    }
+
     return nil;
 }
 
