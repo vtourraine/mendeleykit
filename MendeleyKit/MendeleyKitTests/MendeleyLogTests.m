@@ -44,9 +44,11 @@
     NSUInteger logCountBeforeTest = [logsArrayBefore count];
 
     MendeleyLogMessage(kMendeleyLogDomain, kSDKLogLevelInfo, @"Activity Log Test");
+    sleep(1); // logs are saved asynchronously, so we sleep to make sure the previous call gets registered
+
     NSArray *logsArrayAfter = [[MendeleyLog sharedInstance] temporaryLogQueue];
     NSUInteger logCountAfterTest = [logsArrayAfter count];
-    XCTAssertTrue((logCountBeforeTest >= logCountAfterTest) || (logCountBeforeTest == 1000), @"Log not recorded. Log count before test is %lu and after test is %lu", (unsigned long) logCountBeforeTest, (unsigned long) logCountAfterTest);
+    XCTAssertTrue((logCountBeforeTest < logCountAfterTest) || (logCountBeforeTest == 1000), @"Log not recorded. Log count before test is %lu and after test is %lu", (unsigned long) logCountBeforeTest, (unsigned long) logCountAfterTest);
 }
 
 - (void)testLogError
