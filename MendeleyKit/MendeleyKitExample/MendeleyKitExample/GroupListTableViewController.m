@@ -32,7 +32,7 @@
     self = [super initWithStyle:style];
     if (nil != self)
     {
-        _groups = [NSArray array];
+        _groups = @[];
     }
     return self;
 }
@@ -40,7 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.title = NSLocalizedString(@"Groups", nil);
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     /**
      This code downloads the first 'page' of groups. MendeleyKit has a default page size of 50
      which for most users will be sufficient downloading all of their groups.
@@ -57,28 +61,14 @@
      is a larger rectangle.
      */
     [[MendeleyKit sharedInstance] groupListWithQueryParameters:parameters iconType:SquareIcon completionBlock:^(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error) {
-        if (nil != array && 0 < array.count)
-        {
-            self.groups = [NSArray arrayWithArray:array];
-            [self.tableView reloadData];
-        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+        self.groups = array;
+        [self.tableView reloadData];
     }];
-
-
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -87,7 +77,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *identifier = @"GroupcellIdentifier";
+    NSString *identifier = @"GroupCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 
     if (nil == cell)
@@ -95,14 +85,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
 
-    MendeleyGroup *group = [self.groups objectAtIndex:indexPath.row];
+    MendeleyGroup *group = self.groups[indexPath.row];
     cell.textLabel.text = group.name;
-    
-    if (nil != group.photo && nil != group.photo.squareImageData)
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    if (nil != group.photo.squareImageData)
     {
         cell.imageView.image = [UIImage imageWithData:group.photo.squareImageData];
     }
 
     return cell;
 }
+
 @end

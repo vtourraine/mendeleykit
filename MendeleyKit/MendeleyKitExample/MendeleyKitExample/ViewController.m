@@ -20,12 +20,8 @@
 
 #import "ViewController.h"
 #import <MendeleyKitiOS/MendeleyKitiOS.h>
-//#import "MendeleyKitConfiguration.h"
-//#import "MendeleyKit.h"
-//#import "MendeleyLoginViewController.h"
 #import "DocumentListTableViewController.h"
 #import "FilesWithDocumentTableViewController.h"
-//#import "MendeleyDefaultOAuthProvider.h"
 #import "GroupListTableViewController.h"
 #import "GroupListLazyLoadingTableViewController.h"
 #import "DatasetListTableViewController.h"

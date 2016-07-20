@@ -20,6 +20,15 @@
 
 #import "DocumentDetailTableViewController.h"
 
+NS_ENUM(NSInteger, DocumentSection) {
+    DocumentSectionTitle = 0,
+    DocumentSectionType,
+    DocumentSectionAbstract,
+    DocumentSectionYearPublished,
+    DocumentSectionAuthors,
+    DocumentSectionFiles
+};
+
 #define kAbstractTag 1
 
 @interface DocumentDetailTableViewController ()
@@ -40,6 +49,13 @@
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.title = self.document.title;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -51,35 +67,123 @@
 {
     switch (section)
     {
-        case 0: // title
+        case DocumentSectionTitle:
+        case DocumentSectionType:
+        case DocumentSectionAbstract:
+        case DocumentSectionYearPublished:
+        case DocumentSectionFiles:
             return 1;
-        case 1: // type
-            return 1;
-        case 2: // abstract
-            return 1;
-        case 3: // year published
-            return 1;
-        case 4: // authors
-        {
-            NSArray *authors = self.document.authors;
-            if (nil != authors)
-            {
-                return authors.count;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        case 5: // download
-            return 1;
+
+        case DocumentSectionAuthors:
+            return self.document.authors.count;
     }
+
     return 0;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section)
+    {
+        case DocumentSectionTitle:
+            return NSLocalizedString(@"Title", nil);
+        case DocumentSectionType:
+            return NSLocalizedString(@"Type", nil);
+        case DocumentSectionAbstract:
+            return NSLocalizedString(@"Abstract", nil);
+        case DocumentSectionYearPublished:
+            return NSLocalizedString(@"Year Published", nil);
+        case DocumentSectionAuthors:
+            return NSLocalizedString(@"Author(s)", nil);
+        case DocumentSectionFiles:
+            return NSLocalizedString(@"Download file", nil);
+    }
+
+    return nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellIdentifier = @"CellIdentifier";
+    if (DocumentSectionAbstract == indexPath.section)
+    {
+        cellIdentifier = @"AbstractCellIdentifier";
+    }
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UILabel *label = nil;
+
+    if (nil == cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        if (DocumentSectionAbstract == indexPath.section)
+        {
+            const CGFloat SideMargin = 20;
+            label = [[UILabel alloc] initWithFrame:CGRectMake(SideMargin, 0, CGRectGetWidth(cell.contentView.frame) - 2*SideMargin, CGRectGetHeight(cell.contentView.frame))];
+            label.numberOfLines = 0;
+            label.tag = kAbstractTag;
+            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            [cell.contentView addSubview:label];
+        }
+    }
+    else
+    {
+        if (DocumentSectionAbstract == indexPath.section)
+        {
+            label = (UILabel *) [cell.contentView viewWithTag:kAbstractTag];
+        }
+    }
+
+    switch (indexPath.section)
+    {
+        case DocumentSectionTitle:
+            cell.textLabel.text = self.document.title;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        case DocumentSectionType:
+            cell.textLabel.text = (nil != self.document.type) ? self.document.type : @"No type given";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        case DocumentSectionAbstract:
+            label.text = (nil != self.document.abstract) ? self.document.abstract : @"No abstract";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        case DocumentSectionYearPublished:
+            cell.textLabel.text = (nil != self.document.year) ? [self.document.year stringValue] : @"No year specified";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        case DocumentSectionAuthors:
+        {
+            MendeleyPerson *author = self.document.authors[indexPath.row];
+            if (nil != [NSPersonNameComponentsFormatter class])
+            {
+                NSPersonNameComponents *components = [[NSPersonNameComponents alloc] init];
+                components.familyName = author.last_name;
+                components.givenName = author.first_name;
+                NSPersonNameComponentsFormatter *formatter = [[NSPersonNameComponentsFormatter alloc] init];
+                cell.textLabel.text = [formatter stringFromPersonNameComponents:components];
+            }
+            else
+            {
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", author.first_name, author.last_name];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        }
+        case DocumentSectionFiles:
+            cell.textLabel.text = self.file.file_name;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            break;
+    }
+
+    return cell;
+}
+
+#pragma mark - Table view delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (2 == indexPath.section)
+    if (DocumentSectionAbstract == indexPath.section)
     {
         return 90;
     }
@@ -89,118 +193,32 @@
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UILabel *view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
-    NSString *headerText = @"";
-
-    switch (section)
-    {
-        case 0:
-            headerText = NSLocalizedString(@"Title", nil);
-            break;
-        case 1:
-            headerText = NSLocalizedString(@"Type", nil);
-            break;
-        case 2:
-            headerText = NSLocalizedString(@"Abstract", nil);
-            break;
-        case 3:
-            headerText = NSLocalizedString(@"Year Published", nil);
-            break;
-        case 4:
-            headerText = NSLocalizedString(@"Author(s)", nil);
-            break;
-        case 5:
-            headerText = NSLocalizedString(@"Download file", nil);
-            break;
-    }
-    view.text = headerText;
-    return view;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *cellIdentifier = @"CellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    UILabel *label = nil;
-
-    if (nil == cell)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        if (4 == indexPath.section)
-        {
-            label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width, 90)];
-            label.numberOfLines = 0;
-            label.tag = kAbstractTag;
-            [cell.contentView addSubview:label];
-        }
-    }
-    else
-    {
-        if (4 == indexPath.section)
-        {
-            label = (UILabel *) [cell.contentView viewWithTag:kAbstractTag];
-        }
-    }
-
-    switch (indexPath.section)
-    {
-        case 0:
-            cell.textLabel.text = self.document.title;
-            break;
-        case 1:
-            cell.textLabel.text = (nil != self.document.type) ? self.document.type : @"No type given";
-            break;
-        case 2:
-            cell.textLabel.text = (nil != self.document.abstract) ? self.document.abstract : @"No abstract";
-            break;
-        case 3:
-            cell.textLabel.text = (nil != self.document.year) ? [NSString stringWithFormat:@"%d", [self.document.year intValue]] : @"No year specified";
-            break;
-        case 4:
-        {
-            NSArray *authors = self.document.authors;
-            MendeleyPerson *author = [authors objectAtIndex:indexPath.row];
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", author.first_name, author.last_name];
-            break;
-        }
-        case 5:
-            cell.textLabel.text = self.file.file_name;
-            break;
-    }
-
-    return cell;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (5 == indexPath.section)
+    if (DocumentSectionFiles != indexPath.section)
     {
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [spinner setHidesWhenStopped:YES];
-        [spinner setCenter:self.view.center];
-        [self.view addSubview:spinner];
-        [spinner startAnimating];
-        NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-        NSString *filePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf", self.file.file_name]];
-        NSURL *fileURL = [NSURL fileURLWithPath:filePath];
-        [[MendeleyKit sharedInstance] fileWithFileID:self.file.object_ID saveToURL:fileURL progressBlock:nil completionBlock:^(BOOL success, NSError *error) {
-             [spinner stopAnimating];
-             if (success)
-             {
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"File successfully downloaded", nil) delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                 [alert show];
-             }
-             else
-             {
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                 [alert show];
-             }
-
-
-         }];
+        return;
     }
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *filePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf", self.file.file_name]];
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    [[MendeleyKit sharedInstance] fileWithFileID:self.file.object_ID saveToURL:fileURL progressBlock:nil completionBlock:^(BOOL success, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+        if (success)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"File successfully downloaded", nil) delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
 }
 
 @end
