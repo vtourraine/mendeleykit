@@ -189,7 +189,7 @@
                 XCTAssertTrue([dictObj isKindOfClass:[NSNumber class]], @"The class should be of type NSNumber but is %@", NSStringFromClass([dictObj class]));
                 if ([dictObj isKindOfClass:[NSNumber class]])
                 {
-                    XCTAssertTrue([dictObj isEqualToNumber:self.exampleObject.page], @"We expect the page to be \"%li\" \"instead of %li\"", [self.exampleObject.page integerValue], (long) [dictObj integerValue]);
+                    XCTAssertEqualObjects(dictObj, self.exampleObject.page, @"We expect the page to be \"%@\" \"instead of %@\"", self.exampleObject.page, dictObj);
                 }
 
                 dictObj = [dict objectForKey:@"vertical_position"];
@@ -197,7 +197,7 @@
                 XCTAssertTrue([dictObj isKindOfClass:[NSNumber class]], @"The class should be of type NSNumber but is %@", NSStringFromClass([dictObj class]));
                 if ([dictObj isKindOfClass:[NSNumber class]])
                 {
-                    XCTAssertTrue([dictObj isEqualToNumber:self.exampleObject.vertical_position], @"We expect the vertical_position to be \"%li\" \"instead of %li\"", [self.exampleObject.vertical_position integerValue], (long) [dictObj integerValue]);
+                    XCTAssertEqualObjects(dictObj, self.exampleObject.vertical_position, @"We expect the vertical_position to be \"%@\" \"instead of %@\"", self.exampleObject.vertical_position, dictObj);
                 }
 
                 dictObj = [dict objectForKey:@"date"];

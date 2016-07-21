@@ -44,9 +44,27 @@
     NSUInteger logCountBeforeTest = [logsArrayBefore count];
 
     MendeleyLogMessage(kMendeleyLogDomain, kSDKLogLevelInfo, @"Activity Log Test");
-    NSArray *logsArrayAfter = [[MendeleyLog sharedInstance] temporaryLogQueue];
-    NSUInteger logCountAfterTest = [logsArrayAfter count];
-    XCTAssertTrue((logCountBeforeTest >= logCountAfterTest) || (logCountBeforeTest == 1000), @"Log not recorded. Log count before test is %lu and after test is %lu", (unsigned long) logCountBeforeTest, (unsigned long) logCountAfterTest);
+
+    // logs are saved asynchronously, so we need to wait to make sure this call gets registered
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Record log"];
+
+    // we wait for 0.1 second before we check the log queue
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSArray *logsArrayAfter = [[MendeleyLog sharedInstance] temporaryLogQueue];
+        NSUInteger logCountAfterTest = [logsArrayAfter count];
+        const BOOL logCountHasChanged = (logCountBeforeTest < logCountAfterTest) || (logCountBeforeTest == 1000);
+        if (logCountHasChanged)
+        {
+            [expectation fulfill];
+        }
+        else
+        {
+            XCTAssertTrue(logCountHasChanged, @"Log not recorded. Log count before test is %@ and after test is %@", @(logCountBeforeTest), @(logCountAfterTest));
+        }
+    });
+
+    // we tell the test framework to wait for 1 second for the expectation to be fulfilled
+    [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
 - (void)testLogError

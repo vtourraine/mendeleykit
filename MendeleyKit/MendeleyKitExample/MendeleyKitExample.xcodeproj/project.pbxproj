@@ -159,6 +159,10 @@
 		C4A1347719DADB010069DB7A /* MendeleyKitExample */ = {
 			isa = PBXGroup;
 			children = (
+				C4A1348019DADB010069DB7A /* AppDelegate.h */,
+				C4A1348119DADB010069DB7A /* AppDelegate.m */,
+				C4A1348619DADB010069DB7A /* ViewController.h */,
+				C4A1348719DADB010069DB7A /* ViewController.m */,
 				C499433619DC3BE600E19A81 /* DocumentListTableViewController.h */,
 				C499433719DC3BE600E19A81 /* DocumentListTableViewController.m */,
 				C499433419DC3BE600E19A81 /* DocumentDetailTableViewController.h */,
@@ -173,12 +177,8 @@
 				D706C7591D33EE4600381886 /* DatasetListTableViewController.m */,
 				D706C7631D35404800381886 /* DatasetDetailTableViewController.h */,
 				D706C7641D35404800381886 /* DatasetDetailTableViewController.m */,
-				C4A1348019DADB010069DB7A /* AppDelegate.h */,
-				C4A1348119DADB010069DB7A /* AppDelegate.m */,
 				C4A1348319DADB010069DB7A /* Main.storyboard */,
 				D706C7661D354C0000381886 /* LaunchScreen.storyboard */,
-				C4A1348619DADB010069DB7A /* ViewController.h */,
-				C4A1348719DADB010069DB7A /* ViewController.m */,
 				C4A1348919DADB010069DB7A /* Images.xcassets */,
 				C4A1347819DADB010069DB7A /* Supporting Files */,
 			);

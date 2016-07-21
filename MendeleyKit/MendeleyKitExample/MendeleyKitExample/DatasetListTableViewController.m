@@ -34,6 +34,8 @@
 
     self.title = NSLocalizedString(@"Datasets", nil);
 
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     /**
      This call gets the first page of datasets from the library.
      */
@@ -41,6 +43,8 @@
     [[MendeleyKit sharedInstance] datasetListWithQueryParameters:parameters completionBlock:^(NSArray *objectArray, MendeleySyncInfo *syncInfo, NSError *error) {
         if (nil == objectArray)
         {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
             UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our datasets" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [errorAlert show];
         }
@@ -55,29 +59,33 @@
 {
     NSURL *next = [syncInfo.linkDictionary objectForKey:kMendeleyRESTHTTPLinkNext];
 
-    if (nil != next)
+    if (nil == next)
     {
-        [[MendeleyKit sharedInstance] datasetListWithLinkedURL:next completionBlock:^(NSArray *objectArray, MendeleySyncInfo *updatedSyncInfo, NSError *error) {
-            if (nil == objectArray)
-            {
-                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our datasets" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [errorAlert show];
-                self.datasets = datasets;
-                [self.tableView reloadData];
-            }
-            else
-            {
-                NSMutableArray *array = [NSMutableArray arrayWithArray:datasets];
-                [array addObjectsFromArray:objectArray];
-                [self pageThroughDatasets:updatedSyncInfo datasets:array];
-            }
-        }];
-    }
-    else
-    {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
         self.datasets = datasets;
         [self.tableView reloadData];
+
+        return;
     }
+
+    [[MendeleyKit sharedInstance] datasetListWithLinkedURL:next completionBlock:^(NSArray *objectArray, MendeleySyncInfo *updatedSyncInfo, NSError *error) {
+        if (nil == objectArray)
+        {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our datasets" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [errorAlert show];
+
+            self.datasets = datasets;
+            [self.tableView reloadData];
+        }
+        else
+        {
+            NSArray *array = [datasets arrayByAddingObjectsFromArray:objectArray];
+            [self pageThroughDatasets:updatedSyncInfo datasets:array];
+        }
+    }];
 }
 
 #pragma mark - Table view data source

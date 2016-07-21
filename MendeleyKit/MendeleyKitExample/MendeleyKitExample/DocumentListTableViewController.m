@@ -28,12 +28,12 @@
 
 @implementation DocumentListTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self)
     {
-        _documents = [NSArray array];
+        _documents = @[];
     }
     return self;
 }
@@ -42,6 +42,9 @@
 {
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"Documents", nil);
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     /**
        This call gets the first page of documents - default size 20 - from the library.
      */
@@ -49,6 +52,8 @@
     [[MendeleyKit sharedInstance] documentListWithQueryParameters:parameters completionBlock:^(NSArray *objectArray, MendeleySyncInfo *syncInfo, NSError *error) {
          if (nil == objectArray)
          {
+             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
              UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
              [errorAlert show];
          }
@@ -62,36 +67,37 @@
 
 - (void)pageThroughDocuments:(MendeleySyncInfo *)syncInfo documents:(NSArray *)documents
 {
-    NSURL *next = [syncInfo.linkDictionary objectForKey:kMendeleyRESTHTTPLinkNext];
+    NSURL *next = syncInfo.linkDictionary[kMendeleyRESTHTTPLinkNext];
 
-    if (nil != next)
+    if (nil == next)
     {
-        [[MendeleyKit sharedInstance] documentListWithLinkedURL:next completionBlock:^(NSArray *objectArray, MendeleySyncInfo *updatedSyncInfo, NSError *error) {
-             if (nil == objectArray)
-             {
-                 UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                 [errorAlert show];
-                 self.documents = documents;
-                 [self updateTable];
-             }
-             else
-             {
-                 NSMutableArray *array = [NSMutableArray arrayWithArray:documents];
-                 [array addObjectsFromArray:objectArray];
-                 [self pageThroughDocuments:updatedSyncInfo documents:array];
-             }
-         }];
-    }
-    else
-    {
-        self.documents = documents;
-        [self updateTable];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self updateTableWithDocuments:documents];
+        return;
     }
 
+    [[MendeleyKit sharedInstance] documentListWithLinkedURL:next completionBlock:^(NSArray *objectArray, MendeleySyncInfo *updatedSyncInfo, NSError *error) {
+        if (nil == objectArray)
+        {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [errorAlert show];
+
+            [self updateTableWithDocuments:documents];
+        }
+        else
+        {
+            NSArray *array = [documents arrayByAddingObjectsFromArray:objectArray];
+            [self pageThroughDocuments:updatedSyncInfo documents:array];
+        }
+    }];
 }
 
-- (void)updateTable
+- (void)updateTableWithDocuments:(NSArray <MendeleyDocument *> *)documents
 {
+    self.documents = documents;
+
     if (nil != self.documents || 0 < self.documents.count)
     {
         [self.tableView reloadData];
@@ -102,7 +108,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self.documents isKindOfClass:[MendeleyDocument class]])
+    if (self.documents != nil && [self.documents isKindOfClass:[NSArray class]] == NO)
     {
         NSLog(@"What the heck happened here? This should be an array not a MendeleyDocument object");
         return 0;
@@ -119,16 +125,17 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    MendeleyDocument *document = [self.documents objectAtIndex:indexPath.row];
+    MendeleyDocument *document = self.documents[indexPath.row];
     cell.textLabel.text = document.title;
-
 
     return cell;
 }
 
+#pragma mark - Table view delegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MendeleyDocument *document = [self.documents objectAtIndex:indexPath.row];
+    MendeleyDocument *document = self.documents[indexPath.row];
     DocumentDetailTableViewController *controller = [[DocumentDetailTableViewController alloc] initWithDocument:document file:nil];
     
     [self.navigationController pushViewController:controller animated:YES];

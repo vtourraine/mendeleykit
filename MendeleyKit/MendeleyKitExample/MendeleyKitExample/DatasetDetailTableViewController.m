@@ -45,7 +45,11 @@ NS_ENUM(NSInteger, DatasetDetailRow) {
 {
     [super viewDidLoad];
 
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     [[MendeleyKit sharedInstance] datasetWithDatasetID:self.dataset.object_ID completionBlock:^(MendeleyObject * _Nullable mendeleyObject, MendeleySyncInfo * _Nullable syncInfo, NSError * _Nullable error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
         if ([mendeleyObject isKindOfClass:MendeleyDataset.class] == NO)
         {
             UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our dataset" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -120,7 +124,6 @@ NS_ENUM(NSInteger, DatasetDetailRow) {
 
     cell.textLabel.text = label;
     cell.detailTextLabel.text = value;
-
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;

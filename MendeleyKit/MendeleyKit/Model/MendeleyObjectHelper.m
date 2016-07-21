@@ -201,7 +201,6 @@
 
     NSString *modelName = NSStringFromClass([modelObject class]);
     NSString *groupName = NSStringFromClass([MendeleyGroup class]);
-
     if ([modelName isEqualToString:groupName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONPhoto])
@@ -212,34 +211,15 @@
 
     NSString *profileName = NSStringFromClass([MendeleyProfile class]);
     NSString *userProfileName = NSStringFromClass([MendeleyUserProfile class]);
-
     if ([modelName isEqualToString:profileName] || [modelName isEqualToString:userProfileName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONPhoto])
-        {
-            return YES;
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONPhotos])
-        {
-            return YES;
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONLocation])
-        {
-            return YES;
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONDiscipline])
-        {
-            return YES;
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONDisciplines])
-        {
-            return YES;
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONEmployment])
-        {
-            return YES;
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONEducation])
+        if ([propertyName isEqualToString:kMendeleyJSONPhoto] ||
+            [propertyName isEqualToString:kMendeleyJSONPhotos] ||
+            [propertyName isEqualToString:kMendeleyJSONLocation] ||
+            [propertyName isEqualToString:kMendeleyJSONDiscipline] ||
+            [propertyName isEqualToString:kMendeleyJSONDisciplines] ||
+            [propertyName isEqualToString:kMendeleyJSONEmployment] ||
+            [propertyName isEqualToString:kMendeleyJSONEducation])
         {
             return YES;
         }
@@ -248,11 +228,8 @@
     NSString *annotationName = NSStringFromClass([MendeleyAnnotation class]);
     if ([modelName isEqualToString:annotationName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONColor])
-        {
-            return YES;
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONPositions])
+        if ([propertyName isEqualToString:kMendeleyJSONColor] ||
+            [propertyName isEqualToString:kMendeleyJSONPositions])
         {
             return YES;
         }
