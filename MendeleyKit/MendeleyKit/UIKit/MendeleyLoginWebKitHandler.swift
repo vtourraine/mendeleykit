@@ -67,8 +67,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         }
 
         let helper = MendeleyKitLoginHelper()
-        let code = helper.getAuthenticationCode(requestURL!)
-        if let code = code
+        if let code = helper.getAuthenticationCode(requestURL!)
         {
             oAuthProvider.authenticateWithAuthenticationCode(code, completionBlock: oAuthCompletionBlock!)
         }
@@ -78,8 +77,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     
     public func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
         let userInfo = error.userInfo
-        let failingURLString: String? = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
-        if let failingURLString = failingURLString
+        if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
         {
             if oAuthProvider.urlStringIsRedirectURI(failingURLString)
             {

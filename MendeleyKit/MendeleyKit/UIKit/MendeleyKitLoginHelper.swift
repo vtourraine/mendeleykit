@@ -45,8 +45,7 @@ public class MendeleyKitLoginHelper: NSObject
     {
         var code: String?
 
-        let queryString = redirectURL.query
-        if let queryString = queryString
+        if let queryString = redirectURL.query
         {
             let components: [String] = queryString.componentsSeparatedByString("&")
             for component in components
@@ -69,7 +68,9 @@ public class MendeleyKitLoginHelper: NSObject
         let oauthServer = MendeleyKitConfiguration.sharedInstance().baseAPIURL
         NSURLCache.sharedURLCache().removeAllCachedResponses()
 
-        guard let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies as [NSHTTPCookie]?
+        let cookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+
+        guard let cookies = cookieStorage.cookies as [NSHTTPCookie]?
             else { return }
 
         for cookie in cookies
@@ -77,7 +78,7 @@ public class MendeleyKitLoginHelper: NSObject
             let domain = cookie.domain
             if domain == kMendeleyKitURL || domain == oauthServer.host
             {
-                NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+                cookieStorage.deleteCookie(cookie)
             }
         }
     }
