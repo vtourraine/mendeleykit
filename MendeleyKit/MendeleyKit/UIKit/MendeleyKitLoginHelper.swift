@@ -23,7 +23,6 @@ import Foundation
 
 public class MendeleyKitLoginHelper: NSObject
 {
-    
     public func getOAuthRequest(redirect: String, clientID: String) -> NSURLRequest
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.URLByAppendingPathComponent(kMendeleyOAuthPathAuthorize)
@@ -36,8 +35,7 @@ public class MendeleyKitLoginHelper: NSObject
         
         let baseOAuthURL = MendeleyURLBuilder.urlWithBaseURL(baseURL, parameters: parameters, query: true)
         let request = NSMutableURLRequest(URL: baseOAuthURL)
-        
-        
+
         request.HTTPMethod = "GET"
         request.allHTTPHeaderFields = MendeleyURLBuilder.defaultHeader() as? [String : String]
         return request as NSURLRequest
@@ -46,12 +44,11 @@ public class MendeleyKitLoginHelper: NSObject
     public func getAuthenticationCode(redirectURL: NSURL) -> String?
     {
         var code: String?
-        
-        
+
         let queryString = redirectURL.query
-        if nil != queryString
+        if let queryString = queryString
         {
-            let components: [String] = queryString!.componentsSeparatedByString("&")
+            let components: [String] = queryString.componentsSeparatedByString("&")
             for component in components
             {
                 let parameterPair = component.componentsSeparatedByString("=")
@@ -61,37 +58,27 @@ public class MendeleyKitLoginHelper: NSObject
                 {
                     code = value
                 }
-                
             }
-            
         }
-        
+
         return code
     }
-    
-    
+
     public func cleanCookiesAndURLCache()
     {
         let oauthServer = MendeleyKitConfiguration.sharedInstance().baseAPIURL
         NSURLCache.sharedURLCache().removeAllCachedResponses()
-        
-        let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies as [NSHTTPCookie]?
-        if nil == cookies
-        {
-            return
-        }
-        for cookie in cookies!
+
+        guard let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies as [NSHTTPCookie]?
+            else { return }
+
+        for cookie in cookies
         {
             let domain = cookie.domain
-            if kMendeleyKitURL == domain
-            {
-                NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
-            }
-            if domain == oauthServer.host
+            if domain == kMendeleyKitURL || domain == oauthServer.host
             {
                 NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
             }
         }
     }
-    
 }
