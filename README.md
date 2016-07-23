@@ -37,14 +37,14 @@ dynamic frameworks and legacy static library of MendeleyKit, we introduced separ
 
 #### Your client Podfile using the iOS Framework ####
 Use this in your Podfile:
-```
+```ruby
 use_frameworks!
 pod 'MendeleyKitiOS', :git => 'https://github.com/Mendeley/mendeleykit.git'
 ```
 
 *Note*: the framework supports both WebKit and UIWebView for login process (the latter is deprecated). To ensure you use the WebKit version
 of the Kit you may want to include the following lines in your Podfile:
-```
+```ruby
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
@@ -60,7 +60,7 @@ end
 Using *use_frameworks!* means that all included dependencies will be interpreted as frameworks. At this stage there is no provision in cocoapods to selectively mark some pods as frameworks and others as static library.
 
 Once done do a 
-```
+```bash
 pod install
 ```
 
@@ -72,7 +72,7 @@ The line below is a workaround, which basically comments out the #include "Mende
 This seems to fix the issue.
 The example below demonstrates how this can be used in a post install instruction in a Podfile 
 
-```
+```ruby
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
@@ -92,12 +92,12 @@ the new MendeleyAnalytics classes/methods.
 
 The Podfile in your project should include the following line
 
-```
+```ruby
 pod 'MendeleyKit', :git => 'https://github.com/Mendeley/mendeleykit.git'
 ```
 
 From command line, simply do 
-```
+```ruby
 pod install
 ```
 
@@ -112,18 +112,18 @@ Using the MendeleyKitiOS framework means you will need to change your headers.
 All public headers in the MendeleyKit are included in the framework umbrella header MendeleyKitiOS.h.
 Please, replace all explicit MendeleyKit imports in your code with this one header.
 
-```
+```objc
 #import <MendeleyKitiOS/MendeleyKitiOS.h>
 ```
 You may want to use the more modern syntax
-```
+```objc
 @import MendeleyKitiOS;
 ```
 ### Upgrading the headers/import for use of static library ###
 *Note*: If you are using the static library version of MendeleyKit you will need to use the following syntax
 (as the workspace has now modules enabled in the build sittings)
 
-```
+```objc
 #import <MendeleyKit/MendeleyKit.h>
 ```
 
