@@ -85,9 +85,9 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             }
         }
 
-        if let completionBlock = completionBlock
+        if let unwrappedCompletionBlock = completionBlock
         {
-            completionBlock(success: false, error: error)
+            unwrappedCompletionBlock(success: false, error: error)
         }
     }
 }
