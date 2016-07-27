@@ -64,4 +64,12 @@ obtains a list of datasets for the first page.
                         task:(MendeleyTask *)task
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+ obtains a list of licences that can be applied to datasets
+ @param task
+ @param completionBlock
+ */
+- (void)datasetLicencesListWithTask:(MendeleyTask *)task
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 @end

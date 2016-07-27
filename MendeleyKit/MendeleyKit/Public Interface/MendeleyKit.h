@@ -916,6 +916,13 @@
 - (MendeleyTask *)datasetWithDatasetID:(NSString *)datasetID
                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+ obtains a list of licences that can be applied to datasets
+ @param completionBlock returns the list of licences if found
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)datasetLicencesListWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 #pragma mark - Features
 /**
  obtain a list of supported features from server

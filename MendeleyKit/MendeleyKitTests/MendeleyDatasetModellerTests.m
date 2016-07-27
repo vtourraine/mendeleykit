@@ -162,4 +162,37 @@
     }];
 }
 
+- (void)testParseLicencesListObject
+{
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *jsonArrayPath = [bundle pathForResource:@"licences.json" ofType:nil];
+    NSData *jsonArrayData = [NSData dataWithContentsOfFile:jsonArrayPath];
+    XCTAssertTrue(jsonArrayData);
+
+    NSError *parseError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonArrayData options:NSJSONReadingAllowFragments error:&parseError];
+    XCTAssertNotNil(jsonObject, @"we expected the JSON data to be parsed without error (error: %@)", parseError);
+
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+    [modeller parseJSONData:jsonObject expectedType:kMendeleyModelLicenceInfo completionBlock:^(id parsedObject, NSError *error) {
+        XCTAssertNotNil(parsedObject, @"We expected the parsing to return without error (error: %@)", error);
+
+        XCTAssertTrue([parsedObject isKindOfClass:[NSArray class]]);
+        XCTAssertEqual(((NSArray *)parsedObject).count, 8);
+
+        for (id parsedElement in parsedObject)
+        {
+            XCTAssertTrue([parsedElement isKindOfClass:[MendeleyLicenceInfo class]]);
+            XCTAssertNotNil(((MendeleyLicenceInfo *)parsedElement).object_ID);
+        }
+
+        MendeleyLicenceInfo *firstLincenceInfo = [parsedObject firstObject];
+        XCTAssertEqualObjects(firstLincenceInfo.object_ID, @"02c4e271-e833-4ed1-856d-f4085d84e0d3");
+        XCTAssertEqualObjects(firstLincenceInfo.short_name, @"CC0 1.0");
+        XCTAssertEqualObjects(firstLincenceInfo.full_name, @"Public Domain Dedication");
+        XCTAssertEqualObjects(firstLincenceInfo.objectDescription, @"You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.");
+        XCTAssertEqualObjects(firstLincenceInfo.url, @"http://creativecommons.org/publicdomain/zero/1.0/");
+    }];
+}
+
 @end

@@ -31,6 +31,11 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDatasetType };
 }
 
+- (NSDictionary *)licencesServiceRequestHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONLicenceInfoType };
+}
+
 - (NSDictionary *)defaultQueryParameters
 {
     return [[MendeleyDatasetParameters new] valueStringDictionary];
@@ -104,6 +109,20 @@
                     additionalHeaders:[self defaultServiceRequestHeaders]
                                  task:task
                       completionBlock:completionBlock];
+}
+
+
+#pragma mark - Licences
+
+- (void)datasetLicencesListWithTask:(MendeleyTask *)task
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    [self.helper mendeleyObjectListOfType:kMendeleyModelLicenceInfo
+                                      api:kMendeleyRESTAPIDatasetsLicences
+                               parameters:nil
+                        additionalHeaders:[self licencesServiceRequestHeaders]
+                                     task:task
+                          completionBlock:completionBlock];
 }
 
 @end
