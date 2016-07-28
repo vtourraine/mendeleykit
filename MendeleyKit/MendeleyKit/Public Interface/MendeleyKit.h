@@ -185,6 +185,22 @@
 - (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+#pragma mark - Photos
+
+/**
+ Upload a new original photo asset for my profile.
+ @param fileURL
+ @param contentType
+ @param contentLenght
+ @param progressBlock
+ @param completionBlock
+ */
+- (MendeleyTask *)uploadPhotoWithFile:(NSURL *)fileURL
+                contentType:(NSString *)contentType
+              contentLength:(NSInteger)contentLength
+              progressBlock:(MendeleyResponseProgressBlock)progressBlock
+            completionBlock:(MendeleyCompletionBlock)completionBlock;
+
 #pragma mark - Documents
 /**
    @name documents, trash and catalog API methods

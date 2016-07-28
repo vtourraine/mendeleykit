@@ -200,6 +200,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIDatasets                          @"datasets"
 #define kMendeleyRESTAPIDatasetWithID                     @"datasets/%@"
 #define kMendeleyRESTAPIApplicationFeatures               @"application_features"
+#define kMendeleyRESTAPIPhotosMe                          @"photos/me"
 
 /***********************************************
    @name REST API Query Parameters
