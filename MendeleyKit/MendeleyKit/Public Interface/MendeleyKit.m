@@ -1461,6 +1461,18 @@
     return task;
 }
 
+- (MendeleyTask *)datasetLicencesListWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI datasetLicencesListWithTask:task
+                                      completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+
+    return task;
+}
+
 #pragma mark - Features
 
 - (MendeleyTask *)applicationFeaturesWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock

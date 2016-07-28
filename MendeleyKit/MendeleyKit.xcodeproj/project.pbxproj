@@ -532,6 +532,8 @@
 		D706C76E1D36429600381886 /* datasets.json in Resources */ = {isa = PBXBuildFile; fileRef = D706C76A1D36429600381886 /* datasets.json */; };
 		D706C7701D36448200381886 /* MendeleyDatasetModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */; };
 		D706C7711D36448200381886 /* MendeleyDatasetModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */; };
+		D7A3C0AF1D490E0B00CF12A9 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A3C0AE1D490E0B00CF12A9 /* licences.json */; };
+		D7A3C0B01D490E0B00CF12A9 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A3C0AE1D490E0B00CF12A9 /* licences.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -823,6 +825,7 @@
 		D706C7691D36429600381886 /* dataset.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dataset.json; sourceTree = "<group>"; };
 		D706C76A1D36429600381886 /* datasets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = datasets.json; sourceTree = "<group>"; };
 		D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyDatasetModellerTests.m; sourceTree = "<group>"; };
+		D7A3C0AE1D490E0B00CF12A9 /* licences.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = licences.json; sourceTree = "<group>"; };
 		DFDCE2E92DC2090614D79B17 /* Pods-MendeleyKitiOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitiOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitiOSTests/Pods-MendeleyKitiOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F121F55BE4CD06F6F3C91312 /* Pods-MendeleyKitiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitiOSTests/Pods-MendeleyKitiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1423,6 +1426,7 @@
 				C462881F19DB15AB00127ECE /* Helpers */,
 				C462881E19DB159700127ECE /* Model */,
 				C462881D19DB158B00127ECE /* Public Interface */,
+				D7A3C0B11D490E5700CF12A9 /* Sample JSON responses */,
 				C4CD515519DAD9E400C8EB8D /* Supporting Files */,
 			);
 			path = MendeleyKitTests;
@@ -1432,6 +1436,25 @@
 			isa = PBXGroup;
 			children = (
 				645F7A801C5262C4006D7B24 /* MendeleyKitTests-Bridging-Header.h */,
+				C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */,
+				C4CD515719DAD9E400C8EB8D /* InfoPlist.strings */,
+				C4CD515619DAD9E400C8EB8D /* MendeleyKitTests-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C883D3BA1A0A63270001281D /* External */ = {
+			isa = PBXGroup;
+			children = (
+				C42111AB1A233FB9006C044C /* MendeleyReachability.h */,
+				C42111AC1A233FB9006C044C /* MendeleyReachability.m */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		D7A3C0B11D490E5700CF12A9 /* Sample JSON responses */ = {
+			isa = PBXGroup;
+			children = (
 				C4F095071AA474D500C5951C /* academic_statuses.json */,
 				C462882219DB160700127ECE /* annotation.json */,
 				C462882319DB160700127ECE /* catalogue.json */,
@@ -1444,27 +1467,16 @@
 				C462882719DB160700127ECE /* folderContent.json */,
 				C462882819DB160700127ECE /* folders.json */,
 				C85463971ADE9BCC00754160 /* followers.json */,
-				C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */,
 				C462882A19DB160700127ECE /* group.json */,
 				C462882B19DB160700127ECE /* groupList.json */,
-				C4CD515719DAD9E400C8EB8D /* InfoPlist.strings */,
-				C4CD515619DAD9E400C8EB8D /* MendeleyKitTests-Info.plist */,
+				D7A3C0AE1D490E0B00CF12A9 /* licences.json */,
 				C462882C19DB160700127ECE /* profiles.json */,
 				C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */,
 				C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */,
 				373AA4EA1B4698F800F8B0C4 /* followRequest.json */,
 				373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */,
 			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C883D3BA1A0A63270001281D /* External */ = {
-			isa = PBXGroup;
-			children = (
-				C42111AB1A233FB9006C044C /* MendeleyReachability.h */,
-				C42111AC1A233FB9006C044C /* MendeleyReachability.m */,
-			);
-			name = External;
+			name = "Sample JSON responses";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1817,6 +1829,7 @@
 				C449C45C1B3D9CEC003DB68F /* disciplines.json in Resources */,
 				C449C4581B3D9CDF003DB68F /* academic_statuses.json in Resources */,
 				C449C45B1B3D9CE9003DB68F /* catalogueArray.json in Resources */,
+				D7A3C0B01D490E0B00CF12A9 /* licences.json in Resources */,
 				D706C76E1D36429600381886 /* datasets.json in Resources */,
 				C449C4661B3D9D1F003DB68F /* recentlyReadArray.json in Resources */,
 				D706C76C1D36429600381886 /* dataset.json in Resources */,
@@ -1847,6 +1860,7 @@
 				C462882F19DB160700127ECE /* catalogueArray.json in Resources */,
 				C42AAA2C1A7BCA4700502358 /* disciplines.json in Resources */,
 				C462883719DB160700127ECE /* profiles.json in Resources */,
+				D7A3C0AF1D490E0B00CF12A9 /* licences.json in Resources */,
 				C462883519DB160700127ECE /* group.json in Resources */,
 				C8503FD11AB0725D00A56CE7 /* recentlyReadArray.json in Resources */,
 				373AA4EB1B4698F800F8B0C4 /* followRequest.json in Resources */,
