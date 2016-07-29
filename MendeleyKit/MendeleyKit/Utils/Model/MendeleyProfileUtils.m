@@ -28,7 +28,7 @@
     amendmentProfile.disciplines = profile.disciplines;
     amendmentProfile.research_interests_list = profile.research_interests_list;
     
-    return [amendmentProfile copy];
+    return amendmentProfile;
 }
 
 @end
