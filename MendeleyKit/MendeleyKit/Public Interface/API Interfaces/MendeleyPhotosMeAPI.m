@@ -14,7 +14,7 @@
 - (NSDictionary *)photoServiceHeadersWithContentType:(NSString *)contentType length:(NSInteger)length
 {
     return @{ kMendeleyRESTRequestContentType: contentType,
-              kMendeleyRESTRequestContentLength : @(length) };
+              kMendeleyRESTRequestContentLength : @(length).stringValue };
 }
 
 - (void)uploadPhotoWithFile:(NSURL *)fileURL
