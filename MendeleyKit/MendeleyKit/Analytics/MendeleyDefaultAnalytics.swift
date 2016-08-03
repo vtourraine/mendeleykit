@@ -36,14 +36,14 @@ public class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
         return Static.instance
     }
     
-    public func configureMendeleyAnalytics(profileID: String, clientVersionString: String, clientIdentityString: String)
+    public func configureMendeleyAnalytics(_ profileID: String, clientVersionString: String, clientIdentityString: String)
     {
         profileUUID = profileID
         versionString = clientVersionString
         identityString = clientIdentityString
     }
     
-    public func configureMendeleyAnalytics(profileID: String, clientVersionString: String, clientIdentityString: String, batchSize: Int)
+    public func configureMendeleyAnalytics(_ profileID: String, clientVersionString: String, clientIdentityString: String, batchSize: Int)
     {
         profileUUID = profileID
         versionString = clientVersionString
@@ -52,7 +52,7 @@ public class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     }
     
     
-    public func logMendeleyAnalyticsEvent(name: String)
+    public func logMendeleyAnalyticsEvent(_ name: String)
     {
         let event = MendeleyAnalyticsEvent()
         event.name = name
@@ -69,7 +69,7 @@ public class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     }
     
     
-    public func logMendeleyAnalyticsEvents(events:[MendeleyAnalyticsEvent])
+    public func logMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
     {
         if versionString.characters.count == 0 || identityString.characters.count == 0 || profileUUID.characters.count == 0
         {
@@ -85,7 +85,7 @@ public class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     }
     
     
-    public func dispatchMendeleyAnalyticsEvents(completionHandler: MendeleyCompletionBlock?)
+    public func dispatchMendeleyAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
     {
         cacheManager.sendAndClearAnalyticsEvents(completionHandler)
     }

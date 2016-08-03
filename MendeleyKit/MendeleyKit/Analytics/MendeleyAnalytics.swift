@@ -24,17 +24,17 @@ import Foundation
 public protocol MendeleyAnalytics
 {
     
-    func configureMendeleyAnalytics(profileID: String, clientVersionString: String, clientIdentityString: String)
+    func configureMendeleyAnalytics(_ profileID: String, clientVersionString: String, clientIdentityString: String)
 
-    func configureMendeleyAnalytics(profileID: String, clientVersionString: String, clientIdentityString: String, batchSize: Int)
+    func configureMendeleyAnalytics(_ profileID: String, clientVersionString: String, clientIdentityString: String, batchSize: Int)
     
     
-    func logMendeleyAnalyticsEvent(name: String)
+    func logMendeleyAnalyticsEvent(_ name: String)
 
     
-    func logMendeleyAnalyticsEvents(events:[MendeleyAnalyticsEvent])
+    func logMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
     
     
-    func dispatchMendeleyAnalyticsEvents(completionHandler: MendeleyCompletionBlock?)
+    func dispatchMendeleyAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
     
 }

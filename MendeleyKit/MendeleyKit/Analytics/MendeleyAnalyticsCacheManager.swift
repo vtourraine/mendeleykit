@@ -20,9 +20,9 @@
 
 import Foundation
 
-public enum CacheFileError: ErrorType
+public enum CacheFileError: Error
 {
-    case FileNotFound
+    case fileNotFound
 }
 
 public class MendeleyAnalyticsCacheManager: NSObject
@@ -33,16 +33,16 @@ public class MendeleyAnalyticsCacheManager: NSObject
     
     public var cacheFilePath: String{
         get{
-            let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
-                .UserDomainMask, true)
+            let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                .userDomainMask, true)
             
             let docsDir = dirPaths[0] as NSString
-            let path = docsDir.stringByAppendingPathComponent("MendeleyAnalyticsEvents.cache")
+            let path = docsDir.appendingPathComponent("MendeleyAnalyticsEvents.cache")
             return path
         }
     }
     
-    public func addMendeleyAnalyticsEvent(event:MendeleyAnalyticsEvent)
+    public func addMendeleyAnalyticsEvent(_ event:MendeleyAnalyticsEvent)
     {
         var currentEvents = eventsFromArchive()
         currentEvents.append(event)
@@ -60,7 +60,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
 
-    public func addMendeleyAnalyticsEvents(events:[MendeleyAnalyticsEvent])
+    public func addMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
     {
         var currentEvents = eventsFromArchive()
         currentEvents += events
@@ -76,7 +76,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
     
-    public func sendAndClearAnalyticsEvents(completionHandler: MendeleyCompletionBlock?)
+    public func sendAndClearAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
     {
         let events = eventsFromArchive()
         if 0 == events.count
@@ -89,62 +89,62 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
         
         let sdk = MendeleyKit.sharedInstance()
-        if sdk.isAuthenticated
+        if (sdk?.isAuthenticated)!
         {
-            MendeleyOAuthTokenHelper.refreshTokenWithRefreshBlock({ (success, error) -> Void in
+            MendeleyOAuthTokenHelper.refreshToken(refreshBlock: { (success, error) -> Void in
                 let blockExecutor = MendeleyBlockExecutor(completionBlock: completionHandler)
                 if success
                 {
                     let kit = MendeleyKitConfiguration.sharedInstance()
-                    let baseURL = kit.baseAPIURL
-                    let provider = kit.networkProvider
+                    let baseURL = kit?.baseAPIURL
+                    let provider = kit?.networkProvider
                     let modeller = MendeleyModeller.sharedInstance()
                     let task = MendeleyTask()
                     do{
-                        let data = try modeller.jsonObjectFromModelOrModels(events) as NSData!
+                        let data = try modeller.jsonObject(fromModelOrModels: events) as Data!
                         
                         
-                        provider.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
+                        provider?.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
                             if nil != response
                             {
                                 do{
                                     let helper = MendeleyKitHelper()
-                                    try helper.isSuccessForResponse(response!)
+                                    try helper.isSuccess(for: response!)
                                     self.clearCache()
-                                    blockExecutor.executeWithBool(true, error: nil)
+                                    blockExecutor?.execute(with: true, error: nil)
                                 }catch let responseFault as NSError
                                 {
-                                    blockExecutor.executeWithBool(false, error: responseFault)
+                                    blockExecutor?.execute(with: false, error: responseFault)
                                 }
                                 catch{
-                                    let innerError = NSError(code: MendeleyErrorCode.ResponseTypeUnknownErrorCode)
-                                    blockExecutor.executeWithBool(false, error: innerError)
+                                    let innerError = NSError(code: MendeleyErrorCode.responseTypeUnknownErrorCode)
+                                    blockExecutor?.execute(with: false, error: innerError)
                                 }
                             }
                             else
                             {
-                                blockExecutor.executeWithBool(false, error: responseError!)
+                                blockExecutor?.execute(with: false, error: responseError!)
                             }
                             
                         })
                     }catch let jsonError as NSError
                     {
-                        blockExecutor.executeWithBool(false, error: jsonError)
+                        blockExecutor?.execute(with: false, error: jsonError)
                     }
                     catch{
-                        let jsonError = NSError(code: MendeleyErrorCode.JSONTypeNotMappedToModelErrorCode)
-                        blockExecutor.executeWithBool(false, error: jsonError)
+                        let jsonError = NSError(code: MendeleyErrorCode.jsonTypeNotMappedToModelErrorCode)
+                        blockExecutor?.execute(with: false, error: jsonError)
                     }
                 }
                 else
                 {
-                    blockExecutor.executeWithBool(false, error: error)
+                    blockExecutor?.execute(with: false, error: error)
                 }
             })
         }
         else
         {
-            let error = NSError(code: MendeleyErrorCode.UnauthorizedErrorCode)
+            let error = NSError(code: MendeleyErrorCode.unauthorizedErrorCode)
             if nil != completionHandler
             {
                 completionHandler!(false, error)
@@ -155,11 +155,11 @@ public class MendeleyAnalyticsCacheManager: NSObject
     public func clearCache()
     {
         let path = cacheFilePath
-        let fileManager = NSFileManager.defaultManager()
-        if fileManager.fileExistsAtPath(path)
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: path)
         {
             do{
-                try fileManager.removeItemAtPath(path)
+                try fileManager.removeItem(atPath: path)
             }catch let error as NSError
             {
                 print("\(error.localizedDescription)")
@@ -174,10 +174,10 @@ public class MendeleyAnalyticsCacheManager: NSObject
     public func eventsFromArchive() -> [MendeleyAnalyticsEvent]
     {
         let path = cacheFilePath
-        let fileManager = NSFileManager.defaultManager()
-        if fileManager.fileExistsAtPath(path)
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: path)
         {
-            let data = NSKeyedUnarchiver.unarchiveObjectWithFile(path)
+            let data = NSKeyedUnarchiver.unarchiveObject(withFile: path)
             if nil != data
             {
                 return data as! [MendeleyAnalyticsEvent]
@@ -186,7 +186,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         return [MendeleyAnalyticsEvent]()
     }
     
-    public func eventsToArchive(events: [MendeleyAnalyticsEvent])
+    public func eventsToArchive(_ events: [MendeleyAnalyticsEvent])
     {
         let path = cacheFilePath
         NSKeyedArchiver.archiveRootObject(events, toFile: path)

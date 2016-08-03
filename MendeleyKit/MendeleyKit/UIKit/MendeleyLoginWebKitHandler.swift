@@ -24,13 +24,13 @@ import WebKit
 @available (iOS 9.0, *)
 public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
 {
-    let oAuthServer: NSURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
+    let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
     let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oauthProvider
     public var webView: WKWebView?
     var completionBlock: MendeleySuccessClosure?
-    var oAuthCompletionBlock: MendeleyOAuthClosure?
+    var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
 
-    public func startLoginProcess(clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleySuccessClosure, oauthHandler: MendeleyOAuthClosure)
+    public func startLoginProcess(_ clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
@@ -38,30 +38,30 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
-        let request: NSURLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
-        self.webView?.loadRequest(request)
+        let request: URLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
+        self.webView?.load(request)
     }
     
-    public func configureWebView(controller: UIViewController)
+    public func configureWebView(_ controller: UIViewController)
     {
         let configuration = WKWebViewConfiguration()
         let webView = WKWebView(frame: controller.view.frame, configuration: configuration)
-        webView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        webView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         webView.navigationDelegate = self
         controller.view.addSubview(webView)
 
         self.webView = webView
     }
 
-    public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.absoluteString
-        let requestURL = navigationAction.request.URL
+        let requestURL = navigationAction.request.url
         if let requestURL = requestURL
         {
             if requestURL.absoluteString.hasPrefix(baseURL)
             {
-                decisionHandler(.Allow)
+                decisionHandler(.allow)
                 return
             }
         }
@@ -69,17 +69,17 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let helper = MendeleyKitLoginHelper()
         if let code = helper.getAuthenticationCode(requestURL!)
         {
-            oAuthProvider.authenticateWithAuthenticationCode(code, completionBlock: oAuthCompletionBlock!)
+            oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
         }
 
-        decisionHandler(.Cancel)
+        decisionHandler(.cancel)
     }
     
-    public func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
         let userInfo = error.userInfo
         if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
         {
-            if oAuthProvider.urlStringIsRedirectURI(failingURLString)
+            if (oAuthProvider?.urlStringIsRedirectURI(failingURLString))!
             {
                 return
             }

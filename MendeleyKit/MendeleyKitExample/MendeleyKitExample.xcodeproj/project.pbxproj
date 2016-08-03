@@ -245,6 +245,9 @@
 					145C2DB11A2CA84A0005BFF6 = {
 						CreatedOnToolsVersion = 6.1;
 					};
+					C4A1346D19DADB010069DB7A = {
+						LastSwiftMigration = 0800;
+					};
 				};
 			};
 			buildConfigurationList = C4A1346919DADB010069DB7A /* Build configuration list for PBXProject "MendeleyKitExample" */;
@@ -495,6 +498,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -514,6 +518,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
