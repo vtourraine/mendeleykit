@@ -93,6 +93,21 @@
     return formatter;
 }
 
++ (NSDateFormatter *)shortJsonDateFormatter
+{
+    static NSDateFormatter *formatter = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSDateFormatter alloc] init];
+        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        [formatter setLocale:enUSPOSIXLocale];
+        [formatter setDateFormat:kMendeleyShortJSONDateTimeFormat];
+    });
+    return formatter;
+}
+
 + (NSDictionary *)propertiesAndAttributesForModel:(id)model
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
@@ -284,6 +299,10 @@
             {
                 NSString *dateString = (NSString *) rawValue[matchedKey];
                 NSDate *date = [[MendeleyObjectHelper jsonDateFormatter] dateFromString:dateString];
+                if (!date)
+                {
+                    date = [[MendeleyObjectHelper shortJsonDateFormatter    ] dateFromString:dateString];
+                }
                 [object setValue:date forKey:key];
             }
             else
