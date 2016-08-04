@@ -533,6 +533,11 @@
 		D706C76E1D36429600381886 /* datasets.json in Resources */ = {isa = PBXBuildFile; fileRef = D706C76A1D36429600381886 /* datasets.json */; };
 		D706C7701D36448200381886 /* MendeleyDatasetModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */; };
 		D706C7711D36448200381886 /* MendeleyDatasetModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */; };
+		D759044C1D5327E000A6B1DF /* MendeleyAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B653F1B66496800B878ED /* MendeleyAnalyticsTests.swift */; };
+		D759044D1D53288A00A6B1DF /* MendeleyKitLoginHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415E9E41B3ACDFE00C937E3 /* MendeleyKitLoginHelperTests.swift */; };
+		D759044E1D5328BF00A6B1DF /* MendeleyKitLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46656271B37F239005F762A /* MendeleyKitLoginHelper.swift */; };
+		D759044F1D5329B800A6B1DF /* MendeleyAnnotationModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886819DB17D200127ECE /* MendeleyAnnotationModellerTest.m */; };
+		D75904501D532A3E00A6B1DF /* MendeleyAnnotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883819DB164600127ECE /* MendeleyAnnotationTests.m */; };
 		D7A3C0AF1D490E0B00CF12A9 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A3C0AE1D490E0B00CF12A9 /* licences.json */; };
 		D7A3C0B01D490E0B00CF12A9 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A3C0AE1D490E0B00CF12A9 /* licences.json */; };
 		D7A3C0E41D4BAE5400CF12A9 /* MendeleyKitOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42111901A233AC7006C044C /* MendeleyKitOSX.framework */; };
@@ -2208,6 +2213,7 @@
 				C42111EB1A2341A9006C044C /* MendeleyMetadataAPI.m in Sources */,
 				D706C7601D33F35D00381886 /* MendeleyDatasetsAPI.m in Sources */,
 				C48EF2051B735EA90023916F /* MendeleyAnalyticsCacheManager.swift in Sources */,
+				D759044E1D5328BF00A6B1DF /* MendeleyKitLoginHelper.swift in Sources */,
 				C42111EC1A2341A9006C044C /* MendeleyObjectAPI.m in Sources */,
 				C42111ED1A2341A9006C044C /* MendeleyProfilesAPI.m in Sources */,
 				C48EF2071B735EB00023916F /* MendeleyDefaultAnalytics.swift in Sources */,
@@ -2495,12 +2501,15 @@
 				D7A3C0FD1D4BAFD200CF12A9 /* MendeleyAnnotationsAPITests.m in Sources */,
 				D7A3C0F61D4BAFC100CF12A9 /* MendeleyPerformanceMeterTests.m in Sources */,
 				D7A3C0EE1D4BAFB600CF12A9 /* MendeleyReachabilityTests.m in Sources */,
+				D759044C1D5327E000A6B1DF /* MendeleyAnalyticsTests.swift in Sources */,
 				D7A3C0ED1D4BAFB600CF12A9 /* MendeleyOAuthStoreTests.m in Sources */,
+				D759044D1D53288A00A6B1DF /* MendeleyKitLoginHelperTests.swift in Sources */,
 				D7A3C0F31D4BAFC100CF12A9 /* MendeleyErrorCategoriesTests.m in Sources */,
 				D7A3C1081D4BAFD700CF12A9 /* MendeleyProfilesAPITests.m in Sources */,
 				D7A3C1051D4BAFD200CF12A9 /* MendeleyFollowTests.m in Sources */,
 				D7A3C0EA1D4BAFB600CF12A9 /* MendeleySyncInfoTests.m in Sources */,
 				D7A3C0FC1D4BAFD200CF12A9 /* MendeleyAcademicStatusTests.m in Sources */,
+				D75904501D532A3E00A6B1DF /* MendeleyAnnotationTests.m in Sources */,
 				D7A3C0FB1D4BAFCC00CF12A9 /* MendeleyKitTestBaseClass.m in Sources */,
 				D7A3C0F51D4BAFC100CF12A9 /* MendeleyLogTests.m in Sources */,
 				D7A3C0F81D4BAFCC00CF12A9 /* MendeleyMockNetworkProviderTests.m in Sources */,
@@ -2512,6 +2521,7 @@
 				D7A3C1061D4BAFD200CF12A9 /* MendeleyDatasetModellerTests.m in Sources */,
 				D7A3C0EF1D4BAFB600CF12A9 /* MendeleyResponseTests.m in Sources */,
 				D7A3C0EB1D4BAFB600CF12A9 /* MendeleyQueryParameterTests.m in Sources */,
+				D759044F1D5329B800A6B1DF /* MendeleyAnnotationModellerTest.m in Sources */,
 				D7A3C0F41D4BAFC100CF12A9 /* MendeleyErrorManagerTests.m in Sources */,
 				D7A3C1091D4BAFD700CF12A9 /* MendeleyKitTests.m in Sources */,
 				D7A3C0FA1D4BAFCC00CF12A9 /* MendeleyKitTestsThreadHelper.m in Sources */,
