@@ -79,6 +79,8 @@
                              XCTAssertTrue([annotation.document_id isEqualToString:@"68e3bce9-4c35-3e8d-aa79-b007f50405a4"], @"Unexpected document ID");
                              XCTAssertTrue([annotation.filehash isEqualToString:@"4787da46c9b91cb69f7f3449e20b210fe970e234"], @"Unexpected filehash");
                              XCTAssertTrue([annotation.privacy_level isEqualToString:@"private"], @"Unexpected privacy_level");
+
+#if TARGET_OS_IPHONE
                              id color = annotation.color;
                              XCTAssertTrue([color isKindOfClass:[UIColor class]], @"For iOS this should be a UIColor object");
                              if ([color isKindOfClass:[UIColor class]])
@@ -93,6 +95,7 @@
                                  XCTAssertTrue(232.f == floorf(green), @"green should be 232 but is %f", green);
                                  XCTAssertTrue(116.f == floorf(blue), @"blue should be 116 but is %f", blue);
                              }
+#endif
                              NSArray *positions = annotation.positions;
                              XCTAssertNotNil(positions, @"positions should not be nil");
                              XCTAssertTrue(0 < positions.count, @"We should have a few annotation positions in there");
@@ -140,8 +143,10 @@
 
     annotation.object_ID = @"eb74f036-dd94-4632-b37d-2d80cd207fa4";
     annotation.type = @"highlight";
+#if TARGET_OS_IPHONE
     UIColor *color = [UIColor colorWithRed:248.f / 255.f green:232.f / 255.f blue:116.f / 255.f alpha:1.0f];
     annotation.color = color;
+#endif
 
     annotation.profile_id = @"1b17179a-08d6-342b-a63d-ab0a9264aac8";
     CGFloat topX = 168.6518f;

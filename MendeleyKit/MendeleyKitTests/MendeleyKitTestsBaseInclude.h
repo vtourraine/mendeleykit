@@ -22,8 +22,11 @@
 #define MendeleyKitTestsBaseInclude_h
 
 //#ifdef MendeleyKitiOSFramework
+#if TARGET_OS_IPHONE
 @import MendeleyKitiOS;
-//#endif
+#else
+@import MendeleyKitOSX;
+#endif
 
 
 #endif /* MendeleyKitTestsBaseInclude_h */

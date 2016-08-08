@@ -96,6 +96,7 @@
 		725CFFE51B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */; };
 		725CFFE61B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */; };
 		725CFFE71B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */; };
+		7A743EA58D75C657D1E53657 /* libPods-MendeleyKitOSXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 366BF49819F94E01DE1C36DE /* libPods-MendeleyKitOSXTests.a */; };
 		C24E70A3E1A44058A40FBE96 /* libPods-MendeleyKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */; };
 		C406B3021B611862003040F5 /* MendeleyDefaultAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C406B3011B611862003040F5 /* MendeleyDefaultAnalytics.swift */; };
 		C41474191A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C41474181A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m */; };
@@ -532,8 +533,65 @@
 		D706C76E1D36429600381886 /* datasets.json in Resources */ = {isa = PBXBuildFile; fileRef = D706C76A1D36429600381886 /* datasets.json */; };
 		D706C7701D36448200381886 /* MendeleyDatasetModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */; };
 		D706C7711D36448200381886 /* MendeleyDatasetModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */; };
+		D759044C1D5327E000A6B1DF /* MendeleyAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B653F1B66496800B878ED /* MendeleyAnalyticsTests.swift */; };
+		D759044D1D53288A00A6B1DF /* MendeleyKitLoginHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415E9E41B3ACDFE00C937E3 /* MendeleyKitLoginHelperTests.swift */; };
+		D759044E1D5328BF00A6B1DF /* MendeleyKitLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46656271B37F239005F762A /* MendeleyKitLoginHelper.swift */; };
+		D759044F1D5329B800A6B1DF /* MendeleyAnnotationModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886819DB17D200127ECE /* MendeleyAnnotationModellerTest.m */; };
+		D75904501D532A3E00A6B1DF /* MendeleyAnnotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883819DB164600127ECE /* MendeleyAnnotationTests.m */; };
 		D7A3C0AF1D490E0B00CF12A9 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A3C0AE1D490E0B00CF12A9 /* licences.json */; };
 		D7A3C0B01D490E0B00CF12A9 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A3C0AE1D490E0B00CF12A9 /* licences.json */; };
+		D7A3C0E41D4BAE5400CF12A9 /* MendeleyKitOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42111901A233AC7006C044C /* MendeleyKitOSX.framework */; };
+		D7A3C0EA1D4BAFB600CF12A9 /* MendeleySyncInfoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885E19DB178000127ECE /* MendeleySyncInfoTests.m */; };
+		D7A3C0EB1D4BAFB600CF12A9 /* MendeleyQueryParameterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885C19DB176C00127ECE /* MendeleyQueryParameterTests.m */; };
+		D7A3C0EC1D4BAFB600CF12A9 /* MendeleyNetworkingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885119DB175500127ECE /* MendeleyNetworkingTests.m */; };
+		D7A3C0ED1D4BAFB600CF12A9 /* MendeleyOAuthStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885219DB175500127ECE /* MendeleyOAuthStoreTests.m */; };
+		D7A3C0EE1D4BAFB600CF12A9 /* MendeleyReachabilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885319DB175500127ECE /* MendeleyReachabilityTests.m */; };
+		D7A3C0EF1D4BAFB600CF12A9 /* MendeleyResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885419DB175500127ECE /* MendeleyResponseTests.m */; };
+		D7A3C0F01D4BAFB600CF12A9 /* MendeleySimpleNetworkProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462885519DB175500127ECE /* MendeleySimpleNetworkProviderTests.m */; };
+		D7A3C0F11D4BAFB600CF12A9 /* MendeleyNSURLConnectionProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E53AE19EE5D0900D8FF23 /* MendeleyNSURLConnectionProviderTests.m */; };
+		D7A3C0F21D4BAFC100CF12A9 /* NSDictionaryMergeCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884E19DB172E00127ECE /* NSDictionaryMergeCategoryTests.m */; };
+		D7A3C0F31D4BAFC100CF12A9 /* MendeleyErrorCategoriesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884619DB171900127ECE /* MendeleyErrorCategoriesTests.m */; };
+		D7A3C0F41D4BAFC100CF12A9 /* MendeleyErrorManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884719DB171900127ECE /* MendeleyErrorManagerTests.m */; };
+		D7A3C0F51D4BAFC100CF12A9 /* MendeleyLogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884819DB171900127ECE /* MendeleyLogTests.m */; };
+		D7A3C0F61D4BAFC100CF12A9 /* MendeleyPerformanceMeterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884919DB171900127ECE /* MendeleyPerformanceMeterTests.m */; };
+		D7A3C0F71D4BAFCC00CF12A9 /* MendeleyMockNetworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886D19DB17F100127ECE /* MendeleyMockNetworkProvider.m */; };
+		D7A3C0F81D4BAFCC00CF12A9 /* MendeleyMockNetworkProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886E19DB17F100127ECE /* MendeleyMockNetworkProviderTests.m */; };
+		D7A3C0F91D4BAFCC00CF12A9 /* MendeleyKitConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883E19DB166B00127ECE /* MendeleyKitConfigurationTests.m */; };
+		D7A3C0FA1D4BAFCC00CF12A9 /* MendeleyKitTestsThreadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884419DB16B100127ECE /* MendeleyKitTestsThreadHelper.m */; };
+		D7A3C0FB1D4BAFCC00CF12A9 /* MendeleyKitTestBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = C462884019DB166B00127ECE /* MendeleyKitTestBaseClass.m */; };
+		D7A3C0FC1D4BAFD200CF12A9 /* MendeleyAcademicStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F095091AA4771F00C5951C /* MendeleyAcademicStatusTests.m */; };
+		D7A3C0FD1D4BAFD200CF12A9 /* MendeleyAnnotationsAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886919DB17D200127ECE /* MendeleyAnnotationsAPITests.m */; };
+		D7A3C0FF1D4BAFD200CF12A9 /* MendeleyCatalogDocumentsModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886019DB17A700127ECE /* MendeleyCatalogDocumentsModellerTests.m */; };
+		D7A3C1001D4BAFD200CF12A9 /* MendeleyDisciplineModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C41474181A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m */; };
+		D7A3C1011D4BAFD200CF12A9 /* MendeleyModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886119DB17A700127ECE /* MendeleyModellerTest.m */; };
+		D7A3C1021D4BAFD200CF12A9 /* MendeleyModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886219DB17A700127ECE /* MendeleyModelTest.m */; };
+		D7A3C1031D4BAFD200CF12A9 /* MendeleyObjectHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886319DB17A700127ECE /* MendeleyObjectHelperTests.m */; };
+		D7A3C1041D4BAFD200CF12A9 /* MendeleyRecentlyReadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8503FCD1AB06F4D00A56CE7 /* MendeleyRecentlyReadTests.m */; };
+		D7A3C1051D4BAFD200CF12A9 /* MendeleyFollowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463941ADE997C00754160 /* MendeleyFollowTests.m */; };
+		D7A3C1061D4BAFD200CF12A9 /* MendeleyDatasetModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */; };
+		D7A3C1081D4BAFD700CF12A9 /* MendeleyProfilesAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883919DB164600127ECE /* MendeleyProfilesAPITests.m */; };
+		D7A3C1091D4BAFD700CF12A9 /* MendeleyKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462883A19DB164600127ECE /* MendeleyKitTests.m */; };
+		D7A3C10A1D4BAFDE00CF12A9 /* academic_statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = C4F095071AA474D500C5951C /* academic_statuses.json */; };
+		D7A3C10B1D4BAFDE00CF12A9 /* annotation.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882219DB160700127ECE /* annotation.json */; };
+		D7A3C10C1D4BAFDE00CF12A9 /* catalogue.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882319DB160700127ECE /* catalogue.json */; };
+		D7A3C10D1D4BAFDE00CF12A9 /* catalogueArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882419DB160700127ECE /* catalogueArray.json */; };
+		D7A3C10E1D4BAFDE00CF12A9 /* dataset.json in Resources */ = {isa = PBXBuildFile; fileRef = D706C7691D36429600381886 /* dataset.json */; };
+		D7A3C10F1D4BAFDE00CF12A9 /* datasets.json in Resources */ = {isa = PBXBuildFile; fileRef = D706C76A1D36429600381886 /* datasets.json */; };
+		D7A3C1101D4BAFDE00CF12A9 /* disciplines.json in Resources */ = {isa = PBXBuildFile; fileRef = C42AAA2B1A7BCA4700502358 /* disciplines.json */; };
+		D7A3C1111D4BAFDE00CF12A9 /* document.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882519DB160700127ECE /* document.json */; };
+		D7A3C1121D4BAFDE00CF12A9 /* documentList.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882619DB160700127ECE /* documentList.json */; };
+		D7A3C1131D4BAFDE00CF12A9 /* folderContent.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882719DB160700127ECE /* folderContent.json */; };
+		D7A3C1141D4BAFDE00CF12A9 /* folders.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882819DB160700127ECE /* folders.json */; };
+		D7A3C1151D4BAFDE00CF12A9 /* followers.json in Resources */ = {isa = PBXBuildFile; fileRef = C85463971ADE9BCC00754160 /* followers.json */; };
+		D7A3C1161D4BAFDE00CF12A9 /* group.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882A19DB160700127ECE /* group.json */; };
+		D7A3C1171D4BAFDE00CF12A9 /* groupList.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882B19DB160700127ECE /* groupList.json */; };
+		D7A3C1181D4BAFDE00CF12A9 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A3C0AE1D490E0B00CF12A9 /* licences.json */; };
+		D7A3C1191D4BAFDE00CF12A9 /* profiles.json in Resources */ = {isa = PBXBuildFile; fileRef = C462882C19DB160700127ECE /* profiles.json */; };
+		D7A3C11A1D4BAFDE00CF12A9 /* recentlyReadArray.json in Resources */ = {isa = PBXBuildFile; fileRef = C8503FCF1AB0725D00A56CE7 /* recentlyReadArray.json */; };
+		D7A3C11B1D4BAFDE00CF12A9 /* recentlyReadObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C8503FD01AB0725D00A56CE7 /* recentlyReadObject.json */; };
+		D7A3C11C1D4BAFDE00CF12A9 /* followRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EA1B4698F800F8B0C4 /* followRequest.json */; };
+		D7A3C11D1D4BAFDE00CF12A9 /* followAcceptance.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */; };
+		D7A3C11E1D4BB2E600CF12A9 /* GettingStartedGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -550,6 +608,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C4CD513A19DAD9E400C8EB8D;
 			remoteInfo = MendeleyKit;
+		};
+		D7A3C0E51D4BAE5400CF12A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4CD513319DAD9E400C8EB8D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C421118F1A233AC7006C044C;
+			remoteInfo = MendeleyKitOSX;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -577,6 +642,7 @@
 		0B387EEC19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNSURLRequestUploadHelper.h; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestUploadHelper.h"; sourceTree = "<group>"; };
 		0B387EED19ED695000ACCBE1 /* MendeleyNSURLRequestUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyNSURLRequestUploadHelper.m; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestUploadHelper.m"; sourceTree = "<group>"; };
 		0F7FE6F8D2A0E0F2771226C7 /* Pods-MendeleyKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests.release.xcconfig"; sourceTree = "<group>"; };
+		366BF49819F94E01DE1C36DE /* libPods-MendeleyKitOSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitOSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		373AA4EA1B4698F800F8B0C4 /* followRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followRequest.json; sourceTree = "<group>"; };
 		373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followAcceptance.json; sourceTree = "<group>"; };
 		5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitiOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -589,8 +655,10 @@
 		725CFFDB1B7B408300AC6758 /* MendeleyFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFeature.m; path = "Model/Mendeley Objects/MendeleyFeature.m"; sourceTree = "<group>"; };
 		725CFFE11B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyApplicationFeaturesAPI.h; path = "Public Interface/API Interfaces/MendeleyApplicationFeaturesAPI.h"; sourceTree = "<group>"; };
 		725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyApplicationFeaturesAPI.m; path = "Public Interface/API Interfaces/MendeleyApplicationFeaturesAPI.m"; sourceTree = "<group>"; };
+		732F0A391959A588D5BAFFCB /* Pods-MendeleyKitOSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitOSXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitOSXTests/Pods-MendeleyKitOSXTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8302971636AF25A993EDBA94 /* Pods-MendeleyKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A304643800733756F1157F04 /* Pods-MendeleyKitOSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitOSXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitOSXTests/Pods-MendeleyKitOSXTests.release.xcconfig"; sourceTree = "<group>"; };
 		C406B3011B611862003040F5 /* MendeleyDefaultAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyDefaultAnalytics.swift; path = Analytics/MendeleyDefaultAnalytics.swift; sourceTree = "<group>"; };
 		C41474181A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyDisciplineModellerTest.m; sourceTree = "<group>"; };
 		C414741A1A7F8FDC00DC01D9 /* GettingStartedGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = GettingStartedGuide.pdf; sourceTree = "<group>"; };
@@ -826,6 +894,8 @@
 		D706C76A1D36429600381886 /* datasets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = datasets.json; sourceTree = "<group>"; };
 		D706C76F1D36448200381886 /* MendeleyDatasetModellerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyDatasetModellerTests.m; sourceTree = "<group>"; };
 		D7A3C0AE1D490E0B00CF12A9 /* licences.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = licences.json; sourceTree = "<group>"; };
+		D7A3C0DF1D4BAE5300CF12A9 /* MendeleyKitOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MendeleyKitOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7A3C0E31D4BAE5400CF12A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFDCE2E92DC2090614D79B17 /* Pods-MendeleyKitiOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitiOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitiOSTests/Pods-MendeleyKitiOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F121F55BE4CD06F6F3C91312 /* Pods-MendeleyKitiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitiOSTests/Pods-MendeleyKitiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -889,6 +959,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7A3C0DC1D4BAE5300CF12A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7A3C0E41D4BAE5400CF12A9 /* MendeleyKitOSX.framework in Frameworks */,
+				7A743EA58D75C657D1E53657 /* libPods-MendeleyKitOSXTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -915,6 +994,8 @@
 				0F7FE6F8D2A0E0F2771226C7 /* Pods-MendeleyKitTests.release.xcconfig */,
 				DFDCE2E92DC2090614D79B17 /* Pods-MendeleyKitiOSTests.debug.xcconfig */,
 				F121F55BE4CD06F6F3C91312 /* Pods-MendeleyKitiOSTests.release.xcconfig */,
+				732F0A391959A588D5BAFFCB /* Pods-MendeleyKitOSXTests.debug.xcconfig */,
+				A304643800733756F1157F04 /* Pods-MendeleyKitOSXTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1348,6 +1429,7 @@
 				C42111911A233AC7006C044C /* MendeleyKitOSX */,
 				C466564D1B3842AF005F762A /* MendeleyKitiOS */,
 				C46656591B3842B0005F762A /* MendeleyKitiOSTests */,
+				D7A3C0E01D4BAE5300CF12A9 /* MendeleyKitOSXTests */,
 				C4CD513D19DAD9E400C8EB8D /* Frameworks */,
 				C4CD513C19DAD9E400C8EB8D /* Products */,
 				BC8B75FE7E591BB0E3D3CA78 /* Pods */,
@@ -1362,6 +1444,7 @@
 				C42111901A233AC7006C044C /* MendeleyKitOSX.framework */,
 				C466564C1B3842AF005F762A /* MendeleyKitiOS.framework */,
 				C46656551B3842B0005F762A /* MendeleyKitiOSTests.xctest */,
+				D7A3C0DF1D4BAE5300CF12A9 /* MendeleyKitOSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1385,6 +1468,7 @@
 				C4CD514F19DAD9E400C8EB8D /* UIKit.framework */,
 				9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */,
 				5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */,
+				366BF49819F94E01DE1C36DE /* libPods-MendeleyKitOSXTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1477,6 +1561,14 @@
 				373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */,
 			);
 			name = "Sample JSON responses";
+			sourceTree = "<group>";
+		};
+		D7A3C0E01D4BAE5300CF12A9 /* MendeleyKitOSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7A3C0E31D4BAE5400CF12A9 /* Info.plist */,
+			);
+			path = MendeleyKitOSXTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1754,6 +1846,27 @@
 			productReference = C4CD514B19DAD9E400C8EB8D /* MendeleyKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D7A3C0DE1D4BAE5300CF12A9 /* MendeleyKitOSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7A3C0E91D4BAE5400CF12A9 /* Build configuration list for PBXNativeTarget "MendeleyKitOSXTests" */;
+			buildPhases = (
+				83186CA70A068E44C8081906 /* [CP] Check Pods Manifest.lock */,
+				D7A3C0DB1D4BAE5300CF12A9 /* Sources */,
+				D7A3C0DC1D4BAE5300CF12A9 /* Frameworks */,
+				D7A3C0DD1D4BAE5300CF12A9 /* Resources */,
+				77FB8AEE4B79C0F05257C49A /* [CP] Embed Pods Frameworks */,
+				7964046578F4525B70AC0973 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D7A3C0E61D4BAE5400CF12A9 /* PBXTargetDependency */,
+			);
+			name = MendeleyKitOSXTests;
+			productName = MendeleyKitOSXTests;
+			productReference = D7A3C0DF1D4BAE5300CF12A9 /* MendeleyKitOSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1761,7 +1874,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Mendeley;
 				TargetAttributes = {
 					C421118F1A233AC7006C044C = {
@@ -1772,6 +1885,9 @@
 					};
 					C46656541B3842B0005F762A = {
 						CreatedOnToolsVersion = 7.0;
+					};
+					D7A3C0DE1D4BAE5300CF12A9 = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
 			};
@@ -1792,6 +1908,7 @@
 				C421118F1A233AC7006C044C /* MendeleyKitOSX */,
 				C466564B1B3842AF005F762A /* MendeleyKitiOS */,
 				C46656541B3842B0005F762A /* MendeleyKitiOSTests */,
+				D7A3C0DE1D4BAE5300CF12A9 /* MendeleyKitOSXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1868,6 +1985,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7A3C0DD1D4BAE5300CF12A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7A3C10E1D4BAFDE00CF12A9 /* dataset.json in Resources */,
+				D7A3C1101D4BAFDE00CF12A9 /* disciplines.json in Resources */,
+				D7A3C1121D4BAFDE00CF12A9 /* documentList.json in Resources */,
+				D7A3C10C1D4BAFDE00CF12A9 /* catalogue.json in Resources */,
+				D7A3C11B1D4BAFDE00CF12A9 /* recentlyReadObject.json in Resources */,
+				D7A3C1141D4BAFDE00CF12A9 /* folders.json in Resources */,
+				D7A3C10B1D4BAFDE00CF12A9 /* annotation.json in Resources */,
+				D7A3C1161D4BAFDE00CF12A9 /* group.json in Resources */,
+				D7A3C1111D4BAFDE00CF12A9 /* document.json in Resources */,
+				D7A3C1181D4BAFDE00CF12A9 /* licences.json in Resources */,
+				D7A3C11E1D4BB2E600CF12A9 /* GettingStartedGuide.pdf in Resources */,
+				D7A3C1191D4BAFDE00CF12A9 /* profiles.json in Resources */,
+				D7A3C11A1D4BAFDE00CF12A9 /* recentlyReadArray.json in Resources */,
+				D7A3C1151D4BAFDE00CF12A9 /* followers.json in Resources */,
+				D7A3C11C1D4BAFDE00CF12A9 /* followRequest.json in Resources */,
+				D7A3C1171D4BAFDE00CF12A9 /* groupList.json in Resources */,
+				D7A3C11D1D4BAFDE00CF12A9 /* followAcceptance.json in Resources */,
+				D7A3C10A1D4BAFDE00CF12A9 /* academic_statuses.json in Resources */,
+				D7A3C10F1D4BAFDE00CF12A9 /* datasets.json in Resources */,
+				D7A3C10D1D4BAFDE00CF12A9 /* catalogueArray.json in Resources */,
+				D7A3C1131D4BAFDE00CF12A9 /* folderContent.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1901,6 +2046,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MendeleyKitiOSTests/Pods-MendeleyKitiOSTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		77FB8AEE4B79C0F05257C49A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MendeleyKitOSXTests/Pods-MendeleyKitOSXTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7964046578F4525B70AC0973 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MendeleyKitOSXTests/Pods-MendeleyKitOSXTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		815E227FAF9B438D8C025191 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1914,6 +2089,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83186CA70A068E44C8081906 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		AC8836685D97A921CDC3CF3C /* [CP] Embed Pods Frameworks */ = {
@@ -2023,6 +2213,7 @@
 				C42111EB1A2341A9006C044C /* MendeleyMetadataAPI.m in Sources */,
 				D706C7601D33F35D00381886 /* MendeleyDatasetsAPI.m in Sources */,
 				C48EF2051B735EA90023916F /* MendeleyAnalyticsCacheManager.swift in Sources */,
+				D759044E1D5328BF00A6B1DF /* MendeleyKitLoginHelper.swift in Sources */,
 				C42111EC1A2341A9006C044C /* MendeleyObjectAPI.m in Sources */,
 				C42111ED1A2341A9006C044C /* MendeleyProfilesAPI.m in Sources */,
 				C48EF2071B735EB00023916F /* MendeleyDefaultAnalytics.swift in Sources */,
@@ -2299,6 +2490,47 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7A3C0DB1D4BAE5300CF12A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7A3C1001D4BAFD200CF12A9 /* MendeleyDisciplineModellerTest.m in Sources */,
+				D7A3C1031D4BAFD200CF12A9 /* MendeleyObjectHelperTests.m in Sources */,
+				D7A3C0F91D4BAFCC00CF12A9 /* MendeleyKitConfigurationTests.m in Sources */,
+				D7A3C0F01D4BAFB600CF12A9 /* MendeleySimpleNetworkProviderTests.m in Sources */,
+				D7A3C0FD1D4BAFD200CF12A9 /* MendeleyAnnotationsAPITests.m in Sources */,
+				D7A3C0F61D4BAFC100CF12A9 /* MendeleyPerformanceMeterTests.m in Sources */,
+				D7A3C0EE1D4BAFB600CF12A9 /* MendeleyReachabilityTests.m in Sources */,
+				D759044C1D5327E000A6B1DF /* MendeleyAnalyticsTests.swift in Sources */,
+				D7A3C0ED1D4BAFB600CF12A9 /* MendeleyOAuthStoreTests.m in Sources */,
+				D759044D1D53288A00A6B1DF /* MendeleyKitLoginHelperTests.swift in Sources */,
+				D7A3C0F31D4BAFC100CF12A9 /* MendeleyErrorCategoriesTests.m in Sources */,
+				D7A3C1081D4BAFD700CF12A9 /* MendeleyProfilesAPITests.m in Sources */,
+				D7A3C1051D4BAFD200CF12A9 /* MendeleyFollowTests.m in Sources */,
+				D7A3C0EA1D4BAFB600CF12A9 /* MendeleySyncInfoTests.m in Sources */,
+				D7A3C0FC1D4BAFD200CF12A9 /* MendeleyAcademicStatusTests.m in Sources */,
+				D75904501D532A3E00A6B1DF /* MendeleyAnnotationTests.m in Sources */,
+				D7A3C0FB1D4BAFCC00CF12A9 /* MendeleyKitTestBaseClass.m in Sources */,
+				D7A3C0F51D4BAFC100CF12A9 /* MendeleyLogTests.m in Sources */,
+				D7A3C0F81D4BAFCC00CF12A9 /* MendeleyMockNetworkProviderTests.m in Sources */,
+				D7A3C0FF1D4BAFD200CF12A9 /* MendeleyCatalogDocumentsModellerTests.m in Sources */,
+				D7A3C0F21D4BAFC100CF12A9 /* NSDictionaryMergeCategoryTests.m in Sources */,
+				D7A3C1041D4BAFD200CF12A9 /* MendeleyRecentlyReadTests.m in Sources */,
+				D7A3C1011D4BAFD200CF12A9 /* MendeleyModellerTest.m in Sources */,
+				D7A3C0F71D4BAFCC00CF12A9 /* MendeleyMockNetworkProvider.m in Sources */,
+				D7A3C1061D4BAFD200CF12A9 /* MendeleyDatasetModellerTests.m in Sources */,
+				D7A3C0EF1D4BAFB600CF12A9 /* MendeleyResponseTests.m in Sources */,
+				D7A3C0EB1D4BAFB600CF12A9 /* MendeleyQueryParameterTests.m in Sources */,
+				D759044F1D5329B800A6B1DF /* MendeleyAnnotationModellerTest.m in Sources */,
+				D7A3C0F41D4BAFC100CF12A9 /* MendeleyErrorManagerTests.m in Sources */,
+				D7A3C1091D4BAFD700CF12A9 /* MendeleyKitTests.m in Sources */,
+				D7A3C0FA1D4BAFCC00CF12A9 /* MendeleyKitTestsThreadHelper.m in Sources */,
+				D7A3C0F11D4BAFB600CF12A9 /* MendeleyNSURLConnectionProviderTests.m in Sources */,
+				D7A3C1021D4BAFD200CF12A9 /* MendeleyModelTest.m in Sources */,
+				D7A3C0EC1D4BAFB600CF12A9 /* MendeleyNetworkingTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2311,6 +2543,11 @@
 			isa = PBXTargetDependency;
 			target = C4CD513A19DAD9E400C8EB8D /* MendeleyKit */;
 			targetProxy = C4CD515119DAD9E400C8EB8D /* PBXContainerItemProxy */;
+		};
+		D7A3C0E61D4BAE5400CF12A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C421118F1A233AC7006C044C /* MendeleyKitOSX */;
+			targetProxy = D7A3C0E51D4BAE5400CF12A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2352,6 +2589,7 @@
 				MODULE_NAME = com.mendeley.MendeleyKit;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				New_Setting = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2383,6 +2621,7 @@
 				MODULE_NAME = com.mendeley.MendeleyKit;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				New_Setting = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2423,7 +2662,7 @@
 				MODULE_NAME = com.mendeley.MendeleyKit;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2462,7 +2701,7 @@
 				MODULE_NAME = com.mendeley.MendeleyKit;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2538,6 +2777,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2643,6 +2883,7 @@
 				);
 				INFOPLIST_FILE = "MendeleyKitTests/MendeleyKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKitTests/MendeleyKitTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2664,9 +2905,54 @@
 				GCC_PREFIX_HEADER = "MendeleyKit/MendeleyKit-Prefix.pch";
 				INFOPLIST_FILE = "MendeleyKitTests/MendeleyKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKitTests/MendeleyKitTests-Bridging-Header.h";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		D7A3C0E71D4BAE5400CF12A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 732F0A391959A588D5BAFFCB /* Pods-MendeleyKitOSXTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = MendeleyKitOSXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mendeley.MendeleyKitOSXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D7A3C0E81D4BAE5400CF12A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A304643800733756F1157F04 /* Pods-MendeleyKitOSXTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = MendeleyKitOSXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mendeley.MendeleyKitOSXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -2723,6 +3009,15 @@
 			buildConfigurations = (
 				C4CD516219DAD9E400C8EB8D /* Debug */,
 				C4CD516319DAD9E400C8EB8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7A3C0E91D4BAE5400CF12A9 /* Build configuration list for PBXNativeTarget "MendeleyKitOSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7A3C0E71D4BAE5400CF12A9 /* Debug */,
+				D7A3C0E81D4BAE5400CF12A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

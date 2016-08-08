@@ -113,20 +113,32 @@
         MendeleyLogMessage(kMendeleyLogDomain, arc4random() % 4, @"%i", i);
     }
 
-    // test limit and order on memory
-    NSArray *logsArray = [[MendeleyLog sharedInstance] temporaryLogQueue];
-    XCTAssertTrue(!([logsArray count] > 1000), @"Memory Flow Array size exceed the limit. Should be 1000 but is %lu", (unsigned long) logsArray.count);
-    NSString *lastObjectMessage = [[logsArray lastObject] objectForKey:@"message"];
-    BOOL isRightEndMessage = [lastObjectMessage isEqualToString:@"1099"] || [lastObjectMessage isEqualToString:@"1098"];
-    XCTAssertTrue(isRightEndMessage, @"Last Log Inserted in Memory Flow Array is not last flow object. last message is %@", lastObjectMessage);
+    // logs are saved asynchronously, so we need to wait to make sure this call gets registered
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Record log"];
 
-    // test limit and order on disk
-    NSURL *fileURL = [[MendeleyLog sharedInstance] createFormattedActivityLogFileAndExportURL];
-    NSDictionary *plist = [NSMutableDictionary dictionaryWithContentsOfURL:fileURL];
-    XCTAssertTrue(!([[plist objectForKey:@"flow"] count] > 1000), @"Disk Flow Array size exceed the limit");
-    NSString *lastObjectMessageOnDisk = [[(NSArray *) [plist objectForKey:@"flow"] lastObject] objectForKey:@"message"];
-    XCTAssertTrue([lastObjectMessageOnDisk isEqualToString:@"1099"], @"Last Object written to disk '%@' is not last flow object", lastObjectMessageOnDisk);
-    [[MendeleyLog sharedInstance] cleanExportedLogFile];
+    // we wait for 0.1 second before we check the log queue
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // test limit and order on memory
+        NSArray *logsArray = [[MendeleyLog sharedInstance] temporaryLogQueue];
+        XCTAssertLessThanOrEqual([logsArray count], 1000, @"Memory Flow Array size exceed the limit. Should be 1000 but is %lu", (unsigned long) logsArray.count);
+        NSString *lastObjectMessage = [[logsArray lastObject] objectForKey:@"message"];
+        BOOL isRightEndMessage = [lastObjectMessage isEqualToString:@"1099"] || [lastObjectMessage isEqualToString:@"1098"];
+        XCTAssertTrue(isRightEndMessage, @"Last Log Inserted in Memory Flow Array is not last flow object. last message is %@", lastObjectMessage);
+
+        // test limit and order on disk
+        NSURL *fileURL = [[MendeleyLog sharedInstance] createFormattedActivityLogFileAndExportURL];
+        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfURL:fileURL];
+        XCTAssertLessThanOrEqual([plist[@"flow"] count], 1000, @"Disk Flow Array size exceed the limit");
+        NSString *lastObjectMessageOnDisk = [[(NSArray *)plist[@"flow"] lastObject] objectForKey:@"message"];
+        XCTAssertTrue([lastObjectMessageOnDisk isEqualToString:@"1099"], @"Last Object written to disk '%@' is not last flow object", lastObjectMessageOnDisk);
+
+        [[MendeleyLog sharedInstance] cleanExportedLogFile];
+
+        [expectation fulfill];
+    });
+
+    // we tell the test framework to wait for 1 second for the expectation to be fulfilled
+    [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
 - (NSString *)fooFromPath:(NSString *)path error:(NSError **)anError
