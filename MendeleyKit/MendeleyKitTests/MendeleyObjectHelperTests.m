@@ -211,6 +211,27 @@
     {
         XCTAssertTrue([model isKindOfClass:[MendeleyPerson class]], @"We expected the model to be of type MendeleyPerson but got back %@", NSStringFromClass([model class]));
     }
+    
+    model = [MendeleyObjectHelper modelFromClassName:kMendeleyModelUserProfile error:&error];
+    XCTAssertNotNil(model, @"we expected to have a model class created");
+    if (nil != model)
+    {
+        XCTAssertTrue([model isKindOfClass:[MendeleyUserProfile class]], @"We expected the model to be of type MendeleyPerson but got back %@", NSStringFromClass([model class]));
+    }
+    
+    model = [MendeleyObjectHelper modelFromClassName:kMendeleyModelEmployment error:&error];
+    XCTAssertNotNil(model, @"we expected to have a model class created");
+    if (nil != model)
+    {
+        XCTAssertTrue([model isKindOfClass:[MendeleyEmployment class]], @"We expected the model to be of type MendeleyPerson but got back %@", NSStringFromClass([model class]));
+    }
+    
+    model = [MendeleyObjectHelper modelFromClassName:kMendeleyModelEducation error:&error];
+    XCTAssertNotNil(model, @"we expected to have a model class created");
+    if (nil != model)
+    {
+        XCTAssertTrue([model isKindOfClass:[MendeleyEducation class]], @"We expected the model to be of type MendeleyPerson but got back %@", NSStringFromClass([model class]));
+    }
 
     model = [MendeleyObjectHelper modelFromClassName:@"SomeClass" error:&error];
     XCTAssertNil(model, @"we shouldn't be able to create this class");
