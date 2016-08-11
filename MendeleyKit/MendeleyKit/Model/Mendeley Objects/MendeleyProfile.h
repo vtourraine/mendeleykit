@@ -93,7 +93,7 @@
 @property (nonatomic, strong) MendeleyDiscipline *discipline;
 @property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
 @property (nonatomic, strong) MendeleyPhoto *photo;
-@property (nonatomic, strong) NSArray <MendeleyPhoto *> *photos;
+@property (nonatomic, strong) NSArray <MendeleyImage *> *photos;
 @property (nonatomic, strong) NSNumber *verified;
 @property (nonatomic, strong) NSNumber *marketing;
 @property (nonatomic, strong) NSString *user_type;

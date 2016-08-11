@@ -202,6 +202,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIDatasetWithID                     @"datasets/%@"
 #define kMendeleyRESTAPIDatasetsLicences                  @"datasets/licences"
 #define kMendeleyRESTAPIApplicationFeatures               @"application_features"
+#define kMendeleyRESTAPIPhotosMe                          @"photos/me"
 
 /***********************************************
    @name REST API Query Parameters
@@ -277,6 +278,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONDescription                          @"description"
 #define kMendeleyJSONVersion                              @"version"
 #define kMendeleyJSONDateTimeFormat                       @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+#define kMendeleyShortJSONDateTimeFormat                  @"yyyy-MM-dd"
 #define kMendeleyHTTPHeaderDateFormat                     @"EEE', 'dd' 'MMM' 'yyyy' 'HH':'mm':'ss' GMT"
 #define kMendeleyObjectID                                 @"object_ID"
 #define kMendeleyObjectDescription                        @"objectDescription"
