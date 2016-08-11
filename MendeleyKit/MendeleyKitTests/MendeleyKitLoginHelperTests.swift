@@ -39,7 +39,7 @@ class MendeleyKitLoginHelperTests: XCTestCase
     
     func testAuthenticationCodeFromRequest()
     {
-        let url = NSURL(string: "http://localhost/auth_return?code=1234")
+        let url = URL(string: "http://localhost/auth_return?code=1234")
         
         let helper = MendeleyKitLoginHelper()
         
@@ -55,7 +55,7 @@ class MendeleyKitLoginHelperTests: XCTestCase
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }

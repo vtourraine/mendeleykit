@@ -68,6 +68,7 @@ static NSMutableDictionary * keychainQueryDictionaryWithIdentifier()
 
     if (status != errSecSuccess)
     {
+        NSLog(@"Status is: not successful");
     }
 
     return (status == errSecSuccess);

@@ -26,8 +26,8 @@ class MendeleyAnalyticsTests: XCTestCase {
     func testClearCache()
     {
         manager.clearCache()
-        let fileManager = NSFileManager.defaultManager()
-        let exists = fileManager.fileExistsAtPath(manager.cacheFilePath)
+        let fileManager = FileManager.default
+        let exists = fileManager.fileExists(atPath: manager.cacheFilePath)
         XCTAssertFalse(exists, "file should not exist at the specified file path")
         
         let events = manager.eventsFromArchive()
@@ -37,7 +37,7 @@ class MendeleyAnalyticsTests: XCTestCase {
     func testAddEvent()
     {
         let testEvent = MendeleyAnalyticsEvent()
-        let profileID = NSUUID().UUIDString
+        let profileID = UUID().uuidString
         testEvent.profile_uuid = profileID
         testEvent.name = "TestPDFEvent"
         manager.addMendeleyAnalyticsEvent(testEvent)
@@ -67,7 +67,7 @@ class MendeleyAnalyticsTests: XCTestCase {
         
         let cachedEvents = manager.eventsFromArchive()
         XCTAssertTrue(20 == cachedEvents.count,"expected 20 events but got \(cachedEvents.count)")
-        for (index, event) in cachedEvents.enumerate()
+        for (index, event) in cachedEvents.enumerated()
         {
             let name = "TestPDFEvent\(index)"
             let profile = "ProfileID_\(index)"
@@ -80,7 +80,7 @@ class MendeleyAnalyticsTests: XCTestCase {
     func testLogEvent()
     {
         let analytics = MendeleyDefaultAnalytics.sharedInstance
-        let profileID = NSUUID().UUIDString
+        let profileID = UUID().uuidString
         analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
         
         analytics.logMendeleyAnalyticsEvent("TestPDFEvent")
@@ -101,7 +101,7 @@ class MendeleyAnalyticsTests: XCTestCase {
     func testLogEvents()
     {
         let analytics = MendeleyDefaultAnalytics.sharedInstance
-        let profileID = NSUUID().UUIDString
+        let profileID = UUID().uuidString
         analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
         var array = [MendeleyAnalyticsEvent]()
         for count in 0 ..< 20

@@ -125,11 +125,6 @@
         }
     };
     
-#ifdef MendeleyKitiOSFramework
-    /**
-     login handler needs to be retained by the class otherwise we get out of scope
-     and the callbacks to the handler never get called
-     */
     self.loginHandler = [MendeleyLoginWebKitHandler new];
     
     [self.loginHandler startLoginProcess:self.clientID
@@ -137,6 +132,8 @@
                               controller:self
                        completionHandler:self.completionBlock
                             oauthHandler:oAuthCompletionBlock];
+/**
+#ifdef MendeleyKitiOSFramework
 #else
     self.loginHandler = [MendeleyLoginHandleriOS7 new];
     [self.loginHandler startLoginProcessWithClientID:self.clientID
@@ -146,7 +143,7 @@
                                 oauthCompletionBlock:oAuthCompletionBlock];
 
 #endif
-    
+*/
     
 }
 
