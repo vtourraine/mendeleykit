@@ -21,7 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters;
 
 @protocol MendeleyNetworkProvider;
 
@@ -898,6 +898,17 @@
  */
 - (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Recommendations
+
+// GET /recommendations/based_on_library_articles
+- (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
+                                                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+// POST /recommendations/action/feedback
+- (void)feedbackOnRecommendation:(NSString *)feedback
+                            task:(MendeleyTask *)task
+                 completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Datasets
 /**

@@ -44,7 +44,7 @@
 #import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
 #import "MendeleyPhotosMeAPI.h"
-
+#import "MendeleyRecommendationsAPI.h"
 
 
 @interface MendeleyKit ()
@@ -65,6 +65,7 @@
 @property (nonatomic, strong, nonnull) MendeleyDatasetsAPI *datasetsAPI;
 @property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
 @property (nonatomic, strong, nonnull) MendeleyPhotosMeAPI *photosAPI;
+@property (nonatomic, strong, nonnull) MendeleyRecommendationsAPI *recommendationsAPI;
 @end
 
 @implementation MendeleyKit
@@ -1439,6 +1440,31 @@
     } completionBlock:completionBlock];
 
     return task;
+}
+
+#pragma mark - Recommendations
+
+// GET /recommendations/based_on_library_articles
+- (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
+                                                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.recommendationsAPI recommendationsBasedOnLibraryArticlesWithParameters:queryParameters
+                                                                                task:task
+                                                                     completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+// POST /recommendations/action/feedback
+- (void)feedbackOnRecommendation:(NSString *)feedback
+                            task:(MendeleyTask *)task
+                 completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+
 }
 
 #pragma mark - Datasets
