@@ -43,6 +43,8 @@
 #import "MendeleyFollowersAPI.h"
 #import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
+#import "MendeleyPhotosMeAPI.h"
+
 
 
 @interface MendeleyKit ()
@@ -62,6 +64,7 @@
 @property (nonatomic, strong, nonnull) MendeleyFollowersAPI *followersAPI;
 @property (nonatomic, strong, nonnull) MendeleyDatasetsAPI *datasetsAPI;
 @property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
+@property (nonatomic, strong, nonnull) MendeleyPhotosMeAPI *photosAPI;
 @end
 
 @implementation MendeleyKit
@@ -153,7 +156,10 @@
     self.featuresAPI = [[MendeleyApplicationFeaturesAPI alloc]
                         initWithNetworkProvider:self.networkProvider
                         baseURL:baseURL];
-
+    
+    self.photosAPI = [[MendeleyPhotosMeAPI alloc]
+                      initWithNetworkProvider: self.networkProvider
+                      baseURL: baseURL];
 }
 
 - (BOOL)isAuthenticated
@@ -451,6 +457,24 @@
 
     return task;
 
+}
+
+#pragma mark - Photos
+
+- (MendeleyTask *)uploadPhotoWithFile:(NSURL *)fileURL
+                contentType:(NSString *)contentType
+              contentLength:(NSInteger)contentLength
+              progressBlock:(MendeleyResponseProgressBlock)progressBlock
+            completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self.photosAPI uploadPhotoWithFile:fileURL
+                            contentType:contentType
+                          contentLength:contentLength
+                                   task:task
+                          progressBlock:progressBlock
+                        completionBlock:completionBlock];
+    return task;
 }
 
 

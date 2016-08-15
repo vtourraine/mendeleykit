@@ -28,6 +28,11 @@
 + (NSDateFormatter *)jsonDateFormatter;
 
 /**
+ the short version of standard JSON data type for parsing/writing JSON dates
+ */
++ (NSDateFormatter *)shortJsonDateFormatter;
+
+/**
    a dictionary containing a map between JSON property names and model properties where 1-2-1 isn't possible
  */
 + (NSDictionary *)jsonPropertyDictionary;
