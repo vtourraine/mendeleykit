@@ -22,8 +22,8 @@
 #import <MendeleyKitiOS/MendeleyKitiOS.h>
 
 @interface GroupListLazyLoadingTableViewController ()
-@property (nonatomic, strong) NSArray *groups;
-@property (nonatomic, strong) NSMutableDictionary *iconDictionary;
+@property (nonatomic, strong) NSArray <MendeleyGroup *> *groups;
+@property (nonatomic, strong) NSMutableDictionary <NSIndexPath *, UIImage *> *iconDictionary;
 @end
 
 
@@ -34,7 +34,7 @@
     self = [super initWithStyle:style];
     if (nil != self)
     {
-        _groups = [NSArray array];
+        _groups = @[];
         _iconDictionary = [NSMutableDictionary dictionary];
     }
     return self;
@@ -43,7 +43,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.title = NSLocalizedString(@"Groups", nil);
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     /**
      This code downloads the first 'page' of groups. MendeleyKit has a default page size of 50
      which for most users will be sufficient downloading all of their groups.
@@ -53,33 +57,19 @@
      are all equivalent.
      */
     MendeleyGroupParameters *parameters = [MendeleyGroupParameters new];
-    
+
     /**
      This is the code that downloads the groups without icons.
      */
     [[MendeleyKit sharedInstance] groupListWithQueryParameters:parameters completionBlock:^(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error) {
-        if (nil != array && 0 < array.count)
-        {
-            self.groups = [NSArray arrayWithArray:array];
-            [self.tableView reloadData];
-        }
-    }];
-    
-    
-}
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+        self.groups = array;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -95,11 +85,12 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    
-    MendeleyGroup *group = [self.groups objectAtIndex:indexPath.row];
-    
+
+    MendeleyGroup *group = self.groups[indexPath.row];
+
     cell.textLabel.text = group.name;
-    UIImage *iconImage = [self.iconDictionary objectForKey:indexPath];
+
+    UIImage *iconImage = self.iconDictionary[indexPath];
     if (nil != iconImage)
     {
         cell.imageView.image = iconImage;
@@ -112,10 +103,11 @@
         }
         cell.imageView.image = [self blankImage];
     }
-    
+
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     return cell;
 }
-
 
 - (void)downloadIconForGroup:(MendeleyGroup *)group indexPath:(NSIndexPath *)indexPath;
 {
@@ -128,13 +120,11 @@
             [self.iconDictionary setObject:image forKey:indexPath];
         }
     }];
-
 }
-
 
 - (UIImage *)blankImage
 {
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(29, 29), NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(29, 29), NO, [UIScreen mainScreen].scale);
     UIImage *blank = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return blank;

@@ -34,7 +34,7 @@ static NSDateFormatter * headerDateFormatter()
 
 @interface MendeleySyncInfo ()
 @property (nonatomic, strong, readwrite) NSDate *syncDate;
-@property (nonatomic, strong, readwrite) NSDictionary *linkDictionary;
+@property (nonatomic, strong, readwrite) NSDictionary <NSString *, NSURL *> *linkDictionary;
 @property (nonatomic, strong, readwrite) NSNumber *totalCount;
 @property (nonatomic, strong, readwrite) NSString *modelVersion;
 

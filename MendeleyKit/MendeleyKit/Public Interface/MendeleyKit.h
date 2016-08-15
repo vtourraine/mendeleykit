@@ -21,7 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters;
 
 @protocol MendeleyNetworkProvider;
 
@@ -184,6 +184,22 @@
  */
 - (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+#pragma mark - Photos
+
+/**
+ Upload a new original photo asset for my profile.
+ @param fileURL
+ @param contentType
+ @param contentLenght
+ @param progressBlock
+ @param completionBlock
+ */
+- (MendeleyTask *)uploadPhotoWithFile:(NSURL *)fileURL
+                contentType:(NSString *)contentType
+              contentLength:(NSInteger)contentLength
+              progressBlock:(MendeleyResponseProgressBlock)progressBlock
+            completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Documents
 /**
@@ -882,6 +898,46 @@
  */
 - (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Datasets
+/**
+ @name datasets API methods
+ */
+
+/**
+ obtains a list of datasets for the first page.
+ @param queryParameters the parameter set to be used in the request
+ @param completionBlock returns the list of datasets if found
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)datasetListWithQueryParameters:(MendeleyDatasetParameters *)queryParameters
+                                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+/**
+ This method is only used when paging through a list of datasets on the server.
+ All required parameters are provided in the linkURL, which should not be modified
+
+ @param linkURL the full HTTP link to the dataset listings page
+ @param completionBlock returning array of datasets
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)datasetListWithLinkedURL:(NSURL *)linkURL
+                           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+ obtains a dataset for given ID from the library
+ @param datasetID the UUID of the dataset
+ @param completionBlock returning the document
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)datasetWithDatasetID:(NSString *)datasetID
+                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ obtains a list of licences that can be applied to datasets
+ @param completionBlock returns the list of licences if found
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)datasetLicencesListWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark - Features
 /**

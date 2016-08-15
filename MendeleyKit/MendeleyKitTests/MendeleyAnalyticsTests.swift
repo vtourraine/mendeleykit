@@ -1,23 +1,38 @@
-//
-//  MendeleyAnalyticsTests.swift
-//  MendeleyKit
-//
-//  Created by Peter Schmidt on 27/07/2015.
-//  Copyright © 2015 Mendeley. All rights reserved.
-//
+/*
+ ******************************************************************************
+ * Copyright (C) 2014-2017 Elsevier/Mendeley.
+ *
+ * This file is part of the Mendeley iOS SDK.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *****************************************************************************
+ */
 
 import XCTest
+#if os(iOS)
 import MendeleyKitiOS
+#elseif os(OSX)
+import MendeleyKitOSX
+#endif
 
 class MendeleyAnalyticsTests: XCTestCase {
-    
+
     let manager = MendeleyAnalyticsCacheManager()
-    
+
     override func setUp() {
         super.setUp()
-        
     }
-    
+
     override func tearDown() {
         manager.clearCache()
         super.tearDown()
@@ -55,7 +70,7 @@ class MendeleyAnalyticsTests: XCTestCase {
     func testAddEvents()
     {
         var array = [MendeleyAnalyticsEvent]()
-        for var count = 0; count < 20; count++
+        for count in 0 ..< 20
         {
             let event = MendeleyAnalyticsEvent()
             event.name = "TestPDFEvent\(count)"
@@ -67,16 +82,13 @@ class MendeleyAnalyticsTests: XCTestCase {
         
         let cachedEvents = manager.eventsFromArchive()
         XCTAssertTrue(20 == cachedEvents.count,"expected 20 events but got \(cachedEvents.count)")
-        var index = 0
-        for event in cachedEvents
+        for (index, event) in cachedEvents.enumerate()
         {
             let name = "TestPDFEvent\(index)"
             let profile = "ProfileID_\(index)"
             XCTAssertTrue(name == event.name,"expected name \(name) but got \(event.name)")
             XCTAssertTrue(profile == event.profile_uuid,"expected name \(profile) but got \(event.profile_uuid)")
-            index++
         }
-
     }
     
     func testLogEvent()
@@ -84,9 +96,8 @@ class MendeleyAnalyticsTests: XCTestCase {
         let analytics = MendeleyDefaultAnalytics.sharedInstance
         let profileID = NSUUID().UUIDString
         analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
-        
+
         analytics.logMendeleyAnalyticsEvent("TestPDFEvent")
-        
 
         let cachedEvents = manager.eventsFromArchive()
         XCTAssertTrue(0 < cachedEvents.count, "We should have at least 1 event but got \(cachedEvents.count)")
@@ -96,8 +107,6 @@ class MendeleyAnalyticsTests: XCTestCase {
             XCTAssertTrue(returnedEvent.profile_uuid == profileID, "expected profile ID\(profileID) but got \(returnedEvent.profile_uuid)")
             XCTAssertTrue(returnedEvent.name == "TestPDFEvent", "Expected name 'TestPDFEvent' but got \(returnedEvent.name)")
         }
-        
-        
     }
     
     func testLogEvents()
@@ -106,7 +115,7 @@ class MendeleyAnalyticsTests: XCTestCase {
         let profileID = NSUUID().UUIDString
         analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
         var array = [MendeleyAnalyticsEvent]()
-        for var count = 0; count < 20; count++
+        for count in 0 ..< 20
         {
             let event = MendeleyAnalyticsEvent()
             event.name = "TestPDFEvent\(count)"
@@ -115,7 +124,5 @@ class MendeleyAnalyticsTests: XCTestCase {
         analytics.logMendeleyAnalyticsEvents(array)
         let cachedEvents = manager.eventsFromArchive()
         XCTAssertTrue(20 == cachedEvents.count, "We should have 20 events but got \(cachedEvents.count)")
-        
     }
-    
 }

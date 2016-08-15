@@ -35,64 +35,59 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
         configureWebView(controller)
-        
+
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
         let request: NSURLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
-        self.webView!.loadRequest(request)
+        self.webView?.loadRequest(request)
     }
     
     public func configureWebView(controller: UIViewController)
     {
         let configuration = WKWebViewConfiguration()
-        webView = WKWebView(frame: controller.view.frame, configuration: configuration)
-        webView!.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-        controller.view.addSubview(webView!)
-        
-        webView!.navigationDelegate = self
+        let webView = WKWebView(frame: controller.view.frame, configuration: configuration)
+        webView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        webView.navigationDelegate = self
+        controller.view.addSubview(webView)
+
+        self.webView = webView
     }
-    
-    
+
     public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.absoluteString
         let requestURL = navigationAction.request.URL
-        if nil != requestURL
+        if let requestURL = requestURL
         {
-            if requestURL!.absoluteString.hasPrefix(baseURL)
+            if requestURL.absoluteString.hasPrefix(baseURL)
             {
                 decisionHandler(.Allow)
                 return
             }
         }
-        
+
         let helper = MendeleyKitLoginHelper()
-        let code = helper.getAuthenticationCode(navigationAction.request.URL!)
-        if nil != code
+        if let code = helper.getAuthenticationCode(requestURL!)
         {
-            oAuthProvider.authenticateWithAuthenticationCode(code!, completionBlock: oAuthCompletionBlock!)
+            oAuthProvider.authenticateWithAuthenticationCode(code, completionBlock: oAuthCompletionBlock!)
         }
-        
 
         decisionHandler(.Cancel)
     }
     
     public func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
         let userInfo = error.userInfo
-        let failingURLString: String? = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
-        if nil != failingURLString
+        if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
         {
             if oAuthProvider.urlStringIsRedirectURI(failingURLString)
             {
                 return
             }
-            
         }
-        if nil != completionBlock
+
+        if let unwrappedCompletionBlock = completionBlock
         {
-            completionBlock!(success: false, error: error)
+            unwrappedCompletionBlock(success: false, error: error)
         }
     }
-    
-    
 }

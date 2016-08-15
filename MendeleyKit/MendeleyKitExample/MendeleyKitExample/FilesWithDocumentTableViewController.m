@@ -26,34 +26,32 @@
 #define kTitleLabelTag 100
 
 @interface FilesWithDocumentTableViewController ()
-@property (nonatomic, strong) NSArray *documents;
-@property (nonatomic, strong) NSArray *files;
+@property (nonatomic, strong) NSArray <MendeleyDocument *> *documents;
+@property (nonatomic, strong) NSArray <MendeleyFile *> *files;
 @property (nonatomic, strong) UILabel *headerView;
 @end
 
 @implementation FilesWithDocumentTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self)
-    {
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.documents = [NSArray array];
+
+    self.title = NSLocalizedString(@"Documents", nil);
+
+    self.documents = @[];
     [self getFilesFromServer];
 }
 
 - (void)getFilesFromServer
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     [[MendeleyKit sharedInstance] fileListWithQueryParameters:nil completionBlock:^(NSArray *array, MendeleySyncInfo *syncInfo, NSError *error) {
          if (nil == array)
          {
+             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
              UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"An error occurred when retrieving files" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
              [errorAlert show];
          }
@@ -63,7 +61,6 @@
              [self getDocumentsFromServer];
          }
      }];
-
 }
 
 /**
@@ -80,6 +77,8 @@
     [[MendeleyKit sharedInstance] documentListWithQueryParameters:parameters completionBlock:^(NSArray *objectArray, MendeleySyncInfo *syncInfo, NSError *error) {
          if (nil == objectArray)
          {
+             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
              UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
              [errorAlert show];
          }
@@ -94,32 +93,34 @@
 {
     NSURL *next = [syncInfo.linkDictionary objectForKey:kMendeleyRESTHTTPLinkNext];
 
-    if (nil != next)
+    if (nil == next)
     {
-        [[MendeleyKit sharedInstance] documentListWithLinkedURL:next completionBlock:^(NSArray *objectArray, MendeleySyncInfo *updatedSyncInfo, NSError *error) {
-             if (nil == objectArray)
-             {
-                 UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                 [errorAlert show];
-                 self.documents = documents;
-                 [self updateTable];
-             }
-             else
-             {
-                 NSMutableArray *array = [NSMutableArray arrayWithArray:documents];
-                 [array addObjectsFromArray:objectArray];
-                 [self pageThroughDocuments:updatedSyncInfo documents:array];
-             }
-         }];
-    }
-    else
-    {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
         self.documents = documents;
         [self updateTable];
+
+        return;
     }
+
+    [[MendeleyKit sharedInstance] documentListWithLinkedURL:next completionBlock:^(NSArray *objectArray, MendeleySyncInfo *updatedSyncInfo, NSError *error) {
+        if (nil == objectArray)
+        {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oh dear" message:@"We couldn't get our documents" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [errorAlert show];
+
+            self.documents = documents;
+            [self updateTable];
+        }
+        else
+        {
+            NSArray *array = [documents arrayByAddingObjectsFromArray:objectArray];
+            [self pageThroughDocuments:updatedSyncInfo documents:array];
+        }
+    }];
 }
-
-
 
 - (void)updateTable
 {
@@ -133,17 +134,7 @@
     }
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
+#pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -158,24 +149,24 @@
     UILabel *label = nil;
     UILabel *pdfLabel = nil;
 
-    NSInteger rowHeight = 44;
+    const NSInteger RowHeight = 44;
     if (nil == cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identfier];
-        label = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 250, rowHeight)];
+
+        label = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 250, RowHeight)];
         label.backgroundColor = [UIColor clearColor];
         label.numberOfLines = 0;
-        label.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+        label.font = [UIFont systemFontOfSize:12];
         label.tag = kTitleLabelTag;
+        label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [cell.contentView addSubview:label];
 
-
-        pdfLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 40, rowHeight)];
+        pdfLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 40, RowHeight)];
         pdfLabel.textColor = [UIColor redColor];
         pdfLabel.backgroundColor = [UIColor clearColor];
         pdfLabel.tag = kPDFLabelTag;
         [cell.contentView addSubview:pdfLabel];
-
     }
     else
     {
@@ -183,7 +174,7 @@
         pdfLabel = (UILabel *) [cell.contentView viewWithTag:kPDFLabelTag];
     }
 
-    MendeleyDocument *document = [self.documents objectAtIndex:indexPath.row];
+    MendeleyDocument *document = self.documents[indexPath.row];
     label.text = document.title;
     NSArray *foundIDs = nil;
     if (nil != self.files && 0 < self.files.count)
@@ -191,7 +182,8 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"document_id contains %@", document.object_ID];
         foundIDs = [self.files filteredArrayUsingPredicate:predicate];
     }
-    if (nil != foundIDs && 0 < foundIDs.count)
+
+    if (0 < foundIDs.count)
     {
         pdfLabel.text = @"PDF";
     }
@@ -203,14 +195,16 @@
     return cell;
 }
 
+#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MendeleyDocument *document = [self.documents objectAtIndex:indexPath.row];
+    MendeleyDocument *document = self.documents[indexPath.row];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.document_id = %@", document.object_ID];
     MendeleyFile *file = [[self.files filteredArrayUsingPredicate:predicate] lastObject];
     DocumentDetailTableViewController *controller = [[DocumentDetailTableViewController alloc] initWithDocument:document file:file];
 
     [self.navigationController pushViewController:controller animated:YES];
 }
+
 @end

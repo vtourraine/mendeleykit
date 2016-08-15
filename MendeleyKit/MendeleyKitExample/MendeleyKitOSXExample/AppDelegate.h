@@ -30,9 +30,12 @@
 #define kMyClientID          @"<YOUR CLIENT ID>"
 #define kMyClientRedirectURI @"<YOUR REDIRECT URI>"
 
+@class MendeleyDocument;
+
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (nonatomic, strong) NSArray *documents;
+@property (nonatomic, strong) NSArray <MendeleyDocument *> *documents;
 
 - (IBAction)signOut:(id)sender;
 

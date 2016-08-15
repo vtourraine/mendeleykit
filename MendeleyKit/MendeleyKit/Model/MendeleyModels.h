@@ -24,6 +24,7 @@
 #import "MendeleyAcademicStatus.h"
 #import "MendeleyAnnotation.h"
 #import "MendeleyCatalogDocument.h"
+#import "MendeleyDataset.h"
 #import "MendeleyDocument.h"
 #import "MendeleyDocumentType.h"
 #import "MendeleyFile.h"

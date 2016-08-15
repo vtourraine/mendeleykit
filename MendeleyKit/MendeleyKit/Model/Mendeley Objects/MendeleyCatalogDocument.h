@@ -20,12 +20,15 @@
 
 #import "MendeleyObject.h"
 
+@class MendeleyPerson;
+
+
 @interface MendeleyCatalogDocument : MendeleyObject
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSNumber *reader_count;
-@property (nonatomic, strong) NSDictionary *reader_count_by_academic_status;
-@property (nonatomic, strong) NSDictionary *reader_count_by_subdiscipline;
-@property (nonatomic, strong) NSDictionary *reader_count_by_country;
+@property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *reader_count_by_academic_status;
+@property (nonatomic, strong) NSDictionary <NSString *, NSDictionary <NSString *, NSNumber *> *> *reader_count_by_subdiscipline;
+@property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *reader_count_by_country;
 /**
    NSNumber types (integer)
  */
@@ -41,15 +44,15 @@
 /**
    NSArray types (Person)
  */
-@property (nonatomic, strong) NSArray *authors;
-@property (nonatomic, strong) NSArray *editors;
-@property (nonatomic, strong) NSArray *websites;
-@property (nonatomic, strong) NSArray *keywords;
+@property (nonatomic, strong) NSArray <MendeleyPerson *> *authors;
+@property (nonatomic, strong) NSArray <MendeleyPerson *> *editors;
+@property (nonatomic, strong) NSArray <NSString *> *websites;
+@property (nonatomic, strong) NSArray <NSString *> *keywords;
 
 /**
    NSDictionary type (Identifiers, e.g. arxiv)
  */
-@property (nonatomic, strong) NSDictionary *identifiers;
+@property (nonatomic, strong) NSDictionary <NSString *, NSString *> *identifiers;
 
 /**
    NSDate types (stringDate)

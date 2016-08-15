@@ -22,11 +22,16 @@
 #import "MendeleyOAuthConstants.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <Security/Security.h>
+#import "MendeleyKitConfiguration.h"
 
 static NSMutableDictionary * keychainQueryDictionaryWithIdentifier()
 {
     NSMutableDictionary *queryDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:(__bridge id) kSecClassGenericPassword, kSecClass, kMendeleyOAuthCredentialServiceName, kSecAttrService, nil];
 
+    if ([MendeleyKitConfiguration sharedInstance].sharedKeyChainGroupName != nil)
+    {
+        queryDictionary[(__bridge __strong id)kSecAttrAccessGroup] = [MendeleyKitConfiguration sharedInstance].sharedKeyChainGroupName;
+    }
     [queryDictionary setValue:kMendeleyOAuthTokenIdentifier forKey:(__bridge id) kSecAttrAccount];
     return queryDictionary;
 }
