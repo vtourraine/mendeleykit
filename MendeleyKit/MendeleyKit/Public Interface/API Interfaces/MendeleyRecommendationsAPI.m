@@ -19,6 +19,11 @@
     return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONRecommendationsType };
 }
 
+- (NSDictionary *)feedbackServiceRequestHeaders
+{
+    return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONRecommendationFeedbackType };
+}
+
 - (NSDictionary *)feedbackBodyParametersWithTrace:(NSString *)trace userAction:(NSString *)userAction
 {
     return @{ kMendeleyJSONTrace: trace,
@@ -89,7 +94,7 @@
     
     [self.provider invokePOST:self.baseURL
                           api:kMendeleyRESTAPIRecommendationFeedback
-            additionalHeaders:[self defaultServiceRequestHeaders]
+            additionalHeaders:[self feedbackServiceRequestHeaders]
                bodyParameters:[self feedbackBodyParametersWithTrace:trace userAction:userAction]
                        isJSON:YES
        authenticationRequired:YES

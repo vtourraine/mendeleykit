@@ -145,6 +145,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONLicenceInfoType                 @"application/vnd.mendeley-licence-info.1+json"
 #define kMendeleyRESTRequestJSONApplicationFeaturesType         @"application/vnd.mendeley-features.1+json"
 #define kMendeleyRESTRequestJSONRecommendationsType             @"application/vnd.mendeley-article-rec.1+json"
+#define kMendeleyRESTRequestJSONRecommendationFeedbackType      @"application/vnd.mendeley-rec-feedback.1+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                        @"Accept-Language"
