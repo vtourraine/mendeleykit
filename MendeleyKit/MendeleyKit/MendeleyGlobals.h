@@ -274,7 +274,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelReaderCountByCountry                @"NSDictionary"
 #define kMendeleyModelReaderCountByDiscipline             @"NSDictionary"
 #define kMendeleyModelReaderCountByAcademicStatus         @"NSDictionary"
-#define kMendeleyModelRecommendations                     @"NSArray"
+#define kMendeleyModelRecommendations                     @"NSDictionary"
 
 /***********************************************
    @name JSON keys General
