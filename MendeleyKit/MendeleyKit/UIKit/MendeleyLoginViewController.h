@@ -39,6 +39,24 @@
             redirectURI:(NSString *)redirectURI
         completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+
+/**
+ Use this method if your client wants to handle the caching/storing of credentials
+ rather than the MendeleyKit handling it
+ initialises the login view controller with Client App details
+ @param clientKey
+ @param clientSecret
+ @param redirectURI
+ @param completionBlock
+ */
+
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+   oAuthCompletionBlock:(MendeleyOAuthCompletionBlock)oAuthCompletionBlock;
+
+
+
 /**
    custom initialisers
    The completion block BOOL variable is set to YES if login has been successful

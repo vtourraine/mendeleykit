@@ -506,7 +506,6 @@
 		C4CD515319DAD9E400C8EB8D /* libMendeleyKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CD513B19DAD9E400C8EB8D /* libMendeleyKit.a */; };
 		C4CD515919DAD9E400C8EB8D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4CD515719DAD9E400C8EB8D /* InfoPlist.strings */; };
 		C4D95B041B4186C20033FEF2 /* MendeleyKitLoginHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415E9E41B3ACDFE00C937E3 /* MendeleyKitLoginHelperTests.swift */; };
-		C4D95B071B4192F90033FEF2 /* MendeleyLoginHandleriOS7.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D95B061B4192F90033FEF2 /* MendeleyLoginHandleriOS7.m */; };
 		C4D95B081B4199820033FEF2 /* MendeleyCatalogDocumentsModellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C462886019DB17A700127ECE /* MendeleyCatalogDocumentsModellerTests.m */; };
 		C4F095081AA474D500C5951C /* academic_statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = C4F095071AA474D500C5951C /* academic_statuses.json */; };
 		C4F0950A1AA4771F00C5951C /* MendeleyAcademicStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F095091AA4771F00C5951C /* MendeleyAcademicStatusTests.m */; };
@@ -814,8 +813,6 @@
 		C4CD514F19DAD9E400C8EB8D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C4CD515619DAD9E400C8EB8D /* MendeleyKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MendeleyKitTests-Info.plist"; sourceTree = "<group>"; };
 		C4CD515819DAD9E400C8EB8D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C4D95B051B4192F90033FEF2 /* MendeleyLoginHandleriOS7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyLoginHandleriOS7.h; path = UIKit/MendeleyLoginHandleriOS7.h; sourceTree = "<group>"; };
-		C4D95B061B4192F90033FEF2 /* MendeleyLoginHandleriOS7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyLoginHandleriOS7.m; path = UIKit/MendeleyLoginHandleriOS7.m; sourceTree = "<group>"; };
 		C4D95B091B419B680033FEF2 /* MendeleyKitTestsBaseInclude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MendeleyKitTestsBaseInclude.h; sourceTree = "<group>"; };
 		C4F095071AA474D500C5951C /* academic_statuses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = academic_statuses.json; sourceTree = "<group>"; };
 		C4F095091AA4771F00C5951C /* MendeleyAcademicStatusTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyAcademicStatusTests.m; sourceTree = "<group>"; };
@@ -977,8 +974,6 @@
 				C46656271B37F239005F762A /* MendeleyKitLoginHelper.swift */,
 				C46656231B37EF68005F762A /* MendeleyLoginWebKitHandler.swift */,
 				C46657E11B385AB2005F762A /* MendeleyLoginHandler.swift */,
-				C4D95B051B4192F90033FEF2 /* MendeleyLoginHandleriOS7.h */,
-				C4D95B061B4192F90033FEF2 /* MendeleyLoginHandleriOS7.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -2227,7 +2222,6 @@
 				C85463921ADE8AB500754160 /* MendeleyFollowersAPI.m in Sources */,
 				C4A134CF19DADDD10069DB7A /* MendeleyCatalogDocument.m in Sources */,
 				C4A134D419DADDD10069DB7A /* MendeleyGroup.m in Sources */,
-				C4D95B071B4192F90033FEF2 /* MendeleyLoginHandleriOS7.m in Sources */,
 				C4A134FD19DADE850069DB7A /* MendeleyOAuthTokenHelper.m in Sources */,
 				C4A1350F19DADE950069DB7A /* MendeleyTaskProvider.m in Sources */,
 				D706C75F1D33F35D00381886 /* MendeleyDatasetsAPI.m in Sources */,

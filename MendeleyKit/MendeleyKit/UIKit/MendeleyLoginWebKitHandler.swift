@@ -52,8 +52,21 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
         self.webView = webView
     }
+    
 
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
+    public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        if let requestURL = webView.url {
+            let helper = MendeleyKitLoginHelper()
+            if let code = helper.getAuthenticationCode(requestURL)
+            {
+                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+            }
+            
+        }
+        
+    }
+    
+    @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.absoluteString
         let requestURL = navigationAction.request.url
@@ -75,7 +88,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         decisionHandler(.cancel)
     }
     
-    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
+    @nonobjc public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
         let userInfo = error.userInfo
         if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
         {
@@ -87,7 +100,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
         if let unwrappedCompletionBlock = completionBlock
         {
-            unwrappedCompletionBlock(success: false, error: error)
+            unwrappedCompletionBlock(false, error)
         }
     }
 }

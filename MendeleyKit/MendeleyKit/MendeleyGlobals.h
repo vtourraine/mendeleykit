@@ -100,6 +100,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyOAuth2RedirectURLKey         @"redirect_uri"
 #define kMendeleyOAuth2ClientSecretKey        @"client_secret"
 #define kMendeleyOAuth2ClientIDKey            @"client_id"
+#define kMendeleyOAuthCredentialHandlingKey   @"credentialHandling"
 
 
 /***********************************************

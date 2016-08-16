@@ -25,12 +25,7 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
-
-#ifdef MendeleyKitiOSFramework
 #import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
-#else
-#import "MendeleyLoginHandleriOS7.h"
-#endif
 
 @interface MendeleyLoginViewController ()
 @property (nonatomic, strong) UIWebView *webView;
@@ -40,11 +35,8 @@
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
-#ifdef MendeleyKitiOSFramework
 @property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *loginHandler;
-#else
-@property (nonatomic, strong) MendeleyLoginHandleriOS7 *loginHandler;
-#endif
+@property (nonatomic, assign) BOOL isHandlingOAuth;
 @end
 
 @implementation MendeleyLoginViewController
@@ -61,6 +53,28 @@
                customOAuthProvider:nil];
 
 }
+
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+   oAuthCompletionBlock:(MendeleyOAuthCompletionBlock)oAuthCompletionBlock
+{
+    self = [super init];
+    if (nil != self)
+    {
+        _oauthProvider = [[MendeleyKitConfiguration sharedInstance] oauthProvider];
+        NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
+                                           kMendeleyOAuth2ClientIDKey : clientKey,
+                                           kMendeleyOAuth2RedirectURLKey : redirectURI,
+                                           kMendeleyOAuthCredentialHandlingKey: [NSNumber numberWithBool:YES]};
+        [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:oauthParameters];
+        _oAuthCompletionBlock = oAuthCompletionBlock;
+        _clientID = clientKey;
+        _redirectURI = redirectURI;
+    }
+    return self;
+}
+
 
 
 - (id)initWithClientKey:(NSString *)clientKey
@@ -91,6 +105,9 @@
     return self;
 
 }
+
+
+
 
 - (void)viewDidLoad
 {
@@ -132,18 +149,6 @@
                               controller:self
                        completionHandler:self.completionBlock
                             oauthHandler:oAuthCompletionBlock];
-/**
-#ifdef MendeleyKitiOSFramework
-#else
-    self.loginHandler = [MendeleyLoginHandleriOS7 new];
-    [self.loginHandler startLoginProcessWithClientID:self.clientID
-                                         redirectURI:self.redirectURI
-                                          controller:self
-                                     completionBlock:self.completionBlock
-                                oauthCompletionBlock:oAuthCompletionBlock];
-
-#endif
-*/
     
 }
 
