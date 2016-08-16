@@ -901,13 +901,13 @@
 
 #pragma mark - Recommendations
 
-// GET /recommendations/based_on_library_articles
 - (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
                                                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-// POST /recommendations/action/feedback
 - (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                                  position:(NSNumber *)position
                                 userAction:(NSString *)userAction
+                                  carousel:(NSNumber *)carousel
                            completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Datasets

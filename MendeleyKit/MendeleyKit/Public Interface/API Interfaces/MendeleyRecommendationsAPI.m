@@ -24,17 +24,19 @@
     return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONRecommendationFeedbackType };
 }
 
-- (NSDictionary *)feedbackBodyParametersWithTrace:(NSString *)trace userAction:(NSString *)userAction
+- (NSDictionary *)feedbackBodyParametersWithTrace:(NSString *)trace
+                                         position:(NSNumber *)position
+                                       userAction:(NSString *)userAction
+                                         carousel:(NSNumber *)carousel
 {
     return @{ kMendeleyJSONTrace: trace,
-              kMendeleyJSONPosition: @(0),
+              kMendeleyJSONPosition: position,
               kMendeleyJSONUserAction: userAction,
-              kMendeleyJSONCarousel: @(0) };
+              kMendeleyJSONCarousel: carousel };
 }
 
 #pragma mark -
 
-// GET /recommendations/based_on_library_articles
 - (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
                                                                  task:(MendeleyTask *)task
                                                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -82,20 +84,23 @@
     return nil;
 }
 
-// POST /recommendations/action/feedback
 - (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                                  position:(NSNumber *)position
                                 userAction:(NSString *)userAction
+                                  carousel:(NSNumber *)carousel
                                       task:(MendeleyTask *)task
                            completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:trace argumentName:@"trace"];
+    [NSError assertArgumentNotNil:position argumentName:@"position"];
     [NSError assertArgumentNotNil:userAction argumentName:@"userAction"];
+    [NSError assertArgumentNotNil:carousel argumentName:@"carousel"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     
     [self.provider invokePOST:self.baseURL
                           api:kMendeleyRESTAPIRecommendationFeedback
             additionalHeaders:[self feedbackServiceRequestHeaders]
-               bodyParameters:[self feedbackBodyParametersWithTrace:trace userAction:userAction]
+               bodyParameters:[self feedbackBodyParametersWithTrace:trace position:position userAction:userAction carousel:carousel]
                        isJSON:YES
        authenticationRequired:YES
                          task:task

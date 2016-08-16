@@ -1448,7 +1448,6 @@
 
 #pragma mark - Recommendations
 
-// GET /recommendations/based_on_library_articles
 - (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
                                                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
@@ -1463,16 +1462,19 @@
     return task;
 }
 
-// POST /recommendations/action/feedback
 - (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
-                      userAction:(NSString *)userAction
+                                  position:(NSNumber *)position
+                                userAction:(NSString *)userAction
+                                  carousel:(NSNumber *)carousel
                  completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
     
     [self checkAuthenticationThenRefreshTokenThenPerform:^{
         [self.recommendationsAPI feedbackOnRecommendation:trace
+                                                 position:position
                                                userAction:userAction
+                                                 carousel:carousel
                                                      task:task
                                           completionBlock:completionBlock];
     } completionBlock:completionBlock];

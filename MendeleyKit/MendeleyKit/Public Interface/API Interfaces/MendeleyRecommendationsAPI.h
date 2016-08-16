@@ -10,14 +10,14 @@
 
 @interface MendeleyRecommendationsAPI : MendeleyObjectAPI
 
-// GET /recommendations/based_on_library_articles
 - (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
                                                                  task:(MendeleyTask *)task
                                                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-// POST /recommendations/action/feedback
 - (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                                  position:(NSNumber *)position
                                 userAction:(NSString *)userAction
+                                  carousel:(NSNumber *)carousel
                                       task:(MendeleyTask *)task
                            completionBlock:(MendeleyCompletionBlock)completionBlock;
 
