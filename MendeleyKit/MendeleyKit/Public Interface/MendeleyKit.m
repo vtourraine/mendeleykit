@@ -161,6 +161,10 @@
     self.photosAPI = [[MendeleyPhotosMeAPI alloc]
                       initWithNetworkProvider: self.networkProvider
                       baseURL: baseURL];
+    
+    self.recommendationsAPI = [[MendeleyRecommendationsAPI alloc]
+                               initWithNetworkProvider:self.networkProvider
+                               baseURL:baseURL];
 }
 
 - (BOOL)isAuthenticated
