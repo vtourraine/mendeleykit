@@ -16,8 +16,9 @@
                                                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 // POST /recommendations/action/feedback
-- (void)feedbackOnRecommendation:(NSString *)feedback
-                            task:(MendeleyTask *)task
-                 completionBlock:(MendeleyCompletionBlock)completionBlock;
+- (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                                userAction:(NSString *)userAction
+                                      task:(MendeleyTask *)task
+                           completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 @end

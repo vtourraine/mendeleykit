@@ -1464,11 +1464,20 @@
 }
 
 // POST /recommendations/action/feedback
-- (void)feedbackOnRecommendation:(NSString *)feedback
-                            task:(MendeleyTask *)task
+- (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                      userAction:(NSString *)userAction
                  completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.recommendationsAPI feedbackOnRecommendation:trace
+                                               userAction:userAction
+                                                     task:task
+                                          completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
 }
 
 #pragma mark - Datasets

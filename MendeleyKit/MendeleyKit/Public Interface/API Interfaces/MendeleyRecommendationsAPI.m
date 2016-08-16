@@ -19,6 +19,14 @@
     return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONRecommendationsType };
 }
 
+- (NSDictionary *)feedbackBodyParametersWithTrace:(NSString *)trace userAction:(NSString *)userAction
+{
+    return @{ kMendeleyJSONTrace: trace,
+              kMendeleyJSONPosition: @(0),
+              kMendeleyJSONUserAction: userAction,
+              kMendeleyJSONCarousel: @(0) };
+}
+
 #pragma mark -
 
 // GET /recommendations/based_on_library_articles
@@ -70,11 +78,37 @@
 }
 
 // POST /recommendations/action/feedback
-- (void)feedbackOnRecommendation:(NSString *)feedback
-                            task:(MendeleyTask *)task
+- (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                                userAction:(NSString *)userAction
+                                      task:(MendeleyTask *)task
                            completionBlock:(MendeleyCompletionBlock)completionBlock
 {
+    [NSError assertArgumentNotNil:trace argumentName:@"trace"];
+    [NSError assertArgumentNotNil:userAction argumentName:@"userAction"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     
+    [self.provider invokePOST:self.baseURL
+                          api:kMendeleyRESTAPIRecommendationFeedback
+            additionalHeaders:[self defaultServiceRequestHeaders]
+               bodyParameters:[self feedbackBodyParametersWithTrace:trace userAction:userAction]
+                       isJSON:YES
+       authenticationRequired:YES
+                         task:task
+              completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                  MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
+                  if (![self.helper isSuccessForResponse:response error:&error])
+                  {
+                      [blockExec executeWithBool:NO
+                                           error:error];
+                  }
+                  else
+                  {
+                      [blockExec executeWithBool:YES
+                                           error:nil];
+                  }
+              }];
+    
+    return nil;
 }
 
 @end

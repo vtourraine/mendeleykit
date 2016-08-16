@@ -205,6 +205,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIApplicationFeatures               @"application_features"
 #define kMendeleyRESTAPIPhotosMe                          @"photos/me"
 #define kMendeleyRESTAPIRecommendationsBasedOnLibrary     @"recommendations/based_on_library_articles"
+#define kMendeleyRESTAPIRecommendationFeedback            @"recommendations/action/feedback"
 
 /***********************************************
    @name REST API Query Parameters
@@ -452,6 +453,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONCatalogDocument                      @"catalogue_document"
 #define kMendeleyJSONRank                                 @"rank"
 #define kMendeleyJSONTrace                                @"trace"
+#define kMendeleyJSONPosition                             @"position"
+#define kMendeleyJSONUserAction                           @"userAction"
+#define kMendeleyJSONCarousel                             @"carousel"
 
 /***********************************************
    @name Paging
