@@ -7,6 +7,7 @@
 //
 
 #import "MendeleyRecommendationsAPI.h"
+#import "MendeleyRecommendedArticle.h"
 #import "NSError+Exceptions.h"
 
 @implementation MendeleyRecommendationsAPI
@@ -44,20 +45,23 @@
                  else
                  {
                      MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
-                     [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelRecommendations completionBlock: ^(NSArray *recommendationsList, NSError *parseError) {
-                         if (nil != parseError)
-                         {
-                             [blockExec executeWithArray:nil
-                                                syncInfo:nil
-                                                   error:parseError];
-                         }
-                         else
-                         {
-                             [blockExec executeWithArray:recommendationsList
-                                                syncInfo:response.syncHeader
-                                                   error:nil];
-                         }
-                     }];
+                     if (response.responseBody[kMendeleyJSONData] != nil)
+                     {
+                         [jsonModeller parseJSONData:response.responseBody[kMendeleyJSONData] expectedType:kMendeleyModelRecommendations completionBlock: ^(NSArray<MendeleyRecommendedArticle *> *recommendationsList, NSError *parseError) {
+                             if (nil != parseError)
+                             {
+                                 [blockExec executeWithArray:nil
+                                                    syncInfo:nil
+                                                       error:parseError];
+                             }
+                             else
+                             {
+                                 [blockExec executeWithArray:recommendationsList
+                                                    syncInfo:response.syncHeader
+                                                       error:nil];
+                             }
+                         }];
+                     }
                  }
 
              }];
