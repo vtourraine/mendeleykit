@@ -277,6 +277,15 @@
             return YES;
         }
     }
+    
+    NSString *catalogDocumentName = NSStringFromClass([MendeleyRecommendedArticle class]);
+    if ([modelName isEqualToString:catalogDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONCatalogDocument])
+        {
+            return YES;
+        }
+    }
 
     return NO;
 }
@@ -500,6 +509,15 @@
         else if ([propertyName isEqualToString:kMendeleyJSONMetrics])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleyFileMetrics class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *catalogDocumentName = NSStringFromClass([MendeleyRecommendedArticle class]);
+    if ([modelName isEqualToString:catalogDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONCatalogDocument])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyCatalogDocument class] fromRawValue:rawValue];
         }
     }
 

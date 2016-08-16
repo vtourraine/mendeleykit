@@ -76,8 +76,8 @@
 		154DD1C28358A9380C22F0E1 /* libPods-MendeleyKitiOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */; };
 		373AA4EB1B4698F800F8B0C4 /* followRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EA1B4698F800F8B0C4 /* followRequest.json */; };
 		373AA4ED1B46AAB500F8B0C4 /* followAcceptance.json in Resources */ = {isa = PBXBuildFile; fileRef = 373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */; };
-		533248D31D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */; };
-		533248D41D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */; };
+		533248D31D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		533248D41D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		533248D51D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
 		533248D61D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
 		533248D71D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
