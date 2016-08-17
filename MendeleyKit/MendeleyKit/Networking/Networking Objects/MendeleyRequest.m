@@ -23,6 +23,7 @@
 #import "NSError+MendeleyError.h"
 #import "NSError+Exceptions.h"
 #import "MendeleyOAuthStore.h"
+#import "MendeleyKitConfiguration.h"
 #import "MendeleyOAuthCredentials.h"
 
 @interface MendeleyRequest ()
@@ -62,8 +63,7 @@
     }
     if (authenticationRequired)
     {
-        MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
-        MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
+        MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
         if (nil != credentials && ![credentials oauthCredentialIsExpired])
         {
             request.validCredentials = credentials;

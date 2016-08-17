@@ -30,6 +30,13 @@
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKitHelper.h"
 
+#ifdef MendeleyKitiOSFramework
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#else
+#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
+#endif
+
+
 @interface MendeleyDefaultOAuthProvider ()
 @property (nonatomic, strong, readwrite) NSURL *oauth2BaseURL;
 @property (nonatomic, assign, readwrite) BOOL isTrustedSSLServer;
@@ -40,7 +47,6 @@
 @property (nonatomic, strong) NSString *clientID;
 @property (nonatomic, strong) NSString *clientSecret;
 @property (nonatomic, strong) NSString *redirectURI;
-@property (nonatomic, assign, readwrite) BOOL noCredentialCaching;
 @end
 
 @implementation MendeleyDefaultOAuthProvider
@@ -77,15 +83,6 @@
     if (nil != redirectURI && [redirectURI isKindOfClass:[NSString class]])
     {
         self.redirectURI = redirectURI;
-    }
-    id oauthHandling = [parameters objectForKey:kMendeleyOAuthCredentialHandlingKey];
-    if (nil != oauthHandling && [oauthHandling isKindOfClass:[NSNumber class]])
-    {
-        self.noCredentialCaching = [(NSNumber *)oauthHandling boolValue];
-    }
-    else
-    {
-        self.noCredentialCaching = false;
     }
 }
 
@@ -135,8 +132,7 @@
              [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOAuthCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
                   if (nil != credentials)
                   {
-                      MendeleyOAuthStore *oauthStore = [[MendeleyOAuthStore alloc] init];
-                      BOOL success = [oauthStore storeOAuthCredentials:credentials];
+                      BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
                       if (success)
                       {
                           [blockExec executeWithBool:YES

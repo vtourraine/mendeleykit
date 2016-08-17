@@ -106,6 +106,8 @@
 		725CFFE51B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */; };
 		725CFFE61B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */; };
 		725CFFE71B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */; };
+		72D033431D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 72D033421D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72D033441D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 72D033421D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C24E70A3E1A44058A40FBE96 /* libPods-MendeleyKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */; };
 		C406B3021B611862003040F5 /* MendeleyDefaultAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C406B3011B611862003040F5 /* MendeleyDefaultAnalytics.swift */; };
 		C41474191A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C41474181A7F751500DC01D9 /* MendeleyDisciplineModellerTest.m */; };
@@ -602,6 +604,7 @@
 		725CFFDB1B7B408300AC6758 /* MendeleyFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFeature.m; path = "Model/Mendeley Objects/MendeleyFeature.m"; sourceTree = "<group>"; };
 		725CFFE11B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyApplicationFeaturesAPI.h; path = "Public Interface/API Interfaces/MendeleyApplicationFeaturesAPI.h"; sourceTree = "<group>"; };
 		725CFFE21B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyApplicationFeaturesAPI.m; path = "Public Interface/API Interfaces/MendeleyApplicationFeaturesAPI.m"; sourceTree = "<group>"; };
+		72D033421D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyOAuthStoreProvider.h; path = Networking/MendeleyOAuthStoreProvider.h; sourceTree = "<group>"; };
 		8302971636AF25A993EDBA94 /* Pods-MendeleyKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MendeleyKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MendeleyKitTests/Pods-MendeleyKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9DEA9B99D5FE40BEB2C9E99F /* libPods-MendeleyKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MendeleyKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C406B3011B611862003040F5 /* MendeleyDefaultAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyDefaultAnalytics.swift; path = Analytics/MendeleyDefaultAnalytics.swift; sourceTree = "<group>"; };
@@ -1122,6 +1125,7 @@
 				C4A134E719DADE530069DB7A /* Utils */,
 				C4A1352419DADEC40069DB7A /* MendeleyNetworkProvider.h */,
 				C4A1352519DADEC40069DB7A /* MendeleyOAuthProvider.h */,
+				72D033421D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -1581,6 +1585,7 @@
 				145C2E0A1A2CAB0E0005BFF6 /* MendeleyKitUserInfoManager.h in Headers */,
 				145C2E0B1A2CAB0E0005BFF6 /* NSError+Exceptions.h in Headers */,
 				55F35DB61D4A57B30052F122 /* MendeleyProfileUtils.h in Headers */,
+				72D033431D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h in Headers */,
 				C48EF20C1B7361D90023916F /* MendeleyNSURLRequestDownloadHelper.h in Headers */,
 				145C2E0C1A2CAB0E0005BFF6 /* NSError+MendeleyError.h in Headers */,
 				C85463911ADE8AB500754160 /* MendeleyFollowersAPI.h in Headers */,
@@ -1670,6 +1675,7 @@
 				C46657A01B384697005F762A /* MendeleyDocumentsAPI.h in Headers */,
 				C46657DB1B384902005F762A /* MendeleyNSURLRequestUploadHelper.h in Headers */,
 				55F35DB71D4A57B30052F122 /* MendeleyProfileUtils.h in Headers */,
+				72D033441D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h in Headers */,
 				C46657D51B3848E8005F762A /* MendeleyNSURLConnectionProvider.h in Headers */,
 				C46657C11B38471D005F762A /* NSError+Exceptions.h in Headers */,
 				C466578B1B384611005F762A /* MendeleyTaskProvider.h in Headers */,

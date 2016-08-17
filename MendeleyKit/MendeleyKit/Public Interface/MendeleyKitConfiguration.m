@@ -22,7 +22,15 @@
 #import "MendeleyDefaultNetworkProvider.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "MendeleyKitUserInfoManager.h"
+#import "MendeleyOAuthStore.h"
 #import "MendeleyError.h"
+
+typedef NS_ENUM(int, MendeleyCustomClassType)
+{
+    NetworkProvider = 0,
+    OAuthProvider,
+    StoreProvider
+};
 
 @interface MendeleyKitConfiguration ()
 @property (nonatomic, assign, readwrite) BOOL isTrustedSSLServer;
@@ -30,6 +38,7 @@
 @property (nonatomic, assign, readwrite) NSString *documentViewType;
 @property (nonatomic, strong, readwrite) id<MendeleyNetworkProvider> networkProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthProvider> oauthProvider;
+@property (nonatomic, strong, readwrite) id<MendeleyOAuthStoreProvider> storeProvider;
 @end
 
 @implementation MendeleyKitConfiguration
@@ -91,13 +100,16 @@
     }
 
     NSString *oauthProviderName = [configurationParameters objectForKey:kMendeleyOAuthProviderKey];
-    [self createProviderForClassName:oauthProviderName isNetwork:NO];
+    [self createProviderForClassName:oauthProviderName classType:(OAuthProvider)];
 
     NSString *networkProviderName = [configurationParameters objectForKey:kMendeleyNetworkProviderKey];
-    [self createProviderForClassName:networkProviderName isNetwork:YES];
+    [self createProviderForClassName:networkProviderName classType:(NetworkProvider)];
+    
+    NSString *storeProviderName = [configurationParameters objectForKey:kMendeleyOAuthStoreProviderKey];
+    [self createProviderForClassName:storeProviderName classType:(StoreProvider)];
 }
 
-- (void)createProviderForClassName:(NSString *)className isNetwork:(BOOL)isNetwork
+- (void)createProviderForClassName:(NSString *)className classType:(MendeleyCustomClassType)type
 {
     Class providerClass = NSClassFromString(className);
 
@@ -110,28 +122,36 @@
     {
         return;
     }
-    if (isNetwork)
-    {
-        if ([provider conformsToProtocol:@protocol(MendeleyNetworkProvider)])
-        {
-            self.networkProvider = provider;
-        }
+    switch (type) {
+        case NetworkProvider:
+            if ([provider conformsToProtocol:@protocol(MendeleyNetworkProvider)])
+            {
+                self.networkProvider = provider;
+            }
+            break;
+        case OAuthProvider:
+            if ([provider conformsToProtocol:@protocol(MendeleyOAuthProvider)])
+            {
+                self.oauthProvider = provider;
+            }
+            break;
+        case StoreProvider:
+            if ([provider conformsToProtocol:@protocol(MendeleyOAuthStoreProvider)])
+            {
+                self.storeProvider = provider;
+            }
+            break;
     }
-    else
-    {
-        if ([provider conformsToProtocol:@protocol(MendeleyOAuthProvider)])
-        {
-            self.oauthProvider = provider;
-        }
-    }
+    
+    
 }
 
 - (void)resetToDefault
 {
     _networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
     _oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
+    _storeProvider = [MendeleyOAuthStore new];
     _isTrustedSSLServer = NO;
-    // TODO: reset to default
     _documentViewType = kMendeleyDocumentViewTypeDefault;
     _baseAPIURL = [NSURL URLWithString:kMendeleyKitURL];
 }

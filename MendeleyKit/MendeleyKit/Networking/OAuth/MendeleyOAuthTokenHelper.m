@@ -19,7 +19,7 @@
  */
 
 #import "MendeleyOAuthTokenHelper.h"
- #import "MendeleyOAuthStore.h"
+#import "MendeleyOAuthStore.h"
 #import "MendeleyOAuthProvider.h"
 #import "MendeleyKitConfiguration.h"
 #import "NSError+MendeleyError.h"
@@ -28,8 +28,7 @@
 
 + (void)refreshTokenWithRefreshBlock:(MendeleyCompletionBlock)refreshBlock
 {
-    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
-    MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
+    MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
 
     if (nil == credentials)
     {
@@ -50,7 +49,7 @@
              {
                  if (nil != credentials)
                  {
-                     BOOL success = [store storeOAuthCredentials:credentials];
+                     BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
                      refreshBlock(success, nil);
                  }
                  else

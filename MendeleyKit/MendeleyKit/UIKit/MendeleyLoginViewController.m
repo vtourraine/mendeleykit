@@ -54,28 +54,6 @@
 
 }
 
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-   oAuthCompletionBlock:(MendeleyOAuthCompletionBlock)oAuthCompletionBlock
-{
-    self = [super init];
-    if (nil != self)
-    {
-        _oauthProvider = [[MendeleyKitConfiguration sharedInstance] oauthProvider];
-        NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
-                                           kMendeleyOAuth2ClientIDKey : clientKey,
-                                           kMendeleyOAuth2RedirectURLKey : redirectURI,
-                                           kMendeleyOAuthCredentialHandlingKey: [NSNumber numberWithBool:YES]};
-        [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:oauthParameters];
-        _oAuthCompletionBlock = oAuthCompletionBlock;
-        _clientID = clientKey;
-        _redirectURI = redirectURI;
-    }
-    return self;
-}
-
-
 
 - (id)initWithClientKey:(NSString *)clientKey
            clientSecret:(NSString *)clientSecret
@@ -122,8 +100,7 @@
     __strong MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error){
         if (nil != credentials)
         {
-            MendeleyOAuthStore *oauthStore = [[MendeleyOAuthStore alloc] init];
-            BOOL success = [oauthStore storeOAuthCredentials:credentials];
+            BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
             if (nil != self.completionBlock)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{

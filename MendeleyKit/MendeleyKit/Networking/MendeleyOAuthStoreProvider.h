@@ -18,9 +18,29 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 #import "MendeleyOAuthCredentials.h"
-#import "MendeleyOAuthStoreProvider.h"
 
-@interface MendeleyOAuthStore : NSObject <MendeleyOAuthStoreProvider>
+@protocol MendeleyOAuthStoreProvider <NSObject>
+
+/**
+ @name MendeleyOAuthStoreProvider interface for managing OAuth credentials in the keychain
+ */
+
+/**
+ @param credentials to be stored in keychain
+ @return YES if successful
+ */
+- (BOOL)storeOAuthCredentials:(nullable MendeleyOAuthCredentials *)credentials;
+
+/**
+ @return YES if removal of oauthdata from Keychain was successful
+ */
+- (BOOL)removeOAuthCredentials;
+
+/**
+ @return oauthData from keychain or nil if unsuccessful
+ */
+- (nullable MendeleyOAuthCredentials *)retrieveOAuthCredentials;
+
 @end

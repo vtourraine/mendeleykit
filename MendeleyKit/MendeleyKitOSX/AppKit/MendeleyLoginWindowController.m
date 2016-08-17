@@ -187,8 +187,7 @@
     MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error){
         if (nil != credentials)
         {
-            MendeleyOAuthStore *oauthStore = [[MendeleyOAuthStore alloc] init];
-            BOOL success = [oauthStore storeOAuthCredentials:credentials];
+            BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
             if (nil != self.completionBlock)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
