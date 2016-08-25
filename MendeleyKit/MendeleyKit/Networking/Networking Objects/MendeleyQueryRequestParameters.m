@@ -270,3 +270,7 @@
 
 @implementation MendeleyDatasetParameters
 @end
+
+@implementation MendeleyRecommendationsParameters
+@end
+
