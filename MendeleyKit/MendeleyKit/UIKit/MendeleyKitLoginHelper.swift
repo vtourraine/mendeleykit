@@ -18,7 +18,6 @@
 *****************************************************************************
 */
 
-import UIKit
 import Foundation
 
 public class MendeleyKitLoginHelper: NSObject

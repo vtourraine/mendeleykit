@@ -44,7 +44,7 @@
 #import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
 #import "MendeleyPhotosMeAPI.h"
-
+#import "MendeleyRecommendationsAPI.h"
 
 
 @interface MendeleyKit ()
@@ -65,6 +65,7 @@
 @property (nonatomic, strong, nonnull) MendeleyDatasetsAPI *datasetsAPI;
 @property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
 @property (nonatomic, strong, nonnull) MendeleyPhotosMeAPI *photosAPI;
+@property (nonatomic, strong, nonnull) MendeleyRecommendationsAPI *recommendationsAPI;
 @end
 
 @implementation MendeleyKit
@@ -160,6 +161,10 @@
     self.photosAPI = [[MendeleyPhotosMeAPI alloc]
                       initWithNetworkProvider: self.networkProvider
                       baseURL: baseURL];
+    
+    self.recommendationsAPI = [[MendeleyRecommendationsAPI alloc]
+                               initWithNetworkProvider:self.networkProvider
+                               baseURL:baseURL];
 }
 
 - (BOOL)isAuthenticated
@@ -1433,6 +1438,42 @@
                                         completionBlock:completionBlock];
     } completionBlock:completionBlock];
 
+    return task;
+}
+
+#pragma mark - Recommendations
+
+- (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
+                                                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.recommendationsAPI recommendationsBasedOnLibraryArticlesWithParameters:queryParameters
+                                                                                task:task
+                                                                     completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                                  position:(NSNumber *)position
+                                userAction:(NSString *)userAction
+                                  carousel:(NSNumber *)carousel
+                 completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.recommendationsAPI feedbackOnRecommendation:trace
+                                                 position:position
+                                               userAction:userAction
+                                                 carousel:carousel
+                                                     task:task
+                                          completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
     return task;
 }
 

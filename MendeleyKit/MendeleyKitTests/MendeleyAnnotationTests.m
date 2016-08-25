@@ -26,7 +26,9 @@
 #import "MendeleyKitTestBaseClass.h"
 
 @interface MendeleyAnnotationTests : MendeleyKitTestBaseClass
+#if TARGET_OS_IPHONE
 @property (nonatomic, strong) UIColor *color;
+#endif
 @property (nonatomic, strong) NSDictionary <NSString *, NSNumber *> *colorDictionary;
 
 @property (nonatomic, strong) MendeleyHighlightBox *highlightBox;
@@ -39,7 +41,9 @@
 {
     [super setUp];
 
+#if TARGET_OS_IPHONE
     self.color = [UIColor colorWithRed:248.f / 255.f green:232.f / 255.f blue:116.f / 255.f alpha:1.f];
+#endif
 
     CGFloat x = 145.3185;
     CGFloat y = 701.9816;
@@ -52,18 +56,15 @@
                               kMendeleyJSONColorGreen : [NSNumber numberWithInt:232],
                               kMendeleyJSONColorBlue : [NSNumber numberWithInt:116] };
 
-
     NSDictionary *topLeft = @{ kMendeleyJSONPositionX : [NSNumber numberWithFloat:145.3185],
                                kMendeleyJSONPositionY : [NSNumber numberWithFloat:701.9816] };
 
     NSDictionary *bottomRight = @{ kMendeleyJSONPositionX : [NSNumber numberWithFloat:145.3185],
                                    kMendeleyJSONPositionY : [NSNumber numberWithFloat:701.9816] };
 
-
     self.boxDictionary = @{ kMendeleyJSONPage : [NSNumber numberWithInt:1],
                             kMendeleyJSONTopLeft : topLeft,
                             kMendeleyJSONBottomRight : bottomRight };
-
 }
 
 - (void)tearDown
@@ -72,6 +73,7 @@
     [super tearDown];
 }
 
+#if TARGET_OS_IPHONE
 - (void)testColorFromColorParameters
 {
     NSError *error = nil;
@@ -98,15 +100,15 @@
     NSDictionary *dictionary = [MendeleyAnnotation jsonColorFromColor:self.color error:&error];
 
     XCTAssertNotNil(dictionary, @"dictionary should not be nil");
-    NSNumber *red = [dictionary objectForKey:kMendeleyJSONColorRed];
-    NSNumber *green = [dictionary objectForKey:kMendeleyJSONColorGreen];
-    NSNumber *blue = [dictionary objectForKey:kMendeleyJSONColorBlue];
+    NSNumber *red = dictionary[kMendeleyJSONColorRed];
+    NSNumber *green = dictionary[kMendeleyJSONColorGreen];
+    NSNumber *blue = dictionary[kMendeleyJSONColorBlue];
 
     XCTAssertTrue(248.f == floorf([red floatValue]), @"red should be 248 but is %f", [red floatValue]);
     XCTAssertTrue(232.f == floorf([green floatValue]), @"red should be 232 but is %f", [green floatValue]);
     XCTAssertTrue(116.f == floorf([blue floatValue]), @"red should be 116 but is %f", [blue floatValue]);
-
 }
+#endif
 
 - (void)testBoxFromJSONParameters
 {
@@ -116,13 +118,11 @@
     XCTAssertNotNil(box, @"we should get a not nil box back");
     XCTAssertNotNil(box.page, @"box page should not be nil");
 
-
     XCTAssertTrue([box.page isEqualToNumber:self.highlightBox.page], @"the highlight box page should be 1");
     CGFloat x = box.box.origin.x;
     CGFloat y = box.box.origin.y;
     CGFloat width = box.box.size.width;
     CGFloat height = box.box.size.height;
-
 
     XCTAssertTrue(145.3185f == x, @"x should be 145.3185 but is %f", x);
     XCTAssertTrue(701.9816f == y, @"y should be 701.9816 but is %f", y);
@@ -137,9 +137,9 @@
 
     XCTAssertNotNil(dict, @"the dictionary should not be nil");
 
-    NSNumber *page = [dict objectForKey:kMendeleyJSONPage];
-    id topLeft = [dict objectForKey:kMendeleyJSONTopLeft];
-    id botRight = [dict objectForKey:kMendeleyJSONBottomRight];
+    NSNumber *page = dict[kMendeleyJSONPage];
+    id topLeft = dict[kMendeleyJSONTopLeft];
+    id botRight = dict[kMendeleyJSONBottomRight];
 
     XCTAssertNotNil(page, @"the page object should not be nil");
     XCTAssertNotNil(topLeft, @"the top_left object should not be nil");
@@ -147,15 +147,15 @@
 
     if (nil != page)
     {
-        XCTAssertTrue(1 == [page intValue], @"page should be 1 but is %d", [page intValue]);
+        XCTAssertEqual(1, [page intValue], @"page should be 1 but is %d", [page intValue]);
     }
 
     if (nil != topLeft)
     {
         XCTAssertTrue([topLeft isKindOfClass:[NSDictionary class]], @"topleft should be of type NSDictionary");
         NSDictionary *dictionary = (NSDictionary *) topLeft;
-        NSNumber *xNumber = [dictionary objectForKey:kMendeleyJSONPositionX];
-        NSNumber *yNumber = [dictionary objectForKey:kMendeleyJSONPositionY];
+        NSNumber *xNumber = dictionary[kMendeleyJSONPositionX];
+        NSNumber *yNumber = dictionary[kMendeleyJSONPositionY];
 
         XCTAssertTrue(145.3185f == [xNumber floatValue], @"x should be 145.3185f but is %f", [xNumber floatValue]);
         XCTAssertTrue(701.9816f == [yNumber floatValue], @"y should be 701.9816f but is %f", [yNumber floatValue]);
@@ -165,14 +165,12 @@
     {
         XCTAssertTrue([botRight isKindOfClass:[NSDictionary class]], @"botRight should be of type NSDictionary");
         NSDictionary *dictionary = (NSDictionary *) botRight;
-        NSNumber *xNumber = [dictionary objectForKey:kMendeleyJSONPositionX];
-        NSNumber *yNumber = [dictionary objectForKey:kMendeleyJSONPositionY];
+        NSNumber *xNumber = dictionary[kMendeleyJSONPositionX];
+        NSNumber *yNumber = dictionary[kMendeleyJSONPositionY];
 
         XCTAssertTrue(145.3185f == [xNumber floatValue], @"x should be 145.3185f but is %f", [xNumber floatValue]);
         XCTAssertTrue(701.9816f == [yNumber floatValue], @"y should be 701.9816f but is %f", [yNumber floatValue]);
     }
-
-
 }
 
 @end

@@ -5,3 +5,4 @@ script:
   - cd MendeleyKit
   - pod install
   - xcodebuild -workspace MendeleyKit.xcworkspace -scheme MendeleyKitiOS -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0' test
+  - xcodebuild -workspace MendeleyKit.xcworkspace -scheme MendeleyKitOSX test

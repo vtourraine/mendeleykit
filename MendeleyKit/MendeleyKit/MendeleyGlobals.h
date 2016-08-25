@@ -145,6 +145,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONDatasetType                     @"application/vnd.mendeley-public-dataset.1+json"
 #define kMendeleyRESTRequestJSONLicenceInfoType                 @"application/vnd.mendeley-licence-info.1+json"
 #define kMendeleyRESTRequestJSONApplicationFeaturesType         @"application/vnd.mendeley-features.1+json"
+#define kMendeleyRESTRequestJSONRecommendationsType             @"application/vnd.mendeley-article-rec.1+json"
+#define kMendeleyRESTRequestJSONRecommendationFeedbackType      @"application/vnd.mendeley-rec-feedback.1+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                        @"Accept-Language"
@@ -204,6 +206,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIDatasetsLicences                  @"datasets/licences"
 #define kMendeleyRESTAPIApplicationFeatures               @"application_features"
 #define kMendeleyRESTAPIPhotosMe                          @"photos/me"
+#define kMendeleyRESTAPIRecommendationsBasedOnLibrary     @"recommendations/based_on_library_articles"
+#define kMendeleyRESTAPIRecommendationFeedback            @"recommendations/action/feedback"
 
 /***********************************************
    @name REST API Query Parameters
@@ -234,6 +238,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIMaxPageSize                       200
 #define kMendeleyRESTAPIQueryFollowersTypeFollowing       @"following"
 #define kMendeleyRESTAPIQueryFollowersTypePending         @"pending"
+#define kMendeleyRESTAPIPageLoadID                        @"page_load_id"
+#define kMendeleyRESTAPIRef                               @"ref"
 
 /***********************************************
    @name Data models
@@ -271,6 +277,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelReaderCountByCountry                @"NSDictionary"
 #define kMendeleyModelReaderCountByDiscipline             @"NSDictionary"
 #define kMendeleyModelReaderCountByAcademicStatus         @"NSDictionary"
+#define kMendeleyModelRecommendations                     @"MendeleyRecommendedArticle"
 
 /***********************************************
    @name JSON keys General
@@ -440,6 +447,17 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
  @name JSON keys File metadata
  ***********************************************/
 #define kMendeleyJSONContentDetails                       @"content_details"
+
+/***********************************************
+ @name JSON keys Recommendations metadata
+ ***********************************************/
+#define kMendeleyJSONData                                 @"data"
+#define kMendeleyJSONCatalogDocument                      @"catalogue_document"
+#define kMendeleyJSONRank                                 @"rank"
+#define kMendeleyJSONTrace                                @"trace"
+#define kMendeleyJSONPosition                             @"position"
+#define kMendeleyJSONUserAction                           @"userAction"
+#define kMendeleyJSONCarousel                             @"carousel"
 
 /***********************************************
    @name Paging

@@ -18,7 +18,6 @@
  *****************************************************************************
  */
 
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MendeleyKitTestBaseClass.h"
 

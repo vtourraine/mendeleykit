@@ -111,3 +111,9 @@
 
 @interface MendeleyDatasetParameters : MendeleyQueryRequestParameters
 @end
+
+@interface MendeleyRecommendationsParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *page_load_id;
+@property (nonatomic, strong) NSString *ref;
+@end
+

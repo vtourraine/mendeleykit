@@ -1,4 +1,11 @@
 RELEASE NOTES
+Date: August (2.2.0)
+- added datasets model and API methods and classes to support research data handling in the SDK
+- added /photos/me to enable upload of profile pictures
+- OSX dynamic framework improvements
+- general cleanup of code (including Swift 2.2) and unit tests
+
+
 Date: May 2016 (2.1.3)
 - getting ready for Carthage dependency (updated .gitignore) and some changes to make things easier for OSX (modulemap and login controller)
 
