@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: September (2.2.1)
+- correct import of authors and editors from a JSON catalog document
+
 Date: August (2.2.0)
 - added datasets model and API methods and classes to support research data handling in the SDK
 - added /photos/me to enable upload of profile pictures
