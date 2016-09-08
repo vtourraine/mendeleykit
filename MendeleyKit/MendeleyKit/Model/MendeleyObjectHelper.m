@@ -277,6 +277,26 @@
             return YES;
         }
     }
+    
+    NSString *recommendedArticleName = NSStringFromClass([MendeleyRecommendedArticle class]);
+    if ([modelName isEqualToString:recommendedArticleName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONCatalogDocument])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *catalogDocumenteName = NSStringFromClass([MendeleyCatalogDocument class]);
+    if ([modelName isEqualToString:catalogDocumenteName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors] ||
+            [propertyName isEqualToString:kMendeleyJSONEditors] /*||
+            [propertyName isEqualToString:kMendeleyJSONTags]*/)
+        {
+            return YES;
+        }
+    }
 
     return NO;
 }
@@ -502,6 +522,25 @@
             return [[self class] setPropertiesToObjectOfClass:[MendeleyFileMetrics class] fromRawValue:rawValue];
         }
     }
+    
+    NSString *recommendedArticleName = NSStringFromClass([MendeleyRecommendedArticle class]);
+    if ([modelName isEqualToString:recommendedArticleName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONCatalogDocument])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyCatalogDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *catalogDocumentName = NSStringFromClass([MendeleyCatalogDocument class]);
+    if ([modelName isEqualToString:catalogDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors] || [propertyName isEqualToString:kMendeleyJSONEditors])
+        {
+            return [[self class] objectArrayForClass:[MendeleyPerson class] fromRawValue:rawValue];
+        }
+    }
+    
 
     return nil;
 }

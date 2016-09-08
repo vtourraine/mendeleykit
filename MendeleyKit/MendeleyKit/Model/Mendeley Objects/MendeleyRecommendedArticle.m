@@ -18,13 +18,8 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+#import "MendeleyRecommendedArticle.h"
 
-@class MendeleyAmendmentProfile;
-@class MendeleyProfile;
-
-@interface MendeleyProfileUtils : NSObject
-
-+ (MendeleyAmendmentProfile *)amendmentProfileFromProfile:(MendeleyProfile *)profile;
+@implementation MendeleyRecommendedArticle
 
 @end

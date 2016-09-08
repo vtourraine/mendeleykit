@@ -18,13 +18,19 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+#import "MendeleyObjectAPI.h"
 
-@class MendeleyAmendmentProfile;
-@class MendeleyProfile;
+@interface MendeleyRecommendationsAPI : MendeleyObjectAPI
 
-@interface MendeleyProfileUtils : NSObject
+- (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
+                                                                 task:(MendeleyTask *)task
+                                                      completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
-+ (MendeleyAmendmentProfile *)amendmentProfileFromProfile:(MendeleyProfile *)profile;
+- (MendeleyTask *)feedbackOnRecommendation:(NSString *)trace
+                                  position:(NSNumber *)position
+                                userAction:(NSString *)userAction
+                                  carousel:(NSNumber *)carousel
+                                      task:(MendeleyTask *)task
+                           completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 @end

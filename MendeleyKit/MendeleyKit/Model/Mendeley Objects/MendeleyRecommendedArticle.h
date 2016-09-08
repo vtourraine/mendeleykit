@@ -18,13 +18,14 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+#import "MendeleyObject.h"
 
-@class MendeleyAmendmentProfile;
-@class MendeleyProfile;
+@class MendeleyCatalogDocument;
 
-@interface MendeleyProfileUtils : NSObject
+@interface MendeleyRecommendedArticle : MendeleyObject
 
-+ (MendeleyAmendmentProfile *)amendmentProfileFromProfile:(MendeleyProfile *)profile;
+@property (nonatomic, strong) MendeleyCatalogDocument *catalogue_document;
+@property (nonatomic, strong) NSNumber *rank;
+@property (nonatomic, strong) NSString *trace;
 
 @end
