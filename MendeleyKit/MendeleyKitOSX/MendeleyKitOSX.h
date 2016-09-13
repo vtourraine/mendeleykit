@@ -58,6 +58,7 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitOSXVersionString[];
 #import <MendeleyKitOSX/MendeleyModeller.h>
 #import <MendeleyKitOSX/MendeleyResponse.h>
 #import <MendeleyKitOSX/MendeleyProfile.h>
+#import <MendeleyKitOSX/MendeleyProfileUtils.h>
 #import <MendeleyKitOSX/MendeleyAcademicStatus.h>
 #import <MendeleyKitOSX/MendeleyModels.h>
 #import <MendeleyKitOSX/MendeleyKitUserInfoManager.h>
