@@ -39,18 +39,18 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
         let request: URLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
-        self.webView?.load(request)
+        _ = webView?.load(request)
     }
     
     public func configureWebView(_ controller: UIViewController)
     {
         let configuration = WKWebViewConfiguration()
-        let webView = WKWebView(frame: controller.view.frame, configuration: configuration)
-        webView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        webView.navigationDelegate = self
-        controller.view.addSubview(webView)
+        let newWebView = WKWebView(frame: controller.view.frame, configuration: configuration)
+        newWebView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        newWebView.navigationDelegate = self
+        controller.view.addSubview(newWebView)
 
-        self.webView = webView
+        webView = newWebView
     }
     
 

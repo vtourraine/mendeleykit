@@ -36,7 +36,7 @@ public class MendeleyKitLoginHelper: NSObject
         let request = NSMutableURLRequest(url: baseOAuthURL)
 
         request.httpMethod = "GET"
-        request.allHTTPHeaderFields = MendeleyURLBuilder.defaultHeader() as? [String : String]
+        request.allHTTPHeaderFields = MendeleyURLBuilder.defaultHeader()
         return request as URLRequest
     }
     
