@@ -8,16 +8,66 @@
                 "last_name": "Zdziarski"
                 }
                 ],
+    "editors": [
+                {
+                "first_name": "Ed1",
+                "last_name": "Itor1"
+                },
+                {
+                "first_name": "Ed2",
+                "last_name": "Itor2"
+                }
+                ],
+    "translators": [
+                {
+                "first_name": "Trans",
+                "last_name": "Lator"
+                }
+                ],
     "year": 2008,
+    "month": 1,
+    "day": 16,
     "source": "Journal of the Electrochemical Society",
+    "revision": "revision: unspecified",
     "identifiers": {
         "isbn": "9780596153588"
     },
     "created": "2014-05-22T15:55:06.000Z",
     "pages": "120",
     "volume": "129",
+    "issue": "14",
+    "publisher": "Elsevier Ireland Ltd",
+    "city": "city: unspecified",
+    "edition": "edition: unspecified",
+    "institution": "institution: unspecified",
+    "series": "series: unspecified",
+    "chapter":"chapter: unspecified",
+    "accessed": "2014-07-09",
+    "citation_key": "citation_key: unspecified",
+    "source_type": "source_type: unspecified",
+    "language" : "language: unspecified",
+    "short_title": "short_title: unspecified",
+    "reprint_edition": "reprint_edition: unspecified",
+    "genre": "Computation and Language",
+    "country": "country: unspecified",
+    "series_editor": "series_editor: unspecified",
+    "code": "code: unspecified",
+    "medium": "medium: unspecified",
+    "user_context": "user_context: unspecified",
+    "department": "department: unspecified",
+    "patent_owner": "patent_owner: unspecified",
+    "patent_application_number": "patent_application_number: unspecified",
+    "patent_legal_status": "patent_legal_status: unspecified",
     "websites": [
                  "http://books.google.com/books?id=R1XArTHPn9QC"
+                 ],
+    "keywords": [
+                 "keyword-1",
+                 "keyword-2"
+                 ],
+    "tags": [
+                 "No tags examples-1",
+                 "No tags examples-2"
                  ],
     "not_expected_property" : "what's inside?",
     "file_attached": true,
@@ -27,5 +77,9 @@
     "starred": false,
     "authored": false,
     "confirmed": true,
+    "hidden": false,
     "abstract": "Describes how to recover, analyze, and destroy data from an iPhone, iPhone 3G, and an iPod Touch.",
+    "group_id": "group_id: unspecified",
+    "notes": "First note that we did together",
+    "series_number": "series_number: unspecified"
 }

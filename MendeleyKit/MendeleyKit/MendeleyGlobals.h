@@ -352,6 +352,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONPatentOwner                          @"patent_owner"
 #define kMendeleyJSONPatentApplicationNumber              @"patent_application_number"
 #define kMendeleyJSONPatentLegalStatus                    @"patent_legal_status"
+#define kMendeleyJSONNotes                                @"notes"
 #define kMendeleyJSONAccessed                             @"accessed"
 
 
