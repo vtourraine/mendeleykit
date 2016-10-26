@@ -146,22 +146,21 @@
                      NSDictionary *identifiers = ((MendeleyDocument *) parsedObject).identifiers;
                      XCTAssertTrue(identifiers.allKeys.count == 1, @"We expected 1 identifier but got back %ld", (unsigned long) identifiers.allKeys.count);
 
-                     // created - note the date comparisons below down't work - the hour is off by one
-                     /*
-                     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                     [dateFormat setDateFormat:@"YYYY-MM-dd'T'HH:mm:ss.SSS'Z'"];
-
+                     // Note: can't compare using a real date as the hour may vary
                      NSDate *created = ((MendeleyDocument *) parsedObject).created;
-                     NSDate *date2 = [dateFormat dateFromString:@"2014-05-22T15:55:06.000Z"];
-                     XCTAssertTrue([created isEqualToDate:date2], @"dates failed to match");
-                     */
+                     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:created];
                      
-                     // Last modified - note the date comparisons below down't work - the hour is off by one
-                     /*
+                     XCTAssertTrue(components.year == 2014, @"We expected 2014 but got back %ld", components.year);
+                     XCTAssertTrue(components.month == 5, @"We expected 5 but got back %ld", components.month);
+                     XCTAssertTrue(components.day == 22, @"We expected 22 but got back %ld", components.day);
+
+                     // "2014-05-22T15:55:29.000Z",
                      NSDate *last_modified = ((MendeleyDocument *) parsedObject).last_modified;
-                     date2 = [dateFormat dateFromString:@"2014-05-22T15:55:29.000Z"];
-                     XCTAssertTrue([last_modified isEqualToDate:date2], @"dates2 failed to match");
-                     */
+                     components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:last_modified];
+                     
+                     XCTAssertTrue(components.year == 2014, @"We expected 2014 but got back %ld", components.year);
+                     XCTAssertTrue(components.month == 5, @"We expected 5 but got back %ld", components.month);
+                     XCTAssertTrue(components.day == 22, @"We expected 22 but got back %ld", components.day);
                      
                      // pages
                      NSString *pages = ((MendeleyDocument *) parsedObject).pages;
