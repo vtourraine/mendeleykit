@@ -25,13 +25,13 @@ public enum CacheFileError: Error
     case fileNotFound
 }
 
-public class MendeleyAnalyticsCacheManager: NSObject
+open class MendeleyAnalyticsCacheManager: NSObject
 {
     var preferredBatchSize = 50
     let maxBatchSize = 1000
     var eventHeader = [kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONType]
     
-    public var cacheFilePath: String{
+    open var cacheFilePath: String{
         get{
             let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory,
                 .userDomainMask, true)
@@ -42,7 +42,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
     
-    public func addMendeleyAnalyticsEvent(_ event:MendeleyAnalyticsEvent)
+    open func addMendeleyAnalyticsEvent(_ event:MendeleyAnalyticsEvent)
     {
         var currentEvents = eventsFromArchive()
         currentEvents.append(event)
@@ -60,7 +60,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
 
-    public func addMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
+    open func addMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
     {
         var currentEvents = eventsFromArchive()
         currentEvents += events
@@ -76,7 +76,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
     
-    public func sendAndClearAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
+    open func sendAndClearAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
     {
         let events = eventsFromArchive()
         if 0 == events.count
@@ -152,7 +152,7 @@ public class MendeleyAnalyticsCacheManager: NSObject
         }
     }
     
-    public func clearCache()
+    open func clearCache()
     {
         let path = cacheFilePath
         let fileManager = FileManager.default

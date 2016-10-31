@@ -20,9 +20,9 @@
 
 import Foundation
 
-public class MendeleyKitLoginHelper: NSObject
+open class MendeleyKitLoginHelper: NSObject
 {
-    public func getOAuthRequest(_ redirect: String, clientID: String) -> URLRequest
+    open func getOAuthRequest(_ redirect: String, clientID: String) -> URLRequest
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.appendingPathComponent(kMendeleyOAuthPathAuthorize)
         
@@ -40,7 +40,7 @@ public class MendeleyKitLoginHelper: NSObject
         return request as URLRequest
     }
     
-    public func getAuthenticationCode(_ redirectURL: URL) -> String?
+    open func getAuthenticationCode(_ redirectURL: URL) -> String?
     {
         var code: String?
 
@@ -62,7 +62,7 @@ public class MendeleyKitLoginHelper: NSObject
         return code
     }
 
-    public func cleanCookiesAndURLCache()
+    open func cleanCookiesAndURLCache()
     {
         let oauthServer = MendeleyKitConfiguration.sharedInstance().baseAPIURL
         URLCache.shared.removeAllCachedResponses()
