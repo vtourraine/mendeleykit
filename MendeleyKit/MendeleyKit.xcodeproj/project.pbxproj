@@ -1947,6 +1947,12 @@
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0800;
 					};
+					C4CD513A19DAD9E400C8EB8D = {
+						LastSwiftMigration = 0810;
+					};
+					C4CD514A19DAD9E400C8EB8D = {
+						LastSwiftMigration = 0810;
+					};
 					D7A3C0DE1D4BAE5300CF12A9 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0810;
@@ -2928,6 +2934,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKit/MendeleyKit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2944,6 +2951,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKit/MendeleyKit-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -2969,6 +2977,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKitTests/MendeleyKitTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -2990,6 +2999,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MendeleyKitTests/MendeleyKitTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
