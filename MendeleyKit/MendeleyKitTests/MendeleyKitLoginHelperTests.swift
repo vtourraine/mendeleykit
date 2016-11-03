@@ -27,11 +27,11 @@ class MendeleyKitLoginHelperTests: XCTestCase
         let helper = MendeleyKitLoginHelper()
         let request = helper.getOAuthRequest("http://redirect", clientID: "somenumber")
         
-        XCTAssertEqual(request.HTTPMethod!, "GET", "http method should be GET")
+        XCTAssertEqual(request.httpMethod!, "GET", "http method should be GET")
         let header = request.allHTTPHeaderFields
         XCTAssertNotNil(header, "header should not be nil")
         
-        let url = request.URL
+        let url = request.url
         XCTAssertNotNil(url, "request url should not be nil")
         
     }
