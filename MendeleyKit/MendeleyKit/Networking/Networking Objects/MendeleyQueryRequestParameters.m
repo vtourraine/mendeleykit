@@ -274,3 +274,6 @@
 @implementation MendeleyRecommendationsParameters
 @end
 
+@implementation MendeleyFeedsParameters
+@end
+

@@ -117,3 +117,8 @@
 @property (nonatomic, strong) NSString *ref;
 @end
 
+@interface MendeleyFeedsParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *profile_id;
+@property (nonatomic, strong) NSString *cut_off;
+@end
+

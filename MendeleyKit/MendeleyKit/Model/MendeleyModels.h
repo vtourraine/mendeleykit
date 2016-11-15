@@ -38,5 +38,6 @@
 #import "MendeleyProfile.h"
 #import "MendeleyUserRole.h"
 #import "MendeleyRecommendedArticle.h"
+#import "MendeleyNewsFeed.h"
 
 #endif

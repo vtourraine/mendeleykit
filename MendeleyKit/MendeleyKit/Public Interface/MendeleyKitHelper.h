@@ -197,3 +197,14 @@
             completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 @end
+
+@interface MendeleyKitHelper (Feed)
+
+- (void)mendeleyFeedListWithParameters:(NSDictionary *)queryParameters
+              additionalHeaders:(NSDictionary *)additionalHeaders
+                           task:(MendeleyTask *)task
+                            categoryTypes:(NSArray <NSString *>*)categoryTypes
+                    categoryClassNames:(NSArray <NSString *>*)categoryClassNames
+                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+@end
