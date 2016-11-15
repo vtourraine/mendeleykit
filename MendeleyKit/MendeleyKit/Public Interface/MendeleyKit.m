@@ -45,6 +45,7 @@
 #import "MendeleyErrorManager.h"
 #import "MendeleyPhotosMeAPI.h"
 #import "MendeleyRecommendationsAPI.h"
+#import "MendeleyFeedsAPI.h"
 
 
 @interface MendeleyKit ()
@@ -66,6 +67,7 @@
 @property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
 @property (nonatomic, strong, nonnull) MendeleyPhotosMeAPI *photosAPI;
 @property (nonatomic, strong, nonnull) MendeleyRecommendationsAPI *recommendationsAPI;
+@property (nonatomic, strong, nonnull) MendeleyFeedsAPI *feedsAPI;
 @end
 
 @implementation MendeleyKit
@@ -165,6 +167,9 @@
     self.recommendationsAPI = [[MendeleyRecommendationsAPI alloc]
                                initWithNetworkProvider:self.networkProvider
                                baseURL:baseURL];
+    
+    self.feedsAPI = [[MendeleyFeedsAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                              baseURL:baseURL];
 }
 
 - (BOOL)isAuthenticated
@@ -1473,6 +1478,36 @@
                                                      task:task
                                           completionBlock:completionBlock];
     } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark Feeds
+
+- (MendeleyTask *)feedListWithLinkedURL:(NSURL *)linkURL
+                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI feedListWithLinkedURL:linkURL
+                                        task:task
+                             completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)feedListWithQueryParameters:(MendeleyFeedsParameters *)queryParameters
+                              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI feedListWithQueryParameters:queryParameters
+                                              task:task
+                                   completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
     
     return task;
 }

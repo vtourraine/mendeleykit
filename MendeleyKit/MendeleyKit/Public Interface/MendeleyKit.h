@@ -21,7 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters;
 
 @protocol MendeleyNetworkProvider;
 
@@ -909,6 +909,28 @@
                                 userAction:(NSString *)userAction
                                   carousel:(NSNumber *)carousel
                            completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Feeds
+
+/**
+ This method is only used when paging through a list of documents on the server.
+ All required parameters are provided in the linkURL, which should not be modified
+ 
+ @param linkURL the full HTTP link to the document listings page
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)feedListWithLinkedURL:(NSURL *)linkURL
+              completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+ obtains a list of feeds for the first page.
+ @param parameters the parameter set to be used in the request
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)feedListWithQueryParameters:(MendeleyFeedsParameters *)queryParameters
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark - Datasets
 /**
