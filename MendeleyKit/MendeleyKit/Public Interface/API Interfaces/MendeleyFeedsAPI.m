@@ -136,7 +136,7 @@ static NSArray *itemClassStrings;
 {
     NSDictionary *query = [queryParameters valueStringDictionary];
     
-    [self.helper mendeleyFeedListWithParameters:nil
+    [self.helper mendeleyFeedListWithParameters:query
                         additionalHeaders:[self defaultServiceRequestHeaders]
                                      task:task
                                   categoryTypes:itemTypes
