@@ -170,6 +170,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIDocuments                         @"documents"
 #define kMendeleyRESTAPIDocumentWithID                    @"documents/%@"
 #define kMendeleyRESTAPIDocumentWithIDToTrash             @"documents/%@/trash"
+#define kMendeleyRESTAPIDocumentCloneTo                   @"documents/%@/actions/cloneTo"
+#define kMendeleyRESTAPIDocumentCloneFilesTo              @"documents/%@/actions/cloneFilesTo"
 #define kMendeleyRESTAPICatalog                           @"catalog"
 #define kMendeleyRESTAPICatalogWithID                     @"catalog/%@"
 #define kMendeleyRESTAPIMetadata                          @"metadata"
@@ -355,6 +357,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONPatentLegalStatus                    @"patent_legal_status"
 #define kMendeleyJSONNotes                                @"notes"
 #define kMendeleyJSONAccessed                             @"accessed"
+#define kMendeleyJSONFolderID                             @"folder_id"
+#define kMendeleyJSONUserID                               @"user_id"
 
 
 

@@ -401,6 +401,50 @@
 - (MendeleyTask *)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
                                     completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+
+/**
+ Method clones document metadata to a new group/lib. The returned metadata contain the user document metadata including the document ID for the cloned document
+ @param documentID the ID of the document to be cloned
+ @param groupID the target group ID. Use nil if you want to clone to the users' library. In this case the profile ID must be provided
+ @param folderID the target folder ID.
+ @param profileID must be provided if the groupID is nil (this means clone to user library). Otherwise values are ignored
+ @param completionBlock
+ */
+- (MendeleyTask *)cloneDocumentWithID:(NSString *)documentID
+                              groupID:(NSString *)groupID
+                             folderID:(NSString *)folderID
+                            profileID:(NSString *)profileID
+                      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Method clones files associated with a document from source to target.
+ The target document must exist - otherwise the completionBlock will return an error
+ @param sourceDocumentID the source document with files
+ @param targetDocumentID the target document ID
+ @param completionBlock
+ */
+- (MendeleyTask *)cloneDocumentFiles:(NSString *)sourceDocumentID
+                    targetDocumentID:(NSString *)targetDocumentID
+                     completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+
+/**
+ Method clones document metadata to a new group/lib. It also clones any associated files from source to target document
+ The returned metadata contain the user document metadata including the document ID for the cloned document
+ @param documentID the ID of the document to be cloned
+ @param groupID the target group ID. Use nil if you want to clone to the users' library. In this case the profile ID must be provided
+ @param folderID the target folder ID.
+ @param profileID must be provided if the groupID is nil (this means clone to user library). Otherwise values are ignored
+ @param completionBlock
+ */
+- (MendeleyTask *)cloneDocumentAndFiles:(NSString *)documentID
+                                groupID:(NSString *)groupID
+                               folderID:(NSString *)folderID
+                              profileID:(NSString *)profileID
+                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+
+
 #pragma mark - Document and Identifier Types
 /**
    @name documentTypes and identifierTypes APIs methods
