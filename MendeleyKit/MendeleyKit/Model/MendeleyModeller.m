@@ -348,3 +348,7 @@
 }
 
 @end
+
+@implementation MendeleyModellerForFeeds
+
+@end

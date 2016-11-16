@@ -75,3 +75,7 @@
 - (nullable NSDictionary *)dictionaryFromModel:(nonnull id)model error:(NSError *__nullable *__nullable)error;
 
 @end
+
+@interface MendeleyModellerForFeeds : MendeleyModeller
+
+@end
