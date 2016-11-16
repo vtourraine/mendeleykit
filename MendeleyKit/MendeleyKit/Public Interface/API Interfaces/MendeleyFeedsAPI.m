@@ -27,9 +27,9 @@ static NSArray *itemClassStrings;
 
 @implementation MendeleyFeedsAPI
 
-- (instancetype)init
+- (instancetype)initWithNetworkProvider:(id<MendeleyNetworkProvider>)provider baseURL:(NSURL *)baseURL
 {
-    self = [super init];
+    self = [super initWithNetworkProvider:provider baseURL:baseURL];
     if (self)
     {
         if (itemTypes == nil || itemClassStrings == nil)
