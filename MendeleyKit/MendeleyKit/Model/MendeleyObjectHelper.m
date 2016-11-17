@@ -598,7 +598,7 @@
             if (index != NSNotFound)
             {
                 Class klass = NSClassFromString([[self class] feedItemContentClasses][index]);
-                return [[self class] objectArrayForClass:klass fromRawValue:rawValue];
+                return [[self class] setPropertiesToObjectOfClass:klass fromRawValue:rawValue];
             }
             // throw error error
         }
