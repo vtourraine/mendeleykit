@@ -53,19 +53,19 @@
 @implementation MendeleyNewFollowerJsonNode
 @end
 
-@implementation MendeleyNewPublication
+@implementation MendeleyNewPublicationJsonNode
 @end
 
-@implementation MendeleyNewStatus
+@implementation MendeleyNewStatusJsonNode
 @end
 
-@implementation MendeleyPostedCataloguePublication
+@implementation MendeleyPostedCataloguePublicationJsonNode
 @end
 
-@implementation MendeleyPostedPublication
+@implementation MendeleyPostedPublicationJsonNode
 @end
 
-@implementation MendeleyRSS
+@implementation MendeleyRSSJsonNode
 @end
 
 @implementation MendeleyShare

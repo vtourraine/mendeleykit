@@ -51,14 +51,14 @@
 
 + (NSArray *)feedItemContentClasses
 {
-    return @[@"MendeleyRSSItemFeed",
-             @"MendeleyNewStatusFeed",
-             @"MendeleyEmploymentUpdateNewsFeed",
-             @"MendeleyNewFollowerFeed",
-             @"MendeleyNewPubFeed",
-             @"MendeleyDocumentRecommendationFeed",
-             @"MendeleyPostedCataloguePubFeed",
-             @"MendeleyPostedPubFeed",
+    return @[@"MendeleyRSSJsonNode",
+             @"MendeleyNewStatusJsonNode",
+             @"MendeleyEmploymentUpdateJsonNode",
+             @"MendeleyNewFollowerJsonNode",
+             @"MendeleyNewPublicationJsonNode",
+             @"MendeleyDocumentRecommendationJsonNode",
+             @"MendeleyPostedCataloguePublicationJsonNode",
+             @"MendeleyPostedPublicationJsonNode",
              @"MendeleyDocuAddedFeed"];
 }
 

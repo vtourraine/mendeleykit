@@ -106,7 +106,7 @@
 
 @class MendeleyFeedAuthor;
 
-@interface MendeleyNewPublication : MendeleyCountableJsonNode
+@interface MendeleyNewPublicationJsonNode : MendeleyCountableJsonNode
 
 // documents
 @property (nonatomic, strong) NSArray<MendeleyFeedAuthor *> *co_authors;
@@ -115,25 +115,25 @@
 
 @class MendeleyPost;
 
-@interface MendeleyNewStatus : MendeleyJsonNode
+@interface MendeleyNewStatusJsonNode : MendeleyJsonNode
 
 @property (nonatomic, strong) MendeleyPost *post;
 
 @end
 
-@interface MendeleyPostedCataloguePublication : MendeleyCountableJsonNode
+@interface MendeleyPostedCataloguePublicationJsonNode : MendeleyCountableJsonNode
 
 // documents
 
 @end
 
-@interface MendeleyPostedPublication : MendeleyCountableJsonNode
+@interface MendeleyPostedPublicationJsonNode : MendeleyCountableJsonNode
 
 // documents
 
 @end
 
-@interface MendeleyRSS : MendeleyJsonNode
+@interface MendeleyRSSJsonNode : MendeleyJsonNode
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *summary;
