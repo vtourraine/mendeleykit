@@ -27,6 +27,43 @@
 #import <UIKit/UIKit.h>
 #endif
 
+@interface MendeleyObjectHelper (Feeds)
+
++ (NSArray *)feedItemContentTypes;
++ (NSArray *)feedItemContentClasses;
+
+@end
+
+@implementation MendeleyObjectHelper (Feeds)
+
++ (NSArray *)feedItemContentTypes
+{
+    return @[@"rss-item",
+             @"new-status",
+             @"employment-update",
+             @"new-follower",
+             @"new-pub",
+             @"document-recommendation",
+             @"posted-catalogue-pub",
+             @"posted-pub",
+             @"group-doc-added"];
+}
+
++ (NSArray *)feedItemContentClasses
+{
+    return @[@"MendeleyRSSItemFeed",
+             @"MendeleyNewStatusFeed",
+             @"MendeleyEmploymentUpdateNewsFeed",
+             @"MendeleyNewFollowerFeed",
+             @"MendeleyNewPubFeed",
+             @"MendeleyDocumentRecommendationFeed",
+             @"MendeleyPostedCataloguePubFeed",
+             @"MendeleyPostedPubFeed",
+             @"MendeleyDocuAddedFeed"];
+}
+
+@end
+
 @implementation MendeleyObjectHelper
 
 + (NSDictionary *)jsonPropertyDictionary
@@ -556,11 +593,16 @@
     {
         if ([propertyName isEqualToString:kMendeleyJSONContent]/** || [propertyName isEqualToString:kMendeleyJSONEditors]*/)
         {
-            return [[self class] objectArrayForClass:[MendeleyPerson class] fromRawValue:rawValue];
+            NSString *contentType = rawValue[kMendeleyJSONType];
+            NSUInteger index = [[[self class] feedItemContentTypes] indexOfObject:contentType];
+            if (index != NSNotFound)
+            {
+                Class klass = NSClassFromString([[self class] feedItemContentClasses][index]);
+                return [[self class] objectArrayForClass:klass fromRawValue:rawValue];
+            }
+            // throw error error
         }
     }
-    
-
     return nil;
 }
 
