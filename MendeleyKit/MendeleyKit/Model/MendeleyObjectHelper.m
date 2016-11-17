@@ -62,6 +62,18 @@
              @"MendeleyDocuAddedFeed"];
 }
 
++ (NSArray *)feedItemsourceTypes
+{
+    return @[@"profile",
+             @"rss"];
+}
+
++ (NSArray *)feedItemSourceClasses
+{
+    return @[@"MendeleyNewsFeedProfileSource",
+             @"MendeleyNewsFeedRSSSource"];
+}
+
 @end
 
 @implementation MendeleyObjectHelper
@@ -338,8 +350,8 @@
     NSString *newsFeedName = NSStringFromClass([MendeleyNewsFeed class]);
     if ([modelName isEqualToString:newsFeedName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONContent]/* ||
-            [propertyName isEqualToString:kMendeleyJSONSource]*/)
+        if ([propertyName isEqualToString:kMendeleyJSONContent] ||
+            [propertyName isEqualToString:kMendeleyJSONSource])
         {
             return YES;
         }
@@ -591,13 +603,24 @@
     NSString *newsFeedName = NSStringFromClass([MendeleyNewsFeed class]);
     if ([modelName isEqualToString:newsFeedName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONContent]/** || [propertyName isEqualToString:kMendeleyJSONEditors]*/)
+        if ([propertyName isEqualToString:kMendeleyJSONContent])
         {
             NSString *contentType = rawValue[kMendeleyJSONType];
             NSUInteger index = [[[self class] feedItemContentTypes] indexOfObject:contentType];
             if (index != NSNotFound)
             {
                 Class klass = NSClassFromString([[self class] feedItemContentClasses][index]);
+                return [[self class] setPropertiesToObjectOfClass:klass fromRawValue:rawValue];
+            }
+            // throw error error
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONSource])
+        {
+            NSString *sourceType = rawValue[kMendeleyJSONType];
+            NSUInteger index = [[[self class] feedItemsourceTypes] indexOfObject:sourceType];
+            if (index != NSNotFound)
+            {
+                Class klass = NSClassFromString([[self class] feedItemSourceClasses][index]);
                 return [[self class] setPropertiesToObjectOfClass:klass fromRawValue:rawValue];
             }
             // throw error error
