@@ -356,7 +356,17 @@
             return YES;
         }
     }
-
+    
+    NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
+    if ([modelName isEqualToString:feedRSSSourceName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed]/* ||
+            [propertyName isEqualToString:kMendeleyJSONSource]*/)
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -626,6 +636,17 @@
             // throw error error
         }
     }
+    
+    NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
+    if ([modelName isEqualToString:feedRSSSourceName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed]/* ||
+                                                                [propertyName isEqualToString:kMendeleyJSONSource]*/)
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFeedRSSFeed class] fromRawValue:rawValue];
+        }
+    }
+    
     return nil;
 }
 

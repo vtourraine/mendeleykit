@@ -467,6 +467,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
  @name JSON keys NewsFeed
  ***********************************************/
 #define kMendeleyJSONContent                       @"content"
+#define kMendeleyJSONRSSFeed                       @"rss_feed"
 
 /***********************************************
    @name Paging
