@@ -464,6 +464,11 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONCarousel                             @"carousel"
 
 /***********************************************
+ @name JSON keys NewsFeed
+ ***********************************************/
+#define kMendeleyJSONContent                       @"content"
+
+/***********************************************
    @name Paging
 ***********************************************/
 #define kMendeleyPagingNoSizeInfo                         -1
