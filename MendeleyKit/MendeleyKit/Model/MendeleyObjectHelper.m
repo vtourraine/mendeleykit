@@ -352,7 +352,9 @@
     {
         if ([propertyName isEqualToString:kMendeleyJSONContent] ||
             [propertyName isEqualToString:kMendeleyJSONSource] ||
-            [propertyName isEqualToString:kMendeleyJSONComments])
+            [propertyName isEqualToString:kMendeleyJSONComments] ||
+            [propertyName isEqualToString:kMendeleyJSONShare] ||
+            [propertyName isEqualToString:kMendeleyJSONLike])
         {
             return YES;
         }
