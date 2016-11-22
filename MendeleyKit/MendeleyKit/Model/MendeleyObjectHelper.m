@@ -692,7 +692,7 @@
     {
         if ([propertyName isEqualToString:kMendeleyJSONPhotos])
         {
-            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfilePhoto class] fromRawValue:rawValue];
+            return [[self class] objectArrayForClass:[MendeleySocialProfilePhoto class] fromRawValue:rawValue];
         }
     }
 
