@@ -351,7 +351,8 @@
     if ([modelName isEqualToString:newsFeedName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONContent] ||
-            [propertyName isEqualToString:kMendeleyJSONSource])
+            [propertyName isEqualToString:kMendeleyJSONSource] ||
+            [propertyName isEqualToString:kMendeleyJSONComments])
         {
             return YES;
         }
@@ -360,8 +361,7 @@
     NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
     if ([modelName isEqualToString:feedRSSSourceName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed]/* ||
-            [propertyName isEqualToString:kMendeleyJSONSource]*/)
+        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed])
         {
             return YES;
         }
@@ -635,13 +635,24 @@
             }
             // throw error error
         }
+        else if ([propertyName isEqualToString:kMendeleyJSONComments])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyExpandedComments class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONShare])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyShare class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONLike])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyLike class] fromRawValue:rawValue];
+        }
     }
     
     NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
     if ([modelName isEqualToString:feedRSSSourceName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed]/* ||
-                                                                [propertyName isEqualToString:kMendeleyJSONSource]*/)
+        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleyFeedRSSFeed class] fromRawValue:rawValue];
         }

@@ -41,11 +41,11 @@
 
 @end
 
-@class MendeleyFeedProfile;
+@class MendeleySocialProfile;
 
 @interface MendeleyNewsFeedProfileSource : MendeleyNewsFeedSource
 
-@property (nonatomic, strong) MendeleyFeedProfile *profile;
+@property (nonatomic, strong) MendeleySocialProfile *profile;
 
 @end
 
@@ -148,8 +148,8 @@
 
 @property (nonatomic, strong) NSString *total_count;
 @property (nonatomic, assign) BOOL shared_by_me;
-@property (nonatomic, strong) MendeleyFeedProfile *originating_sharer_profile;
-@property (nonatomic, strong) NSArray<MendeleyFeedProfile *> *most_recent_sharer_profiles;
+@property (nonatomic, strong) MendeleySocialProfile *originating_sharer_profile;
+@property (nonatomic, strong) NSArray<MendeleySocialProfile *> *most_recent_sharer_profiles;
 
 @end
 
@@ -160,7 +160,26 @@
 
 @end
 
+@class MendeleyCommentWithSocialProfile;
+
 @interface MendeleyExpandedComments : MendeleySecureObject
+
+@property (nonatomic, assign) int total_count;
+@property (nonatomic, strong) NSArray<MendeleyCommentWithSocialProfile *> *latest;
+
+@end
+
+@class MendeleySocialProfile;
+
+@interface MendeleyCommentWithSocialProfile : MendeleyObject
+
+@property (nonatomic, strong) MendeleySocialProfile *profile;
+@property (nonatomic, strong) NSString *last_modified;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSString *created;
+@property (nonatomic, strong) NSString *profile_id;
+@property (nonatomic, strong) NSString *news_item_id;
+@property (nonatomic, assign) BOOL news_item_owner;
 
 @end
 
@@ -170,7 +189,7 @@
 
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) MendeleyFeedDocument *document;
-@property (nonatomic, strong) NSArray<MendeleyFeedProfile *> *tagged_users;
+@property (nonatomic, strong) NSArray<MendeleySocialProfile *> *tagged_users;
 
 @end
 
@@ -193,18 +212,18 @@
 
 @end
 
-@class MendeleyFeedProfilePhoto;
+@class MendeleySocialProfilePhoto;
 
-@interface MendeleyFeedProfile : MendeleyObject
+@interface MendeleySocialProfile : MendeleyObject
 
 @property (nonatomic, strong) NSString *first_name;
 @property (nonatomic, strong) NSString *last_name;
 @property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSArray<MendeleyFeedProfilePhoto *> *photos;
+@property (nonatomic, strong) NSArray<MendeleySocialProfilePhoto *> *photos;
 
 @end
 
-@interface MendeleyFeedProfilePhoto : MendeleySecureObject
+@interface MendeleySocialProfilePhoto : MendeleySecureObject
 
 @property (nonatomic, assign) int width;
 @property (nonatomic, assign) int height;

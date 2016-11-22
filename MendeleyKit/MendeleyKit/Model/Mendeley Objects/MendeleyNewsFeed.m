@@ -86,8 +86,8 @@
 @implementation MendeleyFeedAuthor
 @end
 
-@implementation MendeleyFeedProfile
+@implementation MendeleySocialProfile
 @end
 
-@implementation MendeleyFeedProfilePhoto
+@implementation MendeleySocialProfilePhoto
 @end

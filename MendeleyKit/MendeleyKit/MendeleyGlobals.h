@@ -468,6 +468,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
  ***********************************************/
 #define kMendeleyJSONContent                       @"content"
 #define kMendeleyJSONRSSFeed                       @"rss_feed"
+#define kMendeleyJSONComments                      @"comments"
+#define kMendeleyJSONShare                         @"share"
+#define kMendeleyJSONLike                          @"like"
 
 /***********************************************
    @name Paging
