@@ -378,6 +378,15 @@
         }
     }
     
+    NSString *socialProfileName = NSStringFromClass([MendeleySocialProfilePhoto class]);
+    if ([modelName isEqualToString:socialProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -675,6 +684,15 @@
         if ([propertyName isEqualToString:kMendeleyJSONProfile])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *feedSocialProfileName = NSStringFromClass([MendeleySocialProfile class]);
+    if ([modelName isEqualToString:feedSocialProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfilePhoto class] fromRawValue:rawValue];
         }
     }
 
