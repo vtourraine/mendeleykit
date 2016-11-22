@@ -378,7 +378,7 @@
         }
     }
     
-    NSString *socialProfileName = NSStringFromClass([MendeleySocialProfilePhoto class]);
+    NSString *socialProfileName = NSStringFromClass([MendeleySocialProfile class]);
     if ([modelName isEqualToString:socialProfileName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONPhotos])
