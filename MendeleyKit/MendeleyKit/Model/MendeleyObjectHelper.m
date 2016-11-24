@@ -59,7 +59,7 @@
              @"MendeleyDocumentRecommendationJsonNode",
              @"MendeleyPostedCataloguePublicationJsonNode",
              @"MendeleyPostedPublicationJsonNode",
-             @"MendeleyDocuAddedFeed"];
+             @"MendeleyGroupDocAddedJsonNode"];
 }
 
 + (NSArray *)feedItemsourceTypes
