@@ -98,9 +98,11 @@
 
 @end
 
+@class MendeleyFollowerProfile;
+
 @interface MendeleyNewFollowerJsonNode : MendeleyCountableJsonNode
 
-// followings
+@property (nonatomic, strong) NSArray<MendeleyFollowerProfile *> *followings;
 
 @end
 
@@ -142,7 +144,6 @@
 @property (nonatomic, strong) NSString *image_url;
 
 @end
-
 
 @interface MendeleyShare : MendeleySecureObject
 
@@ -220,6 +221,15 @@
 @property (nonatomic, strong) NSString *last_name;
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSArray<MendeleySocialProfilePhoto *> *photos;
+
+@end
+
+@class MendeleySocialProfile;
+
+@interface MendeleyFollowerProfile : MendeleySocialProfile
+
+@property (nonatomic, strong) NSString *profile_id;
+@property (nonatomic, strong) NSString *institution;
 
 @end
 
