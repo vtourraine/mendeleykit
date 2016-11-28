@@ -89,5 +89,8 @@
 @implementation MendeleySocialProfile
 @end
 
+@implementation MendeleyFollowerProfile
+@end
+
 @implementation MendeleySocialProfilePhoto
 @end
