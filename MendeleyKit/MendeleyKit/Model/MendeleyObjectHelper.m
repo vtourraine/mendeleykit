@@ -413,6 +413,15 @@
             return YES;
         }
     }
+   
+    NSString *addedDocumentName = NSStringFromClass([MendeleyGroupDocAddedJsonNode class]);
+    if ([modelName isEqualToString:addedDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return YES;
+        }
+    }
     
     return NO;
 }
@@ -741,7 +750,7 @@
         }
     }
     
-    NSString *publishedDocumentName = NSStringFromClass([MendeleyPublishedDocument class]);
+    NSString *publishedDocumentName = NSStringFromClass([MendeleyAddedDocument class]);
     if ([modelName isEqualToString:publishedDocumentName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
@@ -756,6 +765,15 @@
         if ([propertyName isEqualToString:kMendeleyJSONRecommendations])
         {
             return [[self class] objectArrayForClass:[MendeleyRecommendedDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *addedDocumentName = NSStringFromClass([MendeleyGroupDocAddedJsonNode class]);
+    if ([modelName isEqualToString:addedDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyAddedDocument class] fromRawValue:rawValue];
         }
     }
 

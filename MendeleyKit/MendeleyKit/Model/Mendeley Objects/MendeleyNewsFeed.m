@@ -84,6 +84,9 @@
 @implementation MendeleyFeedDocument
 @end
 
+@implementation MendeleyAddedDocument
+@end
+
 @implementation MendeleyPublishedDocument
 @end
 

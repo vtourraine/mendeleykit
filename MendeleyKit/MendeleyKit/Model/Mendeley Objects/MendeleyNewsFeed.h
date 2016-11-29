@@ -93,10 +93,12 @@
 
 @end
 
+@class MendeleyAddedDocument;
+
 @interface MendeleyGroupDocAddedJsonNode : MendeleyCountableJsonNode
 
 // group
-// documents
+@property (nonatomic, strong) NSArray<MendeleyAddedDocument *> *documents;
 
 @end
 
@@ -210,14 +212,21 @@
 
 @class MendeleySimpleAuthor;
 
-@interface MendeleyPublishedDocument : MendeleyObject
+@interface MendeleyAddedDocument : MendeleyObject
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSNumber *year;
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSString *type;
-@property (nonatomic, strong) NSString *source;
 @property (nonatomic, strong) NSArray<MendeleySimpleAuthor *> *authors;
+
+@end
+
+@class MendeleyAddedDocument;
+
+@interface MendeleyPublishedDocument : MendeleyAddedDocument
+
+@property (nonatomic, strong) NSString *source;
 
 @end
 
