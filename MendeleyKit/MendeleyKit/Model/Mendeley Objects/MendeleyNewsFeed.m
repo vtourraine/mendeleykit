@@ -87,6 +87,9 @@
 @implementation MendeleyPublishedDocument
 @end
 
+@implementation MendeleyRecommendedDocument
+@end
+
 @implementation MendeleySimpleAuthor
 @end
 
