@@ -21,6 +21,7 @@
 #import "MendeleyNewsFeed.h"
 
 @implementation MendeleyNewsFeed
+
 @end
 
 @implementation MendeleyNewsFeedSource
@@ -81,6 +82,12 @@
 @end
 
 @implementation MendeleyFeedDocument
+@end
+
+@implementation MendeleyPublishedDocument
+@end
+
+@implementation MendeleySimpleAuthor
 @end
 
 @implementation MendeleyFeedAuthor

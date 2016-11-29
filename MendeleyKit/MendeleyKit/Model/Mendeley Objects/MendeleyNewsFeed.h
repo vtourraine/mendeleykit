@@ -107,10 +107,11 @@
 @end
 
 @class MendeleyFeedAuthor;
+@class MendeleyPublishedDocument;
 
 @interface MendeleyNewPublicationJsonNode : MendeleyCountableJsonNode
 
-// documents
+@property (nonatomic, strong) NSArray<MendeleyPublishedDocument *> *documents;
 @property (nonatomic, strong) NSArray<MendeleyFeedAuthor *> *co_authors;
 
 @end
@@ -205,10 +206,30 @@
 
 @end
 
-@interface MendeleyFeedAuthor : MendeleySecureObject
+@class MendeleySimpleAuthor;
+
+@interface MendeleyPublishedDocument : MendeleyObject
+
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSNumber *year;
+@property (nonatomic, strong) NSString *link;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *source;
+@property (nonatomic, strong) NSArray<MendeleySimpleAuthor *> *authors;
+
+@end
+
+@interface MendeleySimpleAuthor : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *first_name;
 @property (nonatomic, strong) NSString *last_name;
+
+@end
+
+@class MendeleySimpleAuthor;
+
+@interface MendeleyFeedAuthor : MendeleySimpleAuthor
+
 @property (nonatomic, strong) NSString *scopus_author_id;
 
 @end
