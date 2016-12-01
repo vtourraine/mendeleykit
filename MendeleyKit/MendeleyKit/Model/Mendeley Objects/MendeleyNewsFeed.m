@@ -51,6 +51,9 @@
 @implementation MendeleyGroupDocAddedJsonNode
 @end
 
+@implementation MendeleyFeedGroup
+@end
+
 @implementation MendeleyNewFollowerJsonNode
 @end
 

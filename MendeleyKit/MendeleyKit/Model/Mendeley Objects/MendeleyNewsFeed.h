@@ -94,11 +94,20 @@
 @end
 
 @class MendeleyAddedDocument;
+@class MendeleyFeedGroup;
 
 @interface MendeleyGroupDocAddedJsonNode : MendeleyCountableJsonNode
 
-// group
+@property (nonatomic, strong) MendeleyFeedGroup *group;
 @property (nonatomic, strong) NSArray<MendeleyAddedDocument *> *documents;
+
+@end
+
+@interface MendeleyFeedGroup : MendeleyObject
+
+@property (nonatomic, strong) NSString *link;
+@property (nonatomic, strong) NSString *access_level;
+@property (nonatomic, strong) NSString *name;
 
 @end
 

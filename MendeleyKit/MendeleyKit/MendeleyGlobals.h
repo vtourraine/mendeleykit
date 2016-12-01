@@ -474,6 +474,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONProfile                       @"profile"
 #define kMendeleyJSONFollowings                    @"followings"
 #define kMendeleyJSONDocuments                     @"documents"
+#define kMendeleyJSONGroup                         @"group"
 #define kMendeleyJSONRecommendations               @"recommendations"
 
 /***********************************************

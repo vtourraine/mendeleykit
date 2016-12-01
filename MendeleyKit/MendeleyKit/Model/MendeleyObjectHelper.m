@@ -417,7 +417,8 @@
     NSString *addedDocumentName = NSStringFromClass([MendeleyGroupDocAddedJsonNode class]);
     if ([modelName isEqualToString:addedDocumentName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments] ||
+            [propertyName isEqualToString:kMendeleyJSONGroup])
         {
             return YES;
         }
@@ -774,6 +775,10 @@
         if ([propertyName isEqualToString:kMendeleyJSONDocuments])
         {
             return [[self class] objectArrayForClass:[MendeleyAddedDocument class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONGroup])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFeedGroup class] fromRawValue:rawValue];
         }
     }
 
