@@ -236,4 +236,48 @@
                            task:(MendeleyTask *)task
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+ Method clones document metadata to a new group/lib. The returned metadata contain the user document metadata including the document ID for the cloned document
+ @param document the document to be cloned
+ @param toGroup the target group ID. Use nil if you want to clone to the users' library. In this case the profile ID must be provided
+ @param toFolder the target folder ID.
+ @param profileID must be provided if the groupID is nil (this means clone to user library). Otherwise values are ignored
+ @param completionBlock
+ */
+- (void)cloneDocumentWithID:(NSString *)documentID
+                    groupID:(NSString *)groupID
+                   folderID:(NSString *)folderID
+                  profileID:(NSString *)profileID
+                       task:(MendeleyTask *)task
+            completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Method clones files associated with a document from source to target.
+ The target document must exist - otherwise the completionBlock will return an error
+ @param document the source document with files
+ @param toDocument the target document ID
+ @param completionBlock
+ */
+- (void)cloneDocumentFiles:(NSString *)sourceDocumentID
+          targetDocumentID:(NSString *)targetDocumentID
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+
+/**
+ Method clones document metadata to a new group/lib. It also clones any associated files from source to target document
+ The returned metadata contain the user document metadata including the document ID for the cloned document
+ @param document the document to be cloned
+ @param toGroup the target group ID. Use nil if you want to clone to the users' library. In this case the profile ID must be provided
+ @param toFolder the target folder ID.
+ @param profileID must be provided if the groupID is nil (this means clone to user library). Otherwise values are ignored
+ @param completionBlock
+ */
+- (void)cloneDocumentAndFiles:(NSString *)documentID
+                      groupID:(NSString *)groupID
+                     folderID:(NSString *)folderID
+                    profileID:(NSString *)profileID
+                         task:(MendeleyTask *)task
+              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
 @end
