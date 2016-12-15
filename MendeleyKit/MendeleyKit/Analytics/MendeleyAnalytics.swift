@@ -23,18 +23,11 @@ import Foundation
 @objc
 public protocol MendeleyAnalytics
 {
-    
     func configureMendeleyAnalytics(_ profileID: String, clientVersionString: String, clientIdentityString: String)
-
     func configureMendeleyAnalytics(_ profileID: String, clientVersionString: String, clientIdentityString: String, batchSize: Int)
     
-    
     func logMendeleyAnalyticsEvent(_ name: String)
-
-    
     func logMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
     
-    
     func dispatchMendeleyAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
-    
 }
