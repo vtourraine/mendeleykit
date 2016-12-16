@@ -1,4 +1,9 @@
 RELEASE NOTES
+Date: December (3.0.0)
+- removed MendeleyKit static library target and scheme
+- converted code to Swift 3
+- added new methods to support better cloning of documents from one group to another
+
 Date: September (2.2.1)
 - correct import of authors and editors from a JSON catalog document
 
