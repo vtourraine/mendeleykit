@@ -49,6 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
    @return a default header to be used in HTTP requests
  */
-+ (NSDictionary *)defaultHeader;
++ (NSDictionary<NSString *, NSString*> *)defaultHeader;
 @end
 NS_ASSUME_NONNULL_END

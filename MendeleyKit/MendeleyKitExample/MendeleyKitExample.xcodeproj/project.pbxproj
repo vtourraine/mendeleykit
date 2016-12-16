@@ -42,6 +42,7 @@
 		145C2DBB1A2CA84A0005BFF6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		145C2DBE1A2CA84A0005BFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		145C2DD21A2CAA010005BFF6 /* MendeleyKitOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MendeleyKitOSX.framework; path = ../build/Debug/MendeleyKitOSX.framework; sourceTree = "<group>"; };
+		720602A51D63283700A1389F /* MendeleyKitExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MendeleyKitExample.entitlements; sourceTree = "<group>"; };
 		C415E9BE1B3A9A0300C937E3 /* MendeleyKitiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MendeleyKitiOS.framework; path = "../build/Debug-iphoneos/MendeleyKitiOS.framework"; sourceTree = "<group>"; };
 		C468B9EB1B3AFCB000822EC4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C499433419DC3BE600E19A81 /* DocumentDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentDetailTableViewController.h; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 		C4A1347719DADB010069DB7A /* MendeleyKitExample */ = {
 			isa = PBXGroup;
 			children = (
+				720602A51D63283700A1389F /* MendeleyKitExample.entitlements */,
 				C4A1348019DADB010069DB7A /* AppDelegate.h */,
 				C4A1348119DADB010069DB7A /* AppDelegate.m */,
 				C4A1348619DADB010069DB7A /* ViewController.h */,
@@ -244,6 +246,14 @@
 				TargetAttributes = {
 					145C2DB11A2CA84A0005BFF6 = {
 						CreatedOnToolsVersion = 6.1;
+					};
+					C4A1346D19DADB010069DB7A = {
+						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -488,6 +498,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MendeleyKitExample/MendeleyKitExample.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
@@ -499,6 +510,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -508,6 +520,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MendeleyKitExample/MendeleyKitExample.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
@@ -519,6 +532,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mendeley.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

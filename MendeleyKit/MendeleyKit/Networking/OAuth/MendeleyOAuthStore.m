@@ -39,6 +39,15 @@ static NSMutableDictionary * keychainQueryDictionaryWithIdentifier()
 
 @implementation MendeleyOAuthStore
 
++ (NSString * __nonnull)OSStringFromStatus:(OSStatus)status
+{
+    if (status == noErr) {
+        return @"No Error";
+    }
+    char message[5] = {0};
+    *(UInt32*) message = CFSwapInt32HostToBig(status);
+    return [NSString stringWithCString:message encoding:NSASCIIStringEncoding];
+}
 
 - (BOOL)storeOAuthCredentials:(MendeleyOAuthCredentials *)credentials
 {
@@ -68,7 +77,10 @@ static NSMutableDictionary * keychainQueryDictionaryWithIdentifier()
 
     if (status != errSecSuccess)
     {
+        NSLog(@"Status is: not successful");
     }
+    NSString *statusString = [[self class] OSStringFromStatus:status];
+    NSLog(@"Status as C String = %@", statusString);
 
     return (status == errSecSuccess);
 

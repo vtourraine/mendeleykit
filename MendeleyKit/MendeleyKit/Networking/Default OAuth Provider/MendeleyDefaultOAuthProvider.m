@@ -30,6 +30,13 @@
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKitHelper.h"
 
+#ifdef MendeleyKitiOSFramework
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#else
+#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
+#endif
+
+
 @interface MendeleyDefaultOAuthProvider ()
 @property (nonatomic, strong, readwrite) NSURL *oauth2BaseURL;
 @property (nonatomic, assign, readwrite) BOOL isTrustedSSLServer;
@@ -125,8 +132,7 @@
              [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOAuthCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
                   if (nil != credentials)
                   {
-                      MendeleyOAuthStore *oauthStore = [[MendeleyOAuthStore alloc] init];
-                      BOOL success = [oauthStore storeOAuthCredentials:credentials];
+                      BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
                       if (success)
                       {
                           [blockExec executeWithBool:YES

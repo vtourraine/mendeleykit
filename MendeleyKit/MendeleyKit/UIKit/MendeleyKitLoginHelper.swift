@@ -20,11 +20,11 @@
 
 import Foundation
 
-public class MendeleyKitLoginHelper: NSObject
+open class MendeleyKitLoginHelper: NSObject
 {
-    public func getOAuthRequest(redirect: String, clientID: String) -> NSURLRequest
+    open func getOAuthRequest(_ redirect: String, clientID: String) -> URLRequest
     {
-        let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.URLByAppendingPathComponent(kMendeleyOAuthPathAuthorize)
+        let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.appendingPathComponent(kMendeleyOAuthPathAuthorize)
         
         let parameters = [kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
             kMendeleyOAuth2RedirectURLKey: redirect,
@@ -32,24 +32,24 @@ public class MendeleyKitLoginHelper: NSObject
             kMendeleyOAuth2ClientIDKey: clientID,
             kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType]
         
-        let baseOAuthURL = MendeleyURLBuilder.urlWithBaseURL(baseURL, parameters: parameters, query: true)
-        let request = NSMutableURLRequest(URL: baseOAuthURL)
+        let baseOAuthURL = MendeleyURLBuilder.url(withBaseURL: baseURL, parameters: parameters, query: true)
+        let request = NSMutableURLRequest(url: baseOAuthURL)
 
-        request.HTTPMethod = "GET"
-        request.allHTTPHeaderFields = MendeleyURLBuilder.defaultHeader() as? [String : String]
-        return request as NSURLRequest
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = MendeleyURLBuilder.defaultHeader()
+        return request as URLRequest
     }
     
-    public func getAuthenticationCode(redirectURL: NSURL) -> String?
+    open func getAuthenticationCode(_ redirectURL: URL) -> String?
     {
         var code: String?
 
         if let queryString = redirectURL.query
         {
-            let components: [String] = queryString.componentsSeparatedByString("&")
+            let components: [String] = queryString.components(separatedBy: "&")
             for component in components
             {
-                let parameterPair = component.componentsSeparatedByString("=")
+                let parameterPair = component.components(separatedBy: "=")
                 let key = parameterPair[0]
                 let value = parameterPair[1]
                 if kMendeleyOAuth2ResponseType == key
@@ -62,20 +62,20 @@ public class MendeleyKitLoginHelper: NSObject
         return code
     }
 
-    public func cleanCookiesAndURLCache()
+    open func cleanCookiesAndURLCache()
     {
         let oauthServer = MendeleyKitConfiguration.sharedInstance().baseAPIURL
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
+        URLCache.shared.removeAllCachedResponses()
 
-        let cookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        let cookieStorage = HTTPCookieStorage.shared
 
-        guard let cookies = cookieStorage.cookies as [NSHTTPCookie]?
+        guard let cookies = cookieStorage.cookies as [HTTPCookie]?
             else { return }
 
         for cookie in cookies
         {
             let domain = cookie.domain
-            if domain == kMendeleyKitURL || domain == oauthServer.host
+            if domain == kMendeleyKitURL || domain == oauthServer?.host
             {
                 cookieStorage.deleteCookie(cookie)
             }

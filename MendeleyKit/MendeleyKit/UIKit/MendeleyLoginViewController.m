@@ -25,12 +25,7 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
-
-#ifdef MendeleyKitiOSFramework
 #import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
-#else
-#import "MendeleyLoginHandleriOS7.h"
-#endif
 
 @interface MendeleyLoginViewController ()
 @property (nonatomic, strong) UIWebView *webView;
@@ -40,11 +35,8 @@
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
-#ifdef MendeleyKitiOSFramework
 @property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *loginHandler;
-#else
-@property (nonatomic, strong) MendeleyLoginHandleriOS7 *loginHandler;
-#endif
+@property (nonatomic, assign) BOOL isHandlingOAuth;
 @end
 
 @implementation MendeleyLoginViewController
@@ -92,6 +84,9 @@
 
 }
 
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -105,8 +100,7 @@
     __strong MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error){
         if (nil != credentials)
         {
-            MendeleyOAuthStore *oauthStore = [[MendeleyOAuthStore alloc] init];
-            BOOL success = [oauthStore storeOAuthCredentials:credentials];
+            BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
             if (nil != self.completionBlock)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -125,11 +119,6 @@
         }
     };
     
-#ifdef MendeleyKitiOSFramework
-    /**
-     login handler needs to be retained by the class otherwise we get out of scope
-     and the callbacks to the handler never get called
-     */
     self.loginHandler = [MendeleyLoginWebKitHandler new];
     
     [self.loginHandler startLoginProcess:self.clientID
@@ -137,16 +126,6 @@
                               controller:self
                        completionHandler:self.completionBlock
                             oauthHandler:oAuthCompletionBlock];
-#else
-    self.loginHandler = [MendeleyLoginHandleriOS7 new];
-    [self.loginHandler startLoginProcessWithClientID:self.clientID
-                                         redirectURI:self.redirectURI
-                                          controller:self
-                                     completionBlock:self.completionBlock
-                                oauthCompletionBlock:oAuthCompletionBlock];
-
-#endif
-    
     
 }
 

@@ -101,6 +101,10 @@
 @property (nonatomic, strong) NSString *patent_application_number;
 @property (nonatomic, strong) NSString *patent_legal_status;
 
+@property (nonatomic, strong) NSString *notes;
+
+@property (nonatomic, strong) NSString *series_number;
+
 @end
 
 

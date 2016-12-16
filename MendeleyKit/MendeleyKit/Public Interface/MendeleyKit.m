@@ -169,8 +169,7 @@
 
 - (BOOL)isAuthenticated
 {
-    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
-    MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
+    MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
 
     _loggedIn = (nil != credentials);
     return _loggedIn;
@@ -178,8 +177,7 @@
 
 - (void)initialLoginStatus
 {
-    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
-    MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
+    MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
 
     if (nil != credentials)
     {
@@ -193,9 +191,7 @@
 
 - (void)clearAuthentication
 {
-    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
-
-    [store removeOAuthCredentials];
+    [MendeleyKitConfiguration.sharedInstance.storeProvider removeOAuthCredentials];
 }
 
 - (MendeleyTask *)checkAuthorisationStatusWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
@@ -210,14 +206,13 @@
         return nil;
     }
     MendeleyTask *task = [MendeleyTask new];
-    MendeleyOAuthStore *store = [[MendeleyOAuthStore alloc] init];
-    MendeleyOAuthCredentials *credentials = [store retrieveOAuthCredentials];
+    MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
     MendeleyKitConfiguration *configuration = [MendeleyKitConfiguration sharedInstance];
     [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *updatedCredentials, NSError *error) {
          BOOL success = NO;
          if (nil != updatedCredentials)
          {
-             [store storeOAuthCredentials:updatedCredentials];
+             [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:updatedCredentials];
              success = YES;
          }
          if (nil != completionBlock)
@@ -739,6 +734,46 @@
 
     return task;
 }
+
+- (MendeleyTask *)cloneDocumentWithID:(NSString *)documentID
+                              groupID:(NSString *)groupID
+                             folderID:(NSString *)folderID
+                            profileID:(NSString *)profileID
+                      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.documentsAPI cloneDocumentWithID:documentID groupID:groupID folderID:folderID profileID:profileID task:task completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    return task;
+}
+
+- (MendeleyTask *)cloneDocumentFiles:(NSString *)sourceDocumentID
+                    targetDocumentID:(NSString *)targetDocumentID
+                     completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.documentsAPI cloneDocumentFiles:sourceDocumentID targetDocumentID:targetDocumentID task:task completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    return task;
+}
+
+
+- (MendeleyTask *)cloneDocumentAndFiles:(NSString *)documentID
+                                groupID:(NSString *)groupID
+                               folderID:(NSString *)folderID
+                              profileID:(NSString *)profileID
+                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.documentsAPI cloneDocumentAndFiles:documentID groupID:groupID folderID:folderID profileID:profileID task:task completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    return task;
+}
+
+
 
 
 #pragma mark - Metadata

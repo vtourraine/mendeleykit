@@ -100,6 +100,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyOAuth2RedirectURLKey         @"redirect_uri"
 #define kMendeleyOAuth2ClientSecretKey        @"client_secret"
 #define kMendeleyOAuth2ClientIDKey            @"client_id"
+#define kMendeleyOAuthStoreProviderKey        @"MendeleyKitOAuthStoreProvider"
 
 
 /***********************************************
@@ -122,6 +123,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestURLType                             @"application/x-www-form-urlencoded"
 #define kMendeleyRESTRequestJSONAnnotationType                  @"application/vnd.mendeley-annotation.1+json"
 #define kMendeleyRESTRequestJSONDocumentType                    @"application/vnd.mendeley-document.1+json"
+#define kMendeleyRESTRequestJSONDocumentCloneType               @"application/vnd.mendeley-document-clone.1+json"
 #define kMendeleyRESTRequestJSONMetadataLookupType              @"application/vnd.mendeley-document-lookup.1+json"
 #define kMendeleyRESTRequestJSONFileType                        @"application/vnd.mendeley-file.1+json"
 #define kMendeleyRESTRequestJSONFolderType                      @"application/vnd.mendeley-folder.1+json"
@@ -169,6 +171,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIDocuments                         @"documents"
 #define kMendeleyRESTAPIDocumentWithID                    @"documents/%@"
 #define kMendeleyRESTAPIDocumentWithIDToTrash             @"documents/%@/trash"
+#define kMendeleyRESTAPIDocumentCloneTo                   @"documents/%@/actions/cloneTo"
+#define kMendeleyRESTAPIDocumentCloneFilesTo              @"documents/%@/actions/cloneFilesTo"
 #define kMendeleyRESTAPICatalog                           @"catalog"
 #define kMendeleyRESTAPICatalogWithID                     @"catalog/%@"
 #define kMendeleyRESTAPIMetadata                          @"metadata"
@@ -352,7 +356,10 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONPatentOwner                          @"patent_owner"
 #define kMendeleyJSONPatentApplicationNumber              @"patent_application_number"
 #define kMendeleyJSONPatentLegalStatus                    @"patent_legal_status"
+#define kMendeleyJSONNotes                                @"notes"
 #define kMendeleyJSONAccessed                             @"accessed"
+#define kMendeleyJSONFolderID                             @"folder_id"
+#define kMendeleyJSONUserID                               @"user_id"
 
 
 

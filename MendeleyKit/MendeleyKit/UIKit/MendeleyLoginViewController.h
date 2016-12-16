@@ -39,6 +39,8 @@
             redirectURI:(NSString *)redirectURI
         completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+
+
 /**
    custom initialisers
    The completion block BOOL variable is set to YES if login has been successful

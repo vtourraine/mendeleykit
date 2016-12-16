@@ -21,6 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyNetworkProvider.h"
 #import "MendeleyOAuthProvider.h"
+#import "MendeleyOAuthStoreProvider.h"
 
 @interface MendeleyKitConfiguration : NSObject
 @property (nonatomic, assign, readonly) BOOL isTrustedSSLServer;
@@ -28,6 +29,7 @@
 @property (nonatomic, assign, readonly) NSString *documentViewType;
 @property (nonatomic, strong, readonly) id<MendeleyNetworkProvider> networkProvider;
 @property (nonatomic, strong, readonly) id<MendeleyOAuthProvider> oauthProvider;
+@property (nonatomic, strong, readonly) id<MendeleyOAuthStoreProvider> storeProvider;
 @property (nonatomic, strong, readwrite) NSString *sharedKeyChainGroupName;
 /**
    a singleton to obtain access to default SDK configurations

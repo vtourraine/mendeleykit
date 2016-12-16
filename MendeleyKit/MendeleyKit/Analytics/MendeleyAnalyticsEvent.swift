@@ -20,14 +20,14 @@
 
 import Foundation
 
-public class MendeleyAnalyticsEvent: MendeleySecureObject
+open class MendeleyAnalyticsEvent: MendeleySecureObject
 {
-    public var name:String!
-    public var timestamp = NSDate()
-    public var profileID: String!
-    public var session_ID: String!
-    public var profile_uuid: String!
-    public var origin = [kMendeleyAnalyticsJSONOriginOS : kOriginOS,
+    open var name:String!
+    open var timestamp = Date()
+    open var profileID: String!
+    open var session_ID: String!
+    open var profile_uuid: String!
+    open var origin = [kMendeleyAnalyticsJSONOriginOS : kOriginOS,
         kMendeleyAnalyticsJSONOriginType: kOriginType]
 
 }

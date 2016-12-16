@@ -88,7 +88,7 @@
     return [bodyString dataUsingEncoding:NSASCIIStringEncoding];
 }
 
-+ (NSDictionary *)defaultHeader
++ (NSDictionary<NSString *, NSString*> *)defaultHeader
 {
     static NSMutableDictionary *header = nil;
     static dispatch_once_t onceToken;
