@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: December (3.0.1)
+- min version of iOS set back to iOS8 upon request
+
 Date: December (3.0.0)
 - removed MendeleyKit static library target and scheme
 - converted code to Swift 3

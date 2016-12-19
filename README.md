@@ -18,7 +18,7 @@ towards Swift (3 or later).
 ## Minimum Requirements ##
 
 Xcode 8
-iOS 9.1 or higher
+iOS 8.0 or higher
 OS X 10.9 or higher
 
 ## Installation (CocoaPods) ##
