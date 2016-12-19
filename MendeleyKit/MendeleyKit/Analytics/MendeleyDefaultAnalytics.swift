@@ -117,6 +117,8 @@ open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
             event.duration_milliseconds = Int(round(millisecondsElapsed))
             
             cacheManager.addMendeleyAnalyticsEvent(event)
+            
+            timedEvents.removeValue(forKey: name)
         }
     }
     
@@ -124,11 +126,13 @@ open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     {
         for event in events {
             if let eventInfo = timedEvents[event.name] {
-            let millisecondsElapsed = Date.init().timeIntervalSince(eventInfo.startTime) * 1000
-
-            event.duration_milliseconds = Int(round(millisecondsElapsed))
-            
-            cacheManager.addMendeleyAnalyticsEvent(event)
+                let millisecondsElapsed = Date.init().timeIntervalSince(eventInfo.startTime) * 1000
+                
+                event.duration_milliseconds = Int(round(millisecondsElapsed))
+                
+                cacheManager.addMendeleyAnalyticsEvent(event)
+                
+                timedEvents.removeValue(forKey: event.name)
             }
         }
     }
