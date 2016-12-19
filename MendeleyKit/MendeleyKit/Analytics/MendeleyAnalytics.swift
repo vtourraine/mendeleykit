@@ -29,5 +29,11 @@ public protocol MendeleyAnalytics
     func logMendeleyAnalyticsEvent(_ name: String)
     func logMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
     
+    func logMendeleyAnalyticsEvent(_ name: String, timed: Bool)
+    func logMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent], timed: Bool)
+    
+    func endTimedEvent(_ name: String)
+    func endTimedEvents(_ events:[MendeleyAnalyticsEvent])
+    
     func dispatchMendeleyAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
 }

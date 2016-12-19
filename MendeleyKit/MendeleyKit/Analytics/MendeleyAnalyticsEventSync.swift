@@ -40,5 +40,4 @@ open class MendeleyAnalyticsEventSync : MendeleyAnalyticsEvent
 {
     open var connection_type: MendeleySyncConnectionType!
     open var finish_condition: MendeleySyncFinishCondition!
-    open var duration_milliseconds: String!
 }

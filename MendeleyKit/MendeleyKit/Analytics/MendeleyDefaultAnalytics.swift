@@ -22,10 +22,17 @@ import Foundation
 
 open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
 {
+    struct MendeleyAnalyticsEventInfo {
+        var event : MendeleyAnalyticsEvent
+        var startTime : Date
+    }
+    
     var cacheManager = MendeleyAnalyticsCacheManager()
     open var versionString = String()
     open var identityString = String()
     open var profileUUID = String()
+    
+    var timedEvents = [String : MendeleyAnalyticsEventInfo]()
     
     open class var sharedInstance : MendeleyDefaultAnalytics
     {
@@ -54,18 +61,9 @@ open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     
     open func logMendeleyAnalyticsEvent(_ name: String)
     {
-        let event = MendeleyAnalyticsEvent()
-        event.name = name
-        
-        if versionString.characters.count == 0 || identityString.characters.count == 0 || profileUUID.characters.count == 0
-        {
-            return
+        if let event = self.createEvent(name: name) {
+            cacheManager.addMendeleyAnalyticsEvent(event)
         }
-        
-        event.origin[kMendeleyAnalyticsJSONOriginVersion] = versionString
-        event.origin[kMendeleyAnalyticsJSONOriginIdentity] = identityString
-        event.profile_uuid = profileUUID
-        cacheManager.addMendeleyAnalyticsEvent(event)
     }
     
     
@@ -84,10 +82,77 @@ open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
         cacheManager.addMendeleyAnalyticsEvents(events)
     }
     
+    open func logMendeleyAnalyticsEvent(_ name: String, timed: Bool)
+    {
+        if (timed) {
+            if let event = self.createEvent(name: name) {
+                let eventInfo = MendeleyAnalyticsEventInfo(event: event, startTime: Date.init())
+                
+                timedEvents[event.name] = eventInfo
+            }
+        } else {
+            self.logMendeleyAnalyticsEvent(name)
+        }
+    }
+    
+    open func logMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent], timed: Bool)
+    {
+        if (timed) {
+            for event in events {
+                let eventInfo = MendeleyAnalyticsEventInfo(event:event, startTime: Date.init())
+                
+                timedEvents[event.name] = eventInfo
+            }
+        } else {
+            self.logMendeleyAnalyticsEvents(events)
+        }
+    }
+    
+    open func endTimedEvent(_ name: String)
+    {
+        if let eventInfo = timedEvents[name] {
+            let millisecondsElapsed = Date.init().timeIntervalSince(eventInfo.startTime) * 1000
+            
+            let event = eventInfo.event
+            event.duration_milliseconds = Int(round(millisecondsElapsed))
+            
+            cacheManager.addMendeleyAnalyticsEvent(event)
+        }
+    }
+    
+    open func endTimedEvents(_ events:[MendeleyAnalyticsEvent])
+    {
+        for event in events {
+            if let eventInfo = timedEvents[event.name] {
+            let millisecondsElapsed = Date.init().timeIntervalSince(eventInfo.startTime) * 1000
+
+            event.duration_milliseconds = Int(round(millisecondsElapsed))
+            
+            cacheManager.addMendeleyAnalyticsEvent(event)
+            }
+        }
+    }
     
     open func dispatchMendeleyAnalyticsEvents(_ completionHandler: MendeleyCompletionBlock?)
     {
         cacheManager.sendAndClearAnalyticsEvents(completionHandler)
+    }
+    
+    private func createEvent(name: String) -> MendeleyAnalyticsEvent?
+    {
+        let event = MendeleyAnalyticsEvent()
+        event.name = name
+        
+        if versionString.characters.count == 0 || identityString.characters.count == 0 || profileUUID.characters.count == 0
+        {
+            return nil
+        }
+        
+        event.origin[kMendeleyAnalyticsJSONOriginVersion] = versionString
+        event.origin[kMendeleyAnalyticsJSONOriginIdentity] = identityString
+        event.profile_uuid = profileUUID
+
+        return event
     }
 
 }
