@@ -27,7 +27,7 @@ import Foundation
     case Mobile
     case Ethernet
     
-    func name() -> String {
+    public func name() -> String {
         switch self {
         case .None: return "none"
         case .WiFi: return "wifi"
@@ -45,7 +45,7 @@ import Foundation
     case Failure
     case Cancel
     
-    func name() -> String {
+    public func name() -> String {
         switch self {
         case .Success: return "success"
         case .ConnectionProblem: return "connection_problem"
