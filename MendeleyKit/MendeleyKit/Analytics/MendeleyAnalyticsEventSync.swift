@@ -21,23 +21,44 @@
 import Foundation
 
 
-public enum MendeleySyncConnectionType : String {
-    case WiFi = "wifi"
-    case Mobile = "mobile"
-    case Ethernet = "ethernet"
+@objc public enum MendeleySyncConnectionType : Int {
+    case None
+    case WiFi
+    case Mobile
+    case Ethernet
+    
+    func name() -> String {
+        switch self {
+        case .None: return "none"
+        case .WiFi: return "wifi"
+        case .Mobile: return "mobile"
+        case .Ethernet: return "ethernet"
+        }
+    }
 }
 
-public enum MendeleySyncFinishCondition : String {
-    case Success = "success"
-    case ConnectionProblem = "connection_problem"
-    case AuthenticationError = "authentication_error"
-    case ServerError = "server_error"
-    case Failure = "failure"
-    case Cancel = "cancel"
+@objc public enum MendeleySyncFinishCondition : Int {
+    case Success
+    case ConnectionProblem
+    case AuthenticationError
+    case ServerError
+    case Failure
+    case Cancel
+    
+    func name() -> String {
+        switch self {
+        case .Success: return "success"
+        case .ConnectionProblem: return "connection_problem"
+        case .AuthenticationError: return "authentication_error"
+        case .ServerError: return "server_error"
+        case .Failure: return "failure"
+        case .Cancel: return "cancel"
+        }
+    }
 }
 
 open class MendeleyAnalyticsEventSync : MendeleyAnalyticsEvent
 {
-    open var connection_type: MendeleySyncConnectionType!
-    open var finish_condition: MendeleySyncFinishCondition!
+    open var connection_type: String!
+    open var finish_condition: String!
 }
