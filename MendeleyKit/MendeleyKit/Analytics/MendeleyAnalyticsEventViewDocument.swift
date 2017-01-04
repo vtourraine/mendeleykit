@@ -33,7 +33,7 @@ import Foundation
     case Trash
     case Search
     
-    func name() -> String {
+    public func name() -> String {
         switch self {
         case .All: return "all"
         case .Documents: return "documents"
