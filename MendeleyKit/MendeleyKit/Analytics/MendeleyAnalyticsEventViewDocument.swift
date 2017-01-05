@@ -20,36 +20,6 @@
 
 import Foundation
 
-@objc public enum MendeleyViewDocumentFromScreen : Int {
-    case All
-    case Documents
-    case Favorities
-    case Folder
-    case Group
-    case MyPublications
-    case RecentlyAdded
-    case RecentlyRead
-    case Tag
-    case Trash
-    case Search
-    
-    public func name() -> String {
-        switch self {
-        case .All: return "all"
-        case .Documents: return "documents"
-        case .Favorities: return "favorites"
-        case .Folder: return "folder"
-        case .Group: return "group"
-        case .MyPublications: return "my_publications"
-        case .RecentlyAdded: return "recently_added"
-        case .RecentlyRead: return "recently_read"
-        case .Tag: return "tag"
-        case .Trash: return "trash"
-        case .Search: return "search"
-        }
-    }
-}
-
 open class MendeleyAnalyticsEventViewDocument : MendeleyAnalyticsEvent
 {
     open var from_screen: String!
