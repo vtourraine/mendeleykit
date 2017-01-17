@@ -387,6 +387,15 @@
         }
     }
     
+    NSString *followerProfileName = NSStringFromClass([MendeleyFollowerProfile class]);
+    if ([modelName isEqualToString:followerProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return YES;
+        }
+    }
+    
     NSString *newFollowerName = NSStringFromClass([MendeleyNewFollowerJsonNode class]);
     if ([modelName isEqualToString:newFollowerName])
     {
@@ -730,6 +739,15 @@
     
     NSString *feedSocialProfileName = NSStringFromClass([MendeleySocialProfile class]);
     if ([modelName isEqualToString:feedSocialProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialProfilePhoto class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *followerProfileName = NSStringFromClass([MendeleyFollowerProfile class]);
+    if ([modelName isEqualToString:followerProfileName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONPhotos])
         {
