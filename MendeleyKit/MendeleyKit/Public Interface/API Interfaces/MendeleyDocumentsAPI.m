@@ -23,6 +23,7 @@
 #import "MendeleyKitConfiguration.h"
 #import "NSDictionary+Merge.h"
 #import "NSError+Exceptions.h"
+#import "MendeleyErrorManager.h"
 
 @implementation MendeleyDocumentsAPI
 #pragma mark Private methods
@@ -37,6 +38,18 @@
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType,
               kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONDocumentType };
 }
+
+- (NSDictionary *)defaultCloneDocumentHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType,
+              kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONDocumentCloneType };
+}
+
+- (NSDictionary *)defaultCloneFileToHeaders
+{
+    return @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestJSONDocumentType };
+}
+
 
 - (NSDictionary *)defaultQueryParameters
 {
@@ -495,6 +508,169 @@
               }];
          }
      }];
+}
+
+- (void)cloneDocumentWithID:(NSString *)documentID
+                    groupID:(NSString *)groupID
+                   folderID:(NSString *)folderID
+                  profileID:(NSString *)profileID
+                       task:(MendeleyTask *)task
+            completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+    NSMutableDictionary *arguments = [NSMutableDictionary new];
+    if (nil == groupID && nil == profileID)
+    {
+        NSError *argumentError = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyDataNotAvailableErrorCode];
+        completionBlock(nil, nil, argumentError);
+        return;
+    }
+    else if (nil != groupID)
+    {
+        [arguments setObject:groupID forKey:kMendeleyJSONGroupID];
+        profileID = nil;
+    }
+    else if (nil != profileID)
+    {
+        [arguments setObject:profileID forKey:kMendeleyJSONUserID];
+        groupID = nil;
+    }
+    if (nil != folderID)
+    {
+        [arguments setObject:folderID forKey:kMendeleyJSONFolderID];
+    }
+    
+    if (0 == arguments.count)
+    {
+        NSError *argumentError = [[MendeleyErrorManager sharedInstance] errorWithDomain:kMendeleyErrorDomain code:kMendeleyDataNotAvailableErrorCode];
+        completionBlock(nil, nil, argumentError);
+        return;
+    }
+    
+    NSError *serialiseError = nil;
+    NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:arguments
+                                                        options:NSJSONWritingPrettyPrinted
+                                                          error:&serialiseError];
+    if (nil == jsonData)
+    {
+        [blockExec executeWithMendeleyObject:nil
+                                    syncInfo:nil
+                                       error:serialiseError];
+        return;
+    }
+    id <MendeleyNetworkProvider> networkProvider = [self provider];
+    NSString *api = [NSString stringWithFormat:kMendeleyRESTAPIDocumentCloneTo, documentID];
+    [networkProvider invokePOST:self.baseURL
+                            api:api
+              additionalHeaders:[self defaultCloneDocumentHeaders]
+                       jsonData:jsonData
+         authenticationRequired:YES
+                           task:task
+                completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                    if (![self.helper isSuccessForResponse:response error:&error])
+                    {
+                        [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+                    }
+                    else
+                    {
+                        [modeller parseJSONData:response.responseBody
+                                   expectedType:kMendeleyModelDocument
+                                completionBlock:^(id parsedObject, NSError *parseError) {
+                                    if (nil != parseError)
+                                    {
+                                        [blockExec executeWithMendeleyObject:nil
+                                                                    syncInfo:nil
+                                                                       error:parseError];
+                                    }
+                                    else
+                                    {
+                                        [blockExec executeWithMendeleyObject:parsedObject
+                                                                    syncInfo:response.syncHeader
+                                                                       error:nil];
+                                    }
+                                }];
+                        
+                    }
+                }];
+}
+
+- (void)cloneDocumentFiles:(NSString *)sourceDocumentID
+          targetDocumentID:(NSString *)targetDocumentID
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:sourceDocumentID argumentName:@"sourceDocumentID"];
+    [NSError assertArgumentNotNil:targetDocumentID argumentName:@"targetDocumentID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+    NSError *serialiseError = nil;
+    NSData *jsonData = [modeller jsonObjectForID:targetDocumentID error:&serialiseError];
+    if (nil == jsonData)
+    {
+        [blockExec executeWithBool:NO error:serialiseError];
+        return;
+    }
+    NSString *apiURL = [NSString stringWithFormat:kMendeleyRESTAPIDocumentCloneFilesTo,sourceDocumentID];
+    id <MendeleyNetworkProvider> networkProvider = [self provider];
+    [networkProvider invokePOST:self.baseURL
+                            api:apiURL
+              additionalHeaders:[self defaultCloneFileToHeaders]
+                       jsonData:jsonData
+         authenticationRequired:YES
+                           task:task
+                completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                    if (error)
+                    {
+                        [blockExec executeWithBool:NO error:error];
+                    }
+                    else
+                    {
+                        [blockExec executeWithBool:YES error:error];
+                    }
+                }];
+}
+
+
+- (void)cloneDocumentAndFiles:(NSString *)documentID
+                      groupID:(NSString *)groupID
+                     folderID:(NSString *)folderID
+                    profileID:(NSString *)profileID
+                         task:(MendeleyTask *)task
+              completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:documentID argumentName:@"documentID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    [self cloneDocumentWithID:documentID groupID:groupID folderID:folderID profileID:profileID task:task completionBlock:^(MendeleyObject * _Nullable mendeleyObject, MendeleySyncInfo * _Nullable syncInfo, NSError * _Nullable error) {
+        if (error)
+        {
+            completionBlock(nil, nil, error);
+        }
+        else
+        {
+            NSString *clonedDocumentID = mendeleyObject.object_ID;
+            if (clonedDocumentID)
+            {
+                [self cloneDocumentFiles:documentID targetDocumentID:clonedDocumentID task:task completionBlock:^(BOOL success, NSError * _Nullable error) {
+                    if (error)
+                    {
+                        completionBlock(nil, nil, error);
+                    }
+                    else
+                    {
+                        completionBlock(mendeleyObject, syncInfo, nil);
+                    }
+                }];
+            }
+            else
+            {
+                completionBlock(nil, nil, error);
+            }
+        }
+    }];
 }
 
 @end

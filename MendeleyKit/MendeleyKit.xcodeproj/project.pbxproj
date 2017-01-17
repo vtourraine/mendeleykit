@@ -74,6 +74,10 @@
 		533248D41D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		533248D61D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
 		533248D71D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
+		5345B9F41E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F31E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift */; };
+		5345B9F51E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F31E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift */; };
+		5345B9F71E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F61E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift */; };
+		5345B9F81E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F61E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift */; };
 		534A950B1D5A34B100E4A706 /* MendeleyProfileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F35DB51D4A57B30052F122 /* MendeleyProfileUtils.m */; };
 		534A950C1D5A392200E4A706 /* MendeleyProfileUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F35DB41D4A57B30052F122 /* MendeleyProfileUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		534A950F1D5A396600E4A706 /* MendeleyProfileUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 534A950D1D5A396600E4A706 /* MendeleyProfileUtilsTests.m */; };
@@ -515,6 +519,8 @@
 		373AA4EC1B46AAB500F8B0C4 /* followAcceptance.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followAcceptance.json; sourceTree = "<group>"; };
 		533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyRecommendedArticle.h; path = "Model/Mendeley Objects/MendeleyRecommendedArticle.h"; sourceTree = "<group>"; };
 		533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyRecommendedArticle.m; path = "Model/Mendeley Objects/MendeleyRecommendedArticle.m"; sourceTree = "<group>"; };
+		5345B9F31E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyAnalyticsEventSync.swift; path = Analytics/MendeleyAnalyticsEventSync.swift; sourceTree = "<group>"; };
+		5345B9F61E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyAnalyticsEventViewDocument.swift; path = Analytics/MendeleyAnalyticsEventViewDocument.swift; sourceTree = "<group>"; };
 		534A950D1D5A396600E4A706 /* MendeleyProfileUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyProfileUtilsTests.m; sourceTree = "<group>"; };
 		53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyRecommendationsAPI.h; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.h"; sourceTree = "<group>"; };
 		53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyRecommendationsAPI.m; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.m"; sourceTree = "<group>"; };
@@ -1017,6 +1023,8 @@
 				C48B4C761B5E4D8A00578E5B /* MendeleyAnalyticsCacheManager.swift */,
 				C48B4C781B5E582800578E5B /* MendeleyAnalyticsRegistry.h */,
 				C406B3011B611862003040F5 /* MendeleyDefaultAnalytics.swift */,
+				5345B9F31E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift */,
+				5345B9F61E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift */,
 			);
 			name = Analytics;
 			sourceTree = "<group>";
@@ -1960,6 +1968,7 @@
 				C42111D31A2341A9006C044C /* MendeleyUploadHelper.m in Sources */,
 				C42111D41A2341A9006C044C /* MendeleyDefaultOAuthProvider.m in Sources */,
 				55F35DB91D4A57B30052F122 /* MendeleyProfileUtils.m in Sources */,
+				5345B9F41E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */,
 				C42111D51A2341A9006C044C /* MendeleyQueryRequestParameters.m in Sources */,
 				C42AAA2A1A7BC3BF00502358 /* MendeleyDisciplinesAPI.m in Sources */,
 				C42111D61A2341A9006C044C /* MendeleyRequest.m in Sources */,
@@ -2008,6 +2017,7 @@
 				C42111F21A2341A9006C044C /* NSDictionary+Merge.m in Sources */,
 				C854638E1ADE892D00754160 /* MendeleyFollow.m in Sources */,
 				C42111F31A2341A9006C044C /* NSMutableArray+MaximumSize.m in Sources */,
+				5345B9F71E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */,
 				C42111F41A2341A9006C044C /* MendeleyErrorManager.m in Sources */,
 				C42111F51A2341A9006C044C /* MendeleyKitUserInfoManager.m in Sources */,
 				C42111F61A2341A9006C044C /* NSError+Exceptions.m in Sources */,
@@ -2089,6 +2099,7 @@
 				C46657D61B3848EF005F762A /* MendeleyNSURLConnectionProvider.m in Sources */,
 				C466575D1B38452E005F762A /* MendeleyFile.m in Sources */,
 				C466579B1B384686005F762A /* MendeleyAcademicStatusesAPI.m in Sources */,
+				5345B9F51E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */,
 				C46657A11B38469A005F762A /* MendeleyDocumentsAPI.m in Sources */,
 				C466578F1B384640005F762A /* MendeleyOAuthCredentials.m in Sources */,
 				533248D71D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */,
@@ -2097,6 +2108,7 @@
 				725CFFE71B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.m in Sources */,
 				C466576B1B38456F005F762A /* MendeleyPerson.m in Sources */,
 				725CFFE01B7B408300AC6758 /* MendeleyFeature.m in Sources */,
+				5345B9F81E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */,
 				C46657B31B3846DA005F762A /* MendeleyKitConfiguration.m in Sources */,
 				C46657A91B3846B5005F762A /* MendeleyGroupsAPI.m in Sources */,
 				C46657741B384598005F762A /* MendeleyObjectHelper.m in Sources */,

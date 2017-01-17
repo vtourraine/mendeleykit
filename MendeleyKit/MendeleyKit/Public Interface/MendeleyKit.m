@@ -740,6 +740,46 @@
     return task;
 }
 
+- (MendeleyTask *)cloneDocumentWithID:(NSString *)documentID
+                              groupID:(NSString *)groupID
+                             folderID:(NSString *)folderID
+                            profileID:(NSString *)profileID
+                      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.documentsAPI cloneDocumentWithID:documentID groupID:groupID folderID:folderID profileID:profileID task:task completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    return task;
+}
+
+- (MendeleyTask *)cloneDocumentFiles:(NSString *)sourceDocumentID
+                    targetDocumentID:(NSString *)targetDocumentID
+                     completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.documentsAPI cloneDocumentFiles:sourceDocumentID targetDocumentID:targetDocumentID task:task completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    return task;
+}
+
+
+- (MendeleyTask *)cloneDocumentAndFiles:(NSString *)documentID
+                                groupID:(NSString *)groupID
+                               folderID:(NSString *)folderID
+                              profileID:(NSString *)profileID
+                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.documentsAPI cloneDocumentAndFiles:documentID groupID:groupID folderID:folderID profileID:profileID task:task completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    return task;
+}
+
+
+
 
 #pragma mark - Metadata
 
