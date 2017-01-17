@@ -455,7 +455,10 @@
             else
             {
                 // Note that this will not work if the property of the object we are trying to assign is a primitive type
-                [object setValue:rawValue[matchedKey] forKeyPath:key];
+                if (rawValue[matchedKey] != [NSNull null])
+                {
+                    [object setValue:rawValue[matchedKey] forKeyPath:key];
+                }
             }
          }];
         return object;
