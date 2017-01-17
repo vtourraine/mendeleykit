@@ -93,6 +93,9 @@
 @implementation MendeleyPublishedDocument
 @end
 
+@implementation MendeleyUserDocument
+@end
+
 @implementation MendeleyRecommendedDocument
 @end
 

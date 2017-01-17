@@ -408,7 +408,8 @@
     NSString *recommendedPublicationName = NSStringFromClass([MendeleyDocumentRecommendationJsonNode class]);
     if ([modelName isEqualToString:recommendedPublicationName])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONRecommendations])
+        if ([propertyName isEqualToString:kMendeleyJSONRecommendations] ||
+            [propertyName isEqualToString:kMendeleyJSONUserDocument])
         {
             return YES;
         }
@@ -766,6 +767,10 @@
         if ([propertyName isEqualToString:kMendeleyJSONRecommendations])
         {
             return [[self class] objectArrayForClass:[MendeleyRecommendedDocument class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONUserDocument])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyUserDocument class] fromRawValue:rawValue];
         }
     }
     

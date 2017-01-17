@@ -77,11 +77,12 @@
 @end
 
 @class MendeleyRecommendedDocument;
+@class MendeleyUserDocument;
 
 @interface MendeleyDocumentRecommendationJsonNode : MendeleyCountableJsonNode
 
 @property (nonatomic, strong) NSString *subtype;
-//user-document
+@property (nonatomic, strong) MendeleyUserDocument *user_document; // in the JSON it is user-documents
 @property (nonatomic, strong) NSArray<MendeleyRecommendedDocument *> *recommendations;
 
 @end
@@ -245,6 +246,19 @@
 @property (nonatomic, strong) NSString *trace;
 @property (nonatomic, strong) NSNumber *reader_count;
 @property (nonatomic, strong) NSString *abstract;
+
+@end
+
+@class MendeleySimpleAuthor;
+
+@interface MendeleyUserDocument : MendeleySecureObject
+
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSNumber *year;
+@property (nonatomic, strong) NSString *source;
+@property (nonatomic, strong) NSArray<MendeleySimpleAuthor *> *authors;
+@property (nonatomic, strong) NSArray<NSDictionary *> *identifiers;
 
 @end
 

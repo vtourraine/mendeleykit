@@ -202,7 +202,10 @@
              }
              else
              {
-                 [properties setObject:value forKey:matchedName];
+                 if (value != [NSNull null])
+                 {
+                     [properties setObject:value forKey:matchedName];
+                 }
              }
          }
      }];
