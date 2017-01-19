@@ -434,7 +434,7 @@
         }
     }
     
-    NSString *publishedDocumentName = NSStringFromClass([MendeleyAddedDocument class]);
+    NSString *publishedDocumentName = NSStringFromClass([MendeleyPublishedDocument class]);
     if ([modelName isEqualToString:publishedDocumentName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
@@ -782,7 +782,7 @@
         }
     }
     
-    NSString *publishedDocumentName = NSStringFromClass([MendeleyAddedDocument class]);
+    NSString *publishedDocumentName = NSStringFromClass([MendeleyPublishedDocument class]);
     if ([modelName isEqualToString:publishedDocumentName])
     {
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
