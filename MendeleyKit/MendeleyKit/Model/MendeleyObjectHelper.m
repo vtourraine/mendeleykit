@@ -434,6 +434,15 @@
         }
     }
     
+    NSString *publishedDocumentName = NSStringFromClass([MendeleyAddedDocument class]);
+    if ([modelName isEqualToString:publishedDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
