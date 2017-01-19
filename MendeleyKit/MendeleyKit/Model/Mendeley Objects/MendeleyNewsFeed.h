@@ -225,7 +225,7 @@
 @interface MendeleyAddedDocument : MendeleyObject
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSNumber *year;
+@property (nonatomic, strong, nullable) NSNumber *year;
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSArray<MendeleySimpleAuthor *> *authors;
