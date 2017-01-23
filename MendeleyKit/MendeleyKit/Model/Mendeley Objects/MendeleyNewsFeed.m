@@ -102,6 +102,9 @@
 @implementation MendeleyRecommendedDocument
 @end
 
+@implementation MendeleyCataloguePubDocument
+@end
+
 @implementation MendeleySimpleAuthor
 @end
 

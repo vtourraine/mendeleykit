@@ -460,7 +460,30 @@
             return YES;
         }
     }
-
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedCataloguePublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedPublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return YES;
+        }
+    }
     
     return NO;
 }
@@ -849,6 +872,30 @@
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
         {
             return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedCataloguePublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyCataloguePubDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedPublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyCataloguePubDocument class] fromRawValue:rawValue];
         }
     }
 

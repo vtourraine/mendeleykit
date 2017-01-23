@@ -145,15 +145,19 @@
 
 @end
 
+@class MendeleyCataloguePubDocument;
+
 @interface MendeleyPostedCataloguePublicationJsonNode : MendeleyCountableJsonNode
 
-// documents
+@property (nonatomic, strong) NSArray<MendeleyCataloguePubDocument *> *documents;
 
 @end
 
+@class MendeleyCataloguePubDocument;
+
 @interface MendeleyPostedPublicationJsonNode : MendeleyCountableJsonNode
 
-// documents
+@property (nonatomic, strong) NSArray<MendeleyCataloguePubDocument *> *documents;
 
 @end
 
@@ -253,6 +257,12 @@
 @property (nonatomic, strong) NSString *trace;
 @property (nonatomic, strong) NSNumber *reader_count;
 @property (nonatomic, strong) NSString *abstract;
+
+@end
+
+@interface MendeleyCataloguePubDocument : MendeleyPublishedDocument
+
+@property (nonatomic, strong) NSString *doi;
 
 @end
 
