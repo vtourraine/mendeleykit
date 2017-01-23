@@ -485,6 +485,14 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyNewStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -896,6 +904,14 @@
         if ([propertyName isEqualToString:kMendeleyJSONDocuments])
         {
             return [[self class] objectArrayForClass:[MendeleyCataloguePubDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyNewStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyPost class] fromRawValue:rawValue];
         }
     }
 
