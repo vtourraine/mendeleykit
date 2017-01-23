@@ -94,6 +94,13 @@
 
 @end
 
+@interface MendeleyEducationUpdateJsonNode : MendeleyCountableJsonNode
+
+@property (nonatomic, strong) NSString *institution;
+@property (nonatomic, strong) NSString *degree;
+
+@end
+
 @class MendeleyAddedDocument;
 @class MendeleyFeedGroup;
 

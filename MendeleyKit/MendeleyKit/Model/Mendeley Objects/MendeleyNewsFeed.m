@@ -48,6 +48,9 @@
 @implementation MendeleyEmploymentUpdateJsonNode
 @end
 
+@implementation MendeleyEducationUpdateJsonNode
+@end
+
 @implementation MendeleyGroupDocAddedJsonNode
 @end
 
