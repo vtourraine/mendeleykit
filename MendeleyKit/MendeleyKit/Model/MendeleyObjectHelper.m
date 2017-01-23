@@ -453,6 +453,15 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+
+    
     return NO;
 }
 
@@ -828,6 +837,14 @@
     }
     
     if ([modelName isEqualToString:NSStringFromClass([MendeleyUserDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
         {
