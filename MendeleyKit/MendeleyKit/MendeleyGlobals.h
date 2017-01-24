@@ -183,6 +183,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIDocumentTypes                     @"document_types"
 #define kMendeleyRESTAPIIdentifierTypes                   @"identifier_types"
 #define kMendeleyRESTAPIFeeds                             @"news_items/v2"
+#define kMendeleyRESTAPILikeFeed                          @"news_items/v1/%@/likers"
+#define kMendeleyRESTAPIUnlikeFeed                        @"news_items/v1/%@/likers/me"
 #define kMendeleyRESTAPIFiles                             @"files"
 #define kMendeleyRESTAPIFileWithID                        @"files/%@"
 #define kMendeleyRESTAPIFolders                           @"folders"

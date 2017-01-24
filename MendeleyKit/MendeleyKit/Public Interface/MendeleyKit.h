@@ -976,6 +976,24 @@
 - (MendeleyTask *)feedListWithQueryParameters:(MendeleyFeedsParameters *)queryParameters
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+/**
+ likes a feed item.
+ @param feedID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)likeFeedWithID:(NSString *)feedID
+       completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+ likes a feed item.
+ @param feedID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)unlikeFeedWithID:(NSString *)feedID
+         completionBlock:(MendeleyCompletionBlock)completionBlock;
+
 #pragma mark - Datasets
 /**
  @name datasets API methods

@@ -1552,6 +1552,32 @@
     return task;
 }
 
+- (MendeleyTask *)likeFeedWithID:(NSString *)feedID
+       completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI likeFeedWithID:feedID
+                                 task:task
+                      completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)unlikeFeedWithID:(NSString *)feedID
+                   completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI unlikeFeedWithID:feedID
+                                 task:task
+                      completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
 #pragma mark - Datasets
 
 - (MendeleyTask *)datasetListWithQueryParameters:(MendeleyDatasetParameters *)queryParameters

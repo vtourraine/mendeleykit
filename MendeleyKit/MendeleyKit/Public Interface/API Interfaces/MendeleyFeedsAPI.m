@@ -101,4 +101,42 @@ static NSArray *itemClassStrings;
              }];
 }
 
+- (void)likeFeedWithID:(NSString *)feedID
+                  task:(MendeleyTask *)task
+       completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    NSString *apiString = [NSString stringWithFormat:kMendeleyRESTAPILikeFeed, feedID];
+    [self.provider invokePOST:self.baseURL
+                          api:apiString
+            additionalHeaders:nil
+                     jsonData:nil
+       authenticationRequired:YES
+                         task:task
+              completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                  BOOL success = [self.helper isSuccessForResponse:response error:&error];
+                  if (completionBlock) {
+                      completionBlock(success, error);
+                  }
+              }];
+}
+
+- (void)unlikeFeedWithID:(NSString *)feedID
+                    task:(MendeleyTask *)task
+         completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    NSString *apiString = [NSString stringWithFormat:kMendeleyRESTAPIUnlikeFeed, feedID];
+    [self.provider invokeDELETE:self.baseURL
+                            api:apiString
+              additionalHeaders:nil
+                 bodyParameters:nil
+         authenticationRequired:YES
+                           task:task
+                completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                    BOOL success = [self.helper isSuccessForResponse:response error:&error];
+                    if (completionBlock) {
+                        completionBlock(success, error);
+                    }
+                }];
+}
+
 @end
