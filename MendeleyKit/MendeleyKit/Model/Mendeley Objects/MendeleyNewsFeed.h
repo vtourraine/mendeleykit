@@ -173,7 +173,7 @@
 
 @interface MendeleyShare : MendeleySecureObject
 
-@property (nonatomic, strong) NSString *total_count;
+@property (nonatomic, strong) NSNumber *total_count;
 @property (nonatomic, strong) NSNumber* shared_by_me;
 @property (nonatomic, strong) MendeleySocialProfile *originating_sharer_profile;
 @property (nonatomic, strong) NSArray<MendeleySocialProfile *> *most_recent_sharer_profiles;
