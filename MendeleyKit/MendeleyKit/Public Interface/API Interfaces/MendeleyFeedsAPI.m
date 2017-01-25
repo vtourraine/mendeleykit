@@ -32,6 +32,11 @@ static NSArray *itemClassStrings;
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemType };
 }
 
+- (NSDictionary *)emptyRequestHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: @"" };
+}
+
 - (void)feedListWithLinkedURL:(NSURL *)linkURL
                          task:(MendeleyTask *)task
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -108,7 +113,7 @@ static NSArray *itemClassStrings;
     NSString *apiString = [NSString stringWithFormat:kMendeleyRESTAPILikeFeed, feedID];
     [self.provider invokePOST:self.baseURL
                           api:apiString
-            additionalHeaders:nil
+            additionalHeaders:[self emptyRequestHeaders]
                bodyParameters:nil
                        isJSON:NO
        authenticationRequired:YES
