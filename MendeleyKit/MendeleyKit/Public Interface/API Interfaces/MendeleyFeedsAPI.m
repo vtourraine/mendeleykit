@@ -109,14 +109,14 @@ static NSArray *itemClassStrings;
     [self.provider invokePOST:self.baseURL
                           api:apiString
             additionalHeaders:nil
-                     jsonData:nil
+               bodyParameters:nil
+                       isJSON:NO
        authenticationRequired:YES
                          task:task
               completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                  MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
                   BOOL success = [self.helper isSuccessForResponse:response error:&error];
-                  if (completionBlock) {
-                      completionBlock(success, error);
-                  }
+                  [blockExec executeWithBool:success error:error];
               }];
 }
 
@@ -132,10 +132,9 @@ static NSArray *itemClassStrings;
          authenticationRequired:YES
                            task:task
                 completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
                     BOOL success = [self.helper isSuccessForResponse:response error:&error];
-                    if (completionBlock) {
-                        completionBlock(success, error);
-                    }
+                    [blockExec executeWithBool:success error:error];
                 }];
 }
 
