@@ -44,6 +44,11 @@
 
 @implementation MendeleyDefaultNetworkProvider
 
+- (NSDictionary *)emptyRequestHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: @"" };
+}
+
 #pragma mark - Initialization
 + (MendeleyDefaultNetworkProvider *)sharedInstance
 {
@@ -350,6 +355,10 @@
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
+    }
     if (nil != queryParameters)
     {
         [request addParametersToURL:queryParameters isQuery:YES];
@@ -394,6 +403,10 @@
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
+    }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
     }
     if (nil != bodyParameters)
     {
@@ -444,6 +457,10 @@
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
+    }
     [request addBodyData:jsonData];
     __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
                                                                                         session:self.currentSession
@@ -484,6 +501,10 @@
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
+    }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
     }
     if (nil != bodyParameters)
     {
@@ -534,6 +555,10 @@
     {
         [request addHeaderWithParameters:additionalHeaders];
     }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
+    }
     [request addBodyData:jsonData];
 
     __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
@@ -576,6 +601,10 @@
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
+    }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
     }
     if (nil != bodyParameters)
     {
@@ -622,6 +651,10 @@
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
+    }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
     }
     if (nil != bodyParameters)
     {
@@ -669,6 +702,10 @@
     if (nil != additionalHeaders)
     {
         [request addHeaderWithParameters:additionalHeaders];
+    }
+    else
+    {
+        [request addHeaderWithParameters:[self emptyRequestHeaders]];
     }
     if (nil != jsonData)
     {
