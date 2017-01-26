@@ -21,17 +21,18 @@
                                 task:(MendeleyTask *)task
                      completionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    [self.provider invokeDELETE:self.baseURL
-                            api:kMendeleyRESTAPIShareFeed
-              additionalHeaders:[self defaultServiceRequestHeaders]
-                 bodyParameters:[queryParameters valueStringDictionary]
-         authenticationRequired:YES
-                           task:task
-                completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
-                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
-                    BOOL success = [self.helper isSuccessForResponse:response error:&error];
-                    [blockExec executeWithBool:success error:error];
-                }];
+    [self.provider invokePOST:self.baseURL
+                          api:kMendeleyRESTAPIShareFeed
+            additionalHeaders:[self defaultServiceRequestHeaders]
+               bodyParameters:[queryParameters valueStringDictionary]
+                       isJSON:YES
+       authenticationRequired:YES
+                         task:task
+              completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+        MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
+        BOOL success = [self.helper isSuccessForResponse:response error:&error];
+        [blockExec executeWithBool:success error:error];
+    }];
 }
 
 @end
