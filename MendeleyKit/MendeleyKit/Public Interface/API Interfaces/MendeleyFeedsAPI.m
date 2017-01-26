@@ -29,7 +29,7 @@ static NSArray *itemClassStrings;
 
 - (NSDictionary *)defaultServiceRequestHeaders
 {
-    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemType };
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemListType };
 }
 
 - (void)feedListWithLinkedURL:(NSURL *)linkURL

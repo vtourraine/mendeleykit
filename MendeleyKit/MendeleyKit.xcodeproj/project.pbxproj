@@ -94,6 +94,10 @@
 		55805B431DD349AD00AAFBEC /* MendeleyNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 55805B401DD349AD00AAFBEC /* MendeleyNewsFeed.m */; };
 		55805B441DD349AD00AAFBEC /* MendeleyNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 55805B401DD349AD00AAFBEC /* MendeleyNewsFeed.m */; };
 		5585558A1DD9FEE4006477DD /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558555891DD9FEE4006477DD /* AppKit.framework */; };
+		558760761E38FCE000F6032B /* MendeleySharesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 558760741E38FCE000F6032B /* MendeleySharesAPI.h */; };
+		558760771E38FCE000F6032B /* MendeleySharesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 558760741E38FCE000F6032B /* MendeleySharesAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		558760781E38FCE000F6032B /* MendeleySharesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 558760751E38FCE000F6032B /* MendeleySharesAPI.m */; };
+		558760791E38FCE000F6032B /* MendeleySharesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 558760751E38FCE000F6032B /* MendeleySharesAPI.m */; };
 		55EF276E1D4A1941007877AF /* MendeleyPhotosMeAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EF276C1D4A1941007877AF /* MendeleyPhotosMeAPI.h */; };
 		55EF276F1D4A1941007877AF /* MendeleyPhotosMeAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EF276C1D4A1941007877AF /* MendeleyPhotosMeAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55EF27711D4A1941007877AF /* MendeleyPhotosMeAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EF276D1D4A1941007877AF /* MendeleyPhotosMeAPI.m */; };
@@ -529,6 +533,8 @@
 		55805B3F1DD349AD00AAFBEC /* MendeleyNewsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNewsFeed.h; path = "Model/Mendeley Objects/MendeleyNewsFeed.h"; sourceTree = "<group>"; };
 		55805B401DD349AD00AAFBEC /* MendeleyNewsFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyNewsFeed.m; path = "Model/Mendeley Objects/MendeleyNewsFeed.m"; sourceTree = "<group>"; };
 		558555891DD9FEE4006477DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		558760741E38FCE000F6032B /* MendeleySharesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleySharesAPI.h; path = "Public Interface/API Interfaces/MendeleySharesAPI.h"; sourceTree = "<group>"; };
+		558760751E38FCE000F6032B /* MendeleySharesAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleySharesAPI.m; path = "Public Interface/API Interfaces/MendeleySharesAPI.m"; sourceTree = "<group>"; };
 		55EF276C1D4A1941007877AF /* MendeleyPhotosMeAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyPhotosMeAPI.h; path = "Public Interface/API Interfaces/MendeleyPhotosMeAPI.h"; sourceTree = "<group>"; };
 		55EF276D1D4A1941007877AF /* MendeleyPhotosMeAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyPhotosMeAPI.m; path = "Public Interface/API Interfaces/MendeleyPhotosMeAPI.m"; sourceTree = "<group>"; };
 		55F35DB41D4A57B30052F122 /* MendeleyProfileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyProfileUtils.h; path = Utils/Model/MendeleyProfileUtils.h; sourceTree = "<group>"; };
@@ -1248,6 +1254,8 @@
 				C4A1353719DADF280069DB7A /* MendeleyProfilesAPI.m */,
 				53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */,
 				53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */,
+				558760741E38FCE000F6032B /* MendeleySharesAPI.h */,
+				558760751E38FCE000F6032B /* MendeleySharesAPI.m */,
 			);
 			name = "API Interfaces";
 			sourceTree = "<group>";
@@ -1489,6 +1497,7 @@
 				145C2DE91A2CAB0C0005BFF6 /* MendeleyUploadHelper.h in Headers */,
 				145C2DEA1A2CAB0C0005BFF6 /* MendeleyQueryRequestParameters.h in Headers */,
 				145C2DEB1A2CAB0C0005BFF6 /* MendeleyRequest.h in Headers */,
+				558760761E38FCE000F6032B /* MendeleySharesAPI.h in Headers */,
 				145C2DEC1A2CAB0C0005BFF6 /* MendeleyResponse.h in Headers */,
 				145C2DED1A2CAB0C0005BFF6 /* MendeleySyncInfo.h in Headers */,
 				145C2DEE1A2CAB0C0005BFF6 /* MendeleyTask.h in Headers */,
@@ -1637,6 +1646,7 @@
 				C466578D1B384633005F762A /* MendeleyOAuthConstants.h in Headers */,
 				C46657731B384592005F762A /* MendeleyObjectHelper.h in Headers */,
 				C46657D31B384775005F762A /* MendeleyGlobals.h in Headers */,
+				558760771E38FCE000F6032B /* MendeleySharesAPI.h in Headers */,
 				C466576E1B38457A005F762A /* MendeleyUserRole.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2014,6 +2024,7 @@
 				C48EF2121B7366450023916F /* MendeleySwiftGlobals.swift in Sources */,
 				C42111F01A2341A9006C044C /* MendeleyKitHelper.m in Sources */,
 				C42111F11A2341A9006C044C /* MendeleyLog.m in Sources */,
+				558760781E38FCE000F6032B /* MendeleySharesAPI.m in Sources */,
 				C42111F21A2341A9006C044C /* NSDictionary+Merge.m in Sources */,
 				C854638E1ADE892D00754160 /* MendeleyFollow.m in Sources */,
 				C42111F31A2341A9006C044C /* NSMutableArray+MaximumSize.m in Sources */,
@@ -2111,6 +2122,7 @@
 				5345B9F81E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */,
 				C46657B31B3846DA005F762A /* MendeleyKitConfiguration.m in Sources */,
 				C46657A91B3846B5005F762A /* MendeleyGroupsAPI.m in Sources */,
+				558760791E38FCE000F6032B /* MendeleySharesAPI.m in Sources */,
 				C46657741B384598005F762A /* MendeleyObjectHelper.m in Sources */,
 				645F7A7F1C52603E006D7B24 /* Color+Addons.swift in Sources */,
 				C46657801B3845DD005F762A /* MendeleyDefaultOAuthProvider.m in Sources */,

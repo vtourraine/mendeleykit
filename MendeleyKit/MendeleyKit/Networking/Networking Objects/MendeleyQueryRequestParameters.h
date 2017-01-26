@@ -49,6 +49,10 @@
 - (BOOL)hasQueryParameterWithName:(NSString *)queryParameterName;
 @end
 
+@interface MendeleySharesParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *news_id;
+@end
+
 @interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
 @property (nonatomic, strong) NSDate *modified_since;
 @property (nonatomic, strong) NSString *sort;
@@ -121,4 +125,8 @@
 @property (nonatomic, strong) NSString *profile_id;
 @property (nonatomic, strong) NSString *cut_off;
 @end
+
+
+
+
 

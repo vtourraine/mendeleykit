@@ -277,3 +277,8 @@
 @implementation MendeleyFeedsParameters
 @end
 
+@implementation MendeleySharesParameters
+@end
+
+
+

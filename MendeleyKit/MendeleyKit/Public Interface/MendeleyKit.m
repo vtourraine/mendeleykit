@@ -46,6 +46,7 @@
 #import "MendeleyPhotosMeAPI.h"
 #import "MendeleyRecommendationsAPI.h"
 #import "MendeleyFeedsAPI.h"
+#import "MendeleySharesAPI.h"
 
 
 @interface MendeleyKit ()
@@ -68,6 +69,7 @@
 @property (nonatomic, strong, nonnull) MendeleyPhotosMeAPI *photosAPI;
 @property (nonatomic, strong, nonnull) MendeleyRecommendationsAPI *recommendationsAPI;
 @property (nonatomic, strong, nonnull) MendeleyFeedsAPI *feedsAPI;
+@property (nonatomic, strong, nonnull) MendeleySharesAPI *sharesAPI;
 @end
 
 @implementation MendeleyKit
@@ -169,6 +171,9 @@
                                baseURL:baseURL];
     
     self.feedsAPI = [[MendeleyFeedsAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                              baseURL:baseURL];
+    
+    self.sharesAPI = [[MendeleySharesAPI alloc] initWithNetworkProvider:self.networkProvider
                                                               baseURL:baseURL];
 }
 
@@ -1573,6 +1578,22 @@
         [self.feedsAPI unlikeFeedWithID:feedID
                                  task:task
                       completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark - Shares
+
+- (MendeleyTask *)shareFeedWithQueryParameters:(MendeleySharesParameters *)queryParameters
+                     completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareFeedWithQueryParameters:queryParameters
+                                                task:task
+                                     completionBlock:completionBlock];
     } completionBlock:completionBlock];
     
     return task;
