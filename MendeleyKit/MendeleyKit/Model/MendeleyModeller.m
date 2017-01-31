@@ -344,7 +344,7 @@
                  }
              }
          }
-     }];
+     };
     return modelObject;
 }
 
