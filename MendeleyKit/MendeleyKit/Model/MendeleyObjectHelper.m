@@ -751,7 +751,14 @@
                 Class klass = NSClassFromString([[self class] feedItemContentClasses][index]);
                 return [[self class] setPropertiesToObjectOfClass:klass fromRawValue:rawValue];
             }
-            // throw error error
+            else
+            {
+                if (error != NULL)
+                {
+                    *error = [NSError errorWithCode:kMendeleyJSONTypeNotMappedToModelErrorCode];
+                }
+                return nil;
+            }
         }
         else if ([propertyName isEqualToString:kMendeleyJSONSource])
         {
@@ -762,7 +769,14 @@
                 Class klass = NSClassFromString([[self class] feedItemSourceClasses][index]);
                 return [[self class] setPropertiesToObjectOfClass:klass fromRawValue:rawValue];
             }
-            // throw error error
+            else
+            {
+                if (error != NULL)
+                {
+                    *error = [NSError errorWithCode:kMendeleyJSONTypeNotMappedToModelErrorCode];
+                }
+                return nil;
+            }
         }
         else if ([propertyName isEqualToString:kMendeleyJSONComments])
         {

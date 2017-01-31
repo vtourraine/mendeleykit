@@ -249,32 +249,32 @@
         }
         return nil;
     }
-
+    
     if ([expectedType isEqualToString:@"NSArray"])
     {
         return jsonArray;
     }
     NSMutableArray *objects = [NSMutableArray array];
-
-    [jsonArray enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop)
-     {
-         if ([obj isKindOfClass:[NSDictionary class]])
-         {
-             id model = [self objectModelFromJSONDictionary:(NSDictionary *) obj expectedType:expectedType error:error];
-             if (nil != model)
-             {
-                 [objects addObject:model];
-             }
-         }
-         else if ([obj isKindOfClass:[NSArray class]])
-         {
-             NSArray *modelArray = [self objectArrayFromJSONArray:(NSArray *) obj expectedType:expectedType error:error];
-             if (nil != modelArray)
-             {
-                 [objects addObject:modelArray];
-             }
-         }
-     }];
+    
+    for (id obj in jsonArray)
+    {
+        if ([obj isKindOfClass:[NSDictionary class]])
+        {
+            id model = [self objectModelFromJSONDictionary:(NSDictionary *) obj expectedType:expectedType error:error];
+            if (nil != model)
+            {
+                [objects addObject:model];
+            }
+        }
+        else if ([obj isKindOfClass:[NSArray class]])
+        {
+            NSArray *modelArray = [self objectArrayFromJSONArray:(NSArray *) obj expectedType:expectedType error:error];
+            if (nil != modelArray)
+            {
+                [objects addObject:modelArray];
+            }
+        }
+    };
     return objects;
 }
 
@@ -300,16 +300,17 @@
 
     NSDictionary *modelAttributes = [MendeleyObjectHelper propertiesAndAttributesForModel:modelObject];
 
-    [jsonDictionary enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
-         if ([key isKindOfClass:[NSString class]])
-         {
-             NSString *matchedKey = [MendeleyObjectHelper matchedKeyForJSONKey:(NSString *) key];
-             id valueToBeAdded = nil;
-             if ([MendeleyObjectHelper isCustomizableModelObject:modelObject forPropertyName:key error:error])
-             {
-                 valueToBeAdded = [MendeleyObjectHelper customObjectFromRawValue:obj modelObject:modelObject propertyName:key error:error];
-             }
-             else if ([obj isKindOfClass:[NSArray class]])
+    for (id key in jsonDictionary.allKeys) {
+        id obj = jsonDictionary[key];
+        if ([key isKindOfClass:[NSString class]])
+        {
+            NSString *matchedKey = [MendeleyObjectHelper matchedKeyForJSONKey:(NSString *) key];
+            id valueToBeAdded = nil;
+            if ([MendeleyObjectHelper isCustomizableModelObject:modelObject forPropertyName:key error:error])
+            {
+                valueToBeAdded = [MendeleyObjectHelper customObjectFromRawValue:obj modelObject:modelObject propertyName:key error:error];
+            }
+            else if ([obj isKindOfClass:[NSArray class]])
              {
                  NSString *type = [[MendeleyObjectHelper arrayToModelDictionary] objectForKey:matchedKey];
                  if (nil != type)
