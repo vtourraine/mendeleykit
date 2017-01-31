@@ -299,7 +299,7 @@
     }
 
     NSDictionary *modelAttributes = [MendeleyObjectHelper propertiesAndAttributesForModel:modelObject];
-
+    
     for (id key in jsonDictionary.allKeys) {
         id obj = jsonDictionary[key];
         if ([key isKindOfClass:[NSString class]])
@@ -311,40 +311,44 @@
                 valueToBeAdded = [MendeleyObjectHelper customObjectFromRawValue:obj modelObject:modelObject propertyName:key error:error];
             }
             else if ([obj isKindOfClass:[NSArray class]])
-             {
-                 NSString *type = [[MendeleyObjectHelper arrayToModelDictionary] objectForKey:matchedKey];
-                 if (nil != type)
-                 {
-                     NSError *parseError = nil;
-                     NSArray *objects = [self objectArrayFromJSONArray:(NSArray *) obj expectedType:type error:&parseError];
-                     if (nil == parseError)
-                     {
-                         valueToBeAdded = objects;
-                     }
-                 }
-             }
-
-             else
-             {
-                 valueToBeAdded = obj;
-             }
-             BOOL propertyExists = [modelAttributes.allKeys containsObject:matchedKey];
-             if (nil != valueToBeAdded && propertyExists)
-             {
-                 NSString *attribute = [modelAttributes objectForKey:matchedKey];
-                 if ([attribute rangeOfString:@"NSDate"].location != NSNotFound)
-                 {
-                     NSString *dateString = (NSString *) valueToBeAdded;
-                     NSDate *date = [[MendeleyObjectHelper jsonDateFormatter] dateFromString:dateString];
-                     [modelObject setValue:date forKey:matchedKey];
-                 }
-                 else
-                 {
-                     [modelObject setValue:valueToBeAdded forKey:matchedKey];
-                 }
-             }
-         }
-     };
+            {
+                NSString *type = [[MendeleyObjectHelper arrayToModelDictionary] objectForKey:matchedKey];
+                if (nil != type)
+                {
+                    NSError *parseError = nil;
+                    NSArray *objects = [self objectArrayFromJSONArray:(NSArray *) obj expectedType:type error:&parseError];
+                    if (nil == parseError)
+                    {
+                        valueToBeAdded = objects;
+                    }
+                }
+            }
+            
+            else
+            {
+                valueToBeAdded = obj;
+            }
+            BOOL propertyExists = [modelAttributes.allKeys containsObject:matchedKey];
+            if (nil != valueToBeAdded && propertyExists)
+            {
+                NSString *attribute = [modelAttributes objectForKey:matchedKey];
+                if ([attribute rangeOfString:@"NSDate"].location != NSNotFound)
+                {
+                    NSString *dateString = (NSString *) valueToBeAdded;
+                    NSDate *date = [[MendeleyObjectHelper jsonDateFormatter] dateFromString:dateString];
+                    [modelObject setValue:date forKey:matchedKey];
+                }
+                else
+                {
+                    [modelObject setValue:valueToBeAdded forKey:matchedKey];
+                }
+            }
+            else if (*error != nil)
+            {
+                return nil;
+            }
+        }
+    };
     return modelObject;
 }
 
