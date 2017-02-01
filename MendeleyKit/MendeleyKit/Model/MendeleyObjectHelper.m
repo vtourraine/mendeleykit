@@ -437,19 +437,31 @@
     }
     
     if ([modelName isEqualToString:NSStringFromClass([MendeleyPublishedDocument class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyAddedDocument class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])])
+        [modelName isEqualToString:NSStringFromClass([MendeleyAddedDocument class])])
     {
-        if ([propertyName isEqualToString:kMendeleyJSONAuthors] ||
-            [propertyName isEqualToString:kMendeleyJSONLike] ||
-            [propertyName isEqualToString:kMendeleyJSONShare])
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
         {
             return YES;
         }
     }
     
     if ([modelName isEqualToString:NSStringFromClass([MendeleyUserDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
         {
@@ -835,21 +847,11 @@
     }
     
     if ([modelName isEqualToString:NSStringFromClass([MendeleyPublishedDocument class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyAddedDocument class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])])
+        [modelName isEqualToString:NSStringFromClass([MendeleyAddedDocument class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
         {
             return [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONShare])
-        {
-            return [[self class] setPropertiesToObjectOfClass:[MendeleyShare class] fromRawValue:rawValue];
-        }
-        else if ([propertyName isEqualToString:kMendeleyJSONLike])
-        {
-            return [[self class] setPropertiesToObjectOfClass:[MendeleyLike class] fromRawValue:rawValue];
         }
     }
     
@@ -880,6 +882,22 @@
     }
     
     if ([modelName isEqualToString:NSStringFromClass([MendeleyUserDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONAuthors])
         {

@@ -238,9 +238,6 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong, nullable) NSNumber *year;
 @property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSNumber *sharable;
-@property (nonatomic, strong) MendeleyShare *share;
-@property (nonatomic, strong) MendeleyLike *like;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSArray<MendeleySimpleAuthor *> *authors;
 
