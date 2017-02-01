@@ -21,4 +21,15 @@
                                 task:(MendeleyTask *)task
                      completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+/**
+ Shares a document.
+ @param queryParameters
+ @param task
+ @param completionBlock
+ */
+
+- (void)shareDocumentWithQueryParameters:(MendeleyShareDocumentParameters *)queryParameters
+                                    task:(MendeleyTask *)task
+                         completionBlock:(MendeleyCompletionBlock)completionBlock;
+
 @end

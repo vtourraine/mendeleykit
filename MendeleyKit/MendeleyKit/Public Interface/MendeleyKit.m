@@ -1599,6 +1599,20 @@
     return task;
 }
 
+- (MendeleyTask *)shareDocumentWithQueryParameters:(MendeleyShareDocumentParameters *)queryParameters
+                                   completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareDocumentWithQueryParameters:queryParameters
+                                                task:task
+                                     completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
 #pragma mark - Datasets
 
 - (MendeleyTask *)datasetListWithQueryParameters:(MendeleyDatasetParameters *)queryParameters
