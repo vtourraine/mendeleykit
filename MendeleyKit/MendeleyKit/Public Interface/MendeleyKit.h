@@ -999,8 +999,14 @@
 - (MendeleyTask *)shareFeedWithQueryParameters:(MendeleySharesParameters *)queryParameters
                      completionBlock:(MendeleyCompletionBlock)completionBlock;
 
-- (MendeleyTask *)shareDocumentWithQueryParameters:(MendeleyShareDocumentParameters *)queryParameters
-                                   completionBlock:(MendeleyCompletionBlock)completionBlock;
+- (MendeleyTask *)shareDocumentWithDocumentID:(NSString *)documentID
+                              completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithDOI:(NSString *)doi
+                       completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithScopus:(NSString *)scopus
+                          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Datasets
 /**

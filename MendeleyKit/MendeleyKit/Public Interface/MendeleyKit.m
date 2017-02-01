@@ -1599,15 +1599,43 @@
     return task;
 }
 
-- (MendeleyTask *)shareDocumentWithQueryParameters:(MendeleyShareDocumentParameters *)queryParameters
-                                   completionBlock:(MendeleyCompletionBlock)completionBlock
+- (MendeleyTask *)shareDocumentWithDocumentID:(NSString *)documentID
+                              completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
     
     [self checkAuthenticationThenRefreshTokenThenPerform:^{
-        [self.sharesAPI shareDocumentWithQueryParameters:queryParameters
-                                                task:task
-                                     completionBlock:completionBlock];
+        [self.sharesAPI shareDocumentWithDocumentID:documentID
+                                               task:task
+                                    completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)shareDocumentWithDOI:(NSString *)doi
+                       completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareDocumentWithDOI:doi
+                                        task:task
+                             completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)shareDocumentWithScopus:(NSString *)scopus
+                          completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareDocumentWithScopus:scopus
+                                           task:task
+                                completionBlock:completionBlock];
     } completionBlock:completionBlock];
     
     return task;
