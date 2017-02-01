@@ -280,5 +280,7 @@
 @implementation MendeleySharesParameters
 @end
 
+@implementation MendeleyShareDocumentParameters
+@end
 
 
