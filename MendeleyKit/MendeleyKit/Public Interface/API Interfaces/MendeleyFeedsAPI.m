@@ -57,7 +57,7 @@ static NSArray *itemClassStrings;
                  {
                      MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
                      [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelNewsFeed completionBlock: ^(NSArray *feeds, NSError *parseError) {
-                         MendeleySyncInfo *syncInfo = (nil != parseError) ? nil : response.syncHeader;
+                         MendeleySyncInfo *syncInfo = response.syncHeader;
                          [blockExec executeWithArray:feeds
                                             syncInfo:syncInfo
                                                error:parseError];
