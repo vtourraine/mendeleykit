@@ -46,7 +46,7 @@
              kMendeleyFeedItemNewFollower,
              kMendeleyFeedItemNewPublication,
              kMendeleyFeedItemDocumentRecommendation,
-             kMendeleyFeedItemPostadCatalogueDocument,
+             kMendeleyFeedItemPostedCatalogueDocument,
              kMendeleyFeedItemPostedPublication,
              kMendeleyFeedItemGroupDocumentAdded];
 }
