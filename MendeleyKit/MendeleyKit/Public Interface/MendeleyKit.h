@@ -21,7 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters;
 
 @protocol MendeleyNetworkProvider;
 
@@ -998,6 +998,15 @@
 
 - (MendeleyTask *)shareFeedWithQueryParameters:(MendeleySharesParameters *)queryParameters
                      completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithDocumentID:(NSString *)documentID
+                              completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithDOI:(NSString *)doi
+                       completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithScopus:(NSString *)scopus
+                          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Datasets
 /**

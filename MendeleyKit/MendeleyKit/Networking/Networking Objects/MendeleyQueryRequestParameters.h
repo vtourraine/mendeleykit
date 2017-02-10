@@ -53,6 +53,12 @@
 @property (nonatomic, strong) NSString *news_id;
 @end
 
+@interface MendeleyShareDocumentParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *document_id;
+@property (nonatomic, strong) NSString *doi;
+@property (nonatomic, strong) NSString *scopus;
+@end
+
 @interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
 @property (nonatomic, strong) NSDate *modified_since;
 @property (nonatomic, strong) NSString *sort;
