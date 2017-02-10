@@ -518,7 +518,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyFeedItemNewFollower                      @"new-follower"
 #define kMendeleyFeedItemNewPublication                   @"new-pub"
 #define kMendeleyFeedItemDocumentRecommendation           @"document-recommendation"
-#define kMendeleyFeedItemPostedCatalogueDocument          @"posted-catalogue-pub"
+#define kMendeleyFeedItemPostedCataloguePublication       @"posted-catalogue-pub"
 #define kMendeleyFeedItemPostedPublication                @"posted-pub"
 #define kMendeleyFeedItemGroupDocumentAdded               @"group-doc-added"
 
