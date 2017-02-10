@@ -507,4 +507,28 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyPerformanceReportFileKeySessionTotalTime @"Total Time"
 #define kMendeleyPerformanceReportFileKeySessionJobList   @"Sub Tasks"
 
+/***********************************************
+ @name Feeds
+ ***********************************************/
+#define kMendeleyFeedItemRSS                              @"rss-item"
+#define kMendeleyFeedItemNewStatus                        @"new-status"
+#define kMendeleyFeedItemEmploymentUpdate                 @"employment-update"
+#define kMendeleyFeedItemEducationUpdate                  @"education-update"
+#define kMendeleyFeedItemNewFollower                      @"new-follower"
+#define kMendeleyFeedItemNewPublication                   @"new-pub"
+#define kMendeleyFeedItemDocumentRecommendation           @"document-recommendation"
+#define kMendeleyFeedItemPostadCatalogueDocument          @"posted-catalogue-pub"
+#define kMendeleyFeedItemPostedPublication                @"posted-pub"
+#define kMendeleyFeedItemGroupDocumentAdded               @"group-doc-added"
+
+#define kMendeleyFeedSourceTypeProfile                    @"profile"
+#define kMendeleyFeedSourceTypeRSS                        @"rss"
+
+/***********************************************
+ @name Generic
+ ***********************************************/
+#define kMendeleyPosixDefaultFormat                       @"en_US_POSIX"
+#define kMendeleyTimeZoneUTC                              @"UTC"
+
+
 #endif /* ifndef MendeleyKit_MendeleyGlobals_h */

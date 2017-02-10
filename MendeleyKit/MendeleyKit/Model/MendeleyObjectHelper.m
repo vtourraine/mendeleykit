@@ -22,6 +22,7 @@
 #import <objc/runtime.h>
 #import "MendeleyModels.h"
 #import "NSError+MendeleyError.h"
+#import "MendeleyNewsFeed.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -38,42 +39,42 @@
 
 + (NSArray *)feedItemContentTypes
 {
-    return @[@"rss-item",
-             @"new-status",
-             @"employment-update",
-             @"education-update",
-             @"new-follower",
-             @"new-pub",
-             @"document-recommendation",
-             @"posted-catalogue-pub",
-             @"posted-pub",
-             @"group-doc-added"];
+    return @[kMendeleyFeedItemRSS,
+             kMendeleyFeedItemNewStatus,
+             kMendeleyFeedItemEmploymentUpdate,
+             kMendeleyFeedItemEducationUpdate,
+             kMendeleyFeedItemNewFollower,
+             kMendeleyFeedItemNewPublication,
+             kMendeleyFeedItemDocumentRecommendation,
+             kMendeleyFeedItemPostadCatalogueDocument,
+             kMendeleyFeedItemPostedPublication,
+             kMendeleyFeedItemGroupDocumentAdded];
 }
 
 + (NSArray *)feedItemContentClasses
 {
-    return @[@"MendeleyRSSJsonNode",
-             @"MendeleyNewStatusJsonNode",
-             @"MendeleyEmploymentUpdateJsonNode",
-             @"MendeleyEducationUpdateJsonNode",
-             @"MendeleyNewFollowerJsonNode",
-             @"MendeleyNewPublicationJsonNode",
-             @"MendeleyDocumentRecommendationJsonNode",
-             @"MendeleyPostedCataloguePublicationJsonNode",
-             @"MendeleyPostedPublicationJsonNode",
-             @"MendeleyGroupDocAddedJsonNode"];
+    return @[NSStringFromClass(MendeleyRSSJsonNode.class),
+             NSStringFromClass(MendeleyNewStatusJsonNode.class),
+             NSStringFromClass(MendeleyEmploymentUpdateJsonNode.class),
+             NSStringFromClass(MendeleyEducationUpdateJsonNode.class),
+             NSStringFromClass(MendeleyNewFollowerJsonNode.class),
+             NSStringFromClass(MendeleyNewPublicationJsonNode.class),
+             NSStringFromClass(MendeleyDocumentRecommendationJsonNode.class),
+             NSStringFromClass(MendeleyPostedCataloguePublicationJsonNode.class),
+             NSStringFromClass(MendeleyPostedPublicationJsonNode.class),
+             NSStringFromClass(MendeleyGroupDocAddedJsonNode.class)];
 }
 
 + (NSArray *)feedItemsourceTypes
 {
-    return @[@"profile",
-             @"rss"];
+    return @[kMendeleyFeedSourceTypeProfile,
+             kMendeleyFeedSourceTypeRSS];
 }
 
 + (NSArray *)feedItemSourceClasses
 {
-    return @[@"MendeleyNewsFeedProfileSource",
-             @"MendeleyNewsFeedRSSSource"];
+    return @[NSStringFromClass(MendeleyNewsFeedProfileSource.class),
+             NSStringFromClass(MendeleyNewsFeedRSSSource.class)];
 }
 
 @end
@@ -136,8 +137,8 @@
 
     dispatch_once(&onceToken, ^{
         formatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:kMendeleyPosixDefaultFormat];
+        formatter.timeZone = [NSTimeZone timeZoneWithName:kMendeleyTimeZoneUTC];
         [formatter setLocale:enUSPOSIXLocale];
         [formatter setDateFormat:kMendeleyJSONDateTimeFormat];
     });
@@ -151,8 +152,8 @@
     
     dispatch_once(&onceToken, ^{
         formatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:kMendeleyPosixDefaultFormat];
+        formatter.timeZone = [NSTimeZone timeZoneWithName:kMendeleyTimeZoneUTC];
         [formatter setLocale:enUSPOSIXLocale];
         [formatter setDateFormat:kMendeleyShortJSONDateTimeFormat];
     });
