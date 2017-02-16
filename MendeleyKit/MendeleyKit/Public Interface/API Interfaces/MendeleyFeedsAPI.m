@@ -32,6 +32,11 @@ static NSArray *itemClassStrings;
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemListType };
 }
 
+- (NSDictionary *)singleFeedServiceRequestHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemType };
+}
+
 - (void)feedListWithLinkedURL:(NSURL *)linkURL
                          task:(MendeleyTask *)task
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -98,6 +103,39 @@ static NSArray *itemClassStrings;
                                                error:parseError];
                      }];
                  }
+             }];
+}
+
+- (void)feedWithId:(NSString *)feedId
+              task:(MendeleyTask *)task
+   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    NSString *apiString = [NSString stringWithFormat:@"%@/%@", kMendeleyRESTAPIFeeds, feedId];
+    [self.provider invokeGET:self.baseURL
+                         api:apiString
+           additionalHeaders:[self singleFeedServiceRequestHeaders]
+             queryParameters:nil
+      authenticationRequired:YES
+                        task:task
+             completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                 MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
+                 if (![self.helper isSuccessForResponse:response error:&error])
+                 {
+                     [blockExec executeWithMendeleyObject:nil
+                                        syncInfo:nil
+                                           error:error];
+                 }
+                 else
+                 {
+                     MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+                     [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelNewsFeed completionBlock: ^(NSArray *feeds, NSError *parseError) {
+                         MendeleySyncInfo *syncInfo = response.syncHeader;
+                         [blockExec executeWithMendeleyObject:feeds.firstObject
+                                            syncInfo:syncInfo
+                                               error:parseError];
+                     }];
+                 }
+
              }];
 }
 

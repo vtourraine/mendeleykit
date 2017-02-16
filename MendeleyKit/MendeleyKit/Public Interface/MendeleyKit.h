@@ -977,6 +977,15 @@
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
+ obtains feed with a given identifier
+ @param feedID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)feedWithId:(NSString *)feedId
+   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
  likes a feed item.
  @param feedID
  @param completionBlock

@@ -149,6 +149,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONRecommendationsType             @"application/vnd.mendeley-article-rec.1+json"
 #define kMendeleyRESTRequestJSONRecommendationFeedbackType      @"application/vnd.mendeley-rec-feedback.1+json"
 #define kMendeleyRESTRequestJSONNewsItemListType                @"application/vnd.mendeley-news-item-list+json"
+#define kMendeleyRESTRequestJSONNewsItemType                    @"application/vnd.mendeley-news-item+json"
 #define kMendeleyRESTRequestJSONNewsItemsShareType              @"application/vnd.mendeley-news-items-share+json"
 #define kMendeleyRESTRequestJSONDocumentShareType               @"application/vnd.mendeley-news-items-share-document+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"

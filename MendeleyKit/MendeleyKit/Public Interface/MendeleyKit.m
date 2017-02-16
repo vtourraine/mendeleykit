@@ -1557,6 +1557,21 @@
     return task;
 }
 
+- (MendeleyTask *)feedWithId:(NSString *)feedId
+             completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI feedWithId:feedId
+                             task:task
+                  completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+
+}
+
 - (MendeleyTask *)likeFeedWithID:(NSString *)feedID
        completionBlock:(MendeleyCompletionBlock)completionBlock
 {

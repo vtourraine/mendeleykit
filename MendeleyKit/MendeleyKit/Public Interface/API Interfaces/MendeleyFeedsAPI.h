@@ -44,6 +44,16 @@
                                    task:(MendeleyTask *)task
                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
+/**
+ obtains feed with a given identifier
+ @param feedID
+ @param task
+ @param completionBlock
+ */
+- (void)feedWithId:(NSString *)feedId
+              task:(MendeleyTask *)task
+   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
 
 /**
  likes a feed item.
