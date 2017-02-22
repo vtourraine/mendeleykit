@@ -177,6 +177,9 @@
     
     self.sharesAPI = [[MendeleySharesAPI alloc] initWithNetworkProvider:self.networkProvider
                                                               baseURL:baseURL];
+    
+    self.userPostsAPI = [[MendeleyUserPostsAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                                      baseURL:baseURL];
 }
 
 - (BOOL)isAuthenticated
