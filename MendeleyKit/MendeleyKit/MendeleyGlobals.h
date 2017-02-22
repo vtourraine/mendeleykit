@@ -189,6 +189,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPILikeFeed                          @"news_items/v1/%@/likers"
 #define kMendeleyRESTAPIUnlikeFeed                        @"news_items/v1/%@/likers/me"
 #define kMendeleyRESTAPIShareFeed                         @"news_items/v1/actions/share"
+#define kMendeleyRESTAPIDeleteUserPost                    @"user_posts/v1/%@"
 #define kMendeleyRESTAPIFiles                             @"files"
 #define kMendeleyRESTAPIFileWithID                        @"files/%@"
 #define kMendeleyRESTAPIFolders                           @"folders"

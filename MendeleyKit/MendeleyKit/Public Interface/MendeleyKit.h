@@ -1003,6 +1003,17 @@
 - (MendeleyTask *)unlikeFeedWithID:(NSString *)feedID
          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+#pragma mark - User Posts
+
+/**
+ Deletes a user post.
+ @param postID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)deleteUserPostWithPostID:(NSString *)postID
+                           completionBlock:(MendeleyCompletionBlock)completionBlock;
+
 #pragma mark - Shares
 
 - (MendeleyTask *)shareFeedWithQueryParameters:(MendeleySharesParameters *)queryParameters

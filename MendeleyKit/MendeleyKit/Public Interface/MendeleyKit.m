@@ -47,6 +47,7 @@
 #import "MendeleyRecommendationsAPI.h"
 #import "MendeleyFeedsAPI.h"
 #import "MendeleySharesAPI.h"
+#import "MendeleyUserPostsAPI.h"
 
 
 @interface MendeleyKit ()
@@ -70,6 +71,7 @@
 @property (nonatomic, strong, nonnull) MendeleyRecommendationsAPI *recommendationsAPI;
 @property (nonatomic, strong, nonnull) MendeleyFeedsAPI *feedsAPI;
 @property (nonatomic, strong, nonnull) MendeleySharesAPI *sharesAPI;
+@property (nonatomic, strong, nonnull) MendeleyUserPostsAPI *userPostsAPI;
 @end
 
 @implementation MendeleyKit
@@ -1527,7 +1529,7 @@
     return task;
 }
 
-#pragma mark Feeds
+#pragma mark - Feeds
 
 - (MendeleyTask *)feedListWithLinkedURL:(NSURL *)linkURL
                         completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -1593,6 +1595,21 @@
         [self.feedsAPI unlikeFeedWithID:feedID
                                  task:task
                       completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark - User Posts
+
+- (MendeleyTask *)deleteUserPostWithPostID:(NSString *)postID
+                           completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.userPostsAPI deleteUserPostWithPostID:postID
+                                               task:task
+                                    completionBlock:completionBlock];
     } completionBlock:completionBlock];
     
     return task;
