@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: January (3.0.2)
+- min bug fix in assigning a value in MendeleyProfile
+
 Date: December (3.0.1)
 - min version of iOS set back to iOS8 upon request
 
