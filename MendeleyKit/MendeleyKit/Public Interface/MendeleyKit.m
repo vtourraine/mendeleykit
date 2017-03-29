@@ -48,6 +48,7 @@
 #import "MendeleyFeedsAPI.h"
 #import "MendeleySharesAPI.h"
 #import "MendeleyUserPostsAPI.h"
+#import "MendeleyCommentsAPI.h"
 
 
 @interface MendeleyKit ()
@@ -72,6 +73,8 @@
 @property (nonatomic, strong, nonnull) MendeleyFeedsAPI *feedsAPI;
 @property (nonatomic, strong, nonnull) MendeleySharesAPI *sharesAPI;
 @property (nonatomic, strong, nonnull) MendeleyUserPostsAPI *userPostsAPI;
+@property (nonatomic, strong, nonnull) MendeleyCommentsAPI *commentsAPI;
+
 @end
 
 @implementation MendeleyKit
@@ -180,6 +183,9 @@
     
     self.userPostsAPI = [[MendeleyUserPostsAPI alloc] initWithNetworkProvider:self.networkProvider
                                                                       baseURL:baseURL];
+    
+    self.commentsAPI = [[MendeleyCommentsAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                                    baseURL:baseURL];
 }
 
 - (BOOL)isAuthenticated
@@ -1671,6 +1677,80 @@
         [self.sharesAPI shareDocumentWithScopus:scopus
                                            task:task
                                 completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark - Comments
+
+- (MendeleyTask *)expandedCommentsWithNewsItemID:(NSString *)newsItemID
+                                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI expandedCommentsWithNewsItemID:newsItemID
+                                                    task:task
+                                         completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)commentWithCommentID:(NSString *)commentID
+                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI commentWithCommentID:commentID
+                                          task:task
+                               completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)createComment:(MendeleyComment *)comment
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI createComment:comment
+                                   task:task
+                        completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)updateCommentWithCommentID:(NSString *)commentID
+                                      update:(MendeleyCommentUpdate *)update
+                             completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI updateCommentWithCommentID:commentID
+                                              update:update
+                                                task:task
+                                     completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)deleteCommentWithCommentID:(NSString *)commentID
+                             completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI deleteCommentWithCommentID:commentID
+                                                task:task
+                                     completionBlock:completionBlock];
     } completionBlock:completionBlock];
     
     return task;

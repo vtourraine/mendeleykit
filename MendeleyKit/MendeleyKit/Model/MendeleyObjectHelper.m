@@ -494,6 +494,14 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -927,6 +935,14 @@
         if ([propertyName isEqualToString:kMendeleyJSONPost])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleyPost class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyExpandedComment class] fromRawValue:rawValue];
         }
     }
 

@@ -283,4 +283,7 @@
 @implementation MendeleyShareDocumentParameters
 @end
 
+@implementation MendeleyExpandedCommentsParameters
+@end
+
 

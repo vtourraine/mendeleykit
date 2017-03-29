@@ -152,6 +152,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONNewsItemType                    @"application/vnd.mendeley-news-item+json"
 #define kMendeleyRESTRequestJSONNewsItemsShareType              @"application/vnd.mendeley-news-items-share+json"
 #define kMendeleyRESTRequestJSONDocumentShareType               @"application/vnd.mendeley-news-items-share-document+json"
+#define kMendeleyRESTRequestJSONCommentType                     @"application/vnd.mendeley-comment+json"
+#define kMendeleyRESTRequestJSONExpandedCommentsType            @"application/vnd.mendeley-expanded-comment-list+json"
+#define kMendeleyRESTRequestJSONCommentUpdateType               @"application/vnd.mendeley-comment-update+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                        @"Accept-Language"
@@ -220,6 +223,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIPhotosMe                          @"photos/me"
 #define kMendeleyRESTAPIRecommendationsBasedOnLibrary     @"recommendations/based_on_library_articles"
 #define kMendeleyRESTAPIRecommendationFeedback            @"recommendations/action/feedback"
+#define kMendeleyRESTAPIComments                          @"comments/v1"
+#define kMendeleyRESTAPICommentsWithCommentID             @"comments/v1/%@"
 
 /***********************************************
    @name REST API Query Parameters
@@ -291,6 +296,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelReaderCountByAcademicStatus         @"NSDictionary"
 #define kMendeleyModelRecommendations                     @"MendeleyRecommendedArticle"
 #define kMendeleyModelNewsFeed                            @"MendeleyNewsFeed"
+#define kMendeleyModelComment                             @"MendeleyComment"
+#define kMendeleyModelExpandedComment                     @"MendeleyExpandedComment"
+#define kMendeleyModelCommentUpdate                       @"MendeleyCommentUpdate"
 
 /***********************************************
    @name JSON keys General

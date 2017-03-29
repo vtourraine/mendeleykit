@@ -75,13 +75,21 @@
 		533248D61D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
 		533248D71D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
 		53385ADE1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53385ADC1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h */; };
-		53385ADF1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53385ADC1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h */; };
+		53385ADF1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53385ADC1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53385AE01E5DD5680011C4E0 /* MendeleyUserPostsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53385ADD1E5DD5680011C4E0 /* MendeleyUserPostsAPI.m */; };
 		53385AE11E5DD5680011C4E0 /* MendeleyUserPostsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53385ADD1E5DD5680011C4E0 /* MendeleyUserPostsAPI.m */; };
 		5345B9F41E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F31E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift */; };
 		5345B9F51E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F31E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift */; };
 		5345B9F71E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F61E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift */; };
 		5345B9F81E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5345B9F61E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift */; };
+		5346A4A51E8BC2930054714F /* MendeleyCommentsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5346A4A31E8BC2930054714F /* MendeleyCommentsAPI.h */; };
+		5346A4A61E8BC2930054714F /* MendeleyCommentsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5346A4A31E8BC2930054714F /* MendeleyCommentsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5346A4A71E8BC2930054714F /* MendeleyCommentsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 5346A4A41E8BC2930054714F /* MendeleyCommentsAPI.m */; };
+		5346A4A81E8BC2930054714F /* MendeleyCommentsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 5346A4A41E8BC2930054714F /* MendeleyCommentsAPI.m */; };
+		5346A4AB1E8BE8E60054714F /* MendeleyComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 5346A4A91E8BE8E60054714F /* MendeleyComment.h */; };
+		5346A4AC1E8BE8E60054714F /* MendeleyComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 5346A4A91E8BE8E60054714F /* MendeleyComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5346A4AD1E8BE8E60054714F /* MendeleyComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 5346A4AA1E8BE8E60054714F /* MendeleyComment.m */; };
+		5346A4AE1E8BE8E60054714F /* MendeleyComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 5346A4AA1E8BE8E60054714F /* MendeleyComment.m */; };
 		534A950B1D5A34B100E4A706 /* MendeleyProfileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F35DB51D4A57B30052F122 /* MendeleyProfileUtils.m */; };
 		534A950C1D5A392200E4A706 /* MendeleyProfileUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F35DB41D4A57B30052F122 /* MendeleyProfileUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		534A950F1D5A396600E4A706 /* MendeleyProfileUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 534A950D1D5A396600E4A706 /* MendeleyProfileUtilsTests.m */; };
@@ -531,6 +539,10 @@
 		53385ADD1E5DD5680011C4E0 /* MendeleyUserPostsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyUserPostsAPI.m; path = "Public Interface/API Interfaces/MendeleyUserPostsAPI.m"; sourceTree = "<group>"; };
 		5345B9F31E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyAnalyticsEventSync.swift; path = Analytics/MendeleyAnalyticsEventSync.swift; sourceTree = "<group>"; };
 		5345B9F61E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyAnalyticsEventViewDocument.swift; path = Analytics/MendeleyAnalyticsEventViewDocument.swift; sourceTree = "<group>"; };
+		5346A4A31E8BC2930054714F /* MendeleyCommentsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyCommentsAPI.h; path = "Public Interface/API Interfaces/MendeleyCommentsAPI.h"; sourceTree = "<group>"; };
+		5346A4A41E8BC2930054714F /* MendeleyCommentsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyCommentsAPI.m; path = "Public Interface/API Interfaces/MendeleyCommentsAPI.m"; sourceTree = "<group>"; };
+		5346A4A91E8BE8E60054714F /* MendeleyComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyComment.h; path = "Model/Mendeley Objects/MendeleyComment.h"; sourceTree = "<group>"; };
+		5346A4AA1E8BE8E60054714F /* MendeleyComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyComment.m; path = "Model/Mendeley Objects/MendeleyComment.m"; sourceTree = "<group>"; };
 		534A950D1D5A396600E4A706 /* MendeleyProfileUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyProfileUtilsTests.m; sourceTree = "<group>"; };
 		53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyRecommendationsAPI.h; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.h"; sourceTree = "<group>"; };
 		53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyRecommendationsAPI.m; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.m"; sourceTree = "<group>"; };
@@ -1140,6 +1152,8 @@
 				533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */,
 				C4A134CC19DADDD10069DB7A /* MendeleyUserRole.h */,
 				C4A134CD19DADDD10069DB7A /* MendeleyUserRole.m */,
+				5346A4A91E8BE8E60054714F /* MendeleyComment.h */,
+				5346A4AA1E8BE8E60054714F /* MendeleyComment.m */,
 			);
 			name = "Mendeley Objects";
 			sourceTree = "<group>";
@@ -1264,6 +1278,8 @@
 				558760751E38FCE000F6032B /* MendeleySharesAPI.m */,
 				53385ADC1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h */,
 				53385ADD1E5DD5680011C4E0 /* MendeleyUserPostsAPI.m */,
+				5346A4A31E8BC2930054714F /* MendeleyCommentsAPI.h */,
+				5346A4A41E8BC2930054714F /* MendeleyCommentsAPI.m */,
 			);
 			name = "API Interfaces";
 			sourceTree = "<group>";
@@ -1482,6 +1498,7 @@
 				145C2DD71A2CAB0C0005BFF6 /* MendeleyDocument.h in Headers */,
 				145C2DD81A2CAB0C0005BFF6 /* MendeleyDocumentType.h in Headers */,
 				145C2DD91A2CAB0C0005BFF6 /* MendeleyFile.h in Headers */,
+				5346A4AB1E8BE8E60054714F /* MendeleyComment.h in Headers */,
 				145C2DDA1A2CAB0C0005BFF6 /* MendeleyFolder.h in Headers */,
 				145C2DDB1A2CAB0C0005BFF6 /* MendeleyGroup.h in Headers */,
 				145C2DDC1A2CAB0C0005BFF6 /* MendeleyIdentifierType.h in Headers */,
@@ -1543,6 +1560,7 @@
 				145C2E021A2CAB0D0005BFF6 /* MendeleyKit.h in Headers */,
 				533248D31D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */,
 				145C2E031A2CAB0D0005BFF6 /* MendeleyKitConfiguration.h in Headers */,
+				5346A4A51E8BC2930054714F /* MendeleyCommentsAPI.h in Headers */,
 				145C2E041A2CAB0D0005BFF6 /* MendeleyKitHelper.h in Headers */,
 				145C2E051A2CAB0D0005BFF6 /* MendeleyLog.h in Headers */,
 				145C2E061A2CAB0D0005BFF6 /* NSDictionary+Merge.h in Headers */,
@@ -1608,7 +1626,6 @@
 				C46657BF1B384715005F762A /* MendeleyKitUserInfoManager.h in Headers */,
 				C46657B61B3846EA005F762A /* MendeleyLog.h in Headers */,
 				C466564F1B3842AF005F762A /* MendeleyKitiOS.h in Headers */,
-				53385ADF1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h in Headers */,
 				C46657C51B384733005F762A /* MendeleyPerformanceMeter.h in Headers */,
 				C46657871B384601005F762A /* MendeleySyncInfo.h in Headers */,
 				C466577B1B3845BF005F762A /* MendeleyNetworkTask.h in Headers */,
@@ -1655,8 +1672,11 @@
 				53863F741D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */,
 				C466578D1B384633005F762A /* MendeleyOAuthConstants.h in Headers */,
 				C46657731B384592005F762A /* MendeleyObjectHelper.h in Headers */,
+				5346A4AC1E8BE8E60054714F /* MendeleyComment.h in Headers */,
+				5346A4A61E8BC2930054714F /* MendeleyCommentsAPI.h in Headers */,
 				C46657D31B384775005F762A /* MendeleyGlobals.h in Headers */,
 				558760771E38FCE000F6032B /* MendeleySharesAPI.h in Headers */,
+				53385ADF1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h in Headers */,
 				C466576E1B38457A005F762A /* MendeleyUserRole.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1961,6 +1981,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5346A4AD1E8BE8E60054714F /* MendeleyComment.m in Sources */,
 				C42111BF1A2341A9006C044C /* MendeleyReachability.m in Sources */,
 				C42111C01A2341A9006C044C /* MendeleyAnnotation.m in Sources */,
 				C42111C11A2341A9006C044C /* MendeleyCatalogDocument.m in Sources */,
@@ -1987,6 +2008,7 @@
 				C42111D21A2341A9006C044C /* MendeleyNetworkTask.m in Sources */,
 				C42111D31A2341A9006C044C /* MendeleyUploadHelper.m in Sources */,
 				C42111D41A2341A9006C044C /* MendeleyDefaultOAuthProvider.m in Sources */,
+				5346A4A71E8BC2930054714F /* MendeleyCommentsAPI.m in Sources */,
 				55F35DB91D4A57B30052F122 /* MendeleyProfileUtils.m in Sources */,
 				5345B9F41E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */,
 				C42111D51A2341A9006C044C /* MendeleyQueryRequestParameters.m in Sources */,
@@ -2095,6 +2117,7 @@
 				C46657C81B384740005F762A /* MendeleyPerformanceMeterSession.m in Sources */,
 				C46657691B384567005F762A /* MendeleyObject.m in Sources */,
 				C466576D1B384577005F762A /* MendeleyProfile.m in Sources */,
+				5346A4A81E8BC2930054714F /* MendeleyCommentsAPI.m in Sources */,
 				C48B4C751B5E4CE300578E5B /* MendeleyAnalyticsEvent.swift in Sources */,
 				D706C7561D3378DE00381886 /* MendeleyDataset.m in Sources */,
 				C46657711B384589005F762A /* MendeleyModeller.m in Sources */,
@@ -2133,6 +2156,7 @@
 				725CFFE01B7B408300AC6758 /* MendeleyFeature.m in Sources */,
 				5345B9F81E02F8E2004DF4FE /* MendeleyAnalyticsEventViewDocument.swift in Sources */,
 				C46657B31B3846DA005F762A /* MendeleyKitConfiguration.m in Sources */,
+				5346A4AE1E8BE8E60054714F /* MendeleyComment.m in Sources */,
 				C46657A91B3846B5005F762A /* MendeleyGroupsAPI.m in Sources */,
 				558760791E38FCE000F6032B /* MendeleySharesAPI.m in Sources */,
 				C46657741B384598005F762A /* MendeleyObjectHelper.m in Sources */,

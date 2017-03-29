@@ -132,6 +132,12 @@
 @property (nonatomic, strong) NSString *cut_off;
 @end
 
+@interface MendeleyExpandedCommentsParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *news_item_id;
+@property (nonatomic, strong) NSNumber *skip_news_item_check;
+@property (nonatomic, strong) NSString *start_from;
+@end
+
 
 
 

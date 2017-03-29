@@ -21,7 +21,8 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment,
+    MendeleyCommentUpdate;
 
 @protocol MendeleyNetworkProvider;
 
@@ -1027,6 +1028,60 @@
 
 - (MendeleyTask *)shareDocumentWithScopus:(NSString *)scopus
                           completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Comments
+
+/**
+ Get expanded (i.e. with profile information) comments.
+ @param newsItemID
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)expandedCommentsWithNewsItemID:(NSString *)newsItemID
+                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+ Get single comment.
+ @param commentID
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)commentWithCommentID:(NSString *)commentID
+             completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Create new comment.
+ @param comment
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)createComment:(MendeleyComment *)comment
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Edit existing comment.
+ @param commentID
+ @param update
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)updateCommentWithCommentID:(NSString *)commentID
+                                      update:(MendeleyCommentUpdate *)update
+                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Delete comment.
+ @param commentID
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)deleteCommentWithCommentID:(NSString *)commentID
+                   completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Datasets
 /**
