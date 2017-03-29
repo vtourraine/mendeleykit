@@ -38,7 +38,7 @@
 {
     if (nil != is_main_employment)
     {
-        is_main_employment = [NSNumber numberWithBool:[is_main_employment boolValue]];
+        _is_main_employment = [NSNumber numberWithBool:[is_main_employment boolValue]];
     }
 }
 @end
