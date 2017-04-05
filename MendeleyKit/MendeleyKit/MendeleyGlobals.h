@@ -500,6 +500,12 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONPost                          @"post"
 
 /***********************************************
+ @name JSON keys ExpandedComments
+ ***********************************************/
+
+#define kMendeleyJSONLatest                        @"latest"
+
+/***********************************************
    @name Paging
 ***********************************************/
 #define kMendeleyPagingNoSizeInfo                         -1
