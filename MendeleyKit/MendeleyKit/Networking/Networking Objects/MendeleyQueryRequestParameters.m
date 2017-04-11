@@ -274,3 +274,16 @@
 @implementation MendeleyRecommendationsParameters
 @end
 
+@implementation MendeleyFeedsParameters
+@end
+
+@implementation MendeleySharesParameters
+@end
+
+@implementation MendeleyShareDocumentParameters
+@end
+
+@implementation MendeleyExpandedCommentsParameters
+@end
+
+

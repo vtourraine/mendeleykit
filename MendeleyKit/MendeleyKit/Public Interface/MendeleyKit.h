@@ -21,7 +21,8 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment,
+    MendeleyCommentUpdate;
 
 @protocol MendeleyNetworkProvider;
 
@@ -953,6 +954,134 @@
                                 userAction:(NSString *)userAction
                                   carousel:(NSNumber *)carousel
                            completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Feeds
+
+/**
+ This method is only used when paging through a list of documents on the server.
+ All required parameters are provided in the linkURL, which should not be modified
+ 
+ @param linkURL the full HTTP link to the document listings page
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)feedListWithLinkedURL:(NSURL *)linkURL
+              completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+ obtains a list of feeds for the first page.
+ @param parameters the parameter set to be used in the request
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)feedListWithQueryParameters:(MendeleyFeedsParameters *)queryParameters
+                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+ obtains feed with a given identifier
+ @param feedID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)feedWithId:(NSString *)feedId
+   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ likes a feed item.
+ @param feedID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)likeFeedWithID:(NSString *)feedID
+       completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+ likes a feed item.
+ @param feedID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)unlikeFeedWithID:(NSString *)feedID
+         completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - User Posts
+
+/**
+ Deletes a user post.
+ @param postID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)deleteUserPostWithPostID:(NSString *)postID
+                           completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Shares
+
+- (MendeleyTask *)shareFeedWithQueryParameters:(MendeleySharesParameters *)queryParameters
+                     completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithDocumentID:(NSString *)documentID
+                              completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithDOI:(NSString *)doi
+                       completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+- (MendeleyTask *)shareDocumentWithScopus:(NSString *)scopus
+                          completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+#pragma mark - Comments
+
+/**
+ Get expanded (i.e. with profile information) comments.
+ @param newsItemID
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)expandedCommentsWithNewsItemID:(NSString *)newsItemID
+                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+/**
+ Get single comment.
+ @param commentID
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)commentWithCommentID:(NSString *)commentID
+             completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Create new comment.
+ @param comment
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)createComment:(MendeleyComment *)comment
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Edit existing comment.
+ @param commentID
+ @param update
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)updateCommentWithCommentID:(NSString *)commentID
+                                      update:(MendeleyCommentUpdate *)update
+                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Delete comment.
+ @param commentID
+ @param completionBlock
+ @return task
+ */
+
+- (MendeleyTask *)deleteCommentWithCommentID:(NSString *)commentID
+                   completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Datasets
 /**

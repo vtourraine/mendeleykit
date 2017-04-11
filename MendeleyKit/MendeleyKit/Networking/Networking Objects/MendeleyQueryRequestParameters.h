@@ -49,6 +49,16 @@
 - (BOOL)hasQueryParameterWithName:(NSString *)queryParameterName;
 @end
 
+@interface MendeleySharesParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *news_id;
+@end
+
+@interface MendeleyShareDocumentParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *document_id;
+@property (nonatomic, strong) NSString *doi;
+@property (nonatomic, strong) NSString *scopus;
+@end
+
 @interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
 @property (nonatomic, strong) NSDate *modified_since;
 @property (nonatomic, strong) NSString *sort;
@@ -116,4 +126,19 @@
 @property (nonatomic, strong) NSString *page_load_id;
 @property (nonatomic, strong) NSString *ref;
 @end
+
+@interface MendeleyFeedsParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *profile_id;
+@property (nonatomic, strong) NSString *cut_off;
+@end
+
+@interface MendeleyExpandedCommentsParameters : MendeleyQueryRequestParameters
+@property (nonatomic, strong) NSString *news_item_id;
+@property (nonatomic, strong) NSNumber *skip_news_item_check;
+@property (nonatomic, strong) NSString *start_from;
+@end
+
+
+
+
 

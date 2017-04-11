@@ -18,27 +18,10 @@
  *****************************************************************************
  */
 
-#ifndef MendeleyKit_MendeleyModels_h
-#define MendeleyKit_MendeleyModels_h
+import Foundation
 
-#import "MendeleyAcademicStatus.h"
-#import "MendeleyAnnotation.h"
-#import "MendeleyCatalogDocument.h"
-#import "MendeleyDataset.h"
-#import "MendeleyDocument.h"
-#import "MendeleyDocumentType.h"
-#import "MendeleyFile.h"
-#import "MendeleyFolder.h"
-#import "MendeleyFeature.h"
-#import "MendeleyFollow.h"
-#import "MendeleyGroup.h"
-#import "MendeleyIdentifierType.h"
-#import "MendeleyMetadataLookup.h"
-#import "MendeleyPerson.h"
-#import "MendeleyProfile.h"
-#import "MendeleyUserRole.h"
-#import "MendeleyRecommendedArticle.h"
-#import "MendeleyNewsFeed.h"
-#import "MendeleyComment.h"
-
-#endif
+open class MendeleyAnalyticsEventSync : MendeleyAnalyticsEvent
+{
+    open var connection_type: String!
+    open var finish_condition: String!
+}

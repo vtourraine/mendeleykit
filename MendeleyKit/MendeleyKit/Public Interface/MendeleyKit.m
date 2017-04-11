@@ -45,6 +45,10 @@
 #import "MendeleyErrorManager.h"
 #import "MendeleyPhotosMeAPI.h"
 #import "MendeleyRecommendationsAPI.h"
+#import "MendeleyFeedsAPI.h"
+#import "MendeleySharesAPI.h"
+#import "MendeleyUserPostsAPI.h"
+#import "MendeleyCommentsAPI.h"
 
 
 @interface MendeleyKit ()
@@ -66,6 +70,11 @@
 @property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
 @property (nonatomic, strong, nonnull) MendeleyPhotosMeAPI *photosAPI;
 @property (nonatomic, strong, nonnull) MendeleyRecommendationsAPI *recommendationsAPI;
+@property (nonatomic, strong, nonnull) MendeleyFeedsAPI *feedsAPI;
+@property (nonatomic, strong, nonnull) MendeleySharesAPI *sharesAPI;
+@property (nonatomic, strong, nonnull) MendeleyUserPostsAPI *userPostsAPI;
+@property (nonatomic, strong, nonnull) MendeleyCommentsAPI *commentsAPI;
+
 @end
 
 @implementation MendeleyKit
@@ -165,6 +174,18 @@
     self.recommendationsAPI = [[MendeleyRecommendationsAPI alloc]
                                initWithNetworkProvider:self.networkProvider
                                baseURL:baseURL];
+    
+    self.feedsAPI = [[MendeleyFeedsAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                              baseURL:baseURL];
+    
+    self.sharesAPI = [[MendeleySharesAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                              baseURL:baseURL];
+    
+    self.userPostsAPI = [[MendeleyUserPostsAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                                      baseURL:baseURL];
+    
+    self.commentsAPI = [[MendeleyCommentsAPI alloc] initWithNetworkProvider:self.networkProvider
+                                                                    baseURL:baseURL];
 }
 
 - (BOOL)isAuthenticated
@@ -1512,6 +1533,224 @@
                                                  carousel:carousel
                                                      task:task
                                           completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark - Feeds
+
+- (MendeleyTask *)feedListWithLinkedURL:(NSURL *)linkURL
+                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI feedListWithLinkedURL:linkURL
+                                        task:task
+                             completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)feedListWithQueryParameters:(MendeleyFeedsParameters *)queryParameters
+                              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI feedListWithQueryParameters:queryParameters
+                                              task:task
+                                   completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)feedWithId:(NSString *)feedId
+             completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI feedWithId:feedId
+                             task:task
+                  completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+
+}
+
+- (MendeleyTask *)likeFeedWithID:(NSString *)feedID
+       completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI likeFeedWithID:feedID
+                                 task:task
+                      completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)unlikeFeedWithID:(NSString *)feedID
+                   completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI unlikeFeedWithID:feedID
+                                 task:task
+                      completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark - User Posts
+
+- (MendeleyTask *)deleteUserPostWithPostID:(NSString *)postID
+                           completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.userPostsAPI deleteUserPostWithPostID:postID
+                                               task:task
+                                    completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark - Shares
+
+- (MendeleyTask *)shareFeedWithQueryParameters:(MendeleySharesParameters *)queryParameters
+                     completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareFeedWithQueryParameters:queryParameters
+                                                task:task
+                                     completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)shareDocumentWithDocumentID:(NSString *)documentID
+                              completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareDocumentWithDocumentID:documentID
+                                               task:task
+                                    completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)shareDocumentWithDOI:(NSString *)doi
+                       completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareDocumentWithDOI:doi
+                                        task:task
+                             completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)shareDocumentWithScopus:(NSString *)scopus
+                          completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.sharesAPI shareDocumentWithScopus:scopus
+                                           task:task
+                                completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+#pragma mark - Comments
+
+- (MendeleyTask *)expandedCommentsWithNewsItemID:(NSString *)newsItemID
+                                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI expandedCommentsWithNewsItemID:newsItemID
+                                                    task:task
+                                         completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)commentWithCommentID:(NSString *)commentID
+                       completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI commentWithCommentID:commentID
+                                          task:task
+                               completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)createComment:(MendeleyComment *)comment
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI createComment:comment
+                                   task:task
+                        completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)updateCommentWithCommentID:(NSString *)commentID
+                                      update:(MendeleyCommentUpdate *)update
+                             completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI updateCommentWithCommentID:commentID
+                                              update:update
+                                                task:task
+                                     completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)deleteCommentWithCommentID:(NSString *)commentID
+                             completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.commentsAPI deleteCommentWithCommentID:commentID
+                                                task:task
+                                     completionBlock:completionBlock];
     } completionBlock:completionBlock];
     
     return task;

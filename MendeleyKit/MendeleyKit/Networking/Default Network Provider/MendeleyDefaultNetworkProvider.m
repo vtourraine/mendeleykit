@@ -44,6 +44,11 @@
 
 @implementation MendeleyDefaultNetworkProvider
 
+- (NSDictionary *)emptyRequestHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: @"" };
+}
+
 #pragma mark - Initialization
 + (MendeleyDefaultNetworkProvider *)sharedInstance
 {
@@ -305,6 +310,23 @@
     [self executeNetworkTask:networkTask cancellationTask:task];
 }
 
+- (NSDictionary *)prepareAdditionalHeadersFrom:(NSDictionary *)headers
+{
+    if (nil == headers) {
+        return [self emptyRequestHeaders];
+    }
+    else if (nil == headers[kMendeleyRESTRequestAccept])
+    {
+        NSMutableDictionary *mutableAdditionalHeaders = [headers mutableCopy];
+        [mutableAdditionalHeaders addEntriesFromDictionary:[self emptyRequestHeaders]];
+        return mutableAdditionalHeaders;
+    }
+    else
+    {
+        return headers;
+    }
+}
+
 - (void)         invokeGET:(NSURL *)linkURL
          additionalHeaders:(NSDictionary *)additionalHeaders
            queryParameters:(NSDictionary *)queryParameters
@@ -346,10 +368,8 @@
                                           requestType:HTTP_GET];
     }
 
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     if (nil != queryParameters)
     {
         [request addParametersToURL:queryParameters isQuery:YES];
@@ -391,10 +411,9 @@
                                           requestType:HTTP_PUT
             ];
     }
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     if (nil != bodyParameters)
     {
         [request addBodyWithParameters:bodyParameters
@@ -440,10 +459,9 @@
                                           requestType:HTTP_PUT
                    ];
     }
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     [request addBodyData:jsonData];
     __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
                                                                                         session:self.currentSession
@@ -481,10 +499,8 @@
                                           requestType:HTTP_POST];
     }
 
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     if (nil != bodyParameters)
     {
         [request addBodyWithParameters:bodyParameters
@@ -530,10 +546,8 @@
             ];
     }
 
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     [request addBodyData:jsonData];
 
     __block MendeleyNetworkTask *networkTask = [[MendeleyNetworkTask alloc] initTaskWithRequest:request.mutableURLRequest
@@ -572,11 +586,9 @@
                                           requestType:HTTP_DELETE
             ];
     }
-
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     if (nil != bodyParameters)
     {
         [request addBodyWithParameters:bodyParameters
@@ -619,10 +631,9 @@
                                           requestType:HTTP_PATCH
             ];
     }
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     if (nil != bodyParameters)
     {
         [request addBodyWithParameters:bodyParameters
@@ -666,10 +677,9 @@
                                           requestType:HTTP_PATCH
             ];
     }
-    if (nil != additionalHeaders)
-    {
-        [request addHeaderWithParameters:additionalHeaders];
-    }
+    
+    [request addHeaderWithParameters:[self prepareAdditionalHeadersFrom:additionalHeaders]];
+    
     if (nil != jsonData)
     {
         [request.mutableURLRequest setHTTPBody:jsonData];

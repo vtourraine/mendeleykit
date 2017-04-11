@@ -22,10 +22,62 @@
 #import <objc/runtime.h>
 #import "MendeleyModels.h"
 #import "NSError+MendeleyError.h"
+#import "MendeleyNewsFeed.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
+
+@interface MendeleyObjectHelper (Feeds)
+
++ (NSArray *)feedItemContentTypes;
++ (NSArray *)feedItemContentClasses;
+
+@end
+
+@implementation MendeleyObjectHelper (Feeds)
+
++ (NSArray *)feedItemContentTypes
+{
+    return @[kMendeleyFeedItemRSS,
+             kMendeleyFeedItemNewStatus,
+             kMendeleyFeedItemEmploymentUpdate,
+             kMendeleyFeedItemEducationUpdate,
+             kMendeleyFeedItemNewFollower,
+             kMendeleyFeedItemNewPublication,
+             kMendeleyFeedItemDocumentRecommendation,
+             kMendeleyFeedItemPostedCataloguePublication,
+             kMendeleyFeedItemPostedPublication,
+             kMendeleyFeedItemGroupDocumentAdded];
+}
+
++ (NSArray *)feedItemContentClasses
+{
+    return @[NSStringFromClass(MendeleyRSSJsonNode.class),
+             NSStringFromClass(MendeleyNewStatusJsonNode.class),
+             NSStringFromClass(MendeleyEmploymentUpdateJsonNode.class),
+             NSStringFromClass(MendeleyEducationUpdateJsonNode.class),
+             NSStringFromClass(MendeleyNewFollowerJsonNode.class),
+             NSStringFromClass(MendeleyNewPublicationJsonNode.class),
+             NSStringFromClass(MendeleyDocumentRecommendationJsonNode.class),
+             NSStringFromClass(MendeleyPostedCataloguePublicationJsonNode.class),
+             NSStringFromClass(MendeleyPostedPublicationJsonNode.class),
+             NSStringFromClass(MendeleyGroupDocAddedJsonNode.class)];
+}
+
++ (NSArray *)feedItemsourceTypes
+{
+    return @[kMendeleyFeedSourceTypeProfile,
+             kMendeleyFeedSourceTypeRSS];
+}
+
++ (NSArray *)feedItemSourceClasses
+{
+    return @[NSStringFromClass(MendeleyNewsFeedProfileSource.class),
+             NSStringFromClass(MendeleyNewsFeedRSSSource.class)];
+}
+
+@end
 
 @implementation MendeleyObjectHelper
 
@@ -85,8 +137,8 @@
 
     dispatch_once(&onceToken, ^{
         formatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:kMendeleyPosixDefaultFormat];
+        formatter.timeZone = [NSTimeZone timeZoneWithName:kMendeleyTimeZoneUTC];
         [formatter setLocale:enUSPOSIXLocale];
         [formatter setDateFormat:kMendeleyJSONDateTimeFormat];
     });
@@ -100,8 +152,8 @@
     
     dispatch_once(&onceToken, ^{
         formatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:kMendeleyPosixDefaultFormat];
+        formatter.timeZone = [NSTimeZone timeZoneWithName:kMendeleyTimeZoneUTC];
         [formatter setLocale:enUSPOSIXLocale];
         [formatter setDateFormat:kMendeleyShortJSONDateTimeFormat];
     });
@@ -297,7 +349,179 @@
             return YES;
         }
     }
-
+    
+    NSString *newsFeedName = NSStringFromClass([MendeleyNewsFeed class]);
+    if ([modelName isEqualToString:newsFeedName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONContent] ||
+            [propertyName isEqualToString:kMendeleyJSONSource] ||
+            [propertyName isEqualToString:kMendeleyJSONComments] ||
+            [propertyName isEqualToString:kMendeleyJSONShare] ||
+            [propertyName isEqualToString:kMendeleyJSONLike])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *expandedCommentsName = NSStringFromClass([MendeleyExpandedComments class]);
+    if ([modelName isEqualToString:expandedCommentsName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONLatest])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *commentWithSocialProfile = NSStringFromClass([MendeleyCommentWithSocialProfile class]);
+    if ([modelName isEqualToString:commentWithSocialProfile])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return YES;
+        }
+    }
+    
+    
+    
+    NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
+    if ([modelName isEqualToString:feedRSSSourceName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *feedProfileSourceName = NSStringFromClass([MendeleyNewsFeedProfileSource class]);
+    if ([modelName isEqualToString:feedProfileSourceName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *socialProfileName = NSStringFromClass([MendeleySocialProfile class]);
+    if ([modelName isEqualToString:socialProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *followerProfileName = NSStringFromClass([MendeleyFollowerProfile class]);
+    if ([modelName isEqualToString:followerProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *newFollowerName = NSStringFromClass([MendeleyNewFollowerJsonNode class]);
+    if ([modelName isEqualToString:newFollowerName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONFollowings])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *newPublicationName = NSStringFromClass([MendeleyNewPublicationJsonNode class]);
+    if ([modelName isEqualToString:newPublicationName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return YES;
+        }
+    }
+    
+    NSString *recommendedPublicationName = NSStringFromClass([MendeleyDocumentRecommendationJsonNode class]);
+    if ([modelName isEqualToString:recommendedPublicationName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONRecommendations] ||
+            [propertyName isEqualToString:kMendeleyJSONUserDocument])
+        {
+            return YES;
+        }
+    }
+   
+    NSString *addedDocumentName = NSStringFromClass([MendeleyGroupDocAddedJsonNode class]);
+    if ([modelName isEqualToString:addedDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments] ||
+            [propertyName isEqualToString:kMendeleyJSONGroup])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPublishedDocument class])] ||
+        [modelName isEqualToString:NSStringFromClass([MendeleyAddedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyUserDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedCataloguePublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedPublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyNewStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -328,7 +552,10 @@
             else
             {
                 // Note that this will not work if the property of the object we are trying to assign is a primitive type
-                [object setValue:rawValue[matchedKey] forKeyPath:key];
+                if (rawValue[matchedKey] != [NSNull null])
+                {
+                    [object setValue:rawValue[matchedKey] forKeyPath:key];
+                }
             }
          }];
         return object;
@@ -541,6 +768,221 @@
         }
     }
     
+    NSString *newsFeedName = NSStringFromClass([MendeleyNewsFeed class]);
+    if ([modelName isEqualToString:newsFeedName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONContent])
+        {
+            NSString *contentType = rawValue[kMendeleyJSONType];
+            NSUInteger index = [[[self class] feedItemContentTypes] indexOfObject:contentType];
+            if (index != NSNotFound)
+            {
+                Class klass = NSClassFromString([[self class] feedItemContentClasses][index]);
+                return [[self class] setPropertiesToObjectOfClass:klass fromRawValue:rawValue];
+            }
+            else
+            {
+                if (error != NULL)
+                {
+                    *error = [NSError errorWithCode:kMendeleyJSONTypeNotMappedToModelErrorCode];
+                }
+                return nil;
+            }
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONSource])
+        {
+            NSString *sourceType = rawValue[kMendeleyJSONType];
+            NSUInteger index = [[[self class] feedItemsourceTypes] indexOfObject:sourceType];
+            if (index != NSNotFound)
+            {
+                Class klass = NSClassFromString([[self class] feedItemSourceClasses][index]);
+                return [[self class] setPropertiesToObjectOfClass:klass fromRawValue:rawValue];
+            }
+            else
+            {
+                if (error != NULL)
+                {
+                    *error = [NSError errorWithCode:kMendeleyJSONTypeNotMappedToModelErrorCode];
+                }
+                return nil;
+            }
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONComments])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyExpandedComments class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONShare])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyShare class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONLike])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyLike class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *expandedCommentsName = NSStringFromClass([MendeleyExpandedComments class]);
+    if ([modelName isEqualToString:expandedCommentsName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONLatest])
+        {
+            return [[self class] objectArrayForClass:[MendeleyCommentWithSocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *commentWithSocialProfile = NSStringFromClass([MendeleyCommentWithSocialProfile class]);
+    if ([modelName isEqualToString:commentWithSocialProfile])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
+    if ([modelName isEqualToString:feedRSSSourceName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONRSSFeed])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFeedRSSFeed class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *feedProfileSourneName = NSStringFromClass([MendeleyNewsFeedProfileSource class]);
+    if ([modelName isEqualToString:feedProfileSourneName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *feedSocialProfileName = NSStringFromClass([MendeleySocialProfile class]);
+    if ([modelName isEqualToString:feedSocialProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialProfilePhoto class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *followerProfileName = NSStringFromClass([MendeleyFollowerProfile class]);
+    if ([modelName isEqualToString:followerProfileName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialProfilePhoto class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *newFollowerName = NSStringFromClass([MendeleyNewFollowerJsonNode class]);
+    if ([modelName isEqualToString:newFollowerName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONFollowings])
+        {
+            return [[self class] objectArrayForClass:[MendeleyFollowerProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *newPublicationName = NSStringFromClass([MendeleyNewPublicationJsonNode class]);
+    if ([modelName isEqualToString:newPublicationName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyPublishedDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPublishedDocument class])] ||
+        [modelName isEqualToString:NSStringFromClass([MendeleyAddedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *recommendedPublicationName = NSStringFromClass([MendeleyDocumentRecommendationJsonNode class]);
+    if ([modelName isEqualToString:recommendedPublicationName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONRecommendations])
+        {
+            return [[self class] objectArrayForClass:[MendeleyRecommendedDocument class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONUserDocument])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyUserDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    NSString *addedDocumentName = NSStringFromClass([MendeleyGroupDocAddedJsonNode class]);
+    if ([modelName isEqualToString:addedDocumentName])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyAddedDocument class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONGroup])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFeedGroup class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyUserDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyRecommendedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyCataloguePubDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return  [[self class] objectArrayForClass:[MendeleySimpleAuthor class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedCataloguePublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyCataloguePubDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPostedPublicationJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyCataloguePubDocument class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyNewStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyPost class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONProfile])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyExpandedComment class] fromRawValue:rawValue];
+        }
+    }
 
     return nil;
 }

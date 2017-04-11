@@ -27,6 +27,7 @@ open class MendeleyAnalyticsEvent: MendeleySecureObject
     open var profileID: String!
     open var session_ID: String!
     open var profile_uuid: String!
+    open var duration_milliseconds: Int?
     open var origin = [kMendeleyAnalyticsJSONOriginOS : kOriginOS,
         kMendeleyAnalyticsJSONOriginType: kOriginType]
 
