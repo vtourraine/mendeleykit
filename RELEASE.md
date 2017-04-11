@@ -1,4 +1,7 @@
 RELEASE NOTES
+Date: April 2017 (3.2.0)
+- added News Feed features to the Kit
+
 Date: January (3.0.2)
 - min bug fix in assigning a value in MendeleyProfile
 
