@@ -23,6 +23,7 @@ public enum FeedItemSection: String {
     case postButton = "post_button"
     case deleteStatusTextButton = "delete_status"
     case like = "like"
+    case unlike = "unlike"
     case share = "share_to_followers"
     case likeCounter = "like_count"
     case shareCounter = "share_count"
