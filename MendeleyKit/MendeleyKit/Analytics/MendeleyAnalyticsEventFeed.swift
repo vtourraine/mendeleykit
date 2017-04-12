@@ -8,31 +8,35 @@
 
 import UIKit
 
-enum FeedItemType: String {
-    case documentRecommendation = "document-recommendation"
-    case documentsRecommendations = "documents-recommendat..." // ?
-    case educationUpdate = "education-update"
-    case employmentUpdate = "employment-update"
-    case followed = "followed"
-    case groupDocAdded = "group-doc-added"
-    case groupStatusPosted = "group-status-posted"
-    case newFollower = "new-follower"
-    case newPub = "new-pub"
-    case newStatus = "new-status"
-    case newScientist = "newscientist"
-    case onboarding = "onboarding"
-    case peopleRecommendation = "people-recommendation"
-    case peopleRecommendationSomething = "people-recommendation-..." // ?
-    case postAStatus = "post-a-status"
-    case postedCataloguePub = "posted-catalogue-pub"
-    case postedPub = "posted-pub"
-    case rssItem = "rss-item"
-    case thirdParty = "thirdParty"
-    case thirdPartyMendeleyData = "third-party-mendeley-data"
-    case thirdPartyUndefined = "third-party-undefined"
-    case unfollowed = "unfollowed"
+public enum FeedItemSection: String {
+    case showMore = "see_more"
+    case profileNameInRecommender = "profile_name_%ld"
+    case profilePhotoInRecommender = "profile_photo_%ld"
+    case profileNameInCards = "source_name"
+    case groupName = "group_name"
+    case attachDocument = "attach_document"
+    case removeDocument = "detach_document"
+    case attachImage = "attach_image"
+    case removeImage = "detach_image"
+    case postStatusTextArea = "textarea"
+    case followersIconNextToPostButton = "change_visibility"
+    case postButton = "post_button"
+    case deleteStatusTextButton = "delete_status"
+    case like = "like"
+    case share = "share_to_followers"
+    case likeCounter = "like_count"
+    case shareCounter = "share_count"
+    case publicationTitle = "title_%ld"
+    case saveReference = "save_reference_%ld"
+    case getFullTextAtJournal = "open_doi_%ld"
+    case etAlOnAuthorNamesList = "authors_et_al"
+    case followOrUnfollow = "follow_toggle_%ld"
+    case seePreviousComments = "view_more_comments"
+    case snippetImage = "snippet_image"
+    case snippetTitle = "snippet_title"
+    case snippetURL = "snippet_url"
+    case removeSnippetPreview = "dismiss_snippet"
 }
-
 
 open class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
     open var itemType: String!
