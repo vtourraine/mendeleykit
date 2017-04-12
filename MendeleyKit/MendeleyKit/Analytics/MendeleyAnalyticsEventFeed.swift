@@ -38,11 +38,11 @@ class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
     open var itemType: String!
 }
 
-class MendeleyAnalyticsEventFeedItemViewed: MendeleyAnalyticsEventFeed {
+open class MendeleyAnalyticsEventFeedItemViewed: MendeleyAnalyticsEventFeed {
     open var index: Int!
 }
 
-class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
+open class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
     open var pageLoadId = "false"
     open var section: String!
     open var itemId: String!
