@@ -37,6 +37,7 @@ public enum FeedItemSection: String {
     case snippetTitle = "snippet_title"
     case snippetURL = "snippet_url"
     case removeSnippetPreview = "dismiss_snippet"
+    case sourceName = "source_name"
 }
 
 open class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
