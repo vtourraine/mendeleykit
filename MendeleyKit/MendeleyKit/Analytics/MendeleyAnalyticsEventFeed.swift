@@ -34,7 +34,7 @@ enum FeedItemType: String {
 }
 
 
-class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
+open class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
     open var itemType: String!
 }
 
