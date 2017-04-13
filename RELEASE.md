@@ -1,5 +1,8 @@
 RELEASE NOTES
-Date: April 2017 (3.2.0)
+Date: April 2017 (3.1.1)
+- added some extra Suggest/Feed analytics events
+
+Date: April 2017 (3.1.0)
 - added News Feed features to the Kit
 
 Date: January (3.0.2)
