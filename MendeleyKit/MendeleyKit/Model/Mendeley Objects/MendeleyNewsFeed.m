@@ -84,9 +84,6 @@
 @implementation MendeleyExpandedComments
 @end
 
-@implementation MendeleyCommentWithSocialProfile
-@end
-
 @implementation MendeleyPost
 @end
 

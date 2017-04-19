@@ -187,26 +187,12 @@
 
 @end
 
-@class MendeleyCommentWithSocialProfile;
+@class MendeleyExpandedComment;
 
 @interface MendeleyExpandedComments : MendeleySecureObject
 
 @property (nonatomic, strong) NSNumber* total_count;
-@property (nonatomic, strong) NSArray<MendeleyCommentWithSocialProfile *> *latest;
-
-@end
-
-@class MendeleySocialProfile;
-
-@interface MendeleyCommentWithSocialProfile : MendeleyObject
-
-@property (nonatomic, strong) MendeleySocialProfile *profile;
-@property (nonatomic, strong) NSString *last_modified;
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSString *created;
-@property (nonatomic, strong) NSString *profile_id;
-@property (nonatomic, strong) NSString *news_item_id;
-@property (nonatomic, strong) NSNumber* news_item_owner;
+@property (nonatomic, strong) NSArray<MendeleyExpandedComment *> *latest;
 
 @end
 
