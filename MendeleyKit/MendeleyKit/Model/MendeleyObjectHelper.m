@@ -980,7 +980,7 @@
     {
         if ([propertyName isEqualToString:kMendeleyJSONProfile])
         {
-            return [[self class] setPropertiesToObjectOfClass:[MendeleyExpandedComment class] fromRawValue:rawValue];
+            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfile class] fromRawValue:rawValue];
         }
     }
 
