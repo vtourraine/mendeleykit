@@ -30,9 +30,7 @@
 
 - (NSDictionary *)updateCommentRequestHeaders
 {
-    // Documentation unclear: Should the accept type be kMendeleyRESTRequestJSONCommentType or
-    // kMendeleyRESTRequestJSONCommentUpdateType?
-    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONCommentType,
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONCommentUpdateType,
               kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONCommentUpdateType };
 }
 
