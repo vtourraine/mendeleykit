@@ -25,19 +25,19 @@
 
 @interface MendeleyNewsFeed : MendeleyObject
 
-@property (nonatomic, strong) NSNumber* sharable;
-@property (nonatomic, strong) MendeleyNewsFeedSource *source;
-@property (nonatomic, strong) MendeleyJsonNode *content;
-@property (nonatomic, strong) NSString *created;
-@property (nonatomic, strong) MendeleyShare *share;
-@property (nonatomic, strong) MendeleyLike *like;
-@property (nonatomic, strong) MendeleyExpandedComments *comments;
+@property (nonatomic, strong, nullable) NSNumber* sharable;
+@property (nonatomic, strong, nullable) MendeleyNewsFeedSource *source;
+@property (nonatomic, strong, nullable) MendeleyJsonNode *content;
+@property (nonatomic, strong, nullable) NSString *created;
+@property (nonatomic, strong, nullable) MendeleyShare *share;
+@property (nonatomic, strong, nullable) MendeleyLike *like;
+@property (nonatomic, strong, nullable) MendeleyExpandedComments *comments;
 
 @end
 
 @interface MendeleyNewsFeedSource : MendeleySecureObject
 
-@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong, nullable) NSString *type;
 
 @end
 
@@ -45,7 +45,7 @@
 
 @interface MendeleyNewsFeedProfileSource : MendeleyNewsFeedSource
 
-@property (nonatomic, strong) MendeleySocialProfile *profile;
+@property (nonatomic, strong, nullable) MendeleySocialProfile *profile;
 
 @end
 
@@ -53,26 +53,26 @@
 
 @interface MendeleyNewsFeedRSSSource : MendeleyNewsFeedSource
 
-@property (nonatomic, strong) MendeleyFeedRSSFeed *rss_feed;
+@property (nonatomic, strong, nullable) MendeleyFeedRSSFeed *rss_feed;
 
 @end
 
 @interface MendeleyFeedRSSFeed : MendeleySecureObject
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *link;
+@property (nonatomic, strong, nullable) NSString *name;
+@property (nonatomic, strong, nullable) NSString *link;
 
 @end
 
 @interface MendeleyJsonNode : MendeleySecureObject
 
-@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong, nullable) NSString *type;
 
 @end
 
 @interface MendeleyCountableJsonNode : MendeleyJsonNode
 
-@property (nonatomic, strong) NSNumber* total_count;
+@property (nonatomic, strong, nullable) NSNumber* total_count;
 
 @end
 
@@ -81,23 +81,23 @@
 
 @interface MendeleyDocumentRecommendationJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) NSString *subtype;
-@property (nonatomic, strong) MendeleyUserDocument *user_document; // in the JSON it is user-documents
-@property (nonatomic, strong) NSArray<MendeleyRecommendedDocument *> *recommendations;
+@property (nonatomic, strong, nullable) NSString *subtype;
+@property (nonatomic, strong, nullable) MendeleyUserDocument *user_document; // in the JSON it is user-documents
+@property (nonatomic, strong, nullable) NSArray<MendeleyRecommendedDocument *> *recommendations;
 
 @end
 
 @interface MendeleyEmploymentUpdateJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) NSString *institution;
-@property (nonatomic, strong) NSString *position;
+@property (nonatomic, strong, nullable) NSString *institution;
+@property (nonatomic, strong, nullable) NSString *position;
 
 @end
 
 @interface MendeleyEducationUpdateJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) NSString *institution;
-@property (nonatomic, strong) NSString *degree;
+@property (nonatomic, strong, nullable) NSString *institution;
+@property (nonatomic, strong, nullable) NSString *degree;
 
 @end
 
@@ -106,16 +106,16 @@
 
 @interface MendeleyGroupDocAddedJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) MendeleyFeedGroup *group;
-@property (nonatomic, strong) NSArray<MendeleyAddedDocument *> *documents;
+@property (nonatomic, strong, nullable) MendeleyFeedGroup *group;
+@property (nonatomic, strong, nullable) NSArray<MendeleyAddedDocument *> *documents;
 
 @end
 
 @interface MendeleyFeedGroup : MendeleyObject
 
-@property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSString *access_level;
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong, nullable) NSString *link;
+@property (nonatomic, strong, nullable) NSString *access_level;
+@property (nonatomic, strong, nullable) NSString *name;
 
 @end
 
@@ -123,7 +123,7 @@
 
 @interface MendeleyNewFollowerJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) NSArray<MendeleyFollowerProfile *> *followings;
+@property (nonatomic, strong, nullable) NSArray<MendeleyFollowerProfile *> *followings;
 
 @end
 
@@ -132,8 +132,8 @@
 
 @interface MendeleyNewPublicationJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) NSArray<MendeleyPublishedDocument *> *documents;
-@property (nonatomic, strong) NSArray<MendeleyFeedAuthor *> *co_authors;
+@property (nonatomic, strong, nullable) NSArray<MendeleyPublishedDocument *> *documents;
+@property (nonatomic, strong, nullable) NSArray<MendeleyFeedAuthor *> *co_authors;
 
 @end
 
@@ -141,7 +141,7 @@
 
 @interface MendeleyNewStatusJsonNode : MendeleyJsonNode
 
-@property (nonatomic, strong) MendeleyPost *post;
+@property (nonatomic, strong, nullable) MendeleyPost *post;
 
 @end
 
@@ -149,7 +149,7 @@
 
 @interface MendeleyPostedCataloguePublicationJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) NSArray<MendeleyCataloguePubDocument *> *documents;
+@property (nonatomic, strong, nullable) NSArray<MendeleyCataloguePubDocument *> *documents;
 
 @end
 
@@ -157,33 +157,33 @@
 
 @interface MendeleyPostedPublicationJsonNode : MendeleyCountableJsonNode
 
-@property (nonatomic, strong) NSArray<MendeleyCataloguePubDocument *> *documents;
+@property (nonatomic, strong, nullable) NSArray<MendeleyCataloguePubDocument *> *documents;
 
 @end
 
 @interface MendeleyRSSJsonNode : MendeleyJsonNode
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *summary;
-@property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSString *publish_date;
-@property (nonatomic, strong) NSString *image_url;
+@property (nonatomic, strong, nullable) NSString *title;
+@property (nonatomic, strong, nullable) NSString *summary;
+@property (nonatomic, strong, nullable) NSString *link;
+@property (nonatomic, strong, nullable) NSString *publish_date;
+@property (nonatomic, strong, nullable) NSString *image_url;
 
 @end
 
 @interface MendeleyShare : MendeleySecureObject
 
-@property (nonatomic, strong) NSNumber *total_count;
-@property (nonatomic, strong) NSNumber* shared_by_me;
-@property (nonatomic, strong) MendeleySocialProfile *originating_sharer_profile;
-@property (nonatomic, strong) NSArray<MendeleySocialProfile *> *most_recent_sharer_profiles;
+@property (nonatomic, strong, nullable) NSNumber *total_count;
+@property (nonatomic, strong, nullable) NSNumber* shared_by_me;
+@property (nonatomic, strong, nullable) MendeleySocialProfile *originating_sharer_profile;
+@property (nonatomic, strong, nullable) NSArray<MendeleySocialProfile *> *most_recent_sharer_profiles;
 
 @end
 
 @interface MendeleyLike : MendeleySecureObject
 
-@property (nonatomic, strong) NSNumber* total_count;
-@property (nonatomic, strong) NSNumber* liked_by_me;
+@property (nonatomic, strong, nullable) NSNumber* total_count;
+@property (nonatomic, strong, nullable) NSNumber* liked_by_me;
 
 @end
 
@@ -191,8 +191,8 @@
 
 @interface MendeleyExpandedComments : MendeleySecureObject
 
-@property (nonatomic, strong) NSNumber* total_count;
-@property (nonatomic, strong) NSArray<MendeleyExpandedComment *> *latest;
+@property (nonatomic, strong, nullable) NSNumber* total_count;
+@property (nonatomic, strong, nullable) NSArray<MendeleyExpandedComment *> *latest;
 
 @end
 
@@ -200,20 +200,20 @@
 
 @interface MendeleyPost : MendeleyObject
 
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) MendeleyFeedDocument *document;
-@property (nonatomic, strong) NSArray<MendeleySocialProfile *> *tagged_users;
+@property (nonatomic, strong, nullable) NSString *text;
+@property (nonatomic, strong, nullable) MendeleyFeedDocument *document;
+@property (nonatomic, strong, nullable) NSArray<MendeleySocialProfile *> *tagged_users;
 
 @end
 
 @interface MendeleyFeedDocument : MendeleyObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSNumber* year;
-@property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSString *type;
-@property (nonatomic, strong) NSArray<MendeleyFeedAuthor *> *authors;
-@property (nonatomic, strong) NSString *doi;
+@property (nonatomic, strong, nullable) NSString *title;
+@property (nonatomic, strong, nullable) NSNumber* year;
+@property (nonatomic, strong, nullable) NSString *link;
+@property (nonatomic, strong, nullable) NSString *type;
+@property (nonatomic, strong, nullable) NSArray<MendeleyFeedAuthor *> *authors;
+@property (nonatomic, strong, nullable) NSString *doi;
 
 @end
 
@@ -221,11 +221,11 @@
 
 @interface MendeleyAddedDocument : MendeleyObject
 
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong, nullable) NSString *title;
 @property (nonatomic, strong, nullable) NSNumber *year;
-@property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSString *type;
-@property (nonatomic, strong) NSArray<MendeleySimpleAuthor *> *authors;
+@property (nonatomic, strong, nullable) NSString *link;
+@property (nonatomic, strong, nullable) NSString *type;
+@property (nonatomic, strong, nullable) NSArray<MendeleySimpleAuthor *> *authors;
 
 @end
 
@@ -233,22 +233,22 @@
 
 @interface MendeleyPublishedDocument : MendeleyAddedDocument
 
-@property (nonatomic, strong) NSString *source;
+@property (nonatomic, strong, nullable) NSString *source;
 
 @end
 
 @interface MendeleyRecommendedDocument : MendeleyPublishedDocument
 
-@property (nonatomic, strong) NSString *doi;
-@property (nonatomic, strong) NSString *trace;
-@property (nonatomic, strong) NSNumber *reader_count;
-@property (nonatomic, strong) NSString *abstract;
+@property (nonatomic, strong, nullable) NSString *doi;
+@property (nonatomic, strong, nullable) NSString *trace;
+@property (nonatomic, strong, nullable) NSNumber *reader_count;
+@property (nonatomic, strong, nullable) NSString *abstract;
 
 @end
 
 @interface MendeleyCataloguePubDocument : MendeleyPublishedDocument
 
-@property (nonatomic, strong) NSString *doi;
+@property (nonatomic, strong, nullable) NSString *doi;
 
 @end
 
@@ -256,19 +256,19 @@
 
 @interface MendeleyUserDocument : MendeleySecureObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *type;
-@property (nonatomic, strong) NSNumber *year;
-@property (nonatomic, strong) NSString *source;
-@property (nonatomic, strong) NSArray<MendeleySimpleAuthor *> *authors;
-@property (nonatomic, strong) NSArray<NSDictionary *> *identifiers;
+@property (nonatomic, strong, nullable) NSString *title;
+@property (nonatomic, strong, nullable) NSString *type;
+@property (nonatomic, strong, nullable) NSNumber *year;
+@property (nonatomic, strong, nullable) NSString *source;
+@property (nonatomic, strong, nullable) NSArray<MendeleySimpleAuthor *> *authors;
+@property (nonatomic, strong, nullable) NSArray<NSDictionary *> *identifiers;
 
 @end
 
 @interface MendeleySimpleAuthor : MendeleySecureObject
 
-@property (nonatomic, strong) NSString *first_name;
-@property (nonatomic, strong) NSString *last_name;
+@property (nonatomic, strong, nullable) NSString *first_name;
+@property (nonatomic, strong, nullable) NSString *last_name;
 
 @end
 
@@ -276,7 +276,7 @@
 
 @interface MendeleyFeedAuthor : MendeleySimpleAuthor
 
-@property (nonatomic, strong) NSString *scopus_author_id;
+@property (nonatomic, strong, nullable) NSString *scopus_author_id;
 
 @end
 
@@ -284,10 +284,10 @@
 
 @interface MendeleySocialProfile : MendeleyObject
 
-@property (nonatomic, strong) NSString *first_name;
-@property (nonatomic, strong) NSString *last_name;
-@property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSArray<MendeleySocialProfilePhoto *> *photos;
+@property (nonatomic, strong, nullable) NSString *first_name;
+@property (nonatomic, strong, nullable) NSString *last_name;
+@property (nonatomic, strong, nullable) NSString *link;
+@property (nonatomic, strong, nullable) NSArray<MendeleySocialProfilePhoto *> *photos;
 
 @end
 
@@ -295,17 +295,17 @@
 
 @interface MendeleyFollowerProfile : MendeleySocialProfile
 
-@property (nonatomic, strong) NSString *profile_id;
-@property (nonatomic, strong) NSString *institution;
+@property (nonatomic, strong, nullable) NSString *profile_id;
+@property (nonatomic, strong, nullable) NSString *institution;
 
 @end
 
 @interface MendeleySocialProfilePhoto : MendeleySecureObject
 
-@property (nonatomic, strong) NSNumber* width;
-@property (nonatomic, strong) NSNumber* height;
-@property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) NSNumber* original;
+@property (nonatomic, strong, nullable) NSNumber* width;
+@property (nonatomic, strong, nullable) NSNumber* height;
+@property (nonatomic, strong, nullable) NSString *url;
+@property (nonatomic, strong, nullable) NSNumber* original;
 
 @end
 
