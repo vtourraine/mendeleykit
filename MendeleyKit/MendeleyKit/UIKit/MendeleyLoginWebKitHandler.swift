@@ -38,7 +38,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
-        let request: URLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
+        let request: URLRequest = (oAuthProvider?.oauthURLRequest())! //helper.getOAuthRequest(redirectURI, clientID: clientID)
         _ = webView?.load(request)
     }
     
@@ -56,8 +56,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         if let requestURL = webView.url {
-            let helper = MendeleyKitLoginHelper()
-            if let code = helper.getAuthenticationCode(requestURL)
+            if let code = oAuthProvider?.getAuthenticationCode(from: requestURL)
             {
                 oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
             }
@@ -79,8 +78,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             }
         }
 
-        let helper = MendeleyKitLoginHelper()
-        if let code = helper.getAuthenticationCode(requestURL!)
+        if let code = oAuthProvider?.getAuthenticationCode(from: requestURL!)
         {
             oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
         }

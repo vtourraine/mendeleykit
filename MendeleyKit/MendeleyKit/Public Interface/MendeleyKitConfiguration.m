@@ -20,7 +20,8 @@
 
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyDefaultNetworkProvider.h"
-#import "MendeleyDefaultOAuthProvider.h"
+//#import "MendeleyDefaultOAuthProvider.h"
+#import "MendeleyIDPlusOAuthProvider.h"
 #import "MendeleyKitUserInfoManager.h"
 #import "MendeleyOAuthStore.h"
 #import "MendeleyError.h"
@@ -149,7 +150,8 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 - (void)resetToDefault
 {
     _networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
-    _oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
+//    _oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
+    _oauthProvider = [MendeleyIDPlusOAuthProvider sharedInstance];
     _storeProvider = [MendeleyOAuthStore new];
     _isTrustedSSLServer = NO;
     _documentViewType = kMendeleyDocumentViewTypeDefault;

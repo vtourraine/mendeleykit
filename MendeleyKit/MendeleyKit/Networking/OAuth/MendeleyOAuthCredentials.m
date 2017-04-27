@@ -96,3 +96,7 @@
 }
 
 @end
+
+@implementation MendeleyOpenIDCredentials
+
+@end

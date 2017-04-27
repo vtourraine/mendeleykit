@@ -82,7 +82,17 @@
                                     task:(MendeleyTask *)task
                          completionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
 
+/**
+ write some documentation here
+ */
+- (NSURLRequest *)oauthURLRequest;
 
+/**
+ documentation
+ */
+- (NSString *)getAuthenticationCodeFromURL:(NSURL *)redirectURL;
+
+//open func getAuthenticationCode(_ redirectURL: URL) -> String?
 
 /**
    checks if the url string given is the Redirect URL

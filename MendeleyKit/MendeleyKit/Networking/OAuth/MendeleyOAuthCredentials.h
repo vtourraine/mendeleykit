@@ -39,3 +39,7 @@
  */
 - (BOOL)oauthCredentialIsExpired;
 @end
+
+@interface MendeleyOpenIDCredentials : MendeleyOAuthCredentials
+@property (nonatomic, strong) NSString *id_token;
+@end

@@ -235,19 +235,7 @@
 
 - (NSURLRequest *)oauthURLRequest
 {
-    NSURL *baseOAuthURL = [self.oauthServer URLByAppendingPathComponent:kMendeleyOAuthPathAuthorize];
-    NSDictionary *parameters = @{ kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
-                                  kMendeleyOAuth2RedirectURLKey: self.redirectURI,
-                                  kMendeleyOAuth2ScopeKey: kMendeleyOAuth2Scope,
-                                  kMendeleyOAuth2ClientIDKey: self.clientID,
-                                  kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType };
-
-    baseOAuthURL = [MendeleyURLBuilder urlWithBaseURL:baseOAuthURL parameters:parameters query:YES];
-
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:baseOAuthURL];
-    request.HTTPMethod = @"GET";
-    request.allHTTPHeaderFields = [MendeleyURLBuilder defaultHeader];
-    return request;
+    return self.oauthProvider.oauthURLRequest;
 }
 
 - (NSString *)authenticationCodeFromURLRequest:(NSURLRequest *)request

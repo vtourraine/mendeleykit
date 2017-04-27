@@ -221,6 +221,75 @@
 }
 
 
+- (NSURLRequest *)oauthURLRequest
+{
+    NSURL *baseOAuthURL = [[MendeleyKitConfiguration sharedInstance].baseAPIURL URLByAppendingPathComponent:kMendeleyOAuthPathAuthorize];
+    NSDictionary *parameters = @{ kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
+                                  kMendeleyOAuth2RedirectURLKey: self.redirectURI,
+                                  kMendeleyOAuth2ScopeKey: kMendeleyOAuth2Scope,
+                                  kMendeleyOAuth2ClientIDKey: self.clientID,
+                                  kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType };
+    
+    baseOAuthURL = [MendeleyURLBuilder urlWithBaseURL:baseOAuthURL parameters:parameters query:YES];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:baseOAuthURL];
+    request.HTTPMethod = @"GET";
+    request.allHTTPHeaderFields = [MendeleyURLBuilder defaultHeader];
+    
+    return request;
+}
+
+- (NSString *)getAuthenticationCodeFromURL:(NSURL *)redirectURL
+{
+    NSString *code;
+    
+    if (redirectURL.query.length)
+    {
+        NSArray<NSString *> *components = [redirectURL.query componentsSeparatedByString:@"&"];
+        
+        for (NSString *component in components)
+        {
+            NSArray<NSString *> *parameterPair = [component componentsSeparatedByString:@"="];
+            
+            if (parameterPair.count == 2)
+            {
+                NSString *key = parameterPair.firstObject;
+                NSString *value = parameterPair.lastObject;
+                
+                if ([kMendeleyOAuth2ResponseType isEqualToString:key])
+                {
+                    code = value;
+                }
+            }
+        }
+    }
+    
+    return code;
+}
+
+    /*
+     var code: String?
+     
+     if let queryString = redirectURL.query
+     {
+     let components: [String] = queryString.components(separatedBy: "&")
+     for component in components
+     {
+     let parameterPair = component.components(separatedBy: "=")
+     let key = parameterPair[0]
+     let value = parameterPair[1]
+     if kMendeleyOAuth2ResponseType == key
+     {
+     code = value
+     }
+     }
+     }
+     
+     return code
+     */
+//}
+
+
 #pragma mark private methods
 
 - (void)executeAuthenticationRequestWithTask:(MendeleyTask *)task
