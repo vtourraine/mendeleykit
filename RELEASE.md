@@ -1,4 +1,8 @@
 RELEASE NOTES
+Date: May 2017 (3.1.2)
+- added comments API
+- added nonnull/nullable specifiers for all properties
+
 Date: April 2017 (3.1.1)
 - added some extra Suggest/Feed analytics events
 
