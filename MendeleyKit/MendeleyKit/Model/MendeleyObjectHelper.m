@@ -372,17 +372,6 @@
         }
     }
     
-    NSString *commentWithSocialProfile = NSStringFromClass([MendeleyCommentWithSocialProfile class]);
-    if ([modelName isEqualToString:commentWithSocialProfile])
-    {
-        if ([propertyName isEqualToString:kMendeleyJSONProfile])
-        {
-            return YES;
-        }
-    }
-    
-    
-    
     NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
     if ([modelName isEqualToString:feedRSSSourceName])
     {
@@ -826,16 +815,7 @@
     {
         if ([propertyName isEqualToString:kMendeleyJSONLatest])
         {
-            return [[self class] objectArrayForClass:[MendeleyCommentWithSocialProfile class] fromRawValue:rawValue];
-        }
-    }
-    
-    NSString *commentWithSocialProfile = NSStringFromClass([MendeleyCommentWithSocialProfile class]);
-    if ([modelName isEqualToString:commentWithSocialProfile])
-    {
-        if ([propertyName isEqualToString:kMendeleyJSONProfile])
-        {
-            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+            return [[self class] objectArrayForClass:[MendeleyExpandedComment class] fromRawValue:rawValue];
         }
     }
     
