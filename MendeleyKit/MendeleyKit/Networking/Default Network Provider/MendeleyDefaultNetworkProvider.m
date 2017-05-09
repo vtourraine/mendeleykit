@@ -279,7 +279,6 @@
     [NSError assertArgumentNotNil:api argumentName:@"api"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-#warning HTTP_POST could be not specified
     MendeleyRequest *request = nil;
     if (authenticationRequired)
     {

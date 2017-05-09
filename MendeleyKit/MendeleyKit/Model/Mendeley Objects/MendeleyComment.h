@@ -27,8 +27,8 @@
 @property (nonatomic, strong) NSString *news_item_id;
 @property (nonatomic, strong) NSString *profile_id;
 @property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSDate *creted;
-@property (nonatomic, strong) NSDate *last_modified;
+@property (nonatomic, strong) NSString *created;
+@property (nonatomic, strong) NSString *last_modified;
 @property (nonatomic, strong) NSNumber *news_item_owner;
 
 @end
