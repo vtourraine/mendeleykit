@@ -1611,6 +1611,20 @@
 
 #pragma mark - User Posts
 
+- (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
+                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.userPostsAPI createUserPost:newPost
+                                     task:task
+                          completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
 - (MendeleyTask *)deleteUserPostWithPostID:(NSString *)postID
                            completionBlock:(MendeleyCompletionBlock)completionBlock
 {

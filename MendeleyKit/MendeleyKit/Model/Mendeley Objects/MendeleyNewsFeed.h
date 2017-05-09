@@ -212,6 +212,7 @@
 
 @class MendeleyFeedDocument;
 
+// @TODO: Replace?
 @interface MendeleyPost : MendeleyObject
 
 @property (nonatomic, strong) NSString *text;

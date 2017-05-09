@@ -155,6 +155,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONCommentType                     @"application/vnd.mendeley-comment+json"
 #define kMendeleyRESTRequestJSONExpandedCommentsType            @"application/vnd.mendeley-expanded-comment-list+json"
 #define kMendeleyRESTRequestJSONCommentUpdateType               @"application/vnd.mendeley-comment-update+json"
+#define kMendeleyRESTRequestJSONNewUserPostType                 @"application/vnd.mendeley-new-user-post+json"
+#define kMendeleyRESTRequestJSONUserPostType                    @"application/vnd.mendeley-user-post+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                        @"Accept-Language"
@@ -192,6 +194,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPILikeFeed                          @"news_items/v1/%@/likers"
 #define kMendeleyRESTAPIUnlikeFeed                        @"news_items/v1/%@/likers/me"
 #define kMendeleyRESTAPIShareFeed                         @"news_items/v1/actions/share"
+#define kMendeleyRESTAPICreateUserPost                    @"user_posts/v2"
 #define kMendeleyRESTAPIDeleteUserPost                    @"user_posts/v1/%@"
 #define kMendeleyRESTAPIFiles                             @"files"
 #define kMendeleyRESTAPIFileWithID                        @"files/%@"
@@ -299,6 +302,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelComment                             @"MendeleyComment"
 #define kMendeleyModelExpandedComment                     @"MendeleyExpandedComment"
 #define kMendeleyModelCommentUpdate                       @"MendeleyCommentUpdate"
+#define kMendeleyModelUserPost                            @"MendeleyUserPost"
 
 /***********************************************
    @name JSON keys General
@@ -504,6 +508,18 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
  ***********************************************/
 
 #define kMendeleyJSONLatest                        @"latest"
+
+/***********************************************
+ @name JSON keys UserPost
+ ***********************************************/
+
+#define kMendeleyJSONTaggedUsers                   @"tagged_users"
+#define kMendeleyJSONDocument                      @"document"
+#define kMendeleyJSONImages                        @"images"
+#define kMendeleyJSONFilesSummary                  @"files_summary"
+#define kMendeleyJSONFirstFiles                    @"first_files"
+#define kMendeleyJSONOriginal                      @"original"
+#define kMendeleyJSONThumbnail                     @"thumbnail"
 
 /***********************************************
    @name Paging
