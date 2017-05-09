@@ -1620,7 +1620,7 @@
         [self.userPostsAPI createUserPost:newPost
                                      task:task
                           completionBlock:completionBlock];
-    } completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
     
     return task;
 }
