@@ -556,6 +556,16 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocument] ||
+            [propertyName isEqualToString:kMendeleyJSONDocuments] ||
+            [propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -1063,6 +1073,22 @@
             [propertyName isEqualToString:kMendeleyJSONThumbnail])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleyImage class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocument])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFeedDocument class] fromRawValue:rawValue];
+        }
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyFeedDocument class] fromRawValue:rawValue];
+        }
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialProfile class] fromRawValue:rawValue];
         }
     }
 
