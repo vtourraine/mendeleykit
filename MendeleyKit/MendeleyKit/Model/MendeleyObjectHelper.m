@@ -566,6 +566,14 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyFeedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -1089,6 +1097,14 @@
         if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
         {
             return [[self class] objectArrayForClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyFeedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return [[self class] objectArrayForClass:[MendeleyPerson class] fromRawValue:rawValue];
         }
     }
 
