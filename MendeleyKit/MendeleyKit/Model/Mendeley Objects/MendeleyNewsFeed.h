@@ -202,6 +202,7 @@
 
 @property (nonatomic, strong, nullable) NSString *text;
 @property (nonatomic, strong, nullable) MendeleyFeedDocument *document;
+@property (nonatomic, strong, nullable) NSArray<MendeleyFeedDocument *> *documents;
 @property (nonatomic, strong, nullable) NSArray<MendeleySocialProfile *> *tagged_users;
 
 @end

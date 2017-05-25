@@ -511,6 +511,69 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyNewUserPost class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers] ||
+            [propertyName isEqualToString:kMendeleyJSONDocument] ||
+            [propertyName isEqualToString:kMendeleyJSONDocuments] ||
+            [propertyName isEqualToString:kMendeleyJSONImages])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyProfileLink class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleySocialDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors] ||
+            [propertyName isEqualToString:kMendeleyJSONFilesSummary])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyFilesSummary class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONFirstFiles])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyUserPostImage class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONOriginal] ||
+            [propertyName isEqualToString:kMendeleyJSONThumbnail])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocument] ||
+            [propertyName isEqualToString:kMendeleyJSONDocuments] ||
+            [propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyFeedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -961,6 +1024,87 @@
         if ([propertyName isEqualToString:kMendeleyJSONProfile])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyNewUserPost class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return [[self class] objectArrayForClass:[MendeleyProfileLink class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONDocument])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialDocument class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialDocument class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONImages])
+        {
+            return [[self class] objectArrayForClass:[MendeleyUserPostImage class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyProfileLink class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            return [[self class] objectArrayForClass:[MendeleyImage class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleySocialDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialAuthor class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONFilesSummary])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFilesSummary class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyFilesSummary class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONFirstFiles])
+        {
+            return [[self class] objectArrayForClass:[MendeleyFileSummary class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyUserPostImage class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONOriginal] ||
+            [propertyName isEqualToString:kMendeleyJSONThumbnail])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyImage class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONDocument])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyFeedDocument class] fromRawValue:rawValue];
+        }
+        if ([propertyName isEqualToString:kMendeleyJSONDocuments])
+        {
+            return [[self class] objectArrayForClass:[MendeleyFeedDocument class] fromRawValue:rawValue];
+        }
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyFeedDocument class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONAuthors])
+        {
+            return [[self class] objectArrayForClass:[MendeleyPerson class] fromRawValue:rawValue];
         }
     }
 
