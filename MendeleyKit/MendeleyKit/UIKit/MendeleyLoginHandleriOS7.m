@@ -90,7 +90,7 @@
     
 }
 
-- (void)webView:(nonnull UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
+- (void)webView:(nonnull UIWebView *)webView didFailLoadWithError:(nonnull NSError *)error
 {
     NSDictionary *userInfo = [error userInfo];
     NSString *failingURLString = [userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
