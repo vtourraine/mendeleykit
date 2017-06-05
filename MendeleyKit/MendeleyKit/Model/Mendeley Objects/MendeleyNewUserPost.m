@@ -18,31 +18,29 @@
  *****************************************************************************
  */
 
-#import "MendeleyObject.h"
 
-@class MendeleySocialProfile;
+#import "MendeleyNewUserPost.h"
 
-@interface MendeleyComment : MendeleyObject
-
-@property (nonatomic, strong) NSString *news_item_id;
-@property (nonatomic, strong) NSString *profile_id;
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSString *created;
-@property (nonatomic, strong) NSString *last_modified;
-@property (nonatomic, strong) NSNumber *news_item_owner;
-
+@implementation MendeleyNewUserPost
 @end
 
-@interface MendeleyExpandedComment : MendeleyComment
-
-@property (nonatomic, strong) MendeleySocialProfile *profile;
-
+@implementation MendeleyUserPost
 @end
 
-@interface MendeleyCommentUpdate : MendeleySecureObject
-
-@property (nonatomic, strong) NSString *text;
-
+@implementation MendeleyProfileLink
 @end
 
+@implementation MendeleySocialDocument
+@end
 
+@implementation MendeleySocialAuthor
+@end
+
+@implementation MendeleyUserPostImage
+@end
+
+@implementation MendeleyFilesSummary
+@end
+
+@implementation MendeleyFileSummary
+@end
