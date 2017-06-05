@@ -128,7 +128,8 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     MendeleyTask *task = [MendeleyTask new];
     [self executeAuthenticationRequestWithRequestHeader:requestHeader
                                             requestBody:requestBody
-                                        completionBlock:completionBlock];
+                                                   task:task
+                                    completionBlock:completionBlock];
     // Get ID+ token
     
     // Get/create profile
@@ -231,6 +232,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 
 - (void)executeAuthenticationRequestWithRequestHeader:(NSDictionary *)requestHeader
                                  requestBody:(NSDictionary *)requestBody
+                                                 task:(MendeleyTask *)task
                              completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
@@ -240,7 +242,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                  bodyParameters:requestBody
                          isJSON:NO
          authenticationRequired:NO
-                           task:[MendeleyTask new]
+                           task:task
                 completionBlock:^(MendeleyResponse *response, NSError *error) {
                     MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
                     MendeleyKitHelper *helper = [MendeleyKitHelper new];
