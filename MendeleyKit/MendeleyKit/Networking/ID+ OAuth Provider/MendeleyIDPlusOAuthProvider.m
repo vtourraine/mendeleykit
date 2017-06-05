@@ -14,6 +14,7 @@
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKitHelper.h"
 #import "MendeleyModeller.h"
+#import "MendeleyTask.h"
 
 
 NSString *const kMendeleyIDPlusResponseType = @"code";
@@ -237,7 +238,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                  bodyParameters:requestBody
                          isJSON:NO
          authenticationRequired:NO
-                           task:task
+                           task:[MendeleyTask new]
                 completionBlock:^(MendeleyResponse *response, NSError *error) {
                     MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
                     MendeleyKitHelper *helper = [MendeleyKitHelper new];
