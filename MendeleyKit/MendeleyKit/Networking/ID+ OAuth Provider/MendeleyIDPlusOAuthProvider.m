@@ -23,6 +23,9 @@ NSString *const kMendeleyIDPlusAuthType = @"SINGLE_SIGN_IN";
 NSString *const kMendeleyIDPlusPlatSite = @"MDY/mendeley";
 NSString *const kMendeleyIDPlusPrompt = @"login";
 
+NSString *const kMendeleyIDPlusClientIdValue = @"Mendeley";
+NSString *const kMendeleyIDPlusClientSecretValue = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
+
 NSString *const kMendeleyOAuth2StateKey = @"state";
 NSString *const kMendeleyOAuth2AuthTypeKey = @"authType";
 NSString *const kMendeleyOAuth2PlatSiteKey = @"platSite";
@@ -36,6 +39,8 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 @interface MendeleyIDPlusOAuthProvider ()
 
 @property (nonatomic, assign, readwrite) BOOL isTrustedSSLServer;
+@property (nonatomic, strong) NSString *idPlusClientID;
+@property (nonatomic, strong) NSString *idPlusClientSecret;
 @property (nonatomic, strong) NSString *clientID;
 @property (nonatomic, strong) NSString *clientSecret;
 @property (nonatomic, strong) NSString *redirectURI;
@@ -72,10 +77,8 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 - (void)configureOAuthWithParameters:(NSDictionary *)parameters
 {
     [NSError assertArgumentNotNil:parameters argumentName:@"parameters"];
-//    id idObject = [parameters objectForKey:kMendeleyOAuth2ClientIDKey];
-    
-    NSString* idObject = @"Mendeley";
-    
+    NSString *idObject = [parameters objectForKey:kMendeleyOAuth2ClientIDKey];
+
     if (nil != idObject && [idObject isKindOfClass:[NSString class]])
     {
         self.clientID = (NSString *) idObject;
@@ -86,6 +89,9 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     {
         self.clientSecret = (NSString *) secretObj;
     }
+    
+    self.idPlusClientID = kMendeleyIDPlusClientIdValue;
+    self.idPlusClientSecret = kMendeleyIDPlusClientSecretValue;
     
     id redirectURI = [parameters objectForKey:kMendeleyOAuth2RedirectURLKey];
     if (nil != redirectURI && [redirectURI isKindOfClass:[NSString class]])
