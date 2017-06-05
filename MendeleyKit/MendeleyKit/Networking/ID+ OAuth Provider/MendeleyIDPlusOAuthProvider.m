@@ -72,7 +72,9 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 - (void)configureOAuthWithParameters:(NSDictionary *)parameters
 {
     [NSError assertArgumentNotNil:parameters argumentName:@"parameters"];
-    id idObject = [parameters objectForKey:kMendeleyOAuth2ClientIDKey];
+//    id idObject = [parameters objectForKey:kMendeleyOAuth2ClientIDKey];
+    
+    NSString* idObject = @"Mendeley";
     
     if (nil != idObject && [idObject isKindOfClass:[NSString class]])
     {
