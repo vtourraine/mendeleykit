@@ -116,6 +116,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestContentDisposition                  @"Content-Disposition"
 #define kMendeleyRESTRequestContentType                         @"Content-Type"
 #define kMendeleyRESTRequestContentLength                       @"Content-Length"
+#define kMendeleyRESTRequestAuthorization                       @"Authorization"
 #define kMendeleyRESTRequestJPEGType                            @"image/jpeg"
 #define kMendeleyRESTRequestPNGType                             @"image/png"
 #define kMendeleyRESTRequestBinaryType                          @"application/octet-stream"
