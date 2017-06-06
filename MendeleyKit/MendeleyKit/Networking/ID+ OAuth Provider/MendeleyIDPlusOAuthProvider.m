@@ -31,7 +31,7 @@ NSString *const kMendeleyOAuth2AuthTypeKey = @"authType";
 NSString *const kMendeleyOAuth2PlatSiteKey = @"platSite";
 NSString *const kMendeleyOAuth2PromptKey = @"prompt";
 
-NSString *const kMendeleyIDPlusBaseURL = @"https://loadcp-idp-cluster.np.elsevier-ae.com";
+NSString *const kMendeleyIDPlusBaseURL = @"https://loadcp-id.elsevier.com";
 NSString *const kMendeleyIDPlusAuthorizationEndpoint = @"as/authorization.oauth2";
 NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 
