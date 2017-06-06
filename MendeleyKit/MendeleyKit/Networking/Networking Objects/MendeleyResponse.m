@@ -186,7 +186,7 @@
 
     if (nil != contentType)
     {
-        if ([contentType hasSuffix:@"json"])
+        if ([contentType containsString:@"json"])
         {
             self.contentType = JSONBody;
         }
