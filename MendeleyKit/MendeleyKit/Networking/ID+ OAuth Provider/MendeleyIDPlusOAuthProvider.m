@@ -265,7 +265,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                     else
                     {
                         MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
-                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOpenIDCredentials completionBlock:^(MendeleyOpenIDCredentials *credentials, NSError *parseError) {
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelIDPlusCredentials completionBlock:^(MendeleyIDPlusCredentials *credentials, NSError *parseError) {
                             [blockExec executeWithCredentials:credentials error:parseError];
                         }];
                         

@@ -100,3 +100,7 @@
 @implementation MendeleyOpenIDCredentials
 
 @end
+
+@implementation MendeleyIDPlusCredentials
+
+@end

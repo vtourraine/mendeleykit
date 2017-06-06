@@ -89,7 +89,13 @@
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyJSONID : kMendeleyObjectID,
                  kMendeleyJSONDescription : kMendeleyObjectDescription,
-                 kMendeleyJSONVersion : kMendeleyObjectVersion };
+                 kMendeleyJSONVersion : kMendeleyObjectVersion,
+                 @"id_token" : @"id_plus_id_token",
+                 @"refresh_token" : @"id_plus_refresh_token",
+                 @"access_token" : @"id_plus_access_token",
+                 @"token_type" : @"id_plus_token_type",
+                 @"expires_in" : @"id_plus_expires_in"
+                 };
     });
     return map;
 }
@@ -102,7 +108,12 @@
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyObjectID : kMendeleyJSONID,
                  kMendeleyObjectDescription : kMendeleyJSONDescription,
-                 kMendeleyObjectVersion : kMendeleyJSONVersion };
+                 kMendeleyObjectVersion : kMendeleyJSONVersion,
+                 @"id_plus_id_token" : @"id_token",
+                 @"id_plus_refresh_token" : @"refresh_token",
+                 @"id_plus_access_token" : @"access_token",
+                 @"id_plus_token_type" : @"token_type",
+                 @"id_plus_expires_in": @"expires_in"};
     });
     return map;
 }
