@@ -107,4 +107,8 @@
    @param completionBlock - returns a MemdeleyOAuthCredentials object. This will be transitory only with no ability to refresh.
  */
 - (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
+
+@optional
+- (void)authenticateWithIdPlusAuthenticationCode:(NSString *)authenticationCode
+                                 completionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
 @end

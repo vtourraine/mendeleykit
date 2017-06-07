@@ -58,7 +58,24 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         if let requestURL = webView.url {
             if let code = oAuthProvider?.getAuthenticationCode(from: requestURL)
             {
-                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+//                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: {(credentials: MendeleyOAuthCredentials?, error: Error?) in
+                    if let credentials = (credentials as? MendeleyIDPlusCredentials) {
+                        self.oAuthProvider?.authenticate?(withIdPlusAuthenticationCode: code, completionBlock: { (credentials2: MendeleyOAuthCredentials?, error2: Error?) in
+                            let mergedCredentials = MendeleyIDPlusCredentials()
+                            mergedCredentials.id_plus_access_token = credentials.id_plus_access_token
+                            mergedCredentials.id_plus_id_token = credentials.id_plus_id_token
+                            mergedCredentials.id_plus_expires_in = credentials.id_plus_expires_in
+                            mergedCredentials.id_plus_refresh_token = credentials.id_plus_refresh_token
+                            mergedCredentials.id_plus_token_type = credentials.id_plus_token_type
+                            mergedCredentials.access_token = credentials2?.access_token
+                            mergedCredentials.expires_in = credentials2?.expires_in
+                            mergedCredentials.refresh_token = credentials2?.refresh_token
+                            mergedCredentials.token_type = credentials2?.token_type
+                            self.oAuthCompletionBlock?(mergedCredentials, error2)
+                     })
+                    }
+                })
             }
             
         }
