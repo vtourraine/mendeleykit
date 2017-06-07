@@ -101,6 +101,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     }
     
     self.idPlusBaseURL = [NSURL URLWithString:kMendeleyIDPlusBaseURL];
+    self.baseURL = [MendeleyKitConfiguration sharedInstance].baseAPIURL;
 }
 
 
