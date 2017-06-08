@@ -19,11 +19,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "MendeleyOAuthProvider.h"
+#import "MendeleyIDPlusAuthProvider.h"
 
-@interface MendeleyIDPlusOAuthProvider : NSObject <MendeleyOAuthProvider>
+@interface MendeleyIDPlusAuthDefaultManager : NSObject <MendeleyIDPlusAuthProvider>
+
 /**
  returns a singleton OAuth Provider instance
  */
-+ (MendeleyIDPlusOAuthProvider *)sharedInstance;
++ (MendeleyIDPlusAuthDefaultManager *)sharedInstance;
+
 @end

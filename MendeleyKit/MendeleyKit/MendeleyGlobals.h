@@ -23,7 +23,7 @@
 
 @import Foundation;
 
-@class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject, MendeleySecureObject;
+@class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject, MendeleySecureObject, MendeleyIDPlusCredentials;
 
 
 /***********************************************
@@ -60,6 +60,7 @@ typedef NS_ENUM(int, MendeleyIconType)
  @name Block definitions
  ***********************************************/
 typedef void (^ __nullable MendeleyOAuthCompletionBlock)(MendeleyOAuthCredentials * __nullable credentials, NSError * __nullable error);
+typedef void (^ __nullable MendeleyIDPlusCompletionBlock) (MendeleyIDPlusCredentials * __nullable credentials, NSError * __nullable error);
 typedef void (^ __nullable MendeleyResponseCompletionBlock)(MendeleyResponse * __nullable response, NSError * __nullable error);
 typedef void (^ __nullable MendeleyResponseProgressBlock)(NSNumber * __nonnull progress);
 typedef void (^ __nullable MendeleyCompletionBlock)(BOOL success, NSError * __nullable error);
@@ -96,6 +97,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
    @name Mendeley SDK Provider keys
 ***********************************************/
 #define kMendeleyOAuthProviderKey             @"MendeleyKitOAuthProvider"
+#define kMendeleyIDPlusAuthProviderKey        @"MendeleyKitIDPlusAuthProvider"
 #define kMendeleyNetworkProviderKey           @"MendeleyKitNetworkProvider"
 #define kMendeleyOAuth2RedirectURLKey         @"redirect_uri"
 #define kMendeleyOAuth2ClientSecretKey        @"client_secret"

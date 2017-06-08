@@ -26,6 +26,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 {
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
     let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oauthProvider
+    let idPlusProvider = MendeleyKitConfiguration.sharedInstance().idPlusProvider
     public var webView: WKWebView?
     var completionBlock: MendeleySuccessClosure?
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
@@ -38,8 +39,11 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
-        let request: URLRequest = (oAuthProvider?.oauthURLRequest())! //helper.getOAuthRequest(redirectURI, clientID: clientID)
-        _ = webView?.load(request)
+//        let request: URLRequest = (oAuthProvider?.oauthURLRequest())! //helper.getOAuthRequest(redirectURI, clientID: clientID)
+        
+        if let request = idPlusProvider?.getAuthURLRequest(withClientID: clientID) {
+            _ = webView?.load(request)
+        }
     }
     
     public func configureWebView(_ controller: UIViewController)
