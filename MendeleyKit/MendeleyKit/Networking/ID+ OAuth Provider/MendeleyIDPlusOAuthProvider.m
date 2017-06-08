@@ -101,6 +101,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     }
     
     self.idPlusBaseURL = [NSURL URLWithString:kMendeleyIDPlusBaseURL];
+//    self.baseURL = [MendeleyKitConfiguration sharedInstance].baseAPIURL;
 }
 
 
@@ -189,20 +190,38 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 
 }
 
+//- (NSURLRequest *)oauthURLRequest
+//{
+//    NSURL *baseOAuthURL = [self.baseURL URLByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpoint];
+//    NSDictionary *parameters = @{ //kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
+//                                  kMendeleyOAuth2RedirectURLKey: self.redirectURI,
+//                                  kMendeleyOAuth2ScopeKey: kMendeleyIDPlusScope,
+////                                  kMendeleyOAuth2ClientIDKey: self.clientID,
+//                                  kMendeleyOAuth2ClientIDKey: self.idPlusClientID,
+//                                  kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType,
+//                                  kMendeleyOAuth2StateKey: self.state,
+//                                  kMendeleyOAuth2AuthTypeKey: kMendeleyIDPlusAuthType,
+//                                  kMendeleyOAuth2PlatSiteKey: kMendeleyIDPlusPlatSite,
+//                                  kMendeleyOAuth2PromptKey: kMendeleyIDPlusPrompt
+//                                  };
+//    
+//    baseOAuthURL = [MendeleyURLBuilder urlWithBaseURL:baseOAuthURL parameters:parameters query:YES];
+//    
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:baseOAuthURL];
+//    request.HTTPMethod = @"GET";
+//    request.allHTTPHeaderFields = [MendeleyURLBuilder defaultHeader];
+//    
+//    return request;
+//}
+
 - (NSURLRequest *)oauthURLRequest
 {
-    NSURL *baseOAuthURL = [self.baseURL URLByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpoint];
-    NSDictionary *parameters = @{ //kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
+    NSURL *baseOAuthURL = [[MendeleyKitConfiguration sharedInstance].baseAPIURL URLByAppendingPathComponent:kMendeleyOAuthPathAuthorize];
+    NSDictionary *parameters = @{ kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
                                   kMendeleyOAuth2RedirectURLKey: self.redirectURI,
-                                  kMendeleyOAuth2ScopeKey: kMendeleyIDPlusScope,
-//                                  kMendeleyOAuth2ClientIDKey: self.clientID,
-                                  kMendeleyOAuth2ClientIDKey: self.idPlusClientID,
-                                  kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType,
-                                  kMendeleyOAuth2StateKey: self.state,
-                                  kMendeleyOAuth2AuthTypeKey: kMendeleyIDPlusAuthType,
-                                  kMendeleyOAuth2PlatSiteKey: kMendeleyIDPlusPlatSite,
-                                  kMendeleyOAuth2PromptKey: kMendeleyIDPlusPrompt
-                                  };
+                                  kMendeleyOAuth2ScopeKey: kMendeleyOAuth2Scope,
+                                  kMendeleyOAuth2ClientIDKey: self.clientID,
+                                  kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType };
     
     baseOAuthURL = [MendeleyURLBuilder urlWithBaseURL:baseOAuthURL parameters:parameters query:YES];
     
