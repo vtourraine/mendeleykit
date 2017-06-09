@@ -30,9 +30,12 @@
 @property (nonatomic, assign, readonly) NSString *documentViewType;
 @property (nonatomic, strong, readonly) id<MendeleyNetworkProvider> networkProvider;
 @property (nonatomic, strong, readonly) id<MendeleyOAuthProvider> oauthProvider;
-@property (nonatomic, strong, readonly) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readonly) id<MendeleyOAuthStoreProvider> storeProvider;
+@property (nonatomic, strong, readonly) id<MendeleyIDPlusAuthProvider> idPlusProvider;
+@property (nonatomic, strong, readonly) NSString *idPlusClientId;
+@property (nonatomic, strong, readonly) NSString *idPlusClientSecret;
 @property (nonatomic, strong, readwrite) NSString *sharedKeyChainGroupName;
+
 /**
    a singleton to obtain access to default SDK configurations
  */

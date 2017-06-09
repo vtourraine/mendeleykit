@@ -68,6 +68,12 @@
 - (instancetype)initWithOAuthCompletionBlock:(MendeleyOAuthCompletionBlock)oauthCompletionBlock;
 
 /**
+ @param idPlusCompletionBlock
+ */
+- (instancetype)initWithIdPlusCompletionBlock:(MendeleyIDPlusCompletionBlock)idPlusCompletionBlock;
+
+
+/**
    executes the MendeleyArrayCompletionBlock on the main thread
    @param array
    @param syncInfo

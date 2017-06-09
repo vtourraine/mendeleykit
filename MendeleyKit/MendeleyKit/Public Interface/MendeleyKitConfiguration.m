@@ -66,6 +66,9 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 
         MendeleyKitUserInfoManager *sdkHelper = [MendeleyKitUserInfoManager new];
         [[MendeleyErrorManager sharedInstance] addUserInfoHelper:sdkHelper errorDomain:kMendeleyErrorDomain];
+        
+        _idPlusClientId = @"Mendeley";
+        _idPlusClientSecret = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
     }
     return self;
 }

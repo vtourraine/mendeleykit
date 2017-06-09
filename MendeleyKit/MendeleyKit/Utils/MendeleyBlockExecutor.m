@@ -28,6 +28,7 @@
 @property (nonatomic, copy) MendeleyStringArrayCompletionBlock stringArrayCompletionBlock;
 @property (nonatomic, copy) MendeleyBinaryDataCompletionBlock binaryDataCompletionBlock;
 @property (nonatomic, copy) MendeleyOAuthCompletionBlock oauthCompletionBlock;
+@property (nonatomic, copy) MendeleyIDPlusCompletionBlock idPlusCompletionBlock;
 @end
 
 @implementation MendeleyBlockExecutor
@@ -107,6 +108,16 @@
     if (nil != self)
     {
         _oauthCompletionBlock = oauthCompletionBlock;
+    }
+    return self;
+}
+
+- (instancetype)initWithIdPlusCompletionBlock:(MendeleyIDPlusCompletionBlock)idPlusCompletionBlock
+{
+    self = [super init];
+    if (nil != self)
+    {
+        _idPlusCompletionBlock = idPlusCompletionBlock;
     }
     return self;
 }

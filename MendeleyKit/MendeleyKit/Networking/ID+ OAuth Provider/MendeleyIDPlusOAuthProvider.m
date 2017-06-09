@@ -38,14 +38,14 @@ NSString *const kMendeleyIDPlusPrompt = @"login";
 NSString *const kMendeleyIDPlusClientIdValue = @"Mendeley";
 NSString *const kMendeleyIDPlusClientSecretValue = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
 
-NSString *const kMendeleyOAuth2StateDeprecatedKey = @"state";
+NSString *const kMendeleyOAuth2StateKeyDeprecated = @"state";
 NSString *const kMendeleyOAuth2AuthTypeKey = @"authType";
 NSString *const kMendeleyOAuth2PlatSiteKey = @"platSite";
 NSString *const kMendeleyOAuth2PromptKey = @"prompt";
 
-NSString *const kMendeleyIDPlusBaseURL = @"https://loadcp-id.elsevier.com";
-NSString *const kMendeleyIDPlusAuthorizationEndpoint = @"as/authorization.oauth2";
-NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
+NSString *const kMendeleyIDPlusBaseURLDeprecated = @"https://loadcp-id.elsevier.com";
+NSString *const kMendeleyIDPlusAuthorizationEndpointDeprecated = @"as/authorization.oauth2";
+NSString *const kMendeleyIDPlusTokenEndpointDeprecated = @"as/token.oauth2";
 
 
 @interface MendeleyIDPlusOAuthProvider ()
@@ -112,7 +112,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
         self.redirectURI = redirectURI;
     }
     
-    self.idPlusBaseURL = [NSURL URLWithString:kMendeleyIDPlusBaseURL];
+    self.idPlusBaseURL = [NSURL URLWithString:kMendeleyIDPlusBaseURLDeprecated];
 //    self.baseURL = [MendeleyKitConfiguration sharedInstance].baseAPIURL;
 }
 
@@ -204,14 +204,14 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 
 //- (NSURLRequest *)oauthURLRequest
 //{
-//    NSURL *baseOAuthURL = [self.baseURL URLByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpoint];
+//    NSURL *baseOAuthURL = [self.baseURL URLByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpointDeprecated];
 //    NSDictionary *parameters = @{ //kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
 //                                  kMendeleyOAuth2RedirectURLKey: self.redirectURI,
 //                                  kMendeleyOAuth2ScopeKey: kMendeleyIDPlusScope,
 ////                                  kMendeleyOAuth2ClientIDKey: self.clientID,
 //                                  kMendeleyOAuth2ClientIDKey: self.idPlusClientID,
 //                                  kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType,
-//                                  kMendeleyOAuth2StateKey: self.state,
+//                                  kMendeleyOAuth2StateKeyDeprecated: self.state,
 //                                  kMendeleyOAuth2AuthTypeKey: kMendeleyIDPlusAuthType,
 //                                  kMendeleyOAuth2PlatSiteKey: kMendeleyIDPlusPlatSite,
 //                                  kMendeleyOAuth2PromptKey: kMendeleyIDPlusPrompt
@@ -266,7 +266,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                 {
                     code = value;
                 }
-                else if ([kMendeleyOAuth2StateDeprecatedKey isEqualToString:key])
+                else if ([kMendeleyOAuth2StateKeyDeprecated isEqualToString:key])
                 {
                     state = value;
                 }
@@ -299,7 +299,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 {
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
     [networkProvider invokePOST:self.idPlusBaseURL
-                            api:kMendeleyIDPlusTokenEndpoint
+                            api:kMendeleyIDPlusTokenEndpointDeprecated
               additionalHeaders:requestHeader
                  bodyParameters:requestBody
                          isJSON:NO
