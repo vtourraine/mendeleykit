@@ -19,6 +19,7 @@
 */
 
 import Foundation
+import WebKit
 
 open class MendeleyKitLoginHelper: NSObject
 {
@@ -65,21 +66,39 @@ open class MendeleyKitLoginHelper: NSObject
 
     open func cleanCookiesAndURLCache()
     {
-        let oauthServer = MendeleyKitConfiguration.sharedInstance().baseAPIURL
-        URLCache.shared.removeAllCachedResponses()
-
-        let cookieStorage = HTTPCookieStorage.shared
-
-        guard let cookies = cookieStorage.cookies as [HTTPCookie]?
-            else { return }
-
-        for cookie in cookies
-        {
-            let domain = cookie.domain
-            if domain == kMendeleyKitURL || domain == oauthServer?.host
-            {
-                cookieStorage.deleteCookie(cookie)
+//        let oauthServer = MendeleyKitConfiguration.sharedInstance().baseAPIURL
+//        URLCache.shared.removeAllCachedResponses()
+//
+//        let cookieStorage = HTTPCookieStorage.shared
+//
+//        guard let cookies = cookieStorage.cookies as [HTTPCookie]?
+//            else { return }
+//
+//        for cookie in cookies
+//        {
+//            let domain = cookie.domain
+//            if domain == kMendeleyKitURL || domain == oauthServer?.host
+//            {
+//                cookieStorage.deleteCookie(cookie)
+//            }
+//        }
+        
+        if #available(iOS 9.0, *) {
+            let dataStore = WKWebsiteDataStore.default()
+            let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
+            
+            dataStore.fetchDataRecords(ofTypes: dataTypes) { (records: [WKWebsiteDataRecord]) in
+                dataStore.removeData(ofTypes: dataTypes, for: records, completionHandler: {
+                })
             }
+        } else {
+            if let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first {
+                let cookiesFolderPath = libraryPath + "/Cookies"
+                do {
+                    try FileManager.default.removeItem(at: URL(fileURLWithPath: cookiesFolderPath))
+                } catch {}
+            }
+            
         }
     }
 }
