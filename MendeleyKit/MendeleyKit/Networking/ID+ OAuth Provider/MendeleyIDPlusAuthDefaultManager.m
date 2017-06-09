@@ -75,15 +75,15 @@
     if (prompt != nil && [prompt isKindOfClass:[NSString class]]) {
         self.prompt = prompt;
     }
-    NSString *redirectUri = parameters[@"redirectUri"];
+    NSString *redirectUri = parameters[@"redirect_uri"];
     if (redirectUri != nil && [redirectUri isKindOfClass:[NSString class]]) {
         self.redirectUri = redirectUri;
     }
-    NSString *responseType = parameters[@"responseType"];
+    NSString *responseType = parameters[@"response_type"];
     if (responseType != nil && [responseType isKindOfClass:[NSString class]]) {
         self.responseType = responseType;
     }
-    NSString *clientId = parameters[@"clientId"];
+    NSString *clientId = parameters[@"client_id"];
     if (clientId != nil && [clientId isKindOfClass:[NSString class]]) {
         self.clientId = clientId;
     }
@@ -99,7 +99,7 @@
     NSURLQueryItem *promptParam = [NSURLQueryItem queryItemWithName:@"prompt" value:self.prompt];
     NSURLQueryItem *redirectUriParam = [NSURLQueryItem queryItemWithName:@"redirect_uri" value:self.redirectUri];
     NSURLQueryItem *responseTypeParam = [NSURLQueryItem queryItemWithName:@"response_type" value:self.responseType];
-    NSURLQueryItem *clientIdParam = [NSURLQueryItem queryItemWithName:@"client_id" value:self.clientId];
+    NSURLQueryItem *clientIdParam = [NSURLQueryItem queryItemWithName:@"client_id" value:clientID];
     
     components.queryItems = @[scopeParam, stateParam, authTypeParam, platSiteParam, promptParam, redirectUriParam, responseTypeParam, clientIdParam];
     

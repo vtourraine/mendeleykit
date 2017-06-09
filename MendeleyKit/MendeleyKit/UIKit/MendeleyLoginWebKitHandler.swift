@@ -41,7 +41,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         helper.cleanCookiesAndURLCache()
 //        let request: URLRequest = (oAuthProvider?.oauthURLRequest())! //helper.getOAuthRequest(redirectURI, clientID: clientID)
         
-        if let request = idPlusProvider?.getAuthURLRequest(withClientID: clientID) {
+        if let request = idPlusProvider?.getAuthURLRequest(withClientID: "Mendeley") {
             _ = webView?.load(request)
         }
     }
