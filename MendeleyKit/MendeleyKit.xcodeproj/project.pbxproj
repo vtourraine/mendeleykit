@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		016BD7871EEAD359001D7691 /* MendeleyAuthToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 016BD7851EEAD359001D7691 /* MendeleyAuthToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		016BD7881EEAD359001D7691 /* MendeleyAuthToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 016BD7851EEAD359001D7691 /* MendeleyAuthToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		016BD7891EEAD359001D7691 /* MendeleyAuthToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BD7861EEAD359001D7691 /* MendeleyAuthToken.m */; };
+		016BD78A1EEAD359001D7691 /* MendeleyAuthToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BD7861EEAD359001D7691 /* MendeleyAuthToken.m */; };
 		01C675141EE985C300995049 /* MendeleyIDPlusAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C675131EE985C300995049 /* MendeleyIDPlusAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01C675151EE985C300995049 /* MendeleyIDPlusAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C675131EE985C300995049 /* MendeleyIDPlusAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01C675171EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C675161EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m */; };
 		01C675181EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C675161EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m */; };
-		01C6751A1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */; };
-		01C6751B1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */; };
+		01C6751A1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01C6751B1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DD41A2CAB0C0005BFF6 /* MendeleyReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = C42111AB1A233FB9006C044C /* MendeleyReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DD51A2CAB0C0005BFF6 /* MendeleyAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A134B419DADDD10069DB7A /* MendeleyAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DD61A2CAB0C0005BFF6 /* MendeleyCatalogDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A134B619DADDD10069DB7A /* MendeleyCatalogDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -534,9 +538,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		016BD7851EEAD359001D7691 /* MendeleyAuthToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyAuthToken.h; path = Networking/MendeleyAuthToken.h; sourceTree = "<group>"; };
+		016BD7861EEAD359001D7691 /* MendeleyAuthToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyAuthToken.m; path = Networking/MendeleyAuthToken.m; sourceTree = "<group>"; };
 		01C675131EE985C300995049 /* MendeleyIDPlusAuthProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyIDPlusAuthProvider.h; path = Networking/MendeleyIDPlusAuthProvider.h; sourceTree = "<group>"; };
-		01C675161EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyIDPlusAuthDefaultManager.m; sourceTree = "<group>"; };
-		01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MendeleyIDPlusAuthDefaultManager.h; sourceTree = "<group>"; };
+		01C675161EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyIDPlusAuthDefaultManager.m; path = "Networking/ID+ OAuth Provider/MendeleyIDPlusAuthDefaultManager.m"; sourceTree = "<group>"; };
+		01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyIDPlusAuthDefaultManager.h; path = "Networking/ID+ OAuth Provider/MendeleyIDPlusAuthDefaultManager.h"; sourceTree = "<group>"; };
 		0B387EDD19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNSURLConnectionProvider.h; path = "Networking/NSURLConnection Provider/MendeleyNSURLConnectionProvider.h"; sourceTree = "<group>"; };
 		0B387EDE19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyNSURLConnectionProvider.m; path = "Networking/NSURLConnection Provider/MendeleyNSURLConnectionProvider.m"; sourceTree = "<group>"; };
 		0B387EE319ED15CD00ACCBE1 /* MendeleyNSURLRequestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNSURLRequestHelper.h; path = "Networking/NSURLConnection Provider/MendeleyNSURLRequestHelper.h"; sourceTree = "<group>"; };
@@ -877,6 +883,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		016BD7831EEAD2EB001D7691 /* IDPlus */ = {
+			isa = PBXGroup;
+			children = (
+				016BD7841EEAD304001D7691 /* Implementation */,
+				01C675131EE985C300995049 /* MendeleyIDPlusAuthProvider.h */,
+				016BD7851EEAD359001D7691 /* MendeleyAuthToken.h */,
+				016BD7861EEAD359001D7691 /* MendeleyAuthToken.m */,
+			);
+			name = IDPlus;
+			sourceTree = "<group>";
+		};
+		016BD7841EEAD304001D7691 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */,
+				01C675161EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m */,
+			);
+			name = Implementation;
+			sourceTree = "<group>";
+		};
 		0B387EDC19ED106800ACCBE1 /* NSURLConnection Provider */ = {
 			isa = PBXGroup;
 			children = (
@@ -898,8 +924,6 @@
 			children = (
 				53D679001EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.h */,
 				53D679011EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m */,
-				01C675191EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h */,
-				01C675161EE9898F00995049 /* MendeleyIDPlusAuthDefaultManager.m */,
 			);
 			name = "ID+ OAuth Provider";
 			path = "Networking/ID+ OAuth Provider";
@@ -1104,6 +1128,7 @@
 		C4A134B019DADBD20069DB7A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				016BD7831EEAD2EB001D7691 /* IDPlus */,
 				C4A134E219DADE170069DB7A /* Default Network Provider */,
 				C4A134E319DADE250069DB7A /* Default OAuth Provider */,
 				53D678FF1EB1F660008A08BB /* ID+ OAuth Provider */,
@@ -1115,7 +1140,6 @@
 				C4A1352419DADEC40069DB7A /* MendeleyNetworkProvider.h */,
 				C4A1352519DADEC40069DB7A /* MendeleyOAuthProvider.h */,
 				72D033421D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h */,
-				01C675131EE985C300995049 /* MendeleyIDPlusAuthProvider.h */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -1574,7 +1598,6 @@
 				145C2DF51A2CAB0D0005BFF6 /* MendeleySimpleNetworkTask.h in Headers */,
 				145C2DF61A2CAB0D0005BFF6 /* MendeleyConnectionReachability.h in Headers */,
 				145C2DF71A2CAB0D0005BFF6 /* MendeleyURLBuilder.h in Headers */,
-				01C6751A1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */,
 				145C2DF81A2CAB0D0005BFF6 /* MendeleyNetworkProvider.h in Headers */,
 				C42AAA281A7BC3BF00502358 /* MendeleyDisciplinesAPI.h in Headers */,
 				145C2DF91A2CAB0D0005BFF6 /* MendeleyOAuthProvider.h in Headers */,
@@ -1620,6 +1643,8 @@
 				145C2E0E1A2CAB0E0005BFF6 /* MendeleyPerformanceMeterSession.h in Headers */,
 				145C2E0F1A2CAB0E0005BFF6 /* MendeleyTimer.h in Headers */,
 				145C2E101A2CAB0E0005BFF6 /* MendeleyBlockExecutor.h in Headers */,
+				01C6751A1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */,
+				016BD7871EEAD359001D7691 /* MendeleyAuthToken.h in Headers */,
 				01C675141EE985C300995049 /* MendeleyIDPlusAuthProvider.h in Headers */,
 				145C2E121A2CAB0E0005BFF6 /* MendeleyGlobals.h in Headers */,
 			);
@@ -1675,7 +1700,6 @@
 				C46657901B384643005F762A /* MendeleyOAuthStore.h in Headers */,
 				C46657961B384665005F762A /* MendeleyURLBuilder.h in Headers */,
 				C46657BA1B3846FB005F762A /* NSMutableArray+MaximumSize.h in Headers */,
-				01C6751B1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */,
 				C466577D1B3845C6005F762A /* MendeleyUploadHelper.h in Headers */,
 				C46657B21B3846D4005F762A /* MendeleyKitConfiguration.h in Headers */,
 				C46657CB1B38474B005F762A /* MendeleyBlockExecutor.h in Headers */,
@@ -1721,6 +1745,8 @@
 				558760771E38FCE000F6032B /* MendeleySharesAPI.h in Headers */,
 				53385ADF1E5DD5680011C4E0 /* MendeleyUserPostsAPI.h in Headers */,
 				5346799A1EC0BCC900C8F78F /* MendeleyNewUserPost.h in Headers */,
+				01C6751B1EE98A3100995049 /* MendeleyIDPlusAuthDefaultManager.h in Headers */,
+				016BD7881EEAD359001D7691 /* MendeleyAuthToken.h in Headers */,
 				01C675151EE985C300995049 /* MendeleyIDPlusAuthProvider.h in Headers */,
 				C466576E1B38457A005F762A /* MendeleyUserRole.h in Headers */,
 			);
@@ -2119,6 +2145,7 @@
 				C42111F91A2341A9006C044C /* MendeleyPerformanceMeterSession.m in Sources */,
 				C42111FA1A2341A9006C044C /* MendeleyTimer.m in Sources */,
 				C42111FB1A2341A9006C044C /* MendeleyBlockExecutor.m in Sources */,
+				016BD7891EEAD359001D7691 /* MendeleyAuthToken.m in Sources */,
 				C42111B41A2340AF006C044C /* MendeleyLoginWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2140,6 +2167,7 @@
 				C46657AD1B3846C0005F762A /* MendeleyObjectAPI.m in Sources */,
 				C46657931B384651005F762A /* MendeleyOAuthTokenHelper.m in Sources */,
 				C46657BE1B384712005F762A /* MendeleyErrorManager.m in Sources */,
+				016BD78A1EEAD359001D7691 /* MendeleyAuthToken.m in Sources */,
 				53D679051EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m in Sources */,
 				53863F771D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */,
 				C46657BB1B384700005F762A /* NSMutableArray+MaximumSize.m in Sources */,

@@ -22,6 +22,9 @@
 #import "MendeleyIDPlusOAuthProvider.h"
 #import "MendeleyKitConfiguration.h"
 #import "NSError+Exceptions.h"
+#import "MendeleyOAuthConstants.h"
+
+NSString *const kMendeleyOAuth2StateKey = @"state";
 
 @interface MendeleyIDPlusAuthDefaultManager()
 
@@ -106,6 +109,39 @@
     NSURL *url = components.URL;
     
     return [NSURLRequest requestWithURL:url];
+}
+
+//TODO: compare the return state string to the one sent with the initial request 
+- (MendeleyAuthToken *) getAuthCodeAndStateFrom:(NSURL *)requestUrl
+{
+    MendeleyAuthToken *authToken = [MendeleyAuthToken new];
+    
+    if (requestUrl.query.length)
+    {
+        NSArray<NSString *> *components = [requestUrl.query componentsSeparatedByString:@"&"];
+        
+        for (NSString *component in components)
+        {
+            NSArray<NSString *> *parameterPair = [component componentsSeparatedByString:@"="];
+            
+            if (parameterPair.count == 2)
+            {
+                NSString *key = parameterPair.firstObject;
+                NSString *value = parameterPair.lastObject;
+                
+                if ([kMendeleyOAuth2ResponseType isEqualToString:key])
+                {
+                    authToken.code = value;
+                }
+                else if ([kMendeleyOAuth2StateKey isEqualToString:key])
+                {
+                    authToken.state = value;
+                }
+            }
+        }
+    }
+    
+    return authToken;
 }
 
 - (void)obtainAccessTokensWithAuthorizationCode:(NSString *)code

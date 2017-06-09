@@ -58,13 +58,14 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     }
     
 
+    //TODO fix code
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         if let requestURL = webView.url {
-            if let code = oAuthProvider?.getAuthenticationCode(from: requestURL)
+            if let code = idPlusProvider?.getAuthCodeAndState(from: requestURL).code
             {
-//                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
-                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: {(credentials: MendeleyOAuthCredentials?, error: Error?) in
-                    if let credentials = (credentials as? MendeleyIDPlusCredentials) {
+                idPlusProvider?.obtainIDPlusAccessTokens(withAuthorizationCode: code, completionBlock: { (credentials: MendeleyIDPlusCredentials?, error: Error?) in
+                    
+                    if let credentials = credentials {
                         self.oAuthProvider?.authenticate?(withIdPlusAuthenticationCode: code, completionBlock: { (credentials2: MendeleyOAuthCredentials?, error2: Error?) in
                             let mergedCredentials = MendeleyIDPlusCredentials()
                             mergedCredentials.id_plus_access_token = credentials.id_plus_access_token
@@ -76,14 +77,15 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                             mergedCredentials.expires_in = credentials2?.expires_in
                             mergedCredentials.refresh_token = credentials2?.refresh_token
                             mergedCredentials.token_type = credentials2?.token_type
+                            
                             self.oAuthCompletionBlock?(mergedCredentials, error2)
-                     })
+                        })
+
                     }
                 })
+
             }
-            
         }
-        
     }
     
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)

@@ -21,12 +21,15 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyOAuthCredentials.h"
 #import "MendeleyGlobals.h"
+#import "MendeleyAuthToken.h"
 
 @protocol MendeleyIDPlusAuthProvider <NSObject>
 
 - (void)configureWithParameters:(NSDictionary *)parameters;
 
 - (NSURLRequest *)getAuthURLRequestWithClientID:(NSString *)clientID;
+
+- (MendeleyAuthToken *)getAuthCodeAndStateFrom:(NSURL *)requestUrl;
 
 - (void)obtainAccessTokensWithAuthorizationCode:(NSString *)code
                                 completionBlock:(MendeleyOAuthCompletionBlock)completionBlock;

@@ -38,7 +38,7 @@ NSString *const kMendeleyIDPlusPrompt = @"login";
 NSString *const kMendeleyIDPlusClientIdValue = @"Mendeley";
 NSString *const kMendeleyIDPlusClientSecretValue = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
 
-NSString *const kMendeleyOAuth2StateKey = @"state";
+NSString *const kMendeleyOAuth2StateDeprecatedKey = @"state";
 NSString *const kMendeleyOAuth2AuthTypeKey = @"authType";
 NSString *const kMendeleyOAuth2PlatSiteKey = @"platSite";
 NSString *const kMendeleyOAuth2PromptKey = @"prompt";
@@ -266,7 +266,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                 {
                     code = value;
                 }
-                else if ([kMendeleyOAuth2StateKey isEqualToString:key])
+                else if ([kMendeleyOAuth2StateDeprecatedKey isEqualToString:key])
                 {
                     state = value;
                 }
