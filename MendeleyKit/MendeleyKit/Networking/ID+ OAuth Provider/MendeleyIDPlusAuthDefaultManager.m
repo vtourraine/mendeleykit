@@ -172,11 +172,10 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 {
     [NSError assertArgumentNotNil:code argumentName:@"authenticationCode"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey : kMendeleyOAuthAuthorizationCode,
-                                   kMendeleyOAuth2RedirectURLKey : self.oAuthRedirectUri,
-                                   kMendeleyOAuth2ResponseType : code,
+    NSDictionary *requestBody = @{ kMendeleyOAuth2ClientIDKey : self.oAuthClientId,
                                    kMendeleyOAuth2ClientSecretKey : self.oAuthClientSecret,
-                                   kMendeleyOAuth2ClientIDKey : self.oAuthClientId };
+                                   kMendeleyOAuthAuthorizationCodeKey : kMendeleyOAuthClientCredentials,
+                                   kMendeleyOAuth2ScopeKey : kMendeleyOAuth2Scope };
     
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
@@ -201,7 +200,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                     else
                     {
                         MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
-                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelIDPlusCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOpenIDCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
                             
                             [blockExec executeWithCredentials:credentials error:parseError];
                         }];
