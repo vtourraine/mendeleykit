@@ -34,14 +34,18 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 
 @interface MendeleyIDPlusAuthDefaultManager()
 
-@property (nonatomic, strong) NSString *scope;
-@property (nonatomic, strong) NSString *state;
-@property (nonatomic, strong) NSString *authType;
-@property (nonatomic, strong) NSString *platSite;
-@property (nonatomic, strong) NSString *prompt;
-@property (nonatomic, strong) NSString *redirectUri;
-@property (nonatomic, strong) NSString *responseType;
-@property (nonatomic, strong) NSString *clientId;
+@property (nonatomic, strong) NSString *idPlusScope;
+@property (nonatomic, strong) NSString *idPlusState;
+@property (nonatomic, strong) NSString *idPlusAuthType;
+@property (nonatomic, strong) NSString *idPlusPlatSite;
+@property (nonatomic, strong) NSString *idPlusPrompt;
+@property (nonatomic, strong) NSString *idPlusRedirectUri;
+@property (nonatomic, strong) NSString *idPlusResponseType;
+@property (nonatomic, strong) NSString *idPlusClientId;
+
+@property (nonatomic, strong) NSString *oAuthClientId;
+@property (nonatomic, strong) NSString *oAuthClientSecret;
+@property (nonatomic, strong) NSString *oAuthRedirectUri;
 
 @end
 
@@ -64,50 +68,63 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 {
     [NSError assertArgumentNotNil:parameters argumentName:@"parameters"];
     
-    NSString *scope = parameters[@"scope"];
+    NSString *scope = parameters[kIDPlusScope];
     if (scope != nil && [scope isKindOfClass:[NSString class]]) {
-        self.scope = scope;
+        self.idPlusScope = scope;
     }
-    NSString *state = parameters[@"state"];
+    NSString *state = parameters[kIDPlusState];
     if (state != nil && [state isKindOfClass:[NSString class]]) {
-        self.state = state;
+        self.idPlusState = state;
     }
-    NSString *authType = parameters[@"authType"];
+    NSString *authType = parameters[kIDPlusAuthType];
     if (authType != nil && [authType isKindOfClass:[NSString class]]) {
-        self.authType = authType;
+        self.idPlusAuthType = authType;
     }
-    NSString *platSite = parameters[@"platSite"];
+    NSString *platSite = parameters[kIDPlusPlatSite];
     if (platSite != nil && [platSite isKindOfClass:[NSString class]]) {
-        self.platSite = platSite;
+        self.idPlusPlatSite = platSite;
     }
-    NSString *prompt = parameters[@"prompt"];
+    NSString *prompt = parameters[kIDPlusPrompt];
     if (prompt != nil && [prompt isKindOfClass:[NSString class]]) {
-        self.prompt = prompt;
+        self.idPlusPrompt = prompt;
     }
-    NSString *redirectUri = parameters[@"redirect_uri"];
-    if (redirectUri != nil && [redirectUri isKindOfClass:[NSString class]]) {
-        self.redirectUri = redirectUri;
+    NSString *idPlusRedirectUri = parameters[kIDPlusRedirectUri];
+    if (idPlusRedirectUri != nil && [idPlusRedirectUri isKindOfClass:[NSString class]]) {
+        self.idPlusRedirectUri = idPlusRedirectUri;
     }
-    NSString *responseType = parameters[@"response_type"];
+    NSString *responseType = parameters[kIDPlusResponseType];
     if (responseType != nil && [responseType isKindOfClass:[NSString class]]) {
-        self.responseType = responseType;
+        self.idPlusResponseType = responseType;
     }
-    NSString *clientId = parameters[@"client_id"];
+    NSString *idPlusClientId = parameters[kIDPlusClientId];
+    if (idPlusClientId != nil && [idPlusClientId isKindOfClass:[NSString class]]) {
+        self.idPlusClientId = idPlusClientId;
+    }
+    
+    NSString *clientId = parameters[kMendeleyOAuth2ClientIDKey];
     if (clientId != nil && [clientId isKindOfClass:[NSString class]]) {
-        self.clientId = clientId;
+        self.oAuthClientId = clientId;
+    }
+    NSString *clientSecret = parameters[kMendeleyOAuth2ClientSecretKey];
+    if (clientSecret != nil && [clientSecret isKindOfClass:[NSString class]]) {
+        self.oAuthClientSecret = clientSecret;
+    }
+    NSString *redirectUri = parameters[kMendeleyOAuth2RedirectURLKey];
+    if (redirectUri != nil && [redirectUri isKindOfClass:[NSString class]]) {
+        self.oAuthRedirectUri = redirectUri;
     }
 }
 
-- (NSURLRequest *)getAuthURLRequestWithClientID:(NSString *)clientID
+- (NSURLRequest *)getAuthURLRequestWithIDPlusClientID:(NSString *)clientID
 {
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://loadcp-id.elsevier.com/as/authorization.oauth2"];
-    NSURLQueryItem *scopeParam = [NSURLQueryItem queryItemWithName:@"scope" value:self.scope];
-    NSURLQueryItem *stateParam = [NSURLQueryItem queryItemWithName:@"state" value:self.state];
-    NSURLQueryItem *authTypeParam = [NSURLQueryItem queryItemWithName:@"authType" value:self.authType];
-    NSURLQueryItem *platSiteParam = [NSURLQueryItem queryItemWithName:@"platSite" value:self.platSite];
-    NSURLQueryItem *promptParam = [NSURLQueryItem queryItemWithName:@"prompt" value:self.prompt];
-    NSURLQueryItem *redirectUriParam = [NSURLQueryItem queryItemWithName:@"redirect_uri" value:self.redirectUri];
-    NSURLQueryItem *responseTypeParam = [NSURLQueryItem queryItemWithName:@"response_type" value:self.responseType];
+    NSURLQueryItem *scopeParam = [NSURLQueryItem queryItemWithName:@"scope" value:self.idPlusScope];
+    NSURLQueryItem *stateParam = [NSURLQueryItem queryItemWithName:@"state" value:self.idPlusState];
+    NSURLQueryItem *authTypeParam = [NSURLQueryItem queryItemWithName:@"authType" value:self.idPlusAuthType];
+    NSURLQueryItem *platSiteParam = [NSURLQueryItem queryItemWithName:@"platSite" value:self.idPlusPlatSite];
+    NSURLQueryItem *promptParam = [NSURLQueryItem queryItemWithName:@"prompt" value:self.idPlusPrompt];
+    NSURLQueryItem *redirectUriParam = [NSURLQueryItem queryItemWithName:@"redirect_uri" value:self.idPlusRedirectUri];
+    NSURLQueryItem *responseTypeParam = [NSURLQueryItem queryItemWithName:@"response_type" value:self.idPlusResponseType];
     NSURLQueryItem *clientIdParam = [NSURLQueryItem queryItemWithName:@"client_id" value:clientID];
     
     components.queryItems = @[scopeParam, stateParam, authTypeParam, platSiteParam, promptParam, redirectUriParam, responseTypeParam, clientIdParam];
@@ -153,7 +170,22 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 - (void)obtainAccessTokensWithAuthorizationCode:(NSString *)code
                                 completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
+    [NSError assertArgumentNotNil:code argumentName:@"authenticationCode"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey : kMendeleyOAuthAuthorizationCode,
+                                   kMendeleyOAuth2RedirectURLKey : self.oAuthRedirectUri,
+                                   kMendeleyOAuth2ResponseType : code,
+                                   kMendeleyOAuth2ClientSecretKey : self.oAuthClientSecret,
+                                   kMendeleyOAuth2ClientIDKey : self.oAuthClientId };
     
+    NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
+                                     kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
+    
+    MendeleyTask *task = [MendeleyTask new];
+    [self executeAuthenticationRequestWithRequestHeader:requestHeader
+                                            requestBody:requestBody
+                                                   task:task
+                                        completionBlock:completionBlock];
 }
 
 - (void)obtainIDPlusAccessTokensWithAuthorizationCode:(NSString *)code
@@ -163,7 +195,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     
     NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey : kMendeleyOAuthAuthorizationCode,
-                                   kMendeleyOAuth2RedirectURLKey : self.redirectUri,
+                                   kMendeleyOAuth2RedirectURLKey : self.idPlusRedirectUri,
                                    kMendeleyOAuth2ResponseType : code
                                    };
     NSString *contactString = [NSString stringWithFormat:@"%@:%@", MendeleyKitConfiguration.sharedInstance.idPlusClientId, MendeleyKitConfiguration.sharedInstance.idPlusClientSecret];

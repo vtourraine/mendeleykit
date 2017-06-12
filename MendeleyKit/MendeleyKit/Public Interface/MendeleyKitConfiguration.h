@@ -48,7 +48,7 @@
  ** kMendeleyOAuth2ClientSecretKey - the client secret as per app registration
  ** kMendeleyOAuth2RedirectURLKey - the redirect URI as per app registration
  */
-- (void)configureOAuthWithParameters:(NSDictionary *)parameters;
+- (void)configureOAuthWithParameters:(NSDictionary *)oAuthParameters;
 
 /**
    this changes the configuration of the SDK based on the parameters provided.

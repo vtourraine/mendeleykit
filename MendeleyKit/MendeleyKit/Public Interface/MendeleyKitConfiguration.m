@@ -74,25 +74,27 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 }
 
 //TODO refactor method name
-- (void)configureOAuthWithParameters:(NSDictionary *)parameters
+- (void)configureOAuthWithParameters:(NSDictionary *)oAuthParameters
 {
     if (nil != self.oauthProvider &&
         [self.oauthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
     {
-        [self.oauthProvider configureOAuthWithParameters:parameters];
+        [self.oauthProvider configureOAuthWithParameters:oAuthParameters];
     }
     if (nil != self.idPlusProvider &&
         [self.idPlusProvider respondsToSelector:@selector(configureWithParameters:)])
     {
-        NSDictionary *args = @{@"scope" : @"openid email profile",
-                               @"state" : @"TODO-generateUUID",
-                               @"authType" : @"SINGLE_SIGN_IN",
-                               @"platSite" : @"MDY/mendeley",
-                               @"prompt" : @"login",
-                               @"redirect_uri" : @"http://localhost/auth_return",
-                               @"response_type" :  @"code",
-                               @"client_id" : @"Mendeley"};
-        [self.idPlusProvider configureWithParameters:args];
+        NSDictionary *idPlusParams = @{kIDPlusScope : @"openid email profile",
+                               kIDPlusState : @"TODO-generateUUID",
+                               kIDPlusAuthType : @"SINGLE_SIGN_IN",
+                               kIDPlusPlatSite : @"MDY/mendeley",
+                               kIDPlusPrompt : @"login",
+                               kIDPlusRedirectUri : @"http://localhost/auth_return",
+                               kIDPlusResponseType :  @"code",
+                               kIDPlusClientId : @"Mendeley"};
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:oAuthParameters];
+        [params addEntriesFromDictionary:idPlusParams];
+        [self.idPlusProvider configureWithParameters:params];
     }
 }
 

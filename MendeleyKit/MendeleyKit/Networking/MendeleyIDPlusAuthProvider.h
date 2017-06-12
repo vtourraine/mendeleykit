@@ -23,11 +23,21 @@
 #import "MendeleyGlobals.h"
 #import "MendeleyAuthToken.h"
 
+const NSString *kIDPlusScope = @"idPlusScope";
+const NSString *kIDPlusState = @"idPlusState";
+const NSString *kIDPlusAuthType = @"idPlusAuthType";
+const NSString *kIDPlusPlatSite = @"idPlusPlatSite";
+const NSString *kIDPlusPrompt = @"idPlusPrompt";
+const NSString *kIDPlusRedirectUri = @"idPlusRedirectUri";
+const NSString *kIDPlusResponseType = @"idPlusResponseType";
+const NSString *kIDPlusClientId = @"idPlusClientId";
+                                
+
 @protocol MendeleyIDPlusAuthProvider <NSObject>
 
 - (void)configureWithParameters:(NSDictionary *)parameters;
 
-- (NSURLRequest *)getAuthURLRequestWithClientID:(NSString *)clientID;
+- (NSURLRequest *)getAuthURLRequestWithIDPlusClientID:(NSString *)clientID;
 
 - (MendeleyAuthToken *)getAuthCodeAndStateFrom:(NSURL *)requestUrl;
 
