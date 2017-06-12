@@ -25,7 +25,6 @@
 
 @class MendeleyResponse, MendeleyOAuthCredentials, MendeleySyncInfo, MendeleyDocument, MendeleyObject, MendeleySecureObject, MendeleyIDPlusCredentials;
 
-
 /***********************************************
  @name Enums definitions
  ***********************************************/
@@ -568,5 +567,16 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyPosixDefaultFormat                       @"en_US_POSIX"
 #define kMendeleyTimeZoneUTC                              @"UTC"
 
+/***********************************************
+ @name Authentication
+ ***********************************************/
+#define kIDPlusScope                                      @"idPlusScope"
+#define kIDPlusState                                      @"idPlusState"
+#define kIDPlusAuthType                                   @"idPlusAuthType"
+#define kIDPlusPlatSite                                   @"idPlusPlatSite"
+#define kIDPlusPrompt                                     @"idPlusPrompt"
+#define kIDPlusRedirectUri                                @"idPlusRedirectUri"
+#define kIDPlusResponseType                               @"idPlusResponseType"
+#define kIDPlusClientId                                   @"idPlusClientId"
 
 #endif /* ifndef MendeleyKit_MendeleyGlobals_h */

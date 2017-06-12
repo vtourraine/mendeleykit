@@ -123,4 +123,12 @@
  */
 - (void)executeWithCredentials:(MendeleyOAuthCredentials *)credentials error:(NSError *)error;
 
+/**
+ executes the MendeleyIDPlusCompletionBlock on the main thread
+ @param credentials
+ @param error
+ */
+- (void)executeWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials error:(NSError *)error;
+
+
 @end

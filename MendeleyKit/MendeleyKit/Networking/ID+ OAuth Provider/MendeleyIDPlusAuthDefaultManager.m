@@ -182,10 +182,33 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
     
     MendeleyTask *task = [MendeleyTask new];
-    [self executeAuthenticationRequestWithRequestHeader:requestHeader
-                                            requestBody:requestBody
-                                                   task:task
-                                        completionBlock:completionBlock];
+    id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
+    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
+                            api:kMendeleyOAuthPathOAuth2Token
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBody
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:task
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
+                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
+                    MendeleyKitHelper *helper = [MendeleyKitHelper new];
+                    
+                    if (![helper isSuccessForResponse:response error:&error])
+                    {
+                        [blockExec executeWithCredentials:nil error:error];
+                    }
+                    else
+                    {
+                        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelIDPlusCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
+                            
+                            [blockExec executeWithCredentials:credentials error:parseError];
+                        }];
+                        
+                    }
+                    
+                }];
 }
 
 - (void)obtainIDPlusAccessTokensWithAuthorizationCode:(NSString *)code
@@ -207,30 +230,6 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                                      kMendeleyRESTRequestAuthorization : authorizationString};
     
     MendeleyTask *task = [MendeleyTask new];
-    [self executeAuthenticationRequestWithRequestHeader:requestHeader
-                                            requestBody:requestBody
-                                                   task:task
-                                        completionBlock:completionBlock];
-}
-
-- (void)postProfileWithMendeleyCredentials:(MendeleyOAuthCredentials *)credentials
-                           completionBlock:(MendeleyCompletionBlock)completionBlock
-{
-    
-}
-
-- (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(MendeleyOAuthCredentials *)mendeleyCredentials
-                                           idPlusCredentials:(MendeleyIDPlusCredentials *)idPlusCredentials
-                                             completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
-{
-    
-}
-
-- (void)executeAuthenticationRequestWithRequestHeader:(NSDictionary *)requestHeader
-                                          requestBody:(NSDictionary *)requestBody
-                                                 task:(MendeleyTask *)task
-                                      completionBlock:(MendeleyIDPlusCompletionBlock)completionBlock
-{
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
     [networkProvider invokePOST:[NSURL URLWithString:kMendeleyIDPlusBaseURL]
                             api:kMendeleyIDPlusTokenEndpoint
@@ -245,19 +244,32 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                     
                     if (![helper isSuccessForResponse:response error:&error])
                     {
-                        [blockExec executeWithCredentials:nil error:error];
+                        [blockExec executeWithIDPlusCredentials:nil error:error];
                     }
                     else
                     {
                         MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
                         [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelIDPlusCredentials completionBlock:^(MendeleyIDPlusCredentials *credentials, NSError *parseError) {
                             
-                            [blockExec executeWithCredentials:credentials error:parseError];
+                            [blockExec executeWithIDPlusCredentials:credentials error:parseError];
                         }];
                         
                     }
                     
                 }];
+}
+
+- (void)postProfileWithMendeleyCredentials:(MendeleyOAuthCredentials *)credentials
+                           completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    
+}
+
+- (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(MendeleyOAuthCredentials *)mendeleyCredentials
+                                           idPlusCredentials:(MendeleyIDPlusCredentials *)idPlusCredentials
+                                             completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
+{
+    
 }
 
 

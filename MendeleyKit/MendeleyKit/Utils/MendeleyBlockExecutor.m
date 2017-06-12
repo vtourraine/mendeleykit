@@ -197,5 +197,16 @@
     });
 }
 
+- (void)executeWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials error:(NSError *)error
+{
+    if (nil == self.idPlusCompletionBlock)
+    {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.idPlusCompletionBlock(credentials, error);
+    });
+}
+
 
 @end
