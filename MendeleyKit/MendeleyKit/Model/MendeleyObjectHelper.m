@@ -23,6 +23,7 @@
 #import "MendeleyModels.h"
 #import "NSError+MendeleyError.h"
 #import "MendeleyNewsFeed.h"
+#import "MendeleyGlobals.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -89,12 +90,7 @@
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyJSONID : kMendeleyObjectID,
                  kMendeleyJSONDescription : kMendeleyObjectDescription,
-                 kMendeleyJSONVersion : kMendeleyObjectVersion,
-                 @"id_token" : @"id_plus_id_token",
-                 @"refresh_token" : @"id_plus_refresh_token",
-                 @"access_token" : @"id_plus_access_token",
-                 @"token_type" : @"id_plus_token_type",
-                 @"expires_in" : @"id_plus_expires_in"
+                 kMendeleyJSONVersion : kMendeleyObjectVersion
                  };
     });
     return map;
@@ -108,12 +104,8 @@
     dispatch_once(&onceToken, ^{
         map = @{ kMendeleyObjectID : kMendeleyJSONID,
                  kMendeleyObjectDescription : kMendeleyJSONDescription,
-                 kMendeleyObjectVersion : kMendeleyJSONVersion,
-                 @"id_plus_id_token" : @"id_token",
-                 @"id_plus_refresh_token" : @"refresh_token",
-                 @"id_plus_access_token" : @"access_token",
-                 @"id_plus_token_type" : @"token_type",
-                 @"id_plus_expires_in": @"expires_in"};
+                 kMendeleyObjectVersion : kMendeleyJSONVersion
+                 };
     });
     return map;
 }
@@ -209,6 +201,50 @@
         matchedKey = key;
     }
     return matchedKey;
+}
+
++ (NSString *)matchedJSONKeyForKey:(NSString *)key modelName:(NSString *)modelName
+{
+    if ([modelName isEqualToString:kMendeleyModelIDPlusCredentials]) {
+        if ([key isEqualToString:@"id_plus_access_token"]) {
+            return @"access_token";
+        }
+        else if ([key isEqualToString:@"id_plus_refresh_token"]) {
+            return @"refresh_token";
+        }
+        else if ([key isEqualToString:@"id_plus_id_token"]) {
+            return @"id_token";
+        }
+        else if ([key isEqualToString:@"id_plus_token_type"]) {
+            return @"token_type";
+        }
+        else if ([key isEqualToString:@"id_plus_expires_in"]) {
+            return @"expires_in";
+        }
+    }
+    return key;
+}
+
++ (NSString *)matchedKeyForJSONKey:(NSString *)key modelName:(NSString *)modelName
+{
+    if ([modelName isEqualToString:kMendeleyModelIDPlusCredentials]) {
+        if ([key isEqualToString:@"access_token"]) {
+            return @"id_plus_access_token";
+        }
+        else if ([key isEqualToString:@"refresh_token"]) {
+            return @"id_plus_refresh_token";
+        }
+        else if ([key isEqualToString:@"id_token"]) {
+            return @"id_plus_id_token";
+        }
+        else if ([key isEqualToString:@"token_type"]) {
+            return @"id_plus_token_type";
+        }
+        else if ([key isEqualToString:@"expires_in"]) {
+            return @"id_plus_expires_in";
+        }
+    }
+    return key;
 }
 
 + (NSString *)matchedJSONKeyForKey:(NSString *)key
@@ -596,6 +632,7 @@
         NSDictionary *propertyNames = [[self class] propertiesAndAttributesForModel:object];
         [propertyNames.allKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
             NSString *matchedKey = [self matchedJSONKeyForKey:key];
+            matchedKey = [self matchedKeyForJSONKey:key modelName:NSStringFromClass(klass)];
 
             if ([self isCustomizableModelObject:object forPropertyName:matchedKey error:nil])
             {

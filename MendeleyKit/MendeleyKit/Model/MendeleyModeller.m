@@ -182,6 +182,8 @@
          if (nil != value)
          {
              NSString *matchedName = [MendeleyObjectHelper matchedJSONKeyForKey:name];
+             NSString *className = NSStringFromClass(((NSObject *)model).class);
+             matchedName = [MendeleyObjectHelper matchedJSONKeyForKey:name modelName:className];
              if ([MendeleyObjectHelper isCustomizableModelObject:model forPropertyName:name error:error])
              {
                  [properties setObject:[MendeleyObjectHelper rawValueFromCustomObject:value modelObject:model propertyName:name error:error] forKey:matchedName];
@@ -305,6 +307,7 @@
         if ([key isKindOfClass:[NSString class]])
         {
             NSString *matchedKey = [MendeleyObjectHelper matchedKeyForJSONKey:(NSString *) key];
+            matchedKey = [MendeleyObjectHelper matchedKeyForJSONKey:key modelName:expectedType];
             id valueToBeAdded = nil;
             if ([MendeleyObjectHelper isCustomizableModelObject:modelObject forPropertyName:key error:error])
             {

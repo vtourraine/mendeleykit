@@ -76,7 +76,6 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                 mergedCredentials.id_plus_token_type = idPlusCredentials.id_plus_token_type
                                 mergedCredentials.access_token = oAuthCredentials.access_token
                                 mergedCredentials.expires_in = oAuthCredentials.expires_in
-                                mergedCredentials.refresh_token = oAuthCredentials.refresh_token
                                 mergedCredentials.token_type = oAuthCredentials.token_type
                                 
                                 self.oAuthCompletionBlock?(mergedCredentials, nil)

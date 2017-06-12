@@ -70,6 +70,15 @@
 + (NSString *)matchedKeyForJSONKey:(NSString *)key;
 
 /**
+ This method matches the JSON property name to a model class name for a given model
+ In most cases this will simply return the JSON property name.
+ @param key the JSON property name
+ @param modelName the Model name
+ @return the matched name if found or the JSON name if not
+ */
++ (NSString *)matchedKeyForJSONKey:(NSString *)key modelName:(NSString *)modelName;
+
+/**
    This method maps the model property name to a JSON property name. As in the matchedKeyForJSONKey method
    this will be mostly a one to one mapping. Where this is not possible, a proper match will be provided
    (e.g. JSON property "id" is mapped to "object_ID")
@@ -77,6 +86,14 @@
    @return the matched JSON name if found or the model name if not
  */
 + (NSString *)matchedJSONKeyForKey:(NSString *)key;
+
+/**
+ This method maps the model property name to a JSON property name. 
+ @param key the Model class property name
+ @param modelName the Model name
+ @return the matched JSON name if found or the model name if not
+ */
++ (NSString *)matchedJSONKeyForKey:(NSString *)key modelName:(NSString *)modelName;
 
 /**
    creates a model instance from a class name
