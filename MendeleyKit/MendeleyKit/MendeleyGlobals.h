@@ -65,6 +65,7 @@ typedef void (^ __nullable MendeleyResponseProgressBlock)(NSNumber * __nonnull p
 typedef void (^ __nullable MendeleyCompletionBlock)(BOOL success, NSError * __nullable error);
 typedef void (^ __nullable MendeleyArrayCompletionBlock)(NSArray * __nullable array, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
 typedef void (^ __nullable MendeleyObjectCompletionBlock)(MendeleyObject * __nullable mendeleyObject, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
+typedef void (^ __nullable MendeleyObjectAndStateCompletionBlock)(MendeleySecureObject * __nullable mendeleyObject, NSInteger state, NSError * __nullable error);
 typedef void (^ __nullable MendeleySecureObjectCompletionBlock)(MendeleySecureObject * __nullable mendeleyObject, MendeleySyncInfo * __nullable syncInfo, NSError * __nullable error);
 typedef void (^ __nullable MendeleyDictionaryResponseBlock)(NSDictionary * __nullable dictionary, NSError * __nullable error);
 typedef void (^ __nullable MendeleyDeserializedResponseObject)(id __nullable deserializedResponseObject, NSError * __nullable deserializeError);

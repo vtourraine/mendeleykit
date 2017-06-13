@@ -24,6 +24,7 @@
 @property (nonatomic, copy) MendeleyArrayCompletionBlock arrayCompletionBlock;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, copy) MendeleyObjectCompletionBlock objectCompletionBlock;
+@property (nonatomic, copy) MendeleyObjectAndStateCompletionBlock objectAndStateCompletionBlock;
 @property (nonatomic, copy) MendeleyDictionaryResponseBlock dictionaryCompletionBlock;
 @property (nonatomic, copy) MendeleyStringArrayCompletionBlock stringArrayCompletionBlock;
 @property (nonatomic, copy) MendeleyBinaryDataCompletionBlock binaryDataCompletionBlock;
@@ -80,6 +81,16 @@
     }
     return self;
 
+}
+
+- (instancetype)initWithObjectAndStateCompletionBlock:(MendeleyObjectAndStateCompletionBlock)objectAndStateCompletionBlock
+{
+    self = [super init];
+    if (nil != self)
+    {
+        _objectAndStateCompletionBlock = objectAndStateCompletionBlock;
+    }
+    return self;
 }
 
 - (instancetype)initWithDictionaryCompletionBlock:(MendeleyDictionaryResponseBlock)dictionaryCompletionBlock
@@ -159,6 +170,20 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.objectCompletionBlock(mendeleyObject, syncInfo, error);
     });
+}
+
+- (void)executeWithMendeleyObject:(MendeleySecureObject *)mendeleyObject
+                            state:(NSInteger)state
+                            error:(NSError *)error
+{
+    if (nil == self.objectAndStateCompletionBlock)
+    {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.objectAndStateCompletionBlock(mendeleyObject, state, error);
+    });
+ 
 }
 
 - (void)executeWithDictionary:(NSDictionary *)dictionary

@@ -90,7 +90,7 @@
  */
 - (void)checkIDPlusProfileWithIdPlusToken:(NSString *)idToken
                  task:(MendeleyTask *)task
-      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+      completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock;
 
 /**
    Updates an existing user's profile based on the MendeleyAmendmentProfile argument passed in.

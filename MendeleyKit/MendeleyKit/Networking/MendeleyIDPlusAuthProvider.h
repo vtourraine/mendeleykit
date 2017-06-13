@@ -38,10 +38,10 @@
                                 completionBlock:(MendeleyIDPlusCompletionBlock)completionBlock;
 
 - (void)postProfileWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials
-                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+                           completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock;
 
-- (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(MendeleyOAuthCredentials *)mendeleyCredentials
-                                           idPlusCredentials:(MendeleyIDPlusCredentials *)idPlusCredentials
-                                             completionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
+- (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:( MendeleyOAuthCredentials *)mendeleyCredentials
+                                           idPlusCredentials:( MendeleyIDPlusCredentials *)idPlusCredentials
+                                             completionBlock:( MendeleyOAuthCompletionBlock)completionBlock;
 
 @end

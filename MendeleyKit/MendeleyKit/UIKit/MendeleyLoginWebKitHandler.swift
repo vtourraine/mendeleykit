@@ -79,8 +79,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                 mergedCredentials.token_type = oAuthCredentials.token_type
                                 
                                 self.oAuthCompletionBlock?(mergedCredentials, nil)
-                                
-                                self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
+                                self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
                                     guard let profile = object as? MendeleyProfile
                                         else {
                                             //TODO: manage errors properly
@@ -88,6 +87,21 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                             return
                                     }
                                     
+                                    switch state {
+                                    case 200:
+                                        //check if verified and start verification flow if not
+                                        print("state: 200")
+                                        fallthrough
+                                    case 201:
+                                        print("state: 201")
+                                        // start complete profile flow
+                                        self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
+
+                                        })
+                                    default:
+                                         print("default")
+                                        self.completionBlock?(false, nil)
+                                    }
                                 })
                             } else {
                                 //TODO: manage errors properly

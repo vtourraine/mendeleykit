@@ -260,7 +260,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 }
 
 - (void)postProfileWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials
-                         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+                         completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock
 {
     MendeleyProfilesAPI *profilesAPI = [[MendeleyProfilesAPI alloc] initWithNetworkProvider:MendeleyKitConfiguration.sharedInstance.networkProvider
                                                                                     baseURL:MendeleyKitConfiguration.sharedInstance.baseAPIURL];
