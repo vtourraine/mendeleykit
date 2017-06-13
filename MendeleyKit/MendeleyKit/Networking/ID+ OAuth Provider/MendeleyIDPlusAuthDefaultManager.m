@@ -221,13 +221,11 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                                    kMendeleyOAuth2RedirectURLKey : self.idPlusRedirectUri,
                                    kMendeleyOAuth2ResponseType : code
                                    };
-    NSString *contactString = [NSString stringWithFormat:@"%@:%@", MendeleyKitConfiguration.sharedInstance.idPlusClientId, MendeleyKitConfiguration.sharedInstance.idPlusClientSecret];
-    NSString *base64IDCredentials = [[contactString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-    NSString *authorizationString = [NSString stringWithFormat:@"Basic %@", base64IDCredentials];
-    
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType,
-                                     kMendeleyRESTRequestAuthorization : authorizationString};
+                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:MendeleyKitConfiguration.sharedInstance.idPlusClientId
+                                                                                           clientSecret:MendeleyKitConfiguration.sharedInstance.idPlusClientSecret]
+                                     };
     
     MendeleyTask *task = [MendeleyTask new];
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
@@ -273,7 +271,58 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                                            idPlusCredentials:(MendeleyIDPlusCredentials *)idPlusCredentials
                                              completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
+    [NSError assertArgumentNotNil:mendeleyCredentials argumentName:@"mendeleyCredentials"];
+        [NSError assertArgumentNotNil:idPlusCredentials argumentName:@"idPlusCredentials"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey : kMendeleyIdPlusGrantTypeValue,
+                                   kMendeleyOAuth2ScopeKey : kMendeleyOAuth2Scope,
+                                   kMendeleyIdPlusIdTokenKey : idPlusCredentials.id_plus_id_token};
+
+    NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
+                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:self.oAuthClientId
+                                                                                           clientSecret:self.oAuthClientSecret]};
     
+    MendeleyTask *task = [MendeleyTask new];
+    id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
+    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
+                            api:kMendeleyOAuthPathOAuth2Token
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBody
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:task
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
+                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
+                    MendeleyKitHelper *helper = [MendeleyKitHelper new];
+                    
+                    if (![helper isSuccessForResponse:response error:&error])
+                    {
+                        [blockExec executeWithCredentials:nil error:error];
+                    }
+                    else
+                    {
+                        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOpenIDCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
+                            
+                            [blockExec executeWithCredentials:credentials error:parseError];
+                        }];
+                        
+                    }
+                    
+                }];
+}
+
+#pragma mark -
+#pragma mark utility methods
+
+- (NSString *)base64StringWithClientId:(NSString *)clientId
+                          clientSecret:(NSString *)clientSecret
+{
+    NSString *contactString = [NSString stringWithFormat:@"%@:%@", clientId, clientSecret];
+    NSString *base64IDCredentials = [[contactString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+    NSString *authorizationString = [NSString stringWithFormat:@"Basic %@", base64IDCredentials];
+    
+    return authorizationString;
 }
 
 

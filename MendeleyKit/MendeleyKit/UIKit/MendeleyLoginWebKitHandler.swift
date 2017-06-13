@@ -96,7 +96,11 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                         print("state: 201")
                                         // start complete profile flow
                                         self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
-
+                                            self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
+                                                
+                                                //TODO handle error
+                                                self.completionBlock?(mendeleyCredentials != nil, nil)
+                                            })
                                         })
                                     default:
                                          print("default")
@@ -106,7 +110,6 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                             } else {
                                 //TODO: manage errors properly
                                 self.completionBlock?(false, nil)
-                                
                             }
                         })
                     } else {

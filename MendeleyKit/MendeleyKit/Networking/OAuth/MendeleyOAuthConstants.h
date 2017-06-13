@@ -43,3 +43,6 @@
 #define kMendeleyKeyChainRefreshTokenKey    @"refreshToken"
 #define kMendeleyKeyChainTokenTypeKey       @"tokenType"
 #define kMendeleyKeyChainExpiryKey          @"expiration"
+
+#define kMendeleyIdPlusIdTokenKey           @"id_token"
+#define kMendeleyIdPlusGrantTypeValue       @"idplus"
