@@ -78,6 +78,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                 mergedCredentials.expires_in = oAuthCredentials.expires_in
                                 mergedCredentials.token_type = oAuthCredentials.token_type
                                 
+                                self.oAuthCompletionBlock?(mergedCredentials, nil)
                                 self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
                                     guard let profile = object as? MendeleyProfile
                                         else {
@@ -96,7 +97,6 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                         // start complete profile flow
                                         self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
                                             self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
-                                                
                                                 
                                                 self.oAuthCompletionBlock?(mendeleyCredentials, nil)
                                                 //TODO handle error
