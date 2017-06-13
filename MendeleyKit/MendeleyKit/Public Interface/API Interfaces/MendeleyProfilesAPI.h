@@ -83,6 +83,16 @@
       completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
+ Checks if ID Plus profile is completed and verified. IDPlus flow will depend on the result of this call
+ @param idTokem - the ID Plus id token
+ @param task
+ @param completionBlock - the completionHandler.
+ */
+- (void)checkIDPlusProfileWithIdPlusToken:(NSString *)idToken
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
    Updates an existing user's profile based on the MendeleyAmendmentProfile argument passed in.
    If the user wants to update his password the following properties must be provided
    - password (i.e. the new password)

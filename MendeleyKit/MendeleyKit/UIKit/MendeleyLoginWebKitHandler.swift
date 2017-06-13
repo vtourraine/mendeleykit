@@ -79,6 +79,16 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                 mergedCredentials.token_type = oAuthCredentials.token_type
                                 
                                 self.oAuthCompletionBlock?(mergedCredentials, nil)
+                                
+                                self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
+                                    guard let profile = object as? MendeleyProfile
+                                        else {
+                                            //TODO: manage errors properly
+                                            self.completionBlock?(false, nil)
+                                            return
+                                    }
+                                    
+                                })
                             } else {
                                 //TODO: manage errors properly
                                 self.completionBlock?(false, nil)

@@ -43,6 +43,12 @@
     return requestHeader;
 }
 
+- (NSDictionary *)checkIDPlusProfileRequestHeader
+{
+    return @{kMendeleyRESTRequestContentType:kMendeleyRESTRequestJSONIDPlusProfileType,
+                                    kMendeleyRESTRequestAccept:kMendeleyRESTRequestJSONIDPlusProfileAcceptType};
+}
+
 - (NSDictionary *)updateProfileRequestHeader
 {
     NSMutableDictionary *requestHeader = [NSMutableDictionary new];
@@ -208,6 +214,61 @@
               }];
          }
      }];
+}
+
+- (void)checkIDPlusProfileWithIdPlusToken:(NSString *)idToken
+                                     task:(MendeleyTask *)task
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertStringArgumentNotNilOrEmpty:idToken argumentName:@"idToken"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    
+    NSDictionary *requestHeader = [self checkIDPlusProfileRequestHeader];
+    
+    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+    
+    NSError *serialiseError = nil;
+    NSData *data = [idToken dataUsingEncoding:NSUTF8StringEncoding];
+    if (nil == data)
+    {
+        [blockExec executeWithMendeleyObject:nil
+                                    syncInfo:nil
+                                       error:serialiseError];
+        return;
+    }
+    id <MendeleyNetworkProvider> networkProvider = [self provider];
+    [networkProvider invokePOST:self.baseURL
+                            api:kMendeleyRESTAPICheckProfiles
+              additionalHeaders:requestHeader
+                       jsonData:data
+         authenticationRequired:NO
+                           task:task
+                completionBlock: ^(MendeleyResponse *response, NSError *error) {
+                    if (![self.helper isSuccessForResponse:response error:&error])
+                    {
+                        [blockExec executeWithMendeleyObject:nil
+                                                    syncInfo:nil
+                                                       error:error];
+                    }
+                    else
+                    {
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelProfile completionBlock: ^(MendeleyObject *object, NSError *parseError) {
+                            if (nil != parseError)
+                            {
+                                [blockExec executeWithMendeleyObject:nil
+                                                            syncInfo:nil
+                                                               error:parseError];
+                            }
+                            else
+                            {
+                                [blockExec executeWithMendeleyObject:object
+                                                            syncInfo:response.syncHeader
+                                                               error:nil];
+                            }
+                        }];
+                    }
+                }];
 }
 
 - (void)updateMyProfile:(MendeleyAmendmentProfile *)myProfile

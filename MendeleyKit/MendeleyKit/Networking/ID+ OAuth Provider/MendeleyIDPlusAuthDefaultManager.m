@@ -26,6 +26,7 @@
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKitHelper.h"
 #import "MendeleyModeller.h"
+#import "MendeleyProfilesAPI.h"
 
 NSString *const kMendeleyOAuth2StateKey = @"state";
 NSString *const kMendeleyIDPlusBaseURL = @"https://loadcp-id.elsevier.com";
@@ -134,7 +135,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     return [NSURLRequest requestWithURL:url];
 }
 
-//TODO: compare the return state string to the one sent with the initial request 
+//TODO: compare the return state string to the one sent with the initial request
 - (MendeleyAuthToken *) getAuthCodeAndStateFrom:(NSURL *)requestUrl
 {
     MendeleyAuthToken *authToken = [MendeleyAuthToken new];
@@ -258,10 +259,14 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                 }];
 }
 
-- (void)postProfileWithMendeleyCredentials:(MendeleyOAuthCredentials *)credentials
-                           completionBlock:(MendeleyCompletionBlock)completionBlock
+- (void)postProfileWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials
+                         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
-    
+    MendeleyProfilesAPI *profilesAPI = [[MendeleyProfilesAPI alloc] initWithNetworkProvider:MendeleyKitConfiguration.sharedInstance.networkProvider
+                                                                                    baseURL:MendeleyKitConfiguration.sharedInstance.baseAPIURL];
+    [profilesAPI checkIDPlusProfileWithIdPlusToken:credentials.id_plus_id_token
+                                              task:[MendeleyTask new]
+                                   completionBlock: completionBlock];
 }
 
 - (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(MendeleyOAuthCredentials *)mendeleyCredentials

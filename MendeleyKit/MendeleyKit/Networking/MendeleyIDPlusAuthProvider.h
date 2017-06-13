@@ -37,8 +37,8 @@
 - (void)obtainIDPlusAccessTokensWithAuthorizationCode:(NSString *)code
                                 completionBlock:(MendeleyIDPlusCompletionBlock)completionBlock;
 
-- (void)postProfileWithMendeleyCredentials:(MendeleyOAuthCredentials *)credentials
-                           completionBlock:(MendeleyCompletionBlock)completionBlock;
+- (void)postProfileWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials
+                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 - (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(MendeleyOAuthCredentials *)mendeleyCredentials
                                            idPlusCredentials:(MendeleyIDPlusCredentials *)idPlusCredentials
