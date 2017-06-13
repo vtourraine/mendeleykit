@@ -242,7 +242,7 @@
                             api:kMendeleyRESTAPICheckProfiles
               additionalHeaders:requestHeader
                        jsonData:data
-         authenticationRequired:NO
+         authenticationRequired:YES
                            task:task
                 completionBlock: ^(MendeleyResponse *response, NSError *error) {
                     if (![self.helper isSuccessForResponse:response error:&error])
