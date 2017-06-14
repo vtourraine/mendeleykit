@@ -307,7 +307,7 @@
         if ([key isKindOfClass:[NSString class]])
         {
             NSString *matchedKey = [MendeleyObjectHelper matchedKeyForJSONKey:(NSString *) key];
-            matchedKey = [MendeleyObjectHelper matchedKeyForJSONKey:key modelName:expectedType];
+            matchedKey = [MendeleyObjectHelper matchedKeyForJSONKey:matchedKey modelName:expectedType];
             id valueToBeAdded = nil;
             if ([MendeleyObjectHelper isCustomizableModelObject:modelObject forPropertyName:key error:error])
             {

@@ -632,7 +632,7 @@
         NSDictionary *propertyNames = [[self class] propertiesAndAttributesForModel:object];
         [propertyNames.allKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
             NSString *matchedKey = [self matchedJSONKeyForKey:key];
-            matchedKey = [self matchedKeyForJSONKey:key modelName:NSStringFromClass(klass)];
+            matchedKey = [self matchedKeyForJSONKey:matchedKey modelName:NSStringFromClass(klass)];
 
             if ([self isCustomizableModelObject:object forPropertyName:matchedKey error:nil])
             {
