@@ -113,8 +113,6 @@
 		53863F741D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53863F761D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */; };
 		53863F771D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */; };
-		53D679041EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D679011EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m */; };
-		53D679051EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D679011EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m */; };
 		55805B3B1DD1F79C00AAFBEC /* MendeleyFeedsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 55805B391DD1F79C00AAFBEC /* MendeleyFeedsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55805B3C1DD1F79C00AAFBEC /* MendeleyFeedsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 55805B391DD1F79C00AAFBEC /* MendeleyFeedsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55805B3D1DD1F79C00AAFBEC /* MendeleyFeedsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 55805B3A1DD1F79C00AAFBEC /* MendeleyFeedsAPI.m */; };
@@ -572,8 +570,6 @@
 		5353A46C1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyAnalyticsEventFeed.swift; path = Analytics/MendeleyAnalyticsEventFeed.swift; sourceTree = "<group>"; };
 		53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyRecommendationsAPI.h; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.h"; sourceTree = "<group>"; };
 		53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyRecommendationsAPI.m; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.m"; sourceTree = "<group>"; };
-		53D679001EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MendeleyIDPlusOAuthProvider.h; sourceTree = "<group>"; };
-		53D679011EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyIDPlusOAuthProvider.m; sourceTree = "<group>"; };
 		55805B391DD1F79C00AAFBEC /* MendeleyFeedsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyFeedsAPI.h; path = "Public Interface/API Interfaces/MendeleyFeedsAPI.h"; sourceTree = "<group>"; };
 		55805B3A1DD1F79C00AAFBEC /* MendeleyFeedsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyFeedsAPI.m; path = "Public Interface/API Interfaces/MendeleyFeedsAPI.m"; sourceTree = "<group>"; };
 		55805B3F1DD349AD00AAFBEC /* MendeleyNewsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNewsFeed.h; path = "Model/Mendeley Objects/MendeleyNewsFeed.h"; sourceTree = "<group>"; };
@@ -919,16 +915,6 @@
 			name = "NSURLConnection Provider";
 			sourceTree = "<group>";
 		};
-		53D678FF1EB1F660008A08BB /* ID+ OAuth Provider */ = {
-			isa = PBXGroup;
-			children = (
-				53D679001EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.h */,
-				53D679011EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m */,
-			);
-			name = "ID+ OAuth Provider";
-			path = "Networking/ID+ OAuth Provider";
-			sourceTree = "<group>";
-		};
 		55F35DBB1D4A57B90052F122 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,7 +1117,6 @@
 				016BD7831EEAD2EB001D7691 /* IDPlus */,
 				C4A134E219DADE170069DB7A /* Default Network Provider */,
 				C4A134E319DADE250069DB7A /* Default OAuth Provider */,
-				53D678FF1EB1F660008A08BB /* ID+ OAuth Provider */,
 				C4A134E419DADE320069DB7A /* Networking Objects */,
 				0B387EDC19ED106800ACCBE1 /* NSURLConnection Provider */,
 				C4A134E519DADE3E0069DB7A /* OAuth */,
@@ -2056,7 +2041,6 @@
 				C42111BF1A2341A9006C044C /* MendeleyReachability.m in Sources */,
 				C42111C01A2341A9006C044C /* MendeleyAnnotation.m in Sources */,
 				C42111C11A2341A9006C044C /* MendeleyCatalogDocument.m in Sources */,
-				53D679041EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m in Sources */,
 				C42111C21A2341A9006C044C /* MendeleyDocument.m in Sources */,
 				C42111C31A2341A9006C044C /* MendeleyDocumentType.m in Sources */,
 				C42111C41A2341A9006C044C /* MendeleyFile.m in Sources */,
@@ -2168,7 +2152,6 @@
 				C46657931B384651005F762A /* MendeleyOAuthTokenHelper.m in Sources */,
 				C46657BE1B384712005F762A /* MendeleyErrorManager.m in Sources */,
 				016BD78A1EEAD359001D7691 /* MendeleyAuthToken.m in Sources */,
-				53D679051EB1F6E3008A08BB /* MendeleyIDPlusOAuthProvider.m in Sources */,
 				53863F771D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */,
 				C46657BB1B384700005F762A /* NSMutableArray+MaximumSize.m in Sources */,
 				53385AE11E5DD5680011C4E0 /* MendeleyUserPostsAPI.m in Sources */,
