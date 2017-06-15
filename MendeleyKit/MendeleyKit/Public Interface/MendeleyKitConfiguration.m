@@ -85,7 +85,7 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
         [self.idPlusProvider respondsToSelector:@selector(configureWithParameters:)])
     {
         NSDictionary *idPlusParams = @{kIDPlusScope : @"openid email profile",
-                               kIDPlusState : @"TODO-generateUUID",
+                               kIDPlusState : [[NSUUID UUID] UUIDString],
                                kIDPlusAuthType : @"SINGLE_SIGN_IN",
                                kIDPlusPlatSite : @"MDY/mendeley",
                                kIDPlusPrompt : @"login",

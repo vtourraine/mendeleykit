@@ -134,7 +134,6 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     return [NSURLRequest requestWithURL:url];
 }
 
-//TODO: compare the return state string to the one sent with the initial request
 - (MendeleyAuthToken *) getAuthCodeAndStateFrom:(NSURL *)requestUrl
 {
     MendeleyAuthToken *authToken = [MendeleyAuthToken new];
@@ -164,7 +163,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
         }
     }
     
-    return authToken;
+    return [authToken.state isEqualToString:self.idPlusState] ? authToken : nil;
 }
 
 - (void)obtainAccessTokensWithAuthorizationCode:(NSString *)code
