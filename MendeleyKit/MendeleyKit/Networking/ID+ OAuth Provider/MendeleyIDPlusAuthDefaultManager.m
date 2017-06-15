@@ -28,6 +28,9 @@
 #import "MendeleyProfilesAPI.h"
 
 NSString *const kMendeleyOAuth2StateKey = @"state";
+NSString *const kMendeleyOAuth2AuthTypeKey = @"authType";
+NSString *const kMendeleyOAuth2PlatSiteKey = @"platSite";
+NSString *const kMendeleyOAuth2PromptKey = @"prompt";
 NSString *const kMendeleyIDPlusBaseURL = @"https://loadcp-id.elsevier.com";
 NSString *const kMendeleyIDPlusAuthorizationEndpoint = @"as/authorization.oauth2";
 NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
@@ -117,15 +120,17 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 
 - (NSURLRequest *)getAuthURLRequestWithIDPlusClientID:(NSString *)clientID
 {
-    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://loadcp-id.elsevier.com/as/authorization.oauth2"];
-    NSURLQueryItem *scopeParam = [NSURLQueryItem queryItemWithName:@"scope" value:self.idPlusScope];
-    NSURLQueryItem *stateParam = [NSURLQueryItem queryItemWithName:@"state" value:self.idPlusState];
-    NSURLQueryItem *authTypeParam = [NSURLQueryItem queryItemWithName:@"authType" value:self.idPlusAuthType];
-    NSURLQueryItem *platSiteParam = [NSURLQueryItem queryItemWithName:@"platSite" value:self.idPlusPlatSite];
-    NSURLQueryItem *promptParam = [NSURLQueryItem queryItemWithName:@"prompt" value:self.idPlusPrompt];
-    NSURLQueryItem *redirectUriParam = [NSURLQueryItem queryItemWithName:@"redirect_uri" value:self.idPlusRedirectUri];
-    NSURLQueryItem *responseTypeParam = [NSURLQueryItem queryItemWithName:@"response_type" value:self.idPlusResponseType];
-    NSURLQueryItem *clientIdParam = [NSURLQueryItem queryItemWithName:@"client_id" value:clientID];
+    NSString *urlString = [kMendeleyIDPlusBaseURL stringByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpoint];
+    
+    NSURLComponents *components = [NSURLComponents componentsWithString:urlString];
+    NSURLQueryItem *scopeParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2ScopeKey value:self.idPlusScope];
+    NSURLQueryItem *stateParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2StateKey value:self.idPlusState];
+    NSURLQueryItem *authTypeParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2AuthTypeKey value:self.idPlusAuthType];
+    NSURLQueryItem *platSiteParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2PlatSiteKey value:self.idPlusPlatSite];
+    NSURLQueryItem *promptParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2PromptKey value:self.idPlusPrompt];
+    NSURLQueryItem *redirectUriParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2RedirectURLKey value:self.idPlusRedirectUri];
+    NSURLQueryItem *responseTypeParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2ResponseTypeKey value:self.idPlusResponseType];
+    NSURLQueryItem *clientIdParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2ClientIDKey value:clientID];
     
     components.queryItems = @[scopeParam, stateParam, authTypeParam, platSiteParam, promptParam, redirectUriParam, responseTypeParam, clientIdParam];
     
