@@ -34,6 +34,7 @@ NSString *const kMendeleyOAuth2PromptKey = @"prompt";
 NSString *const kMendeleyIDPlusBaseURL = @"https://loadcp-id.elsevier.com";
 NSString *const kMendeleyIDPlusAuthorizationEndpoint = @"as/authorization.oauth2";
 NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
+NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
 
 @interface MendeleyIDPlusAuthDefaultManager()
 
@@ -352,8 +353,8 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     
     MendeleyTask *task = [MendeleyTask new];
     id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
-    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
-                            api:kMendeleyOAuthPathRevokeToken
+    [networkProvider invokePOST:[NSURL URLWithString:kMendeleyIDPlusBaseURL]
+                            api:kMendeleyIDPlusRevokeEndpoint
               additionalHeaders:requestHeader
                  bodyParameters:requestBodyAccessToken
                          isJSON:NO
@@ -371,8 +372,8 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     
     MendeleyTask *task = [MendeleyTask new];
     id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
-    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
-                            api:kMendeleyOAuthPathRevokeToken
+    [networkProvider invokePOST:[NSURL URLWithString:kMendeleyIDPlusBaseURL]
+                            api:kMendeleyIDPlusRevokeEndpoint
               additionalHeaders:requestHeader
                  bodyParameters:requestBodyRefreshToken
                          isJSON:NO
