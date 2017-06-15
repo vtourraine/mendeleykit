@@ -226,8 +226,8 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                                    };
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType,
-                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:MendeleyKitConfiguration.sharedInstance.idPlusClientId
-                                                                                           clientSecret:MendeleyKitConfiguration.sharedInstance.idPlusClientSecret]
+                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:kIDPlusClientID
+                                                                                           clientSecret:kIDPlusSecret]
                                      };
     
     MendeleyTask *task = [MendeleyTask new];

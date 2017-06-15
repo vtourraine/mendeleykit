@@ -76,9 +76,6 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 
         MendeleyKitUserInfoManager *sdkHelper = [MendeleyKitUserInfoManager new];
         [[MendeleyErrorManager sharedInstance] addUserInfoHelper:sdkHelper errorDomain:kMendeleyErrorDomain];
-        
-        _idPlusClientId = kIDPlusClientID;
-        _idPlusClientSecret = kIDPlusSecret;
     }
     return self;
 }
