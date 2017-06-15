@@ -488,6 +488,13 @@
 
 }
 
+- (void)logoutWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
+    
+    [MendeleyKitConfiguration.sharedInstance.idPlusProvider logOutWithMendeleyCredentials:credentials completionBlock:completionBlock];
+}
+
 #pragma mark - Photos
 
 - (MendeleyTask *)uploadPhotoWithFile:(NSURL *)fileURL

@@ -186,6 +186,12 @@
 - (MendeleyTask *)updateMyProfile:(MendeleyAmendmentProfile *)myProfile
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
+/**
+    Logs the user out by revoking their access and refresh tokens.
+    @param completionBlock - the completion handler.
+ */
+- (void)logoutWithCompletionBlock:(MendeleyCompletionBlock)completionBlock;
+
 #pragma mark - Photos
 
 /**
