@@ -45,9 +45,5 @@
 @end
 
 @interface MendeleyIDPlusCredentials : MendeleyOAuthCredentials
-@property (nonatomic, strong) NSString *id_plus_id_token;
-@property (nonatomic, strong) NSString *id_plus_access_token;
-@property (nonatomic, strong) NSString *id_plus_refresh_token;
-@property (nonatomic, strong) NSString *id_plus_token_type;
-@property (nonatomic, strong) NSNumber *id_plus_expires_in;
+@property (nonatomic, strong) NSString *id_token;
 @end

@@ -260,7 +260,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
 {
     MendeleyProfilesAPI *profilesAPI = [[MendeleyProfilesAPI alloc] initWithNetworkProvider:MendeleyKitConfiguration.sharedInstance.networkProvider
                                                                                     baseURL:MendeleyKitConfiguration.sharedInstance.baseAPIURL];
-    [profilesAPI checkIDPlusProfileWithIdPlusToken:credentials.id_plus_id_token
+    [profilesAPI checkIDPlusProfileWithIdPlusToken:credentials.id_token
                                               task:[MendeleyTask new]
                                    completionBlock: completionBlock];
 }
@@ -274,7 +274,7 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey : kMendeleyIdPlusGrantTypeValue,
                                    kMendeleyOAuth2ScopeKey : kMendeleyOAuth2Scope,
-                                   kMendeleyIdPlusIdTokenKey : idPlusCredentials.id_plus_id_token};
+                                   kMendeleyIdPlusIdTokenKey : idPlusCredentials.id_token};
 
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:self.oAuthClientId

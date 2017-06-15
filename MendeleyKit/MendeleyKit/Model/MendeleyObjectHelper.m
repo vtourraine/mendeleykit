@@ -203,50 +203,6 @@
     return matchedKey;
 }
 
-+ (NSString *)matchedJSONKeyForKey:(NSString *)key modelName:(NSString *)modelName
-{
-    if ([modelName isEqualToString:kMendeleyModelIDPlusCredentials]) {
-        if ([key isEqualToString:@"id_plus_access_token"]) {
-            return @"access_token";
-        }
-        else if ([key isEqualToString:@"id_plus_refresh_token"]) {
-            return @"refresh_token";
-        }
-        else if ([key isEqualToString:@"id_plus_id_token"]) {
-            return @"id_token";
-        }
-        else if ([key isEqualToString:@"id_plus_token_type"]) {
-            return @"token_type";
-        }
-        else if ([key isEqualToString:@"id_plus_expires_in"]) {
-            return @"expires_in";
-        }
-    }
-    return key;
-}
-
-+ (NSString *)matchedKeyForJSONKey:(NSString *)key modelName:(NSString *)modelName
-{
-    if ([modelName isEqualToString:kMendeleyModelIDPlusCredentials]) {
-        if ([key isEqualToString:@"access_token"]) {
-            return @"id_plus_access_token";
-        }
-        else if ([key isEqualToString:@"refresh_token"]) {
-            return @"id_plus_refresh_token";
-        }
-        else if ([key isEqualToString:@"id_token"]) {
-            return @"id_plus_id_token";
-        }
-        else if ([key isEqualToString:@"token_type"]) {
-            return @"id_plus_token_type";
-        }
-        else if ([key isEqualToString:@"expires_in"]) {
-            return @"id_plus_expires_in";
-        }
-    }
-    return key;
-}
-
 + (NSString *)matchedJSONKeyForKey:(NSString *)key
 {
     NSString *matchedKey = [[[self class] modelPropertyDictionary] objectForKey:key];
@@ -632,7 +588,6 @@
         NSDictionary *propertyNames = [[self class] propertiesAndAttributesForModel:object];
         [propertyNames.allKeys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
             NSString *matchedKey = [self matchedJSONKeyForKey:key];
-            matchedKey = [self matchedKeyForJSONKey:matchedKey modelName:NSStringFromClass(klass)];
 
             if ([self isCustomizableModelObject:object forPropertyName:matchedKey error:nil])
             {
