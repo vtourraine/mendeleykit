@@ -26,6 +26,16 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyError.h"
 
+NSString *const kIDPlusClientID = @"Mendeley";
+NSString *const kIDPlusSecret = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
+
+NSString *const kIDPlusScopeDefault = @"openid email profile";
+NSString *const kIDPlusAuthTypeDefault = @"SINGLE_SIGN_IN";
+NSString *const kIDPlusPlatSiteDefault = @"MDY/mendeley";
+NSString *const kIDPlusPromptDefault = @"login";
+NSString *const kIDPlusRedirectURIDefault = @"http://localhost/auth_return";
+NSString *const kIDPlusResponseTypeDefault = @"code";
+
 typedef NS_ENUM(int, MendeleyCustomClassType)
 {
     NetworkProvider = 0,
@@ -67,8 +77,8 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
         MendeleyKitUserInfoManager *sdkHelper = [MendeleyKitUserInfoManager new];
         [[MendeleyErrorManager sharedInstance] addUserInfoHelper:sdkHelper errorDomain:kMendeleyErrorDomain];
         
-        _idPlusClientId = @"Mendeley";
-        _idPlusClientSecret = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
+        _idPlusClientId = kIDPlusClientID;
+        _idPlusClientSecret = kIDPlusSecret;
     }
     return self;
 }
@@ -84,14 +94,14 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
     if (nil != self.idPlusProvider &&
         [self.idPlusProvider respondsToSelector:@selector(configureWithParameters:)])
     {
-        NSDictionary *idPlusParams = @{kIDPlusScope : @"openid email profile",
+        NSDictionary *idPlusParams = @{kIDPlusScope : kIDPlusScopeDefault,
                                kIDPlusState : [[NSUUID UUID] UUIDString],
-                               kIDPlusAuthType : @"SINGLE_SIGN_IN",
-                               kIDPlusPlatSite : @"MDY/mendeley",
-                               kIDPlusPrompt : @"login",
-                               kIDPlusRedirectUri : @"http://localhost/auth_return",
-                               kIDPlusResponseType :  @"code",
-                               kIDPlusClientId : @"Mendeley"};
+                               kIDPlusAuthType : kIDPlusAuthTypeDefault,
+                               kIDPlusPlatSite : kIDPlusPlatSiteDefault,
+                               kIDPlusPrompt : kIDPlusPromptDefault,
+                               kIDPlusRedirectUri : kIDPlusRedirectURIDefault,
+                               kIDPlusResponseType :  kIDPlusResponseTypeDefault,
+                               kIDPlusClientId : kIDPlusClientID};
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:oAuthParameters];
         [params addEntriesFromDictionary:idPlusParams];
         [self.idPlusProvider configureWithParameters:params];

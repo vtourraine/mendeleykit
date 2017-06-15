@@ -21,8 +21,6 @@
 import UIKit
 import WebKit
 
-let kClientID = "Mendeley"
-
 @available (iOS 9.0, *)
 public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
 {
@@ -42,7 +40,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
         
-        if let request = idPlusProvider?.getAuthURLRequest(withIDPlusClientID: kClientID) {
+        if let request = idPlusProvider?.getAuthURLRequest(withIDPlusClientID: MendeleyKitConfiguration.sharedInstance().idPlusClientId) {
             _ = webView?.load(request)
         }
     }
