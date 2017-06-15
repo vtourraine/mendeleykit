@@ -315,6 +315,73 @@ NSString *const kMendeleyIDPlusTokenEndpoint = @"as/token.oauth2";
                 }];
 }
 
+- (void)logOutWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
+                       completionBlock:(nullable MendeleyCompletionBlock)completionBlock
+{
+    NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
+                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:self.oAuthClientId
+                                                                                           clientSecret:self.oAuthClientSecret]};
+
+    [self revokeAccessTokenWithMendeleyCredentials:mendeleyCredentials
+                                     requestHeader:requestHeader
+                                   completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                                       // Ignore response
+                                       [self revokeRefreshTokenWithMendeleyCredentials:mendeleyCredentials
+                                                                         requestHeader:requestHeader
+                                                                       completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                                                                           // Ignore response
+                                                                           
+                                                                           // Destroy all tokens
+                                                                           [MendeleyKitConfiguration.sharedInstance.storeProvider removeOAuthCredentials];
+                                                                           
+                                                                           if (completionBlock)
+                                                                           {
+                                                                               completionBlock(YES, nil);
+                                                                           }
+                                                                       }];
+                                   }];
+
+}
+
+- (void)revokeAccessTokenWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
+                                   requestHeader:(nonnull NSDictionary *)requestHeader
+                             completionBlock:(nullable MendeleyResponseCompletionBlock)completionBlock
+{
+    NSDictionary *requestBodyAccessToken = @{ kMendeleyIdPlusTokenKey : mendeleyCredentials.access_token,
+                                              kMendeleyIdPlusTokenTypeHintKey: kMendeleyIdPlusTokenTypeHintAccess};
+    
+    MendeleyTask *task = [MendeleyTask new];
+    id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
+    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
+                            api:kMendeleyOAuthPathRevokeToken
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBodyAccessToken
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:task
+                completionBlock:completionBlock];
+}
+
+- (void)revokeRefreshTokenWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
+                                   requestHeader:(nonnull NSDictionary *)requestHeader
+                                 completionBlock:(nullable MendeleyResponseCompletionBlock)completionBlock
+{
+    NSDictionary *requestBodyRefreshToken = @{ kMendeleyIdPlusTokenKey : mendeleyCredentials.refresh_token,
+                                               kMendeleyIdPlusTokenTypeHintKey: kMendeleyIdPlusTokenTypeHintRefresh};
+    
+    MendeleyTask *task = [MendeleyTask new];
+    id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
+    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
+                            api:kMendeleyOAuthPathRevokeToken
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBodyRefreshToken
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:task
+                completionBlock:completionBlock];
+}
+     
+
 #pragma mark -
 #pragma mark utility methods
 

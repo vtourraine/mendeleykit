@@ -44,4 +44,7 @@
                                            idPlusCredentials:(nonnull MendeleyIDPlusCredentials *)idPlusCredentials
                                              completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
 
+- (void)logOutWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
+                      completionBlock:(nullable MendeleyCompletionBlock)completionBlock;
+
 @end

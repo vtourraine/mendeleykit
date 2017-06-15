@@ -21,6 +21,7 @@
 #define kMendeleyOAuthPathAuthorize         @"oauth/authorize"
 #define kMendeleyOAuthPathAccessToken       @"oauth/access_token"
 #define kMendeleyOAuthPathOAuth2Token       @"oauth/token"
+#define kMendeleyOAuthPathRevokeToken       @"revoke_token.oauth2"
 #define kMendeleyOAuthTokenIdentifier       @"MendeleyCredential"
 #define kMendeleyOAuthAuthorizationCode     @"authorization_code"
 #define kMendeleyOAuthAuthorizationCodeKey  @"grant_type"
@@ -46,3 +47,9 @@
 
 #define kMendeleyIdPlusIdTokenKey           @"id_token"
 #define kMendeleyIdPlusGrantTypeValue       @"idplus"
+
+#define kMendeleyIdPlusTokenKey             @"token"
+#define kMendeleyIdPlusTokenTypeHintKey     @"token_type_hint"
+#define kMendeleyIdPlusTokenTypeHintAccess  @"access_token"
+#define kMendeleyIdPlusTokenTypeHintRefresh @"refresh_token"
+
