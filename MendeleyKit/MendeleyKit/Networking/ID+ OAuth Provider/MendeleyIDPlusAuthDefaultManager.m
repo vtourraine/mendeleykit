@@ -19,7 +19,6 @@
  */
 
 #import "MendeleyIDPlusAuthDefaultManager.h"
-#import "MendeleyIDPlusOAuthProvider.h"
 #import "MendeleyKitConfiguration.h"
 #import "NSError+Exceptions.h"
 #import "MendeleyOAuthConstants.h"
