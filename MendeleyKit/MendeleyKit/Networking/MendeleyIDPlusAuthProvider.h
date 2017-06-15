@@ -25,23 +25,23 @@
 
 @protocol MendeleyIDPlusAuthProvider <NSObject>
 
-- (void)configureWithParameters:(NSDictionary *)parameters;
+- (void)configureWithParameters:(nonnull NSDictionary *)parameters;
 
-- (NSURLRequest *)getAuthURLRequestWithIDPlusClientID:(NSString *)clientID;
+- (nonnull NSURLRequest *)getAuthURLRequestWithIDPlusClientID:(nonnull NSString *)clientID;
 
-- (MendeleyAuthToken *)getAuthCodeAndStateFrom:(NSURL *)requestUrl;
+- (nullable MendeleyAuthToken *)getAuthCodeAndStateFrom:(nonnull NSURL *)requestUrl;
 
-- (void)obtainAccessTokensWithAuthorizationCode:(NSString *)code
-                                completionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
+- (void)obtainAccessTokensWithAuthorizationCode:(nonnull NSString *)code
+                                completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
 
-- (void)obtainIDPlusAccessTokensWithAuthorizationCode:(NSString *)code
-                                completionBlock:(MendeleyIDPlusCompletionBlock)completionBlock;
+- (void)obtainIDPlusAccessTokensWithAuthorizationCode:(nonnull NSString *)code
+                                completionBlock:(nullable MendeleyIDPlusCompletionBlock)completionBlock;
 
-- (void)postProfileWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials
-                           completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock;
+- (void)postProfileWithIDPlusCredentials:(nonnull MendeleyIDPlusCredentials *)credentials
+                           completionBlock:(nullable MendeleyObjectAndStateCompletionBlock)completionBlock;
 
-- (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:( MendeleyOAuthCredentials *)mendeleyCredentials
-                                           idPlusCredentials:( MendeleyIDPlusCredentials *)idPlusCredentials
-                                             completionBlock:( MendeleyOAuthCompletionBlock)completionBlock;
+- (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
+                                           idPlusCredentials:(nonnull MendeleyIDPlusCredentials *)idPlusCredentials
+                                             completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
 
 @end

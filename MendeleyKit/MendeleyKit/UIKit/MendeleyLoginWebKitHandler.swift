@@ -61,7 +61,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     //TODO fix code
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         if let requestURL = webView.url {
-            guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL).code
+            guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL)?.code
                 //TODO: manage errors properly
                 else { self.completionBlock?(false, nil); return }
             
@@ -83,11 +83,8 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                             self.oAuthCompletionBlock?(mergedCredentials, nil)
                             self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
                                 guard let profile = object as? MendeleyProfile
-                                    else {
-                                        //TODO: manage errors properly
-                                        self.completionBlock?(false, nil)
-                                        return
-                                }
+                                    //TODO: manage errors properly
+                                    else {self.completionBlock?(false, nil); return}
                                 
                                 switch state {
                                 case 200:
@@ -98,6 +95,9 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                                     print("state: 201")
                                     // start complete profile flow
                                     self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
+                                        guard let oAuthCredentials = oAuthCredentials
+                                            //TODO: manage errors properly
+                                            else {self.completionBlock?(false, nil); return}
                                         self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
                                             
                                             self.oAuthCompletionBlock?(mendeleyCredentials, nil)
