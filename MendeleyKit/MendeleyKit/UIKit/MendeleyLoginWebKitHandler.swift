@@ -25,7 +25,6 @@ import WebKit
 public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
 {
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
-    let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oauthProvider
     let idPlusProvider = MendeleyKitConfiguration.sharedInstance().idPlusProvider
     public var webView: WKWebView?
     var completionBlock: MendeleySuccessClosure?
@@ -126,9 +125,9 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             }
         }
         
-        if let code = oAuthProvider?.getAuthenticationCode(from: requestURL!)
+        if let token = idPlusProvider?.getAuthCodeAndState(from: requestURL!)
         {
-            oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+            idPlusProvider?.obtainAccessTokens(withAuthorizationCode: token.code, completionBlock: oAuthCompletionBlock!)
         }
         
         decisionHandler(.cancel)
@@ -138,7 +137,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let userInfo = error.userInfo
         if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
         {
-            if (oAuthProvider?.urlStringIsRedirectURI(failingURLString))!
+            if (idPlusProvider?.urlStringIsRedirectURI(failingURLString))!
             {
                 return
             }
