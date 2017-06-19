@@ -44,6 +44,16 @@
                                            idPlusCredentials:(nonnull MendeleyIDPlusCredentials *)idPlusCredentials
                                              completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
 
+/**
+ used when refreshing the access token. The completion block returns the OAuth credentials - or nil
+ if unsuccessful. When nil, an error object will be provided.
+ Threading note: refresh maybe handled on main as well as background thread.
+ @param credentials the current credentials (to be updated with the refresh)
+ @param completionBlock
+ */
+- (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
+                         completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
+
 - (void)logOutWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
                       completionBlock:(nullable MendeleyCompletionBlock)completionBlock;
 

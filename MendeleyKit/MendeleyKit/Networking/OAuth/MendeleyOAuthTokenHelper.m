@@ -48,9 +48,9 @@
 
     else if (credentials.oauthCredentialIsExpired)
     {
-        id<MendeleyOAuthProvider>oauthProvider = [[MendeleyKitConfiguration sharedInstance]
-                                                  oauthProvider];
-        [oauthProvider refreshTokenWithOAuthCredentials:credentials
+        id<MendeleyIDPlusAuthProvider>idPlusProvider = [[MendeleyKitConfiguration sharedInstance]
+                                                  idPlusProvider];
+        [idPlusProvider refreshTokenWithOAuthCredentials:credentials
                                         completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error) {
              if (refreshBlock)
              {

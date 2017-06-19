@@ -316,6 +316,50 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
                 }];
 }
 
+- (void)refreshTokenWithOAuthCredentials:(MendeleyOAuthCredentials *)credentials completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:credentials argumentName:@"credentials"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuth2RefreshToken,
+                                   kMendeleyOAuth2RefreshToken : credentials.refresh_token,
+                                   kMendeleyOAuth2ClientSecretKey : self.oAuthClientSecret,
+                                   kMendeleyOAuth2ClientIDKey : self.oAuthClientId };
+    
+    NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
+                                     kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
+    
+    MendeleyTask *task = [MendeleyTask new];
+    id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
+    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
+                            api:kMendeleyOAuthPathOAuth2Token
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBody
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:task
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
+                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
+                    MendeleyKitHelper *helper = [MendeleyKitHelper new];
+                    
+                    if (![helper isSuccessForResponse:response error:&error])
+                    {
+                        [blockExec executeWithCredentials:nil error:error];
+                    }
+                    else
+                    {
+                        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOpenIDCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
+                            
+                            [blockExec executeWithCredentials:credentials error:parseError];
+                        }];
+                        
+                    }
+                    
+                }];
+}
+
+#pragma mark - Log out
+
 - (void)logOutWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
                        completionBlock:(nullable MendeleyCompletionBlock)completionBlock
 {
