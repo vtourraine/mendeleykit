@@ -83,7 +83,7 @@ open class MendeleyKitLoginHelper: NSObject
 //            }
 //        }
         
-        if #available(iOS 9.0, *) {
+        if #available(iOS 9.0, OSX 10.11, *) {
             let dataStore = WKWebsiteDataStore.default()
             let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
             

@@ -54,7 +54,7 @@
                      clientSecret:(NSString *)clientSecret
                       redirectURI:(NSString *)redirectURI
                   completionBlock:(MendeleyCompletionBlock)completionBlock
-             customIdPlusProvider:(id<MendeleyIdPlusProvider>)customIdPlusProvider;
+             customIdPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIdPlusProvider;
 {
     NSRect frame = NSMakeRect(0, 0, 550, 450);
     NSUInteger styleMask = NSTitledWindowMask | NSResizableWindowMask | NSClosableWindowMask;
@@ -73,7 +73,7 @@
         }
         else
         {
-            _idPlusProviderProvider = customIdPlusProvider;
+            _idPlusProvider = customIdPlusProvider;
         }
         NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
                                            kMendeleyOAuth2ClientIDKey : clientKey,

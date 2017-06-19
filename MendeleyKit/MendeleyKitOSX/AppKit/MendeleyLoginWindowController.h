@@ -22,7 +22,7 @@
 #import <AppKit/AppKit.h>
 #import <WebKit/WebKit.h>
 #import "MendeleyGlobals.h"
-#import "MendeleyOAuthProvider.h"
+#import "MendeleyIDPlusAuthProvider.h"
 
 @interface MendeleyLoginWindowController : NSWindowController
 /**
@@ -56,7 +56,7 @@
                      clientSecret:(NSString *)clientSecret
                       redirectURI:(NSString *)redirectURI
                   completionBlock:(MendeleyCompletionBlock)completionBlock
-              customIdPlusProvider:(id<MendeleyIdPlusProvider>)customIdPlusProvider;
+              customIdPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIdPlusProvider;
 
 /**
    Cancels the operation.
