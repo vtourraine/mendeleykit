@@ -60,53 +60,57 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         if let requestURL = webView.url {
             guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL)?.code
-                //TODO: manage errors properly
-                else { self.completionBlock?(false, nil); return }
+                else {
+                    let error = MendeleyErrorManager.sharedInstance().error(withDomain: kMendeleyErrorDomain, code: MendeleyErrorCode.dataNotAvailableErrorCode.rawValue)
+                    self.completionBlock?(false, (error as NSError?))
+                    return
+            }
             
             idPlusProvider?.obtainIDPlusAccessTokens(withAuthorizationCode: code, completionBlock: { (idPlusCredentials: MendeleyIDPlusCredentials?, idPlusError: Error?) in
-                
-                if let idPlusCredentials = idPlusCredentials {
-                    self.idPlusProvider?.obtainAccessTokens(withAuthorizationCode: code, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, oAuthError: Error?) in
-                        if let oAuthCredentials = oAuthCredentials {
-                            self.oAuthCompletionBlock?(oAuthCredentials, nil)
-                            self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
-                                guard let profile = object as? MendeleyProfile
-                                    //TODO: manage errors properly
-                                    else {self.completionBlock?(false, nil); return}
-                                
-                                switch state {
-                                case 200:
-                                    //check if verified and start verification flow if not
-                                    print("state: 200")
-                                    fallthrough
-                                case 201:
-                                    print("state: 201")
-                                    // start complete profile flow
-                                    self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
-                                        guard let oAuthCredentials = oAuthCredentials
-                                            //TODO: manage errors properly
-                                            else {self.completionBlock?(false, nil); return}
-                                        self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
-                                            
-                                            self.oAuthCompletionBlock?(mendeleyCredentials, nil)
-                                            //TODO handle error
-                                            self.completionBlock?(mendeleyCredentials != nil, nil)
-                                        })
-                                    })
-                                default:
-                                    print("default")
-                                    self.completionBlock?(false, nil)
+                guard let idPlusCredentials = idPlusCredentials
+                    else {
+                        self.completionBlock?(false, (idPlusError as NSError?))
+                        return
+                }
+                self.idPlusProvider?.obtainAccessTokens(withAuthorizationCode: code, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, oAuthError: Error?) in
+                    guard let oAuthCredentials = oAuthCredentials
+                        else {
+                         self.completionBlock?(false, (oAuthError as NSError?))
+                            return
+                    }
+                    self.oAuthCompletionBlock?(oAuthCredentials, nil)
+                    self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
+                        if object == nil {
+                                self.completionBlock?(false, error as NSError?)
+                                return
+                        }
+                        
+                        switch state {
+                        case 200:
+                            //check if verified and start verification flow if not
+                            print("state: 200")
+                            fallthrough
+                        case 201:
+                            print("state: 201")
+                            // start complete profile flow
+                            self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
+                                guard let oAuthCredentials = oAuthCredentials
+                                    else {
+                                        self.completionBlock?(false, (error as NSError?))
+                                        return
                                 }
+                                self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
+                                    self.oAuthCompletionBlock?(mendeleyCredentials, error as NSError?)
+                                    self.completionBlock?(mendeleyCredentials != nil, error as NSError?)
+                                })
                             })
-                        } else {
-                            //TODO: manage errors properly
-                            self.completionBlock?(false, nil)
+                        default:
+                            print("default")
+                            self.completionBlock?(false, (error as NSError?))
                         }
                     })
-                } else {
-                    //TODO: manage errors properly
-                    self.completionBlock?(false, nil)
-                }
+                })
+
             })
             
         }
