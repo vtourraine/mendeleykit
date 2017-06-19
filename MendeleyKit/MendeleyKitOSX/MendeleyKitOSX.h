@@ -81,7 +81,7 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitOSXVersionString[];
 #import <MendeleyKitOSX/MendeleyFile.h>
 #import <MendeleyKitOSX/NSError+Exceptions.h>
 #import <MendeleyKitOSX/MendeleyTaskProvider.h>
-#import <MendeleyKitOSX/MendeleyOAuthProvider.h>
+#import <MendeleyKitOSX/MendeleyIDPlusAuthProvider.h>
 #import <MendeleyKitOSX/MendeleyOAuthConstants.h>
 #import <MendeleyKitOSX/MendeleyOAuthStoreProvider.h>
 #import <MendeleyKitOSX/MendeleyObjectHelper.h>
@@ -89,7 +89,6 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitOSXVersionString[];
 
 #import <MendeleyKitOSX/MendeleyDisciplinesAPI.h>
 #import <MendeleyKitOSX/MendeleyGroupsAPI.h>
-#import <MendeleyKitOSX/MendeleyDefaultOAuthProvider.h>
 #import <MendeleyKitOSX/MendeleyNSURLRequestDownloadHelper.h>
 #import <MendeleyKitOSX/MendeleyNSURLRequestHelper.h>
 #import <MendeleyKitOSX/MendeleyFoldersAPI.h>

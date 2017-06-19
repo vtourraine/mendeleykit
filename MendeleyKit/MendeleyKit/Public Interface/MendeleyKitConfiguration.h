@@ -20,7 +20,6 @@
 
 #import <Foundation/Foundation.h>
 #import "MendeleyNetworkProvider.h"
-#import "MendeleyOAuthProvider.h"
 #import "MendeleyOAuthStoreProvider.h"
 #import "MendeleyIDPlusAuthProvider.h"
 

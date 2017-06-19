@@ -81,14 +81,13 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyFile.h>
 #import <MendeleyKitiOS/NSError+Exceptions.h>
 #import <MendeleyKitiOS/MendeleyTaskProvider.h>
-#import <MendeleyKitiOS/MendeleyOAuthProvider.h>
+#import <MendeleyKitiOS/MendeleyIDPlusAuthProvider.h>
 #import <MendeleyKitiOS/MendeleyOAuthConstants.h>
 #import <MendeleyKitiOS/MendeleyObjectHelper.h>
 #import <MendeleyKitiOS/MendeleyUserRole.h>
 #import <MendeleyKitiOS/MendeleyRecommendedArticle.h>
 #import <MendeleyKitiOS/MendeleyDisciplinesAPI.h>
 #import <MendeleyKitiOS/MendeleyGroupsAPI.h>
-#import <MendeleyKitiOS/MendeleyDefaultOAuthProvider.h>
 #import <MendeleyKitiOS/MendeleyNSURLRequestDownloadHelper.h>
 #import <MendeleyKitiOS/MendeleyNSURLRequestHelper.h>
 #import <MendeleyKitiOS/MendeleyFoldersAPI.h>

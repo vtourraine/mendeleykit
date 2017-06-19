@@ -23,7 +23,6 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyOAuthCredentials.h"
 #import "MendeleyDefaultNetworkProvider.h"
-#import "MendeleyDefaultOAuthProvider.h"
 #import "MendeleyOAuthTokenHelper.h"
 #import "MendeleyKitConfiguration.h"
 #import "MendeleySyncInfo.h"

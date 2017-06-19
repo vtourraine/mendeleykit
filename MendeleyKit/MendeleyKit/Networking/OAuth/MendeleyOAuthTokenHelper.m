@@ -20,7 +20,6 @@
 
 #import "MendeleyOAuthTokenHelper.h"
 #import "MendeleyOAuthStore.h"
-#import "MendeleyOAuthProvider.h"
 #import "MendeleyKitConfiguration.h"
 #import "NSError+MendeleyError.h"
 

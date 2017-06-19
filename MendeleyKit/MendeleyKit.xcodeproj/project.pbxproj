@@ -54,7 +54,6 @@
 		145C2DF61A2CAB0D0005BFF6 /* MendeleyConnectionReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A134E819DADE670069DB7A /* MendeleyConnectionReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DF71A2CAB0D0005BFF6 /* MendeleyURLBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A134EA19DADE670069DB7A /* MendeleyURLBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DF81A2CAB0D0005BFF6 /* MendeleyNetworkProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352419DADEC40069DB7A /* MendeleyNetworkProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		145C2DF91A2CAB0D0005BFF6 /* MendeleyOAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352519DADEC40069DB7A /* MendeleyOAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DFA1A2CAB0D0005BFF6 /* MendeleyAnnotationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352819DADF280069DB7A /* MendeleyAnnotationsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DFB1A2CAB0D0005BFF6 /* MendeleyDocumentsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352A19DADF280069DB7A /* MendeleyDocumentsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DFC1A2CAB0D0005BFF6 /* MendeleyFilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352C19DADF280069DB7A /* MendeleyFilesAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -181,7 +180,6 @@
 		C42111D11A2341A9006C044C /* MendeleyDownloadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351819DADEB20069DB7A /* MendeleyDownloadHelper.m */; };
 		C42111D21A2341A9006C044C /* MendeleyNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351A19DADEB20069DB7A /* MendeleyNetworkTask.m */; };
 		C42111D31A2341A9006C044C /* MendeleyUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351C19DADEB20069DB7A /* MendeleyUploadHelper.m */; };
-		C42111D41A2341A9006C044C /* MendeleyDefaultOAuthProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351119DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m */; };
 		C42111D51A2341A9006C044C /* MendeleyQueryRequestParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A134FF19DADE950069DB7A /* MendeleyQueryRequestParameters.m */; };
 		C42111D61A2341A9006C044C /* MendeleyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1350119DADE950069DB7A /* MendeleyRequest.m */; };
 		C42111D71A2341A9006C044C /* MendeleyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1350319DADE950069DB7A /* MendeleyResponse.m */; };
@@ -323,8 +321,6 @@
 		C466577C1B3845C3005F762A /* MendeleyNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351A19DADEB20069DB7A /* MendeleyNetworkTask.m */; };
 		C466577D1B3845C6005F762A /* MendeleyUploadHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1351B19DADEB20069DB7A /* MendeleyUploadHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466577E1B3845CB005F762A /* MendeleyUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351C19DADEB20069DB7A /* MendeleyUploadHelper.m */; };
-		C466577F1B3845D4005F762A /* MendeleyDefaultOAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1351019DADEA40069DB7A /* MendeleyDefaultOAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C46657801B3845DD005F762A /* MendeleyDefaultOAuthProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1351119DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m */; };
 		C46657811B3845E3005F762A /* MendeleyQueryRequestParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A134FE19DADE950069DB7A /* MendeleyQueryRequestParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657821B3845EC005F762A /* MendeleyQueryRequestParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A134FF19DADE950069DB7A /* MendeleyQueryRequestParameters.m */; };
 		C46657831B3845F0005F762A /* MendeleyRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1350019DADE950069DB7A /* MendeleyRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -349,7 +345,6 @@
 		C46657961B384665005F762A /* MendeleyURLBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A134EA19DADE670069DB7A /* MendeleyURLBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657971B384669005F762A /* MendeleyURLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A134EB19DADE670069DB7A /* MendeleyURLBuilder.m */; };
 		C46657981B38466E005F762A /* MendeleyNetworkProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352419DADEC40069DB7A /* MendeleyNetworkProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C46657991B384674005F762A /* MendeleyOAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352519DADEC40069DB7A /* MendeleyOAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466579A1B384682005F762A /* MendeleyAcademicStatusesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F095131AA47B3200C5951C /* MendeleyAcademicStatusesAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466579B1B384686005F762A /* MendeleyAcademicStatusesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F095141AA47B3200C5951C /* MendeleyAcademicStatusesAPI.m */; };
 		C466579C1B384689005F762A /* MendeleyAnnotationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352819DADF280069DB7A /* MendeleyAnnotationsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -431,7 +426,6 @@
 		C48EF2061B735EAC0023916F /* MendeleyAnalyticsRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = C48B4C781B5E582800578E5B /* MendeleyAnalyticsRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C48EF2071B735EB00023916F /* MendeleyDefaultAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C406B3011B611862003040F5 /* MendeleyDefaultAnalytics.swift */; };
 		C48EF2081B7360E60023916F /* MendeleyCancellableRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B387EE919ED59C500ACCBE1 /* MendeleyCancellableRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C48EF2091B7361520023916F /* MendeleyDefaultOAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1351019DADEA40069DB7A /* MendeleyDefaultOAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C48EF20A1B73616F0023916F /* MendeleyNSURLConnectionProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B387EDD19ED10D500ACCBE1 /* MendeleyNSURLConnectionProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C48EF20B1B7361790023916F /* MendeleyNSURLRequestHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B387EE319ED15CD00ACCBE1 /* MendeleyNSURLRequestHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C48EF20C1B7361D90023916F /* MendeleyNSURLRequestDownloadHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B387EE619ED174000ACCBE1 /* MendeleyNSURLRequestDownloadHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -733,8 +727,6 @@
 		C4A1350719DADE950069DB7A /* MendeleyTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyTask.m; path = "Networking/Networking Objects/MendeleyTask.m"; sourceTree = "<group>"; };
 		C4A1350819DADE950069DB7A /* MendeleyTaskProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyTaskProvider.h; path = "Networking/Networking Objects/MendeleyTaskProvider.h"; sourceTree = "<group>"; };
 		C4A1350919DADE950069DB7A /* MendeleyTaskProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyTaskProvider.m; path = "Networking/Networking Objects/MendeleyTaskProvider.m"; sourceTree = "<group>"; };
-		C4A1351019DADEA40069DB7A /* MendeleyDefaultOAuthProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyDefaultOAuthProvider.h; path = "Networking/Default OAuth Provider/MendeleyDefaultOAuthProvider.h"; sourceTree = "<group>"; };
-		C4A1351119DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyDefaultOAuthProvider.m; path = "Networking/Default OAuth Provider/MendeleyDefaultOAuthProvider.m"; sourceTree = "<group>"; };
 		C4A1351319DADEB20069DB7A /* MendeleyDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyDataHelper.h; path = "Networking/Default Network Provider/MendeleyDataHelper.h"; sourceTree = "<group>"; };
 		C4A1351419DADEB20069DB7A /* MendeleyDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyDataHelper.m; path = "Networking/Default Network Provider/MendeleyDataHelper.m"; sourceTree = "<group>"; };
 		C4A1351519DADEB20069DB7A /* MendeleyDefaultNetworkProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyDefaultNetworkProvider.h; path = "Networking/Default Network Provider/MendeleyDefaultNetworkProvider.h"; sourceTree = "<group>"; };
@@ -746,7 +738,6 @@
 		C4A1351B19DADEB20069DB7A /* MendeleyUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyUploadHelper.h; path = "Networking/Default Network Provider/MendeleyUploadHelper.h"; sourceTree = "<group>"; };
 		C4A1351C19DADEB20069DB7A /* MendeleyUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyUploadHelper.m; path = "Networking/Default Network Provider/MendeleyUploadHelper.m"; sourceTree = "<group>"; };
 		C4A1352419DADEC40069DB7A /* MendeleyNetworkProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyNetworkProvider.h; path = Networking/MendeleyNetworkProvider.h; sourceTree = "<group>"; };
-		C4A1352519DADEC40069DB7A /* MendeleyOAuthProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyOAuthProvider.h; path = Networking/MendeleyOAuthProvider.h; sourceTree = "<group>"; };
 		C4A1352819DADF280069DB7A /* MendeleyAnnotationsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyAnnotationsAPI.h; path = "Public Interface/API Interfaces/MendeleyAnnotationsAPI.h"; sourceTree = "<group>"; };
 		C4A1352919DADF280069DB7A /* MendeleyAnnotationsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyAnnotationsAPI.m; path = "Public Interface/API Interfaces/MendeleyAnnotationsAPI.m"; sourceTree = "<group>"; };
 		C4A1352A19DADF280069DB7A /* MendeleyDocumentsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyDocumentsAPI.h; path = "Public Interface/API Interfaces/MendeleyDocumentsAPI.h"; sourceTree = "<group>"; };
@@ -1116,14 +1107,12 @@
 			children = (
 				016BD7831EEAD2EB001D7691 /* IDPlus */,
 				C4A134E219DADE170069DB7A /* Default Network Provider */,
-				C4A134E319DADE250069DB7A /* Default OAuth Provider */,
 				C4A134E419DADE320069DB7A /* Networking Objects */,
 				0B387EDC19ED106800ACCBE1 /* NSURLConnection Provider */,
 				C4A134E519DADE3E0069DB7A /* OAuth */,
 				C4A134E619DADE460069DB7A /* Simple Network Provider */,
 				C4A134E719DADE530069DB7A /* Utils */,
 				C4A1352419DADEC40069DB7A /* MendeleyNetworkProvider.h */,
-				C4A1352519DADEC40069DB7A /* MendeleyOAuthProvider.h */,
 				72D033421D647BDA004E7D1A /* MendeleyOAuthStoreProvider.h */,
 			);
 			name = Networking;
@@ -1221,15 +1210,6 @@
 				C4A1351C19DADEB20069DB7A /* MendeleyUploadHelper.m */,
 			);
 			name = "Default Network Provider";
-			sourceTree = "<group>";
-		};
-		C4A134E319DADE250069DB7A /* Default OAuth Provider */ = {
-			isa = PBXGroup;
-			children = (
-				C4A1351019DADEA40069DB7A /* MendeleyDefaultOAuthProvider.h */,
-				C4A1351119DADEA40069DB7A /* MendeleyDefaultOAuthProvider.m */,
-			);
-			name = "Default OAuth Provider";
 			sourceTree = "<group>";
 		};
 		C4A134E419DADE320069DB7A /* Networking Objects */ = {
@@ -1585,12 +1565,10 @@
 				145C2DF71A2CAB0D0005BFF6 /* MendeleyURLBuilder.h in Headers */,
 				145C2DF81A2CAB0D0005BFF6 /* MendeleyNetworkProvider.h in Headers */,
 				C42AAA281A7BC3BF00502358 /* MendeleyDisciplinesAPI.h in Headers */,
-				145C2DF91A2CAB0D0005BFF6 /* MendeleyOAuthProvider.h in Headers */,
 				145C2DFA1A2CAB0D0005BFF6 /* MendeleyAnnotationsAPI.h in Headers */,
 				145C2DFB1A2CAB0D0005BFF6 /* MendeleyDocumentsAPI.h in Headers */,
 				145C2DFC1A2CAB0D0005BFF6 /* MendeleyFilesAPI.h in Headers */,
 				D706C7521D3378DE00381886 /* MendeleyDataset.h in Headers */,
-				C48EF2091B7361520023916F /* MendeleyDefaultOAuthProvider.h in Headers */,
 				145C2DFD1A2CAB0D0005BFF6 /* MendeleyFoldersAPI.h in Headers */,
 				145C2DFE1A2CAB0D0005BFF6 /* MendeleyGroupsAPI.h in Headers */,
 				145C2DFF1A2CAB0D0005BFF6 /* MendeleyMetadataAPI.h in Headers */,
@@ -1697,7 +1675,6 @@
 				C466575C1B384528005F762A /* MendeleyFile.h in Headers */,
 				C466579E1B38468F005F762A /* MendeleyDisciplinesAPI.h in Headers */,
 				C46657A81B3846B2005F762A /* MendeleyGroupsAPI.h in Headers */,
-				C466577F1B3845D4005F762A /* MendeleyDefaultOAuthProvider.h in Headers */,
 				C46657D91B3848FC005F762A /* MendeleyNSURLRequestDownloadHelper.h in Headers */,
 				C46657D71B3848F5005F762A /* MendeleyNSURLRequestHelper.h in Headers */,
 				533248D41D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */,
@@ -1720,7 +1697,6 @@
 				55805B3C1DD1F79C00AAFBEC /* MendeleyFeedsAPI.h in Headers */,
 				725CFFE41B7B4D1500AC6758 /* MendeleyApplicationFeaturesAPI.h in Headers */,
 				55805B421DD349AD00AAFBEC /* MendeleyNewsFeed.h in Headers */,
-				C46657991B384674005F762A /* MendeleyOAuthProvider.h in Headers */,
 				53863F741D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */,
 				C466578D1B384633005F762A /* MendeleyOAuthConstants.h in Headers */,
 				C46657731B384592005F762A /* MendeleyObjectHelper.h in Headers */,
@@ -2063,7 +2039,6 @@
 				C42111D11A2341A9006C044C /* MendeleyDownloadHelper.m in Sources */,
 				C42111D21A2341A9006C044C /* MendeleyNetworkTask.m in Sources */,
 				C42111D31A2341A9006C044C /* MendeleyUploadHelper.m in Sources */,
-				C42111D41A2341A9006C044C /* MendeleyDefaultOAuthProvider.m in Sources */,
 				5346A4A71E8BC2930054714F /* MendeleyCommentsAPI.m in Sources */,
 				55F35DB91D4A57B30052F122 /* MendeleyProfileUtils.m in Sources */,
 				5345B9F41E02F89D004DF4FE /* MendeleyAnalyticsEventSync.swift in Sources */,
@@ -2225,7 +2200,6 @@
 				558760791E38FCE000F6032B /* MendeleySharesAPI.m in Sources */,
 				C46657741B384598005F762A /* MendeleyObjectHelper.m in Sources */,
 				645F7A7F1C52603E006D7B24 /* Color+Addons.swift in Sources */,
-				C46657801B3845DD005F762A /* MendeleyDefaultOAuthProvider.m in Sources */,
 				C46657E31B385AB2005F762A /* MendeleyLoginHandler.swift in Sources */,
 				C46657CC1B384751005F762A /* MendeleyBlockExecutor.m in Sources */,
 				C46657A31B3846A1005F762A /* MendeleyFilesAPI.m in Sources */,
