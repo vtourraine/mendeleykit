@@ -358,6 +358,11 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
                 }];
 }
 
+- (BOOL)urlStringIsRedirectURI:(NSString *)urlString
+{
+    return [urlString hasPrefix:self.oAuthRedirectUri];
+}
+
 #pragma mark - Log out
 
 - (void)logOutWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials

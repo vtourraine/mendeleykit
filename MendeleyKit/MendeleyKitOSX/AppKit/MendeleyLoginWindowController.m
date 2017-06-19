@@ -23,7 +23,6 @@
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyOAuthConstants.h"
 #import "MendeleyOAuthStore.h"
-#import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
 
 @interface MendeleyLoginWindowController ()
@@ -33,7 +32,7 @@
 @property (nonatomic, strong) NSString *redirectURI;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
-@property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
+@property (nonatomic, strong) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 
 @end
 
@@ -48,14 +47,14 @@
                       clientSecret:clientSecret
                        redirectURI:redirectURI
                    completionBlock:completionBlock
-               customOAuthProvider:nil];
+               customIdPlusProvider:nil];
 }
 
 - (instancetype)initWithClientKey:(NSString *)clientKey
                      clientSecret:(NSString *)clientSecret
                       redirectURI:(NSString *)redirectURI
                   completionBlock:(MendeleyCompletionBlock)completionBlock
-              customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
+             customIdPlusProvider:(id<MendeleyIdPlusProvider>)customIdPlusProvider;
 {
     NSRect frame = NSMakeRect(0, 0, 550, 450);
     NSUInteger styleMask = NSTitledWindowMask | NSResizableWindowMask | NSClosableWindowMask;
@@ -68,13 +67,13 @@
     self = [super initWithWindow:window];
     if (self)
     {
-        if (nil == customOAuthProvider)
+        if (nil == customIdPlusProvider)
         {
-            _oauthProvider = [[MendeleyKitConfiguration sharedInstance] oauthProvider];
+            _idPlusProvider = [[MendeleyKitConfiguration sharedInstance] idPlusProvider];
         }
         else
         {
-            _oauthProvider = customOAuthProvider;
+            _idPlusProviderProvider = customIdPlusProvider;
         }
         NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
                                            kMendeleyOAuth2ClientIDKey : clientKey,
@@ -135,8 +134,8 @@
     if (nil != code)
     {
         MendeleyOAuthCompletionBlock oAuthCompletionBlock = self.oAuthCompletionBlock;
-        [self.oauthProvider authenticateWithAuthenticationCode:code
-                                               completionBlock:oAuthCompletionBlock];
+        [self.idPlusProvider obtainAccessTokensWithAuthorizationCode:code completionBlock:oAuthCompletionBlock];
+        
         [listener ignore];
         return;
     }
@@ -153,7 +152,7 @@
     NSDictionary *userInfo = [error userInfo];
     NSString *failingURLString = [userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
 
-    if (nil != failingURLString && [self.oauthProvider urlStringIsRedirectURI:failingURLString])
+    if (nil != failingURLString && [self.idPlusProvider urlStringIsRedirectURI:failingURLString])
     {
         // ignore if redirect URI
         return;
@@ -235,7 +234,7 @@
 
 - (NSURLRequest *)oauthURLRequest
 {
-    return self.oauthProvider.oauthURLRequest;
+    return [self.idPlusProvider getAuthURLRequestWithIDPlusClientID:kIDPlusClientID];
 }
 
 - (NSString *)authenticationCodeFromURLRequest:(NSURLRequest *)request

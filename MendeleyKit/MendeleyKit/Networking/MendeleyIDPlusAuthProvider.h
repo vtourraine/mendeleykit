@@ -54,6 +54,13 @@
 - (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
                          completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
 
+/**
+ checks if the url string given is the Redirect URL
+ @param urlString
+ @return YES if it is URL string
+ */
+- (BOOL)urlStringIsRedirectURI:(nullable NSString *)urlString;
+
 - (void)logOutWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
                       completionBlock:(nullable MendeleyCompletionBlock)completionBlock;
 

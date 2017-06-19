@@ -49,13 +49,14 @@
    @param clientKey
    @param clientSecret
    @param redirectURI
+   @param custom ID+ provider
    @param completionBlock
  */
 - (instancetype)initWithClientKey:(NSString *)clientKey
                      clientSecret:(NSString *)clientSecret
                       redirectURI:(NSString *)redirectURI
                   completionBlock:(MendeleyCompletionBlock)completionBlock
-              customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
+              customIdPlusProvider:(id<MendeleyIdPlusProvider>)customIdPlusProvider;
 
 /**
    Cancels the operation.
