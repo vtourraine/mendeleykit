@@ -320,8 +320,8 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
                        completionBlock:(nullable MendeleyCompletionBlock)completionBlock
 {
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
-                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:self.oAuthClientId
-                                                                                           clientSecret:self.oAuthClientSecret]};
+                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:kIDPlusClientID
+                                                                                           clientSecret:kIDPlusSecret]};
 
     [self revokeAccessTokenWithMendeleyCredentials:mendeleyCredentials
                                      requestHeader:requestHeader
