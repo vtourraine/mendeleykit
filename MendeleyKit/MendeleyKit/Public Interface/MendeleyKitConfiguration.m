@@ -20,7 +20,6 @@
 
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyDefaultNetworkProvider.h"
-#import "MendeleyDefaultOAuthProvider.h"
 #import "MendeleyIDPlusAuthDefaultManager.h"
 #import "MendeleyKitUserInfoManager.h"
 #import "MendeleyOAuthStore.h"
@@ -39,7 +38,6 @@ NSString *const kIDPlusResponseTypeDefault = @"code";
 typedef NS_ENUM(int, MendeleyCustomClassType)
 {
     NetworkProvider = 0,
-    OAuthProvider,
     StoreProvider,
     IDPlusProvider
 };
@@ -49,7 +47,6 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 @property (nonatomic, strong, readwrite) NSURL *baseAPIURL;
 @property (nonatomic, assign, readwrite) NSString *documentViewType;
 @property (nonatomic, strong, readwrite) id<MendeleyNetworkProvider> networkProvider;
-@property (nonatomic, strong, readwrite) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthStoreProvider> storeProvider;
 @end
@@ -83,11 +80,6 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 //TODO refactor method name
 - (void)configureOAuthWithParameters:(NSDictionary *)oAuthParameters
 {
-    if (nil != self.oauthProvider &&
-        [self.oauthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
-    {
-        [self.oauthProvider configureOAuthWithParameters:oAuthParameters];
-    }
     if (nil != self.idPlusProvider &&
         [self.idPlusProvider respondsToSelector:@selector(configureWithParameters:)])
     {
@@ -127,9 +119,6 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
         self.documentViewType = baseViewType;
     }
 
-    NSString *oauthProviderName = [configurationParameters objectForKey:kMendeleyOAuthProviderKey];
-    [self createProviderForClassName:oauthProviderName classType:(OAuthProvider)];
-    
     NSString *idPlusProviderName = [configurationParameters objectForKey:kMendeleyIDPlusAuthProviderKey];
     [self createProviderForClassName:idPlusProviderName classType:(IDPlusProvider)];
 
@@ -160,12 +149,6 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
                 self.networkProvider = provider;
             }
             break;
-        case OAuthProvider:
-            if ([provider conformsToProtocol:@protocol(MendeleyOAuthProvider)])
-            {
-                self.oauthProvider = provider;
-            }
-            break;
         case IDPlusProvider:
             if ([provider conformsToProtocol:@protocol(MendeleyIDPlusAuthProvider)])
             {
@@ -186,7 +169,6 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 - (void)resetToDefault
 {
     _networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
-    _oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
     _idPlusProvider = [MendeleyIDPlusAuthDefaultManager sharedInstance];
     _storeProvider = [MendeleyOAuthStore new];
     _isTrustedSSLServer = NO;

@@ -19,7 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "MendeleyOAuthProvider.h"
+#import "MendeleyIdPlusAuthProvider.h"
 
 @interface MendeleyLoginViewController : UIViewController
 /**
@@ -54,6 +54,6 @@
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
         completionBlock:(MendeleyCompletionBlock)completionBlock
-    customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
+   customIdPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIdPlusProvider;
 
 @end

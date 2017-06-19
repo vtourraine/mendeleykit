@@ -318,6 +318,13 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
 
 - (void)refreshTokenWithOAuthCredentials:(MendeleyOAuthCredentials *)credentials completionBlock:(MendeleyOAuthCompletionBlock)completionBlock
 {
+    [self refreshTokenWithOAuthCredentials:credentials task:nil completionBlock:completionBlock];
+}
+
+- (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
+                                    task:(nullable MendeleyTask *)task
+                         completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock
+{
     [NSError assertArgumentNotNil:credentials argumentName:@"credentials"];
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuth2RefreshToken,
@@ -325,6 +332,44 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
                                    kMendeleyOAuth2ClientSecretKey : self.oAuthClientSecret,
                                    kMendeleyOAuth2ClientIDKey : self.oAuthClientId };
     
+    NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
+                                     kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
+    
+    id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
+    [networkProvider invokePOST:MendeleyKitConfiguration.sharedInstance.baseAPIURL
+                            api:kMendeleyOAuthPathOAuth2Token
+              additionalHeaders:requestHeader
+                 bodyParameters:requestBody
+                         isJSON:NO
+         authenticationRequired:NO
+                           task:task
+                completionBlock:^(MendeleyResponse *response, NSError *error) {
+                    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithOAuthCompletionBlock:completionBlock];
+                    MendeleyKitHelper *helper = [MendeleyKitHelper new];
+                    
+                    if (![helper isSuccessForResponse:response error:&error])
+                    {
+                        [blockExec executeWithCredentials:nil error:error];
+                    }
+                    else
+                    {
+                        MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelOpenIDCredentials completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *parseError) {
+                            
+                            [blockExec executeWithCredentials:credentials error:parseError];
+                        }];
+                        
+                    }
+                    
+                }];
+}
+
+- (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock
+{
+    NSDictionary *requestBody = @{ kMendeleyOAuthAuthorizationCodeKey : kMendeleyOAuthClientCredentials,
+                                   kMendeleyOAuth2ScopeKey : kMendeleyOAuth2Scope,
+                                   kMendeleyOAuth2ClientSecretKey : self.oAuthClientSecret,
+                                   kMendeleyOAuth2ClientIDKey : self.oAuthClientId };
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType };
     

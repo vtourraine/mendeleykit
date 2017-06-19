@@ -23,7 +23,6 @@
 #import "MendeleyKitConfiguration.h"
 #import "MendeleyOAuthConstants.h"
 #import "MendeleyOAuthStore.h"
-#import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
 #import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
 
@@ -34,7 +33,7 @@
 @property (nonatomic, strong) NSString *redirectURI;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
-@property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
+@property (nonatomic, strong) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *loginHandler;
 @property (nonatomic, assign) BOOL isHandlingOAuth;
 @end
@@ -50,7 +49,7 @@
                       clientSecret:clientSecret
                        redirectURI:redirectURI
                    completionBlock:completionBlock
-               customOAuthProvider:nil];
+               customIdPlusProvider:nil];
 
 }
 
@@ -59,18 +58,18 @@
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
         completionBlock:(MendeleyCompletionBlock)completionBlock
-    customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
+    customIdPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIdPlusProvider
 {
     self = [super init];
     if (nil != self)
     {
-        if (nil == customOAuthProvider)
+        if (nil == customIdPlusProvider)
         {
-            _oauthProvider = [[MendeleyKitConfiguration sharedInstance] oauthProvider];
+            _idPlusProvider = [[MendeleyKitConfiguration sharedInstance] idPlusProvider];
         }
         else
         {
-            _oauthProvider = customOAuthProvider;
+            _idPlusProvider = customIdPlusProvider;
         }
         NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
                                            kMendeleyOAuth2ClientIDKey : clientKey,

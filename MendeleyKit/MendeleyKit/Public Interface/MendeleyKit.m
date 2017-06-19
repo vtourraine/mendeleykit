@@ -237,7 +237,7 @@
     MendeleyTask *task = [MendeleyTask new];
     MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
     MendeleyKitConfiguration *configuration = [MendeleyKitConfiguration sharedInstance];
-    [configuration.oauthProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *updatedCredentials, NSError *error) {
+    [configuration.idPlusProvider refreshTokenWithOAuthCredentials:credentials task:task completionBlock:^(MendeleyOAuthCredentials *updatedCredentials, NSError *error) {
          BOOL success = NO;
          if (nil != updatedCredentials)
          {

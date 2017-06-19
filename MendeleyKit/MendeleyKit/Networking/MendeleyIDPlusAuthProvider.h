@@ -22,6 +22,7 @@
 #import "MendeleyOAuthCredentials.h"
 #import "MendeleyGlobals.h"
 #import "MendeleyAuthToken.h"
+#import "MendeleyTask.h"
 
 @protocol MendeleyIDPlusAuthProvider <NSObject>
 
@@ -53,6 +54,20 @@
  */
 - (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
                          completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
+
+/**
+ used when refreshing the access token. The completion block returns the OAuth credentials - or nil
+ if unsuccessful. When nil, an error object will be provided.
+ Threading note: refresh maybe handled on main as well as background thread.
+ @param credentials the current credentials (to be updated with the refresh)
+ @param task the task corresponding to the current operation
+ @param completionBlock
+ */
+- (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
+                                    task:(nullable MendeleyTask *)task
+                         completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
+
+- (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
 
 /**
  checks if the url string given is the Redirect URL
