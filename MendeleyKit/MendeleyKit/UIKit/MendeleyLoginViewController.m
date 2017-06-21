@@ -96,25 +96,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    __strong MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error){
+    __strong MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error) {
         if (nil != credentials)
         {
-            BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
-            if (nil != self.completionBlock)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.completionBlock(success, nil);
-                });
-            }
-        }
-        else
-        {
-            if (nil != self.completionBlock)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.completionBlock(NO, error);
-                });
-            }
+            [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
         }
     };
     
