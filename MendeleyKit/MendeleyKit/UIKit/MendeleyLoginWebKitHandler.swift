@@ -135,7 +135,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     
     func verifyProfile(profileID: String) {
         // TODO: Use base API URL once it works
-        let baseURL = "https://staging.mendeley.com"
+        let baseURL = URL(string: "https://staging.mendeley.com")
         guard let redirect = redirectURI
             else { return }
         
