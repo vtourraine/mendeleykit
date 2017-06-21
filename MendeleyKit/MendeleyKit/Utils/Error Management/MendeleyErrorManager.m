@@ -71,9 +71,23 @@
     [NSError assertStringArgumentNotNilOrEmpty:errorDomain argumentName:@"errorDomain"];
 
     id <MendeleyUserInfoProvider> helper = [self.helpers objectForKey:errorDomain];
-    [NSError assertArgumentNotNil:helper argumentName:@"helper"];
 
-    NSDictionary *userInfo = [helper userInfoWithErrorCode:errorCode];
+    NSDictionary *userInfo = nil;
+    
+    if (helper)
+    {
+        userInfo = [helper userInfoWithErrorCode:errorCode];
+    }
+    else
+    {
+        NSString *const unknownDomain = [NSString stringWithFormat:@"Unknown: unsupported error domain (%@ - %zd)", errorDomain, errorCode];
+        userInfo = @{
+                     NSLocalizedDescriptionKey: unknownDomain,
+                     NSLocalizedFailureReasonErrorKey: unknownDomain,
+                     NSLocalizedRecoverySuggestionErrorKey: unknownDomain
+                     };
+    }
+    
     [NSError assertArgumentNotNil:userInfo argumentName:@"userInfo"];
 
     NSError *error = [NSError errorWithDomain:errorDomain code:errorCode userInfo:userInfo];
