@@ -139,3 +139,10 @@
 
 @end
 
+@interface MendeleyProfileVerificationStatus : MendeleySecureObject
+
+@property (nonatomic, strong) NSString *profile_uuid;
+@property (nonatomic, strong) NSString *autolink_verification_status;
+
+@end
+

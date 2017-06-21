@@ -253,7 +253,7 @@
                     }
                     else
                     {
-                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelProfile completionBlock: ^(MendeleyObject *object, NSError *parseError) {
+                        [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelProfileVerificationStatus completionBlock: ^(MendeleyObject *object, NSError *parseError) {
                             [blockExec executeWithMendeleyObject:object
                                                            state:response.statusCode
                                                            error:parseError];

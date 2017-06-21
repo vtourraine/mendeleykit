@@ -29,11 +29,13 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     public var webView: WKWebView?
     var completionBlock: MendeleySuccessClosure?
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
+    var redirectURI: String?
     
     public func startLoginProcess(_ clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
+        self.redirectURI = redirectURI
         configureWebView(controller)
         
         let helper = MendeleyKitLoginHelper()
@@ -87,23 +89,21 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                         
                         switch state {
                         case 200:
-                            //check if verified and start verification flow if not
-                            print("state: 200")
-                            fallthrough
+                            if let profileStatus = object as? MendeleyProfileVerificationStatus {
+                                
+                                if profileStatus.autolink_verification_status == "VERIFIED" {
+                                    
+                                    self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
+                                    
+                                } else {
+                                    
+                                    self.verifyProfile(profileID: profileStatus.profile_uuid)
+                                }
+                            }
                         case 201:
                             print("state: 201")
-                            // start complete profile flow
-                            self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
-                                guard let oAuthCredentials = oAuthCredentials
-                                    else {
-                                        self.completionBlock?(false, (error as NSError?))
-                                        return
-                                }
-                                self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
-                                    self.oAuthCompletionBlock?(mendeleyCredentials, error as NSError?)
-                                    self.completionBlock?(mendeleyCredentials != nil, error as NSError?)
-                                })
-                            })
+                            self.askForConsent()
+                            
                         default:
                             print("default")
                             self.completionBlock?(false, (error as NSError?))
@@ -114,6 +114,41 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             })
             
         }
+    }
+    
+    func completeLogin(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials)
+    {
+        //check if verified and start verification flow if not
+        print("state: 200")                            // start complete profile flow
+        self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
+            guard let oAuthCredentials = oAuthCredentials
+                else {
+                    self.completionBlock?(false, (error as NSError?))
+                    return
+            }
+            self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
+                self.oAuthCompletionBlock?(mendeleyCredentials, error as NSError?)
+                self.completionBlock?(mendeleyCredentials != nil, error as NSError?)
+            })
+        })
+    }
+    
+    func verifyProfile(profileID: String) {
+        let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
+        guard let redirect = redirectURI
+            else { return }
+        
+        let requestURL = "verify/\(profileID)/?routeTo=\(redirect)"
+        
+        let url = URL(string: requestURL, relativeTo: baseURL)
+        
+        let request = URLRequest(url: url!)
+        
+        _ = webView?.load(request)
+    }
+    
+    func askForConsent() {
+        
     }
     
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)

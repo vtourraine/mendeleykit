@@ -286,6 +286,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelAnnotation                          @"MendeleyAnnotation"
 #define kMendeleyModelUserRole                            @"MendeleyUserRole"
 #define kMendeleyModelProfile                             @"MendeleyProfile"
+#define kMendeleyModelProfileVerificationStatus           @"MendeleyProfileVerificationStatus"
 #define kMendeleyModelUserProfile                         @"MendeleyUserProfile"
 #define kMendeleyModelEmployment                          @"MendeleyEmployment"
 #define kMendeleyModelEducation                           @"MendeleyEducation"

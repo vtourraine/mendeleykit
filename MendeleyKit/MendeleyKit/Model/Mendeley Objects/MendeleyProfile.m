@@ -63,3 +63,6 @@
 
 @implementation MendeleyAmendmentProfile
 @end
+
+@implementation MendeleyProfileVerificationStatus
+@end
