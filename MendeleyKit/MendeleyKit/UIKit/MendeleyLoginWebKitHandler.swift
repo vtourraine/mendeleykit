@@ -31,6 +31,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
     var redirectURI: String?
     var parentViewController: UIViewController?
+    var consentViewController: MendeleyLoginConsentViewController?
     
     public func startLoginProcess(_ clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
     {
@@ -157,7 +158,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let bundleURL = podBundle.url(forResource: "MendeleyKitiOS", withExtension: "bundle")
         let bundle = Bundle(url: bundleURL!)
         
-        let consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController",
+        consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController",
                                                                        bundle: bundle)
         
         var frame = webView?.frame ?? CGRect.zero
@@ -169,10 +170,10 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             }
         }
         
-        consentViewController.view.frame = frame
-        consentViewController.view.autoresizingMask = (webView?.autoresizingMask)!
+        consentViewController!.view.frame = frame
+        consentViewController!.view.autoresizingMask = (webView?.autoresizingMask)!
         
-        parentViewController?.view.addSubview(consentViewController.view)
+        parentViewController?.view.addSubview(consentViewController!.view)
     }
     
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
