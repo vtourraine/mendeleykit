@@ -35,14 +35,14 @@ open class MendeleyLoginConsentViewController: UIViewController {
     @IBOutlet var doneButton: UIButton!
     
     var disciplines: [MendeleyDiscipline]?
-    var roles: [MendeleyUserRole]?
+    var roles: [MendeleyAcademicStatus]?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         MendeleyKit.sharedInstance().userRoles { (objects: [Any]?, sycnInfo: MendeleySyncInfo?, error: Error?) in
             if objects?.count ?? 0 > 0 {
-                self.roles = objects as? [MendeleyUserRole]
+                self.roles = objects as? [MendeleyAcademicStatus]
                 self.rolePicker.reloadAllComponents()
             }
         }
@@ -70,15 +70,37 @@ open class MendeleyLoginConsentViewController: UIViewController {
 }
 
 extension MendeleyLoginConsentViewController: UIPickerViewDelegate {
-    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    
+    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var text: String?
         if (pickerView == rolePicker) {
-            return roles?[component].role
+            text = roles?[row].objectDescription
         } else if (pickerView == disciplinePicker) {
-            return disciplines?[component].name
+            text = disciplines?[row].name
         }
         
-        return nil
+        if let label = view as? UILabel {
+            label.text = text
+            return label
+        }
+        
+        let newLabel = UILabel()
+        
+        newLabel.font = UIFont(name: "Arial", size: 16.0)
+        newLabel.textColor = UIColor.init(white: 71.0/255.0, alpha: 1.0)
+        newLabel.textAlignment = .center
+        
+        newLabel.adjustsFontSizeToFitWidth = true
+        if #available(iOS 9.0, *) {
+            newLabel.allowsDefaultTighteningForTruncation = true
+        }
+        newLabel.minimumScaleFactor = 0.7
+        
+        newLabel.text = text
+        
+        return newLabel
     }
+
 }
 
 extension MendeleyLoginConsentViewController: UIPickerViewDataSource {
