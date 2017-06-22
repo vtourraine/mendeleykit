@@ -18,24 +18,20 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+#import "MendeleyObject.h"
 
 @class MendeleyProfilePrivacySettings;
 
-@interface MendeleyLoginAPI : MendeleyObjectAPI
+@interface MendeleyProfilePrivacySettingsWrapper : MendeleySecureObject
 
-/**
- Checks if ID Plus profile is completed and verified. IDPlus flow will depend on the result of this call
- @param idTokem - the ID Plus id token
- @param task
- @param completionBlock - the completionHandler.
- */
-- (void)checkIDPlusProfileWithIdPlusToken:(NSString *)idToken
-                                     task:(MendeleyTask *)task
-                          completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock;
+@property (nonatomic, strong) MendeleyProfilePrivacySettings *privacy;
 
-- (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettings *)settings
-                                       task:(MendeleyTask *)task
-                            completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+@end
+
+@interface MendeleyProfilePrivacySettings : MendeleySecureObject
+
+@property (nonatomic, strong) NSNumber *privacy_follower_restricted;
+@property (nonatomic, strong) NSString *privacy_visibility;
+@property (nonatomic, strong) NSNumber *privacy_search_engine_indexable;
 
 @end

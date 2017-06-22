@@ -161,6 +161,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONNewUserPostType                 @"application/vnd.mendeley-new-user-post+json"
 #define kMendeleyRESTRequestJSONUserPostType                    @"application/vnd.mendeley-user-post+json"
 #define kMendeleyRESTRequestJSONIDPlusProfileType               @"application/vnd.elsevier-idplus-identity+jwt"
+#define kMendeleyRESTRequestJSONProfilePrivacySettingsType      @"application/vnd.mendeley-profile-privacy-settings.1+json"
 #define kMendeleyRESTRequestJSONIDPlusProfileAcceptType         @"application/vnd.idplus-sync-response+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
@@ -234,6 +235,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIRecommendationFeedback            @"recommendations/action/feedback"
 #define kMendeleyRESTAPIComments                          @"comments/v1"
 #define kMendeleyRESTAPICommentsWithCommentID             @"comments/v1/%@"
+#define kMendeleyRESTAPIProfileUpdatePrivacySettings      @"profiles/me/privacy_settings"
 
 /***********************************************
    @name REST API Query Parameters

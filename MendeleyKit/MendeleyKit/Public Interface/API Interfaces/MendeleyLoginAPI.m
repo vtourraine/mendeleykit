@@ -20,6 +20,7 @@
 
 #import "MendeleyLoginAPI.h"
 #import "NSError+Exceptions.h"
+#import "MendeleyProfilePrivacySettings.h"
 
 @implementation MendeleyLoginAPI
 
@@ -27,6 +28,14 @@
 {
     return @{kMendeleyRESTRequestContentType:kMendeleyRESTRequestJSONIDPlusProfileType,
              kMendeleyRESTRequestAccept:kMendeleyRESTRequestJSONIDPlusProfileAcceptType};
+}
+
+- (NSDictionary *)updateUserSettingsRequestHeader
+{
+    return @{
+             kMendeleyRESTRequestContentType:kMendeleyRESTRequestJSONProfilePrivacySettingsType,
+             kMendeleyRESTRequestAccept:kMendeleyRESTRequestJSONProfilePrivacySettingsType
+             };
 }
 
 - (void)checkIDPlusProfileWithIdPlusToken:(NSString *)idToken
@@ -73,6 +82,52 @@
                         }];
                     }
                 }];
+}
+
+- (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettings *)settings
+                                       task:(MendeleyTask *)task
+                            completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [NSError assertArgumentNotNil:settings argumentName:@"settings"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    
+    NSDictionary *requestHeader = [self updateUserSettingsRequestHeader];
+    
+    MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+    
+    NSError *serialiseError = nil;
+    NSData *data = [modeller jsonObjectFromModelOrModels:settings error:&serialiseError];
+    
+    if (nil == data)
+    {
+        [blockExec executeWithMendeleyObject:nil
+                                       state:0
+                                       error:serialiseError];
+        return;
+    }
+    id <MendeleyNetworkProvider> networkProvider = [self provider];
+    [networkProvider invokePATCH:self.baseAPIURL
+                              api:kMendeleyRESTAPIProfileUpdatePrivacySettings
+                additionalHeaders:requestHeader
+                         jsonData:data authenticationRequired:YES
+                             task:task
+                  completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                      if (![self.helper isSuccessForResponse:response error:&error])
+                      {
+                          [blockExec executeWithMendeleyObject:nil
+                                                      syncInfo:response.syncHeader
+                                                         error:error];
+                      }
+                      else
+                      {
+                          [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelProfileVerificationStatus completionBlock: ^(MendeleyObject *object, NSError *parseError) {
+                              [blockExec executeWithMendeleyObject:object
+                                                          syncInfo:response.syncHeader
+                                                             error:parseError];
+                          }];
+                      }
+                  }];
 }
 
 @end

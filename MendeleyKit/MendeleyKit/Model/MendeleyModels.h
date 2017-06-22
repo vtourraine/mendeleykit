@@ -41,5 +41,6 @@
 #import "MendeleyNewsFeed.h"
 #import "MendeleyComment.h"
 #import "MendeleyNewUserPost.h"
+#import "MendeleyProfilePrivacySettings.h"
 
 #endif
