@@ -153,8 +153,12 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     }
     
     func askForConsent() {
+        let podBundle = Bundle(for: MendeleyLoginConsentViewController.self)
+        let bundleURL = podBundle.url(forResource: "MendeleyKitiOS", withExtension: "bundle")
+        let bundle = Bundle(url: bundleURL!)
+        
         let consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController",
-                                                                       bundle: Bundle(for: MendeleyLoginConsentViewController.self))
+                                                                       bundle: bundle)
         
         parentViewController?.present(consentViewController, animated: true, completion: nil)
     }
