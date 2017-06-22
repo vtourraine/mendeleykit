@@ -109,7 +109,7 @@
 		5353A46D1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353A46C1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift */; };
 		5353A46E1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353A46C1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift */; };
 		537B04531EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B04521EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift */; };
-		537B04551EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 537B04541EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib */; };
+		537B04551EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 537B04541EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib */; settings = {ATTRIBUTES = (Public, ); }; };
 		53863F731D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53863F741D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53863F761D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */; };

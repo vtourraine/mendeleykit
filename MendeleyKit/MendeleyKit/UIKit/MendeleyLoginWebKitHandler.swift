@@ -62,6 +62,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     
     //@TODO: fix code
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        
         if let requestURL = webView.url {
             guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL)?.code
                 else {
@@ -91,17 +92,18 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                         
                         switch state {
                         case 200:
-                            if let profileStatus = object as? MendeleyProfileVerificationStatus {
-                                
-                                if profileStatus.autolink_verification_status == "VERIFIED" {
-                                    
-                                    self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
-                                    
-                                } else {
-                                    
-                                    self.verifyProfile(profileID: profileStatus.profile_uuid)
-                                }
-                            }
+                            self.askForConsent()
+//                            if let profileStatus = object as? MendeleyProfileVerificationStatus {
+//                                
+//                                if profileStatus.autolink_verification_status == "VERIFIED" {
+//                                    
+//                                    self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
+//                                    
+//                                } else {
+//                                    
+//                                    self.verifyProfile(profileID: profileStatus.profile_uuid)
+//                                }
+//                            }
                         case 201:
                             print("state: 201")
                             self.askForConsent()
@@ -151,7 +153,8 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     }
     
     func askForConsent() {
-        let consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController", bundle: nil)
+        let consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController",
+                                                                       bundle: Bundle(for: MendeleyLoginConsentViewController.self))
         
         parentViewController?.present(consentViewController, animated: true, completion: nil)
     }

@@ -36,20 +36,9 @@ open class MendeleyLoginConsentViewController: UIViewController {
     
     var disciplines: [MendeleyDiscipline]?
     var roles: [MendeleyUserRole]?
-
-    public required init?(coder aDecoder: NSCoder) {
-        super .init(coder: aDecoder)
-        
-        setupView()
-    }
     
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        setupView()
-    }
-    
-    open func setupView() {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
         
         MendeleyKit.sharedInstance().userRoles { (objects: [Any]?, sycnInfo: MendeleySyncInfo?, error: Error?) in
             if objects?.count ?? 0 > 0 {
