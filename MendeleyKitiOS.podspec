@@ -22,4 +22,7 @@ DESC
   s.module_name = "MendeleyKitiOS"
   s.ios.deployment_target = '8.0'
   s.source_files  = "MendeleyKit/MendeleyKitiOS/MendeleyKitiOS.h", "MendeleyKit/MendeleyKit/*.h", "MendeleyKit/MendeleyKit/**/*.{h,m,swift}"
+  s.resource_bundles = {
+    'MendeleyKitiOS' => ['MendeleyKit/MendeleyKit/**/*.{storyboard,xib}']
+  }
 end
