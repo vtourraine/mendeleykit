@@ -56,6 +56,14 @@ open class MendeleyLoginConsentViewController: UIViewController {
     }
     
     @IBAction func didTapDoneButton(sender: UIButton) {
+        let publicProfile = publicProfileSwitch.isOn
+        
+        let roleIndex = rolePicker.selectedRow(inComponent: 0)
+        let role = roles?[roleIndex]
+        
+        let disciplineIndex = disciplinePicker.selectedRow(inComponent: 0)
+        let discipline = disciplines?[disciplineIndex]
+        
         
     }
     
