@@ -108,6 +108,8 @@
 		534A950F1D5A396600E4A706 /* MendeleyProfileUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 534A950D1D5A396600E4A706 /* MendeleyProfileUtilsTests.m */; };
 		5353A46D1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353A46C1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift */; };
 		5353A46E1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353A46C1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift */; };
+		537B04531EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B04521EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift */; };
+		537B04551EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 537B04541EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib */; };
 		53863F731D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53863F741D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53863F761D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */; };
@@ -562,6 +564,8 @@
 		5346A4AA1E8BE8E60054714F /* MendeleyComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyComment.m; path = "Model/Mendeley Objects/MendeleyComment.m"; sourceTree = "<group>"; };
 		534A950D1D5A396600E4A706 /* MendeleyProfileUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MendeleyProfileUtilsTests.m; sourceTree = "<group>"; };
 		5353A46C1E9E3C20002FB378 /* MendeleyAnalyticsEventFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyAnalyticsEventFeed.swift; path = Analytics/MendeleyAnalyticsEventFeed.swift; sourceTree = "<group>"; };
+		537B04521EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyLoginConsentViewController.swift; path = UIKit/MendeleyLoginConsentViewController.swift; sourceTree = "<group>"; };
+		537B04541EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MendeleyLoginConsentViewController.xib; path = UIKit/MendeleyLoginConsentViewController.xib; sourceTree = "<group>"; };
 		53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyRecommendationsAPI.h; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.h"; sourceTree = "<group>"; };
 		53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyRecommendationsAPI.m; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.m"; sourceTree = "<group>"; };
 		55805B391DD1F79C00AAFBEC /* MendeleyFeedsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyFeedsAPI.h; path = "Public Interface/API Interfaces/MendeleyFeedsAPI.h"; sourceTree = "<group>"; };
@@ -963,6 +967,8 @@
 				C46656271B37F239005F762A /* MendeleyKitLoginHelper.swift */,
 				C46656231B37EF68005F762A /* MendeleyLoginWebKitHandler.swift */,
 				C46657E11B385AB2005F762A /* MendeleyLoginHandler.swift */,
+				537B04521EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift */,
+				537B04541EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -1854,6 +1860,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				537B04551EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2171,6 +2178,7 @@
 				C466579D1B38468C005F762A /* MendeleyAnnotationsAPI.m in Sources */,
 				C46657CF1B384765005F762A /* MendeleyKitLoginHelper.swift in Sources */,
 				C46657A51B3846A8005F762A /* MendeleyFoldersAPI.m in Sources */,
+				537B04531EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift in Sources */,
 				C46657511B3844B4005F762A /* MendeleyReachability.m in Sources */,
 				C46657671B38455D005F762A /* MendeleyMetadataLookup.m in Sources */,
 				C46657CE1B38475F005F762A /* MendeleyLoginViewController.m in Sources */,

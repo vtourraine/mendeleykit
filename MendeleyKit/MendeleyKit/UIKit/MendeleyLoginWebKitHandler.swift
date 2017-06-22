@@ -30,12 +30,14 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     var completionBlock: MendeleySuccessClosure?
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
     var redirectURI: String?
+    var parentViewController: UIViewController?
     
     public func startLoginProcess(_ clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
         self.redirectURI = redirectURI
+        parentViewController = controller
         configureWebView(controller)
         
         let helper = MendeleyKitLoginHelper()
@@ -149,7 +151,9 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     }
     
     func askForConsent() {
+        let consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController", bundle: nil)
         
+        parentViewController?.present(consentViewController, animated: true, completion: nil)
     }
     
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
