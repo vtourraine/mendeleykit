@@ -20,6 +20,7 @@
                 <outlet property="rolePicker" destination="vIN-HY-6Xw" id="7wH-Mg-hgn"/>
                 <outlet property="subtitleLabel" destination="3Pq-oQ-BV7" id="z70-e5-39a"/>
                 <outlet property="titleLabel" destination="1B1-KR-nqH" id="V5l-Y1-ICy"/>
+                <outlet property="view" destination="iN0-l3-epB" id="F2W-to-VMX"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
