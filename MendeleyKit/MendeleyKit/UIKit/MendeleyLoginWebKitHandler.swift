@@ -160,7 +160,19 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController",
                                                                        bundle: bundle)
         
-        parentViewController?.present(consentViewController, animated: true, completion: nil)
+        var frame = webView?.frame ?? CGRect.zero
+        
+        if frame != CGRect.zero {
+            if let topHeight = parentViewController?.topLayoutGuide.length {
+                frame.origin.y = frame.origin.y + topHeight
+                frame.size.height = frame.size.height - topHeight
+            }
+        }
+        
+        consentViewController.view.frame = frame
+        consentViewController.view.autoresizingMask = (webView?.autoresizingMask)!
+        
+        parentViewController?.view.addSubview(consentViewController.view)
     }
     
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
