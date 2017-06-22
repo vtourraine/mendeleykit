@@ -25,7 +25,7 @@
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKitHelper.h"
 #import "MendeleyModeller.h"
-#import "MendeleyProfilesAPI.h"
+#import "MendeleyLoginAPI.h"
 
 NSString *const kMendeleyOAuth2StateKey = @"state";
 NSString *const kMendeleyOAuth2AuthTypeKey = @"authType";
@@ -264,9 +264,9 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
 - (void)postProfileWithIDPlusCredentials:(MendeleyIDPlusCredentials *)credentials
                          completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock
 {
-    MendeleyProfilesAPI *profilesAPI = [[MendeleyProfilesAPI alloc] initWithNetworkProvider:MendeleyKitConfiguration.sharedInstance.networkProvider
+    MendeleyLoginAPI *loginAPI = [[MendeleyLoginAPI alloc] initWithNetworkProvider:MendeleyKitConfiguration.sharedInstance.networkProvider
                                                                                     baseURL:MendeleyKitConfiguration.sharedInstance.baseAPIURL];
-    [profilesAPI checkIDPlusProfileWithIdPlusToken:credentials.id_token
+    [loginAPI checkIDPlusProfileWithIdPlusToken:credentials.id_token
                                               task:[MendeleyTask new]
                                    completionBlock: completionBlock];
 }
