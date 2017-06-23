@@ -1308,10 +1308,11 @@
     {
         if ([propertyName isEqualToString:kMendeleyJSONPrivacy])
         {
+            MendeleyProfilePrivacySettings *obj = ((MendeleyProfilePrivacySettingsWrapper *)modelObject).privacy;
             return @{kMendeleyJSONPrivacy: @{
-                             @"privacy_follower_restricted" : [(NSObject *)modelObject valueForKey:@"privacy_follower_restricted"],
-                             @"privacy_visibility" : [(NSObject *)modelObject valueForKey:@"privacy_visibility"],
-                             @"privacy_search_engine_indexable" : [(NSObject *)modelObject valueForKey:@"privacy_search_engine_indexable"]
+                             @"privacy_follower_restricted" : [obj valueForKey:@"privacy_follower_restricted"],
+                             @"privacy_visibility" : [obj valueForKey:@"privacy_visibility"],
+                             @"privacy_search_engine_indexable" : [obj valueForKey:@"privacy_search_engine_indexable"]
                                                       }};
         }
     }
