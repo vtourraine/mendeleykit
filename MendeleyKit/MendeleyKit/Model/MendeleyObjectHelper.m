@@ -577,6 +577,14 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyProfilePrivacySettingsWrapper class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPrivacy])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
@@ -1110,6 +1118,10 @@
             return [[self class] objectArrayForClass:[MendeleyPerson class] fromRawValue:rawValue];
         }
     }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyProfilePrivacySettingsWrapper class])]) {
+        return [[self class] setPropertiesToObjectOfClass:[MendeleyProfilePrivacySettings class] fromRawValue:rawValue];
+    }
 
     return nil;
 }
@@ -1289,6 +1301,18 @@
                  }];
                 return positionDicts;
             }
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyProfilePrivacySettingsWrapper class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPrivacy])
+        {
+            return @{kMendeleyJSONPrivacy: @{
+                             @"privacy_follower_restricted" : [(NSObject *)modelObject valueForKey:@"privacy_follower_restricted"],
+                             @"privacy_visibility" : [(NSObject *)modelObject valueForKey:@"privacy_visibility"],
+                             @"privacy_search_engine_indexable" : [(NSObject *)modelObject valueForKey:@"privacy_search_engine_indexable"]
+                                                      }};
         }
     }
 

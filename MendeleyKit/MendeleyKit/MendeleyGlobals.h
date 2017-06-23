@@ -586,4 +586,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kIDPlusResponseType                               @"idPlusResponseType"
 #define kIDPlusClientId                                   @"idPlusClientId"
 
+/***********************************************
+ @name PrivacySettings
+ ***********************************************/
+#define kMendeleyJSONPrivacy                              @"privacy"
+
 #endif /* ifndef MendeleyKit_MendeleyGlobals_h */
