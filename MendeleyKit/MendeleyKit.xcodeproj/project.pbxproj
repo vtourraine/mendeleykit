@@ -371,7 +371,7 @@
 		C46657A71B3846AE005F762A /* MendeleyFollowersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C85463901ADE8AB500754160 /* MendeleyFollowersAPI.m */; };
 		C46657A81B3846B2005F762A /* MendeleyGroupsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353019DADF280069DB7A /* MendeleyGroupsAPI.h */; };
 		C46657A91B3846B5005F762A /* MendeleyGroupsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1353119DADF280069DB7A /* MendeleyGroupsAPI.m */; };
-		C46657AA1B3846B7005F762A /* MendeleyMetadataAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353219DADF280069DB7A /* MendeleyMetadataAPI.h */; };
+		C46657AA1B3846B7005F762A /* MendeleyMetadataAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353219DADF280069DB7A /* MendeleyMetadataAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657AB1B3846BA005F762A /* MendeleyMetadataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1353319DADF280069DB7A /* MendeleyMetadataAPI.m */; };
 		C46657AC1B3846BD005F762A /* MendeleyObjectAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353419DADF280069DB7A /* MendeleyObjectAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657AD1B3846C0005F762A /* MendeleyObjectAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1353519DADF280069DB7A /* MendeleyObjectAPI.m */; };
