@@ -60,8 +60,8 @@
 		145C2DFD1A2CAB0D0005BFF6 /* MendeleyFoldersAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352E19DADF280069DB7A /* MendeleyFoldersAPI.h */; };
 		145C2DFE1A2CAB0D0005BFF6 /* MendeleyGroupsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353019DADF280069DB7A /* MendeleyGroupsAPI.h */; };
 		145C2DFF1A2CAB0D0005BFF6 /* MendeleyMetadataAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353219DADF280069DB7A /* MendeleyMetadataAPI.h */; };
-		145C2E001A2CAB0D0005BFF6 /* MendeleyObjectAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353419DADF280069DB7A /* MendeleyObjectAPI.h */; };
-		145C2E011A2CAB0D0005BFF6 /* MendeleyProfilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353619DADF280069DB7A /* MendeleyProfilesAPI.h */; };
+		145C2E001A2CAB0D0005BFF6 /* MendeleyObjectAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353419DADF280069DB7A /* MendeleyObjectAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		145C2E011A2CAB0D0005BFF6 /* MendeleyProfilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353619DADF280069DB7A /* MendeleyProfilesAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2E021A2CAB0D0005BFF6 /* MendeleyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4CD514319DAD9E400C8EB8D /* MendeleyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2E031A2CAB0D0005BFF6 /* MendeleyKitConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1354019DADF750069DB7A /* MendeleyKitConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2E041A2CAB0D0005BFF6 /* MendeleyKitHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1354219DADF750069DB7A /* MendeleyKitHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -114,8 +114,8 @@
 		53863F741D61D3BE00200578 /* MendeleyRecommendationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */; };
 		53863F761D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */; };
 		53863F771D61D3BE00200578 /* MendeleyRecommendationsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 53863F721D61D3BE00200578 /* MendeleyRecommendationsAPI.m */; };
-		5560342F1EFBFD5B00E86665 /* MendeleyLoginAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5560342D1EFBFD5B00E86665 /* MendeleyLoginAPI.h */; };
-		556034301EFBFD5B00E86665 /* MendeleyLoginAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5560342D1EFBFD5B00E86665 /* MendeleyLoginAPI.h */; };
+		5560342F1EFBFD5B00E86665 /* MendeleyLoginAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5560342D1EFBFD5B00E86665 /* MendeleyLoginAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		556034301EFBFD5B00E86665 /* MendeleyLoginAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5560342D1EFBFD5B00E86665 /* MendeleyLoginAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		556034311EFBFD5B00E86665 /* MendeleyLoginAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 5560342E1EFBFD5B00E86665 /* MendeleyLoginAPI.m */; };
 		556034321EFBFD5B00E86665 /* MendeleyLoginAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 5560342E1EFBFD5B00E86665 /* MendeleyLoginAPI.m */; };
 		556034381EFC04D700E86665 /* MendeleyProfilePrivacySettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 556034361EFC04D700E86665 /* MendeleyProfilePrivacySettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -373,9 +373,9 @@
 		C46657A91B3846B5005F762A /* MendeleyGroupsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1353119DADF280069DB7A /* MendeleyGroupsAPI.m */; };
 		C46657AA1B3846B7005F762A /* MendeleyMetadataAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353219DADF280069DB7A /* MendeleyMetadataAPI.h */; };
 		C46657AB1B3846BA005F762A /* MendeleyMetadataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1353319DADF280069DB7A /* MendeleyMetadataAPI.m */; };
-		C46657AC1B3846BD005F762A /* MendeleyObjectAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353419DADF280069DB7A /* MendeleyObjectAPI.h */; };
+		C46657AC1B3846BD005F762A /* MendeleyObjectAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353419DADF280069DB7A /* MendeleyObjectAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657AD1B3846C0005F762A /* MendeleyObjectAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1353519DADF280069DB7A /* MendeleyObjectAPI.m */; };
-		C46657AE1B3846C4005F762A /* MendeleyProfilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353619DADF280069DB7A /* MendeleyProfilesAPI.h */; };
+		C46657AE1B3846C4005F762A /* MendeleyProfilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353619DADF280069DB7A /* MendeleyProfilesAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657AF1B3846C7005F762A /* MendeleyProfilesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1353719DADF280069DB7A /* MendeleyProfilesAPI.m */; };
 		C46657B01B3846CB005F762A /* MendeleyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4CD514319DAD9E400C8EB8D /* MendeleyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657B11B3846D1005F762A /* MendeleyKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CD514519DAD9E400C8EB8D /* MendeleyKit.m */; };
@@ -2385,6 +2385,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2418,6 +2419,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

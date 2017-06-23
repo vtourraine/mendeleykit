@@ -34,6 +34,9 @@
                                      task:(MendeleyTask *)task
                           completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock;
 
+/**
+ @TODO: Missing documentation
+ */
 - (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettings *)settings
                                        task:(MendeleyTask *)task
                             completionBlock:(MendeleyObjectCompletionBlock)completionBlock;

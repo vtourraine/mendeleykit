@@ -37,6 +37,8 @@ open class MendeleyLoginConsentViewController: UIViewController {
     var disciplines: [MendeleyDiscipline]?
     var roles: [MendeleyAcademicStatus]?
     
+    var completionBlock: ((MendeleyAmendmentProfile, Bool) -> Void)?
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,9 +66,16 @@ open class MendeleyLoginConsentViewController: UIViewController {
         let disciplineIndex = disciplinePicker.selectedRow(inComponent: 0)
         let discipline = disciplines?[disciplineIndex]
         
+        let amendmentProfile = MendeleyAmendmentProfile()
+        if (discipline != nil) {
+            amendmentProfile.disciplines = [discipline!]
+        }
+        if (role != nil) {
+        amendmentProfile.academic_status = role?.objectDescription
+        }
         
+        completionBlock?(amendmentProfile, publicProfile)
     }
-    
 }
 
 extension MendeleyLoginConsentViewController: UIPickerViewDelegate {

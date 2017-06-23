@@ -86,22 +86,12 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitOSXVersionString[];
 #import <MendeleyKitOSX/MendeleyOAuthStoreProvider.h>
 #import <MendeleyKitOSX/MendeleyObjectHelper.h>
 #import <MendeleyKitOSX/MendeleyUserRole.h>
-
-#import <MendeleyKitOSX/MendeleyDisciplinesAPI.h>
-#import <MendeleyKitOSX/MendeleyGroupsAPI.h>
 #import <MendeleyKitOSX/MendeleyNSURLRequestDownloadHelper.h>
 #import <MendeleyKitOSX/MendeleyNSURLRequestHelper.h>
-#import <MendeleyKitOSX/MendeleyFoldersAPI.h>
-#import <MendeleyKitOSX/MendeleyFollowersAPI.h>
-#import <MendeleyKitOSX/MendeleyAcademicStatusesAPI.h>
-#import <MendeleyKitOSX/MendeleyMetadataAPI.h>
-#import <MendeleyKitOSX/MendeleyFilesAPI.h>
-#import <MendeleyKitOSX/MendeleyObjectAPI.h>
-#import <MendeleyKitOSX/MendeleyProfilesAPI.h>
 #import <MendeleyKitOSX/MendeleyProfileUtils.h>
-#import <MendeleyKitOSX/MendeleyAnnotationsAPI.h>
-#import <MendeleyKitOSX/MendeleyDocumentsAPI.h>
 #import <MendeleyKitOSX/MendeleyNSURLRequestUploadHelper.h>
 #import <MendeleyKitOSX/MendeleyNSURLConnectionProvider.h>
 #import <MendeleyKitOSX/MendeleyAnalyticsRegistry.h>
-#import <MendeleyKitOSX/MendeleyDatasetsAPI.h>
+#import <MendeleyKitOSX/MendeleyProfilesAPI.h>
+#import <MendeleyKitOSX/MendeleyLoginAPI.h>
+
