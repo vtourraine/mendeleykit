@@ -93,18 +93,17 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                         
                         switch state {
                         case 200:
-                            self.askForConsent(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
-//                            if let profileStatus = object as? MendeleyProfileVerificationStatus {
-//                                
-//                                if profileStatus.autolink_verification_status == "VERIFIED" {
-//                                    
-//                                    self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
-//                                    
-//                                } else {
-//                                    
-//                                    self.verifyProfile(profileID: profileStatus.profile_uuid)
-//                                }
-//                            }
+                            if let profileStatus = object as? MendeleyProfileVerificationStatus {
+                                
+                                if profileStatus.autolink_verification_status == "VERIFIED" {
+                                    
+                                    self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, loginCompletionBlock: nil)
+                                    
+                                } else {
+                                    
+                                    self.verifyProfile(profileID: profileStatus.profile_uuid)
+                                }
+                            }
                         case 201:
                             print("state: 201")
                             self.askForConsent(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
