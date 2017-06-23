@@ -121,7 +121,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         }
     }
     
-    func completeLogin(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials)
+    func completeLogin(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials, loginCompletionBlock: MendeleyCompletionBlock?)
     {
         //check if verified and start verification flow if not
         print("state: 200")                            // start complete profile flow
@@ -132,6 +132,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                     return
             }
             self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
+                loginCompletionBlock?(mendeleyCredentials != nil, error as NSError?)
                 self.oAuthCompletionBlock?(mendeleyCredentials, error as NSError?)
                 self.completionBlock?(mendeleyCredentials != nil, error as NSError?)
             })
@@ -195,37 +196,35 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     
     func finishConsentJournery(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials, newProfile: MendeleyAmendmentProfile, isPublicProfile: Bool)
     {
-        let networkProvider = MendeleyKitConfiguration.sharedInstance().networkProvider
-        let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
+        completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials) { (success: Bool, error: Error?) in
+            let networkProvider = MendeleyKitConfiguration.sharedInstance().networkProvider
+            let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
+            
+            let profileAPI = MendeleyProfilesAPI(networkProvider: networkProvider, baseURL: baseURL)
         
-        let profileAPI = MendeleyProfilesAPI(networkProvider: networkProvider, baseURL: baseURL)
-        
-        if isPublicProfile {
-            // By default, new profile is private. Update user's privacy settings if they choose to make their profile public.
-            let loginAPI = MendeleyLoginAPI(networkProvider: networkProvider, baseURL: baseURL)
-            
-            let settings = MendeleyProfilePrivacySettingsWrapper()
-            settings.privacy = MendeleyProfilePrivacySettings()
-            settings.privacy.privacy_visibility = "everyone"
-            settings.privacy.privacy_follower_restricted = false
-            settings.privacy.privacy_search_engine_indexable = true
-            
-            let loginTask = MendeleyTask()
-            
-            loginAPI?.updateCurrentProfilePrivacySettings(settings.privacy, task: loginTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
-            
+            if isPublicProfile {
+                // By default, new profile is private. Update user's privacy settings if they choose to make their profile public.
+                let loginAPI = MendeleyLoginAPI(networkProvider: networkProvider, baseURL: baseURL)
+                
+                let settings = MendeleyProfilePrivacySettingsWrapper()
+                settings.privacy = MendeleyProfilePrivacySettings()
+                settings.privacy.privacy_visibility = "everyone"
+                settings.privacy.privacy_follower_restricted = false
+                settings.privacy.privacy_search_engine_indexable = true
+                
+                let loginTask = MendeleyTask()
+                
+                loginAPI?.updateCurrentProfilePrivacySettings(settings, task: loginTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
+                    
+                    let profileTask = MendeleyTask()
+                    
+                    profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: nil)
+                })
+            } else {
                 let profileTask = MendeleyTask()
                 
-                profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
-                    self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
-                })
-            })
-        } else {
-            let profileTask = MendeleyTask()
-            
-            profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
-                self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
-            })
+                profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: nil)
+            }
         }
     }
     

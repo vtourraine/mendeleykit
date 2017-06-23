@@ -84,7 +84,7 @@
                 }];
 }
 
-- (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettings *)settings
+- (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettingsWrapper *)settings
                                        task:(MendeleyTask *)task
                             completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {

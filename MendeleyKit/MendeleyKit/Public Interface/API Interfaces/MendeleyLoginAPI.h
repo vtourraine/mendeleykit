@@ -20,7 +20,7 @@
 
 #import "MendeleyObjectAPI.h"
 
-@class MendeleyProfilePrivacySettings;
+@class MendeleyProfilePrivacySettingsWrapper;
 
 @interface MendeleyLoginAPI : MendeleyObjectAPI
 
@@ -37,7 +37,7 @@
 /**
  @TODO: Missing documentation
  */
-- (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettings *)settings
+- (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettingsWrapper *)settings
                                        task:(MendeleyTask *)task
                             completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
