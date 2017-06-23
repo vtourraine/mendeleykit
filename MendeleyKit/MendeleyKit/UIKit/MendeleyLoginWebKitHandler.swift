@@ -132,8 +132,8 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                     return
             }
             self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
-                loginCompletionBlock?(mendeleyCredentials != nil, error as NSError?)
                 self.oAuthCompletionBlock?(mendeleyCredentials, error as NSError?)
+                loginCompletionBlock?(mendeleyCredentials != nil, error as NSError?)
                 self.completionBlock?(mendeleyCredentials != nil, error as NSError?)
             })
         })
@@ -218,12 +218,16 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                     
                     let profileTask = MendeleyTask()
                     
-                    profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: nil)
+                    profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
+                        // Do nothing
+                    })
                 })
             } else {
                 let profileTask = MendeleyTask()
                 
-                profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: nil)
+                profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
+                    // Do nothing
+                })
             }
         }
     }
