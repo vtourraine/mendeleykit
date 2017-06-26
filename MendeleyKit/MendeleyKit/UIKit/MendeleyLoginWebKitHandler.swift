@@ -64,6 +64,12 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     //@TODO: fix code
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         
+        if let redirectString = redirectURI {
+            if webView.url?.absoluteString.hasPrefix(redirectString) == false {
+                return
+            }
+        }
+        
         if let requestURL = webView.url {
             guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL)?.code
                 else {
