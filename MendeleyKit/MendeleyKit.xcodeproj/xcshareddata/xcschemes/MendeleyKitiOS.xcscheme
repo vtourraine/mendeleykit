@@ -37,6 +37,17 @@
                BlueprintName = "MendeleyKitiOSTests"
                ReferencedContainer = "container:MendeleyKit.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MendeleyKitLoginHelperTests/testAuthenticationCodeFromRequest()">
+               </Test>
+               <Test
+                  Identifier = "MendeleyKitLoginHelperTests/testGetOAuthRequest()">
+               </Test>
+               <Test
+                  Identifier = "MendeleyKitLoginHelperTests/testPerformanceExample()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
