@@ -119,14 +119,14 @@
 
 - (void)testGetPDFFile
 {
-    NSURL *testBaseURL = [NSURL URLWithString:@"http://collaborativelibrarianship.org"];
+    NSURL *testBaseURL = [NSURL URLWithString:@"http://digitalcommons.du.edu"];
 
     __block NSObject *deserializedResponse;
     __block NSError *errorResponse;
 
     waitForBlock( ^(BOOL *hasCalledBack) {
         [[[MendeleyKitConfiguration sharedInstance] networkProvider] invokeGET:testBaseURL
-                                                                           api:@"index.php/jocl/article/viewFile/143/102"
+                                                                           api:@"cgi/viewcontent.cgi?article=1332&context=collaborativelibrarianship"
                                                              additionalHeaders:nil
                                                                queryParameters:nil
                                                         authenticationRequired:NO

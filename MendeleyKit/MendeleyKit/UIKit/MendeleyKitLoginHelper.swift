@@ -23,47 +23,6 @@ import WebKit
 
 open class MendeleyKitLoginHelper: NSObject
 {
-//    open func getOAuthRequest(_ redirect: String, clientID: String) -> URLRequest
-//    {
-//        return
-//        let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.appendingPathComponent(kMendeleyOAuthPathAuthorize)
-//        
-//        let parameters = [kMendeleyOAuthAuthorizationCodeKey: kMendeleyOAuthAuthorizationCode,
-//            kMendeleyOAuth2RedirectURLKey: redirect,
-//            kMendeleyOAuth2ScopeKey: kMendeleyOAuth2Scope,
-//            kMendeleyOAuth2ClientIDKey: clientID,
-//            kMendeleyOAuth2ResponseTypeKey: kMendeleyOAuth2ResponseType]
-//        
-//        let baseOAuthURL = MendeleyURLBuilder.url(withBaseURL: baseURL, parameters: parameters, query: true)
-//        let request = NSMutableURLRequest(url: baseOAuthURL)
-//
-//        request.httpMethod = "GET"
-//        request.allHTTPHeaderFields = MendeleyURLBuilder.defaultHeader()
-//        return request as URLRequest
-//    }
-    
-//    open func getAuthenticationCode(_ redirectURL: URL) -> String?
-//    {
-//        var code: String?
-//
-//        if let queryString = redirectURL.query
-//        {
-//            let components: [String] = queryString.components(separatedBy: "&")
-//            for component in components
-//            {
-//                let parameterPair = component.components(separatedBy: "=")
-//                let key = parameterPair[0]
-//                let value = parameterPair[1]
-//                if kMendeleyOAuth2ResponseType == key
-//                {
-//                    code = value
-//                }
-//            }
-//        }
-//
-//        return code
-//    }
-
     open func cleanCookiesAndURLCache()
     {
         if #available(iOS 9.0, OSX 10.11, *) {
