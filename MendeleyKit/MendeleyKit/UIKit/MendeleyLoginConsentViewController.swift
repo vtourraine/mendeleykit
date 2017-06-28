@@ -37,7 +37,7 @@ open class MendeleyLoginConsentViewController: UIViewController {
     var disciplines: [MendeleyDiscipline]?
     var roles: [MendeleyAcademicStatus]?
     
-    var completionBlock: ((MendeleyAmendmentProfile, Bool) -> Void)?
+    public var completionBlock: ((MendeleyAmendmentProfile, Bool) -> Void)?
     
     override open func viewDidLoad() {
         super.viewDidLoad()

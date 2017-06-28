@@ -24,6 +24,14 @@ let defaultCode = "012345678"
 
 class MockIDPlusNetworkProvider: NSObject, MendeleyNetworkProvider {
 
+    enum ServerFlow {
+        case Standard
+        case ConsentRequired
+        case VerificationRequired
+    }
+    
+    public var flow = ServerFlow.Standard
+    
     // MARK: - Helper methods
     
     func idPlusTokenResponse() -> MendeleyResponse {
@@ -47,10 +55,27 @@ class MockIDPlusNetworkProvider: NSObject, MendeleyNetworkProvider {
     }
     
     func profilesResponse() -> MendeleyResponse {
+        var verificationStatus: String
+        var statusCode: Int
+        switch flow {
+        case .Standard:
+            statusCode = 200
+            verificationStatus = "VERIFIED"
+        case .ConsentRequired:
+            statusCode = 201
+            verificationStatus = ""
+        default:
+            statusCode = 200
+            verificationStatus = "UNVERIFIED"
+        }
         let json = [ "profile_uuid" : "bfsjhfjnueionxieu",
-                     "autolink_verification_status" : "VERIFIED" ]
+                     "autolink_verification_status" : verificationStatus ]
         
-        return createResponse(withBody: json, statusCode: 200)
+        return createResponse(withBody: json, statusCode: statusCode)
+    }
+    
+    func successResponse() -> MendeleyResponse {
+        return createResponse(withBody: nil, statusCode: 200)
     }
     
     func createResponse(withBody json: [String: Any]?, statusCode: Int) -> MendeleyResponse {
@@ -127,7 +152,14 @@ class MockIDPlusNetworkProvider: NSObject, MendeleyNetworkProvider {
     }
     
     func invokePATCH(_ baseURL: URL!, api: String!, additionalHeaders: [AnyHashable : Any]!, jsonData: Data!, authenticationRequired: Bool, task: MendeleyTask!, completionBlock: MendeleyResponseCompletionBlock? = nil) {
-        assertionFailure("Method is stubbed")
+        switch (api) {
+        case "profiles/me/privacy_settings":
+            fallthrough
+        case "profiles/me":
+            completionBlock?(successResponse(), nil)
+        default:
+            assertionFailure("Method is stubbed")
+        }
     }
     
     func invokePATCH(_ baseURL: URL!, api: String!, additionalHeaders: [AnyHashable : Any]!, bodyParameters: [AnyHashable : Any]!, authenticationRequired: Bool, task: MendeleyTask!, completionBlock: MendeleyResponseCompletionBlock? = nil) {
@@ -164,6 +196,22 @@ class MockWebView: WKWebView {
         navigationDelegate?.webView!(self, didReceiveServerRedirectForProvisionalNavigation: nil)
         
         return nil
+    }
+}
+
+class MockConsentViewController: MendeleyLoginConsentViewController {
+    override func viewDidLoad() {
+        
+        DispatchQueue.main.async {
+            let discipline = MendeleyDiscipline()
+            discipline.name = "Discipline"
+            
+            let amendmentProfile = MendeleyAmendmentProfile()
+            amendmentProfile.academic_status = "Academic Status"
+            amendmentProfile.disciplines = [discipline]
+            
+            self.completionBlock?(amendmentProfile, true)
+        }
     }
 }
 
@@ -237,10 +285,49 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
     }
     
     func testSuccessfulLogin() {
+        (MendeleyKitConfiguration.sharedInstance().networkProvider as! MockIDPlusNetworkProvider).flow = .Standard
+        if #available(iOS 9.0, *) {
+            let dummyVC = UIViewController()
+            let webkitHandler = MendeleyLoginWebKitHandler(controller: dummyVC)
+            
+            let webView = MockWebView()
+            webView.navigationDelegate = webkitHandler
+            
+            webkitHandler.webView = webView
+            
+            let completionExpectation = expectation(description: "completion block")
+            let oAuthExpectation = expectation(description: "OAuth block")
+            oAuthExpectation.expectedFulfillmentCount = 2
+            
+            webkitHandler.startLoginProcess(defaultClientID, redirectURI: defaultRedirectURI, completionHandler: { ( success: Bool, error: Error?) in
+
+                XCTAssertTrue(success, "Success should be true")
+                XCTAssertNil(error, error!.localizedDescription)
+                
+                completionExpectation.fulfill()
+            }, oauthHandler: { ( credentials: MendeleyOAuthCredentials?, error: Error? ) in
+
+                XCTAssertNotNil(credentials, "Credentials are not nil")
+                XCTAssertNil(error, error!.localizedDescription)
+                
+                oAuthExpectation.fulfill()
+            })
+            
+            wait(for: [completionExpectation, oAuthExpectation], timeout: 10.0)
+        } else {
+            // Do nothing
+        }
+    }
+    
+    func testConsentLogin() {
+        (MendeleyKitConfiguration.sharedInstance().networkProvider as! MockIDPlusNetworkProvider).flow = .ConsentRequired
         if #available(iOS 9.0, *) {
             
             let dummyVC = UIViewController()
             let webkitHandler = MendeleyLoginWebKitHandler(controller: dummyVC)
+            
+            let mockConsentVC = MockConsentViewController()
+            webkitHandler.consentViewController = mockConsentVC
             
             let webView = MockWebView()
             webView.navigationDelegate = webkitHandler
@@ -273,15 +360,49 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
         } else {
             // Do nothing
         }
-        
-    }
-    
-    func testConsentLogin() {
-        
     }
     
     func testCreateAccountLogin() {
-        
+        (MendeleyKitConfiguration.sharedInstance().networkProvider as! MockIDPlusNetworkProvider).flow = .VerificationRequired
+        if #available(iOS 9.0, *) {
+            
+            let dummyVC = UIViewController()
+            let webkitHandler = MendeleyLoginWebKitHandler(controller: dummyVC)
+            
+            let mockConsentVC = MockConsentViewController()
+            webkitHandler.consentViewController = mockConsentVC
+            
+            let webView = MockWebView()
+            webView.navigationDelegate = webkitHandler
+            
+            webkitHandler.webView = webView
+            
+            let completionExpectation = expectation(description: "completion block")
+            let oAuthExpectation = expectation(description: "OAuth block")
+            oAuthExpectation.expectedFulfillmentCount = 2
+            
+            webkitHandler.startLoginProcess(defaultClientID, redirectURI: defaultRedirectURI, completionHandler: { ( success: Bool, error: Error?) in
+                // do nothing
+                print(error?.localizedDescription ?? "")
+                XCTAssertTrue(success, "Success should be true")
+                XCTAssertNil(error, error!.localizedDescription)
+                
+                completionExpectation.fulfill()
+            }, oauthHandler: { ( credentials: MendeleyOAuthCredentials?, error: Error? ) in
+                // do nothing
+                print(error?.localizedDescription ?? "")
+                print("fulfill")
+                
+                XCTAssertNotNil(credentials, "Credentials are not nil")
+                XCTAssertNil(error, error!.localizedDescription)
+                
+                oAuthExpectation.fulfill()
+            })
+            
+            wait(for: [completionExpectation, oAuthExpectation], timeout: 10.0)
+        } else {
+            // Do nothing
+        }
     }
     
 

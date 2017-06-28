@@ -31,7 +31,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
     var redirectURI: String?
     var parentViewController: UIViewController?
-    var consentViewController: MendeleyLoginConsentViewController?
+    public var consentViewController: MendeleyLoginConsentViewController?
     
     public required init(controller: UIViewController) {
         super.init()
@@ -171,7 +171,11 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     func askForConsent(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials) {
         let podBundle = Bundle(for: MendeleyLoginConsentViewController.self)
         let bundleURL = podBundle.url(forResource: "MendeleyKitiOS", withExtension: "bundle")
-        let bundle = Bundle(url: bundleURL!)
+        
+        var bundle = podBundle
+        if let url = bundleURL {
+            bundle = Bundle(url: url)!
+        }
         
         if consentViewController == nil {
             consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController",

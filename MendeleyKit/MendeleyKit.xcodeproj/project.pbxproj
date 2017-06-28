@@ -79,6 +79,7 @@
 		145C2E101A2CAB0E0005BFF6 /* MendeleyBlockExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1354A19DAE0610069DB7A /* MendeleyBlockExecutor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2E121A2CAB0E0005BFF6 /* MendeleyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1357019DAE6A50069DB7A /* MendeleyGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		154DD1C28358A9380C22F0E1 /* libPods-MendeleyKitiOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDBA7378F567E89727A6D0F /* libPods-MendeleyKitiOSTests.a */; };
+		532B55321F03F81F00854038 /* MendeleyLoginConsentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 537B04541EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib */; };
 		533248D31D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		533248D41D6317C000217D08 /* MendeleyRecommendedArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 533248D11D6317C000217D08 /* MendeleyRecommendedArticle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		533248D61D6317C000217D08 /* MendeleyRecommendedArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 533248D21D6317C000217D08 /* MendeleyRecommendedArticle.m */; };
@@ -1902,6 +1903,7 @@
 				C449C45C1B3D9CEC003DB68F /* disciplines.json in Resources */,
 				C449C4581B3D9CDF003DB68F /* academic_statuses.json in Resources */,
 				C449C45B1B3D9CE9003DB68F /* catalogueArray.json in Resources */,
+				532B55321F03F81F00854038 /* MendeleyLoginConsentViewController.xib in Resources */,
 				D7A3C0B01D490E0B00CF12A9 /* licences.json in Resources */,
 				D706C76E1D36429600381886 /* datasets.json in Resources */,
 				C449C4661B3D9D1F003DB68F /* recentlyReadArray.json in Resources */,
