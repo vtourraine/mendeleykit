@@ -103,11 +103,10 @@
         }
     };
     
-    self.loginHandler = [MendeleyLoginWebKitHandler new];
+    self.loginHandler = [[MendeleyLoginWebKitHandler alloc] initWithController:self];
     
     [self.loginHandler startLoginProcess:self.clientID
                              redirectURI:self.redirectURI
-                              controller:self
                        completionHandler:self.completionBlock
                             oauthHandler:oAuthCompletionBlock];
     

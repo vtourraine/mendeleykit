@@ -23,5 +23,6 @@ import UIKit
 @objc
 public protocol MendeleyLoginHandler
 {
-     func startLoginProcess(_ clientID: String, redirectURI: String, controller: UIViewController, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
+    init(controller: UIViewController)
+    func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
 }
