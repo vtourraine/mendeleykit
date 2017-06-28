@@ -35,7 +35,10 @@
                           completionBlock:(MendeleyObjectAndStateCompletionBlock)completionBlock;
 
 /**
- @TODO: Missing documentation
+ Updates user's privacy settings.
+ @param settings - privacy settings
+ @param task
+ @param completionBlock - the completion handler
  */
 - (void)updateCurrentProfilePrivacySettings:(MendeleyProfilePrivacySettingsWrapper *)settings
                                        task:(MendeleyTask *)task
