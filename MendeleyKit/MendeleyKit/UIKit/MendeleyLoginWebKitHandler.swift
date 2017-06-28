@@ -71,6 +71,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         
         if let redirectString = redirectURI {
             if webView.url?.absoluteString.hasPrefix(redirectString) == false {
+                // TODO: Decide what to do when verification webpage is displayed
                 return
             }
         }

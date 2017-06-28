@@ -182,16 +182,20 @@ class MockIDPlusNetworkProvider: NSObject, MendeleyNetworkProvider {
 
 class MockWebView: WKWebView {
     
-//    var navigationObjects = [WKNavigation]()
-    
+    var _url: URL?
     override var url: URL? {
         get {
-            let urlString = "http://localhost/auth_return?code=\(defaultCode)&state=\(defaultState)"
-            return URL(string: urlString)
+            return _url
         }
     }
     
     override func load(_ request: URLRequest) -> WKNavigation? {
+        if request.url?.absoluteString.hasPrefix("https://staging.mendeley.com") ?? false {
+            _url = URL(string: defaultRedirectURI)
+        } else {
+            let urlString = "http://localhost/auth_return?code=\(defaultCode)&state=\(defaultState)"
+            _url = URL(string: urlString)
+        }
         
         navigationDelegate?.webView!(self, didReceiveServerRedirectForProvisionalNavigation: nil)
         
@@ -339,17 +343,13 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
             oAuthExpectation.expectedFulfillmentCount = 2
             
             webkitHandler.startLoginProcess(defaultClientID, redirectURI: defaultRedirectURI, completionHandler: { ( success: Bool, error: Error?) in
-                // do nothing
-                print(error?.localizedDescription ?? "")
+
                 XCTAssertTrue(success, "Success should be true")
                 XCTAssertNil(error, error!.localizedDescription)
                 
                 completionExpectation.fulfill()
             }, oauthHandler: { ( credentials: MendeleyOAuthCredentials?, error: Error? ) in
-                // do nothing
-                print(error?.localizedDescription ?? "")
-                print("fulfill")
-                
+
                 XCTAssertNotNil(credentials, "Credentials are not nil")
                 XCTAssertNil(error, error!.localizedDescription)
                 
@@ -382,17 +382,13 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
             oAuthExpectation.expectedFulfillmentCount = 2
             
             webkitHandler.startLoginProcess(defaultClientID, redirectURI: defaultRedirectURI, completionHandler: { ( success: Bool, error: Error?) in
-                // do nothing
-                print(error?.localizedDescription ?? "")
+                
                 XCTAssertTrue(success, "Success should be true")
                 XCTAssertNil(error, error!.localizedDescription)
                 
                 completionExpectation.fulfill()
             }, oauthHandler: { ( credentials: MendeleyOAuthCredentials?, error: Error? ) in
-                // do nothing
-                print(error?.localizedDescription ?? "")
-                print("fulfill")
-                
+
                 XCTAssertNotNil(credentials, "Credentials are not nil")
                 XCTAssertNil(error, error!.localizedDescription)
                 
@@ -404,52 +400,4 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
             // Do nothing
         }
     }
-    
-
-//    - (void)obtainAccessTokensWithAuthorizationCode:(nonnull NSString *)code
-//    completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
-//    
-//    - (void)obtainIDPlusAccessTokensWithAuthorizationCode:(nonnull NSString *)code
-//    completionBlock:(nullable MendeleyIDPlusCompletionBlock)completionBlock;
-//    
-//    - (void)postProfileWithIDPlusCredentials:(nonnull MendeleyIDPlusCredentials *)credentials
-//    completionBlock:(nullable MendeleyObjectAndStateCompletionBlock)completionBlock;
-//    
-//    - (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
-//    idPlusCredentials:(nonnull MendeleyIDPlusCredentials *)idPlusCredentials
-//    completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
-//    
-//    /**
-//     used when refreshing the access token. The completion block returns the OAuth credentials - or nil
-//     if unsuccessful. When nil, an error object will be provided.
-//     Threading note: refresh maybe handled on main as well as background thread.
-//     @param credentials the current credentials (to be updated with the refresh)
-//     @param completionBlock
-//     */
-//    - (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
-//    completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
-//    
-//    /**
-//     used when refreshing the access token. The completion block returns the OAuth credentials - or nil
-//     if unsuccessful. When nil, an error object will be provided.
-//     Threading note: refresh maybe handled on main as well as background thread.
-//     @param credentials the current credentials (to be updated with the refresh)
-//     @param task the task corresponding to the current operation
-//     @param completionBlock
-//     */
-//    - (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
-//    task:(nullable MendeleyTask *)task
-//    completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
-//    
-//    - (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
-//    
-//    /**
-//     checks if the url string given is the Redirect URL
-//     @param urlString
-//     @return YES if it is URL string
-//     */
-//    - (BOOL)urlStringIsRedirectURI:(nullable NSString *)urlString;
-//    
-//    - (void)logOutWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
-//    completionBlock:(nullable MendeleyCompletionBlock)completionBlock;
 }
