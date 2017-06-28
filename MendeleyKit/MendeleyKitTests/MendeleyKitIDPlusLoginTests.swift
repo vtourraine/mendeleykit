@@ -150,7 +150,7 @@ class MockIDPlusNetworkProvider: NSObject, MendeleyNetworkProvider {
 
 class MockWebView: WKWebView {
     
-    var mockNavigation: WKNavigation? = WKNavigation()
+//    var navigationObjects = [WKNavigation]()
     
     override var url: URL? {
         get {
@@ -160,8 +160,10 @@ class MockWebView: WKWebView {
     }
     
     override func load(_ request: URLRequest) -> WKNavigation? {
-        navigationDelegate?.webView!(self, didReceiveServerRedirectForProvisionalNavigation: mockNavigation)
-        return mockNavigation
+        
+        navigationDelegate?.webView!(self, didReceiveServerRedirectForProvisionalNavigation: nil)
+        
+        return nil
     }
 }
 
@@ -239,6 +241,7 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
             
             let dummyVC = UIViewController()
             let webkitHandler = MendeleyLoginWebKitHandler(controller: dummyVC)
+            
             let webView = MockWebView()
             webView.navigationDelegate = webkitHandler
             

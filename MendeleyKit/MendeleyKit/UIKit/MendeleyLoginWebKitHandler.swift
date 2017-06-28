@@ -68,17 +68,14 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     
     //@TODO: fix code
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        doSomething()
-    }
-    
-    public func doSomething() {
+        
         if let redirectString = redirectURI {
-            if webView?.url?.absoluteString.hasPrefix(redirectString) == false {
+            if webView.url?.absoluteString.hasPrefix(redirectString) == false {
                 return
             }
         }
         
-        if let requestURL = webView?.url {
+        if let requestURL = webView.url {
             guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL)?.code
                 else {
                     let error = MendeleyErrorManager.sharedInstance().error(withDomain: kMendeleyErrorDomain, code: MendeleyErrorCode.dataNotAvailableErrorCode.rawValue)
@@ -95,14 +92,14 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                 self.idPlusProvider?.obtainAccessTokens(withAuthorizationCode: code, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, oAuthError: Error?) in
                     guard let oAuthCredentials = oAuthCredentials
                         else {
-                            self.completionBlock?(false, (oAuthError as NSError?))
+                         self.completionBlock?(false, (oAuthError as NSError?))
                             return
                     }
                     self.oAuthCompletionBlock?(oAuthCredentials, nil)
                     self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
                         if object == nil {
-                            self.completionBlock?(false, error as NSError?)
-                            return
+                                self.completionBlock?(false, error as NSError?)
+                                return
                         }
                         
                         switch state {
@@ -128,7 +125,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                         }
                     })
                 })
-                
+
             })
             
         }
