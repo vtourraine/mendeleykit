@@ -59,7 +59,7 @@ open class MendeleyAnalyticsEventFeedComment: MendeleyAnalyticsEventFeed {
     open var pageLoadId: String!
 }
 
-open class MendeleyAnalyticsEventFeedCommentAdded: MendeleyAnalyticsEventFeedComment {}
+typealias MendeleyAnalyticsEventFeedCommentAdded = MendeleyAnalyticsEventFeedComment
 
 open class MendeleyAnalyticsEventFeedCommendDeleted: MendeleyAnalyticsEventFeedComment {
     open var commentIndex: Int!
