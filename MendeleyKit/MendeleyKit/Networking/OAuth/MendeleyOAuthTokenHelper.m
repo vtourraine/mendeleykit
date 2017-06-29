@@ -27,13 +27,6 @@
 
 + (void)refreshTokenWithRefreshBlock:(MendeleyCompletionBlock)refreshBlock
 {
-    if (refreshBlock)
-    {
-        refreshBlock(YES, nil);
-    }
-    return;
-    
-    // @TODO: Re-enable code once ID+ complete
     MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
 
     if (nil == credentials)

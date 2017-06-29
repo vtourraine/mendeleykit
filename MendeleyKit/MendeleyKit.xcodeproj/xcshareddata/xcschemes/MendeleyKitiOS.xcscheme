@@ -39,6 +39,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "MendeleyKitIDPlusLoginTests/testCreateAccountLogin()">
+               </Test>
+               <Test
                   Identifier = "MendeleyKitLoginHelperTests/testAuthenticationCodeFromRequest()">
                </Test>
                <Test

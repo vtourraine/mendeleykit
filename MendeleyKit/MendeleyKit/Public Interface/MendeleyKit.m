@@ -216,14 +216,6 @@
 
 - (MendeleyTask *)checkAuthorisationStatusWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    if (completionBlock)
-    {
-        completionBlock(YES, nil);
-    }
-    return nil;
-    
-    // @TODO: Re-enable once ID+ work is complete
-    
     if (!self.isAuthenticated)
     {
         if (completionBlock)
