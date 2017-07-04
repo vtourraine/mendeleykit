@@ -30,7 +30,7 @@
 #ifdef DEBUG
         NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
         @throw exception;
-#elif
+#else
         NSLog(@"%s: %@", __PRETTY_FUNCTION__, message);
 #endif
     }
@@ -54,7 +54,7 @@
 #ifdef DEBUG
         NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
         @throw exception;
-#elif
+#else
         NSLog(@"%s: %@", __PRETTY_FUNCTION__, message);
 #endif
     }
@@ -78,7 +78,7 @@
 #ifdef DEBUG
         NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
         @throw exception;
-#elif
+#else
         NSLog(@"%s: %@", __PRETTY_FUNCTION__, message);
 #endif
     }
