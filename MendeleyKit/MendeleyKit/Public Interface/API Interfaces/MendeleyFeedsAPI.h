@@ -75,4 +75,27 @@
                     task:(MendeleyTask *)task
          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+/**
+ List of users that like given item.
+ @param feedID
+ @param task
+ @param completionBlock
+ */
+
+- (void)likersForFeedWithID:(NSString *)feedID
+                      task:(MendeleyTask *)task
+           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+
+/**
+ List of users that have shared given item.
+ @param feedID
+ @param task
+ @param completionBlock
+ */
+
+- (void)sharersForFeedWithID:(NSString *)feedID
+                        task:(MendeleyTask *)task
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 @end

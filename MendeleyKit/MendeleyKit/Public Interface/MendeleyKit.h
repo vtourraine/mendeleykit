@@ -1004,6 +1004,24 @@
 - (MendeleyTask *)unlikeFeedWithID:(NSString *)feedID
          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+/**
+ List of users that like given item.
+ @param feedID
+ @param completionBlock
+ */
+- (void)likersForFeedWithID:(NSString *)feedID
+            completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+
+/**
+ List of users that have shared given item.
+ @param feedID
+ @param completionBlock
+ */
+
+- (void)sharersForFeedWithID:(NSString *)feedID
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 #pragma mark - User Posts
 
 /**
