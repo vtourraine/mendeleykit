@@ -1609,7 +1609,7 @@
     return task;
 }
 
-- (void)likersForFeedWithID:(NSString *)feedID
+- (MendeleyTask *)likersForFeedWithID:(NSString *)feedID
             completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1617,12 +1617,12 @@
         [self.feedsAPI likersForFeedWithID:feedID
                                       task:task
                            completionBlock:completionBlock];
-    } completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
     
     return task;
 }
 
-- (void)sharersForFeedWithID:(NSString *)feedID
+- (MendeleyTask *)sharersForFeedWithID:(NSString *)feedID
              completionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1630,7 +1630,7 @@
         [self.feedsAPI sharersForFeedWithID:feedID
                                        task:task
                             completionBlock:completionBlock];
-    } completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
     
     return task;
 }

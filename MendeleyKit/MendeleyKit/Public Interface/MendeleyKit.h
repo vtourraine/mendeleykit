@@ -1009,7 +1009,7 @@
  @param feedID
  @param completionBlock
  */
-- (void)likersForFeedWithID:(NSString *)feedID
+- (MendeleyTask *)likersForFeedWithID:(NSString *)feedID
             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 
@@ -1019,7 +1019,7 @@
  @param completionBlock
  */
 
-- (void)sharersForFeedWithID:(NSString *)feedID
+- (MendeleyTask *)sharersForFeedWithID:(NSString *)feedID
              completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 #pragma mark - User Posts
