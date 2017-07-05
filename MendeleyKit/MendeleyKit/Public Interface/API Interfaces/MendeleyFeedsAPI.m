@@ -201,9 +201,9 @@ static NSArray *itemClassStrings;
                  MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
                  if (![self.helper isSuccessForResponse:response error:&error])
                  {
-                     [blockExec executeWithMendeleyObject:nil
-                                                 syncInfo:nil
-                                                    error:error];
+                     [blockExec executeWithArray:nil
+                                        syncInfo:nil
+                                           error:error];
                  }
                  else
                  {
@@ -232,9 +232,9 @@ static NSArray *itemClassStrings;
                  MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
                  if (![self.helper isSuccessForResponse:response error:&error])
                  {
-                     [blockExec executeWithMendeleyObject:nil
-                                                 syncInfo:nil
-                                                    error:error];
+                     [blockExec executeWithArray:nil
+                                        syncInfo:nil
+                                           error:error];
                  }
                  else
                  {
