@@ -1609,6 +1609,32 @@
     return task;
 }
 
+- (MendeleyTask *)likersForFeedWithID:(NSString *)feedID
+            completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI likersForFeedWithID:feedID
+                                      task:task
+                           completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)sharersForFeedWithID:(NSString *)feedID
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI sharersForFeedWithID:feedID
+                                       task:task
+                            completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
 #pragma mark - User Posts
 
 - (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
