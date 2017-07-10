@@ -41,6 +41,7 @@
 {
     return @[kMendeleyFeedItemRSS,
              kMendeleyFeedItemNewStatus,
+             kMendeleyFeedItemGroupStatus,
              kMendeleyFeedItemEmploymentUpdate,
              kMendeleyFeedItemEducationUpdate,
              kMendeleyFeedItemNewFollower,
@@ -55,6 +56,7 @@
 {
     return @[NSStringFromClass(MendeleyRSSJsonNode.class),
              NSStringFromClass(MendeleyNewStatusJsonNode.class),
+             NSStringFromClass(MendeleyGroupStatusJsonNode.class),
              NSStringFromClass(MendeleyEmploymentUpdateJsonNode.class),
              NSStringFromClass(MendeleyEducationUpdateJsonNode.class),
              NSStringFromClass(MendeleyNewFollowerJsonNode.class),
@@ -503,6 +505,15 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyGroupStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost] ||
+            [propertyName isEqualToString:kMendeleyJSONGroup])
+        {
+            return YES;
+        }
+    }
+  
     if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONProfile])
@@ -1016,6 +1027,18 @@
         if ([propertyName isEqualToString:kMendeleyJSONPost])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleyPost class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyGroupStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyGroupPost class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONGroup])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyGroup class] fromRawValue:rawValue];
         }
     }
     

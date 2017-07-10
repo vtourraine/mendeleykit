@@ -549,6 +549,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
  ***********************************************/
 #define kMendeleyFeedItemRSS                              @"rss-item"
 #define kMendeleyFeedItemNewStatus                        @"new-status"
+#define kMendeleyFeedItemGroupStatus                      @"group-status-posted"
 #define kMendeleyFeedItemEmploymentUpdate                 @"employment-update"
 #define kMendeleyFeedItemEducationUpdate                  @"education-update"
 #define kMendeleyFeedItemNewFollower                      @"new-follower"
