@@ -567,7 +567,8 @@
         }
     }
     
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])]
+        || [modelName isEqualToString:NSStringFromClass([MendeleyGroupPost class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONDocument] ||
             [propertyName isEqualToString:kMendeleyJSONDocuments] ||
@@ -1107,7 +1108,8 @@
         }
     }
     
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])]
+        || [modelName isEqualToString:NSStringFromClass([MendeleyGroupPost class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONDocument])
         {
