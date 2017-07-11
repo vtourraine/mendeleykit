@@ -1664,6 +1664,32 @@
     return task;
 }
 
+- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.userPostsAPI createGroupPost:groupPost
+                                      task:task
+                           completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)deleteGroupPostWithPostID:(NSString *)postID
+                            completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.userPostsAPI deleteGroupPostWithPostID:postID
+                                                task:task
+                                     completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
 #pragma mark - Shares
 
 - (MendeleyTask *)shareFeedWithQueryParameters:(MendeleySharesParameters *)queryParameters

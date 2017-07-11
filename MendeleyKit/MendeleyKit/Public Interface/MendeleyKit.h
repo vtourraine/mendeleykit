@@ -22,7 +22,7 @@
 #import "MendeleyGlobals.h"
 
 @class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment,
-    MendeleyCommentUpdate, MendeleyNewUserPost;
+    MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost;
 
 @protocol MendeleyNetworkProvider;
 
@@ -1025,6 +1025,16 @@
 #pragma mark - User Posts
 
 /**
+ Creates a new user post.
+ @param newPost
+ @param task
+ @param completionBlock
+ */
+
+- (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
+                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
  Deletes a user post.
  @param postID
  @param completionBlock
@@ -1032,6 +1042,24 @@
  */
 - (MendeleyTask *)deleteUserPostWithPostID:(NSString *)postID
                            completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+ Creates a new group post.
+ @param groupPost
+ @param task
+ @param completionBlock
+ */
+- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Deletes a group post.
+ @param postID
+ @param task
+ @param completionBlock
+ */
+- (MendeleyTask *)deleteGroupPostWithPostID:(NSString *)postID
+                            completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Shares
 
@@ -1090,17 +1118,6 @@
 - (MendeleyTask *)updateCommentWithCommentID:(NSString *)commentID
                                       update:(MendeleyCommentUpdate *)update
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-/**
- Creates a new user post.
- @param newPost
- @param task
- @param completionBlock
- */
-
-- (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
-                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
 
 /**
  Delete comment.

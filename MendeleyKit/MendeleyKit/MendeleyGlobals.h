@@ -159,6 +159,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONCommentUpdateType               @"application/vnd.mendeley-comment-update+json"
 #define kMendeleyRESTRequestJSONNewUserPostType                 @"application/vnd.mendeley-new-user-post+json"
 #define kMendeleyRESTRequestJSONUserPostType                    @"application/vnd.mendeley-user-post+json"
+#define kMendeleyRESTRequestJSONNewGroupPostType                @"application/vnd.mendeley-new-group-user-post+json"
+#define kMendeleyRESTRequestJSONGroupPostType                   @"application/vnd.mendeley-group-user-post+json"
 #define kMendeleyOAuth2ClientVersionKey                         @"Client-Version"
 #define kMendeleyOAuth2UserAgentKey                             @"User-Agent"
 #define kMendeleyOAuth2AcceptLanguageKey                        @"Accept-Language"
@@ -199,6 +201,8 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIShareFeed                         @"news_items/v1/actions/share"
 #define kMendeleyRESTAPICreateUserPost                    @"user_posts/v2"
 #define kMendeleyRESTAPIDeleteUserPost                    @"user_posts/v1/%@"
+#define kMendeleyRESTAPICreateGroupPost                   @"group_user_posts/v2"
+#define kMendeleyRESTAPIDeleteGroupPost                   @"group_user_posts/v1/%@"
 #define kMendeleyRESTAPIFiles                             @"files"
 #define kMendeleyRESTAPIFileWithID                        @"files/%@"
 #define kMendeleyRESTAPIFolders                           @"folders"
@@ -307,6 +311,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelExpandedComment                     @"MendeleyExpandedComment"
 #define kMendeleyModelCommentUpdate                       @"MendeleyCommentUpdate"
 #define kMendeleyModelUserPost                            @"MendeleyUserPost"
+#define kMendeleyModelGroupPost                           @"MendeleyGroupPost"
 
 /***********************************************
    @name JSON keys General
