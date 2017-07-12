@@ -33,7 +33,7 @@
 
 
 /**
-   BETA - Obtain a list of followers for a given user.
+   Obtain a list of followers for a given user.
    @param profileID
    @param parameters
    @param task
@@ -45,7 +45,7 @@
                completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   BETA - Obtain a list of users followed by a given user.
+   Obtain a list of users followed by a given user.
    @param profileID
    @param parameters
    @param task
@@ -57,7 +57,7 @@
              completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   BETA - Obtain a list of pending followers for a given user.
+   Obtain a list of pending followers for a given user.
    @param profileID
    @param parameters
    @param task
@@ -69,7 +69,7 @@
                       completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   BETA - Obtain a list of pending users followed by a given user.
+   Obtain a list of pending users followed by a given user.
    @param profileID
    @param parameters
    @param task
@@ -81,7 +81,7 @@
                     completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   BETA - Start following another user.
+   Start following another user.
    @param followedID
    @param task
    @param completionBlock - the object contained in the completionBlock will be a MendeleyFollow object
@@ -92,7 +92,7 @@
 
 
 /**
-   BETA - Accept a pending follow request
+   Accept a pending follow request
    @param requestID
    @param task
    @param completionBlock
@@ -103,7 +103,7 @@
                   completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
-   BETA -Stop following a profile, cancel a follow request or reject a follow request
+   Stop following a profile, cancel a follow request or reject a follow request
    @param relationshipID
    @param task
    @param completionBlock
@@ -111,5 +111,17 @@
 - (void)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                           task:(MendeleyTask *)task
                completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+    Check whether a given user is following another one.
+    @param followerID
+    @param followedID
+    @param task
+    @param completionBlock
+ */
+- (void)profileWithID:(NSString *)followerID
+   isFollowingProfile:(NSString *)followedID
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 @end

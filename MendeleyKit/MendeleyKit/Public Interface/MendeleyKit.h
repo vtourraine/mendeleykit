@@ -944,6 +944,17 @@
 - (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+/**
+ Check whether a given user is following another one.
+ @param followerID
+ @param followedID
+ @param task
+ @param completionBlock
+ */
+- (MendeleyTask *)profileWithID:(NSString *)followerID
+   isFollowingProfile:(NSString *)followedID
+      completionBlock:(MendeleyCompletionBlock)completionBlock;
+
 #pragma mark - Recommendations
 
 - (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters

@@ -180,4 +180,39 @@
                              completionBlock:completionBlock];
 }
 
+- (void)profileWithID:(NSString *)followerID
+   isFollowingProfile:(NSString *)followedID
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    [NSError assertStringArgumentNotNilOrEmpty:followerID argumentName:@"followerID"];
+    [NSError assertStringArgumentNotNilOrEmpty:followedID argumentName:@"followedID"];
+    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+    
+    MendeleyFollowersParameters *queryParameters = [MendeleyFollowersParameters new];
+    queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing;
+    queryParameters.follower = followerID;
+    queryParameters.followed = followedID;
+    NSDictionary *query = [queryParameters valueStringDictionary];
+    
+    [self.helper mendeleyObjectListOfType:kMendeleyModelFollow
+                                      api:kMendeleyRESTAPIFollowers
+                               parameters:query
+                        additionalHeaders:[self defaultServiceRequestHeaders]
+                                     task:task
+                          completionBlock:^(NSArray * _Nullable array, MendeleySyncInfo * _Nullable syncInfo, NSError * _Nullable error) {
+                              if (completionBlock)
+                              {
+                                  completionBlock(array.count > 0, error);
+                              }
+                          }];
+}
+
+- (void)isCurrentUserFollowedByUserWithID:(NSString *)userID
+                                     task:(MendeleyTask *)task
+                          completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    
+}
+
 @end
