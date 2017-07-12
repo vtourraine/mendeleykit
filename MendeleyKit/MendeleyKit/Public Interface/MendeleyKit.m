@@ -1502,6 +1502,21 @@
     return task;
 }
 
+- (MendeleyTask *)profileWithID:(NSString *)followerID
+             isFollowingProfile:(NSString *)followedID
+                completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.followersAPI profileWithID:followerID
+                      isFollowingProfile:followedID
+                                    task:task
+                         completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
 #pragma mark - Recommendations
 
 - (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
