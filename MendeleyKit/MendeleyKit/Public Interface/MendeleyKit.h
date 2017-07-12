@@ -945,17 +945,6 @@
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
- Check whether a given user is following another one.
- @param followerID
- @param followedID
- @param completionBlock
- @return a MendeleyTask object used for cancelling the operation
- */
-- (MendeleyTask *)profileWithID:(NSString *)followerID
-   isFollowingProfile:(NSString *)followedID
-      completionBlock:(MendeleyCompletionBlock)completionBlock;
-
-/**
  Returns a follow relationship between two profiles if it exists.
  @param followerID
  @param followedID

@@ -124,17 +124,4 @@
                                  followed:(NSString *)followedID
                                      task:(MendeleyTask *)task
                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-/**
-    Check whether a given user is following another one.
-    @param followerID
-    @param followedID
-    @param task
-    @param completionBlock
- */
-- (void)profileWithID:(NSString *)followerID
-   isFollowingProfile:(NSString *)followedID
-                 task:(MendeleyTask *)task
-      completionBlock:(MendeleyCompletionBlock)completionBlock;
-
 @end
