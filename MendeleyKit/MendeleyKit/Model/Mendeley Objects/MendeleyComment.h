@@ -43,7 +43,7 @@
 @interface MendeleyCommentUpdate : MendeleySecureObject
 
 @property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSArray<MendeleySocialProfile *> *tagged_users;
+@property (nonatomic, strong) NSArray<NSString *> *tagged_users;
 
 @end
 
