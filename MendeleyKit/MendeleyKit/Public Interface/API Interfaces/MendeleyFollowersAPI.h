@@ -113,6 +113,19 @@
                completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
+    Returns a follow relationship between two profiles if it exists.
+    @param followerID
+    @param followedID
+    @param task
+    @param completionBlock
+ */
+
+- (void)followRelationshipBetweenFollower:(NSString *)followerID
+                                 followed:(NSString *)followedID
+                                     task:(MendeleyTask *)task
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
     Check whether a given user is following another one.
     @param followerID
     @param followedID
