@@ -1331,6 +1331,58 @@
             }
         }
     }
+    
+    NSString *commentUpdate = NSStringFromClass([MendeleyCommentUpdate class]);
+    if ([modelName isEqualToString:commentUpdate])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            if ([customObject isKindOfClass:[NSArray class]])
+            {
+                NSArray *taggedUsers = (NSArray *)customObject;
+                NSMutableArray *taggedUsersDicts = [NSMutableArray new];
+                
+                for (MendeleySocialProfile *profile in taggedUsers)
+                {
+                    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+                    NSDictionary *modelAttributes = [MendeleyObjectHelper propertiesAndAttributesForModel:profile];
+                    [modelAttributes enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *attribute, BOOL *stop) {
+                        if ([attribute rangeOfString:@"NSString"].location != NSNotFound ||
+                            [attribute rangeOfString:@"NSNumber"].location != NSNotFound)
+                        {
+                            id value = [customObject valueForKey:key];
+                            if (nil != value)
+                            {
+                                [dictionary setObject:value forKey:key];
+                            }
+                        }
+                    }];
+                    [taggedUsersDicts addObject:dictionary];
+                }
+                
+                return taggedUsersDicts;
+            }
+        }
+    }
+    
+    NSString *socialProfile = NSStringFromClass([MendeleySocialProfile class]);
+    if ([modelName isEqualToString:socialProfile])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPhotos])
+        {
+            if ([customObject isKindOfClass:[NSArray class]])
+            {
+                NSArray *photos = (NSArray *)customObject;
+                NSMutableArray *photoDicts = [NSMutableArray new];
+                for (MendeleySocialProfilePhoto *photo in photos)
+                {
+                    [photoDicts addObject:([MendeleyObjectHelper propertiesAndAttributesForModel:photo])];
+                }
+                
+                return photoDicts;
+            }
+        }
+    }
 
     return nil;
 }
