@@ -595,6 +595,14 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyCommentUpdate class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
