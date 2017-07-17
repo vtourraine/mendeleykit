@@ -37,6 +37,16 @@ static NSArray *itemClassStrings;
     return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemType };
 }
 
+- (NSDictionary *)sharersServiceRequestHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemSharerListType };
+}
+
+- (NSDictionary *)likersServiceRequestHeaders
+{
+    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemLikerListType };
+}
+
 - (void)feedListWithLinkedURL:(NSURL *)linkURL
                          task:(MendeleyTask *)task
               completionBlock:(MendeleyArrayCompletionBlock)completionBlock
@@ -174,6 +184,68 @@ static NSArray *itemClassStrings;
                     BOOL success = [self.helper isSuccessForResponse:response error:&error];
                     [blockExec executeWithBool:success error:error];
                 }];
+}
+
+- (void)likersForFeedWithID:(NSString *)feedID
+                       task:(MendeleyTask *)task
+            completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    NSString *apiString = [NSString stringWithFormat:kMendeleyRESTAPILikeFeed, feedID];
+    [self.provider invokeGET:self.baseURL
+                         api:apiString
+           additionalHeaders:[self likersServiceRequestHeaders]
+             queryParameters:nil
+      authenticationRequired:YES
+                        task:task
+             completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                 MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+                 if (![self.helper isSuccessForResponse:response error:&error])
+                 {
+                     [blockExec executeWithArray:nil
+                                        syncInfo:nil
+                                           error:error];
+                 }
+                 else
+                 {
+                     MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+                     [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelSocialProfile completionBlock:^(NSArray<MendeleySocialProfile *>* sharers, NSError* parseError) {
+                         MendeleySyncInfo *syncInfo = response.syncHeader;
+                         [blockExec executeWithArray:sharers syncInfo:syncInfo error:parseError];
+                         
+                     }];
+                 }
+             }];
+}
+
+- (void)sharersForFeedWithID:(NSString *)feedID
+                        task:(MendeleyTask *)task
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    NSString *apiString = [NSString stringWithFormat:kMendeleyRESTAPISharersFeed, feedID];
+    [self.provider invokeGET:self.baseURL
+                         api:apiString
+           additionalHeaders:[self sharersServiceRequestHeaders]
+             queryParameters:nil
+      authenticationRequired:YES
+                        task:task
+             completionBlock:^(MendeleyResponse * _Nullable response, NSError * _Nullable error) {
+                 MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+                 if (![self.helper isSuccessForResponse:response error:&error])
+                 {
+                     [blockExec executeWithArray:nil
+                                        syncInfo:nil
+                                           error:error];
+                 }
+                 else
+                 {
+                     MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+                     [jsonModeller parseJSONData:response.responseBody expectedType:kMendeleyModelSocialProfile completionBlock:^(NSArray<MendeleySocialProfile *>* sharers, NSError* parseError) {
+                         MendeleySyncInfo *syncInfo = response.syncHeader;
+                         [blockExec executeWithArray:sharers syncInfo:syncInfo error:parseError];
+                         
+                     }];
+                 }
+             }];
 }
 
 @end

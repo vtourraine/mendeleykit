@@ -27,40 +27,60 @@
     if (nil == argument)
     {
         NSString *message = [NSString stringWithFormat:@"%@ must not be nil", argumentName];
+#ifdef DEBUG
         NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
         @throw exception;
+#else
+        NSLog(@"%s: %@", __PRETTY_FUNCTION__, message);
+#endif
     }
 }
 
 + (void)assertStringArgumentNotNilOrEmpty:(NSString *)argument argumentName:(NSString *)argumentName
 {
+    NSString *message = nil;
+    
     if (nil == argument)
     {
-        NSString *message = [NSString stringWithFormat:@"%@ must not be nil", argumentName];
-        NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
-        @throw exception;
+        message = [NSString stringWithFormat:@"%@ must not be nil", argumentName];
     }
     else if ([argument isEqualToString:@""])
     {
-        NSString *message = [NSString stringWithFormat:@"%@ must not be empty", argumentName];
+        message = [NSString stringWithFormat:@"%@ must not be empty", argumentName];
+    }
+    
+    if (message)
+    {
+#ifdef DEBUG
         NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
         @throw exception;
+#else
+        NSLog(@"%s: %@", __PRETTY_FUNCTION__, message);
+#endif
     }
 }
 
 + (void)assertURLArgumentNotNilOrMissing:(NSURL *)argument argumentName:(NSString *)argumentName
 {
+    NSString *message = nil;
+    
     if (nil == argument)
     {
-        NSString *message = [NSString stringWithFormat:@"%@ must not be nil", argumentName];
-        NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
-        @throw exception;
+        message = [NSString stringWithFormat:@"%@ must not be nil", argumentName];
     }
     else if (![[NSFileManager defaultManager] fileExistsAtPath:argument.path])
     {
-        NSString *message = [NSString stringWithFormat:@"%@ not found", argumentName];
+        message = [NSString stringWithFormat:@"%@ not found", argumentName];
+    }
+    
+    if (message)
+    {
+#ifdef DEBUG
         NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
         @throw exception;
+#else
+        NSLog(@"%s: %@", __PRETTY_FUNCTION__, message);
+#endif
     }
 }
 

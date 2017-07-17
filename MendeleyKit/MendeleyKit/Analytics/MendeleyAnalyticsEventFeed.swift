@@ -51,3 +51,14 @@ open class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
     open var itemId: String!
     open var coauthor = "false"
 }
+
+open class MendeleyAnalyticsEventFeedComment: MendeleyAnalyticsEventFeed {
+    open var itemId: String!
+    open var pageLoadId: String!
+}
+
+open class MendeleyAnalyticsEventFeedCommentAdded: MendeleyAnalyticsEventFeedComment {}
+
+open class MendeleyAnalyticsEventFeedCommendDeleted: MendeleyAnalyticsEventFeedComment {
+    open var commentIndex: Int!
+}

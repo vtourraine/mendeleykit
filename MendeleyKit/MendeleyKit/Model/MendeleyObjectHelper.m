@@ -42,6 +42,7 @@
 {
     return @[kMendeleyFeedItemRSS,
              kMendeleyFeedItemNewStatus,
+             kMendeleyFeedItemGroupStatus,
              kMendeleyFeedItemEmploymentUpdate,
              kMendeleyFeedItemEducationUpdate,
              kMendeleyFeedItemNewFollower,
@@ -56,6 +57,7 @@
 {
     return @[NSStringFromClass(MendeleyRSSJsonNode.class),
              NSStringFromClass(MendeleyNewStatusJsonNode.class),
+             NSStringFromClass(MendeleyGroupStatusJsonNode.class),
              NSStringFromClass(MendeleyEmploymentUpdateJsonNode.class),
              NSStringFromClass(MendeleyEducationUpdateJsonNode.class),
              NSStringFromClass(MendeleyNewFollowerJsonNode.class),
@@ -506,6 +508,24 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyGroupStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost] ||
+            [propertyName isEqualToString:kMendeleyJSONGroup])
+        {
+            return YES;
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyComment class])] ||
+        [modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return YES;
+        }
+    }
+    
     if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONProfile])
@@ -559,7 +579,8 @@
         }
     }
     
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])]
+        || [modelName isEqualToString:NSStringFromClass([MendeleyGroupPost class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONDocument] ||
             [propertyName isEqualToString:kMendeleyJSONDocuments] ||
@@ -1030,6 +1051,27 @@
         }
     }
     
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyGroupStatusJsonNode class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONPost])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyGroupPost class] fromRawValue:rawValue];
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONGroup])
+        {
+            return [[self class] setPropertiesToObjectOfClass:[MendeleyGroup class] fromRawValue:rawValue];
+        }
+    }
+    
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyComment class])] ||
+        [modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
+        {
+            return [[self class] objectArrayForClass:[MendeleySocialProfile class] fromRawValue:rawValue];
+        }
+    }
+    
     if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONProfile])
@@ -1095,7 +1137,8 @@
         }
     }
     
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])])
+    if ([modelName isEqualToString:NSStringFromClass([MendeleyPost class])]
+        || [modelName isEqualToString:NSStringFromClass([MendeleyGroupPost class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONDocument])
         {

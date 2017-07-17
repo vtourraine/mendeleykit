@@ -145,6 +145,16 @@
 
 @end
 
+@class MendeleyGroupPost;
+@class MendeleyGroup;
+
+@interface MendeleyGroupStatusJsonNode: MendeleyJsonNode
+
+@property (nonatomic, strong, nullable) MendeleyGroup *group;
+@property (nonatomic, strong, nullable) MendeleyGroupPost *post;
+
+@end
+
 @class MendeleyCataloguePubDocument;
 
 @interface MendeleyPostedCataloguePublicationJsonNode : MendeleyCountableJsonNode
@@ -204,6 +214,16 @@
 @property (nonatomic, strong, nullable) MendeleyFeedDocument *document;
 @property (nonatomic, strong, nullable) NSArray<MendeleyFeedDocument *> *documents;
 @property (nonatomic, strong, nullable) NSArray<MendeleySocialProfile *> *tagged_users;
+
+@end
+
+@interface MendeleyGroupPost : MendeleyPost
+
+@property (nonatomic, strong, nullable) NSString *group_id;
+@property (nonatomic, strong, nullable) NSString *visibility;
+@property (nonatomic, strong, nullable) NSString *poster_id;
+@property (nonatomic, strong, nullable) NSString *created_date_time;
+@property (nonatomic, strong, nullable) NSNumber *hide_link_snippet;
 
 @end
 

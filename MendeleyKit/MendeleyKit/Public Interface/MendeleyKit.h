@@ -22,7 +22,7 @@
 #import "MendeleyGlobals.h"
 
 @class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment,
-    MendeleyCommentUpdate, MendeleyNewUserPost;
+    MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost;
 
 @protocol MendeleyNetworkProvider;
 
@@ -875,7 +875,7 @@
 
 #pragma mark - Followers
 /**
-   BETA - Obtain a list of followers for a given user.
+   Obtain a list of followers for a given user.
    @param profileID
    @param parameters
    @param task
@@ -887,7 +887,7 @@
                          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   BETA - Obtain a list of users followed by a given user.
+   Obtain a list of users followed by a given user.
    @param profileID
    @param parameters
    @param task
@@ -899,7 +899,7 @@
                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   BETA - Obtain a list of pending followers for a given user.
+   Obtain a list of pending followers for a given user.
    @param profileID
    @param parameters
    @param task
@@ -911,7 +911,7 @@
                                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
-   BETA - Obtain a list of pending users followed by a given user.
+   Obtain a list of pending users followed by a given user.
    @param profileID
    @param parameters
    @param task
@@ -923,7 +923,7 @@
                               completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
 
 /**
- BETA - Start following another user.
+ Start following another user.
  @param followedID
  @param task
  @param completionBlock - the object contained in the completionBlock will be a MendeleyFollow object
@@ -933,7 +933,7 @@
          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
- BETA - Accept a pending follow request
+ Accept a pending follow request
  @param requestID
  @param completionBlock
  @return a MendeleyTask object used for cancelling the operation
@@ -942,13 +942,25 @@
                   completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 /**
- BETA - Stop following a profile, cancel a follow request or reject a follow request
+ Stop following a profile, cancel a follow request or reject a follow request
  @param relationshipID
  @param completionBlock
  @return a MendeleyTask object used for cancelling the operation
  */
 - (MendeleyTask *)stopOrDenyRelationshipWithID:(NSString *)relationshipID
                completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+ Returns a follow relationship between two profiles if it exists.
+ @param followerID
+ @param followedID
+ @param completionBlock
+ @return a MendeleyTask object used for cancelling the operation
+ */
+
+- (MendeleyTask *)followRelationshipBetweenFollower:(NSString *)followerID
+                                 followed:(NSString *)followedID
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 #pragma mark - Recommendations
 
@@ -1010,7 +1022,35 @@
 - (MendeleyTask *)unlikeFeedWithID:(NSString *)feedID
          completionBlock:(MendeleyCompletionBlock)completionBlock;
 
+/**
+ List of users that like given item.
+ @param feedID
+ @param completionBlock
+ */
+- (MendeleyTask *)likersForFeedWithID:(NSString *)feedID
+            completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
+
+/**
+ List of users that have shared given item.
+ @param feedID
+ @param completionBlock
+ */
+
+- (MendeleyTask *)sharersForFeedWithID:(NSString *)feedID
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+
 #pragma mark - User Posts
+
+/**
+ Creates a new user post.
+ @param newPost
+ @param task
+ @param completionBlock
+ */
+
+- (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
+                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
  Deletes a user post.
@@ -1020,6 +1060,24 @@
  */
 - (MendeleyTask *)deleteUserPostWithPostID:(NSString *)postID
                            completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+ Creates a new group post.
+ @param groupPost
+ @param task
+ @param completionBlock
+ */
+- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ Deletes a group post.
+ @param postID
+ @param task
+ @param completionBlock
+ */
+- (MendeleyTask *)deleteGroupPostWithPostID:(NSString *)postID
+                            completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 #pragma mark - Shares
 
@@ -1078,17 +1136,6 @@
 - (MendeleyTask *)updateCommentWithCommentID:(NSString *)commentID
                                       update:(MendeleyCommentUpdate *)update
                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-/**
- Creates a new user post.
- @param newPost
- @param task
- @param completionBlock
- */
-
-- (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
-                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
 
 /**
  Delete comment.

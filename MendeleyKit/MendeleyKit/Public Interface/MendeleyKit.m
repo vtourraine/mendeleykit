@@ -1508,6 +1508,21 @@
     return task;
 }
 
+- (MendeleyTask *)followRelationshipBetweenFollower:(NSString *)followerID
+                                           followed:(NSString *)followedID
+                                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.followersAPI followRelationshipBetweenFollower:followerID
+                                                    followed:followedID
+                                                        task:task
+                                             completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    return task;
+}
+
 #pragma mark - Recommendations
 
 - (MendeleyTask *)recommendationsBasedOnLibraryArticlesWithParameters:(MendeleyRecommendationsParameters *)queryParameters
@@ -1615,6 +1630,32 @@
     return task;
 }
 
+- (MendeleyTask *)likersForFeedWithID:(NSString *)feedID
+            completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI likersForFeedWithID:feedID
+                                      task:task
+                           completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)sharersForFeedWithID:(NSString *)feedID
+             completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.feedsAPI sharersForFeedWithID:feedID
+                                       task:task
+                            completionBlock:completionBlock];
+    } arrayCompletionBlock:completionBlock];
+    
+    return task;
+}
+
 #pragma mark - User Posts
 
 - (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
@@ -1639,6 +1680,32 @@
         [self.userPostsAPI deleteUserPostWithPostID:postID
                                                task:task
                                     completionBlock:completionBlock];
+    } completionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.userPostsAPI createGroupPost:groupPost
+                                      task:task
+                           completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+    
+    return task;
+}
+
+- (MendeleyTask *)deleteGroupPostWithPostID:(NSString *)postID
+                            completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.userPostsAPI deleteGroupPostWithPostID:postID
+                                                task:task
+                                     completionBlock:completionBlock];
     } completionBlock:completionBlock];
     
     return task;
