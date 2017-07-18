@@ -72,35 +72,35 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
 {
     [NSError assertArgumentNotNil:parameters argumentName:@"parameters"];
     
-    NSString *scope = parameters[kIDPlusScope];
+    NSString *scope = parameters[kMendeleyIDPlusScopeKey];
     if (scope != nil && [scope isKindOfClass:[NSString class]]) {
         self.idPlusScope = scope;
     }
-    NSString *state = parameters[kIDPlusState];
+    NSString *state = parameters[kMendeleyIDPlusStateKey];
     if (state != nil && [state isKindOfClass:[NSString class]]) {
         self.idPlusState = state;
     }
-    NSString *authType = parameters[kIDPlusAuthType];
+    NSString *authType = parameters[kMendeleyIDPlusAuthTypeKey];
     if (authType != nil && [authType isKindOfClass:[NSString class]]) {
         self.idPlusAuthType = authType;
     }
-    NSString *platSite = parameters[kIDPlusPlatSite];
+    NSString *platSite = parameters[kMendeleyIDPlusPlatSiteKey];
     if (platSite != nil && [platSite isKindOfClass:[NSString class]]) {
         self.idPlusPlatSite = platSite;
     }
-    NSString *prompt = parameters[kIDPlusPrompt];
+    NSString *prompt = parameters[kMendeleyIDPlusPromptKey];
     if (prompt != nil && [prompt isKindOfClass:[NSString class]]) {
         self.idPlusPrompt = prompt;
     }
-    NSString *idPlusRedirectUri = parameters[kIDPlusRedirectUri];
+    NSString *idPlusRedirectUri = parameters[kMendeleyIDPlusRedirectUriKey];
     if (idPlusRedirectUri != nil && [idPlusRedirectUri isKindOfClass:[NSString class]]) {
         self.idPlusRedirectUri = idPlusRedirectUri;
     }
-    NSString *responseType = parameters[kIDPlusResponseType];
+    NSString *responseType = parameters[kMendeleyIDPlusResponseTypeKey];
     if (responseType != nil && [responseType isKindOfClass:[NSString class]]) {
         self.idPlusResponseType = responseType;
     }
-    NSString *idPlusClientId = parameters[kIDPlusClientId];
+    NSString *idPlusClientId = parameters[kMendeleyIDPlusClientIdKey];
     if (idPlusClientId != nil && [idPlusClientId isKindOfClass:[NSString class]]) {
         self.idPlusClientId = idPlusClientId;
     }

@@ -247,14 +247,14 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
     
     func configureIDPlusParameters(idPlusProvider: MendeleyIDPlusAuthProvider) {
         
-        let idPlusParams = [ kIDPlusScope : defaultScope,
-                             kIDPlusState : defaultState,
-                             kIDPlusAuthType : defaultAuthType,
-                             kIDPlusPlatSite : defaultPlatSite,
-                             kIDPlusPrompt : defaultPrompt,
-                             kIDPlusRedirectUri : defaultRedirectURI,
-                             kIDPlusResponseType :  defaultResponseType,
-                             kIDPlusClientId : defaultClientID ]
+        let idPlusParams = [ kMendeleyIDPlusScopeKey : defaultScope,
+                             kMendeleyIDPlusStateKey : defaultState,
+                             kMendeleyIDPlusAuthTypeKey : defaultAuthType,
+                             kMendeleyIDPlusPlatSiteKey : defaultPlatSite,
+                             kMendeleyIDPlusPromptKey : defaultPrompt,
+                             kMendeleyIDPlusRedirectUriKey : defaultRedirectURI,
+                             kMendeleyIDPlusResponseTypeKey :  defaultResponseType,
+                             kMendeleyIDPlusClientIdKey : defaultClientID ]
         
         idPlusProvider.configure(withParameters: idPlusParams)
     }

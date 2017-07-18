@@ -22,6 +22,8 @@
 #import "MendeleyDefaultNetworkProvider.h"
 #import "MendeleyIDPlusAuthDefaultManager.h"
 #import "MendeleyKitUserInfoManager.h"
+#import "MendeleyDefaultOAuthProvider.h"
+#import "MendeleyOAuthProvider.h"
 #import "MendeleyOAuthStore.h"
 #import "MendeleyError.h"
 
@@ -38,6 +40,7 @@ NSString *const kIDPlusResponseTypeDefault = @"code";
 typedef NS_ENUM(int, MendeleyCustomClassType)
 {
     NetworkProvider = 0,
+    OAuthProvider,
     StoreProvider,
     IDPlusProvider
 };
@@ -47,6 +50,7 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 @property (nonatomic, strong, readwrite) NSURL *baseAPIURL;
 @property (nonatomic, assign, readwrite) NSString *documentViewType;
 @property (nonatomic, strong, readwrite) id<MendeleyNetworkProvider> networkProvider;
+@property (nonatomic, strong, readwrite) id<MendeleyOAuthProvider> oAuthProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthStoreProvider> storeProvider;
 @end
@@ -80,20 +84,27 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 //TODO refactor method name
 - (void)configureOAuthWithParameters:(NSDictionary *)oAuthParameters
 {
-    if (nil != self.idPlusProvider &&
+    if (nil != self.oAuthProvider &&
+        [self.oAuthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
+    {
+        [self.oAuthProvider configureOAuthWithParameters:oAuthParameters];
+    }
+}
+
+- (void)configureAuthenticationWithParameters:(NSDictionary *)authenticationParameters
+{
+    if (nil != authenticationParameters[kMendeleyIDPlusClientIdKey] &&
+        nil != authenticationParameters[kMendeleyIDPlusSecretKey] &&
+        nil != self.idPlusProvider &&
         [self.idPlusProvider respondsToSelector:@selector(configureWithParameters:)])
     {
-        NSDictionary *idPlusParams = @{kIDPlusScope : kIDPlusScopeDefault,
-                               kIDPlusState : [[NSUUID UUID] UUIDString],
-                               kIDPlusAuthType : kIDPlusAuthTypeDefault,
-                               kIDPlusPlatSite : kIDPlusPlatSiteDefault,
-                               kIDPlusPrompt : kIDPlusPromptDefault,
-                               kIDPlusRedirectUri : kIDPlusRedirectURIDefault,
-                               kIDPlusResponseType :  kIDPlusResponseTypeDefault,
-                               kIDPlusClientId : kIDPlusClientID};
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:oAuthParameters];
-        [params addEntriesFromDictionary:idPlusParams];
-        [self.idPlusProvider configureWithParameters:params];
+        [self.idPlusProvider configureWithParameters:authenticationParameters];
+    }
+    
+    if (nil != self.oAuthProvider &&
+             [self.oAuthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
+    {
+        [self.oAuthProvider configureOAuthWithParameters:authenticationParameters];
     }
 }
 
@@ -118,6 +129,9 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
     {
         self.documentViewType = baseViewType;
     }
+    
+    NSString *oauthProviderName = [configurationParameters objectForKey:kMendeleyOAuthProviderKey];
+    [self createProviderForClassName:oauthProviderName classType:(OAuthProvider)];
 
     NSString *idPlusProviderName = [configurationParameters objectForKey:kMendeleyIDPlusAuthProviderKey];
     [self createProviderForClassName:idPlusProviderName classType:(IDPlusProvider)];
@@ -149,6 +163,12 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
                 self.networkProvider = provider;
             }
             break;
+        case OAuthProvider:
+            if ([provider conformsToProtocol:@protocol(MendeleyOAuthProvider)])
+            {
+                self.oAuthProvider = provider;
+            }
+            break;
         case IDPlusProvider:
             if ([provider conformsToProtocol:@protocol(MendeleyIDPlusAuthProvider)])
             {
@@ -169,6 +189,7 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 - (void)resetToDefault
 {
     _networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
+    _oAuthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
     _idPlusProvider = [MendeleyIDPlusAuthDefaultManager sharedInstance];
     _storeProvider = [MendeleyOAuthStore new];
     _isTrustedSSLServer = NO;

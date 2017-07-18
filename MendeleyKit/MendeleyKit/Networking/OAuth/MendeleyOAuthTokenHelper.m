@@ -25,6 +25,15 @@
 
 @implementation MendeleyOAuthTokenHelper
 
++ (id<MendeleyRefreshTokenProvider>)refreshTokenProvider
+{
+    if (MendeleyKitConfiguration.sharedInstance.idPlusProvider != nil) {
+        return MendeleyKitConfiguration.sharedInstance.idPlusProvider;
+    }
+    return MendeleyKitConfiguration.sharedInstance.oAuthProvider;
+
+}
+
 + (void)refreshTokenWithRefreshBlock:(MendeleyCompletionBlock)refreshBlock
 {
     MendeleyOAuthCredentials *credentials = [MendeleyKitConfiguration.sharedInstance.storeProvider retrieveOAuthCredentials];
@@ -40,9 +49,10 @@
 
     else if (credentials.oauthCredentialIsExpired)
     {
-        id<MendeleyIDPlusAuthProvider>idPlusProvider = [[MendeleyKitConfiguration sharedInstance]
-                                                  idPlusProvider];
-        [idPlusProvider refreshTokenWithOAuthCredentials:credentials
+        
+        id<MendeleyRefreshTokenProvider>tokenProvider = [[self class] refreshTokenProvider];
+        
+        [tokenProvider refreshTokenWithOAuthCredentials:credentials
                                         completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error) {
              if (refreshBlock)
              {

@@ -21,6 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyNetworkProvider.h"
 #import "MendeleyOAuthStoreProvider.h"
+#import "MendeleyOAuthProvider.h"
 #import "MendeleyIDPlusAuthProvider.h"
 
 extern NSString *const kIDPlusClientID;
@@ -32,6 +33,7 @@ extern NSString *const kIDPlusSecret;
 @property (nonatomic, assign, readonly) NSString *documentViewType;
 @property (nonatomic, strong, readonly) id<MendeleyNetworkProvider> networkProvider;
 @property (nonatomic, strong, readonly) id<MendeleyOAuthStoreProvider> storeProvider;
+@property (nonatomic, strong, readonly) id<MendeleyOAuthProvider> oAuthProvider;
 @property (nonatomic, strong, readonly) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readwrite) NSString *sharedKeyChainGroupName;
 
@@ -47,7 +49,18 @@ extern NSString *const kIDPlusSecret;
  ** kMendeleyOAuth2ClientSecretKey - the client secret as per app registration
  ** kMendeleyOAuth2RedirectURLKey - the redirect URI as per app registration
  */
-- (void)configureOAuthWithParameters:(NSDictionary *)oAuthParameters;
+- (void)configureOAuthWithParameters:(NSDictionary *)oAuthParameters __attribute__((deprecated));
+
+/**
+ set up the SDK with necessary OAuth configurations.
+ Required parameters are
+ ** kMendeleyOAuth2ClientIDKey - the client ID as per app registration
+ ** kMendeleyOAuth2ClientSecretKey - the client secret as per app registration
+ ** kMendeleyOAuth2RedirectURLKey - the redirect URI as per app registration
+ Optional parameters are
+ ** kMendeleyIDPlusClientIDKey - 
+ */
+- (void)configureAuthenticationWithParameters:(NSDictionary *)authenticationParameters;
 
 /**
    this changes the configuration of the SDK based on the parameters provided.

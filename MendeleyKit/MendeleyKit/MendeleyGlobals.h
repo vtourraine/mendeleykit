@@ -587,14 +587,15 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 /***********************************************
  @name Authentication
  ***********************************************/
-#define kIDPlusScope                                      @"idPlusScope"
-#define kIDPlusState                                      @"idPlusState"
-#define kIDPlusAuthType                                   @"idPlusAuthType"
-#define kIDPlusPlatSite                                   @"idPlusPlatSite"
-#define kIDPlusPrompt                                     @"idPlusPrompt"
-#define kIDPlusRedirectUri                                @"idPlusRedirectUri"
-#define kIDPlusResponseType                               @"idPlusResponseType"
-#define kIDPlusClientId                                   @"idPlusClientId"
+#define kMendeleyIDPlusScopeKey                           @"idPlusScope"
+#define kMendeleyIDPlusStateKey                           @"idPlusState"
+#define kMendeleyIDPlusAuthTypeKey                        @"idPlusAuthType"
+#define kMendeleyIDPlusPlatSiteKey                        @"idPlusPlatSite"
+#define kMendeleyIDPlusPromptKey                          @"idPlusPrompt"
+#define kMendeleyIDPlusRedirectUriKey                     @"idPlusRedirectUri"
+#define kMendeleyIDPlusResponseTypeKey                    @"idPlusResponseType"
+#define kMendeleyIDPlusClientIdKey                        @"idPlusClientId"
+#define kMendeleyIDPlusSecretKey                          @"idPlusSecret"
 
 /***********************************************
  @name PrivacySettings
