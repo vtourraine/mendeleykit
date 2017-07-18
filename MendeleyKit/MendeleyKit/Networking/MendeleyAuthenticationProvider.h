@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol MendeleyRefreshTokenProvider <NSObject>
+@protocol MendeleyAuthenticationProvider <NSObject>
 
 /**
  used when refreshing the access token. The completion block returns the OAuth credentials - or nil
@@ -43,5 +43,12 @@
 - (void)refreshTokenWithOAuthCredentials:(nonnull MendeleyOAuthCredentials *)credentials
                                     task:(nullable MendeleyTask *)task
                          completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
+
+/**
+ This general authentication method authorises approved/registered MendeleyClients to make
+ API calls e.g. to create a new user profile
+ @param completionBlock - returns a MemdeleyOAuthCredentials object. This will be transitory only with no ability to refresh.
+ */
+- (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
 
 @end

@@ -23,9 +23,9 @@
 #import "MendeleyGlobals.h"
 #import "MendeleyAuthToken.h"
 #import "MendeleyTask.h"
-#import "MendeleyRefreshTokenProvider.h"
+#import "MendeleyAuthenticationProvider.h"
 
-@protocol MendeleyIDPlusAuthProvider <MendeleyRefreshTokenProvider>
+@protocol MendeleyIDPlusAuthProvider <MendeleyAuthenticationProvider>
 
 - (void)configureWithParameters:(nonnull NSDictionary *)parameters;
 
@@ -45,8 +45,6 @@
 - (void)obtainMendeleyAPIAccessTokensWithMendeleyCredentials:(nonnull MendeleyOAuthCredentials *)mendeleyCredentials
                                            idPlusCredentials:(nonnull MendeleyIDPlusCredentials *)idPlusCredentials
                                              completionBlock:(nullable MendeleyOAuthCompletionBlock)completionBlock;
-
-- (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
 
 /**
  checks if the url string given is the Redirect URL

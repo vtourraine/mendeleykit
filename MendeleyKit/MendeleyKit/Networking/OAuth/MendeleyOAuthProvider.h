@@ -21,9 +21,9 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyOAuthCredentials.h"
 #import "MendeleyTask.h"
-#import "MendeleyRefreshTokenProvider.h"
+#import "MendeleyAuthenticationProvider.h"
 
-@protocol MendeleyOAuthProvider <MendeleyRefreshTokenProvider>
+@protocol MendeleyOAuthProvider <MendeleyAuthenticationProvider>
 @property (nonatomic, assign, readonly) BOOL isTrustedSSLServer;
 /**
  @name MendeleyOAuthProvider
@@ -67,11 +67,5 @@
  */
 - (BOOL)urlStringIsRedirectURI:(NSString *)urlString;
 
-/**
- This general authentication method authorises approved/registered MendeleyClients to make
- API calls e.g. to create a new user profile
- @param completionBlock - returns a MemdeleyOAuthCredentials object. This will be transitory only with no ability to refresh.
- */
-- (void)authenticateClientWithCompletionBlock:(MendeleyOAuthCompletionBlock)completionBlock;
 @end
 

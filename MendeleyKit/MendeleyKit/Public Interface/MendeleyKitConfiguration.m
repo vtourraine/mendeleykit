@@ -30,13 +30,6 @@
 NSString *const kIDPlusClientID = @"Mendeley";
 NSString *const kIDPlusSecret = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
 
-NSString *const kIDPlusScopeDefault = @"openid email profile";
-NSString *const kIDPlusAuthTypeDefault = @"SINGLE_SIGN_IN";
-NSString *const kIDPlusPlatSiteDefault = @"MDY/mendeley";
-NSString *const kIDPlusPromptDefault = @"login";
-NSString *const kIDPlusRedirectURIDefault = @"http://localhost/auth_return";
-NSString *const kIDPlusResponseTypeDefault = @"code";
-
 typedef NS_ENUM(int, MendeleyCustomClassType)
 {
     NetworkProvider = 0,
@@ -79,6 +72,14 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
         [[MendeleyErrorManager sharedInstance] addUserInfoHelper:sdkHelper errorDomain:kMendeleyErrorDomain];
     }
     return self;
+}
+
+- (id<MendeleyAuthenticationProvider>)authenticationProvider
+{
+    if (self.idPlusProvider != nil) {
+        return self.idPlusProvider;
+    }
+    return self.oAuthProvider;
 }
 
 //TODO refactor method name

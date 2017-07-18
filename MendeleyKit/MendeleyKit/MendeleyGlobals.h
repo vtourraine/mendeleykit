@@ -597,6 +597,12 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyIDPlusClientIdKey                        @"idPlusClientId"
 #define kMendeleyIDPlusSecretKey                          @"idPlusSecret"
 
+#define kIDPlusScopeDefault                               @"openid email profile"
+#define kIDPlusAuthTypeDefault                            @"SINGLE_SIGN_IN"
+#define kIDPlusPlatSiteDefault                            @"MDY/mendeley"
+#define kIDPlusPromptDefault                              @"login"
+#define kIDPlusResponseTypeDefault                        @"code"
+
 /***********************************************
  @name PrivacySettings
  ***********************************************/

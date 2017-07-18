@@ -19,6 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MendeleyOAuthProvider.h"
 #import "MendeleyIdPlusAuthProvider.h"
 
 @interface MendeleyLoginViewController : UIViewController
@@ -54,6 +55,47 @@
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
         completionBlock:(MendeleyCompletionBlock)completionBlock
-   customIdPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIdPlusProvider;
+   customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
+
+
+/**
+ initialises the login view controller with Client App details
+ @param clientKey
+ @param clientSecret
+ @param redirectURI
+ @param idPlusClientKey
+ @param idPlusSecret
+ @param idPlusRedirectURI
+ @param completionBlock
+ */
+
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+        idPlusClientKey:(NSString *)idPlusClientKey
+           idPlusSecret:(NSString *)idPlusSecret
+      idPlusRedirectURI:(NSString *)idPlusRedirectURI
+        completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+ custom initialisers
+ The completion block BOOL variable is set to YES if login has been successful
+ NO otherwise
+ @param clientKey
+ @param clientSecret
+ @param redirectURI
+ @param idPlusClientKey
+ @param idPlusSecret
+ @param idPlusRedirectURI
+ @param completionBlock
+ */
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+        idPlusClientKey:(NSString *)idPlusClientKey
+           idPlusSecret:(NSString *)idPlusSecret
+      idPlusRedirectURI:(NSString *)idPlusRedirectURI
+        completionBlock:(MendeleyCompletionBlock)completionBlock
+   customIDPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIDPlusProvider;
 
 @end

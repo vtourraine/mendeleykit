@@ -47,7 +47,7 @@
 {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
 
-    [MendeleyKitConfiguration.sharedInstance.idPlusProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
+    [MendeleyKitConfiguration.sharedInstance.authenticationProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
 
          if (nil == credentials)
          {
@@ -104,7 +104,7 @@
 {
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     
-    [MendeleyKitConfiguration.sharedInstance.idPlusProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
+    [MendeleyKitConfiguration.sharedInstance.authenticationProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
         
         if (nil == credentials)
         {

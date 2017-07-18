@@ -22,17 +22,9 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyKitConfiguration.h"
 #import "NSError+MendeleyError.h"
+#import "MendeleyKitConfiguration.h"
 
 @implementation MendeleyOAuthTokenHelper
-
-+ (id<MendeleyRefreshTokenProvider>)refreshTokenProvider
-{
-    if (MendeleyKitConfiguration.sharedInstance.idPlusProvider != nil) {
-        return MendeleyKitConfiguration.sharedInstance.idPlusProvider;
-    }
-    return MendeleyKitConfiguration.sharedInstance.oAuthProvider;
-
-}
 
 + (void)refreshTokenWithRefreshBlock:(MendeleyCompletionBlock)refreshBlock
 {
@@ -49,8 +41,7 @@
 
     else if (credentials.oauthCredentialIsExpired)
     {
-        
-        id<MendeleyRefreshTokenProvider>tokenProvider = [[self class] refreshTokenProvider];
+        id<MendeleyAuthenticationProvider>tokenProvider = MendeleyKitConfiguration.sharedInstance.authenticationProvider;
         
         [tokenProvider refreshTokenWithOAuthCredentials:credentials
                                         completionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error) {

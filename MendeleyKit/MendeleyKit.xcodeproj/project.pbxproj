@@ -114,8 +114,8 @@
 		537953D21F1D071C00944630 /* MendeleyDefaultOAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 537953CF1F1D071C00944630 /* MendeleyDefaultOAuthProvider.h */; };
 		537953D31F1D071C00944630 /* MendeleyDefaultOAuthProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 537953D01F1D071C00944630 /* MendeleyDefaultOAuthProvider.m */; };
 		537953D41F1D071C00944630 /* MendeleyDefaultOAuthProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 537953D01F1D071C00944630 /* MendeleyDefaultOAuthProvider.m */; };
-		537953D71F1D10C800944630 /* MendeleyRefreshTokenProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 537953D61F1D10C800944630 /* MendeleyRefreshTokenProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		537953D81F1D10C800944630 /* MendeleyRefreshTokenProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 537953D61F1D10C800944630 /* MendeleyRefreshTokenProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		537953D71F1D10C800944630 /* MendeleyAuthenticationProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 537953D61F1D10C800944630 /* MendeleyAuthenticationProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		537953D81F1D10C800944630 /* MendeleyAuthenticationProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 537953D61F1D10C800944630 /* MendeleyAuthenticationProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		537953D91F1D133700944630 /* MendeleyOAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 537953CE1F1D069200944630 /* MendeleyOAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		537953DA1F1D133800944630 /* MendeleyOAuthProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 537953CE1F1D069200944630 /* MendeleyOAuthProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		537B04531EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B04521EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift */; };
@@ -585,7 +585,7 @@
 		537953CE1F1D069200944630 /* MendeleyOAuthProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MendeleyOAuthProvider.h; path = Networking/OAuth/MendeleyOAuthProvider.h; sourceTree = "<group>"; };
 		537953CF1F1D071C00944630 /* MendeleyDefaultOAuthProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyDefaultOAuthProvider.h; path = Networking/OAuth/MendeleyDefaultOAuthProvider.h; sourceTree = "<group>"; };
 		537953D01F1D071C00944630 /* MendeleyDefaultOAuthProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MendeleyDefaultOAuthProvider.m; path = Networking/OAuth/MendeleyDefaultOAuthProvider.m; sourceTree = "<group>"; };
-		537953D61F1D10C800944630 /* MendeleyRefreshTokenProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyRefreshTokenProvider.h; path = Networking/MendeleyRefreshTokenProvider.h; sourceTree = "<group>"; };
+		537953D61F1D10C800944630 /* MendeleyAuthenticationProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyAuthenticationProvider.h; path = Networking/MendeleyAuthenticationProvider.h; sourceTree = "<group>"; };
 		537B04521EFAC50B0035E50E /* MendeleyLoginConsentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MendeleyLoginConsentViewController.swift; path = UIKit/MendeleyLoginConsentViewController.swift; sourceTree = "<group>"; };
 		537B04541EFAC71E0035E50E /* MendeleyLoginConsentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MendeleyLoginConsentViewController.xib; path = UIKit/MendeleyLoginConsentViewController.xib; sourceTree = "<group>"; };
 		53863F711D61D3BE00200578 /* MendeleyRecommendationsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleyRecommendationsAPI.h; path = "Public Interface/API Interfaces/MendeleyRecommendationsAPI.h"; sourceTree = "<group>"; };
@@ -938,7 +938,7 @@
 		537953D51F1D109100944630 /* Refresh token */ = {
 			isa = PBXGroup;
 			children = (
-				537953D61F1D10C800944630 /* MendeleyRefreshTokenProvider.h */,
+				537953D61F1D10C800944630 /* MendeleyAuthenticationProvider.h */,
 			);
 			name = "Refresh token";
 			sourceTree = "<group>";
@@ -1596,7 +1596,7 @@
 				145C2DEA1A2CAB0C0005BFF6 /* MendeleyQueryRequestParameters.h in Headers */,
 				145C2DEB1A2CAB0C0005BFF6 /* MendeleyRequest.h in Headers */,
 				145C2DEC1A2CAB0C0005BFF6 /* MendeleyResponse.h in Headers */,
-				537953D71F1D10C800944630 /* MendeleyRefreshTokenProvider.h in Headers */,
+				537953D71F1D10C800944630 /* MendeleyAuthenticationProvider.h in Headers */,
 				145C2DED1A2CAB0C0005BFF6 /* MendeleySyncInfo.h in Headers */,
 				145C2DEE1A2CAB0C0005BFF6 /* MendeleyTask.h in Headers */,
 				145C2DEF1A2CAB0C0005BFF6 /* MendeleyTaskProvider.h in Headers */,
@@ -1701,7 +1701,7 @@
 				C46657661B384557005F762A /* MendeleyMetadataLookup.h in Headers */,
 				C46657501B3844B0005F762A /* MendeleyReachability.h in Headers */,
 				C466576A1B38456A005F762A /* MendeleyPerson.h in Headers */,
-				537953D81F1D10C800944630 /* MendeleyRefreshTokenProvider.h in Headers */,
+				537953D81F1D10C800944630 /* MendeleyAuthenticationProvider.h in Headers */,
 				C46657701B384583005F762A /* MendeleyModeller.h in Headers */,
 				C46657851B3845F8005F762A /* MendeleyResponse.h in Headers */,
 				C466576C1B384572005F762A /* MendeleyProfile.h in Headers */,

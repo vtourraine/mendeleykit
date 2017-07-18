@@ -24,6 +24,7 @@
 #import "MendeleyOAuthConstants.h"
 #import "MendeleyOAuthStore.h"
 #import "NSError+MendeleyError.h"
+#import "MendeleyGlobals.h"
 #import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
 
 @interface MendeleyLoginViewController ()
@@ -33,6 +34,7 @@
 @property (nonatomic, strong) NSString *redirectURI;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
+@property (nonatomic, strong) id<MendeleyOAuthProvider> oAuthProvider;
 @property (nonatomic, strong) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *loginHandler;
 @property (nonatomic, assign) BOOL isHandlingOAuth;
@@ -49,7 +51,7 @@
                       clientSecret:clientSecret
                        redirectURI:redirectURI
                    completionBlock:completionBlock
-               customIdPlusProvider:nil];
+               customOAuthProvider:nil];
 
 }
 
@@ -58,18 +60,18 @@
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
         completionBlock:(MendeleyCompletionBlock)completionBlock
-    customIdPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIdPlusProvider
+    customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
 {
     self = [super init];
     if (nil != self)
     {
-        if (nil == customIdPlusProvider)
+        if (nil == customOAuthProvider)
         {
-            _idPlusProvider = [[MendeleyKitConfiguration sharedInstance] idPlusProvider];
+            _oAuthProvider = [[MendeleyKitConfiguration sharedInstance] oAuthProvider];
         }
         else
         {
-            _idPlusProvider = customIdPlusProvider;
+            _oAuthProvider = customOAuthProvider;
         }
         NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
                                            kMendeleyOAuth2ClientIDKey : clientKey,
@@ -83,8 +85,65 @@
 
 }
 
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+        idPlusClientKey:(NSString *)idPlusClientKey
+           idPlusSecret:(NSString *)idPlusSecret
+      idPlusRedirectURI:(NSString *)idPlusRedirectURI
+        completionBlock:(MendeleyCompletionBlock)completionBlock
+{
+    return [self initWithClientKey:clientKey
+                      clientSecret:clientSecret
+                       redirectURI:redirectURI
+                   idPlusClientKey:idPlusClientKey
+                      idPlusSecret:idPlusSecret
+                 idPlusRedirectURI:idPlusRedirectURI
+                   completionBlock:completionBlock
+              customIDPlusProvider:nil];
+}
 
 
+- (id)initWithClientKey:(NSString *)clientKey
+           clientSecret:(NSString *)clientSecret
+            redirectURI:(NSString *)redirectURI
+        idPlusClientKey:(NSString *)idPlusClientKey
+           idPlusSecret:(NSString *)idPlusSecret
+      idPlusRedirectURI:(NSString *)idPlusRedirectURI
+        completionBlock:(MendeleyCompletionBlock)completionBlock
+   customIDPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIDPlusProvider
+{
+    self = [super init];
+    if (nil != self)
+    {
+        if (nil == customIDPlusProvider)
+        {
+            _idPlusProvider = [[MendeleyKitConfiguration sharedInstance] idPlusProvider];
+        }
+        else
+        {
+            _idPlusProvider = customIDPlusProvider;
+        }
+        NSDictionary *authenticationParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
+                                                    kMendeleyOAuth2ClientIDKey : clientKey,
+                                                    kMendeleyOAuth2RedirectURLKey : redirectURI,
+                                                    kMendeleyIDPlusClientIdKey : idPlusClientKey,
+                                                    kMendeleyIDPlusSecretKey : idPlusSecret,
+                                                    kMendeleyIDPlusRedirectUriKey : idPlusRedirectURI,
+                                                    kMendeleyIDPlusScopeKey : kIDPlusScopeDefault,
+                                                    kMendeleyIDPlusStateKey : [[NSUUID UUID] UUIDString],
+                                                    kMendeleyIDPlusAuthTypeKey : kIDPlusAuthTypeDefault,
+                                                    kMendeleyIDPlusPlatSiteKey : kIDPlusPlatSiteDefault,
+                                                    kMendeleyIDPlusPromptKey : kIDPlusPromptDefault,
+                                                    kMendeleyIDPlusResponseTypeKey :  kIDPlusResponseTypeDefault };
+        
+        [[MendeleyKitConfiguration sharedInstance] configureAuthenticationWithParameters:authenticationParameters];
+        _completionBlock = completionBlock;
+        _clientID = clientKey;
+        _redirectURI = redirectURI;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
