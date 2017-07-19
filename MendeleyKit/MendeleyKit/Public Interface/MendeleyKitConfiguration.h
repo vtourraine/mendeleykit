@@ -24,9 +24,6 @@
 #import "MendeleyOAuthProvider.h"
 #import "MendeleyIDPlusAuthProvider.h"
 
-extern NSString *const kIDPlusClientID;
-extern NSString *const kIDPlusSecret;
-
 @interface MendeleyKitConfiguration : NSObject
 @property (nonatomic, assign, readonly) BOOL isTrustedSSLServer;
 @property (nonatomic, strong, readonly) NSURL *baseAPIURL;

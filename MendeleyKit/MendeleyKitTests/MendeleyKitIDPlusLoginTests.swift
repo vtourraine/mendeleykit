@@ -260,7 +260,7 @@ class MendeleyKitIDPlusLoginTests: XCTestCase {
     }
     
     func testValidURLRequest() {
-        let urlRequest = idPlusProvider?.getAuthURLRequest(withIDPlusClientID: kIDPlusClientID)
+        let urlRequest = idPlusProvider?.getAuthURLRequest()
         
         XCTAssertNotNil(urlRequest, "URL Request is nil")
     }

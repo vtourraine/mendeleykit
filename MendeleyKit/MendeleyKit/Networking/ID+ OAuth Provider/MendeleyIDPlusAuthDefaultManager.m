@@ -46,6 +46,7 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
 @property (nonatomic, strong) NSString *idPlusRedirectUri;
 @property (nonatomic, strong) NSString *idPlusResponseType;
 @property (nonatomic, strong) NSString *idPlusClientId;
+@property (nonatomic, strong) NSString *idPlusSecret;
 
 @property (nonatomic, strong) NSString *oAuthClientId;
 @property (nonatomic, strong) NSString *oAuthClientSecret;
@@ -104,6 +105,10 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
     if (idPlusClientId != nil && [idPlusClientId isKindOfClass:[NSString class]]) {
         self.idPlusClientId = idPlusClientId;
     }
+    NSString *idPlusSecret = parameters[kMendeleyIDPlusSecretKey];
+    if (idPlusSecret != nil && [idPlusSecret isKindOfClass:[NSString class]]) {
+        self.idPlusSecret = idPlusSecret;
+    }
     
     NSString *clientId = parameters[kMendeleyOAuth2ClientIDKey];
     if (clientId != nil && [clientId isKindOfClass:[NSString class]]) {
@@ -119,7 +124,7 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
     }
 }
 
-- (NSURLRequest *)getAuthURLRequestWithIDPlusClientID:(NSString *)clientID
+- (NSURLRequest *)getAuthURLRequest
 {
     NSString *urlString = [kMendeleyIDPlusBaseURL stringByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpoint];
     
@@ -131,7 +136,7 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
     NSURLQueryItem *promptParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2PromptKey value:self.idPlusPrompt];
     NSURLQueryItem *redirectUriParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2RedirectURLKey value:self.idPlusRedirectUri];
     NSURLQueryItem *responseTypeParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2ResponseTypeKey value:self.idPlusResponseType];
-    NSURLQueryItem *clientIdParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2ClientIDKey value:clientID];
+    NSURLQueryItem *clientIdParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2ClientIDKey value:self.idPlusClientId];
     
     components.queryItems = @[scopeParam, stateParam, authTypeParam, platSiteParam, promptParam, redirectUriParam, responseTypeParam, clientIdParam];
     
@@ -227,8 +232,8 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
                                    };
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
                                      kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONType,
-                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:kIDPlusClientID
-                                                                                           clientSecret:kIDPlusSecret]
+                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:self.idPlusClientId
+                                                                                           clientSecret:self.idPlusSecret]
                                      };
     
     MendeleyTask *task = [MendeleyTask new];
@@ -414,8 +419,8 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
                        completionBlock:(nullable MendeleyCompletionBlock)completionBlock
 {
     NSDictionary *requestHeader = @{ kMendeleyRESTRequestContentType : kMendeleyRESTRequestURLType,
-                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:kIDPlusClientID
-                                                                                           clientSecret:kIDPlusSecret]};
+                                     kMendeleyRESTRequestAuthorization : [self base64StringWithClientId:self.idPlusClientId
+                                                                                           clientSecret:self.idPlusSecret]};
 
     [self revokeAccessTokenWithMendeleyCredentials:mendeleyCredentials
                                      requestHeader:requestHeader

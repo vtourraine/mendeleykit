@@ -29,7 +29,7 @@
 
 - (void)configureWithParameters:(nonnull NSDictionary *)parameters;
 
-- (nonnull NSURLRequest *)getAuthURLRequestWithIDPlusClientID:(nonnull NSString *)clientID;
+- (nonnull NSURLRequest *)getAuthURLRequest;
 
 - (nullable MendeleyAuthToken *)getAuthCodeAndStateFrom:(nonnull NSURL *)requestUrl;
 

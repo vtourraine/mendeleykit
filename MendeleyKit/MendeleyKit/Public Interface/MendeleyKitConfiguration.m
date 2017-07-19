@@ -27,9 +27,6 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyError.h"
 
-NSString *const kIDPlusClientID = @"Mendeley";
-NSString *const kIDPlusSecret = @"jCppRnFrDxLHlF9vCzaX6b5doOsLGrNCseyOMg7pst8lfZOEflanH7bIFzozZKVl";
-
 typedef NS_ENUM(int, MendeleyCustomClassType)
 {
     NetworkProvider = 0,

@@ -49,7 +49,7 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
         let helper = MendeleyKitIDPlusLoginHelper()
         helper.cleanCookiesAndURLCache()
         
-        if let request = idPlusProvider?.getAuthURLRequest(withIDPlusClientID: kIDPlusClientID) {
+        if let request = idPlusProvider?.getAuthURLRequest() {
             _ = webView?.load(request)
         }
     }
