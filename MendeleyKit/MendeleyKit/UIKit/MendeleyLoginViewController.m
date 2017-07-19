@@ -159,7 +159,20 @@
     __strong MendeleyOAuthCompletionBlock oAuthCompletionBlock = ^void (MendeleyOAuthCredentials *credentials, NSError *error) {
         if (nil != credentials)
         {
-            [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
+            BOOL success = [MendeleyKitConfiguration.sharedInstance.storeProvider storeOAuthCredentials:credentials];
+            
+            if (nil != self.completionBlock && _idPlusProvider == nil)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.completionBlock(success, nil);
+                });
+            }
+        }
+        else if (nil != self.completionBlock && _idPlusProvider == nil)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.completionBlock(NO, error);
+            });
         }
     };
     
