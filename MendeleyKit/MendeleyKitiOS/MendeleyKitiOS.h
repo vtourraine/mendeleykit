@@ -95,5 +95,5 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyLoginAPI.h>
 #import <MendeleyKitiOS/MendeleyProfilesAPI.h>
 #import <MendeleyKitiOS/MendeleyMetadataAPI.h>
-
+#import <MendeleyKitiOS/MendeleyFilesAPI.h>
 
