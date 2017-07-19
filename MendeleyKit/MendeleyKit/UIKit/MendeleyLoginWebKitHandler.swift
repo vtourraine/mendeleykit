@@ -25,7 +25,7 @@ import WebKit
 public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
 {
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
-    let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oAuthProvider
+    let oauthprovider = MendeleyKitConfiguration.sharedInstance().oauthprovider
     public var webView: WKWebView?
     var completionBlock: MendeleySuccessClosure?
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
@@ -64,7 +64,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             let helper = MendeleyKitLoginHelper()
             if let code = helper.getAuthenticationCode(requestURL)
             {
-                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+                oauthprovider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
             }
             
         }
@@ -87,7 +87,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let helper = MendeleyKitLoginHelper()
         if let code = helper.getAuthenticationCode(requestURL!)
         {
-            oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+            oauthprovider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
         }
 
         decisionHandler(.cancel)
@@ -97,7 +97,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let userInfo = error.userInfo
         if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
         {
-            if (oAuthProvider?.urlStringIsRedirectURI(failingURLString))!
+            if (oauthprovider?.urlStringIsRedirectURI(failingURLString))!
             {
                 return
             }
