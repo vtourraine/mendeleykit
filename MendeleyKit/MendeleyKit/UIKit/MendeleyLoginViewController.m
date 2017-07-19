@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSString *redirectURI;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
-@property (nonatomic, strong) id<MendeleyOAuthProvider> oauthprovider;
+@property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *oAuthLoginHandler;
 @property (nonatomic, strong, nonnull) MendeleyIDPlusLoginWebKitHandler *idPlusLoginHandler;
@@ -68,11 +68,11 @@
     {
         if (nil == customOAuthProvider)
         {
-            _oauthprovider = [[MendeleyKitConfiguration sharedInstance] oauthprovider];
+            _oauthProvider = [[MendeleyKitConfiguration sharedInstance] oauthProvider];
         }
         else
         {
-            _oauthprovider = customOAuthProvider;
+            _oauthProvider = customOAuthProvider;
         }
         NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
                                            kMendeleyOAuth2ClientIDKey : clientKey,
