@@ -89,6 +89,7 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
         [self.oauthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
     {
         [self.oauthProvider configureOAuthWithParameters:oAuthParameters];
+        self.idPlusProvider = nil;
     }
 }
 
@@ -100,12 +101,14 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
         [self.idPlusProvider respondsToSelector:@selector(configureWithParameters:)])
     {
         [self.idPlusProvider configureWithParameters:authenticationParameters];
+        self.oauthProvider = nil;
     }
     
     if (nil != self.oauthProvider &&
              [self.oauthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
     {
         [self.oauthProvider configureOAuthWithParameters:authenticationParameters];
+        self.idPlusProvider = nil;
     }
 }
 
