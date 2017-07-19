@@ -56,7 +56,7 @@
 		145C2DF81A2CAB0D0005BFF6 /* MendeleyNetworkProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352419DADEC40069DB7A /* MendeleyNetworkProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DFA1A2CAB0D0005BFF6 /* MendeleyAnnotationsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352819DADF280069DB7A /* MendeleyAnnotationsAPI.h */; };
 		145C2DFB1A2CAB0D0005BFF6 /* MendeleyDocumentsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352A19DADF280069DB7A /* MendeleyDocumentsAPI.h */; };
-		145C2DFC1A2CAB0D0005BFF6 /* MendeleyFilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352C19DADF280069DB7A /* MendeleyFilesAPI.h */; };
+		145C2DFC1A2CAB0D0005BFF6 /* MendeleyFilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352C19DADF280069DB7A /* MendeleyFilesAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		145C2DFD1A2CAB0D0005BFF6 /* MendeleyFoldersAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352E19DADF280069DB7A /* MendeleyFoldersAPI.h */; };
 		145C2DFE1A2CAB0D0005BFF6 /* MendeleyGroupsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353019DADF280069DB7A /* MendeleyGroupsAPI.h */; };
 		145C2DFF1A2CAB0D0005BFF6 /* MendeleyMetadataAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1353219DADF280069DB7A /* MendeleyMetadataAPI.h */; };
@@ -376,7 +376,7 @@
 		C466579F1B384693005F762A /* MendeleyDisciplinesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C42AAA271A7BC3BF00502358 /* MendeleyDisciplinesAPI.m */; };
 		C46657A01B384697005F762A /* MendeleyDocumentsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352A19DADF280069DB7A /* MendeleyDocumentsAPI.h */; };
 		C46657A11B38469A005F762A /* MendeleyDocumentsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1352B19DADF280069DB7A /* MendeleyDocumentsAPI.m */; };
-		C46657A21B38469E005F762A /* MendeleyFilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352C19DADF280069DB7A /* MendeleyFilesAPI.h */; };
+		C46657A21B38469E005F762A /* MendeleyFilesAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352C19DADF280069DB7A /* MendeleyFilesAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46657A31B3846A1005F762A /* MendeleyFilesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1352D19DADF280069DB7A /* MendeleyFilesAPI.m */; };
 		C46657A41B3846A5005F762A /* MendeleyFoldersAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1352E19DADF280069DB7A /* MendeleyFoldersAPI.h */; };
 		C46657A51B3846A8005F762A /* MendeleyFoldersAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1352F19DADF280069DB7A /* MendeleyFoldersAPI.m */; };
