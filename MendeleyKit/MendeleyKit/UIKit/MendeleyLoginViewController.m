@@ -36,7 +36,8 @@
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oAuthProvider;
 @property (nonatomic, strong) id<MendeleyIDPlusAuthProvider> idPlusProvider;
-@property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *loginHandler;
+@property (nonatomic, strong, nonnull) MendeleyLoginWebKitHandler *oAuthLoginHandler;
+@property (nonatomic, strong, nonnull) MendeleyIDPlusLoginWebKitHandler *idPlusLoginHandler;
 @property (nonatomic, assign) BOOL isHandlingOAuth;
 @end
 
@@ -162,13 +163,24 @@
         }
     };
     
-    self.loginHandler = [[MendeleyLoginWebKitHandler alloc] initWithController:self];
-    
-    [self.loginHandler startLoginProcess:self.clientID
-                             redirectURI:self.redirectURI
-                       completionHandler:self.completionBlock
-                            oauthHandler:oAuthCompletionBlock];
-    
+    if (MendeleyKitConfiguration.sharedInstance.authenticationProvider == self.idPlusProvider)
+    {
+        self.idPlusLoginHandler = [[MendeleyIDPlusLoginWebKitHandler alloc] initWithController:self];
+        
+        [self.idPlusLoginHandler startLoginProcess:self.clientID
+                                       redirectURI:self.redirectURI
+                                 completionHandler:self.completionBlock
+                                      oauthHandler:oAuthCompletionBlock];
+    }
+    else
+    {
+        self.oAuthLoginHandler = [[MendeleyLoginWebKitHandler alloc] initWithController:self];
+        
+        [self.oAuthLoginHandler startLoginProcess:self.clientID
+                                       redirectURI:self.redirectURI
+                                 completionHandler:self.completionBlock
+                                      oauthHandler:oAuthCompletionBlock];
+    }
 }
 
 #pragma mark Handle device rotations

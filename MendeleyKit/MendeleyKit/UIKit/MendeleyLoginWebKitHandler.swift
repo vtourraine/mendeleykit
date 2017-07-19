@@ -1,22 +1,22 @@
 /*
- ******************************************************************************
- * Copyright (C) 2014-2017 Elsevier/Mendeley.
- *
- * This file is part of the Mendeley iOS SDK.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *****************************************************************************
- */
+******************************************************************************
+* Copyright (C) 2014-2017 Elsevier/Mendeley.
+*
+* This file is part of the Mendeley iOS SDK.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*  http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*****************************************************************************
+*/
 
 import UIKit
 import WebKit
@@ -25,33 +25,26 @@ import WebKit
 public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
 {
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
-    let idPlusProvider = MendeleyKitConfiguration.sharedInstance().idPlusProvider
+    let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oAuthProvider
     public var webView: WKWebView?
     var completionBlock: MendeleySuccessClosure?
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
-    var redirectURI: String?
-    var parentViewController: UIViewController?
-    public var consentViewController: MendeleyLoginConsentViewController?
-    
+
     public required init(controller: UIViewController) {
         super.init()
         
         configureWebView(controller)
-        parentViewController = controller
     }
     
     public func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
-        self.redirectURI = redirectURI
-      
+
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
-        
-        if let request = idPlusProvider?.getAuthURLRequest(withIDPlusClientID: kIDPlusClientID) {
-            _ = webView?.load(request)
-        }
+        let request: URLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
+        _ = webView?.load(request)
     }
     
     public func configureWebView(_ controller: UIViewController)
@@ -61,193 +54,22 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         newWebView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         newWebView.navigationDelegate = self
         controller.view.addSubview(newWebView)
-        
+
         webView = newWebView
     }
     
-    
-    //@TODO: fix code
-    public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        
-        if let redirectString = redirectURI {
-            if webView.url?.absoluteString.hasPrefix(redirectString) == false {
-                // TODO: Decide what to do when verification webpage is displayed
-                return
-            }
-        }
-        
-        if let requestURL = webView.url {
-            guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL)?.code
-                else {
-                    let error = MendeleyErrorManager.sharedInstance().error(withDomain: kMendeleyErrorDomain, code: MendeleyErrorCode.dataNotAvailableErrorCode.rawValue)
-                    self.completionBlock?(false, (error as NSError?))
-                    return
-            }
-            
-            idPlusProvider?.obtainIDPlusAccessTokens(withAuthorizationCode: code, completionBlock: { (idPlusCredentials: MendeleyIDPlusCredentials?, idPlusError: Error?) in
-                guard let idPlusCredentials = idPlusCredentials
-                    else {
-                        self.completionBlock?(false, (idPlusError as NSError?))
-                        return
-                }
-                self.idPlusProvider?.obtainAccessTokens(withAuthorizationCode: code, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, oAuthError: Error?) in
-                    guard let oAuthCredentials = oAuthCredentials
-                        else {
-                         self.completionBlock?(false, (oAuthError as NSError?))
-                            return
-                    }
-                    self.oAuthCompletionBlock?(oAuthCredentials, nil)
-                    self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
-                        if object == nil {
-                                self.completionBlock?(false, error as NSError?)
-                                return
-                        }
-                        
-                        switch state {
-                        case 200:
-                            if let profileStatus = object as? MendeleyProfileVerificationStatus {
-                                
-                                if profileStatus.autolink_verification_status == "VERIFIED" {
-                                    
-                                    self.completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, loginCompletionBlock: nil)
-                                    
-                                } else {
-                                    
-                                    self.verifyProfile(profileID: profileStatus.profile_uuid)
-                                }
-                            }
-                        case 201:
-                            print("state: 201")
-                            self.askForConsent(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials)
-                            
-                        default:
-                            print("default")
-                            self.completionBlock?(false, (error as NSError?))
-                        }
-                    })
-                })
 
-            })
+    public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        if let requestURL = webView.url {
+            let helper = MendeleyKitLoginHelper()
+            if let code = helper.getAuthenticationCode(requestURL)
+            {
+                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+            }
             
         }
+        
     }
-    
-    func completeLogin(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials, loginCompletionBlock: MendeleyCompletionBlock?)
-    {
-        //check if verified and start verification flow if not
-        print("state: 200")                            // start complete profile flow
-        self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
-            guard let oAuthCredentials = oAuthCredentials
-                else {
-                    self.completionBlock?(false, (error as NSError?))
-                    return
-            }
-            self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
-                self.oAuthCompletionBlock?(mendeleyCredentials, error as NSError?)
-                loginCompletionBlock?(mendeleyCredentials != nil, error as NSError?)
-                self.completionBlock?(mendeleyCredentials != nil, error as NSError?)
-            })
-        })
-    }
-    
-    // MARK: - Verification journey
-    
-    func verifyProfile(profileID: String) {
-        // TODO: Use base API URL once it works
-        let baseURL = URL(string: "https://staging.mendeley.com")
-        guard let redirect = redirectURI
-            else { return }
-        
-        let requestURL = "verify/\(profileID)/?routeTo=\(redirect)"
-        
-        let url = URL(string: requestURL, relativeTo: baseURL)
-        
-        let request = URLRequest(url: url!)
-        
-        _ = webView?.load(request)
-    }
-    
-    // MARK: - Consent journey
-    
-    func askForConsent(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials) {
-        let podBundle = Bundle(for: MendeleyLoginConsentViewController.self)
-        let bundleURL = podBundle.url(forResource: "MendeleyKitiOS", withExtension: "bundle")
-        
-        var bundle = podBundle
-        if let url = bundleURL {
-            bundle = Bundle(url: url)!
-        }
-        
-        if consentViewController == nil {
-            consentViewController = MendeleyLoginConsentViewController(nibName: "MendeleyLoginConsentViewController",
-                                                                       bundle: bundle)
-        }
-        
-        var frame = webView?.frame ?? CGRect.zero
-        
-        if frame != CGRect.zero {
-            if let topHeight = parentViewController?.topLayoutGuide.length {
-                frame.origin.y = frame.origin.y + topHeight
-                frame.size.height = frame.size.height - topHeight
-            }
-        }
-        
-        consentViewController!.view.frame = frame
-        consentViewController!.view.autoresizingMask = (webView?.autoresizingMask)!
-        
-        let completionBlock: (MendeleyAmendmentProfile, Bool) -> Void = {
-            (newProfile: MendeleyAmendmentProfile, isPublicProfile: Bool) -> Void in
-            
-            self.finishConsentJournery(withMendeleyCredentials: oAuthCredentials,
-                                       idPlusCredentials: idPlusCredentials,
-                                       newProfile: newProfile,
-                                       isPublicProfile: isPublicProfile)
-        }
-        
-        consentViewController?.completionBlock = completionBlock
-        
-        parentViewController?.view.addSubview(consentViewController!.view)
-    }
-    
-    func finishConsentJournery(withMendeleyCredentials oAuthCredentials: MendeleyOAuthCredentials, idPlusCredentials: MendeleyIDPlusCredentials, newProfile: MendeleyAmendmentProfile, isPublicProfile: Bool)
-    {
-        completeLogin(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials) { (success: Bool, error: Error?) in
-            let networkProvider = MendeleyKitConfiguration.sharedInstance().networkProvider
-            let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
-            
-            let profileAPI = MendeleyProfilesAPI(networkProvider: networkProvider, baseURL: baseURL)
-        
-            if isPublicProfile {
-                // By default, new profile is private. Update user's privacy settings if they choose to make their profile public.
-                let loginAPI = MendeleyLoginAPI(networkProvider: networkProvider, baseURL: baseURL)
-                
-                let settings = MendeleyProfilePrivacySettingsWrapper()
-                settings.privacy = MendeleyProfilePrivacySettings()
-                settings.privacy.privacy_visibility = "everyone"
-                settings.privacy.privacy_follower_restricted = false
-                settings.privacy.privacy_search_engine_indexable = true
-                
-                let loginTask = MendeleyTask()
-                
-                loginAPI?.updateCurrentProfilePrivacySettings(settings, task: loginTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
-                    
-                    let profileTask = MendeleyTask()
-                    
-                    profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
-                        // Do nothing
-                    })
-                })
-            } else {
-                let profileTask = MendeleyTask()
-                
-                profileAPI?.updateMyProfile(newProfile, task: profileTask, completionBlock: { (object: MendeleyObject?, syncInfo: MendeleySyncInfo?, error: Error?) in
-                    // Do nothing
-                })
-            }
-        }
-    }
-    
-    // MARK: - Web view delegate
     
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
     {
@@ -261,12 +83,13 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
                 return
             }
         }
-        
-        if let token = idPlusProvider?.getAuthCodeAndState(from: requestURL!)
+
+        let helper = MendeleyKitLoginHelper()
+        if let code = helper.getAuthenticationCode(requestURL!)
         {
-            idPlusProvider?.obtainAccessTokens(withAuthorizationCode: token.code, completionBlock: oAuthCompletionBlock!)
+            oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
         }
-        
+
         decisionHandler(.cancel)
     }
     
@@ -274,12 +97,12 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let userInfo = error.userInfo
         if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
         {
-            if (idPlusProvider?.urlStringIsRedirectURI(failingURLString))!
+            if (oAuthProvider?.urlStringIsRedirectURI(failingURLString))!
             {
                 return
             }
         }
-        
+
         if let unwrappedCompletionBlock = completionBlock
         {
             unwrappedCompletionBlock(false, error)
