@@ -71,7 +71,13 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
         
         if let redirectString = redirectURI {
             if webView.url?.absoluteString.hasPrefix(redirectString) == false {
-                // TODO: Decide what to do when verification webpage is displayed
+                
+                // If unverified account is verified via password, send user back to login screen
+                if let components = webView.url?.pathComponents {
+                    if components.contains("verified") {
+                        completionBlock?(false, nil)
+                    }
+                }
                 return
             }
         }
