@@ -28,6 +28,9 @@
 #define kMyClientSecret      @"<YOUR CLIENT SECRET>"
 #define kMyClientID          @"<YOUR CLIENT ID>"
 #define kMyClientRedirectURI @"<YOUR REDIRECT URI>"
+#define kMyIDPlusSecret      @"<YOUR ID+ SECRET>"
+#define kMyIDPlusID          @"<YOUR ID+ ID>"
+#define kMyIDPlusRedirectURI @"<YOUR ID+ REDIRECT URI>"
 
 
 @interface ViewController : UITableViewController

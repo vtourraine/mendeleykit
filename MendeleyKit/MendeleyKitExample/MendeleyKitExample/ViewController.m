@@ -41,6 +41,16 @@ static NSDictionary * clientOAuthConfig()
               kMendeleyOAuth2RedirectURLKey : kMyClientRedirectURI };
 }
 
+static NSDictionary * clientAuthenticationConfig()
+{
+    return @{ kMendeleyOAuth2ClientIDKey: kMyClientID,
+              kMendeleyOAuth2ClientSecretKey : kMyClientSecret,
+              kMendeleyOAuth2RedirectURLKey : kMyClientRedirectURI,
+              kMendeleyIDPlusClientIdKey : kMyIDPlusID,
+              kMendeleyIDPlusSecretKey : kMyIDPlusSecret,
+              kMendeleyIDPlusRedirectUriKey : kMyIDPlusRedirectURI };
+}
+
 NS_ENUM(NSInteger, MenuRow) {
     MenuRowGetDocumentsNoFiles = 0,
     MenuRowGetDocumentsCheckForFiles,
@@ -54,7 +64,11 @@ NS_ENUM(NSInteger, MenuRow) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:clientOAuthConfig()];
+    
+    [[MendeleyKitConfiguration sharedInstance] configureAuthenticationWithParameters:clientAuthenticationConfig()];
+    
+    // Uncomment next line and delete above line to re-enable legacy OAuth login functionality
+    // [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:clientOAuthConfig()];
 
     /**
        MendeleyKit comes with a network provider based on NSURLConnection (instead of the default one which
