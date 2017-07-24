@@ -26,6 +26,9 @@
 #import "GroupListLazyLoadingTableViewController.h"
 #import "DatasetListTableViewController.h"
 
+// Uncomment to log in with deprecated Mendeley OAuth service
+//#define OAUTH_LOGIN
+
 /**
    By default the MendeleyKit uses NSURLSession based network actions - called in and used by the
    MendeleyDefaultNetworkProvider.
@@ -34,13 +37,14 @@
  */
 // #import "MendeleyNSURLConnectionProvider.h"
 
+#ifdef OAUTH_LOGIN
 static NSDictionary * clientOAuthConfig()
 {
     return @{ kMendeleyOAuth2ClientIDKey: kMyClientID,
               kMendeleyOAuth2ClientSecretKey : kMyClientSecret,
               kMendeleyOAuth2RedirectURLKey : kMyClientRedirectURI };
 }
-
+#else
 static NSDictionary * clientAuthenticationConfig()
 {
     return @{ kMendeleyOAuth2ClientIDKey: kMyClientID,
@@ -50,6 +54,7 @@ static NSDictionary * clientAuthenticationConfig()
               kMendeleyIDPlusSecretKey : kMyIDPlusSecret,
               kMendeleyIDPlusRedirectUriKey : kMyIDPlusRedirectURI };
 }
+#endif
 
 NS_ENUM(NSInteger, MenuRow) {
     MenuRowGetDocumentsNoFiles = 0,
@@ -64,12 +69,13 @@ NS_ENUM(NSInteger, MenuRow) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[MendeleyKitConfiguration sharedInstance] configureAuthenticationWithParameters:clientAuthenticationConfig()];
-    
-    // Uncomment next line and delete above line to re-enable legacy OAuth login functionality
-    // [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:clientOAuthConfig()];
 
+#ifdef OAUTH_LOGIN
+    [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:clientOAuthConfig()];
+#else
+    [[MendeleyKitConfiguration sharedInstance] configureAuthenticationWithParameters:clientAuthenticationConfig()];
+#endif
+    
     /**
        MendeleyKit comes with a network provider based on NSURLConnection (instead of the default one which
        is based on NSURLSession).
@@ -129,11 +135,23 @@ NS_ENUM(NSInteger, MenuRow) {
         [self.navigationController popViewControllerAnimated:YES];
     };
 
+#ifdef OAUTH_LOGIN
     MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc]
                                                     initWithClientKey:kMyClientID
                                                     clientSecret:kMyClientSecret
                                                     redirectURI:kMyClientRedirectURI
                                                     completionBlock:loginCompletion];
+#else
+    MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc]
+                                                    initWithClientKey:kMyClientID
+                                                    clientSecret:kMyClientSecret
+                                                    redirectURI:kMyClientRedirectURI
+                                                    idPlusClientKey:kMyIDPlusID
+                                                    idPlusSecret:kMyIDPlusSecret
+                                                    idPlusRedirectURI:kMyIDPlusRedirectURI
+                                                    completionBlock:loginCompletion];
+#endif
+    
     [self.navigationController pushViewController:loginController animated:YES];
 }
 
