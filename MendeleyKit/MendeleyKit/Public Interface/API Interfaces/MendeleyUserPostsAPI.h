@@ -28,7 +28,6 @@
  @param task
  @param completionBlock
  */
-
 - (void)createUserPost:(MendeleyNewUserPost *)newPost
                   task:(MendeleyTask *)task
        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
@@ -39,9 +38,29 @@
  @param task
  @param completionBlock
  */
-
 - (void)deleteUserPostWithPostID:(NSString *)postID
                             task:(MendeleyTask *)task
                  completionBlock:(MendeleyCompletionBlock)completionBlock;
+
+/**
+ Creates a new group post.
+ @param groupPost
+ @param task
+ @param completionBlock
+ */
+- (void)createGroupPost:(MendeleyGroupPost *)groupPost
+                   task:(MendeleyTask *)task
+        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+
+/**v
+ Deletes a group post.
+ @param postID
+ @param task
+ @param completionBlock
+ */
+- (void)deleteGroupPostWithPostID:(NSString *)postID
+                             task:(MendeleyTask *)task
+                  completionBlock:(MendeleyCompletionBlock)completionBlock;
 
 @end

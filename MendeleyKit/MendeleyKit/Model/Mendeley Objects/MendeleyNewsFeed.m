@@ -66,6 +66,9 @@
 @implementation MendeleyNewStatusJsonNode
 @end
 
+@implementation MendeleyGroupStatusJsonNode
+@end
+
 @implementation MendeleyPostedCataloguePublicationJsonNode
 @end
 
@@ -85,6 +88,9 @@
 @end
 
 @implementation MendeleyPost
+@end
+
+@implementation MendeleyGroupPost
 @end
 
 @implementation MendeleyFeedDocument
