@@ -343,10 +343,6 @@
                     [modelObject setValue:valueToBeAdded forKey:matchedKey];
                 }
             }
-            else if (*error != nil)
-            {
-                return nil;
-            }
         }
     };
     return modelObject;
