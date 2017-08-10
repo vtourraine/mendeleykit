@@ -25,6 +25,8 @@
 
 @interface MendeleyNewsFeed : MendeleyObject
 
+@property (nonatomic, strong, nullable) NSNumber *likeable;
+@property (nonatomic, strong, nullable) NSNumber* commentable;
 @property (nonatomic, strong, nullable) NSNumber* sharable;
 @property (nonatomic, strong, nullable) MendeleyNewsFeedSource *source;
 @property (nonatomic, strong, nullable) MendeleyJsonNode *content;
