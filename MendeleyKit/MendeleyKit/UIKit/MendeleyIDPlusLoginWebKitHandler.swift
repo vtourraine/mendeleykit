@@ -159,8 +159,9 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
     // MARK: - Verification journey
     
     func verifyProfile(profileID: String) {
-        // TODO: Use base API URL once it works
-        let baseURL = URL(string: "https://staging.mendeley.com")
+        let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
+// TODO: Use base API URL once it works
+//        URL(string: "https://staging.mendeley.com")
         guard let redirect = redirectURI
             else { return }
         
@@ -255,25 +256,36 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
     
     // MARK: - Web view delegate
     
-    @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
-    {
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.absoluteString
         let requestURL = navigationAction.request.url
-        if let requestURL = requestURL
-        {
-            if requestURL.absoluteString.hasPrefix(baseURL)
+        
+        if navigationAction.navigationType == .linkActivated {
+            if let requestURL = requestURL
             {
-                decisionHandler(.allow)
-                return
+                let absoluteURL = requestURL.absoluteString
+                
+                if absoluteURL.hasPrefix(baseURL) {
+                    decisionHandler(.allow)
+                    return
+                } else if absoluteURL.hasPrefix(kMendeleyIDPlusBaseURL) {
+                    if let token = idPlusProvider?.getAuthCodeAndState(from: requestURL)
+                    {
+                        if let code = token.code {
+                            idPlusProvider?.obtainAccessTokens(withAuthorizationCode: code, completionBlock: oAuthCompletionBlock!)
+                        }
+                    }
+                    decisionHandler(.allow)
+                    return
+                } else {
+                    UIApplication.shared.openURL(requestURL)
+                    decisionHandler(.cancel)
+                    return
+                }
             }
         }
         
-        if let token = idPlusProvider?.getAuthCodeAndState(from: requestURL!)
-        {
-            idPlusProvider?.obtainAccessTokens(withAuthorizationCode: token.code, completionBlock: oAuthCompletionBlock!)
-        }
-        
-        decisionHandler(.cancel)
+        decisionHandler(.allow)
     }
     
     @nonobjc public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
