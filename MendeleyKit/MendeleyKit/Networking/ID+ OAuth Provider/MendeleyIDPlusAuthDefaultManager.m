@@ -440,7 +440,8 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
                                                                            
                                                                            if (completionBlock)
                                                                            {
-                                                                               completionBlock(YES, nil);
+                                                                               MendeleyBlockExecutor *executor = [[MendeleyBlockExecutor alloc] initWithCompletionBlock:completionBlock];
+                                                                               [executor executeWithBool:YES error:nil];
                                                                            }
                                                                        }];
                                    }];
