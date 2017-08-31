@@ -43,6 +43,7 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthStoreProvider> storeProvider;
+@property (nonatomic, assign, readwrite) MendeleyServerType serverType;
 @end
 
 @implementation MendeleyKitConfiguration
@@ -67,6 +68,8 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 
         MendeleyKitUserInfoManager *sdkHelper = [MendeleyKitUserInfoManager new];
         [[MendeleyErrorManager sharedInstance] addUserInfoHelper:sdkHelper errorDomain:kMendeleyErrorDomain];
+        
+        self.serverType = MendeleyServerTypeProduction;
     }
     return self;
 }
@@ -195,7 +198,8 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
     _storeProvider = [MendeleyOAuthStore new];
     _isTrustedSSLServer = NO;
     _documentViewType = kMendeleyDocumentViewTypeDefault;
-    _baseAPIURL = [NSURL URLWithString:kMendeleyKitURL];
+    NSString *urlString = self.serverType == MendeleyServerTypeProduction ? kMendeleyKitURL : kMendeleyKitStagingURL;
+    _baseAPIURL =  [NSURL URLWithString:urlString];
 }
 
 

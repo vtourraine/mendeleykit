@@ -29,6 +29,8 @@
 
 - (void)configureWithParameters:(nonnull NSDictionary *)parameters;
 
+- (nonnull NSString *)baseURLString;
+
 - (nonnull NSURLRequest *)getAuthURLRequest;
 
 - (nullable MendeleyAuthToken *)getAuthCodeAndStateFrom:(nonnull NSURL *)requestUrl;

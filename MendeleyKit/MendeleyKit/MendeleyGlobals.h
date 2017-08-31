@@ -76,6 +76,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
    @name Mendeley Server URLs as strings
 ***********************************************/
 #define kMendeleyKitURL                       @"https://api.mendeley.com"
+#define kMendeleyKitStagingURL                @"https://staging.mendeley.com"
 
 /***********************************************
    @name Mendeley Server setting keys
@@ -598,6 +599,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyIDPlusSecretKey                          @"idPlusSecret"
 
 #define kMendeleyIDPlusBaseURL                            @"https://id.elsevier.com"
+#define kStagingIDPlusBaseURL                             @"https://loadcp-id.elsevier.com"
 
 #define kIDPlusScopeDefault                               @"openid email profile"
 #define kIDPlusAuthTypeDefault                            @"SINGLE_SIGN_IN"

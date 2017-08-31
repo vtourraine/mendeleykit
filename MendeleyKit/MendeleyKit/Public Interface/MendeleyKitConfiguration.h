@@ -24,6 +24,11 @@
 #import "MendeleyOAuthProvider.h"
 #import "MendeleyIDPlusAuthProvider.h"
 
+typedef NS_ENUM(NSInteger, MendeleyServerType) {
+    MendeleyServerTypeProduction,
+    MendeleyServerTypeStaging
+};
+
 @interface MendeleyKitConfiguration : NSObject
 @property (nonatomic, assign, readonly) BOOL isTrustedSSLServer;
 @property (nonatomic, strong, readonly) NSURL *baseAPIURL;
@@ -34,6 +39,7 @@
 @property (nonatomic, strong, readonly) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong, readonly) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readwrite) NSString *sharedKeyChainGroupName;
+@property (nonatomic, assign, readonly) MendeleyServerType serverType;
 
 /**
    a singleton to obtain access to default SDK configurations

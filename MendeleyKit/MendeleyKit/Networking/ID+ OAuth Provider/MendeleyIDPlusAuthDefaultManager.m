@@ -123,9 +123,14 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
     }
 }
 
+- (NSString *)baseURLString
+{
+    return MendeleyKitConfiguration.sharedInstance.serverType == MendeleyServerTypeProduction ?  kMendeleyIDPlusBaseURL : kStagingIDPlusBaseURL;
+}
+
 - (NSURLRequest *)getAuthURLRequest
 {
-    NSString *urlString = [kMendeleyIDPlusBaseURL stringByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpoint];
+    NSString *urlString = [[self baseURLString] stringByAppendingPathComponent:kMendeleyIDPlusAuthorizationEndpoint];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:urlString];
     NSURLQueryItem *scopeParam = [NSURLQueryItem queryItemWithName:kMendeleyOAuth2ScopeKey value:self.idPlusScope];
@@ -237,7 +242,7 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
     
     MendeleyTask *task = [MendeleyTask new];
     id<MendeleyNetworkProvider>networkProvider = [MendeleyKitConfiguration sharedInstance].networkProvider;
-    [networkProvider invokePOST:[NSURL URLWithString:kMendeleyIDPlusBaseURL]
+    [networkProvider invokePOST:[NSURL URLWithString:[self baseURLString]]
                             api:kMendeleyIDPlusTokenEndpoint
               additionalHeaders:requestHeader
                  bodyParameters:requestBody
@@ -451,7 +456,7 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
     
     MendeleyTask *task = [MendeleyTask new];
     id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
-    [networkProvider invokePOST:[NSURL URLWithString:kMendeleyIDPlusBaseURL]
+    [networkProvider invokePOST:[NSURL URLWithString:[self baseURLString]]
                             api:kMendeleyIDPlusRevokeEndpoint
               additionalHeaders:requestHeader
                  bodyParameters:requestBodyAccessToken
@@ -470,7 +475,7 @@ NSString *const kMendeleyIDPlusRevokeEndpoint = @"as/revoke_token.oauth2";
     
     MendeleyTask *task = [MendeleyTask new];
     id<MendeleyNetworkProvider>networkProvider = MendeleyKitConfiguration.sharedInstance.networkProvider;
-    [networkProvider invokePOST:[NSURL URLWithString:kMendeleyIDPlusBaseURL]
+    [networkProvider invokePOST:[NSURL URLWithString:[self baseURLString]]
                             api:kMendeleyIDPlusRevokeEndpoint
               additionalHeaders:requestHeader
                  bodyParameters:requestBodyRefreshToken

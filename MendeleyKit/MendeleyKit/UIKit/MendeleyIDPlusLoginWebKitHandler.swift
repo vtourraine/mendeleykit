@@ -160,8 +160,7 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
     
     func verifyProfile(profileID: String) {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
-// TODO: Use base API URL once it works
-//        URL(string: "https://staging.mendeley.com")
+
         guard let redirect = redirectURI
             else { return }
         
@@ -268,7 +267,7 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
                 if absoluteURL.hasPrefix(baseURL) {
                     decisionHandler(.allow)
                     return
-                } else if absoluteURL.hasPrefix(kMendeleyIDPlusBaseURL) {
+                } else if idPlusProvider != nil && absoluteURL.hasPrefix(idPlusProvider!.baseURLString()) {
                     if let token = idPlusProvider?.getAuthCodeAndState(from: requestURL)
                     {
                         if let code = token.code {
