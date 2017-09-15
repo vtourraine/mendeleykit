@@ -742,6 +742,7 @@
 
 - (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL
                                  mimeType:(NSString *)mimeType
+                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
                           completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -750,6 +751,7 @@
         [self.documentsAPI documentFromFileWithURL:fileURL
                                           mimeType:mimeType
                                               task:task
+                                     progressBlock:progressBlock
                                    completionBlock:completionBlock];
     } objectCompletionBlock:completionBlock];
 

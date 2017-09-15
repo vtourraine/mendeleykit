@@ -458,6 +458,7 @@
 - (void)documentFromFileWithURL:(NSURL *)fileURL
                        mimeType:(NSString *)mimeType
                            task:(MendeleyTask *)task
+                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
@@ -480,34 +481,38 @@
                    authenticationRequired:YES
                                      task:task
                             progressBlock:^(NSNumber *progress) {
-     } completionBlock:^(MendeleyResponse *response, NSError *error) {
-         MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
-                                             initWithObjectCompletionBlock:completionBlock];
-         if (![self.helper isSuccessForResponse:response error:&error])
-         {
-             [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
-         }
-         else
-         {
-             MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
-             [jsonModeller parseJSONData:response.responseBody
-                            expectedType:kMendeleyModelDocument
-                         completionBlock:^(id parsedObject, NSError *parseError) {
-                  if (nil != parseError)
-                  {
-                      [blockExec executeWithMendeleyObject:nil
-                                                  syncInfo:nil
-                                                     error:parseError];
-                  }
-                  else
-                  {
-                      [blockExec executeWithMendeleyObject:parsedObject
-                                                  syncInfo:response.syncHeader
-                                                     error:nil];
-                  }
-              }];
-         }
-     }];
+                                if (progressBlock)
+                                {
+                                    progressBlock(progress);
+                                }
+                            } completionBlock:^(MendeleyResponse *response, NSError *error) {
+                                MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
+                                                                    initWithObjectCompletionBlock:completionBlock];
+                                if (![self.helper isSuccessForResponse:response error:&error])
+                                {
+                                    [blockExec executeWithMendeleyObject:nil syncInfo:nil error:error];
+                                }
+                                else
+                                {
+                                    MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+                                    [jsonModeller parseJSONData:response.responseBody
+                                                   expectedType:kMendeleyModelDocument
+                                                completionBlock:^(id parsedObject, NSError *parseError) {
+                                                    if (nil != parseError)
+                                                    {
+                                                        [blockExec executeWithMendeleyObject:nil
+                                                                                    syncInfo:nil
+                                                                                       error:parseError];
+                                                    }
+                                                    else
+                                                    {
+                                                        [blockExec executeWithMendeleyObject:parsedObject
+                                                                                    syncInfo:response.syncHeader
+                                                                                       error:nil];
+                                                    }
+                                                }];
+                                }
+                            }];
 }
 
 - (void)cloneDocumentWithID:(NSString *)documentID

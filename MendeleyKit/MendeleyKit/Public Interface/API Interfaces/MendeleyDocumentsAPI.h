@@ -229,11 +229,13 @@
    @param fileURL the location of the file
    @param mimeType e.g. 'application/pdf'
    @param task
+   @param progressBlock
    @param completionBlock
  */
 - (void)documentFromFileWithURL:(NSURL *)fileURL
                        mimeType:(NSString *)mimeType
                            task:(MendeleyTask *)task
+                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**

@@ -383,10 +383,14 @@
    uploads a file from a location and returns a Mendeley Document in the completion handler
    @param fileURL the location of the file
    @param mimeType e.g. application/pdf
+   @param progressBlock
    @param completionBlock
    @return a MendeleyTask object used for cancelling the operation
  */
-- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL mimeType:(NSString *)mimeType completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL
+                                 mimeType:(NSString *)mimeType
+                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 #pragma mark - Metadata
 /**
