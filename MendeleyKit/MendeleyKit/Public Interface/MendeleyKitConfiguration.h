@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger, MendeleyServerType) {
 @interface MendeleyKitConfiguration : NSObject
 @property (nonatomic, assign, readonly) BOOL isTrustedSSLServer;
 @property (nonatomic, strong, readonly) NSURL *baseAPIURL;
+@property (nonatomic, strong, readonly) NSURL *verifyURL;
 @property (nonatomic, assign, readonly) NSString *documentViewType;
 @property (nonatomic, strong, readonly) id<MendeleyNetworkProvider> networkProvider;
 @property (nonatomic, strong, readonly) id<MendeleyOAuthStoreProvider> storeProvider;

@@ -77,11 +77,14 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 ***********************************************/
 #define kMendeleyKitURL                       @"https://api.mendeley.com"
 #define kMendeleyKitStagingURL                @"https://staging.mendeley.com"
+#define kMendeleyVerifyURL                    @"https://mendeley.com"
+#define kMendeleyVerifyStagingURL             @"https://staging.mendeley.com"
 
 /***********************************************
    @name Mendeley Server setting keys
 ***********************************************/
 #define kMendeleyBaseAPIURLKey                @"BaseAPIURLKey"
+#define kMendeleyVerifyURLKey                 @"VerifyURLKey"
 #define kMendeleyTrustedSSLServerKey          @"TrustedSSLServerKey"
 #define kMendeleyDocumentViewType             @"DefaultDocumentViewType"
 

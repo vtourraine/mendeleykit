@@ -159,7 +159,7 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
     // MARK: - Verification journey
     
     func verifyProfile(profileID: String) {
-        let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
+        let baseURL = MendeleyKitConfiguration.sharedInstance().verifyURL
 
         guard let redirect = redirectURI
             else { return }

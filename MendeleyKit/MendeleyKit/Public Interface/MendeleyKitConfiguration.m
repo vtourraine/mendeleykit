@@ -38,6 +38,7 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 @interface MendeleyKitConfiguration ()
 @property (nonatomic, assign, readwrite) BOOL isTrustedSSLServer;
 @property (nonatomic, strong, readwrite) NSURL *baseAPIURL;
+@property (nonatomic, strong, readwrite) NSURL *verifyURL;
 @property (nonatomic, assign, readwrite) NSString *documentViewType;
 @property (nonatomic, strong, readwrite) id<MendeleyNetworkProvider> networkProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthProvider> oauthProvider;
@@ -123,6 +124,11 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
     {
         self.baseAPIURL = [NSURL URLWithString:baseURLCandidate];
     }
+    NSString *verifyURLCandidate = [configurationParameters objectForKey:kMendeleyVerifyURLKey];
+    if (nil != verifyURLCandidate)
+    {
+        self.verifyURL = [NSURL URLWithString:verifyURLCandidate];
+    }
     NSNumber *baseTrustedFlag = [configurationParameters objectForKey:kMendeleyTrustedSSLServerKey];
     if (nil != baseTrustedFlag)
     {
@@ -200,6 +206,8 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
     _documentViewType = kMendeleyDocumentViewTypeDefault;
     NSString *urlString = self.serverType == MendeleyServerTypeProduction ? kMendeleyKitURL : kMendeleyKitStagingURL;
     _baseAPIURL =  [NSURL URLWithString:urlString];
+    NSString *verifyURLString = self.serverType == MendeleyServerTypeProduction ? kMendeleyVerifyURL : kMendeleyVerifyStagingURL;
+    _verifyURL = [NSURL URLWithString:verifyURLString];
 }
 
 
