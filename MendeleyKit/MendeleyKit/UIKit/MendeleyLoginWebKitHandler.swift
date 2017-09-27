@@ -27,7 +27,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
     let oauthProvider = MendeleyKitConfiguration.sharedInstance().oauthProvider
     public var webView: WKWebView?
-    var completionBlock: MendeleySuccessClosure?
+    var completionBlock: MendeleyStateCompletionBlock?
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
 
     public required init(controller: UIViewController) {
@@ -36,7 +36,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         configureWebView(controller)
     }
     
-    public func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
+    public func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyStateCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
@@ -103,9 +103,6 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             }
         }
 
-        if let unwrappedCompletionBlock = completionBlock
-        {
-            unwrappedCompletionBlock(false, error)
-        }
+        completionBlock?(LoginResult.failed.rawValue, error)
     }
 }

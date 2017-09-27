@@ -21,8 +21,17 @@
 import UIKit
 
 @objc
+public enum LoginResult: NSInteger {
+    case successful
+    case verifed
+    case emailConfirmationRequired
+    case failed
+    case cancelled
+}
+
+@objc
 public protocol MendeleyLoginHandler
 {
     init(controller: UIViewController)
-    func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
+    func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyStateCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
 }

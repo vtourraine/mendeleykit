@@ -32,7 +32,7 @@
 @property (nonatomic, strong) NSURL *oauthServer;
 @property (nonatomic, strong) NSString *clientID;
 @property (nonatomic, strong) NSString *redirectURI;
-@property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
+@property (nonatomic, copy) MendeleyStateCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong) id<MendeleyIDPlusAuthProvider> idPlusProvider;
@@ -46,7 +46,7 @@
 - (id)initWithClientKey:(NSString *)clientKey
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock
 {
     return [self initWithClientKey:clientKey
                       clientSecret:clientSecret
@@ -60,7 +60,7 @@
 - (id)initWithClientKey:(NSString *)clientKey
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock
     customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
 {
     self = [super init];
@@ -92,7 +92,7 @@
         idPlusClientKey:(NSString *)idPlusClientKey
            idPlusSecret:(NSString *)idPlusSecret
       idPlusRedirectURI:(NSString *)idPlusRedirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock
 {
     return [self initWithClientKey:clientKey
                       clientSecret:clientSecret
@@ -111,7 +111,7 @@
         idPlusClientKey:(NSString *)idPlusClientKey
            idPlusSecret:(NSString *)idPlusSecret
       idPlusRedirectURI:(NSString *)idPlusRedirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock
    customIDPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIDPlusProvider
 {
     self = [super init];

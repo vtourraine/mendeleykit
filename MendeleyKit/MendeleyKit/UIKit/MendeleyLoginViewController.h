@@ -38,7 +38,7 @@
 - (id)initWithClientKey:(NSString *)clientKey
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock;
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock;
 
 
 
@@ -54,7 +54,7 @@
 - (id)initWithClientKey:(NSString *)clientKey
            clientSecret:(NSString *)clientSecret
             redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock
    customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
 
 
@@ -75,7 +75,7 @@
         idPlusClientKey:(NSString *)idPlusClientKey
            idPlusSecret:(NSString *)idPlusSecret
       idPlusRedirectURI:(NSString *)idPlusRedirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock;
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock;
 
 /**
  custom initialisers
@@ -95,7 +95,7 @@
         idPlusClientKey:(NSString *)idPlusClientKey
            idPlusSecret:(NSString *)idPlusSecret
       idPlusRedirectURI:(NSString *)idPlusRedirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+        completionBlock:(MendeleyStateCompletionBlock)completionBlock
    customIDPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIDPlusProvider;
 
 @end

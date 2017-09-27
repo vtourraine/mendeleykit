@@ -27,7 +27,7 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
     let idPlusProvider = MendeleyKitConfiguration.sharedInstance().idPlusProvider
     public var webView: WKWebView?
-    var completionBlock: MendeleySuccessClosure?
+    var completionBlock: MendeleyStateCompletionBlock?
     var oAuthCompletionBlock: MendeleyOAuthCompletionBlock?
     var redirectURI: String?
     var parentViewController: UIViewController?
@@ -40,7 +40,7 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
         parentViewController = controller
     }
     
-    public func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
+    public func startLoginProcess(_ clientID: String, redirectURI: String, completionHandler: MendeleyStateCompletionBlock?, oauthHandler: MendeleyOAuthCompletionBlock?)
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
@@ -75,7 +75,13 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
                 // If unverified account is verified via password, send user back to login screen
                 if let components = webView.url?.pathComponents {
                     if components.contains("verified") {
-                        completionBlock?(false, nil)
+                        completionBlock?(LoginResult.verifed.rawValue, nil)
+                    } else if let urlString = webView.url?.absoluteString {
+                        if let queryItems = URLComponents(string: urlString) {
+                            if queryItems.queryItems?.first(where: {$0.name == "success" && $0.value! == "true"}) != nil {
+                                completionBlock?(LoginResult.emailConfirmationRequired.rawValue, nil)
+                            }
+                        }
                     }
                 }
                 return
@@ -86,27 +92,27 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
             guard let code = idPlusProvider?.getAuthCodeAndState(from: requestURL)?.code
                 else {
                     let error = MendeleyErrorManager.sharedInstance().error(withDomain: kMendeleyErrorDomain, code: MendeleyErrorCode.dataNotAvailableErrorCode.rawValue)
-                    self.completionBlock?(false, (error as NSError?))
+                    self.completionBlock?(LoginResult.failed.rawValue, (error as NSError?))
                     return
             }
             
             idPlusProvider?.obtainIDPlusAccessTokens(withAuthorizationCode: code, completionBlock: { (idPlusCredentials: MendeleyIDPlusCredentials?, idPlusError: Error?) in
                 guard let idPlusCredentials = idPlusCredentials
                     else {
-                        self.completionBlock?(false, (idPlusError as NSError?))
+                        self.completionBlock?(LoginResult.failed.rawValue, (idPlusError as NSError?))
                         return
                 }
                 self.idPlusProvider?.obtainAccessTokens(withAuthorizationCode: code, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, oAuthError: Error?) in
                     guard let oAuthCredentials = oAuthCredentials
                         else {
-                         self.completionBlock?(false, (oAuthError as NSError?))
+                            self.completionBlock?(LoginResult.failed.rawValue, (oAuthError as NSError?))
                             return
                     }
                     self.oAuthCompletionBlock?(oAuthCredentials, nil)
                     self.idPlusProvider?.postProfile(with: idPlusCredentials, completionBlock: { (object: MendeleySecureObject?, state: Int, error: Error?) in
                         if object == nil {
-                                self.completionBlock?(false, error as NSError?)
-                                return
+                            self.completionBlock?(LoginResult.failed.rawValue, (error as NSError?))
+                            return
                         }
                         
                         switch state {
@@ -128,7 +134,7 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
                             
                         default:
                             print("default")
-                            self.completionBlock?(false, (error as NSError?))
+                            self.completionBlock?(LoginResult.failed.rawValue, (error as NSError?))
                         }
                     })
                 })
@@ -145,13 +151,14 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
         self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (oAuthCredentials: MendeleyOAuthCredentials?, error: Error?) in
             guard let oAuthCredentials = oAuthCredentials
                 else {
-                    self.completionBlock?(false, (error as NSError?))
+                    self.completionBlock?(LoginResult.failed.rawValue, (error as NSError?))
                     return
             }
             self.idPlusProvider?.obtainMendeleyAPIAccessTokens(withMendeleyCredentials: oAuthCredentials, idPlusCredentials: idPlusCredentials, completionBlock: { (mendeleyCredentials: MendeleyOAuthCredentials?, error: Error?) in
                 self.oAuthCompletionBlock?(mendeleyCredentials, error as NSError?)
                 loginCompletionBlock?(mendeleyCredentials != nil, error as NSError?)
-                self.completionBlock?(mendeleyCredentials != nil, error as NSError?)
+                let result = mendeleyCredentials != nil ? LoginResult.successful : LoginResult.failed
+                self.completionBlock?(result.rawValue, error as NSError?)
             })
         })
     }
@@ -297,9 +304,6 @@ public class MendeleyIDPlusLoginWebKitHandler: NSObject, WKNavigationDelegate, M
             }
         }
         
-        if let unwrappedCompletionBlock = completionBlock
-        {
-            unwrappedCompletionBlock(false, error)
-        }
+        completionBlock?(LoginResult.failed.rawValue, error)
     }
 }
