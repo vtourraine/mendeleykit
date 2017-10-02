@@ -24,4 +24,15 @@ open class MendeleyAnalyticsEventSync : MendeleyAnalyticsEvent
 {
     open var connection_type: String!
     open var finish_condition: String!
+    
+    public init(connectionType: String) {
+        super.init(name: kMendeleyAnalyticsEventSync)
+        self.connection_type = connectionType
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    
 }
