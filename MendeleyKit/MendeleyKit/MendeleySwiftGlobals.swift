@@ -22,3 +22,6 @@ import Foundation
 
 public typealias MendeleySuccessClosure = (_ success: Bool, _ error: NSError?) -> Void
 public typealias MendeleyOAuthClosure = (_ credentials: MendeleyOAuthCredentials?, _ error: NSError?) -> Void
+
+// MARK: - Analytics
+let kMendeleyAnalyticsEventMetadataView = "ViewDocument"

@@ -31,4 +31,12 @@ open class MendeleyAnalyticsEvent: MendeleySecureObject
     open var origin = [kMendeleyAnalyticsJSONOriginOS : kOriginOS,
         kMendeleyAnalyticsJSONOriginType: kOriginType]
 
+    public init(name: String) {
+        super.init()
+        self.name = name
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }

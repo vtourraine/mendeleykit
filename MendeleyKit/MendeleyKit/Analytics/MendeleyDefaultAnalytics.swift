@@ -144,8 +144,7 @@ open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     
     private func createEvent(name: String) -> MendeleyAnalyticsEvent?
     {
-        let event = MendeleyAnalyticsEvent()
-        event.name = name
+        let event = MendeleyAnalyticsEvent(name: name)
         
         if versionString.characters.count == 0 || identityString.characters.count == 0 || profileUUID.characters.count == 0
         {

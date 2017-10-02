@@ -23,5 +23,14 @@ import Foundation
 open class MendeleyAnalyticsEventViewDocument : MendeleyAnalyticsEvent
 {
     open var from_screen: String!
+    
+    public init(fromScreen: String) {
+        super.init(name: kMendeleyAnalyticsEventMetadataView)
+        self.from_screen = fromScreen
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 
