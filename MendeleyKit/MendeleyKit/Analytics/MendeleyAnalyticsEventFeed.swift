@@ -70,6 +70,17 @@ open class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
     open var section: String!
     open var itemId: String!
     open var coauthor = "false"
+    
+    public init(itemType: String, itemId: String, section: String) {
+        super.init(itemType: itemType)
+        self.name = kMendeleyAnalyticsEventFeedItemClicked
+        self.itemId = itemId
+        self.section = section
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 
 open class MendeleyAnalyticsEventFeedComment: MendeleyAnalyticsEventFeed {
