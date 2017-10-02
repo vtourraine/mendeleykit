@@ -86,10 +86,41 @@ open class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
 open class MendeleyAnalyticsEventFeedComment: MendeleyAnalyticsEventFeed {
     open var itemId: String!
     open var pageLoadId: String!
+    
+    public init(itemType: String, itemId: String, pageLoadId: String) {
+        super.init(itemType: itemType)
+        self.itemId = itemId
+        self.pageLoadId = pageLoadId
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
 }
 
-open class MendeleyAnalyticsEventFeedCommentAdded: MendeleyAnalyticsEventFeedComment {}
+open class MendeleyAnalyticsEventFeedCommentAdded: MendeleyAnalyticsEventFeedComment {
+    
+    override public init(itemType: String, itemId: String, pageLoadId: String) {
+        super.init(itemType: itemType, itemId: itemId, pageLoadId: pageLoadId)
+        self.name = kMendeleyAnalyticsEventFeedCommentAdded
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+}
 
 open class MendeleyAnalyticsEventFeedCommendDeleted: MendeleyAnalyticsEventFeedComment {
     open var commentIndex: Int!
+    
+    public init(itemType: String, itemId: String, pageLoadId: String, commentIndex: Int) {
+        super.init(itemType: itemType, itemId: itemId, pageLoadId: pageLoadId)
+        self.commentIndex = commentIndex
+        self.name = kMendeleyAnalyticsEventFeedCommentDeleted
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }

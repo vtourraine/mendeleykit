@@ -27,3 +27,5 @@ public typealias MendeleyOAuthClosure = (_ credentials: MendeleyOAuthCredentials
 let kMendeleyAnalyticsEventMetadataView = "ViewDocument"
 let kMendeleyAnalyticsEventFeedItemViewed = "FeedItemViewed"
 let kMendeleyAnalyticsEventFeedItemClicked = "FeedItemClicked"
+let kMendeleyAnalyticsEventFeedCommentAdded = "FeedCommentAdded"
+let kMendeleyAnalyticsEventFeedCommentDeleted = "FeedCommentDeleted"
