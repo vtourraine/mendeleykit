@@ -41,10 +41,28 @@ public enum FeedItemSection: String {
 
 open class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
     open var itemType: String!
+    
+    public init(itemType: String) {
+        super.init(name: kMendeleyAnalyticsEventFeedItemViewed)
+        self.itemType = itemType
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 
 open class MendeleyAnalyticsEventFeedItemViewed: MendeleyAnalyticsEventFeed {
     open var index: Int!
+    
+    public init(itemType: String, index: Int) {
+        super.init(itemType: itemType)
+        self.index = index
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 
 open class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
