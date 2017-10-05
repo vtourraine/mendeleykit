@@ -48,7 +48,7 @@
  @param task
  @param completionBlock
  */
-- (void)createGroupPost:(MendeleyGroupPost *)groupPost
+- (void)createGroupPost:(MendeleyNewGroupPost *)groupPost
                    task:(MendeleyTask *)task
         completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 

@@ -40,6 +40,6 @@
 #import "MendeleyRecommendedArticle.h"
 #import "MendeleyNewsFeed.h"
 #import "MendeleyComment.h"
-#import "MendeleyNewUserPost.h"
+#import "MendeleyNewPost.h"
 
 #endif
