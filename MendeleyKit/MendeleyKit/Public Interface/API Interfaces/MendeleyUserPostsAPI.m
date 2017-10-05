@@ -34,7 +34,9 @@
 - (NSDictionary *)groupUserPostServiceHeaders
 {
     return @{ kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewGroupPostType,
-              kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONGroupPostType };
+              kMendeleyRESTRequestAccept : kMendeleyRESTRequestJSONGroupPostType,
+              kMendeleyRESTDevelopmentToken : @"NzEyLDE1MTQ5NzUzODE3OTQsb3JfN3lyLVF3cEEzeTlmUU5jR1hDQkpVWTEw"
+              };
 }
 
 - (void)createUserPost:(MendeleyNewUserPost *)newPost

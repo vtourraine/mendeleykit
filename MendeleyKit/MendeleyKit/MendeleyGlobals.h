@@ -171,6 +171,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTHTTPLinkFirst                              @"first"
 #define kMendeleyRESTHTTPLinkLast                               @"last"
 #define kMendeleyRESTHTTPTotalCount                             @"Mendeley-Count"
+#define kMendeleyRESTDevelopmentToken                           @"Development-Token"
 
 /***********************************************
    @name Request values
