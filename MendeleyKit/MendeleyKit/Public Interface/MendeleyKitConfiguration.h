@@ -31,6 +31,7 @@
 @property (nonatomic, strong, readonly) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong, readonly) id<MendeleyOAuthStoreProvider> storeProvider;
 @property (nonatomic, strong, readwrite) NSString *sharedKeyChainGroupName;
+@property (nonatomic, strong, readonly) NSString *clientId;
 /**
    a singleton to obtain access to default SDK configurations
  */
