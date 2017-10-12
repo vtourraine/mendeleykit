@@ -40,6 +40,8 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthStoreProvider> storeProvider;
 @property (nonatomic, strong, readwrite) NSString *clientId;
+@property (nonatomic, strong, readwrite) NSString *secret;
+@property (nonatomic, strong, readwrite) NSString *redirectURI;
 @end
 
 @implementation MendeleyKitConfiguration
@@ -71,6 +73,8 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 - (void)configureOAuthWithParameters:(NSDictionary *)parameters
 {
     self.clientId = parameters[kMendeleyOAuth2ClientIDKey];
+    self.secret = parameters[kMendeleyOAuth2ClientSecretKey];
+    self.redirectURI = parameters[kMendeleyOAuth2RedirectURLKey];
     
     if (nil != self.oauthProvider &&
         [self.oauthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
