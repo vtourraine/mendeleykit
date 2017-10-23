@@ -44,6 +44,14 @@
 #define kMendeleyAnalyticsJSONDuration          @"duration_milliseconds"
 #define kMendeleyAnalyticsJSONConnectionType    @"connection_type"
 #define kMendeleyAnalyticsJSONFinishCondition   @"finish_condition"
+#define kMendeleyAnalyticsJSONItemType          @"itemType"
+#define kMendeleyAnalyticsJSONIndex             @"index"
+#define kMendeleyAnalyticsJSONPageLoadId        @"pageLoadId"
+#define kMendeleyAnalyticsJSONSection           @"section"
+#define kMendeleyAnalyticsJSONItemId            @"itemId"
+#define kMendeleyAnalyticsJSONCoautor           @"coauthor"
+#define kMendeleyAnalyticsJSONCommentIndex      @"commentIndex"
+#define kMendeleyAnalyticsJSONFromScreen        @"from_screen"
 
 /***********************************************
  @name registered events

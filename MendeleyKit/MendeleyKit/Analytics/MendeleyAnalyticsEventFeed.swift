@@ -40,7 +40,14 @@ public enum FeedItemSection: String {
 }
 
 open class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
-    open var itemType: String!
+    public var itemType: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONItemType] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONItemType] = newValue
+        }
+    }
     
     public init(itemType: String) {
         super.init(name: kMendeleyAnalyticsEventFeedItemViewed)
@@ -53,7 +60,14 @@ open class MendeleyAnalyticsEventFeed: MendeleyAnalyticsEvent {
 }
 
 open class MendeleyAnalyticsEventFeedItemViewed: MendeleyAnalyticsEventFeed {
-    open var index: Int!
+    public var index: Int {
+        get {
+            return properties[kMendeleyAnalyticsJSONIndex] as? Int ?? -1
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONIndex] = newValue
+        }
+    }
     
     public init(itemType: String, index: Int) {
         super.init(itemType: itemType)
@@ -66,16 +80,32 @@ open class MendeleyAnalyticsEventFeedItemViewed: MendeleyAnalyticsEventFeed {
 }
 
 open class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
-    open var pageLoadId = "false"
-    open var section: String!
-    open var itemId: String!
-    open var coauthor = "false"
+    public var section: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONSection] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONSection] = newValue
+        }
+    }
+    
+    public var itemId: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONItemId] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONItemId] = newValue
+        }
+    }
     
     public init(itemType: String, itemId: String, section: String) {
         super.init(itemType: itemType)
         self.name = kMendeleyAnalyticsEventFeedItemClicked
         self.itemId = itemId
         self.section = section
+        
+        self.properties[kMendeleyAnalyticsJSONPageLoadId] = "false"
+        self.properties[kMendeleyAnalyticsJSONCoautor] = "false"
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -84,8 +114,23 @@ open class MendeleyAnalyticsEventFeedItemClicked: MendeleyAnalyticsEventFeed {
 }
 
 open class MendeleyAnalyticsEventFeedComment: MendeleyAnalyticsEventFeed {
-    open var itemId: String!
-    open var pageLoadId: String!
+    public var itemId: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONItemId] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONItemId] = newValue
+        }
+    }
+    
+    public var pageLoadId: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONPageLoadId] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONPageLoadId] = newValue
+        }
+    }
     
     public init(itemType: String, itemId: String, pageLoadId: String) {
         super.init(itemType: itemType)
@@ -112,7 +157,14 @@ open class MendeleyAnalyticsEventFeedCommentAdded: MendeleyAnalyticsEventFeedCom
 }
 
 open class MendeleyAnalyticsEventFeedCommendDeleted: MendeleyAnalyticsEventFeedComment {
-    open var commentIndex: Int!
+    open var commentIndex: Int {
+        get {
+            return properties[kMendeleyAnalyticsJSONCommentIndex] as? Int ?? -1
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONCommentIndex] = newValue
+        }
+    }
     
     public init(itemType: String, itemId: String, pageLoadId: String, commentIndex: Int) {
         super.init(itemType: itemType, itemId: itemId, pageLoadId: pageLoadId)
