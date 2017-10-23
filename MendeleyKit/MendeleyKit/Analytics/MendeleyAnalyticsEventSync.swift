@@ -22,8 +22,23 @@ import Foundation
 
 open class MendeleyAnalyticsEventSync : MendeleyAnalyticsEvent
 {
-    open var connection_type: String!
-    open var finish_condition: String!
+    public var connection_type: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONConnectionType] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONConnectionType] = newValue
+        }
+    }
+    
+    public var finish_condition: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONFinishCondition] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONFinishCondition] = newValue
+        }
+    }
     
     public init(connectionType: String) {
         super.init(name: kMendeleyAnalyticsEventSync)

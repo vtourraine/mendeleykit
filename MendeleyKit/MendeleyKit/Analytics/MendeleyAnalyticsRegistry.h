@@ -21,26 +21,29 @@
 #ifndef MendeleyAnalyticsRegistry_h
 #define MendeleyAnalyticsRegistry_h
 
-#define kMendeleyAnalyticsEventCacheKey      @"MendeleyAnalyticsEventsCache"
+#define kMendeleyAnalyticsEventCacheKey         @"MendeleyAnalyticsEventsCache"
 
 /***********************************************
  @name Mendeley Server Events URL endpoints as strings
  ***********************************************/
-#define kMendeleyAnalyticsJSONOrigin         @"origin"
-#define kMendeleyAnalyticsJSONOriginType     @"type"
-#define kMendeleyAnalyticsJSONOriginOS       @"os"
-#define kMendeleyAnalyticsJSONOriginVersion  @"version"
-#define kMendeleyAnalyticsJSONOriginIdentity @"identity"
+#define kMendeleyAnalyticsJSONOrigin            @"origin"
+#define kMendeleyAnalyticsJSONOriginType        @"type"
+#define kMendeleyAnalyticsJSONOriginOS          @"os"
+#define kMendeleyAnalyticsJSONOriginVersion     @"version"
+#define kMendeleyAnalyticsJSONOriginIdentity    @"identity"
 
-#define kMendeleyAnalyticsAPIEvents          @"events"
-#define kMendeleyAnalyticsAPIEventsBatch     @"events/_batch"
+#define kMendeleyAnalyticsAPIEvents             @"events"
+#define kMendeleyAnalyticsAPIEventsBatch        @"events/_batch"
 
 /***********************************************
  @name predefined strings for JSON event
  ***********************************************/
 
-#define kOriginType                          @"IOS"
-#define kOriginOS                            @"iOS"
+#define kOriginType                             @"IOS"
+#define kOriginOS                               @"iOS"
+#define kMendeleyAnalyticsJSONDuration          @"duration_milliseconds"
+#define kMendeleyAnalyticsJSONConnectionType    @"connection_type"
+#define kMendeleyAnalyticsJSONFinishCondition   @"finish_condition"
 
 /***********************************************
  @name registered events
