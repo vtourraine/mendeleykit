@@ -27,8 +27,25 @@ open class MendeleyAnalyticsEvent: MendeleySecureObject
     open var profileID: String!
     open var session_ID: String!
     open var profile_uuid: String!
-    open var duration_milliseconds: Int?
     open var origin = [kMendeleyAnalyticsJSONOriginOS : kOriginOS,
         kMendeleyAnalyticsJSONOriginType: kOriginType]
+    public var properties = [String:Any]()
+    
+    public var duration_milliseconds: Int? {
+        get {
+            return properties[kMendeleyAnalyticsJSONDuration] as? Int
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONDuration] = newValue
+        }
+    }
 
+    public init(name: String) {
+        super.init()
+        self.name = name
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
