@@ -19,7 +19,7 @@
  */
 
 #import "MendeleyUserPostsAPI.h"
-#import "MendeleyNewUserPost.h"
+#import "MendeleyNewPost.h"
 #import "MendeleyModels.h"
 #import "NSError+Exceptions.h"
 
@@ -110,7 +110,7 @@
                 }];
 }
 
-- (void)createGroupPost:(MendeleyGroupPost *)groupPost
+- (void)createGroupPost:(MendeleyNewGroupPost *)groupPost
                    task:(MendeleyTask *)task
         completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {

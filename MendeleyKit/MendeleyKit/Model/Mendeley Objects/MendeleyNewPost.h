@@ -20,12 +20,22 @@
 
 #import "MendeleyObject.h"
 
-@interface MendeleyNewUserPost : MendeleySecureObject
+@interface MendeleyNewPost : MendeleySecureObject
 
 @property (nonatomic, strong, nullable) NSString *text;
 @property (nonatomic, strong, nullable) NSArray<NSString *> *document_ids;
 @property (nonatomic, strong, nullable) NSArray<NSString *> *tagged_users;
 @property (nonatomic, strong, nullable) NSNumber *hide_link_snippet;
+
+@end
+
+@interface MendeleyNewUserPost : MendeleyNewPost
+@end
+
+@interface MendeleyNewGroupPost : MendeleyNewPost
+
+@property (nonatomic, strong, nullable) NSString *group_id;
+@property (nonatomic, strong, nullable) NSString *poster_id;
 
 @end
 

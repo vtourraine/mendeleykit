@@ -1679,7 +1679,7 @@
     return task;
 }
 
-- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+- (MendeleyTask *)createGroupPost:(MendeleyNewGroupPost *)groupPost
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
