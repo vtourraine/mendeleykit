@@ -19,9 +19,15 @@
  */
 
 
-#import "MendeleyNewUserPost.h"
+#import "MendeleyNewPost.h"
+
+@implementation MendeleyNewPost
+@end
 
 @implementation MendeleyNewUserPost
+@end
+
+@implementation MendeleyNewGroupPost
 @end
 
 @implementation MendeleyUserPost

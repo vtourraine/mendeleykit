@@ -21,8 +21,7 @@
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment,
-    MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment, MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost, MendeleyNewGroupPost;
 
 @protocol MendeleyNetworkProvider;
 
@@ -1063,11 +1062,11 @@
 
 /**
  Creates a new group post.
- @param groupPost
+ @param newGroupPost
  @param task
  @param completionBlock
  */
-- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+- (MendeleyTask *)createGroupPost:(MendeleyNewGroupPost *)groupPost
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**

@@ -27,75 +27,23 @@
    @name MendeleyLoginViewController is a helper class for iOS based clients.
    It provides a UIViewController with a UIWebView for user authentication
  */
-/**
-   initialises the login view controller with Client App details
-   @param clientKey
-   @param clientSecret
-   @param redirectURI
-   @param completionBlock
- */
-
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyStateCompletionBlock)completionBlock;
-
-
 
 /**
    custom initialisers
    The completion block BOOL variable is set to YES if login has been successful
    NO otherwise
-   @param clientKey
-   @param clientSecret
-   @param redirectURI
    @param completionBlock
  */
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyStateCompletionBlock)completionBlock
-   customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
-
-
-/**
- initialises the login view controller with Client App details
- @param clientKey
- @param clientSecret
- @param redirectURI
- @param idPlusClientKey
- @param idPlusSecret
- @param idPlusRedirectURI
- @param completionBlock
- */
-
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        idPlusClientKey:(NSString *)idPlusClientKey
-           idPlusSecret:(NSString *)idPlusSecret
-      idPlusRedirectURI:(NSString *)idPlusRedirectURI
-        completionBlock:(MendeleyStateCompletionBlock)completionBlock;
+- (id)initWithCompletionBlock:(MendeleyStateCompletionBlock)completionBlock
+          customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider;
 
 /**
  custom initialisers
  The completion block BOOL variable is set to YES if login has been successful
  NO otherwise
- @param clientKey
- @param clientSecret
- @param redirectURI
- @param idPlusClientKey
- @param idPlusSecret
- @param idPlusRedirectURI
  @param completionBlock
  */
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        idPlusClientKey:(NSString *)idPlusClientKey
-           idPlusSecret:(NSString *)idPlusSecret
-      idPlusRedirectURI:(NSString *)idPlusRedirectURI
-        completionBlock:(MendeleyStateCompletionBlock)completionBlock
+- (id)initWithCompletionBlock:(MendeleyStateCompletionBlock)completionBlock
    customIDPlusProvider:(id<MendeleyIDPlusAuthProvider>)customIDPlusProvider;
 
 @end

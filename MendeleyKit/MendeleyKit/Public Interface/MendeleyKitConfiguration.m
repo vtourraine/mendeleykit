@@ -45,6 +45,12 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 @property (nonatomic, strong, readwrite) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthStoreProvider> storeProvider;
 @property (nonatomic, assign, readwrite) MendeleyServerType serverType;
+@property (nonatomic, strong, readwrite) NSString *clientId;
+@property (nonatomic, strong, readwrite) NSString *secret;
+@property (nonatomic, strong, readwrite) NSString *redirectURI;
+@property (nonatomic, strong, readwrite) NSString *idPlusClientId;
+@property (nonatomic, strong, readwrite) NSString *idPlusSecret;
+@property (nonatomic, strong, readwrite) NSString *idPlusRedirectURI;
 @end
 
 @implementation MendeleyKitConfiguration
@@ -86,6 +92,10 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 //TODO refactor method name
 - (void)configureOAuthWithParameters:(NSDictionary *)oAuthParameters
 {
+    self.clientId = oAuthParameters[kMendeleyOAuth2ClientIDKey];
+    self.secret = oAuthParameters[kMendeleyOAuth2ClientSecretKey];
+    self.redirectURI = oAuthParameters[kMendeleyOAuth2RedirectURLKey];
+    
     if (nil != self.oauthProvider &&
         [self.oauthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
     {
@@ -96,9 +106,14 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 
 - (void)configureAuthenticationWithParameters:(NSDictionary *)authenticationParameters
 {
-    if (nil != authenticationParameters[kMendeleyIDPlusClientIdKey] &&
-        nil != authenticationParameters[kMendeleyIDPlusSecretKey] &&
-        nil != self.idPlusProvider &&
+    self.clientId = authenticationParameters[kMendeleyOAuth2ClientIDKey];
+    self.secret = authenticationParameters[kMendeleyOAuth2ClientSecretKey];
+    self.redirectURI = authenticationParameters[kMendeleyOAuth2RedirectURLKey];
+    self.idPlusClientId = authenticationParameters[kMendeleyIDPlusClientIdKey];
+    self.idPlusSecret = authenticationParameters[kMendeleyIDPlusSecretKey];
+    self.idPlusRedirectURI = authenticationParameters[kMendeleyIDPlusRedirectUriKey];
+    
+    if (self.idPlusClientId && self.idPlusSecret && self.idPlusProvider &&
         [self.idPlusProvider respondsToSelector:@selector(configureWithParameters:)])
     {
         [self.idPlusProvider configureWithParameters:authenticationParameters];
@@ -198,16 +213,16 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 
 - (void)resetToDefault
 {
-    _networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
-    _oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
-    _idPlusProvider = [MendeleyIDPlusAuthDefaultManager sharedInstance];
-    _storeProvider = [MendeleyOAuthStore new];
-    _isTrustedSSLServer = NO;
-    _documentViewType = kMendeleyDocumentViewTypeDefault;
+    self.networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
+    self.oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
+    self.idPlusProvider = [MendeleyIDPlusAuthDefaultManager sharedInstance];
+    self.storeProvider = [MendeleyOAuthStore new];
+    self.isTrustedSSLServer = NO;
+    self.documentViewType = kMendeleyDocumentViewTypeDefault;
     NSString *urlString = self.serverType == MendeleyServerTypeProduction ? kMendeleyKitURL : kMendeleyKitStagingURL;
-    _baseAPIURL =  [NSURL URLWithString:urlString];
+    self.baseAPIURL =  [NSURL URLWithString:urlString];
     NSString *verifyURLString = self.serverType == MendeleyServerTypeProduction ? kMendeleyVerifyURL : kMendeleyVerifyStagingURL;
-    _verifyURL = [NSURL URLWithString:verifyURLString];
+    self.verifyURL = [NSURL URLWithString:verifyURLString];
 }
 
 

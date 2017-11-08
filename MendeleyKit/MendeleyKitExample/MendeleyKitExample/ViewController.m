@@ -120,8 +120,8 @@ NS_ENUM(NSInteger, MenuRow) {
 
 - (void)presentLoginViewController
 {
-    MendeleyCompletionBlock loginCompletion = ^void (BOOL success, NSError *loginError){
-        if (success)
+    MendeleyStateCompletionBlock loginCompletion = ^void (NSInteger loginState, NSError *loginError){
+        if (loginState == LoginResultSuccessful || loginState == LoginResultVerifed)
         {
             self.navigationItem.rightBarButtonItem.title = @"Logout";
             UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Hurrah" message:@"We successfully logged in" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -136,20 +136,10 @@ NS_ENUM(NSInteger, MenuRow) {
     };
 
 #ifdef OAUTH_LOGIN
-    MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc]
-                                                    initWithClientKey:kMyClientID
-                                                    clientSecret:kMyClientSecret
-                                                    redirectURI:kMyClientRedirectURI
-                                                    completionBlock:loginCompletion];
+    MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc] initWithCompletionBlock:loginCompletion customOAuthProvider: nil];
 #else
     MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc]
-                                                    initWithClientKey:kMyClientID
-                                                    clientSecret:kMyClientSecret
-                                                    redirectURI:kMyClientRedirectURI
-                                                    idPlusClientKey:kMyIDPlusID
-                                                    idPlusSecret:kMyIDPlusSecret
-                                                    idPlusRedirectURI:kMyIDPlusRedirectURI
-                                                    completionBlock:loginCompletion];
+                                                    initWithCompletionBlock:loginCompletion customIDPlusProvider:nil];
 #endif
     
     [self.navigationController pushViewController:loginController animated:YES];

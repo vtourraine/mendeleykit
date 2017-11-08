@@ -41,6 +41,12 @@ typedef NS_ENUM(NSInteger, MendeleyServerType) {
 @property (nonatomic, strong, readonly) id<MendeleyIDPlusAuthProvider> idPlusProvider;
 @property (nonatomic, strong, readwrite) NSString *sharedKeyChainGroupName;
 @property (nonatomic, assign, readonly) MendeleyServerType serverType;
+@property (nonatomic, strong, readonly) NSString *clientId;
+@property (nonatomic, strong, readonly) NSString *secret;
+@property (nonatomic, strong, readonly) NSString *redirectURI;
+@property (nonatomic, strong, readonly) NSString *idPlusClientId;
+@property (nonatomic, strong, readonly) NSString *idPlusSecret;
+@property (nonatomic, strong, readonly) NSString *idPlusRedirectURI;
 
 /**
    a singleton to obtain access to default SDK configurations

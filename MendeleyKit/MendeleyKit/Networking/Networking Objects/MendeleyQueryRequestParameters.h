@@ -129,6 +129,7 @@
 
 @interface MendeleyFeedsParameters : MendeleyQueryRequestParameters
 @property (nonatomic, strong) NSString *profile_id;
+@property (nonatomic, strong) NSString *group_id;
 @property (nonatomic, strong) NSString *cut_off;
 @end
 
