@@ -1,4 +1,8 @@
 RELEASE NOTES
+Date: November 2017 (3.2.0)
+- refactored analytics
+- added post to group
+
 Date: May 2017 (3.1.2)
 - added comments API
 - added nonnull/nullable specifiers for all properties
