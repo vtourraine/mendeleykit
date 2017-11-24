@@ -22,6 +22,22 @@ import Foundation
 
 open class MendeleyAnalyticsEventViewDocument : MendeleyAnalyticsEvent
 {
-    open var from_screen: String!
+    public var from_screen: String {
+        get {
+            return properties[kMendeleyAnalyticsJSONFromScreen] as? String ?? ""
+        }
+        set {
+            properties[kMendeleyAnalyticsJSONFromScreen] = newValue
+        }
+    }
+    
+    public init(fromScreen: String) {
+        super.init(name: kMendeleyAnalyticsEventMetadataView)
+        self.from_screen = fromScreen
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 

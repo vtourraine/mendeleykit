@@ -22,3 +22,11 @@ import Foundation
 
 public typealias MendeleySuccessClosure = (_ success: Bool, _ error: NSError?) -> Void
 public typealias MendeleyOAuthClosure = (_ credentials: MendeleyOAuthCredentials?, _ error: NSError?) -> Void
+
+// MARK: - Analytics
+let kMendeleyAnalyticsEventMetadataView = "ViewDocument"
+let kMendeleyAnalyticsEventFeedItemViewed = "FeedItemViewed"
+let kMendeleyAnalyticsEventFeedItemClicked = "FeedItemClicked"
+let kMendeleyAnalyticsEventFeedCommentAdded = "FeedCommentAdded"
+let kMendeleyAnalyticsEventFeedCommentDeleted = "FeedCommentDeleted"
+let kMendeleyAnalyticsEventSync = "Sync"

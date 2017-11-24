@@ -30,8 +30,6 @@
 @interface MendeleyLoginViewController ()
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) NSURL *oauthServer;
-@property (nonatomic, strong) NSString *clientID;
-@property (nonatomic, strong) NSString *redirectURI;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, strong) MendeleyOAuthCompletionBlock oAuthCompletionBlock;
 @property (nonatomic, strong) id<MendeleyOAuthProvider> oauthProvider;
@@ -41,24 +39,15 @@
 
 @implementation MendeleyLoginViewController
 
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+- (id)initWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
 {
-    return [self initWithClientKey:clientKey
-                      clientSecret:clientSecret
-                       redirectURI:redirectURI
-                   completionBlock:completionBlock
+    return [self initWithCompletionBlock:completionBlock
                customOAuthProvider:nil];
 
 }
 
 
-- (id)initWithClientKey:(NSString *)clientKey
-           clientSecret:(NSString *)clientSecret
-            redirectURI:(NSString *)redirectURI
-        completionBlock:(MendeleyCompletionBlock)completionBlock
+- (id)initWithCompletionBlock:(MendeleyCompletionBlock)completionBlock
     customOAuthProvider:(id<MendeleyOAuthProvider>)customOAuthProvider
 {
     self = [super init];
@@ -72,13 +61,11 @@
         {
             _oauthProvider = customOAuthProvider;
         }
-        NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : clientSecret,
-                                           kMendeleyOAuth2ClientIDKey : clientKey,
-                                           kMendeleyOAuth2RedirectURLKey : redirectURI };
+        NSDictionary *oauthParameters = @{ kMendeleyOAuth2ClientSecretKey : MendeleyKitConfiguration.sharedInstance.secret,
+                                           kMendeleyOAuth2ClientIDKey : MendeleyKitConfiguration.sharedInstance.clientId,
+                                           kMendeleyOAuth2RedirectURLKey : MendeleyKitConfiguration.sharedInstance.redirectURI };
         [[MendeleyKitConfiguration sharedInstance] configureOAuthWithParameters:oauthParameters];
         _completionBlock = completionBlock;
-        _clientID = clientKey;
-        _redirectURI = redirectURI;
     }
     return self;
 
@@ -121,8 +108,8 @@
     
     self.loginHandler = [MendeleyLoginWebKitHandler new];
     
-    [self.loginHandler startLoginProcess:self.clientID
-                             redirectURI:self.redirectURI
+    [self.loginHandler startLoginProcess:MendeleyKitConfiguration.sharedInstance.clientId
+                             redirectURI:MendeleyKitConfiguration.sharedInstance.redirectURI
                               controller:self
                        completionHandler:self.completionBlock
                             oauthHandler:oAuthCompletionBlock];
