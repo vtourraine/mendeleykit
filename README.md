@@ -33,7 +33,7 @@ dynamic frameworks for both OSX and iOS we provide two separate Podspec files
 Use this in your Podfile:
 ```ruby
 use_frameworks!
-pod 'MendeleyKitiOS', :git => 'https://github.com/Mendeley/mendeleykit.git'
+pod 'MendeleyKitiOS'
 ```
 
 post_install do |installer|
