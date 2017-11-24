@@ -6,8 +6,6 @@
 //  Copyright © 2017 Mendeley. All rights reserved.
 //
 
-import UIKit
-
 public enum FeedItemSection: String {
     case showMore = "see_more"
     case profileNameInRecommender = "profile_name_%ld"

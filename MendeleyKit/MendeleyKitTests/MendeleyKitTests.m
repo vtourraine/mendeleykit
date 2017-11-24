@@ -21,7 +21,7 @@
 #import "MendeleyKitTestBaseClass.h"
 
 #ifndef MendeleyKitiOSFramework
-@import MendeleyKitiOS;
+#import "MendeleyKit.h"
 #endif
 
 @interface MendeleyKitTests : MendeleyKitTestBaseClass
