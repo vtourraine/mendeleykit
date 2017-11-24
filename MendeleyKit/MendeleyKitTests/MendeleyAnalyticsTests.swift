@@ -51,10 +51,9 @@ class MendeleyAnalyticsTests: XCTestCase {
     
     func testAddEvent()
     {
-        let testEvent = MendeleyAnalyticsEvent()
+        let testEvent = MendeleyAnalyticsEvent(name: "TestPDFEvent")
         let profileID = UUID().uuidString
         testEvent.profile_uuid = profileID
-        testEvent.name = "TestPDFEvent"
         manager.addMendeleyAnalyticsEvent(testEvent)
         
         let events = manager.eventsFromArchive()
@@ -72,8 +71,7 @@ class MendeleyAnalyticsTests: XCTestCase {
         var array = [MendeleyAnalyticsEvent]()
         for count in 0 ..< 20
         {
-            let event = MendeleyAnalyticsEvent()
-            event.name = "TestPDFEvent\(count)"
+            let event = MendeleyAnalyticsEvent(name: "TestPDFEvent\(count)")
             event.profile_uuid = "ProfileID_\(count)"
             array.append(event)
         }
@@ -95,7 +93,7 @@ class MendeleyAnalyticsTests: XCTestCase {
     {
         let analytics = MendeleyDefaultAnalytics.sharedInstance
         let profileID = UUID().uuidString
-        analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
+        analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0")
 
         analytics.logMendeleyAnalyticsEvent("TestPDFEvent")
 
@@ -113,12 +111,11 @@ class MendeleyAnalyticsTests: XCTestCase {
     {
         let analytics = MendeleyDefaultAnalytics.sharedInstance
         let profileID = UUID().uuidString
-        analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0", clientIdentityString: "7")
+        analytics.configureMendeleyAnalytics(profileID, clientVersionString: "2.6.0")
         var array = [MendeleyAnalyticsEvent]()
         for count in 0 ..< 20
         {
-            let event = MendeleyAnalyticsEvent()
-            event.name = "TestPDFEvent\(count)"
+            let event = MendeleyAnalyticsEvent(name: "TestPDFEvent\(count)")
             array.append(event)
         }
         analytics.logMendeleyAnalyticsEvents(array)

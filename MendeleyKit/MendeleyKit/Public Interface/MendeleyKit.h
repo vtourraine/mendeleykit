@@ -20,6 +20,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
+#import "MendeleyKit.h"
 
 @class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment, MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost, MendeleyNewGroupPost;
 
