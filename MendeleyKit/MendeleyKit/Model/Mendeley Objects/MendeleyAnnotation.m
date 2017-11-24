@@ -20,12 +20,7 @@
 
 #import "MendeleyAnnotation.h"
 #import "NSError+MendeleyError.h"
-
-#ifdef MendeleyKitiOSFramework
-#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
-#else
-#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
-#endif
+#import "MendeleyKit-Umbrella.h"
 
 @implementation MendeleyAnnotation
 + (id)colorFromParameters:(NSDictionary *)colorParameters error:(NSError **)error
