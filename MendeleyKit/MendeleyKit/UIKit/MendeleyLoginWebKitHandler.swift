@@ -22,7 +22,7 @@ import UIKit
 import WebKit
 
 @available (iOS 9.0, *)
-public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
+public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, WKURLSchemeHandler, MendeleyLoginHandler
 {
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
     let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oauthProvider
@@ -34,7 +34,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
-        configureWebView(controller)
+        configureWebView(controller, redirectURI: redirectURI)
 
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
@@ -42,9 +42,21 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         _ = webView?.load(request)
     }
     
-    public func configureWebView(_ controller: UIViewController)
+    public func configureWebView(_ controller: UIViewController, redirectURI: String)
     {
         let configuration = WKWebViewConfiguration()
+
+        if let URL = URL(string: redirectURI), let URLScheme = URL.scheme {
+            if URLScheme != "http" && URLScheme != "https" {
+                if #available(iOS 11.0, *) {
+                    configuration.setURLSchemeHandler(self, forURLScheme: URLScheme)
+                }
+                else {
+                    print("warning! unsupported redirect URI")
+                }
+            }
+        }
+
         let newWebView = WKWebView(frame: controller.view.frame, configuration: configuration)
         newWebView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         newWebView.navigationDelegate = self
@@ -102,5 +114,11 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         {
             unwrappedCompletionBlock(false, error)
         }
+    }
+
+    @available(iOS 11.0, *) public func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
+    }
+
+    @available(iOS 11.0, *) public func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
     }
 }
