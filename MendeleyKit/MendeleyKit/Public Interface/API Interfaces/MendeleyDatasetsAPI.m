@@ -111,6 +111,17 @@
                       completionBlock:completionBlock];
 }
 
+- (void)createDataset:(MendeleyDataset *)mendeleyDataset
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    [self.helper createMendeleyObject:mendeleyDataset
+                                  api:kMendeleyRESTAPIDatasetsDrafts
+                    additionalHeaders:@{kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONDatasetCreationRequestType}
+                         expectedType:kMendeleyModelDataset
+                                 task:task
+                      completionBlock:completionBlock];
+}
 
 #pragma mark - Licences
 

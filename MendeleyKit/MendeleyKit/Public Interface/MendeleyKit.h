@@ -22,7 +22,7 @@
 #import "MendeleyGlobals.h"
 #import "MendeleyKit.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment, MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost, MendeleyNewGroupPost;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment, MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost, MendeleyNewGroupPost, MendeleyDataset;
 
 @protocol MendeleyNetworkProvider;
 
@@ -1173,6 +1173,16 @@
  */
 - (MendeleyTask *)datasetWithDatasetID:(NSString *)datasetID
                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ creates a dataset based on the mendeley object model provided in the argument.
+ The server will respond with the JSON data structure for the new object
+ @param mendeleyDataset the dataset to be created
+ @param completionBlock returns the dataset created on the server with the UUID
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)createDataset:(MendeleyDataset *)mendeleyDataset
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
  obtains a list of licences that can be applied to datasets

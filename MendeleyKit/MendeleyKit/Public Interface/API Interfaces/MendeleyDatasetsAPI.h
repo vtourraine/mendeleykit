@@ -65,6 +65,17 @@ obtains a list of datasets for the first page.
              completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
+ Creates a dataset based on the mendeley object model provided in the argument.
+ The server will respond with the JSON data structure for the new object
+ @param mendeleyDataset The dataset model
+ @param task The networking task
+ @param completionBlock The completion block
+ */
+- (void)createDataset:(MendeleyDataset *)mendeleyDataset
+                 task:(MendeleyTask *)task
+      completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
  obtains a list of licences that can be applied to datasets
  @param task
  @param completionBlock
