@@ -115,11 +115,7 @@ NS_ENUM(NSInteger, MenuRow) {
         [self.navigationController popViewControllerAnimated:YES];
     };
 
-    MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc]
-                                                    initWithClientKey:kMyClientID
-                                                    clientSecret:kMyClientSecret
-                                                    redirectURI:kMyClientRedirectURI
-                                                    completionBlock:loginCompletion];
+    MendeleyLoginViewController *loginController = [[MendeleyLoginViewController alloc] initWithCompletionBlock:loginCompletion];
     [self.navigationController pushViewController:loginController animated:YES];
 }
 
