@@ -76,6 +76,22 @@ obtains a list of datasets for the first page.
       completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
+ creates a dataset file by uploading a file, and configuring the file metadata object with the uploaded file ticket (you can then use these file metadata objects to create or update a dataset)
+ @param fileURL The local URL of the file to upload
+ @param filename The file name for the uploaded file (optional)
+ @param contentType The file MIME type (optional)
+ @param task The network task
+ @param progressBlock The progress block
+ @param completionBlock The completion block
+ */
+- (void)createDatasetFile:(NSURL *)fileURL
+                 filename:(NSString *)filename
+              contentType:(NSString *)contentType
+                     task:(MendeleyTask *)task
+            progressBlock:(MendeleyResponseProgressBlock)progressBlock
+          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
  obtains a list of licences that can be applied to datasets
  @param task
  @param completionBlock

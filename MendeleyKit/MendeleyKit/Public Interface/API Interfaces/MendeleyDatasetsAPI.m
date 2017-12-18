@@ -123,6 +123,68 @@
                       completionBlock:completionBlock];
 }
 
+- (void)createDatasetFile:(NSURL *)fileURL
+                 filename:(NSString *)filename
+              contentType:(NSString *)contentType
+                     task:(MendeleyTask *)task
+            progressBlock:(MendeleyResponseProgressBlock)progressBlock
+          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    NSMutableDictionary *additionalHeaders = [NSMutableDictionary dictionary];
+
+    if (filename) {
+        NSString *fileAttachment = [NSString stringWithFormat:@"; filename=\"%@\"", filename];
+        NSString *contentDisposition = [kMendeleyRESTRequestValueAttachment stringByAppendingString:fileAttachment];
+        additionalHeaders[kMendeleyRESTRequestContentDisposition] = contentDisposition;
+    }
+
+    if (contentType) {
+        additionalHeaders[kMendeleyRESTRequestContentType] = contentType;
+    }
+
+    [self.provider invokeUploadForFileURL:fileURL
+                                  baseURL:self.baseURL
+                                      api:kMendeleyRESTAPIFileContents
+                        additionalHeaders:additionalHeaders
+                   authenticationRequired:YES
+                                     task:task
+                            progressBlock:progressBlock
+                          completionBlock:^(MendeleyResponse *response, NSError *error) {
+                              MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithObjectCompletionBlock:completionBlock];
+                              if (![self.helper isSuccessForResponse:response error:&error])
+                              {
+                                  [blockExec executeWithMendeleyObject:nil
+                                                              syncInfo:nil
+                                                                 error:error];
+                              }
+                              else
+                              {
+                                  MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+                                  [modeller parseJSONData:response.responseBody expectedType:kMendeleyModelContentTicket completionBlock: ^(MendeleyContentTicket *ticket, NSError *parseError) {
+                                      if (nil != parseError)
+                                      {
+                                          [blockExec executeWithMendeleyObject:nil
+                                                                      syncInfo:nil
+                                                                         error:parseError];
+                                      }
+                                      else
+                                      {
+                                          MendeleyFileData *fileData = [[MendeleyFileData alloc] init];
+                                          fileData.object_ID = ticket.object_ID;
+
+                                          MendeleyFileMetadata *fileMetadata = [[MendeleyFileMetadata alloc] init];
+                                          fileMetadata.filename = filename;
+                                          fileMetadata.content_details = fileData;
+
+                                          [blockExec executeWithMendeleyObject:fileMetadata
+                                                                      syncInfo:response.syncHeader
+                                                                         error:nil];
+                                      }
+                                  }];
+                              }
+                          }];
+}
+
 #pragma mark - Licences
 
 - (void)datasetLicencesListWithTask:(MendeleyTask *)task
