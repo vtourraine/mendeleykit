@@ -1332,6 +1332,37 @@
         }
     }
 
+    NSString *fileMetadata = NSStringFromClass([MendeleyFileMetadata class]);
+    if ([modelName isEqualToString:fileMetadata])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONContentDetails] && ((MendeleyFileData *)customObject).object_ID)
+        {
+            return @{kMendeleyJSONID: ((MendeleyFileData *)customObject).object_ID};
+        }
+    }
+
+    NSString *dataset = NSStringFromClass([MendeleyDataset class]);
+    if ([modelName isEqualToString:dataset])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONFiles] && [customObject isKindOfClass:[NSArray class]])
+        {
+            NSArray *filesMetadata = (NSArray *)customObject;
+            NSMutableArray *filesDicts = [NSMutableArray arrayWithCapacity:filesMetadata.count];
+            for (MendeleyFileMetadata *metadata in filesMetadata) {
+                NSMutableDictionary *fileDict = [NSMutableDictionary dictionary];
+                if (metadata.filename) {
+                    fileDict[NSStringFromSelector(@selector(filename))] = metadata.filename;
+                }
+                if (metadata.content_details) {
+                    fileDict[kMendeleyJSONContentDetails] = [self rawValueFromCustomObject:metadata.content_details modelObject:metadata propertyName:kMendeleyJSONContentDetails error:nil];
+                }
+                [filesDicts addObject:fileDict];
+            }
+
+            return filesDicts;
+        }
+    }
+
     return nil;
 }
 

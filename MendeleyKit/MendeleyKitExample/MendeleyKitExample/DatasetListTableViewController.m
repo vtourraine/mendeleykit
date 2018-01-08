@@ -53,13 +53,42 @@
             [self pageThroughDatasets:syncInfo datasets:objectArray];
         }
     }];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Create New" style:UIBarButtonItemStyleDone target:self action:@selector(createDataset:)];
+}
+
+- (void)createDataset:(id)sender {
+    MendeleyDataset *dataset = [[MendeleyDataset alloc] init];
+    dataset.name = @"Test MendeleyKit";
+    dataset.objectDescription = @"Dataset with 1 file";
+
+    NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"test-file.txt"];
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    [@"Test Content" writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+
+    [[MendeleyKit sharedInstance] createDatasetFile:fileURL filename:@"Test File.txt" contentType:@"text/plain" progressBlock:nil completionBlock:^(MendeleyObject * _Nullable mendeleyObject, MendeleySyncInfo * _Nullable syncInfo, NSError * _Nullable error) {
+
+        dataset.files = @[mendeleyObject];
+
+        [[MendeleyKit sharedInstance] createDataset:dataset completionBlock:^(MendeleyObject * _Nullable mendeleyObject, MendeleySyncInfo * _Nullable syncInfo, NSError * _Nullable error) {
+
+            if (mendeleyObject) {
+                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"New Dataset Created" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [errorAlert show];
+            }
+            else {
+                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Cannot Create Dataset" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [errorAlert show];
+            }
+        }];
+    }];
 }
 
 - (void)pageThroughDatasets:(MendeleySyncInfo *)syncInfo datasets:(NSArray <MendeleyDataset *> *)datasets
 {
     NSURL *next = [syncInfo.linkDictionary objectForKey:kMendeleyRESTHTTPLinkNext];
 
-    if (nil == next)
+    if (nil == next || datasets.count > 100)
     {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
