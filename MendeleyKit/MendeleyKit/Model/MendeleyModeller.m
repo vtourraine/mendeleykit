@@ -184,7 +184,11 @@
              NSString *matchedName = [MendeleyObjectHelper matchedJSONKeyForKey:name];
              if ([MendeleyObjectHelper isCustomizableModelObject:model forPropertyName:name error:error])
              {
-                 [properties setObject:[MendeleyObjectHelper rawValueFromCustomObject:value modelObject:model propertyName:name error:error] forKey:matchedName];
+                 id rawValue = [MendeleyObjectHelper rawValueFromCustomObject:value modelObject:model propertyName:name error:error];
+                 if (rawValue != nil)
+                 {
+                     [properties setObject:rawValue forKey:matchedName];
+                 }
              }
 
              else if ([value isKindOfClass:[NSDate class]])
