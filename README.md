@@ -4,38 +4,36 @@ Released: August 2016 (2.2.0)
 
 
 ## About MendeleyKit 2.2.x ##
-MendeleyKit is a standalone library/framework providing convenience methods
-and classes for using the [Mendeley API](http://dev.mendeley.com) in iOS and
-OS X applications.
+MendeleyKit is a standalone library/framework providing convenience methods and classes for using the [Mendeley API](http://dev.mendeley.com) in iOS and macOS applications.
 
 Since its launch in October 2014, MendeleyKit has gone through a number of changes and improvements.
 Version 2 of the SDK is introducing a MendeleyKitiOS dynamic framework, including Swift 2.0 code.
 In addition to that, some API additions were introduced (e.g. Mendeley features API enabling remote feature enabling).
 
-Version 2 still supports MendeleyKit as a standalone static library for iOS and OS X. However, users of the SDK
+Version 2 still supports MendeleyKit as a standalone static library for iOS and macOS. However, users of the SDK
 should be advised that the use of static library is deprecated and may be discontinued at a future release.
 
 Please note: we will be phasing out the static library and target of the
 MendeleyKit in coming months. Therefore, we would encourage you to use the
-dynamic frameworks for both iOS and OSX.
+dynamic frameworks for both iOS and macOS.
 
 ## Minimum Requirements ##
 
 ### As a Static Library (2.2.x) ###
-Xcode 6.x
-iOS 7.x or higher
+- Xcode 6.x
+- iOS 7.x or higher
 
 ### As a Framework ###
-Xcode 7
-iOS 8 or higher
-OS X 10.9 or higher
+- Xcode 7
+- iOS 8 or higher
+- macOS 10.9 or higher
 
 ## Installation (CocoaPods) ##
 The easiest way to include MendeleyKit in your project is to use CocoaPods. In order to support both
 dynamic frameworks and legacy static library of MendeleyKit, we introduced separate Podspec files
 - `MendeleyKit.podspec`: use this for static library of MendeleyKit (will not contain Swift code and some of the new APIs, such as analytics). Note this is deprecated and may be removed in future releases.
 - `MendeleyKitiOS.podspec`: the iOS dynamic framework. Requires iOS 8 min and Xcode 7
-- `MendeleyKitOSX.podspec`: the OS X framework.
+- `MendeleyKitOSX.podspec`: the macOS framework.
 
 ### CocoaPods for frameworks ###
 
