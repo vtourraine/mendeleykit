@@ -483,6 +483,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONCategories                           @"categories"
 #define kMendeleyJSONInstitutions                         @"institutions"
 #define kMendeleyJSONRelatedLinks                         @"related_links"
+#define kMendeleyJSONRelatedLinksRel                      @"rel"
+#define kMendeleyJSONRelatedLinksType                     @"type"
+#define kMendeleyJSONRelatedLinksHref                     @"href"
 
 /***********************************************
  @name JSON keys File metadata

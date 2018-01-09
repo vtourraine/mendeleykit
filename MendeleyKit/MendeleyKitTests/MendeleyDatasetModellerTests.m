@@ -228,6 +228,20 @@
     dataset.objectDescription = @"Test Desc";
     dataset.files = @[fileMetadata];
 
+    MendeleyCategory *category = [[MendeleyCategory alloc] init];
+    category.object_ID = @"#cat#";
+    dataset.categories = @[category];
+
+    MendeleyRelatedLink *link = [[MendeleyRelatedLink alloc] init];
+    link.rel = @"source_of";
+    link.type = @"other";
+    link.href = @"https://www.mendeley.com";
+    dataset.related_links = @[link];
+
+    MendeleyLicenceInfo *licenceInfo = [[MendeleyLicenceInfo alloc] init];
+    licenceInfo.object_ID = @"#lic#";
+    dataset.data_licence = licenceInfo;
+
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
     NSError *error = nil;
     NSDictionary *datasetDictionary = [modeller dictionaryFromModel:dataset error:&error];
@@ -240,6 +254,15 @@
 
     NSArray *expectedFiles = @[@{@"filename": @"test.pdf", kMendeleyJSONContentDetails: @{kMendeleyJSONID: @"#123#"}}];
     XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONFiles], expectedFiles);
+
+    NSArray *expectedCategories = @[@{kMendeleyJSONID: @"#cat#"}];
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONCategories], expectedCategories);
+
+    NSArray *expectedLinks = @[@{kMendeleyJSONRelatedLinksRel: @"source_of", kMendeleyJSONRelatedLinksType: @"other", kMendeleyJSONRelatedLinksHref: @"https://www.mendeley.com"}];
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONRelatedLinks], expectedLinks);
+
+    NSDictionary *expectedLicenceInfo = @{kMendeleyJSONID: @"#lic#"};
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONDataLicence], expectedLicenceInfo);
 }
 
 @end
