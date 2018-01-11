@@ -105,4 +105,11 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyAnalyticsRegistry.h>
 #import <MendeleyKitiOS/MendeleyFeature.h>
 #import <MendeleyKitiOS/MendeleyDatasetsAPI.h>
-
+#import <MendeleyKitiOS/MendeleyApplicationFeaturesAPI.h>
+#import <MendeleyKitiOS/MendeleyCommentsAPI.h>
+#import <MendeleyKitiOS/MendeleyFeedsAPI.h>
+#import <MendeleyKitiOS/MendeleyKit-Umbrella.h>
+#import <MendeleyKitiOS/MendeleyPhotosMeAPI.h>
+#import <MendeleyKitiOS/MendeleyRecommendationsAPI.h>
+#import <MendeleyKitiOS/MendeleySharesAPI.h>
+#import <MendeleyKitiOS/MendeleyUserPostsAPI.h>
