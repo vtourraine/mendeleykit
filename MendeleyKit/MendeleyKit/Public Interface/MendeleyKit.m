@@ -1881,6 +1881,40 @@
     return task;
 }
 
+- (MendeleyTask *)createDataset:(MendeleyDataset *)mendeleyDataset
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI createDataset:mendeleyDataset
+                                   task:task
+                        completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+
+    return task;
+}
+
+- (MendeleyTask *)createDatasetFile:(NSURL *)fileURL
+                           filename:(NSString *)filename
+                        contentType:(NSString *)contentType
+                      progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI createDatasetFile:fileURL
+                                   filename:filename
+                                contentType:contentType
+                                       task:task
+                              progressBlock:progressBlock
+                            completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+
+    return task;
+}
+
 - (MendeleyTask *)datasetLicencesListWithCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];

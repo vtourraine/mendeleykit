@@ -20,7 +20,7 @@ DESC
   s.requires_arc      = true
   s.source            = { :git => "https://github.com/Mendeley/mendeleykit.git", :tag => "3.2.3" }
   s.module_name       = "MendeleyKitOSX"
-  s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.9'
   s.source_files      = "MendeleyKit/MendeleyKitOSX/MendeleyKitOSX.h", "MendeleyKit/MendeleyKitOSX/AppKit", "MendeleyKit/MendeleyKit/*.h", "MendeleyKit/MendeleyKit/**/*.{h,m,swift}"
   s.frameworks        = 'Foundation', 'CoreFoundation', 'AppKit', 'Security', 'WebKit', 'CoreServices'
   s.osx.exclude_files     = 'MendeleyKit/MendeleyKit/UIKit/*.{h,m,swift}'
