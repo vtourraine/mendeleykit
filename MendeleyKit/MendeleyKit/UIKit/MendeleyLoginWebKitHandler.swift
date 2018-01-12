@@ -22,7 +22,7 @@ import UIKit
 import WebKit
 
 @available (iOS 9.0, *)
-public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, WKURLSchemeHandler, MendeleyLoginHandler
+public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, MendeleyLoginHandler
 {
     let oAuthServer: URL = MendeleyKitConfiguration.sharedInstance().baseAPIURL
     let oAuthProvider = MendeleyKitConfiguration.sharedInstance().oauthProvider
@@ -34,29 +34,17 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, WKURLSc
     {
         completionBlock = completionHandler
         oAuthCompletionBlock = oauthHandler
-        configureWebView(controller, redirectURI: redirectURI)
+        configureWebView(controller)
 
         let helper = MendeleyKitLoginHelper()
         helper.cleanCookiesAndURLCache()
         let request: URLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
         _ = webView?.load(request)
     }
-    
-    public func configureWebView(_ controller: UIViewController, redirectURI: String)
+
+    public func configureWebView(_ controller: UIViewController)
     {
         let configuration = WKWebViewConfiguration()
-
-        if let URL = URL(string: redirectURI), let URLScheme = URL.scheme {
-            if URLScheme != "http" && URLScheme != "https" {
-                if #available(iOS 11.0, *) {
-                    configuration.setURLSchemeHandler(self, forURLScheme: URLScheme)
-                }
-                else {
-                    print("warning! unsupported redirect URI")
-                }
-            }
-        }
-
         let newWebView = WKWebView(frame: controller.view.frame, configuration: configuration)
         newWebView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         newWebView.navigationDelegate = self
@@ -64,7 +52,6 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, WKURLSc
 
         webView = newWebView
     }
-    
 
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         if let requestURL = webView.url {
@@ -73,11 +60,9 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, WKURLSc
             {
                 oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
             }
-            
         }
-        
     }
-    
+
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.absoluteString
@@ -99,7 +84,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, WKURLSc
 
         decisionHandler(.cancel)
     }
-    
+
     @nonobjc public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
         let userInfo = error.userInfo
         if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
@@ -116,9 +101,18 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, WKURLSc
         }
     }
 
-    @available(iOS 11.0, *) public func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
-    }
-
-    @available(iOS 11.0, *) public func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error)
+    {
+        // Redirecting to a custom URL scheme is treated as an error.
+        // Therefore we need to look for OAuth authentication codes here as well.
+        // GitHub Issue: https://github.com/Mendeley/mendeleykit/issues/80
+        if let failingURL = (error as NSError).userInfo[NSURLErrorFailingURLErrorKey] as? URL
+        {
+            let helper = MendeleyKitLoginHelper()
+            if let code = helper.getAuthenticationCode(failingURL)
+            {
+                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+            }
+        }
     }
 }
