@@ -1,4 +1,32 @@
 RELEASE NOTES
+Date: November 2017 (3.2.0)
+- refactored analytics
+- added post to group
+
+Date: May 2017 (3.1.2)
+- added comments API
+- added nonnull/nullable specifiers for all properties
+
+Date: April 2017 (3.1.1)
+- added some extra Suggest/Feed analytics events
+
+Date: April 2017 (3.1.0)
+- added News Feed features to the Kit
+
+Date: January (3.0.2)
+- min bug fix in assigning a value in MendeleyProfile
+
+Date: December (3.0.1)
+- min version of iOS set back to iOS8 upon request
+
+Date: December (3.0.0)
+- removed MendeleyKit static library target and scheme
+- converted code to Swift 3
+- added new methods to support better cloning of documents from one group to another
+
+Date: September (2.2.1)
+- correct import of authors and editors from a JSON catalog document
+
 Date: August (2.2.0)
 - added datasets model and API methods and classes to support research data handling in the SDK
 - added /photos/me to enable upload of profile pictures

@@ -1,51 +1,40 @@
-# MendeleyKit — the Mendeley SDK for Objective-C #
+# MendeleyKit — the Mendeley SDK for Objective-C/Swift #
 
-Released: August 2016 (2.2.0)
+Latest Release: November 2017 (3.2.3)
 
-
-## About MendeleyKit 2.2.x ##
-MendeleyKit is a standalone library/framework providing convenience methods and classes for using the [Mendeley API](http://dev.mendeley.com) in iOS and macOS applications.
+## About MendeleyKit 3.x ##
+MendeleyKit is a standalone framework providing convenience methods
+and classes for using the [Mendeley API](http://dev.mendeley.com) in iOS and
+macOS applications.
 
 Since its launch in October 2014, MendeleyKit has gone through a number of changes and improvements.
-Version 2 of the SDK is introducing a MendeleyKitiOS dynamic framework, including Swift 2.0 code.
+Version 3 of the SDK no longer provides static libraries. Instead we provide builds for OSX and macOS dynamic frameworks.
 In addition to that, some API additions were introduced (e.g. Mendeley features API enabling remote feature enabling).
 
-Version 2 still supports MendeleyKit as a standalone static library for iOS and macOS. However, users of the SDK
-should be advised that the use of static library is deprecated and may be discontinued at a future release.
-
-Please note: we will be phasing out the static library and target of the
-MendeleyKit in coming months. Therefore, we would encourage you to use the
-dynamic frameworks for both iOS and macOS.
+Much of the code in the SDK is still based on Objective C. However, over the coming months we will be gradually migrating
+towards Swift (3 or later).
 
 ## Minimum Requirements ##
 
-### As a Static Library (2.2.x) ###
-- Xcode 6.x
-- iOS 7.x or higher
-
-### As a Framework ###
-- Xcode 7
-- iOS 8 or higher
-- macOS 10.9 or higher
+Xcode 8
+iOS 8.0 or higher
+OS X 10.9 or higher
 
 ## Installation (CocoaPods) ##
 The easiest way to include MendeleyKit in your project is to use CocoaPods. In order to support both
-dynamic frameworks and legacy static library of MendeleyKit, we introduced separate Podspec files
-- `MendeleyKit.podspec`: use this for static library of MendeleyKit (will not contain Swift code and some of the new APIs, such as analytics). Note this is deprecated and may be removed in future releases.
-- `MendeleyKitiOS.podspec`: the iOS dynamic framework. Requires iOS 8 min and Xcode 7
-- `MendeleyKitOSX.podspec`: the macOS framework.
+dynamic frameworks for both macOS and macOS we provide two separate Podspec files
+- `MendeleyKitiOS.podspec`: the macOS dynamic framework. Requires iOS 9.1 min and Xcode 8.x
+- `MendeleyKitOSX.podspec`: the OS X framework.
 
 ### CocoaPods for frameworks ###
 
 #### Your client Podfile using the iOS Framework ####
 Use this in your Podfile:
-```
+```ruby
 use_frameworks!
-pod 'MendeleyKitiOS', :git => 'https://github.com/Mendeley/mendeleykit.git'
+pod 'MendeleyKitiOS'
 ```
 
-*Note*: the framework supports both `WKWebView` and `UIWebView` for login process (the latter is deprecated). To ensure you use the WebKit version of the Kit, you may want to include the following lines in your Podfile:
-```
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
@@ -59,6 +48,8 @@ end
 
 *Note*: Using `use_frameworks!` means that all included dependencies will be interpreted as frameworks. At this stage, there is no provision in CocoaPods to selectively mark some pods as frameworks and others as static libraries.
 
+Once done do a 
+```bash
 Once done, do a:
 ```
 pod install
@@ -71,7 +62,7 @@ The line below is a workaround, which basically comments out the `#include "Mend
 This seems to fix the issue.
 The example below demonstrates how this can be used in a post-install instruction in a Podfile:
 
-```
+```ruby
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
@@ -84,24 +75,6 @@ post_install do |installer|
 end
 ```
 
-### Your client Podfile for using the static library (deprecated) ###
-You can use the legacy static library of MendeleyKit using `MendeleyKit.podspec`.
-
-**Note**: the static library of MendeleyKit will not include any Swift classes - including
-the new MendeleyAnalytics classes/methods.
-
-The Podfile in your project should include the following line:
-
-```
-pod 'MendeleyKit', :git => 'https://github.com/Mendeley/mendeleykit.git'
-```
-
-From the command line, simply do:
-```
-pod install
-```
-
-For further information on CocoaPods, see [CocoaPods.org](http://cocoapods.org/).
 
 Alternatively, you may clone the public MendeleyKit from our github repository.
 
@@ -112,9 +85,11 @@ Using the MendeleyKitiOS framework means you will need to change your headers.
 All public headers in MendeleyKit are included in the framework umbrella header `MendeleyKitiOS.h`.
 Please, replace all explicit MendeleyKit imports in your code with this one header.
 
-```
+```objc
 #import <MendeleyKitiOS/MendeleyKitiOS.h>
 ```
+You may want to use the more modern syntax
+```objc
 You may want to use the more modern syntax:
 ```
 @import MendeleyKitiOS;
@@ -123,7 +98,7 @@ You may want to use the more modern syntax:
 *Note*: if you are using the static library version of MendeleyKit, you will need to use the following syntax
 (as the workspace has now modules enabled in the build sittings):
 
-```
+```objc
 #import <MendeleyKit/MendeleyKit.h>
 ```
 
