@@ -66,7 +66,7 @@ open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     
     open func logMendeleyAnalyticsEvents(_ events:[MendeleyAnalyticsEvent])
     {
-        if versionString.characters.count == 0 || profileUUID.characters.count == 0
+        if versionString.count == 0 || profileUUID.count == 0
         {
             return
         }
