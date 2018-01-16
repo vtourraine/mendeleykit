@@ -143,7 +143,7 @@ open class MendeleyDefaultAnalytics: NSObject, MendeleyAnalytics
     {
         let event = MendeleyAnalyticsEvent(name: name)
         
-        if versionString.characters.count == 0 || profileUUID.characters.count == 0
+        if versionString.count == 0 || profileUUID.count == 0
         {
             return nil
         }
