@@ -22,8 +22,6 @@
 #import "MendeleyErrorManager.h"
 #import "MendeleyError.h"
 
-#define NSURLResponseUnknownLength ((long long) -1)
-
 
 @interface MendeleyNSURLRequestDownloadHelper ()
 @property (nonatomic, strong) NSURL *fileURL;
