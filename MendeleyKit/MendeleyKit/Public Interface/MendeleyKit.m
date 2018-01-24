@@ -330,7 +330,7 @@
 
 #pragma mark - Authentication helper
 
-- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)())operationBlock completionBlock:(MendeleyCompletionBlock)completionBlock
+- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)(void))operationBlock completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     if (self.isAuthenticated)
     {
@@ -352,7 +352,7 @@
     }
 }
 
-- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)())operationBlock objectCompletionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)(void))operationBlock objectCompletionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     if (self.isAuthenticated)
     {
@@ -374,7 +374,7 @@
     }
 }
 
-- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)())operationBlock arrayCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)(void))operationBlock arrayCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     if (self.isAuthenticated)
     {
