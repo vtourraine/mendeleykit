@@ -150,17 +150,17 @@
                      NSDate *created = ((MendeleyDocument *) parsedObject).created;
                      NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:created];
                      
-                     XCTAssertTrue(components.year == 2014, @"We expected 2014 but got back %ld", components.year);
-                     XCTAssertTrue(components.month == 5, @"We expected 5 but got back %ld", components.month);
-                     XCTAssertTrue(components.day == 22, @"We expected 22 but got back %ld", components.day);
+                     XCTAssertTrue(components.year == 2014, @"We expected 2014 but got back %zd", components.year);
+                     XCTAssertTrue(components.month == 5, @"We expected 5 but got back %zd", components.month);
+                     XCTAssertTrue(components.day == 22, @"We expected 22 but got back %zd", components.day);
 
                      // "2014-05-22T15:55:29.000Z",
                      NSDate *last_modified = ((MendeleyDocument *) parsedObject).last_modified;
                      components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:last_modified];
                      
-                     XCTAssertTrue(components.year == 2014, @"We expected 2014 but got back %ld", components.year);
-                     XCTAssertTrue(components.month == 5, @"We expected 5 but got back %ld", components.month);
-                     XCTAssertTrue(components.day == 22, @"We expected 22 but got back %ld", components.day);
+                     XCTAssertTrue(components.year == 2014, @"We expected 2014 but got back %zd", components.year);
+                     XCTAssertTrue(components.month == 5, @"We expected 5 but got back %zd", components.month);
+                     XCTAssertTrue(components.day == 22, @"We expected 22 but got back %zd", components.day);
                      
                      // pages
                      NSString *pages = ((MendeleyDocument *) parsedObject).pages;
