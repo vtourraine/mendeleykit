@@ -22,6 +22,7 @@
 #import "MendeleyErrorManager.h"
 #import "MendeleyError.h"
 
+#define MendeleyURLResponseUnknownLength ((long long) -1)
 
 @interface MendeleyNSURLRequestDownloadHelper ()
 @property (nonatomic, strong) NSURL *fileURL;
@@ -92,7 +93,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     [super connection:connection didReceiveResponse:response];
-    if (self.bytesExpected == 0 && response.expectedContentLength != NSURLResponseUnknownLength)
+    if (self.bytesExpected == 0 && response.expectedContentLength != MendeleyURLResponseUnknownLength)
     {
         self.bytesExpected = response.expectedContentLength;
     }

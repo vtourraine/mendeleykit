@@ -61,7 +61,7 @@ class MendeleyKitLoginHelperTests: XCTestCase
         XCTAssertNotNil(codeString, "We should get a string back")
         if nil != codeString
         {
-            XCTAssertTrue(codeString! == "1234", "We should get back '1234' but instead get \(codeString)")
+            XCTAssertTrue(codeString! == "1234", "We should get back '1234' but instead get \(codeString ?? "nil")")
         }
     }
     

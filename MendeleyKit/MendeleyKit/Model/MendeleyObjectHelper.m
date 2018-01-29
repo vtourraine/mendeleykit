@@ -658,7 +658,7 @@
 + (id)customObjectFromRawValue:(id)rawValue
                    modelObject:(id)modelObject
                   propertyName:(NSString *)propertyName
-                         error:(NSError **)error
+                         error:(NSError *__autoreleasing*)error
 {
     if (nil == propertyName)
     {
@@ -1157,7 +1157,7 @@
 + (id)rawValueFromCustomObject:(id)customObject
                    modelObject:(id)modelObject
                   propertyName:(NSString *)propertyName
-                         error:(NSError **)error
+                         error:(NSError *__autoreleasing*)error
 {
     if (nil == propertyName)
     {
