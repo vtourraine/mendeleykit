@@ -24,7 +24,6 @@
 
 #define MendeleyURLResponseUnknownLength ((long long) -1)
 
-
 @interface MendeleyNSURLRequestDownloadHelper ()
 @property (nonatomic, strong) NSURL *fileURL;
 @property (nonatomic, copy) MendeleyResponseProgressBlock progressBlock;
