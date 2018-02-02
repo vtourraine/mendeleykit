@@ -1,4 +1,8 @@
 RELEASE NOTES
+
+Date: January 2018 (3.3.0)
+- added dataset API
+
 Date: November 2017 (3.2.0)
 - refactored analytics
 - added post to group
