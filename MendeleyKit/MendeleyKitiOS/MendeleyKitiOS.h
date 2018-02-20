@@ -41,7 +41,6 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyNetworkProvider.h>
 #import <MendeleyKitiOS/MendeleyKitHelper.h>
 #import <MendeleyKitiOS/MendeleyKit.h>
-#import <MendeleyKitiOS/MendeleyCatalogDocument.h>
 #import <MendeleyKitiOS/MendeleyIdentifierType.h>
 #import <MendeleyKitiOS/MendeleyAnnotation.h>
 #import <MendeleyKitiOS/MendeleyDocument.h>
@@ -54,8 +53,8 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyError.h>
 #import <MendeleyKitiOS/MendeleyMetadataLookup.h>
 #import <MendeleyKitiOS/MendeleyReachability.h>
-#import <MendeleyKitiOS/MendeleyPerson.h>
 #import <MendeleyKitiOS/MendeleyModeller.h>
+#import <MendeleyKitiOS/MendeleyPerson.h>
 #import <MendeleyKitiOS/MendeleyResponse.h>
 #import <MendeleyKitiOS/MendeleyProfile.h>
 #import <MendeleyKitiOS/MendeleyProfileUtils.h>
@@ -85,7 +84,6 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyOAuthConstants.h>
 #import <MendeleyKitiOS/MendeleyObjectHelper.h>
 #import <MendeleyKitiOS/MendeleyUserRole.h>
-#import <MendeleyKitiOS/MendeleyRecommendedArticle.h>
 #import <MendeleyKitiOS/MendeleyDisciplinesAPI.h>
 #import <MendeleyKitiOS/MendeleyGroupsAPI.h>
 #import <MendeleyKitiOS/MendeleyDefaultOAuthProvider.h>
@@ -110,6 +108,5 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyFeedsAPI.h>
 #import <MendeleyKitiOS/MendeleyKit-Umbrella.h>
 #import <MendeleyKitiOS/MendeleyPhotosMeAPI.h>
-#import <MendeleyKitiOS/MendeleyRecommendationsAPI.h>
 #import <MendeleyKitiOS/MendeleySharesAPI.h>
 #import <MendeleyKitiOS/MendeleyUserPostsAPI.h>

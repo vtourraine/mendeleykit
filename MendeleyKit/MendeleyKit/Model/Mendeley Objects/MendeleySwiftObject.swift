@@ -18,8 +18,14 @@
  *****************************************************************************
  */
 
-#import "MendeleyCatalogDocument.h"
+import UIKit
 
-@implementation MendeleyCatalogDocument
-
-@end
+class MendeleySwiftObject: MendeleySwiftSecureObject, Codable {
+    var object_ID: String?
+    var objectDescription: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        case object_ID = "id"
+        case objectDescription = "description"
+    }
+}

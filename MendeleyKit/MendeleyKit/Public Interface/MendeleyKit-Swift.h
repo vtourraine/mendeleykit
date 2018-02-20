@@ -18,8 +18,10 @@
  *****************************************************************************
  */
 
-#import "MendeleyRecommendedArticle.h"
+#if __has_include(<MendeleyKitiOS/MendeleyKitiOS-Swift.h>) && TARGET_OS_IPHONE
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#endif
 
-@implementation MendeleyRecommendedArticle
-
-@end
+#if __has_include(<MendeleyKitOSX/MendeleyKitOSX-Swift.h>) && !TARGET_OS_IPHONE
+#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
+#endif

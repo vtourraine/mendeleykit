@@ -44,11 +44,11 @@
 #import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
 #import "MendeleyPhotosMeAPI.h"
-#import "MendeleyRecommendationsAPI.h"
 #import "MendeleyFeedsAPI.h"
 #import "MendeleySharesAPI.h"
 #import "MendeleyUserPostsAPI.h"
 #import "MendeleyCommentsAPI.h"
+#import "MendeleyKit-Swift.h"
 
 
 @interface MendeleyKit ()
@@ -1543,9 +1543,9 @@
     
     [self checkAuthenticationThenRefreshTokenThenPerform:^{
         [self.recommendationsAPI feedbackOnRecommendation:trace
-                                                 position:position
+                                                 position:[position intValue]
                                                userAction:userAction
-                                                 carousel:carousel
+                                                 carousel:[carousel intValue]
                                                      task:task
                                           completionBlock:completionBlock];
     } completionBlock:completionBlock];

@@ -18,14 +18,10 @@
  *****************************************************************************
  */
 
-#import "MendeleyObject.h"
+import UIKit
 
-@class MendeleyCatalogDocument;
-
-@interface MendeleyRecommendedArticle : MendeleyObject
-
-@property (nonatomic, strong) MendeleyCatalogDocument *catalogue_document;
-@property (nonatomic, strong) NSNumber *rank;
-@property (nonatomic, strong) NSString *trace;
-
-@end
+class MendeleyRecommendedArticle: MendeleySwiftObject {
+    var catalogue_document: MendeleyCatalogDocument?
+    var rank: Int?
+    var trace: String?
+}
