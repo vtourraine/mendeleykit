@@ -20,7 +20,7 @@
 
 import UIKit
 
-class MendeleySwiftObject: MendeleySwiftSecureObject, Codable {
+open class MendeleySwiftObject: MendeleySwiftSecureObject, Codable {
     var object_ID: String?
     var objectDescription: String?
     

@@ -20,7 +20,7 @@
 
 import UIKit
 
-class MendeleyRecommendedArticle: MendeleySwiftObject {
+open class MendeleyRecommendedArticle: MendeleySwiftObject {
     var catalogue_document: MendeleyCatalogDocument?
     var rank: Int?
     var trace: String?

@@ -20,13 +20,13 @@
 
 import UIKit
 
-class MendeleySwiftSecureObject: NSObject {
+open class MendeleySwiftSecureObject: NSObject {
 
     override init() {
         super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init()
         self.decode(aDecoder)
     }
@@ -44,7 +44,7 @@ class MendeleySwiftSecureObject: NSObject {
 }
 
 extension MendeleySwiftSecureObject: NSSecureCoding {
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         guard let propertyNames = MendeleyObjectHelper.propertyNames(forModel: self) as? [String]
             else { return }
         
@@ -55,7 +55,7 @@ extension MendeleySwiftSecureObject: NSSecureCoding {
         }
     }
     
-    static var supportsSecureCoding: Bool {
+    public static var supportsSecureCoding: Bool {
         return true
     }
 }

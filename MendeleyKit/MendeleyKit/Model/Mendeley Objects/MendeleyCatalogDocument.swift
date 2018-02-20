@@ -20,7 +20,7 @@
 
 import UIKit
 
-class MendeleyCatalogDocument: MendeleySwiftObject {
+open class MendeleyCatalogDocument: MendeleySwiftObject {
     var link: String?
     var reader_count: Int?
     var reader_count_by_academic_status: [String: Int]?
