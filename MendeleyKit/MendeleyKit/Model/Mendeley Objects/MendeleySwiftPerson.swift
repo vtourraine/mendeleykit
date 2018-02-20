@@ -21,6 +21,6 @@
 import UIKit
 
 open class MendeleySwiftPerson: MendeleySwiftObject {
-    var first_name: String?
-    var last_name: String?
+    public var first_name: String?
+    public var last_name: String?
 }

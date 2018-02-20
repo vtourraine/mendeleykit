@@ -21,8 +21,8 @@
 import UIKit
 
 open class MendeleySwiftObject: MendeleySwiftSecureObject, Codable {
-    var object_ID: String?
-    var objectDescription: String?
+    public var object_ID: String?
+    public var objectDescription: String?
     
     private enum CodingKeys: String, CodingKey {
         case object_ID = "id"

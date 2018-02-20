@@ -21,7 +21,7 @@
 import UIKit
 
 open class MendeleyRecommendedArticle: MendeleySwiftObject {
-    var catalogue_document: MendeleyCatalogDocument?
-    var rank: Int?
-    var trace: String?
+    public var catalogue_document: MendeleyCatalogDocument?
+    public var rank: Int?
+    public var trace: String?
 }

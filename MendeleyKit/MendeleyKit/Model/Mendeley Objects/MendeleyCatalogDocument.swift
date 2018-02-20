@@ -21,45 +21,45 @@
 import UIKit
 
 open class MendeleyCatalogDocument: MendeleySwiftObject {
-    var link: String?
-    var reader_count: Int?
-    var reader_count_by_academic_status: [String: Int]?
-    var reader_count_by_subdiscipline: [String: Int]?
+    public var link: String?
+    public var reader_count: Int?
+    public var reader_count_by_academic_status: [String: Int]?
+    public var reader_count_by_subdiscipline: [String: Int]?
     
     // Ints
-    var month: Int?
-    var year: Int?
-    var day: Int?
+    public var month: Int?
+    public var year: Int?
+    public var day: Int?
     
     // Booleans
-    var file_attached: Bool?
+    public var file_attached: Bool?
     
     // Person
-    var authors: [MendeleySwiftPerson]?
-    var editors: [MendeleySwiftPerson]?
-    var websites: [String]?
-    var keywords: [String]?
+    public var authors: [MendeleySwiftPerson]?
+    public var editors: [MendeleySwiftPerson]?
+    public var websites: [String]?
+    public var keywords: [String]?
     
     // Indentifiers (e.g. arxiv)
-    var identifiers: [String: String]?
+    public var identifiers: [String: String]?
     
     // Dates
-    var created: Date?
+    public var created: Date?
     
     // Strings
-    var type: String?
-    var source: String?
-    var title: String?
-    var revision: String?
-    var abstract: String?
-    var pages: String?
-    var volume: String?
-    var issue: String?
-    var publisher: String?
-    var city: String?
-    var edition: String?
-    var institution: String?
-    var series: String?
-    var chapter: String?
-    var accessed: String?
+    public var type: String?
+    public var source: String?
+    public var title: String?
+    public var revision: String?
+    public var abstract: String?
+    public var pages: String?
+    public var volume: String?
+    public var issue: String?
+    public var publisher: String?
+    public var city: String?
+    public var edition: String?
+    public var institution: String?
+    public var series: String?
+    public var chapter: String?
+    public var accessed: String?
 }
