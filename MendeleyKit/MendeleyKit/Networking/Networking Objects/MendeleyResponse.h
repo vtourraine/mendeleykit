@@ -27,6 +27,7 @@
 @property (nonatomic, assign, readonly) MendeleyResponseBodyContentType contentType;
 @property (nonatomic, assign, readonly, getter = isSuccess) BOOL success;
 @property (nonatomic, strong, readonly) id responseBody;
+@property (nonatomic, strong, readonly) NSData *rawResponseBody;
 @property (nonatomic, strong, readonly) NSString *responseMessage;
 @property (nonatomic, assign, readonly) NSUInteger statusCode;
 @property (nonatomic, strong, readonly) MendeleySyncInfo *syncHeader;

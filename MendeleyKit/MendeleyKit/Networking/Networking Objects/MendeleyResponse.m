@@ -27,6 +27,7 @@
 @property (nonatomic, assign, readwrite) MendeleyResponseBodyContentType contentType;
 @property (nonatomic, assign, readwrite) BOOL success;
 @property (nonatomic, strong, readwrite) id responseBody;
+@property (nonatomic, strong, readwrite) NSData *rawResponseBody;
 @property (nonatomic, strong, readwrite) NSString *responseMessage;
 @property (nonatomic, assign, readwrite) NSUInteger statusCode;
 @property (nonatomic, strong, readwrite) NSURL *fileURL;
@@ -56,6 +57,8 @@
 
 - (BOOL)deserialiseRawResponseData:(NSData *)rawResponseData error:(NSError **)error
 {
+    self.rawResponseBody = rawResponseData;
+    
     BOOL innerSuccess = self.success;
 
     self.responseBody = nil;
