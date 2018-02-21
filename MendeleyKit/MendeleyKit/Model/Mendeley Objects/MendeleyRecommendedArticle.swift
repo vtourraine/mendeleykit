@@ -33,7 +33,7 @@ open class MendeleyRecommendedArticle: MendeleySwiftObject {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        catalogue_document = try MendeleyCatalogDocument(from: decoder)
+        catalogue_document = try container.decodeIfPresent(MendeleyCatalogDocument.self, forKey: .catalogue_document)
         rank = try container.decodeIfPresent(Int.self, forKey: .rank)
         trace = try container.decodeIfPresent(String.self, forKey: .trace)
         try super.init(from: decoder)
