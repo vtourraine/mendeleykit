@@ -23,12 +23,14 @@ import UIKit
                                 blockExec?.execute(with: nil, syncInfo: nil, error: error)
                             } else {
                                 if let responseBody = response?.responseBody as? [String: Any] {
-                                    if let json = responseBody[kMendeleyJSONData] as? Data {
-                                        let decoder = JSONDecoder()
+                                    if let json = responseBody[kMendeleyJSONData] {
                                         do {
-                                            let recommendedArticles = try decoder.decode([MendeleyRecommendedArticle].self, from: json)
+                                            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                                            let decoder = JSONDecoder()
+                                            let recommendedArticles = try decoder.decode([MendeleyRecommendedArticle].self, from: data)
                                             blockExec?.execute(with: recommendedArticles, syncInfo: response?.syncHeader, error: nil)
                                         } catch {
+                                            print(error)
                                             blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                         }
                                     }
