@@ -24,4 +24,27 @@ open class MendeleyRecommendedArticle: MendeleySwiftObject {
     public var catalogue_document: MendeleyCatalogDocument?
     public var rank: Int?
     public var trace: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        case rank
+        case trace
+    }
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        rank = try container.decodeIfPresent(Int.self, forKey: .rank)
+        trace = try container.decodeIfPresent(String.self, forKey: .trace)
+        try super.init(from: decoder)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(rank, forKey: .rank)
+        try container.encodeIfPresent(trace, forKey: .trace)
+    }
 }

@@ -28,4 +28,21 @@ open class MendeleySwiftObject: MendeleySwiftSecureObject, Codable {
         case object_ID = "id"
         case objectDescription = "description"
     }
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        object_ID = try container.decodeIfPresent(String.self, forKey: .object_ID)
+        objectDescription = try container.decodeIfPresent(String.self, forKey: .objectDescription)
+        super.init()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    open func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(object_ID, forKey: .object_ID)
+        try container.encodeIfPresent(objectDescription, forKey: .objectDescription)
+    }
 }
