@@ -923,6 +923,7 @@
 		5380DD30203C61D2008B3484 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				537BE346203DD0DD00ED9DD8 /* MendeleyKitSwiftHelper.swift */,
 				5380DD2D203C61CD008B3484 /* MendeleyRecommendationsAPI.swift */,
 				537BE343203DC5C000ED9DD8 /* MendeleyCommentsAPI.swift */,
 				535744D2203F0AA600A113CD /* MendeleySwiftObjectAPI.swift */,
@@ -1154,7 +1155,6 @@
 				C4A1354319DADF750069DB7A /* MendeleyKitHelper.m */,
 				53E647281FC85E050089EE21 /* MendeleyKit-Umbrella.h */,
 				537BE331203C735000ED9DD8 /* MendeleyKit-Swift.h */,
-				537BE346203DD0DD00ED9DD8 /* MendeleyKitSwiftHelper.swift */,
 			);
 			name = "Public Interface";
 			sourceTree = "<group>";
