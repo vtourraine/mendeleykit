@@ -10,16 +10,16 @@ import UIKit
 
 class MendeleySwiftObjectAPI: MendeleyKitSwiftHelperDelegate {
     
-    var networkProvider: MendeleyNetworkProvider?
-    var baseAPIURL: URL?
-    var helper: MendeleyKitSwiftHelper?
+    var networkProvider: MendeleyNetworkProvider!
+    var baseAPIURL: URL!
+    var helper: MendeleyKitSwiftHelper!
     
     /**
      A general creator of MendeleyObjectAPI
      @param provider the network provider. By default the MendeleyDefaultNetworkProvider is taken. This is based on NSURLSession
      @param baseURL
      */
-    init(withNetworkProvider provider: MendeleyNetworkProvider, baseURL: URL) {
+    required init(withNetworkProvider provider: MendeleyNetworkProvider, baseURL: URL) {
         self.networkProvider = provider
         self.baseAPIURL = baseURL
         self.helper = MendeleyKitSwiftHelper(withDelegate: self)

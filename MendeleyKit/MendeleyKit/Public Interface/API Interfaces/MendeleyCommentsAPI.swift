@@ -39,7 +39,12 @@ class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
         let queryParameters = MendeleyExpandedCommentsParameters()
         queryParameters.news_item_id = newsItemID
         
-        
+//        self.helper?.mendeleyObjectList(ofType: MendeleyExpandedComment.class,
+//                                        api: kMendeleyRESTAPIComments,
+//                                        parameters:queryParameters.valueStringDictionary,
+//                                        additionalHeaders:expandedCommentsListRequestHeaders,
+//                                        task:task,
+//                                        completionBlock:completionBlock)
     }
     
     /**

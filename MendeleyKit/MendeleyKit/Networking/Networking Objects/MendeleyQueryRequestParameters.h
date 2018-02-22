@@ -32,14 +32,14 @@
 
    NOTE: this method will return limit as a parameter.
  */
-- (NSDictionary *)valueStringDictionary;
+- (NSDictionary<NSString *, NSObject *>*)valueStringDictionary;
 
 /**
    As above, this method returns a map of string-key objects and non-nil values to be used
    as query parameters in API calls.
    NOTE: this method will NOT contain limit as a parameter
  */
-- (NSDictionary *)valueStringDictionaryWithNoLimit;
+- (NSDictionary<NSString *, NSObject *>*)valueStringDictionaryWithNoLimit;
 
 /**
    checks if a property with the provided name exists in the MendeleyQueryRequestParameters object

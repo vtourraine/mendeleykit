@@ -20,31 +20,31 @@
 
 #import "MendeleyObject.h"
 
-@class MendeleySocialProfile;
-
-@interface MendeleyComment : MendeleyObject
-
-@property (nonatomic, strong) NSString *news_item_id;
-@property (nonatomic, strong) NSString *profile_id;
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSString *created;
-@property (nonatomic, strong) NSString *last_modified;
-@property (nonatomic, strong) NSNumber *news_item_owner;
-@property (nonatomic, strong) NSArray<MendeleySocialProfile *> *tagged_users;
-
-@end
-
-@interface MendeleyExpandedComment : MendeleyComment
-
-@property (nonatomic, strong) MendeleySocialProfile *profile;
-
-@end
-
-@interface MendeleyCommentUpdate : MendeleySecureObject
-
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSArray<NSString *> *tagged_users;
-
-@end
+//@class MendeleySocialProfile;
+//
+//@interface MendeleyComment : MendeleyObject
+//
+//@property (nonatomic, strong) NSString *news_item_id;
+//@property (nonatomic, strong) NSString *profile_id;
+//@property (nonatomic, strong) NSString *text;
+//@property (nonatomic, strong) NSString *created;
+//@property (nonatomic, strong) NSString *last_modified;
+//@property (nonatomic, strong) NSNumber *news_item_owner;
+//@property (nonatomic, strong) NSArray<MendeleySocialProfile *> *tagged_users;
+//
+//@end
+//
+//@interface MendeleyExpandedComment : MendeleyComment
+//
+//@property (nonatomic, strong) MendeleySocialProfile *profile;
+//
+//@end
+//
+//@interface MendeleyCommentUpdate : MendeleySecureObject
+//
+//@property (nonatomic, strong) NSString *text;
+//@property (nonatomic, strong) NSArray<NSString *> *tagged_users;
+//
+//@end
 
 

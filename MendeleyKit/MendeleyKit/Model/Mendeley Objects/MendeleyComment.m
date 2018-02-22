@@ -20,14 +20,15 @@
 
 #import "MendeleyComment.h"
 
-@implementation MendeleyComment
+//@implementation MendeleyComment
+//
+//@end
+//
+//@implementation MendeleyExpandedComment
+//
+//@end
+//
+//@implementation MendeleyCommentUpdate
+//
+//@end
 
-@end
-
-@implementation MendeleyExpandedComment
-
-@end
-
-@implementation MendeleyCommentUpdate
-
-@end

@@ -36,7 +36,7 @@
     return self;
 }
 
-- (NSDictionary *)valueStringDictionary
+- (NSDictionary<NSString *, NSObject *>*)valueStringDictionary
 {
     NSDictionary *dictionary = [MendeleyObjectHelper propertiesAndAttributesForModel:self];
 
@@ -54,7 +54,7 @@
     return values;
 }
 
-- (NSDictionary *)valueStringDictionaryWithNoLimit
+- (NSDictionary<NSString *, NSObject *>*)valueStringDictionaryWithNoLimit
 {
     NSDictionary *dictionary = [MendeleyObjectHelper propertiesAndAttributesForModel:self];
 
