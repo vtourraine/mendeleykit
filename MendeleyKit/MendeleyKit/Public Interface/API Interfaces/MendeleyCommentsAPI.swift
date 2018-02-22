@@ -20,7 +20,7 @@
 
 import UIKit
 
-class MendeleyCommentsAPI: MendeleyObjectAPI {
+class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
     
     private let defaultCommentRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONCommentType]
     private let expandedCommentsListRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONExpandedCommentsType]
@@ -35,7 +35,7 @@ class MendeleyCommentsAPI: MendeleyObjectAPI {
      @param task
      @param completionBlock
      */
-    public func expandedComments(withNewsItemID newsItemID: String, task: MendeleyTask?, completionBlock: MendeleyArrayCompletionBlock) {
+    func expandedComments(withNewsItemID newsItemID: String, task: MendeleyTask?, completionBlock: MendeleyArrayCompletionBlock) {
         let queryParameters = MendeleyExpandedCommentsParameters()
         queryParameters.news_item_id = newsItemID
         
@@ -48,7 +48,7 @@ class MendeleyCommentsAPI: MendeleyObjectAPI {
      @param task
      @param completionBlock
      */
-    public func comment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: MendeleyObjectCompletionBlock) {
+    func comment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: MendeleyObjectCompletionBlock) {
     
     }
     
@@ -58,7 +58,7 @@ class MendeleyCommentsAPI: MendeleyObjectAPI {
      @param task
      @param completionBlock
      */
-    public func create(comment: MendeleyComment, task: MendeleyTask?, completionBlock: MendeleyObjectCompletionBlock) {
+    func create(comment: MendeleyComment, task: MendeleyTask?, completionBlock: MendeleyObjectCompletionBlock) {
         
     }
     
@@ -69,7 +69,7 @@ class MendeleyCommentsAPI: MendeleyObjectAPI {
      @param task
      @param completionBlock
      */
-    public func updatingComment(withCommentID commentID: String, update: MendeleyCommentUpdate, task: MendeleyTask?, completionBlock: MendeleyObjectCompletionBlock) {
+    func updatingComment(withCommentID commentID: String, update: MendeleyCommentUpdate, task: MendeleyTask?, completionBlock: MendeleyObjectCompletionBlock) {
         
     }
     
@@ -79,7 +79,7 @@ class MendeleyCommentsAPI: MendeleyObjectAPI {
      @param task
      @param completionBlock
      */
-    public func deleteComment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: MendeleyCompletionBlock) {
+    func deleteComment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: MendeleyCompletionBlock) {
         
     }
 }

@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol MendeleyKitSwiftHelperDelegate {
+@objc public protocol MendeleyKitSwiftHelperDelegate {
     var networkProvider: MendeleyNetworkProvider? { get set }
     var baseAPIURL: URL? { get set }
 }
 
-class MendeleyKitSwiftHelper {
+@objc class MendeleyKitSwiftHelper: NSObject {
     private var delegate: MendeleyKitSwiftHelperDelegate?
-    
+
     init(withDelegate delegate: MendeleyKitSwiftHelperDelegate) {
         self.delegate = delegate
     }

@@ -8,8 +8,8 @@
 
 import UIKit
 
-@objc public class MendeleyRecommendationsAPI: MendeleyObjectAPI {
-    @objc public func recommendationsBasedOnLibraryArticles(withParameters parameters: MendeleyRecommendationsParameters?, task: MendeleyTask?, completionBlock:  MendeleyArrayCompletionBlock?) {
+@objc class MendeleyRecommendationsAPI: MendeleyObjectAPI {
+    @objc func recommendationsBasedOnLibraryArticles(withParameters parameters: MendeleyRecommendationsParameters?, task: MendeleyTask?, completionBlock:  MendeleyArrayCompletionBlock?) {
       
         provider.invokeGET(baseURL,
                            api: kMendeleyRESTAPIRecommendationsBasedOnLibrary,
@@ -36,7 +36,7 @@ import UIKit
         }
     }
     
-    @objc public func feedbackOnRecommendation(_ trace: String, position: Int, userAction: String, carousel: Int, task: MendeleyTask?, completionBlock: MendeleyCompletionBlock?) {
+    @objc func feedbackOnRecommendation(_ trace: String, position: Int, userAction: String, carousel: Int, task: MendeleyTask?, completionBlock: MendeleyCompletionBlock?) {
         
         let bodyParameters = feedbackBodyParamaters(withTrace: trace, position: position, userAction: userAction, carousel: carousel)
         
