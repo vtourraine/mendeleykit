@@ -150,6 +150,19 @@
     });
 }
 
+//- (void)executeWithMendeleySwiftObject:(MendeleySwiftSecureObject *)mendeleyObject
+//                         syncInfo:(MendeleySyncInfo *)syncInfo
+//                            error:(NSError *)error
+//{
+//    if (nil == self.objectCompletionBlock)
+//    {
+//        return;
+//    }
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.objectCompletionBlock(mendeleyObject, syncInfo, error);
+//    });
+//}
+
 - (void)executeWithDictionary:(NSDictionary *)dictionary
                         error:(NSError *)error
 {

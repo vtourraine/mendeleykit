@@ -20,7 +20,7 @@
 
 import UIKit
 
-open class MendeleySwiftSecureObject: NSObject {
+@objc open class MendeleySwiftSecureObject: NSObject {
 
     override init() {
         super.init()

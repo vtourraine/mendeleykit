@@ -3,3 +3,5 @@
 //
 
 #include "MendeleyObjectHelper.h"
+#include "MendeleyQueryRequestParameters.h"
+#include "MendeleyError.h"
