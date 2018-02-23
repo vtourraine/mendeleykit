@@ -103,7 +103,7 @@ import UIKit
     }
     
     //createMendeleyObject
-    func create<T>(mendeleyObject: T, api: String, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) where T: Encodable {
+    func create<T>(mendeleyObject: T, api: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) where T: Encodable {
     
         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
         
