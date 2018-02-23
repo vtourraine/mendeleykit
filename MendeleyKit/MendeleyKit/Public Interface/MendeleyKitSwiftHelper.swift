@@ -395,7 +395,7 @@ import UIKit
                                                 blockExec?.execute(with: false, error: error)
                                             }
                                         } else if FileManager.default.fileExists(atPath: fileURL.path) == false {
-                                            let pathError = NSError(code:  MendeleyErrorCode.pathNotFoundErrorCode))
+                                            let pathError = NSError(code:  MendeleyErrorCode.pathNotFoundErrorCode)
                                             blockExec?.execute(with: false, error: pathError)
                                         } else {
                                             blockExec?.execute(with: true, error: nil)
