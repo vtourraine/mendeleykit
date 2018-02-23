@@ -20,7 +20,7 @@
 
 import UIKit
 
-class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
+@objc public class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
     
     private let defaultCommentRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONCommentType]
     private let expandedCommentsListRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONExpandedCommentsType]
@@ -35,16 +35,16 @@ class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func expandedComments(withNewsItemID newsItemID: String, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) {
+    @objc public func expandedComments(withNewsItemID newsItemID: String, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         let queryParameters = MendeleyExpandedCommentsParameters()
         queryParameters.news_item_id = newsItemID
         
         helper?.mendeleyObjectList(ofType: MendeleyExpandedComment.self,
-                                        api: kMendeleyRESTAPIComments,
-                                        queryParameters:queryParameters.valueStringDictionary(),
-                                        additionalHeaders:expandedCommentsListRequestHeaders,
-                                        task:task,
-                                        completionBlock:completionBlock)
+                                   api: kMendeleyRESTAPIComments,
+                                   queryParameters:queryParameters.valueStringDictionary(),
+                                   additionalHeaders:expandedCommentsListRequestHeaders,
+                                   task:task,
+                                   completionBlock:completionBlock)
     }
     
     /**
@@ -53,7 +53,7 @@ class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func comment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    @objc public func comment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         helper.mendeleyObject(ofType: MendeleyComment.self,
                               queryParameters: nil,
                               api: String(format: kMendeleyRESTAPICommentsWithCommentID, commentID),
@@ -68,7 +68,7 @@ class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func create(comment: MendeleyComment, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    @objc public func create(comment: MendeleyComment, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         helper.create(mendeleyObject: comment,
                       api: kMendeleyRESTAPIComments,
                       additionalHeaders: postCommentRequestHeaders,
@@ -83,7 +83,7 @@ class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func updatingComment(withCommentID commentID: String, update: MendeleyCommentUpdate, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    @objc public func updatingComment(withCommentID commentID: String, update: MendeleyCommentUpdate, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         helper.update(mendeleyObject: update,
                       api: String(format: kMendeleyRESTAPICommentsWithCommentID, commentID),
                       additionalHeaders: updateCommentRequestHeaders,
@@ -98,7 +98,7 @@ class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func deleteComment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
+    @objc public func deleteComment(withCommentID commentID: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
         helper.deleteMendeleyObject(withAPI: String(format: kMendeleyRESTAPICommentsWithCommentID, commentID),
                                     task: task,
                                     completionBlock: completionBlock)

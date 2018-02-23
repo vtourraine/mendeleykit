@@ -20,7 +20,7 @@
 
 import Foundation
 
-class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
+@objc public class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
     
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemListType]
     private let singleFeedServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemType]
@@ -34,7 +34,7 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func feedList(withLinkedURL linkURL: URL, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) {
+    @objc public func feedList(withLinkedURL linkURL: URL, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         helper?.mendeleyObjectList(ofType: MendeleyNewsFeed.self,
                                    api: linkURL.absoluteString,
                                    queryParameters: nil,
@@ -49,7 +49,7 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func feedList(withQueryParameters parameters: MendeleyFeedsParameters, task: MendeleyTask, completionBlock: @escaping MendeleyArrayCompletionBlock) {
+    @objc public func feedList(withQueryParameters parameters: MendeleyFeedsParameters, task: MendeleyTask, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         helper?.mendeleyObjectList(ofType: MendeleyNewsFeed.self,
                                    api: kMendeleyRESTAPIFeeds,
                                    queryParameters: parameters.valueStringDictionary(),
@@ -64,7 +64,7 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func feed(withId feedId: String, task: MendeleyTask, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    @objc public func feed(withId feedId: String, task: MendeleyTask, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         helper?.mendeleyObject(ofType: MendeleyNewsFeed.self,
                                queryParameters: nil,
                                api: kMendeleyRESTAPIFeeds + "/" + feedId,
@@ -80,7 +80,7 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func likeFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyCompletionBlock) {
+    @objc public func likeFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyCompletionBlock) {
         helper?.create(withAPI: String(format: kMendeleyRESTAPILikeFeed, feedID),
                        task: task,
                        completionBlock: completionBlock
@@ -93,7 +93,7 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func unlikeFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyCompletionBlock) {
+    @objc public func unlikeFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyCompletionBlock) {
         helper?.deleteMendeleyObject(withAPI: String(format: kMendeleyRESTAPILikeFeed, feedID),
                                      task: task,
                                      completionBlock: completionBlock
@@ -107,7 +107,7 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param completionBlock
      */
     
-    func likersForFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyArrayCompletionBlock) {
+    @objc public func likersForFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         helper?.mendeleyObjectList(ofType: MendeleySocialProfile.self,
                                    api: baseAPIURL.appendingPathComponent(kMendeleyRESTAPIFeeds).appendingPathComponent(feedID).absoluteString,
                                    queryParameters: nil,
@@ -123,7 +123,7 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param completionBlock
      */
     
-    func sharersForFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyArrayCompletionBlock) {
+    @objc public func sharersForFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         helper?.mendeleyObjectList(ofType: MendeleySocialProfile.self,
                                    api: baseAPIURL.appendingPathComponent(kMendeleyRESTAPISharersFeed).appendingPathComponent(feedID).absoluteString,
                                    queryParameters: nil,

@@ -8,13 +8,13 @@
 
 import UIKit
 
-class MendeleyUserPostsAPI: MendeleySwiftObjectAPI {
+@objc public class MendeleyUserPostsAPI: MendeleySwiftObjectAPI {
     let newUserPostServiceHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewUserPostType,
                                      kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONUserPostType]
     let groupUserPostServiceHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewGroupPostType,
                                        kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONGroupPostType]
     
-    func create(userPost newPost: MendeleyNewUserPost,
+    @objc public func create(userPost newPost: MendeleyNewUserPost,
                 task: MendeleyTask?,
                 completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         helper.create(mendeleyObject: newPost,
@@ -25,7 +25,7 @@ class MendeleyUserPostsAPI: MendeleySwiftObjectAPI {
                       completionBlock: completionBlock)
     }
     
-    func deleteUserPost(withPostID postID: String,
+    @objc public func deleteUserPost(withPostID postID: String,
                         task: MendeleyTask?,
                         completionBlock: @escaping MendeleyCompletionBlock) {
         helper.deleteMendeleyObject(withAPI: String(format: kMendeleyRESTAPIDeleteUserPost, postID),
@@ -33,7 +33,7 @@ class MendeleyUserPostsAPI: MendeleySwiftObjectAPI {
                                     completionBlock: completionBlock)
     }
     
-    func create(groupPost: MendeleyNewGroupPost,
+    @objc public func create(groupPost: MendeleyNewGroupPost,
                 task: MendeleyTask?,
                 completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         helper.create(mendeleyObject: groupPost,
@@ -44,7 +44,7 @@ class MendeleyUserPostsAPI: MendeleySwiftObjectAPI {
                       completionBlock: completionBlock)
     }
     
-    func deleteGroupPost(withPostID postID: String,
+    @objc public func deleteGroupPost(withPostID postID: String,
                          task: MendeleyTask?,
                          completionBlock: @escaping MendeleyCompletionBlock) {
         helper.deleteMendeleyObject(withAPI: String(format: kMendeleyRESTAPIDeleteGroupPost, postID),

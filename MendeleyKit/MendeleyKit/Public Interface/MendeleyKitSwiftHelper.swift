@@ -13,7 +13,7 @@ import UIKit
     var baseAPIURL: URL! { get set }
 }
 
-@objc class MendeleyKitSwiftHelper: NSObject {
+@objc public class MendeleyKitSwiftHelper: NSObject {
     private var delegate: MendeleyKitSwiftHelperDelegate?
 
     init(withDelegate delegate: MendeleyKitSwiftHelperDelegate) {

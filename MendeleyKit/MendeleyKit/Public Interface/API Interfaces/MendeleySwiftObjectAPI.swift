@@ -8,22 +8,23 @@
 
 import UIKit
 
-class MendeleySwiftObjectAPI: MendeleyKitSwiftHelperDelegate {
+@objc public class MendeleySwiftObjectAPI: NSObject, MendeleyKitSwiftHelperDelegate {
     
-    var networkProvider: MendeleyNetworkProvider!
-    var baseAPIURL: URL!
-    var helper: MendeleyKitSwiftHelper!
+    public var networkProvider: MendeleyNetworkProvider!
+    public var baseAPIURL: URL!
+    public var helper: MendeleyKitSwiftHelper!
     
     /**
      A general creator of MendeleyObjectAPI
      @param provider the network provider. By default the MendeleyDefaultNetworkProvider is taken. This is based on NSURLSession
      @param baseURL
      */
-    required init(withNetworkProvider provider: MendeleyNetworkProvider, baseURL: URL) {
+    @objc public required init(withNetworkProvider provider: MendeleyNetworkProvider, baseURL: URL) {
+        super.init()
         self.networkProvider = provider
         self.baseAPIURL = baseURL
         self.helper = MendeleyKitSwiftHelper(withDelegate: self)
-    }
+        }
     
     /**
      A convenience method that returns the link for the image of the choosen type passing a MendeleyPhoto Object

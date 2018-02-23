@@ -18,6 +18,7 @@
  *****************************************************************************
  */
 
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
 #import "MendeleyKit.h"
 #import "MendeleyModels.h"
 #import "MendeleyOAuthStore.h"
@@ -44,7 +45,6 @@
 #import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
 #import "MendeleyPhotosMeAPI.h"
-#import "MendeleyKit-Swift.h"
 
 @interface MendeleyKit ()
 
@@ -64,6 +64,7 @@
 @property (nonatomic, strong, nonnull) MendeleyDatasetsAPI *datasetsAPI;
 @property (nonatomic, strong, nonnull) MendeleyApplicationFeaturesAPI *featuresAPI;
 @property (nonatomic, strong, nonnull) MendeleyPhotosMeAPI *photosAPI;
+@property (nonatomic, strong, nonnull) MendeleyDefaultAnalytics* analyticsAPI;
 @property (nonatomic, strong, nonnull) MendeleyRecommendationsAPI *recommendationsAPI;
 @property (nonatomic, strong, nonnull) MendeleyFeedsAPI *feedsAPI;
 @property (nonatomic, strong, nonnull) MendeleySharesAPI *sharesAPI;
@@ -1648,14 +1649,14 @@
 #pragma mark - User Posts
 
 - (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
-                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+                 completionBlock:(MendeleySwiftObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
     
     [self checkAuthenticationThenRefreshTokenThenPerform:^{
-        [self.userPostsAPI createUserPost:newPost
-                                     task:task
-                          completionBlock:completionBlock];
+        [self.userPostsAPI createWithUserPost:newPost
+                                         task:task
+                              completionBlock:completionBlock];
     } objectCompletionBlock:completionBlock];
     
     return task;
@@ -1675,7 +1676,7 @@
 }
 
 - (MendeleyTask *)createGroupPost:(MendeleyNewGroupPost *)groupPost
-                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+                  completionBlock:(MendeleySwiftObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
     [self checkAuthenticationThenRefreshTokenThenPerform:^{
