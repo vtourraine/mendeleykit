@@ -130,7 +130,45 @@ import UIKit
                                         }
             }
         } catch {
-            completionBlock(false, error)
+            blockExec?.execute(with: false, error: error)
+        }
+    }
+    
+    func create<T, U>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) where T: Encodable, U: Decodable {
+        
+        let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
+        
+        guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
+            else { blockExec?.execute(with: false, error: nil); return }
+        
+        let encoder = JSONEncoder()
+        
+        do {
+            let jsonData = try encoder.encode(mendeleyObject)
+            
+            networkProvider.invokePOST(baseURL,
+                                       api: api,
+                                       additionalHeaders: nil,
+                                       jsonData: jsonData,
+                                       authenticationRequired: true,
+                                       task: task) { (response, error) in
+                                        let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
+                                        
+                                        if isSuccess == false || response?.rawResponseBody == nil {
+                                            blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: combinedError)
+                                        } else {
+                                            let decoder = JSONDecoder()
+                                            do {
+                                                let objectDict = try decoder.decode([String: U].self, from: response!.rawResponseBody)
+                                                
+                                                blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData] as! MendeleySwiftSecureObject, syncInfo: response?.syncHeader, error: nil)
+                                            } catch {
+                                                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+                                            }
+                                        }
+            }
+        } catch {
+            blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
         }
     }
     
@@ -166,7 +204,7 @@ import UIKit
         }
     }
     
-    func update<T, U>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) where T: Encodable, U: Decodable {
+    func update<T, U>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) where T: Encodable, U: Decodable {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
