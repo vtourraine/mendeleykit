@@ -494,23 +494,6 @@
         }
     }
     
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyComment class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
-    {
-        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
-        {
-            return YES;
-        }
-    }
-    
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
-    {
-        if ([propertyName isEqualToString:kMendeleyJSONProfile])
-        {
-            return YES;
-        }
-    }
-    
     if ([modelName isEqualToString:NSStringFromClass([MendeleyNewUserPost class])])
     {
         if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers] ||
@@ -856,15 +839,6 @@
         }
     }
     
-    NSString *expandedCommentsName = NSStringFromClass([MendeleyExpandedComments class]);
-    if ([modelName isEqualToString:expandedCommentsName])
-    {
-        if ([propertyName isEqualToString:kMendeleyJSONLatest])
-        {
-            return [[self class] objectArrayForClass:[MendeleyExpandedComment class] fromRawValue:rawValue];
-        }
-    }
-    
     NSString *feedRSSSourceName = NSStringFromClass([MendeleyNewsFeedRSSSource class]);
     if ([modelName isEqualToString:feedRSSSourceName])
     {
@@ -1011,23 +985,6 @@
         else if ([propertyName isEqualToString:kMendeleyJSONGroup])
         {
             return [[self class] setPropertiesToObjectOfClass:[MendeleyGroup class] fromRawValue:rawValue];
-        }
-    }
-    
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyComment class])] ||
-        [modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
-    {
-        if ([propertyName isEqualToString:kMendeleyJSONTaggedUsers])
-        {
-            return [[self class] objectArrayForClass:[MendeleySocialProfile class] fromRawValue:rawValue];
-        }
-    }
-    
-    if ([modelName isEqualToString:NSStringFromClass([MendeleyExpandedComment class])])
-    {
-        if ([propertyName isEqualToString:kMendeleyJSONProfile])
-        {
-            return [[self class] setPropertiesToObjectOfClass:[MendeleySocialProfile class] fromRawValue:rawValue];
         }
     }
     
