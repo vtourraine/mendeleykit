@@ -20,7 +20,7 @@
 
 // MARK: - MendeleyNewPost
 
-open class MendeleyNewPost: MendeleySwiftSecureObject {
+open class MendeleyNewPost: MendeleySwiftSecureObject, Codable {
     public var text: String?
     public var document_ids: [String]?
     public var tagged_users: [String]?

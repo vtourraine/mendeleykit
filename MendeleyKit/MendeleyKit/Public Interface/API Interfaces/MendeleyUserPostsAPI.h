@@ -18,49 +18,50 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+//#import "MendeleyObjectAPI.h"
+//
+//@interface MendeleyUserPostsAPI : MendeleyObjectAPI
+//
+///**
+// Creates a new user post.
+// @param newPost
+// @param task
+// @param completionBlock
+// */
+//- (void)createUserPost:(MendeleyNewUserPost *)newPost
+//                  task:(MendeleyTask *)task
+//       completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+//
+///**
+// Deletes a user post.
+// @param postID
+// @param task
+// @param completionBlock
+// */
+//- (void)deleteUserPostWithPostID:(NSString *)postID
+//                            task:(MendeleyTask *)task
+//                 completionBlock:(MendeleyCompletionBlock)completionBlock;
+//
+///**
+// Creates a new group post.
+// @param groupPost
+// @param task
+// @param completionBlock
+// */
+//- (void)createGroupPost:(MendeleyNewGroupPost *)groupPost
+//                   task:(MendeleyTask *)task
+//        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+//
+//
+///**v
+// Deletes a group post.
+// @param postID
+// @param task
+// @param completionBlock
+// */
+//- (void)deleteGroupPostWithPostID:(NSString *)postID
+//                             task:(MendeleyTask *)task
+//                  completionBlock:(MendeleyCompletionBlock)completionBlock;
+//
+//@end
 
-@interface MendeleyUserPostsAPI : MendeleyObjectAPI
-
-/**
- Creates a new user post.
- @param newPost
- @param task
- @param completionBlock
- */
-- (void)createUserPost:(MendeleyNewUserPost *)newPost
-                  task:(MendeleyTask *)task
-       completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-/**
- Deletes a user post.
- @param postID
- @param task
- @param completionBlock
- */
-- (void)deleteUserPostWithPostID:(NSString *)postID
-                            task:(MendeleyTask *)task
-                 completionBlock:(MendeleyCompletionBlock)completionBlock;
-
-/**
- Creates a new group post.
- @param groupPost
- @param task
- @param completionBlock
- */
-- (void)createGroupPost:(MendeleyNewGroupPost *)groupPost
-                   task:(MendeleyTask *)task
-        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-
-/**v
- Deletes a group post.
- @param postID
- @param task
- @param completionBlock
- */
-- (void)deleteGroupPostWithPostID:(NSString *)postID
-                             task:(MendeleyTask *)task
-                  completionBlock:(MendeleyCompletionBlock)completionBlock;
-
-@end

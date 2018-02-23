@@ -18,84 +18,85 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+//#import "MendeleyObjectAPI.h"
+//
+//@interface MendeleyFeedsAPI : MendeleyObjectAPI
+//
+///**
+// This method is only used when paging through a list of documents on the server.
+// All required parameters are provided in the linkURL, which should not be modified
+// 
+// @param linkURL the full HTTP link to the document listings page
+// @param task
+// @param completionBlock
+// */
+//- (void)feedListWithLinkedURL:(NSURL *)linkURL
+//                             task:(MendeleyTask *)task
+//                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+//
+///**
+// obtains a list of feeds for the first page.
+// @param parameters the parameter set to be used in the request
+// @param task
+// @param completionBlock
+// */
+//- (void)feedListWithQueryParameters:(MendeleyFeedsParameters *)queryParameters
+//                                   task:(MendeleyTask *)task
+//                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+//
+///**
+// obtains feed with a given identifier
+// @param feedID
+// @param task
+// @param completionBlock
+// */
+//- (void)feedWithId:(NSString *)feedId
+//              task:(MendeleyTask *)task
+//   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+//
+//
+///**
+// likes a feed item.
+// @param feedID
+// @param task
+// @param completionBlock
+// */
+//- (void)likeFeedWithID:(NSString *)feedID
+//                  task:(MendeleyTask *)task
+//       completionBlock:(MendeleyCompletionBlock)completionBlock;
+//
+///**
+// likes a feed item.
+// @param feedID
+// @param task
+// @param completionBlock
+// */
+//- (void)unlikeFeedWithID:(NSString *)feedID
+//                    task:(MendeleyTask *)task
+//         completionBlock:(MendeleyCompletionBlock)completionBlock;
+//
+///**
+// List of users that like given item.
+// @param feedID
+// @param task
+// @param completionBlock
+// */
+//
+//- (void)likersForFeedWithID:(NSString *)feedID
+//                      task:(MendeleyTask *)task
+//           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+//
+//
+///**
+// List of users that have shared given item.
+// @param feedID
+// @param task
+// @param completionBlock
+// */
+//
+//- (void)sharersForFeedWithID:(NSString *)feedID
+//                        task:(MendeleyTask *)task
+//             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+//
+//@end
 
-@interface MendeleyFeedsAPI : MendeleyObjectAPI
-
-/**
- This method is only used when paging through a list of documents on the server.
- All required parameters are provided in the linkURL, which should not be modified
- 
- @param linkURL the full HTTP link to the document listings page
- @param task
- @param completionBlock
- */
-- (void)feedListWithLinkedURL:(NSURL *)linkURL
-                             task:(MendeleyTask *)task
-                  completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
-
-/**
- obtains a list of feeds for the first page.
- @param parameters the parameter set to be used in the request
- @param task
- @param completionBlock
- */
-- (void)feedListWithQueryParameters:(MendeleyFeedsParameters *)queryParameters
-                                   task:(MendeleyTask *)task
-                        completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
-
-/**
- obtains feed with a given identifier
- @param feedID
- @param task
- @param completionBlock
- */
-- (void)feedWithId:(NSString *)feedId
-              task:(MendeleyTask *)task
-   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-
-/**
- likes a feed item.
- @param feedID
- @param task
- @param completionBlock
- */
-- (void)likeFeedWithID:(NSString *)feedID
-                  task:(MendeleyTask *)task
-       completionBlock:(MendeleyCompletionBlock)completionBlock;
-
-/**
- likes a feed item.
- @param feedID
- @param task
- @param completionBlock
- */
-- (void)unlikeFeedWithID:(NSString *)feedID
-                    task:(MendeleyTask *)task
-         completionBlock:(MendeleyCompletionBlock)completionBlock;
-
-/**
- List of users that like given item.
- @param feedID
- @param task
- @param completionBlock
- */
-
-- (void)likersForFeedWithID:(NSString *)feedID
-                      task:(MendeleyTask *)task
-           completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
-
-
-/**
- List of users that have shared given item.
- @param feedID
- @param task
- @param completionBlock
- */
-
-- (void)sharersForFeedWithID:(NSString *)feedID
-                        task:(MendeleyTask *)task
-             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
-
-@end

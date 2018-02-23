@@ -20,108 +20,109 @@
 
 #import "MendeleyNewsFeed.h"
 
-@implementation MendeleyNewsFeed
+//@implementation MendeleyNewsFeed
+//
+//@end
+//
+//@implementation MendeleyNewsFeedSource
+//@end
+//
+//@implementation MendeleyNewsFeedProfileSource
+//@end
+//
+//@implementation MendeleyNewsFeedRSSSource
+//@end
+//
+//@implementation MendeleyFeedRSSFeed
+//@end
+//
+//@implementation MendeleyJsonNode
+//@end
+//
+//@implementation MendeleyCountableJsonNode
+//@end
+//
+//@implementation MendeleyDocumentRecommendationJsonNode
+//@end
+//
+//@implementation MendeleyEmploymentUpdateJsonNode
+//@end
+//
+//@implementation MendeleyEducationUpdateJsonNode
+//@end
+//
+//@implementation MendeleyGroupDocAddedJsonNode
+//@end
+//
+//@implementation MendeleyFeedGroup
+//@end
+//
+//@implementation MendeleyNewFollowerJsonNode
+//@end
+//
+//@implementation MendeleyNewPublicationJsonNode
+//@end
+//
+//@implementation MendeleyNewStatusJsonNode
+//@end
+//
+//@implementation MendeleyGroupStatusJsonNode
+//@end
+//
+//@implementation MendeleyPostedCataloguePublicationJsonNode
+//@end
+//
+//@implementation MendeleyPostedPublicationJsonNode
+//@end
+//
+//@implementation MendeleyRSSJsonNode
+//@end
+//
+//@implementation MendeleyShare
+//@end
+//
+//@implementation MendeleyLike
+//@end
+//
+//@implementation MendeleyExpandedComments
+//@end
+//
+//@implementation MendeleyPost
+//@end
+//
+//@implementation MendeleyGroupPost
+//@end
+//
+//@implementation MendeleyFeedDocument
+//@end
+//
+//@implementation MendeleyAddedDocument
+//@end
+//
+//@implementation MendeleyPublishedDocument
+//@end
+//
+//@implementation MendeleyUserDocument
+//@end
+//
+//@implementation MendeleyRecommendedDocument
+//@end
+//
+//@implementation MendeleyCataloguePubDocument
+//@end
+//
+//@implementation MendeleySimpleAuthor
+//@end
+//
+//@implementation MendeleyFeedAuthor
+//@end
+//
+//@implementation MendeleySocialProfile
+//@end
+//
+//@implementation MendeleyFollowerProfile
+//@end
+//
+//@implementation MendeleySocialProfilePhoto
+//@end
 
-@end
-
-@implementation MendeleyNewsFeedSource
-@end
-
-@implementation MendeleyNewsFeedProfileSource
-@end
-
-@implementation MendeleyNewsFeedRSSSource
-@end
-
-@implementation MendeleyFeedRSSFeed
-@end
-
-@implementation MendeleyJsonNode
-@end
-
-@implementation MendeleyCountableJsonNode
-@end
-
-@implementation MendeleyDocumentRecommendationJsonNode
-@end
-
-@implementation MendeleyEmploymentUpdateJsonNode
-@end
-
-@implementation MendeleyEducationUpdateJsonNode
-@end
-
-@implementation MendeleyGroupDocAddedJsonNode
-@end
-
-@implementation MendeleyFeedGroup
-@end
-
-@implementation MendeleyNewFollowerJsonNode
-@end
-
-@implementation MendeleyNewPublicationJsonNode
-@end
-
-@implementation MendeleyNewStatusJsonNode
-@end
-
-@implementation MendeleyGroupStatusJsonNode
-@end
-
-@implementation MendeleyPostedCataloguePublicationJsonNode
-@end
-
-@implementation MendeleyPostedPublicationJsonNode
-@end
-
-@implementation MendeleyRSSJsonNode
-@end
-
-@implementation MendeleyShare
-@end
-
-@implementation MendeleyLike
-@end
-
-@implementation MendeleyExpandedComments
-@end
-
-@implementation MendeleyPost
-@end
-
-@implementation MendeleyGroupPost
-@end
-
-@implementation MendeleyFeedDocument
-@end
-
-@implementation MendeleyAddedDocument
-@end
-
-@implementation MendeleyPublishedDocument
-@end
-
-@implementation MendeleyUserDocument
-@end
-
-@implementation MendeleyRecommendedDocument
-@end
-
-@implementation MendeleyCataloguePubDocument
-@end
-
-@implementation MendeleySimpleAuthor
-@end
-
-@implementation MendeleyFeedAuthor
-@end
-
-@implementation MendeleySocialProfile
-@end
-
-@implementation MendeleyFollowerProfile
-@end
-
-@implementation MendeleySocialProfilePhoto
-@end

@@ -339,7 +339,7 @@ import UIKit
         }
     }
     
-    // MARK: Delete Mendeley Object
+    // MARK: - Delete Mendeley Object
     
     func deleteMendeleyObject(withAPI api: String,
                               task: MendeleyTask?,
@@ -364,7 +364,7 @@ import UIKit
         }
     }
     
-    // MARK: Download file
+    // MARK: - Download file
     
     func downloadFile(withAPI api: String,
                       saveToURL fileURL: URL,

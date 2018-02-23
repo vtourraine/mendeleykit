@@ -18,35 +18,36 @@
  *****************************************************************************
  */
 
+//
+//#import "MendeleyNewPost.h"
+//
+//@implementation MendeleyNewPost
+//@end
+//
+//@implementation MendeleyNewUserPost
+//@end
+//
+//@implementation MendeleyNewGroupPost
+//@end
+//
+//@implementation MendeleyUserPost
+//@end
+//
+//@implementation MendeleyProfileLink
+//@end
+//
+//@implementation MendeleySocialDocument
+//@end
+//
+//@implementation MendeleySocialAuthor
+//@end
+//
+//@implementation MendeleyUserPostImage
+//@end
+//
+//@implementation MendeleyFilesSummary
+//@end
+//
+//@implementation MendeleyFileSummary
+//@end
 
-#import "MendeleyNewPost.h"
-
-@implementation MendeleyNewPost
-@end
-
-@implementation MendeleyNewUserPost
-@end
-
-@implementation MendeleyNewGroupPost
-@end
-
-@implementation MendeleyUserPost
-@end
-
-@implementation MendeleyProfileLink
-@end
-
-@implementation MendeleySocialDocument
-@end
-
-@implementation MendeleySocialAuthor
-@end
-
-@implementation MendeleyUserPostImage
-@end
-
-@implementation MendeleyFilesSummary
-@end
-
-@implementation MendeleyFileSummary
-@end

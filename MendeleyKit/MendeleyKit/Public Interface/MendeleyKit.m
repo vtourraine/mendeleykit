@@ -44,12 +44,7 @@
 #import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
 #import "MendeleyPhotosMeAPI.h"
-#import "MendeleyFeedsAPI.h"
-#import "MendeleySharesAPI.h"
-#import "MendeleyUserPostsAPI.h"
-#import "MendeleyCommentsAPI.h"
 #import "MendeleyKit-Swift.h"
-
 
 @interface MendeleyKit ()
 
