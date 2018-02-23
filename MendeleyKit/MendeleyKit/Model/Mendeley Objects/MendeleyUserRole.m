@@ -19,7 +19,8 @@
  */
 
 #import "MendeleyUserRole.h"
+//
+//@implementation MendeleyUserRole
+//
+//@end
 
-@implementation MendeleyUserRole
-
-@end

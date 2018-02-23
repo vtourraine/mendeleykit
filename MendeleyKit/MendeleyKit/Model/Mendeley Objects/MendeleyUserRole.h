@@ -20,10 +20,11 @@
 
 #import "MendeleyObject.h"
 
-@interface MendeleyUserRole : MendeleyObject
+//@interface MendeleyUserRole : MendeleyObject
+//
+//@property (nonatomic, strong) NSString *role;
+//@property (nonatomic, strong) NSString *joined;
+//@property (nonatomic, strong) NSString *profile_id;
+//
+//@end
 
-@property (nonatomic, strong) NSString *role;
-@property (nonatomic, strong) NSString *joined;
-@property (nonatomic, strong) NSString *profile_id;
-
-@end
