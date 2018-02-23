@@ -40,7 +40,9 @@ import UIKit
         return (true, returnedError)
     }
     
-    func mendeleyObjectList<T>(ofType type: T.Type, api: String, queryParameters: [String: Any]?, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) where T : Decodable {
+    // MARK: - Get Mendeley Object List
+    
+    func mendeleyObjectList<T: MendeleySwiftSecureObject & Decodable>(ofType type: T.Type, api: String, queryParameters: [String: Any]?, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
         
@@ -70,8 +72,9 @@ import UIKit
         }
     }
     
-    // mendeleyObjectOfType
-    func mendeleyObject<T>(ofType type: T.Type, queryParameters: [String: Any]?, api: String, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) where T : Decodable {
+    // MARK: - Get single Mendeley Object
+    
+    func mendeleyObject<T: MendeleySwiftSecureObject & Decodable>(ofType type: T.Type, queryParameters: [String: Any]?, api: String, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -93,7 +96,7 @@ import UIKit
                                             let decoder = JSONDecoder()
                                             let objectDict = try decoder.decode([String: T].self, from: response!.rawResponseBody)
                                             
-                                            blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData] as! MendeleySwiftSecureObject, syncInfo: response?.syncHeader, error: nil)
+                                            blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                         } catch {
                                             print(error)
                                             blockExec?.execute(withMendeleyObject: nil, syncInfo: response?.syncHeader, error: error)
@@ -102,8 +105,9 @@ import UIKit
         }
     }
     
-    //createMendeleyObject
-    func create<T>(mendeleyObject: T, api: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) where T: Encodable {
+    // MARK: - Create Mendeley Object
+    
+    func create<T: MendeleySwiftSecureObject & Encodable>(mendeleyObject: T, api: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
     
         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
         
@@ -134,7 +138,7 @@ import UIKit
         }
     }
     
-    func create<T, U>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) where T: Encodable, U: Decodable {
+    func create<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -161,7 +165,7 @@ import UIKit
                                             do {
                                                 let objectDict = try decoder.decode([String: U].self, from: response!.rawResponseBody)
                                                 
-                                                blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData] as! MendeleySwiftSecureObject, syncInfo: response?.syncHeader, error: nil)
+                                                blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                             } catch {
                                                 blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
                                             }
@@ -172,8 +176,9 @@ import UIKit
         }
     }
     
-    //updateMendeletObject
-    func update<T>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) where T: Encodable {
+    // MARK: - Update Mendeley Object
+    
+    func update<T: MendeleySwiftSecureObject & Encodable>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
         
@@ -204,7 +209,7 @@ import UIKit
         }
     }
     
-    func update<T, U>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) where T: Encodable, U: Decodable {
+    func update<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -232,7 +237,7 @@ import UIKit
                                                 do {
                                                     let objectDict = try decoder.decode([String: U].self, from: response!.rawResponseBody)
                                                     
-                                                    blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData] as! MendeleySwiftSecureObject, syncInfo: response?.syncHeader, error: nil)
+                                                    blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                                 } catch {
                                                     blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                                 }
@@ -243,7 +248,8 @@ import UIKit
         }
     }
     
-    // deleteMeneleyObject
+    // MARK: Delete Mendeley Object
+    
     func deleteMendeleyObject(withAPI api: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
         
