@@ -18,48 +18,49 @@
  *****************************************************************************
  */
 
-#import "MendeleyProfile.h"
+//#import "MendeleyProfile.h"
+//
+//@implementation MendeleyEducation
+//@end
+//
+//@implementation MendeleyLocation
+//@end
+//
+//@implementation MendeleyDiscipline
+//@end
+//
+//@implementation MendeleyImage
+//@end
+//
+//@implementation MendeleyEmployment
+//
+//- (void)setIs_main_employment:(NSNumber *)is_main_employment
+//{
+//    if (nil != is_main_employment)
+//    {
+//        _is_main_employment = [NSNumber numberWithBool:[is_main_employment boolValue]];
+//    }
+//}
+//@end
+//
+//@implementation MendeleyProfile
+//
+//- (void)setVerified:(NSNumber *)verified
+//{
+//    if (nil != verified)
+//    {
+//        _verified = [NSNumber numberWithBool:[verified boolValue]];
+//    }
+//}
+//
+//@end
+//
+//@implementation MendeleyUserProfile
+//@end
+//
+//@implementation MendeleyNewProfile
+//@end
+//
+//@implementation MendeleyAmendmentProfile
+//@end
 
-@implementation MendeleyEducation
-@end
-
-@implementation MendeleyLocation
-@end
-
-@implementation MendeleyDiscipline
-@end
-
-@implementation MendeleyImage
-@end
-
-@implementation MendeleyEmployment
-
-- (void)setIs_main_employment:(NSNumber *)is_main_employment
-{
-    if (nil != is_main_employment)
-    {
-        _is_main_employment = [NSNumber numberWithBool:[is_main_employment boolValue]];
-    }
-}
-@end
-
-@implementation MendeleyProfile
-
-- (void)setVerified:(NSNumber *)verified
-{
-    if (nil != verified)
-    {
-        _verified = [NSNumber numberWithBool:[verified boolValue]];
-    }
-}
-
-@end
-
-@implementation MendeleyUserProfile
-@end
-
-@implementation MendeleyNewProfile
-@end
-
-@implementation MendeleyAmendmentProfile
-@end

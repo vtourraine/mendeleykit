@@ -18,124 +18,124 @@
  *****************************************************************************
  */
 
-#import "MendeleyObject.h"
-#import "MendeleyGroup.h"
-
-
-@interface MendeleyLocation : MendeleySecureObject
-
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSNumber *latitude;
-@property (nonatomic, strong) NSNumber *longitude;
-
-@end
-
-
-@interface MendeleyEmployment : MendeleySecureObject
-
-@property (nonatomic, strong) NSArray <NSString *> *classes;
-@property (nonatomic, strong) NSString *position;
-@property (nonatomic, strong) NSNumber *is_main_employment;
-@property (nonatomic, strong) NSString *institution;
-@property (nonatomic, strong) NSDate *start_date;
-@property (nonatomic, strong) NSDate *end_date;
-@property (nonatomic, strong) NSString *website;
-
-@end
-
-@interface MendeleyEducation : MendeleySecureObject
-
-@property (nonatomic, strong) NSString *institution;
-@property (nonatomic, strong) NSDate *start_date;
-@property (nonatomic, strong) NSDate *end_date;
-@property (nonatomic, strong) NSString *website;
-@property (nonatomic, strong) NSString *degree;
-
-@end
-
-/**
- Strictly speaking there should be a class called 'MendeleySubjectArea' to replace
- 'MendeleyDiscipline' to reflect the a change in the API.
- However, the return values are exactly as before. Therefore the model class remains
- MendeleyMendeleyDiscipline
- */
-@interface MendeleyDiscipline : MendeleySecureObject
-
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSArray <NSString *> *subdisciplines;
-
-@end
-
-
-@interface MendeleyImage : MendeleySecureObject
-@property (nonatomic, strong) NSNumber *width;
-@property (nonatomic, strong) NSNumber *height;
-/**
-   a boolean flag indicating whether this is the original image
-   not to be confused with a property of the same name in
-   MendeleyPhoto
- */
-@property (nonatomic, strong) NSNumber *original;
-@property (nonatomic, strong) NSString *url;
-@end
-
-@interface MendeleyProfile : MendeleyObject
-
-@property (nonatomic, strong) NSString *first_name;
-@property (nonatomic, strong) NSString *last_name;
-@property (nonatomic, strong) NSString *display_name;
-@property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSString *institution;
-@property (nonatomic, strong) NSString *research_interests;
-@property (nonatomic, strong) NSArray <NSString *> *research_interests_list;
-@property (nonatomic, strong) NSString *academic_status;
-@property (nonatomic, strong) MendeleyDiscipline *discipline;
-@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
-@property (nonatomic, strong) MendeleyPhoto *photo;
-@property (nonatomic, strong) NSArray <MendeleyImage *> *photos;
-@property (nonatomic, strong) NSNumber *verified;
-@property (nonatomic, strong) NSNumber *marketing;
-@property (nonatomic, strong) NSString *user_type;
-@property (nonatomic, strong) MendeleyLocation *location;
-@property (nonatomic, strong) NSDate *created;
-@property (nonatomic, strong) NSArray <MendeleyEducation *> *education;
-@property (nonatomic, strong) NSArray <MendeleyEmployment *> *employment;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *biography;
-@end
-
-@interface MendeleyUserProfile : MendeleyProfile
-
-@end
-
-@interface MendeleyNewProfile : MendeleySecureObject
-
-@property (nonatomic, strong) NSString *first_name;
-@property (nonatomic, strong) NSString *last_name;
-@property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *password;
-@property (nonatomic, strong) NSString *discipline;
-@property (nonatomic, strong) NSString *academic_status;
-@property (nonatomic, strong) NSString *institution;
-@property (nonatomic, strong) NSNumber *marketing;
-
-@end
-
-@interface MendeleyAmendmentProfile : MendeleySecureObject
-
-@property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *password;
-@property (nonatomic, strong) NSString *old_password;
-@property (nonatomic, strong) NSString *first_name;
-@property (nonatomic, strong) NSString *last_name;
-@property (nonatomic, strong) NSString *academic_status;
-@property (nonatomic, strong) NSString *institution;
-@property (nonatomic, strong) NSString *biography;
-@property (nonatomic, strong) NSNumber *marketing;
-@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
-@property (nonatomic, strong) NSArray <NSString *> *research_interests_list;
-
-@end
+//#import "MendeleyObject.h"
+//#import "MendeleyGroup.h"
+//
+//
+//@interface MendeleyLocation : MendeleySecureObject
+//
+//@property (nonatomic, strong) NSString *name;
+//@property (nonatomic, strong) NSNumber *latitude;
+//@property (nonatomic, strong) NSNumber *longitude;
+//
+//@end
+//
+//
+//@interface MendeleyEmployment : MendeleySecureObject
+//
+//@property (nonatomic, strong) NSArray <NSString *> *classes;
+//@property (nonatomic, strong) NSString *position;
+//@property (nonatomic, strong) NSNumber *is_main_employment;
+//@property (nonatomic, strong) NSString *institution;
+//@property (nonatomic, strong) NSDate *start_date;
+//@property (nonatomic, strong) NSDate *end_date;
+//@property (nonatomic, strong) NSString *website;
+//
+//@end
+//
+//@interface MendeleyEducation : MendeleySecureObject
+//
+//@property (nonatomic, strong) NSString *institution;
+//@property (nonatomic, strong) NSDate *start_date;
+//@property (nonatomic, strong) NSDate *end_date;
+//@property (nonatomic, strong) NSString *website;
+//@property (nonatomic, strong) NSString *degree;
+//
+//@end
+//
+///**
+// Strictly speaking there should be a class called 'MendeleySubjectArea' to replace
+// 'MendeleyDiscipline' to reflect the a change in the API.
+// However, the return values are exactly as before. Therefore the model class remains
+// MendeleyMendeleyDiscipline
+// */
+//@interface MendeleyDiscipline : MendeleySecureObject
+//
+//@property (nonatomic, strong) NSString *name;
+//@property (nonatomic, strong) NSArray <NSString *> *subdisciplines;
+//
+//@end
+//
+//
+//@interface MendeleyImage : MendeleySecureObject
+//@property (nonatomic, strong) NSNumber *width;
+//@property (nonatomic, strong) NSNumber *height;
+///**
+//   a boolean flag indicating whether this is the original image
+//   not to be confused with a property of the same name in
+//   MendeleyPhoto
+// */
+//@property (nonatomic, strong) NSNumber *original;
+//@property (nonatomic, strong) NSString *url;
+//@end
+//
+//@interface MendeleyProfile : MendeleyObject
+//
+//@property (nonatomic, strong) NSString *first_name;
+//@property (nonatomic, strong) NSString *last_name;
+//@property (nonatomic, strong) NSString *display_name;
+//@property (nonatomic, strong) NSString *email;
+//@property (nonatomic, strong) NSString *link;
+//@property (nonatomic, strong) NSString *institution;
+//@property (nonatomic, strong) NSString *research_interests;
+//@property (nonatomic, strong) NSArray <NSString *> *research_interests_list;
+//@property (nonatomic, strong) NSString *academic_status;
+//@property (nonatomic, strong) MendeleyDiscipline *discipline;
+//@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
+//@property (nonatomic, strong) MendeleyPhoto *photo;
+//@property (nonatomic, strong) NSArray <MendeleyImage *> *photos;
+//@property (nonatomic, strong) NSNumber *verified;
+//@property (nonatomic, strong) NSNumber *marketing;
+//@property (nonatomic, strong) NSString *user_type;
+//@property (nonatomic, strong) MendeleyLocation *location;
+//@property (nonatomic, strong) NSDate *created;
+//@property (nonatomic, strong) NSArray <MendeleyEducation *> *education;
+//@property (nonatomic, strong) NSArray <MendeleyEmployment *> *employment;
+//@property (nonatomic, strong) NSString *title;
+//@property (nonatomic, strong) NSString *biography;
+//@end
+//
+//@interface MendeleyUserProfile : MendeleyProfile
+//
+//@end
+//
+//@interface MendeleyNewProfile : MendeleySecureObject
+//
+//@property (nonatomic, strong) NSString *first_name;
+//@property (nonatomic, strong) NSString *last_name;
+//@property (nonatomic, strong) NSString *email;
+//@property (nonatomic, strong) NSString *password;
+//@property (nonatomic, strong) NSString *discipline;
+//@property (nonatomic, strong) NSString *academic_status;
+//@property (nonatomic, strong) NSString *institution;
+//@property (nonatomic, strong) NSNumber *marketing;
+//
+//@end
+//
+//@interface MendeleyAmendmentProfile : MendeleySecureObject
+//
+//@property (nonatomic, strong) NSString *email;
+//@property (nonatomic, strong) NSString *title;
+//@property (nonatomic, strong) NSString *password;
+//@property (nonatomic, strong) NSString *old_password;
+//@property (nonatomic, strong) NSString *first_name;
+//@property (nonatomic, strong) NSString *last_name;
+//@property (nonatomic, strong) NSString *academic_status;
+//@property (nonatomic, strong) NSString *institution;
+//@property (nonatomic, strong) NSString *biography;
+//@property (nonatomic, strong) NSNumber *marketing;
+//@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
+//@property (nonatomic, strong) NSArray <NSString *> *research_interests_list;
+//
+//@end
 

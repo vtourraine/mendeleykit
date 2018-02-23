@@ -18,9 +18,10 @@
  *****************************************************************************
  */
 
-#import "MendeleyObject.h"
+//#import "MendeleyObject.h"
+//
+//@interface MendeleyPerson : MendeleyObject
+//@property (nonatomic, strong) NSString *first_name;
+//@property (nonatomic, strong) NSString *last_name;
+//@end
 
-@interface MendeleyPerson : MendeleyObject
-@property (nonatomic, strong) NSString *first_name;
-@property (nonatomic, strong) NSString *last_name;
-@end

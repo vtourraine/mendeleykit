@@ -18,8 +18,9 @@
  *****************************************************************************
  */
 
-#import "MendeleyPerson.h"
+//#import "MendeleyPerson.h"
+//
+//@implementation MendeleyPerson
+//
+//@end
 
-@implementation MendeleyPerson
-
-@end
