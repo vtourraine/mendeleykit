@@ -258,7 +258,12 @@ import UIKit
     
     // MARK: - Update Mendeley Object
     
-    func update<T: MendeleySwiftSecureObject & Encodable>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
+    func update<T: MendeleySwiftSecureObject & Encodable>
+        (mendeleyObject: T,
+         api: String,
+         additionalHeaders: [String: Any]?,
+         task: MendeleyTask?,
+         completionBlock: @escaping MendeleyCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
         
@@ -289,7 +294,13 @@ import UIKit
         }
     }
     
-    func update<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    func update<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>
+        (mendeleyObject: T,
+         api: String,
+         additionalHeaders: [String: Any]?,
+         expectedType: U.Type,
+         task: MendeleyTask?,
+         completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -330,7 +341,9 @@ import UIKit
     
     // MARK: Delete Mendeley Object
     
-    func deleteMendeleyObject(withAPI api: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
+    func deleteMendeleyObject(withAPI api: String,
+                              task: MendeleyTask?,
+                              completionBlock: @escaping MendeleyCompletionBlock) {
         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
         
         guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
@@ -345,6 +358,45 @@ import UIKit
                                         let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
                                         if isSuccess == false {
                                             blockExec?.execute(with: false, error: combinedError)
+                                        } else {
+                                            blockExec?.execute(with: true, error: nil)
+                                        }
+        }
+    }
+    
+    // MARK: Download file
+    
+    func downloadFile(withAPI api: String,
+                      saveToURL fileURL: URL,
+                      task: MendeleyTask?,
+                      progressBlock: MendeleyResponseProgressBlock?,
+                      completionBlock: @escaping MendeleyCompletionBlock) {
+        
+        let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
+        
+        guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
+            else { blockExec?.execute(with: false, error: nil); return }
+        
+        networkProvider.invokeDownload(toFileURL: fileURL,
+                                       baseURL: baseURL,
+                                       api: api,
+                                       additionalHeaders: nil,
+                                       queryParameters: nil,
+                                       authenticationRequired: true,
+                                       task: task,
+                                       progressBlock: progressBlock) { (response, error) in
+                                        let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
+                                        
+                                        if isSuccess == false {
+                                            do {
+                                            try response?.parseFailureResponse(fromFileDownloadURL: fileURL)
+                                                blockExec?.execute(with: false, error: combinedError)
+                                            } catch {
+                                                blockExec?.execute(with: false, error: error)
+                                            }
+                                        } else if FileManager.default.fileExists(atPath: fileURL.path) == false {
+                                            let pathError = NSError(code:  MendeleyErrorCode.pathNotFoundErrorCode))
+                                            blockExec?.execute(with: false, error: pathError)
                                         } else {
                                             blockExec?.execute(with: true, error: nil)
                                         }
