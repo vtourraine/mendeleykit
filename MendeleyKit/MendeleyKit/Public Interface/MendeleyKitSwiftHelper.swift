@@ -40,9 +40,15 @@ import UIKit
         return (true, returnedError)
     }
     
-    // MARK: - Get Mendeley Object List
+    // MARK: - Get Object List
     
-    func mendeleyObjectList<T: MendeleySwiftSecureObject & Decodable>(ofType type: T.Type, api: String, queryParameters: [String: Any]?, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) {
+    func mendeleyObjectList<T: MendeleySwiftSecureObject & Decodable>
+        (ofType type: T.Type,
+         api: String,
+         queryParameters: [String: Any]?,
+         additionalHeaders: [String: Any]?,
+         task: MendeleyTask?,
+         completionBlock: @escaping MendeleyArrayCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
         
@@ -72,9 +78,49 @@ import UIKit
         }
     }
     
+    func mendeleyIDStringList(forAPI api: String,
+                              queryParameters: [String: Any]?,
+                              additionalHeaders: [String: Any]?,
+                              task: MendeleyTask?,
+                              completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        
+        let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
+        
+        guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
+            else { blockExec?.execute(with: nil, syncInfo: nil, error: nil); return }
+        
+        networkProvider.invokeGET(baseURL,
+                                  api: api,
+                                  additionalHeaders: additionalHeaders,
+                                  queryParameters: queryParameters,
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
+                                    
+                                    if isSuccess == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    } else {
+                                        let decoder = JSONDecoder()
+                                        
+                                        do {
+                                            let arrayDict = try decoder.decode([String: [[String: String]]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(with: arrayDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                        } catch {
+                                            blockExec?.execute(with: nil, syncInfo: nil, error: error)
+                                        }
+                                    }
+        }
+    }
+    
     // MARK: - Get single Mendeley Object
     
-    func mendeleyObject<T: MendeleySwiftSecureObject & Decodable>(ofType type: T.Type, queryParameters: [String: Any]?, api: String, additionalHeaders: [String: Any]?, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    func mendeleyObject<T: MendeleySwiftSecureObject & Decodable>
+        (ofType type: T.Type,
+         queryParameters: [String: Any]?,
+         api: String,
+         additionalHeaders: [String: Any]?,
+         task: MendeleyTask?,
+         completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -107,7 +153,11 @@ import UIKit
     
     // MARK: - Create Mendeley Object
     
-    func create<T: MendeleySwiftSecureObject & Encodable>(mendeleyObject: T, api: String, task: MendeleyTask?, completionBlock: @escaping MendeleyCompletionBlock) {
+    func create<T: MendeleySwiftSecureObject & Encodable>
+        (mendeleyObject: T,
+         api: String,
+         task: MendeleyTask?,
+         completionBlock: @escaping MendeleyCompletionBlock) {
     
         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
         
@@ -138,7 +188,13 @@ import UIKit
         }
     }
     
-    func create<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>(mendeleyObject: T, api: String, additionalHeaders: [String: Any]?, expectedType: U.Type, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    func create<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>
+        (mendeleyObject: T,
+         api: String,
+         additionalHeaders: [String: Any]?,
+         expectedType: U.Type,
+         task: MendeleyTask?,
+         completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -173,6 +229,30 @@ import UIKit
             }
         } catch {
             blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+        }
+    }
+    
+    func create(withAPI api: String,
+                task: MendeleyTask?,
+                completionBlock: @escaping MendeleyCompletionBlock) {
+        let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
+        
+        guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
+            else { blockExec?.execute(with: false, error: nil); return }
+        
+        networkProvider.invokePOST(baseURL,
+                                   api: api,
+                                   additionalHeaders: nil,
+                                   jsonData: nil,
+                                   authenticationRequired: true,
+                                   task: task) { (response, error) in
+                                    let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
+                                    
+                                    if isSuccess == false {
+                                        blockExec?.execute(with: false, error: combinedError)
+                                    } else {
+                                        blockExec?.execute(with: true, error: nil)
+                                    }
         }
     }
     

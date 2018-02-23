@@ -36,11 +36,11 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      */
     func feedList(withLinkedURL linkURL: URL, task: MendeleyTask?, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         helper?.mendeleyObjectList(ofType: MendeleyNewsFeed.self,
-                                  api: linkURL.absoluteString,
-                                  queryParameters: nil,
-                                  additionalHeaders: defaultServiceRequestHeaders,
-                                  task: task,
-                                  completionBlock: completionBlock)
+                                   api: linkURL.absoluteString,
+                                   queryParameters: nil,
+                                   additionalHeaders: defaultServiceRequestHeaders,
+                                   task: task,
+                                   completionBlock: completionBlock)
     }
     
     /**
@@ -51,11 +51,11 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      */
     func feedList(withQueryParameters parameters: MendeleyFeedsParameters, task: MendeleyTask, completionBlock: @escaping MendeleyArrayCompletionBlock) {
         helper?.mendeleyObjectList(ofType: MendeleyNewsFeed.self,
-                                   api: baseAPIURL.appendingPathComponent(kMendeleyRESTAPIFeeds).absoluteString,
-                                  queryParameters: parameters.valueStringDictionary(),
-                                  additionalHeaders: defaultServiceRequestHeaders,
-                                  task: task,
-                                  completionBlock: completionBlock)
+                                   api: kMendeleyRESTAPIFeeds,
+                                   queryParameters: parameters.valueStringDictionary(),
+                                   additionalHeaders: defaultServiceRequestHeaders,
+                                   task: task,
+                                   completionBlock: completionBlock)
     }
     
     /**
@@ -66,11 +66,11 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      */
     func feed(withId feedId: String, task: MendeleyTask, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         helper?.mendeleyObject(ofType: MendeleyNewsFeed.self,
-                              queryParameters: nil,
-                              api: baseAPIURL.appendingPathComponent(kMendeleyRESTAPIFeeds + "/" + feedId).absoluteString,
-                              additionalHeaders: singleFeedServiceRequestHeaders,
-                              task: task,
-                              completionBlock: completionBlock)
+                               queryParameters: nil,
+                               api: kMendeleyRESTAPIFeeds + "/" + feedId,
+                               additionalHeaders: singleFeedServiceRequestHeaders,
+                               task: task,
+                               completionBlock: completionBlock)
         
     }
     
@@ -80,8 +80,11 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func likeFeed(withID feedID: String, task: MendeleyTask, completionBlock: MendeleyCompletionBlock) {
-        
+    func likeFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyCompletionBlock) {
+        helper?.create(withAPI: String(format: kMendeleyRESTAPILikeFeed, feedID),
+                       task: task,
+                       completionBlock: completionBlock
+        )
     }
     
     /**
@@ -90,8 +93,11 @@ class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
      @param task
      @param completionBlock
      */
-    func unlikeFeed(withID feedID: String, task: MendeleyTask, completionBlock: MendeleyCompletionBlock) {
-        
+    func unlikeFeed(withID feedID: String, task: MendeleyTask, completionBlock: @escaping MendeleyCompletionBlock) {
+        helper?.deleteMendeleyObject(withAPI: String(format: kMendeleyRESTAPILikeFeed, feedID),
+                                     task: task,
+                                     completionBlock: completionBlock
+        )
     }
     
     /**
