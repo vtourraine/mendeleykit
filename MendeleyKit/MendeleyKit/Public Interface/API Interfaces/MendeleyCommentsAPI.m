@@ -52,10 +52,10 @@
 //{
 //    [NSError assertStringArgumentNotNilOrEmpty:newsItemID argumentName:@"newsItemID"];
 //    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-// 
+//
 //    MendeleyExpandedCommentsParameters *queryParameters = [MendeleyExpandedCommentsParameters new];
 //    queryParameters.news_item_id = newsItemID;
-//    
+//
 //    [self.helper mendeleyObjectListOfType:kMendeleyModelExpandedComment
 //                                      api:kMendeleyRESTAPIComments
 //                               parameters:[queryParameters valueStringDictionary]
@@ -70,7 +70,7 @@
 //{
 //    [NSError assertStringArgumentNotNilOrEmpty:commentID argumentName:@"commentID"];
 //    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-//    
+//
 //    [self.helper mendeleyObjectOfType:kMendeleyModelComment
 //                           parameters:nil
 //                                  api:[NSString stringWithFormat:kMendeleyRESTAPICommentsWithCommentID, commentID]

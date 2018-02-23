@@ -96,7 +96,7 @@ open class MendeleyExpandedComment: MendeleyComment {
 
 // MARK: - MendeleyCommentUpdate
 
-open class MendeleyCommentUpdate: MendeleySwiftSecureObject {
+open class MendeleyCommentUpdate: MendeleySwiftSecureObject, Codable {
     public var text: String?
     public var tagged_users: [String]?
     
