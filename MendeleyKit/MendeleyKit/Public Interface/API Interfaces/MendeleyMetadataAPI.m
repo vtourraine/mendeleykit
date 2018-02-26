@@ -18,43 +18,44 @@
  *****************************************************************************
  */
 
-#import "MendeleyMetadataAPI.h"
+//#import "MendeleyMetadataAPI.h"
+//
+//@implementation MendeleyMetadataAPI
+//
+//#pragma mark Private methods
+//
+//- (NSDictionary *)defaultServiceRequestHeaders
+//{
+//    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONMetadataLookupType };
+//}
+//
+//#pragma mark -
+//
+//- (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
+//                                     task:(MendeleyTask *)task
+//                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+//{
+//    if (nil == queryParameters)
+//    {
+//        NSError *error = nil;
+//        error = [NSError errorWithCode:kMendeleyModelOrPropertyNilErrorCode
+//                  localizedDescription:@"Metadata API query parameters must not be nil"];
+//
+//        if (nil != completionBlock)
+//        {
+//            completionBlock(nil, nil, error);
+//        }
+//        return;
+//    }
+//    NSDictionary *query = [queryParameters valueStringDictionaryWithNoLimit];
+//
+//    [self.helper mendeleyObjectOfType:kMendeleyModelMetadataLookup
+//                           parameters:query
+//                                  api:kMendeleyRESTAPIMetadata
+//                    additionalHeaders:[self defaultServiceRequestHeaders]
+//                                 task:task
+//                      completionBlock:completionBlock];
+//}
+//
+//@end
 
-@implementation MendeleyMetadataAPI
-
-#pragma mark Private methods
-
-- (NSDictionary *)defaultServiceRequestHeaders
-{
-    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONMetadataLookupType };
-}
-
-#pragma mark -
-
-- (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
-                                     task:(MendeleyTask *)task
-                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
-    if (nil == queryParameters)
-    {
-        NSError *error = nil;
-        error = [NSError errorWithCode:kMendeleyModelOrPropertyNilErrorCode
-                  localizedDescription:@"Metadata API query parameters must not be nil"];
-
-        if (nil != completionBlock)
-        {
-            completionBlock(nil, nil, error);
-        }
-        return;
-    }
-    NSDictionary *query = [queryParameters valueStringDictionaryWithNoLimit];
-
-    [self.helper mendeleyObjectOfType:kMendeleyModelMetadataLookup
-                           parameters:query
-                                  api:kMendeleyRESTAPIMetadata
-                    additionalHeaders:[self defaultServiceRequestHeaders]
-                                 task:task
-                      completionBlock:completionBlock];
-}
-
-@end

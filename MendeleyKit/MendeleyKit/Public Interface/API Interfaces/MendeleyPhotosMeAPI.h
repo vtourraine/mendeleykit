@@ -18,15 +18,16 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+//#import "MendeleyObjectAPI.h"
+//
+//@interface MendeleyPhotosMeAPI : MendeleyObjectAPI
+//
+//- (void)uploadPhotoWithFile:(NSURL *)fileURL
+//                contentType:(NSString *)contentType
+//              contentLength:(NSInteger)contentLength
+//                       task:(MendeleyTask *)task
+//              progressBlock:(MendeleyResponseProgressBlock)progressBlock
+//            completionBlock:(MendeleyCompletionBlock)completionBlock;
+//
+//@end
 
-@interface MendeleyPhotosMeAPI : MendeleyObjectAPI
-
-- (void)uploadPhotoWithFile:(NSURL *)fileURL
-                contentType:(NSString *)contentType
-              contentLength:(NSInteger)contentLength
-                       task:(MendeleyTask *)task
-              progressBlock:(MendeleyResponseProgressBlock)progressBlock
-            completionBlock:(MendeleyCompletionBlock)completionBlock;
-
-@end

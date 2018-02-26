@@ -18,24 +18,25 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+//#import "MendeleyObjectAPI.h"
+//
+//@interface  : MendeleyObjectAPI
+///**
+//   @name MendeleyMetadataAPI
+//   This class provides access methods to the REST metadata API
+//   All of the methods are accessed via MendeleyKit.
+//   Developers should use the methods provided in MendeleyKit rather
+//   than the methods listed here.
+// */
+//
+///**
+//   @param queryParameters
+//   @param task
+//   @param completionBlock
+// */
+//- (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
+//                                     task:(MendeleyTask *)task
+//                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+//
+//@end
 
-@interface MendeleyMetadataAPI : MendeleyObjectAPI
-/**
-   @name MendeleyMetadataAPI
-   This class provides access methods to the REST metadata API
-   All of the methods are accessed via MendeleyKit.
-   Developers should use the methods provided in MendeleyKit rather
-   than the methods listed here.
- */
-
-/**
-   @param queryParameters
-   @param task
-   @param completionBlock
- */
-- (void)metadataLookupWithQueryParameters:(MendeleyMetadataParameters *)queryParameters
-                                     task:(MendeleyTask *)task
-                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-@end
