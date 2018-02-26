@@ -36,15 +36,14 @@ open class MendeleyFollow: MendeleyObject {
         follower_id = try container.decodeIfPresent(String.self, forKey: .follower_id)
         followed_id = try container.decodeIfPresent(String.self, forKey: .followed_id)
         status = try container.decodeIfPresent(String.self, forKey: .status)
-        try super.init(from: decoder)
+        super.init()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override open func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(follower_id, forKey: .follower_id)
         try container.encodeIfPresent(followed_id, forKey: .followed_id)
@@ -63,15 +62,14 @@ open class MendeleyFollowRequest: MendeleySwiftSecureObject, Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         followed = try container.decodeIfPresent(String.self, forKey: .followed)
-        try super.init(from: decoder)
+        super.init()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override open func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(followed, forKey: .followed)
     }
@@ -89,15 +87,14 @@ open class MendeleyFollowAcceptance: MendeleySwiftSecureObject, Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         status = try container.decodeIfPresent(String.self, forKey: .status)
-        try super.init(from: decoder)
+        super.init()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override open func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(status, forKey: .status)
     }

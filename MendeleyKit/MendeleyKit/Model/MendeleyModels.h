@@ -36,8 +36,5 @@
 #import "MendeleyProfile.h"
 #import "MendeleyPerson.h"
 #import "MendeleyUserRole.h"
-#import "MendeleyNewsFeed.h"
-#import "MendeleyComment.h"
-#import "MendeleyNewPost.h"
 
 #endif

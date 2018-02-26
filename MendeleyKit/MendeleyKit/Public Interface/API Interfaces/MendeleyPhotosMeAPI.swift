@@ -30,7 +30,7 @@
         networkProvider.invokeUpload(forFileURL: fileURL,
                                      baseURL: baseAPIURL,
                                      api: kMendeleyRESTAPIPhotosMe,
-                                     additionalHeaders = photoServiceHeaders(withContentType: contentType, length: contentLength),
+                                     additionalHeaders: photoServiceHeaders(withContentType: contentType, length: contentLength),
                                      authenticationRequired: true,
                                      task: task) { (response, error) in
                                         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)

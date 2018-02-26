@@ -47,7 +47,7 @@ open class MendeleyComment: MendeleySwiftObject {
         created = try container.decodeIfPresent(String.self, forKey: .created)
         last_modified = try container.decodeIfPresent(String.self, forKey: .last_modified)
         news_item_owner = try container.decodeIfPresent(Int.self, forKey: .news_item_owner)
-        tagged_users = try container.decodeIfPresent(MendeleySocialProfile.self, forKey: .text)
+        tagged_users = try container.decodeIfPresent([MendeleySocialProfile].self, forKey: .text)
         try super.init(from: decoder)
     }
     

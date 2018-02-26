@@ -18,8 +18,6 @@
  *****************************************************************************
  */
 
-import UIKit
-
 @objc public class MendeleySharesAPI: MendeleySwiftObjectAPI {
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewsItemsShareType]
     private let shareDocumentServiceRequestHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONDocumentShareType]
@@ -30,7 +28,7 @@ import UIKit
      @param task
      @param completionBlock
      */
-    @objc public func shareFeed(withQueryParameters queryParameters: MendeleySharesParamenters,
+    @objc public func shareFeed(withQueryParameters queryParameters: MendeleySharesParameters,
                    task: MendeleyTask?,
                    completionBlock: @escaping MendeleyCompletionBlock) {
         networkProvider.invokePOST(baseAPIURL,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc public class MendeleySwiftObjectAPI: NSObject, MendeleyKitSwiftHelperDelegate {
+@objc open class MendeleySwiftObjectAPI: NSObject, MendeleyKitSwiftHelperDelegate {
     
     public var networkProvider: MendeleyNetworkProvider!
     public var baseAPIURL: URL!
