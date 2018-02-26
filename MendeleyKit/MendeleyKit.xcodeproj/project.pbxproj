@@ -135,6 +135,8 @@
 		53B8EC8D20441EDE0035BC2D /* MendeleyFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8EC8B20441EDE0035BC2D /* MendeleyFolder.swift */; };
 		53B8EC8F204421E00035BC2D /* MendeleyFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8EC8E204421E00035BC2D /* MendeleyFile.swift */; };
 		53B8EC90204421E00035BC2D /* MendeleyFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8EC8E204421E00035BC2D /* MendeleyFile.swift */; };
+		53B8EC92204425A00035BC2D /* MendeleyProfilesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8EC91204425A00035BC2D /* MendeleyProfilesAPI.swift */; };
+		53B8EC93204425A00035BC2D /* MendeleyProfilesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8EC91204425A00035BC2D /* MendeleyProfilesAPI.swift */; };
 		53E647271FC8503C0089EE21 /* MendeleyAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B653F1B66496800B878ED /* MendeleyAnalyticsTests.swift */; };
 		53E647291FC85E050089EE21 /* MendeleyKit-Umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53E647281FC85E050089EE21 /* MendeleyKit-Umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53E6472A1FC85E050089EE21 /* MendeleyKit-Umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53E647281FC85E050089EE21 /* MendeleyKit-Umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -593,6 +595,7 @@
 		53B8EC8820441CED0035BC2D /* MendeleyFollow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MendeleyFollow.swift; sourceTree = "<group>"; };
 		53B8EC8B20441EDE0035BC2D /* MendeleyFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MendeleyFolder.swift; sourceTree = "<group>"; };
 		53B8EC8E204421E00035BC2D /* MendeleyFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MendeleyFile.swift; sourceTree = "<group>"; };
+		53B8EC91204425A00035BC2D /* MendeleyProfilesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MendeleyProfilesAPI.swift; path = "Public Interface/API Interfaces/MendeleyProfilesAPI.swift"; sourceTree = "<group>"; };
 		53E647281FC85E050089EE21 /* MendeleyKit-Umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MendeleyKit-Umbrella.h"; path = "Public Interface/MendeleyKit-Umbrella.h"; sourceTree = "<group>"; };
 		558555891DD9FEE4006477DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		558760741E38FCE000F6032B /* MendeleySharesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MendeleySharesAPI.h; path = "Public Interface/API Interfaces/MendeleySharesAPI.h"; sourceTree = "<group>"; };
@@ -947,6 +950,7 @@
 				535744D2203F0AA600A113CD /* MendeleySwiftObjectAPI.swift */,
 				535744DE2040542300A113CD /* MendeleyUserPostsAPI.swift */,
 				535744EA2040755100A113CD /* MendeleySharesAPI.swift */,
+				53B8EC91204425A00035BC2D /* MendeleyProfilesAPI.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
@@ -2147,6 +2151,7 @@
 				53B8EC83204418830035BC2D /* MendeleyIdentifierType.swift in Sources */,
 				C42111F81A2341A9006C044C /* MendeleyPerformanceMeter.m in Sources */,
 				537BE347203DD0DD00ED9DD8 /* MendeleyKitSwiftHelper.swift in Sources */,
+				53B8EC92204425A00035BC2D /* MendeleyProfilesAPI.swift in Sources */,
 				C42111F91A2341A9006C044C /* MendeleyPerformanceMeterSession.m in Sources */,
 				C42111FA1A2341A9006C044C /* MendeleyTimer.m in Sources */,
 				C42111FB1A2341A9006C044C /* MendeleyBlockExecutor.m in Sources */,
@@ -2259,6 +2264,7 @@
 				645F7A7F1C52603E006D7B24 /* Color+Addons.swift in Sources */,
 				5380DD2C203C5F79008B3484 /* MendeleyJSONDecoder.swift in Sources */,
 				C46657801B3845DD005F762A /* MendeleyDefaultOAuthProvider.m in Sources */,
+				53B8EC93204425A00035BC2D /* MendeleyProfilesAPI.swift in Sources */,
 				C46657E31B385AB2005F762A /* MendeleyLoginHandler.swift in Sources */,
 				C46657CC1B384751005F762A /* MendeleyBlockExecutor.m in Sources */,
 				C46657A31B3846A1005F762A /* MendeleyFilesAPI.m in Sources */,

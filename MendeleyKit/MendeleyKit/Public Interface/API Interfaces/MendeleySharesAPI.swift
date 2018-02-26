@@ -24,6 +24,12 @@ import UIKit
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewsItemsShareType]
     private let shareDocumentServiceRequestHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONDocumentShareType]
     
+    /**
+     shares a feed item.
+     @param queryParameters
+     @param task
+     @param completionBlock
+     */
     @objc public func shareFeed(withQueryParameters queryParameters: MendeleySharesParamenters,
                    task: MendeleyTask?,
                    completionBlock: @escaping MendeleyCompletionBlock) {
@@ -40,6 +46,52 @@ import UIKit
         }
     }
     
+    /**
+     Shares a document.
+     @param documentID
+     @param task
+     @param completionBlock
+     */
+    @objc public func shareDocument(withDocumentID documentID: String,
+                                    task: MendeleyTask?,
+                                    completionBlock: MendeleyCompletionBlock) {
+        let parameters = MendeleyShareDocumentParameters()
+        parameters.document_id = documentID
+        
+        shareDocument(withQueryParameters: parameters, task: task, completionBlock: completionBlock)
+    }
+    
+    /**
+     Shares a document.
+     @param doi
+     @param task
+     @param completionBlock
+     */
+    @objc public func shareDocument(withDOI doi: String,
+                                    task: MendeleyTask?,
+                                    completionBlock: MendeleyCompletionBlock) {
+        let parameters = MendeleyShareDocumentParameters()
+        parameters.doi = doi
+        
+        shareDocument(withQueryParameters: parameters, task: task, completionBlock: completionBlock)
+    }
+    
+    /**
+     Shares a document.
+     @param scopus
+     @param task
+     @param completionBlock
+     */
+    @objc public func shareDocument(withScopus scopus: String,
+                                    task: MendeleyTask?,
+                                    completionBlock: MendeleyCompletionBlock) {
+        let parameters = MendeleyShareDocumentParameters()
+        parameters.scopus = scopus
+        
+        shareDocument(withQueryParameters: parameters, task: task, completionBlock: completionBlock)
+    }
+    
+    
     private func shareDocument(withQueryParameters queryParameters: MendeleyShareDocumentParameters,
                                task: MendeleyTask?,
                                completionBlock: MendeleyCompletionBlock) {
@@ -55,32 +107,5 @@ import UIKit
                                     
                                     blockExec?.execute(with: isSuccess, error: combinedError)
         }
-    }
-    
-    @objc public func shareDocument(withDocumentID documentID: String,
-                                    task: MendeleyTask?,
-                                    completionBlock: MendeleyCompletionBlock) {
-        let parameters = MendeleyShareDocumentParameters()
-        parameters.document_id = documentID
-        
-        shareDocument(withQueryParameters: parameters, task: task, completionBlock: completionBlock)
-    }
-    
-    @objc public func shareDocument(withDOI doi: String,
-                                    task: MendeleyTask?,
-                                    completionBlock: MendeleyCompletionBlock) {
-        let parameters = MendeleyShareDocumentParameters()
-        parameters.doi = doi
-        
-        shareDocument(withQueryParameters: parameters, task: task, completionBlock: completionBlock)
-    }
-    
-    @objc public func shareDocument(withScopus scopus: String,
-                                    task: MendeleyTask?,
-                                    completionBlock: MendeleyCompletionBlock) {
-        let parameters = MendeleyShareDocumentParameters()
-        parameters.scopus = scopus
-        
-        shareDocument(withQueryParameters: parameters, task: task, completionBlock: completionBlock)
     }
 }
