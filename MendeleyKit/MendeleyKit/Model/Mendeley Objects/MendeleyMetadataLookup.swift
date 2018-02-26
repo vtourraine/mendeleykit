@@ -18,19 +18,19 @@
  *****************************************************************************
  */
 
-open class MendeleySwiftPerson: MendeleySwiftObject {
-    public var first_name: String?
-    public var last_name: String?
+open class MendeleyMetadataLookup: MendeleySwiftObject {
+    public var score: Int?
+    public var catalog_id: String?
     
     private enum CodingKeys: String, CodingKey {
-        case first_name
-        case last_name
+        case score
+        case catalog_id
     }
     
-    required public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        first_name = try container.decodeIfPresent(String.self, forKey: .first_name)
-        last_name = try container.decodeIfPresent(String.self, forKey: .last_name)
+        score = try container.decodeIfPresent(Int.self, forKey: .score)
+        catalog_id = try container.decodeIfPresent(String.self, forKey: .catalog_id)
         try super.init(from: decoder)
     }
     
@@ -41,7 +41,7 @@ open class MendeleySwiftPerson: MendeleySwiftObject {
     override open func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(first_name, forKey: .first_name)
-        try container.encodeIfPresent(last_name, forKey: .last_name)
+        try container.encodeIfPresent(score, forKey: .score)
+        try container.encodeIfPresent(catalog_id, forKey: .catalog_id)
     }
 }

@@ -18,19 +18,28 @@
  *****************************************************************************
  */
 
-open class MendeleySwiftPerson: MendeleySwiftObject {
-    public var first_name: String?
-    public var last_name: String?
+open class MendeleyFolder: MendeleySwiftObject {
+    public var name: String?
+    public var parent_id: String?
+    public var group_id: String?
+    public var created: Date?
+    public var modified: Date?
     
     private enum CodingKeys: String, CodingKey {
-        case first_name
-        case last_name
+        case name
+        case parent_id
+        case group_id
+        case created
+        case modified
     }
     
-    required public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        first_name = try container.decodeIfPresent(String.self, forKey: .first_name)
-        last_name = try container.decodeIfPresent(String.self, forKey: .last_name)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        parent_id = try container.decodeIfPresent(String.self, forKey: .parent_id)
+        group_id = try container.decodeIfPresent(String.self, forKey: .group_id)
+        created = try container.decodeIfPresent(Date.self, forKey: .created)
+        modified = try container.decodeIfPresent(Date.self, forKey: .modified)
         try super.init(from: decoder)
     }
     
@@ -41,7 +50,10 @@ open class MendeleySwiftPerson: MendeleySwiftObject {
     override open func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(first_name, forKey: .first_name)
-        try container.encodeIfPresent(last_name, forKey: .last_name)
+        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(parent_id, forKey: .parent_id)
+        try container.encodeIfPresent(group_id, forKey: .group_id)
+        try container.encodeIfPresent(created, forKey: .created)
+        try container.encodeIfPresent(modified, forKey: .modified)
     }
 }

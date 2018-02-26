@@ -18,8 +18,6 @@
  *****************************************************************************
  */
 
-import Foundation
-
 open class MendeleyNewsFeed : MendeleySwiftObject {
     public var likeable: Bool?
     public var commentable: Bool?

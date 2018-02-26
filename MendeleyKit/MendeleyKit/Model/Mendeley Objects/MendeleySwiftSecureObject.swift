@@ -18,8 +18,6 @@
  *****************************************************************************
  */
 
-import UIKit
-
 @objc open class MendeleySwiftSecureObject: NSObject {
 
     override init() {

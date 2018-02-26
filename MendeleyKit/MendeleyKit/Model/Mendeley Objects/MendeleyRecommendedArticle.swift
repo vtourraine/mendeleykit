@@ -18,8 +18,6 @@
  *****************************************************************************
  */
 
-import UIKit
-
 open class MendeleyRecommendedArticle: MendeleySwiftObject {
     public var catalogue_document: MendeleyCatalogDocument?
     public var rank: Int?

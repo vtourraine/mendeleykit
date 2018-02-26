@@ -18,14 +18,16 @@
  *****************************************************************************
  */
 
-open class MendeleySwiftGroup : MendeleySwiftObject {
+// MARK: - Mendeley Group
+
+open class MendeleyGroup: MendeleySwiftObject {
     public var created: Date?
     public var owning_profile_id: String?
     public var link: String?
     public var access_level: String?
     public var name: String?
     public var role: String?
-    public var photo: MendeleySwiftPhoto?
+    public var photo: MendeleyPhoto?
     public var webpage: String?
     public var disciplines: [MendeleyDiscipline]?
     public var tags: [String]?
@@ -43,7 +45,7 @@ open class MendeleySwiftGroup : MendeleySwiftObject {
         case tags
     }
     
-    required public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         created = try container.decodeIfPresent(Date.self, forKey: .created)
         owning_profile_id = try container.decodeIfPresent(String.self, forKey: .owning_profile_id)
@@ -51,14 +53,14 @@ open class MendeleySwiftGroup : MendeleySwiftObject {
         access_level = try container.decodeIfPresent(String.self, forKey: .access_level)
         name = try container.decodeIfPresent(String.self, forKey: .name)
         role = try container.decodeIfPresent(String.self, forKey: .role)
-        photo = try container.decodeIfPresent(MendeleySwiftPhoto.self, forKey: .photo)
+        photo = try container.decodeIfPresent(MendeleyPhoto.self, forKey: .photo)
         webpage = try container.decodeIfPresent(String.self, forKey: .webpage)
         disciplines = try container.decodeIfPresent([MendeleyDiscipline].self, forKey: .disciplines)
         tags = try container.decodeIfPresent([String].self, forKey: .tags)
         try super.init(from: decoder)
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -78,7 +80,9 @@ open class MendeleySwiftGroup : MendeleySwiftObject {
     }
 }
 
-open class MendeleySwiftPhoto : MendeleySwiftObject {
+// MARK: - Mendeley Photo
+
+open class MendeleyPhoto: MendeleySwiftObject {
     public var original: String?
     public var square: String?
     public var standard: String?
@@ -95,7 +99,7 @@ open class MendeleySwiftPhoto : MendeleySwiftObject {
         case standardImageData
     }
     
-    required public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         original = try container.decodeIfPresent(String.self, forKey: .original)
         square = try container.decodeIfPresent(String.self, forKey: .square)
@@ -106,7 +110,7 @@ open class MendeleySwiftPhoto : MendeleySwiftObject {
         try super.init(from: decoder)
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

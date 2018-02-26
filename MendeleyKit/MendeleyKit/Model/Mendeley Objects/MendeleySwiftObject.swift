@@ -18,8 +18,6 @@
  *****************************************************************************
  */
 
-import UIKit
-
 open class MendeleySwiftObject: MendeleySwiftSecureObject, Codable {
     public var object_ID: String?
     public var objectDescription: String?

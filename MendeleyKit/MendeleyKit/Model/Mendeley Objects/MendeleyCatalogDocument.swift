@@ -18,8 +18,6 @@
  *****************************************************************************
  */
 
-import UIKit
-
 open class MendeleyCatalogDocument: MendeleySwiftObject {
     public var link: String?
     public var reader_count: Int?
