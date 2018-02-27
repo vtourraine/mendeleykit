@@ -81,7 +81,7 @@
      @param task
      @param completionBlock returning the image data as NSData
      */
-    @objc public func profileIcon(forIconURLString iconURLString: String, task: MedneleyTask?, completionBlock: MendeleyBinaryDataCompletionBlock) {
+    @objc public func profileIcon(forIconURLString iconURLString: String, task: MendeleyTask?, completionBlock: MendeleyBinaryDataCompletionBlock) {
         let url = URL(string: iconURLString)
         
         networkProvider.invokeGET(url,
@@ -116,7 +116,7 @@
      */
     @objc public func create(profile: MendeleyNewProfile, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
         MendeleyKitConfiguration.sharedInstance().oauthProvider.authenticateClient() { (credentials, error) in
-            let blockExec = MendeleyBlockExecuter(swiftObjectCompletionBlock: completionBlock)
+            let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
             
             if credentials == nil {
                 blockExec?.execute(with: nil, syncInfo: nil, error: error)
@@ -128,28 +128,28 @@
             do {
                 let jsonData = try encoder.encode(profile)
                 
-                networkProvider.invokePOST(baseAPIURL,
+                self.networkProvider.invokePOST(self.baseAPIURL,
                                            api: kMendeleyRESTAPIProfiles,
-                                           additionalHeaders: newProfileRequestHeader(fromCredentials: credentials),
+                                           additionalHeaders: self.newProfileRequestHeader(fromCreditials: credentials!),
                                            jsonData: jsonData,
                                            authenticationRequired: false,
                                            task: task) { (response, error) in
-                                            let (isSuccess, combinedError) = self.isSuccess(withResponse: response, error: error)
+                                            let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                             
-                                            if isSuccess == false || response?.rawResponseData == nil {
-                                                blockExec?.execute(with: nil, SyncInfo: nil, error: combinedError)
+                                            if isSuccess == false || response?.rawResponseBody == nil {
+                                                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: combinedError)
                                             } else {
                                                 let decoder = JSONDecoder()
                                                 do {
-                                                    let objectDict = try decoder.decode([String: MendeleyProfile], from: response!.rawResponseData)
-                                                    blockExec?.execute(with: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                                    let objectDict = try decoder.decode([String: MendeleyProfile].self, from: response!.rawResponseBody)
+                                                    blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                                 } catch {
-                                                    blockExec?.execute(with: nil, syncInfo: nil, error: error)
+                                                    blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
                                                 }
                                             }
                 }
             } catch {
-                blockExec?.execute(with: nil, syncInfo: nil, error: error)
+                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
             }
         }
     }
@@ -173,19 +173,23 @@
     }
     
     private func newProfileRequestHeader(fromCreditials credentials: MendeleyOAuthCredentials) -> [String: String] {
-        var authenticationHeader = credentials.authenticationHeader() as! [String: String]
-        authenticationHeader.set( kMendeleyRESTRequestJSONProfilesType, forKey:kMendeleyRESTRequestAccept)
-        authenticationHeader.set(kMendeleyRESTRequestJSONNewProfilesType, forKey: kMendeleyRESTRequestContentType)
+        var mergedHeader = [String: String]()
         
-        return authenticationHeader
+        guard let authenticationHeader = credentials.authenticationHeader() as? [String: String]
+            else { return mergedHeader }
+        
+        authenticationHeader.forEach { (key, value) in mergedHeader[key] = value }
+        
+        mergedHeader[kMendeleyRESTRequestAccept] = kMendeleyRESTRequestJSONProfilesType
+        mergedHeader[kMendeleyRESTRequestContentType] = kMendeleyRESTRequestJSONNewProfilesType
+        
+        return mergedHeader
     }
     
     private func updateProfileRequestHeader() -> [String: String] {
-        var requestHeader = [String: String]()
+        var requestHeader = defaultServiceRequestHeaders
         
-        requestHeader.addEntries(defaultServiceRequestHeaders)
-        
-        requestHeader.set(kMendeleyRESTRequestJSONProfileUpdateType, forKey: kMendeleyRESTRequestContentType)
+        requestHeader[kMendeleyRESTRequestContentType] = kMendeleyRESTRequestJSONProfileUpdateType
         
         return requestHeader
     }

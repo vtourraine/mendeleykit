@@ -45,27 +45,27 @@
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyArrayCompletionBlock) {
         let query = queryParameters.valueStringDictionary()
-        let mergedQuery = Dictionary.merge(query, defaultQueryParameters)
         
+        let mergedQuery = NSDictionary(byMerging: query, with: defaultQueryParameters) as! [String: String]
+
         networkProvider.invokeGET(baseAPIURL,
                                   api: kMendeleyRESTAPIGroups,
                                   additionalHeaders: defaultServiceRequestHeaders,
                                   queryParameters: mergedQuery,
-                                  authenticationRequired: true,
-                                  task: task) { (response, error) in
+                                  authenticationRequired: true, task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
-                                    let (success, combinedError) = self.isSuccess(withResponse: response, error: error)
-                                    
-                                    if success == false || response?.responseRawData == nil {
-                                        blockExec?.execute(with: nil, syncInfo: error, error: combinedError)
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+
+                                    if success == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
-                                            let groupsDict = try decoder.decode(response, type: [String: [MendeleyGroup]].self)
-                                            
+                                            let groupsDict = try decoder.decode(response, from: [String: [MendeleyGroup]].self)
+
                                             if let groups = groupsDict[kMendeleyJSONData] {
                                                 let firstIndex = 0
-                                                groupIcons(forGroupArray: groups,
+                                                groupIcon(forGroupArray: groups,
                                                            groupIndex: firstIndex,
                                                            iconType: iconType,
                                                            previousError: nil,
@@ -81,7 +81,6 @@
                                             blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                         }
                                     }
-                                    
         }
     }
     
@@ -105,21 +104,21 @@
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
-                                    let (success, combinedError) = self.isSuccess(withResponse: response, error: error)
-                                    if success == false || response?.rawResponseData == nil {
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                    if success == false || response?.rawResponseBody == nil {
                                         blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
-                                            let groupsDict = try decoder.decode(response, type: [String: [MendeleyGroup]].self)
+                                            let groupsDict = try decoder.decode(response, from: [String: [MendeleyGroup]].self)
                                             
                                             if let groups = groupsDict[kMendeleyJSONData] {
                                                 let firstIndex = 0
-                                                groupIcons(forGroupArray: groups,
-                                                           groupIndex: firstIndex,
-                                                           iconType: iconType,
-                                                           previousError: nil,
-                                                           task: task) { (_, _) in
+                                                groupIcon(forGroupArray: groups,
+                                                          groupIndex: firstIndex,
+                                                          iconType: iconType,
+                                                          previousError: nil,
+                                                          task: task) { (_, _) in
                                                             blockExec?.execute(with: groups,
                                                                                syncInfo: response?.syncHeader,
                                                                                error: nil)
@@ -133,7 +132,7 @@
                                     }
         }
     }
-    
+        
     /**
      @param groupID
      @param iconType
@@ -144,7 +143,7 @@
                             iconType: MendeleyIconType,
                             task: MendeleyTask?,
                             completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
-        networkProvider.invokeGET
+//        networkProvider.invokeGET
     }
     
     /**

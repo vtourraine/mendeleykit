@@ -291,8 +291,8 @@ open class MendeleyProfile: MendeleySwiftObject {
         created = try container.decodeIfPresent(Date.self, forKey: .created)
         education = try container.decodeIfPresent([MendeleyEducation].self, forKey: .education)
         employment = try container.decodeIfPresent([MendeleyEmployment].self, forKey: .employment)
-            = try container.decodeIfPresent(String.self, forKey: .title)
-            = try container.decodeIfPresent(String.self, forKey: .biography)
+        title = try container.decodeIfPresent(String.self, forKey: .title)
+        biography = try container.decodeIfPresent(String.self, forKey: .biography)
         try super.init(from: decoder)
     }
     

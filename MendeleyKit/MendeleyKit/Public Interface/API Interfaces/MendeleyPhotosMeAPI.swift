@@ -25,16 +25,17 @@
                                   contentLength: Int,
                                   task: MendeleyTask?,
                                   progressBlock: MendeleyResponseProgressBlock?,
-                                  completionBlock: MendeleyCompletionBlock) {
+                                  completionBlock: @escaping MendeleyCompletionBlock) {
         
         networkProvider.invokeUpload(forFileURL: fileURL,
                                      baseURL: baseAPIURL,
                                      api: kMendeleyRESTAPIPhotosMe,
                                      additionalHeaders: photoServiceHeaders(withContentType: contentType, length: contentLength),
                                      authenticationRequired: true,
-                                     task: task) { (response, error) in
+                                     task: task,
+                                     progressBlock: progressBlock) { (response, error) in
                                         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
-                                        let (isSuccess, combinedError) = self.isSuccess(withResponse: response, error: error)
+                                        let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                         
                                         blockExec?.execute(with: isSuccess, error: combinedError)
         }
@@ -42,6 +43,6 @@
     
     private func photoServiceHeaders(withContentType contentType: String, length: Int) -> [String: String] {
         return [kMendeleyRESTRequestContentType: contentType,
-                kMendeleyRESTRequestContentLength: String(value: length)]
+                kMendeleyRESTRequestContentLength: String(length)]
     }
 }

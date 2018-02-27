@@ -18,13 +18,28 @@
  *****************************************************************************
  */
 
-//#import "MendeleyGroup.h"
-//
-//@implementation MendeleyGroup
-//
-//@end
-//
-//@implementation MendeleyPhoto
-//
-//@end
+import Foundation
+
+open class MendeleyFeature : MendeleySwiftSecureObject, Codable {
+    public var name: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case name
+    }
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        super.init()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    open func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(name, forKey: .name)
+    }
+}
 

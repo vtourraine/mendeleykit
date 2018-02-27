@@ -31,14 +31,16 @@
     @objc public func shareFeed(withQueryParameters queryParameters: MendeleySharesParameters,
                    task: MendeleyTask?,
                    completionBlock: @escaping MendeleyCompletionBlock) {
+        
         networkProvider.invokePOST(baseAPIURL,
                                    api: kMendeleyRESTAPIShareFeed,
                                    additionalHeaders: defaultServiceRequestHeaders,
-                                   bodyParameters: queryParameters.valueStringParameters(),
+                                   bodyParameters: queryParameters.valueStringDictionary(),
                                    isJSON: true,
-                                   authenticationRequired: true) { (response, error) in
+                                   authenticationRequired: true,
+                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
-                                    let (isSuccess, combinedError) = self.helper.isSuccess(withResponse: response, error: error)
+                                    let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                     
                                     blockExec?.execute(with: isSuccess, error: combinedError)
         }
@@ -52,7 +54,7 @@
      */
     @objc public func shareDocument(withDocumentID documentID: String,
                                     task: MendeleyTask?,
-                                    completionBlock: MendeleyCompletionBlock) {
+                                    completionBlock: @escaping MendeleyCompletionBlock) {
         let parameters = MendeleyShareDocumentParameters()
         parameters.document_id = documentID
         
@@ -67,7 +69,7 @@
      */
     @objc public func shareDocument(withDOI doi: String,
                                     task: MendeleyTask?,
-                                    completionBlock: MendeleyCompletionBlock) {
+                                    completionBlock: @escaping MendeleyCompletionBlock) {
         let parameters = MendeleyShareDocumentParameters()
         parameters.doi = doi
         
@@ -82,7 +84,7 @@
      */
     @objc public func shareDocument(withScopus scopus: String,
                                     task: MendeleyTask?,
-                                    completionBlock: MendeleyCompletionBlock) {
+                                    completionBlock: @escaping MendeleyCompletionBlock) {
         let parameters = MendeleyShareDocumentParameters()
         parameters.scopus = scopus
         
@@ -92,16 +94,16 @@
     
     private func shareDocument(withQueryParameters queryParameters: MendeleyShareDocumentParameters,
                                task: MendeleyTask?,
-                               completionBlock: MendeleyCompletionBlock) {
+                               completionBlock: @escaping MendeleyCompletionBlock) {
         networkProvider.invokePOST(baseAPIURL,
                                    api: kMendeleyRESTAPIShareFeed,
                                    additionalHeaders: shareDocumentServiceRequestHeaders,
                                    bodyParameters: queryParameters.valueStringDictionary(),
-                                   isJOSN: true,
+                                   isJSON: true,
                                    authenticationRequired: true,
                                    task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
-                                    let (isSuccess, combinedError) = self.helper.isSuccess(withResponse: response, error: error)
+                                    let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                     
                                     blockExec?.execute(with: isSuccess, error: combinedError)
         }

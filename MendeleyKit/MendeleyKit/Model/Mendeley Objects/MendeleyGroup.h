@@ -18,33 +18,34 @@
  *****************************************************************************
  */
 
-#import "MendeleyObject.h"
+//#import "MendeleyObject.h"
+//
+//@class MendeleyPhoto, MendeleyDiscipline
+//;
+//
+//@interface MendeleyGroup : MendeleyObject
+//
+//@property (nonatomic, strong) NSDate *created;
+//@property (nonatomic, strong) NSString *owning_profile_id;
+//@property (nonatomic, strong) NSString *link;
+//@property (nonatomic, strong) NSString *access_level;
+//@property (nonatomic, strong) NSString *name;
+//@property (nonatomic, strong) NSString *role;
+//@property (nonatomic, strong) MendeleyPhoto *photo;
+//@property (nonatomic, strong) NSString *webpage;
+//@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
+//@property (nonatomic, strong) NSArray <NSString *> *tags;
+//
+//@end
+//
+//@interface MendeleyPhoto : MendeleyObject
+//
+//@property (nonatomic, strong) NSString *original;
+//@property (nonatomic, strong) NSString *square;
+//@property (nonatomic, strong) NSString *standard;
+//@property (nonatomic, strong) NSData *originalImageData;
+//@property (nonatomic, strong) NSData *squareImageData;
+//@property (nonatomic, strong) NSData *standardImageData;
+//
+//@end
 
-@class MendeleyPhoto, MendeleyDiscipline
-;
-
-@interface MendeleyGroup : MendeleyObject
-
-@property (nonatomic, strong) NSDate *created;
-@property (nonatomic, strong) NSString *owning_profile_id;
-@property (nonatomic, strong) NSString *link;
-@property (nonatomic, strong) NSString *access_level;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *role;
-@property (nonatomic, strong) MendeleyPhoto *photo;
-@property (nonatomic, strong) NSString *webpage;
-@property (nonatomic, strong) NSArray <MendeleyDiscipline *> *disciplines;
-@property (nonatomic, strong) NSArray <NSString *> *tags;
-
-@end
-
-@interface MendeleyPhoto : MendeleyObject
-
-@property (nonatomic, strong) NSString *original;
-@property (nonatomic, strong) NSString *square;
-@property (nonatomic, strong) NSString *standard;
-@property (nonatomic, strong) NSData *originalImageData;
-@property (nonatomic, strong) NSData *squareImageData;
-@property (nonatomic, strong) NSData *standardImageData;
-
-@end
