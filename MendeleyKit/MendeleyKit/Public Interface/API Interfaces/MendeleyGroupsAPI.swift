@@ -56,22 +56,22 @@
                                     let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
                                     let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
 
-                                    if success == false || response?.rawResponseBody == nil {
+                                    if success == false || response?.rawResponseBody == nil || response?.syncHeader == nil {
                                         blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
-                                            let groupsDict = try decoder.decode(response, from: [String: [MendeleyGroup]].self)
+                                            let groupsDict = try decoder.decode([String: [MendeleyGroup]].self, from: response!.rawResponseBody)
 
                                             if let groups = groupsDict[kMendeleyJSONData] {
                                                 let firstIndex = 0
-                                                groupIcon(forGroupArray: groups,
+                                                self.groupIcon(forGroupArray: groups,
                                                            groupIndex: firstIndex,
                                                            iconType: iconType,
                                                            previousError: nil,
                                                            task: task) { (_, _) in
                                                             blockExec?.execute(with: groups,
-                                                                               syncInfo: response?.syncHeader,
+                                                                               syncInfo: response!.syncHeader,
                                                                                error: nil)
                                                 }
                                             } else {
@@ -105,22 +105,22 @@
                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
                                     let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                    if success == false || response?.rawResponseBody == nil {
+                                    if success == false || response?.rawResponseBody == nil || response?.syncHeader == nil {
                                         blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
-                                            let groupsDict = try decoder.decode(response, from: [String: [MendeleyGroup]].self)
+                                            let groupsDict = try decoder.decode([String: [MendeleyGroup]].self, from: response!.rawResponseBody)
                                             
                                             if let groups = groupsDict[kMendeleyJSONData] {
                                                 let firstIndex = 0
-                                                groupIcon(forGroupArray: groups,
+                                                self.groupIcon(forGroupArray: groups,
                                                           groupIndex: firstIndex,
                                                           iconType: iconType,
                                                           previousError: nil,
                                                           task: task) { (_, _) in
                                                             blockExec?.execute(with: groups,
-                                                                               syncInfo: response?.syncHeader,
+                                                                               syncInfo: response!.syncHeader,
                                                                                error: nil)
                                                 }
                                             } else {
@@ -143,7 +143,50 @@
                             iconType: MendeleyIconType,
                             task: MendeleyTask?,
                             completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
-//        networkProvider.invokeGET
+        let apiEndPoint = String(format: kMendeleyRESTAPIGroupWithID, groupID)
+        
+        networkProvider.invokeGET(baseAPIURL,
+                                  api: apiEndPoint,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  queryParameters: nil,
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                    
+                                    if success == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: combinedError)
+                                    } else {
+                                        let decoder = JSONDecoder()
+                                        
+                                        do {
+                                            let groupDict = try decoder.decode([String: MendeleyGroup].self, from: response!.rawResponseBody)
+                                            if let group = groupDict[kMendeleyJSONData] {
+                                                self.groupIcon(forGroup: group,
+                                                               iconType: iconType,
+                                                               task: task) { (binaryData, dataError) in
+                                                                if let binaryData = binaryData {
+                                                                    switch iconType {
+                                                                    case .StandardIcon:
+                                                                        group.photo?.standardImageData = binaryData
+                                                                    case .SquareIcon:
+                                                                        group.photo?.squareImageData = binaryData
+                                                                    case .OriginalIcon:
+                                                                        group.photo?.originalImageData = binaryData
+                                                                    }
+                                                                }
+                                                                blockExec?.execute(withMendeleySwiftObject: group, syncInfo: response?.syncHeader, error: nil)
+                                                }
+                                                
+                                            } else {
+                                                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: nil)
+                                            }
+                                            
+                                        } catch {
+                                            blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+                                        }
+                                    }
+        }
     }
     
     /**
@@ -154,8 +197,20 @@
      */
     @objc public func groupMemberList(withGroupID groupID: String,
                                       queryParameters: MendeleyGroupParameters,
+                                      task: MendeleyTask?,
                                       completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIMembersInGroupWithID, groupID)
+        var query: [String: Any] = queryParameters.valueStringDictionary()!
         
+        // Merge dictionaries
+        defaultQueryParameters.forEach { (key, value) in query[key] = value }
+        
+        helper.mendeleyObjectList(ofType: MendeleyUserRole.self,
+                                  api: apiEndPoint,
+                                  queryParameters: query,
+                                  additionalHeaders: membersRequestHeaders,
+                                  task: task,
+                                  completionBlock: completionBlock)
     }
     
     /**
@@ -165,10 +220,35 @@
      @param task
      @param completionBlock the list of groups if found
      */
-    @objc public func groupList(withQueryParameters: MendeleyGroupParameters,
+    @objc public func groupList(withQueryParameters queryParameters: MendeleyGroupParameters,
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyArrayCompletionBlock) {
         
+        var query: [String: Any] = queryParameters.valueStringDictionary()!
+        defaultQueryParameters.forEach { (key, value) in query[key] = value }
+        
+        networkProvider.invokeGET(baseAPIURL,
+                                  api: kMendeleyRESTAPIGroups,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  queryParameters: query,
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                    
+                                    if success == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    } else {
+                                        let decoder = JSONDecoder()
+                                        
+                                        do {
+                                            let groupsDict = try decoder.decode([String: [MendeleyGroup]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(with: groupsDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                        } catch {
+                                            blockExec?.execute(with: nil, syncInfo: nil, error: error)
+                                        }
+                                    }
+        }
     }
     
     /**
@@ -182,7 +262,27 @@
     @objc public func groupList(withLinkedURL linkURL: URL,
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyArrayCompletionBlock) {
-        
+        networkProvider.invokeGET(linkURL,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  queryParameters: nil,
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                    
+                                    if success == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    } else {
+                                        let decoder = JSONDecoder()
+                                        do {
+                                            let groupsDict = try decoder.decode([String: [MendeleyGroup]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(with: groupsDict[kMendeleyJSONData], syncInfo: nil, error: nil)
+                                            
+                                        } catch {
+                                            blockExec?.execute(with: nil, syncInfo: nil, error: error)
+                                        }
+                                    }
+        }
     }
     
     /**
@@ -194,7 +294,59 @@
     @objc public func group(withGroupID groupID: String,
                             task: MendeleyTask?,
                             completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIGroupWithID, groupID)
         
+        helper.mendeleyObject(ofType: MendeleyGroup.self,
+                              queryParameters: nil,
+                              api: apiEndPoint,
+                              additionalHeaders: defaultServiceRequestHeaders,
+                              task: task,
+                              completionBlock: completionBlock)
+    }
+    
+    @objc public func groupIcon(forGroupArray groups: [MendeleyGroup],
+                                 groupIndex: Int,
+                                 iconType: MendeleyIconType,
+                                 previousError: Error?,
+                                 task: MendeleyTask?,
+                                 completionBlock: @escaping MendeleyCompletionBlock) {
+        if groups.count <= groupIndex {
+            completionBlock(previousError == nil, previousError)
+            return
+        }
+        
+        let group = groups[groupIndex]
+        
+        groupIcon(forGroup: group,
+                  iconType: iconType,
+                  task: task) { (imageData, error) in
+                    var nextError: Error? = nil
+                    let nextIndex = groupIndex + 1
+                    
+                    if previousError == nil {
+                        nextError = error
+                    } else {
+                        nextError = previousError
+                    }
+                    
+                    if imageData != nil {
+                        switch iconType {
+                        case .OriginalIcon:
+                            group.photo?.originalImageData = imageData
+                        case .SquareIcon:
+                            group.photo?.squareImageData = imageData
+                        case .StandardIcon:
+                            group.photo?.standardImageData = imageData
+                        }
+                    }
+                    
+                    self.groupIcon(forGroupArray: groups,
+                                   groupIndex: nextIndex,
+                                   iconType: iconType,
+                                   previousError: nextError,
+                                   task: task,
+                                   completionBlock: completionBlock)
+        }
     }
     
     /**
@@ -205,9 +357,16 @@
      @param completionBlock returning the image data as NSData
      */
     @objc public func groupIcon(forGroup group: MendeleyGroup,
+                                iconType: MendeleyIconType,
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyBinaryDataCompletionBlock) {
-        
+        do {
+            let linkURLString = try link(fromPhoto: group.photo, iconType: iconType, task: task)
+            
+            groupIcon(forIconURLString: linkURLString, task: task, completionBlock: completionBlock)
+        } catch {
+            completionBlock(nil, error)
+        }
     }
     
     /**
@@ -219,7 +378,27 @@
     @objc public func groupIcon(forIconURLString iconURLString: String,
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyBinaryDataCompletionBlock) {
+        let url = URL(string: iconURLString)
+        let header = requestHeader(forImageLink: iconURLString)
         
+        networkProvider.invokeGET(url,
+                                  api: nil,
+                                  additionalHeaders: header,
+                                  queryParameters: nil,
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let blockExec = MendeleyBlockExecutor(binaryDataCompletionBlock: completionBlock)
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                    
+                                    if success == false {
+                                        blockExec?.execute(withBinaryData: nil, error: combinedError)
+                                    } else {
+                                        if let bodyData = response?.responseBody as? Data {
+                                            blockExec?.execute(withBinaryData: bodyData, error: nil)
+                                        } else {
+                                            blockExec?.execute(withBinaryData: nil, error: combinedError)
+                                        }
+                                    }
+        }
     }
-    
 }

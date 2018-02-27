@@ -207,14 +207,15 @@ open class MendeleyDocument : MendeleySwiftObject {
         patent_legal_status = try container.decodeIfPresent(String.self, forKey: .patent_legal_status)
         notes = try container.decodeIfPresent(String.self, forKey: .notes)
         series_number = try container.decodeIfPresent(String.self, forKey: .series_number)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(objectDescription, forKey: .objectDescription)
         try container.encodeIfPresent(month, forKey: .month)

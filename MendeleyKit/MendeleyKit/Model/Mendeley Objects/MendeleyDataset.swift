@@ -78,14 +78,15 @@ open class MendeleyDataset : MendeleySwiftObject {
         data_licence = try container.decodeIfPresent(MendeleyLicenceInfo.self, forKey: .data_licence)
         owner_id = try container.decodeIfPresent(String.self, forKey: .owner_id)
         embargo_date = try container.decodeIfPresent(Date.self, forKey: .embargo_date)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    open override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(doi, forKey: .doi)
@@ -118,14 +119,15 @@ open class MendeleyDOI : MendeleySwiftObject {
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         status = try container.decodeIfPresent(String.self, forKey: .status)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(status, forKey: .status)
     }
@@ -154,14 +156,15 @@ open class MendeleyPublicContributorDetails : MendeleySwiftObject {
         profile_id = try container.decodeIfPresent(String.self, forKey: .profile_id)
         first_name = try container.decodeIfPresent(String.self, forKey: .first_name)
         last_name = try container.decodeIfPresent(String.self, forKey: .last_name)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(contribution, forKey: .contribution)
         try container.encodeIfPresent(institution, forKey: .institution)
@@ -206,14 +209,15 @@ open class MendeleyInstitution : MendeleySwiftObject {
         urls = try container.decodeIfPresent([String].self, forKey: .urls)
         profile_url = try container.decodeIfPresent(String.self, forKey: .profile_url)
         alt_names = try container.decodeIfPresent([MendeleyAlternativeName].self, forKey: .alt_names)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(scival_id, forKey: .scival_id)
         try container.encodeIfPresent(name, forKey: .name)
@@ -238,14 +242,15 @@ open class MendeleyAlternativeName : MendeleySwiftObject {
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decodeIfPresent(String.self, forKey: .name)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(name, forKey: .name)
     }
@@ -271,14 +276,15 @@ open class MendeleyVersionMetadata : MendeleySwiftObject {
         available = try container.decodeIfPresent(Bool.self, forKey: .available)
         publish_date = try container.decodeIfPresent(Date.self, forKey: .publish_date)
         embargo_date = try container.decodeIfPresent(Date.self, forKey: .embargo_date)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(object_version, forKey: .object_version)
         try container.encodeIfPresent(available, forKey: .available)
@@ -304,14 +310,15 @@ open class MendeleyFileMetadata : MendeleySwiftObject {
         filename = try container.decodeIfPresent(String.self, forKey: .filename)
         metrics = try container.decodeIfPresent(MendeleyFileMetrics.self, forKey: .metrics)
         content_details = try container.decodeIfPresent(MendeleyFileData.self, forKey: .content_details)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(filename, forKey: .filename)
         try container.encodeIfPresent(metrics, forKey: .metrics)
@@ -340,14 +347,15 @@ open class MendeleyFileMetrics : MendeleySwiftObject {
         downloads = try container.decodeIfPresent(Int.self, forKey: .downloads)
         previews = try container.decodeIfPresent(Int.self, forKey: .previews)
         fileId = try container.decodeIfPresent(String.self, forKey: .fileId)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(downloads, forKey: .downloads)
         try container.encodeIfPresent(previews, forKey: .previews)
@@ -387,14 +395,15 @@ open class MendeleyFileData : MendeleySwiftObject {
         view_url = try container.decodeIfPresent(String.self, forKey: .view_url)
         download_expiry_time = try container.decodeIfPresent(String.self, forKey: .download_expiry_time)
         created_date = try container.decodeIfPresent(Date.self, forKey: .created_date)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(size, forKey: .size)
         try container.encodeIfPresent(content_type, forKey: .content_type)
@@ -424,14 +433,15 @@ open class MendeleyEmbeddedArticleView : MendeleySwiftObject {
         journal = try container.decodeIfPresent(MendeleyEmbeddedJournalView.self, forKey: .journal)
         title = try container.decodeIfPresent(String.self, forKey: .title)
         doi = try container.decodeIfPresent(String.self, forKey: .doi)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(journal, forKey: .journal)
         try container.encodeIfPresent(title, forKey: .title)
@@ -456,14 +466,15 @@ open class MendeleyEmbeddedJournalView : MendeleySwiftObject {
         url = try container.decodeIfPresent(String.self, forKey: .url)
         issn = try container.decodeIfPresent(String.self, forKey: .issn)
         name = try container.decodeIfPresent(String.self, forKey: .name)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(url, forKey: .url)
         try container.encodeIfPresent(issn, forKey: .issn)
@@ -482,14 +493,15 @@ open class MendeleyCategory : MendeleySwiftObject {
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         label = try container.decodeIfPresent(String.self, forKey: .label)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(label, forKey: .label)
     }
@@ -512,14 +524,15 @@ open class MendeleyDatasetMetrics : MendeleySwiftObject {
         views = try container.decodeIfPresent(Int.self, forKey: .views)
         file_downloads = try container.decodeIfPresent(Int.self, forKey: .file_downloads)
         file_previews = try container.decodeIfPresent(Int.self, forKey: .file_previews)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(views, forKey: .views)
         try container.encodeIfPresent(file_downloads, forKey: .file_downloads)
@@ -541,17 +554,18 @@ open class MendeleyRelatedLink : MendeleySwiftObject {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.decodeIfPresent(Int.self, forKey: .type)
-        rel = try container.decodeIfPresent(Int.self, forKey: .rel)
-        href = try container.decodeIfPresent(Int.self, forKey: .href)
-        super.init()
+        type = try container.decodeIfPresent(String.self, forKey: .type)
+        rel = try container.decodeIfPresent(String.self, forKey: .rel)
+        href = try container.decodeIfPresent(String.self, forKey: .href)
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(type, forKey: .type)
         try container.encodeIfPresent(rel, forKey: .rel)
@@ -573,17 +587,18 @@ open class MendeleyLicenceInfo : MendeleySwiftObject {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.decodeIfPresent(Int.self, forKey: .url)
-        full_name = try container.decodeIfPresent(Int.self, forKey: .full_name)
-        short_name = try container.decodeIfPresent(Int.self, forKey: .short_name)
-        super.init()
+        url = try container.decodeIfPresent(String.self, forKey: .url)
+        full_name = try container.decodeIfPresent(String.self, forKey: .full_name)
+        short_name = try container.decodeIfPresent(String.self, forKey: .short_name)
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(url, forKey: .url)
         try container.encodeIfPresent(full_name, forKey: .full_name)

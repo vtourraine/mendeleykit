@@ -232,7 +232,7 @@ open class MendeleyProfile: MendeleySwiftObject {
     public var academic_status: String?
     public var discipline: MendeleyDiscipline?
     public var disciplines: [MendeleyDiscipline]?
-    public var photo: MendeleySwiftPhoto?
+    public var photo: MendeleyPhoto?
     public var photos: [MendeleyImage]?
     public var verified: Bool?
     public var marketing: Bool?
@@ -282,7 +282,7 @@ open class MendeleyProfile: MendeleySwiftObject {
         academic_status = try container.decodeIfPresent(String.self, forKey: .academic_status)
         discipline = try container.decodeIfPresent(MendeleyDiscipline.self, forKey: .discipline)
         disciplines = try container.decodeIfPresent([MendeleyDiscipline].self, forKey: .disciplines)
-        photo = try container.decodeIfPresent(MendeleySwiftPhoto.self, forKey: .photo)
+        photo = try container.decodeIfPresent(MendeleyPhoto.self, forKey: .photo)
         photos = try container.decodeIfPresent([MendeleyImage].self, forKey: .photos)
         verified = try container.decodeIfPresent(Bool.self, forKey: .verified)
         marketing = try container.decodeIfPresent(Bool.self, forKey: .marketing)

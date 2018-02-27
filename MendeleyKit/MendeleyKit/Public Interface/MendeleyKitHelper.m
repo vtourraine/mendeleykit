@@ -26,7 +26,6 @@
 #import "MendeleyModeller.h"
 #import "NSError+MendeleyError.h"
 #import "NSError+Exceptions.h"
-#import "MendeleyNewsFeed.h"
 
 @interface MendeleyKitHelper ()
 

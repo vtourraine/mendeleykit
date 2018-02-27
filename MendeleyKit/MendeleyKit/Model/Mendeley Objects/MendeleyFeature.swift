@@ -21,7 +21,7 @@
 import Foundation
 
 open class MendeleyFeature : MendeleySwiftSecureObject, Codable {
-    public var name: String
+    public var name: String?
     
     private enum CodingKeys: String, CodingKey {
         case name

@@ -33,7 +33,7 @@ import UIKit
      @param task
      @param error
      */
-    func link(fromPhoto photo: MendeleySwiftPhoto?, iconType: MendeleyIconType, task: MendeleyTask?) throws -> String {
+    func link(fromPhoto photo: MendeleyPhoto?, iconType: MendeleyIconType, task: MendeleyTask?) throws -> String {
         guard let photo = photo
             else {
                 throw  MendeleyErrorManager.sharedInstance().error(withDomain:kMendeleyErrorDomain, code: MendeleyErrorCode.missingDataProvidedErrorCode.rawValue)!

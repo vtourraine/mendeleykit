@@ -18,8 +18,9 @@
  *****************************************************************************
  */
 
-#import "MendeleyFeature.h"
+//#import "MendeleyFeature.h"
+//
+//@implementation MendeleyFeature
+//
+//@end
 
-@implementation MendeleyFeature
-
-@end

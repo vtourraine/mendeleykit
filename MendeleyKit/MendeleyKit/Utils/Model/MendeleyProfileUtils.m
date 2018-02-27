@@ -20,6 +20,7 @@
 
 #import "MendeleyProfileUtils.h"
 #import "MendeleyProfile.h"
+#import "MendeleyKit-Swift.h"
 
 @implementation MendeleyProfileUtils
 

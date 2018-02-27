@@ -18,52 +18,53 @@
  *****************************************************************************
  */
 
-#import "MendeleyDataset.h"
+//#import "MendeleyDataset.h"
+//
+//@implementation MendeleyDataset
+//@end
+//
+//@implementation MendeleyDOI
+//@end
+//
+//@implementation MendeleyPublicContributorDetails
+//@end
+//
+//@implementation MendeleyInstitution
+//@end
+//
+//@implementation MendeleyAlternativeName
+//@end
+//
+//@implementation MendeleyVersionMetadata
+//@end
+//
+//@implementation MendeleyFileMetadata
+//@end
+//
+//@implementation MendeleyContentTicket
+//@end
+//
+//@implementation MendeleyFileMetrics
+//@end
+//
+//@implementation MendeleyFileData
+//@end
+//
+//@implementation MendeleyEmbeddedArticleView
+//@end
+//
+//@implementation MendeleyEmbeddedJournalView
+//@end
+//
+//@implementation MendeleyCategory
+//@end
+//
+//@implementation MendeleyDatasetMetrics
+//@end
+//
+//@implementation MendeleyRelatedLink
+//@end
+//
+//@implementation MendeleyLicenceInfo
+//@end
 
-@implementation MendeleyDataset
-@end
-
-@implementation MendeleyDOI
-@end
-
-@implementation MendeleyPublicContributorDetails
-@end
-
-@implementation MendeleyInstitution
-@end
-
-@implementation MendeleyAlternativeName
-@end
-
-@implementation MendeleyVersionMetadata
-@end
-
-@implementation MendeleyFileMetadata
-@end
-
-@implementation MendeleyContentTicket
-@end
-
-@implementation MendeleyFileMetrics
-@end
-
-@implementation MendeleyFileData
-@end
-
-@implementation MendeleyEmbeddedArticleView
-@end
-
-@implementation MendeleyEmbeddedJournalView
-@end
-
-@implementation MendeleyCategory
-@end
-
-@implementation MendeleyDatasetMetrics
-@end
-
-@implementation MendeleyRelatedLink
-@end
-
-@implementation MendeleyLicenceInfo
-@end

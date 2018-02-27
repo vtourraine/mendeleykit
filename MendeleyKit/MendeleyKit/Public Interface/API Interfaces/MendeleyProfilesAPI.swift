@@ -81,25 +81,26 @@
      @param task
      @param completionBlock returning the image data as NSData
      */
-    @objc public func profileIcon(forIconURLString iconURLString: String, task: MendeleyTask?, completionBlock: MendeleyBinaryDataCompletionBlock) {
+    @objc public func profileIcon(forIconURLString iconURLString: String, task: MendeleyTask?, completionBlock: @escaping MendeleyBinaryDataCompletionBlock) {
         let url = URL(string: iconURLString)
+        let header = requestHeader(forImageLink: iconURLString)
         
         networkProvider.invokeGET(url,
                                   api: nil,
-                                  addtionalHeaders: requestHeader(forImageLink: iconURLString),
-                                  queryParametwrs: nil,
-                                  autheticationRequired: false,
+                                  additionalHeaders: header,
+                                  queryParameters: nil,
+                                  authenticationRequired: false,
                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(binaryDataCompletionBlock: completionBlock)
-                                    let (isSuccess, combinedError) = self.isSuccess(withResponse: response, error: error)
+                                    let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                     
                                     if isSuccess == false {
-                                        blockExec?.execute(with: nil, error: combinedError)
+                                        blockExec?.execute(withBinaryData: nil, error: combinedError)
                                     } else {
                                         if let bodyData = response?.responseBody as? Data {
-                                            blockExec?.execute(with: bodyData, error: nil)
+                                            blockExec?.execute(withBinaryData: bodyData, error: nil)
                                         } else {
-                                            blockExec?.execute(with: nil, error: error)
+                                            blockExec?.execute(withBinaryData: nil, error: error)
                                         }
                                     }
         }

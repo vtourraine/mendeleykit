@@ -18,54 +18,55 @@
  *****************************************************************************
  */
 
-#import "MendeleyDocument.h"
+//#import "MendeleyDocument.h"
+//
+//@implementation MendeleyDocument
+//
+//#pragma mark Ensure that we get boolean values when setting flags. Needed for JSON
+//- (void)setRead:(NSNumber *)read
+//{
+//    if (nil != read)
+//    {
+//        _read = [NSNumber numberWithBool:[read boolValue]];
+//    }
+//
+//}
+//
+//- (void)setStarred:(NSNumber *)starred
+//{
+//    if (nil != starred)
+//    {
+//        _starred = [NSNumber numberWithBool:[starred boolValue]];
+//    }
+//
+//}
+//
+//- (void)setAuthored:(NSNumber *)authored
+//{
+//    if (nil != authored)
+//    {
+//        _authored = [NSNumber numberWithBool:[authored boolValue]];
+//    }
+//
+//}
+//
+//- (void)setConfirmed:(NSNumber *)confirmed
+//{
+//    if (nil != confirmed)
+//    {
+//        _confirmed = [NSNumber numberWithBool:[confirmed boolValue]];
+//    }
+//
+//}
+//
+//- (void)setHidden:(NSNumber *)hidden
+//{
+//    if (nil != hidden)
+//    {
+//        _hidden = [NSNumber numberWithBool:[hidden boolValue]];
+//    }
+//
+//}
+//
+//@end
 
-@implementation MendeleyDocument
-
-#pragma mark Ensure that we get boolean values when setting flags. Needed for JSON
-- (void)setRead:(NSNumber *)read
-{
-    if (nil != read)
-    {
-        _read = [NSNumber numberWithBool:[read boolValue]];
-    }
-
-}
-
-- (void)setStarred:(NSNumber *)starred
-{
-    if (nil != starred)
-    {
-        _starred = [NSNumber numberWithBool:[starred boolValue]];
-    }
-
-}
-
-- (void)setAuthored:(NSNumber *)authored
-{
-    if (nil != authored)
-    {
-        _authored = [NSNumber numberWithBool:[authored boolValue]];
-    }
-
-}
-
-- (void)setConfirmed:(NSNumber *)confirmed
-{
-    if (nil != confirmed)
-    {
-        _confirmed = [NSNumber numberWithBool:[confirmed boolValue]];
-    }
-
-}
-
-- (void)setHidden:(NSNumber *)hidden
-{
-    if (nil != hidden)
-    {
-        _hidden = [NSNumber numberWithBool:[hidden boolValue]];
-    }
-
-}
-
-@end

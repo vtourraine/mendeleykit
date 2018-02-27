@@ -18,8 +18,9 @@
  *****************************************************************************
  */
 
-#import "MendeleyObject.h"
+//#import "MendeleyObject.h"
+//
+//@interface MendeleyFeature : MendeleySecureObject
+//@property (nonatomic, strong, nullable) NSString *name;
+//@end
 
-@interface MendeleyFeature : MendeleySecureObject
-@property (nonatomic, strong, nullable) NSString *name;
-@end

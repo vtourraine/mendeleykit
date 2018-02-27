@@ -444,7 +444,7 @@ open class MendeleyNewStatusJsonNode : MendeleyJsonNode {
 }
 
 open class MendeleyGroupStatusJsonNode: MendeleyJsonNode {
-    public var group: MendeleySwiftGroup?
+    public var group: MendeleyGroup?
     public var post: MendeleyGroupPost?
     
     private enum CodingKeys: String, CodingKey {
@@ -454,7 +454,7 @@ open class MendeleyGroupStatusJsonNode: MendeleyJsonNode {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        group = try container.decodeIfPresent(MendeleySwiftGroup.self, forKey: .group)
+        group = try container.decodeIfPresent(MendeleyGroup.self, forKey: .group)
         post = try container.decodeIfPresent(MendeleyGroupPost.self, forKey: .post)
         try super.init(from: decoder)
     }

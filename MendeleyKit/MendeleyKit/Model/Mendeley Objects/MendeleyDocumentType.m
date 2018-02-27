@@ -18,8 +18,9 @@
  *****************************************************************************
  */
 
-#import "MendeleyDocumentType.h"
+//#import "MendeleyDocumentType.h"
+//
+//@implementation MendeleyDocumentType
+//
+//@end
 
-@implementation MendeleyDocumentType
-
-@end
