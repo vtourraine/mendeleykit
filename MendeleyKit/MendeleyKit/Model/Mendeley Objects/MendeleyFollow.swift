@@ -18,9 +18,9 @@
  *****************************************************************************
  */
 
-// MARK: -
+// MARK: - MendeleyFollow
 
-open class MendeleyFollow: MendeleyObject {
+open class MendeleyFollow: MendeleySwiftObject {
     public var follower_id: String?
     public var followed_id: String?
     public var status: String?
@@ -36,21 +36,22 @@ open class MendeleyFollow: MendeleyObject {
         follower_id = try container.decodeIfPresent(String.self, forKey: .follower_id)
         followed_id = try container.decodeIfPresent(String.self, forKey: .followed_id)
         status = try container.decodeIfPresent(String.self, forKey: .status)
-        super.init()
+        try super.init(from: decoder)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    open func encode(to encoder: Encoder) throws {
+    override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(follower_id, forKey: .follower_id)
         try container.encodeIfPresent(followed_id, forKey: .followed_id)
         try container.encodeIfPresent(status, forKey: .status)
     }
 }
-// MARK: -
+// MARK: - MendeleyFollowRequest
 
 open class MendeleyFollowRequest: MendeleySwiftSecureObject, Codable {
     public var followed: String?
@@ -75,7 +76,7 @@ open class MendeleyFollowRequest: MendeleySwiftSecureObject, Codable {
     }
 }
 
-// MARK: -
+// MARK: - MendeleyFollowAcceptance
 
 open class MendeleyFollowAcceptance: MendeleySwiftSecureObject, Codable {
     public var status: String?

@@ -27,9 +27,17 @@
      than the methods listed here.
      */
     
-    private var defaultQueryParameters: [String: Any] {
+    private var defaultQueryParamters: [String: String] {
         return MendeleyFollowersParameters().valueStringDictionary()
     }
+    
+    private let followRequestUploadHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFollowType,
+            kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONFollowRequestType]
+    
+    private let followAcceptanceUploadHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONFollowType,
+            kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONFollowAcceptancesRequestType]
+
+    private let defaultServiceRequestHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONFollowType]
     
     /**
      Obtain a list of followers for a given user.
@@ -39,10 +47,22 @@
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
     @objc public func followers(forUserWithID profileID: String,
-                                queryParameters: MendeleyFollowersParameters,
+                                queryParameters: MendeleyFollowersParameters?,
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        let parameters = queryParameters != nil ? queryParameters! : MendeleyFollowersParameters()
         
+        parameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing
+        parameters.followed = profileID
+        
+        let query = parameters.valueStringDictionary()
+        
+        helper.mendeleyObjectList(ofType: MendeleyFollow.self,
+                                  api: kMendeleyRESTAPIFollowers,
+                                  queryParameters: query,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  task: task,
+                                  completionBlock: completionBlock)
     }
     
     /**
@@ -53,10 +73,22 @@
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
     @objc public func followedBy(userWithID profileID: String,
-                                 queryParameters: MendeleyFollowersParameters,
+                                 queryParameters: MendeleyFollowersParameters?,
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        let parameters = queryParameters != nil ? queryParameters! : MendeleyFollowersParameters()
         
+        parameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing
+        parameters.follower = profileID
+        
+        let query = parameters.valueStringDictionary()
+        
+        helper.mendeleyObjectList(ofType: MendeleyFollow.self,
+                                  api: kMendeleyRESTAPIFollowers,
+                                  queryParameters: query,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  task: task,
+                                  completionBlock: completionBlock)
     }
     
     /**
@@ -67,10 +99,22 @@
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
     @objc public func pendingFollowers(forUserWithID profileID: String,
-                                       queryParameters: MendeleyFollowersParameters,
+                                       queryParameters: MendeleyFollowersParameters?,
                                        task: MendeleyTask?,
                                        completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        let parameters = queryParameters != nil ? queryParameters! : MendeleyFollowersParameters()
         
+        parameters.status = kMendeleyRESTAPIQueryFollowersTypePending
+        parameters.follower = profileID
+        
+        let query = parameters.valueStringDictionary()
+        
+        helper.mendeleyObjectList(ofType: MendeleyFollow.self,
+                                  api: kMendeleyRESTAPIFollowers,
+                                  queryParameters: query,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  task: task,
+                                  completionBlock: completionBlock)
     }
     
     /**
@@ -81,10 +125,22 @@
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
     @objc public func pendingFollowedBy(userWithID profileID: String,
-                                        queryParameters: MendeleyFollowersParameters,
+                                        queryParameters: MendeleyFollowersParameters?,
                                         task: MendeleyTask?,
                                         completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        let parameters = queryParameters != nil ? queryParameters! : MendeleyFollowersParameters()
         
+        parameters.status = kMendeleyRESTAPIQueryFollowersTypePending
+        parameters.followed = profileID
+        
+        let query = parameters.valueStringDictionary()
+        
+        helper.mendeleyObjectList(ofType: MendeleyFollow.self,
+                                  api: kMendeleyRESTAPIFollowers,
+                                  queryParameters: query,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  task: task,
+                                  completionBlock: completionBlock)
     }
     
     /**
@@ -96,7 +152,15 @@
     @objc public func followUser(withID followedID: String,
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
-        
+        let followRequest = MendeleyFollowRequest()
+        followRequest.followed = follewedID
+
+        helper.create(mendeleyObject: followRequest,
+                      api: kMendeleyRESTAPIFollowers,
+                      additionalHeaders: followRequestUploadHeaders,
+                      expectedType: MendeleyFollow.self,
+                      task: task,
+                      completionBlock: completionBlock)
     }
     
     /**
@@ -109,7 +173,14 @@
     @objc public func acceptFollowRequest(withID requestID: String,
                                           task: MendeleyTask?,
                                           completionBlock: @escaping MendeleyCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIFollowersWithID, requestID)
+        let followAcceptance = MendeleyFollowAcceptance()
         
+        helper.update(mendeleyObject: followAcceptance,
+                      api: apiEndPoint,
+                      additionalHeaders: followAcceptanceUploadHeaders,
+                      task: task,
+                      completionBlock: completionBlock)
     }
     
     /**
@@ -121,7 +192,11 @@
     @objc public func stopOrDeny(relationshipWithID relationshipID: String,
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIFollowersWithID, relationshipID)
         
+        helper.deleteMendeleyObject(withAPI: apiEndPoint,
+                                    task: task,
+                                    completionBlock: completionBlock)
     }
     
     /**
@@ -135,6 +210,14 @@
                                          followed followedID: String,
                                          task: MendeleyTask?,
                                          completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+        let queryParameters = MendeleyFollowersParameters()
         
+        helper.mendeleyObjectList(ofType: MendeleyFollow.self,
+                                  api: kMendeleyRESTAPIFollowers,
+                                  queryParameters: queryParameters,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  task: task) { (array, syncInfo, error) in
+                                    completionBlock(array.firstObject, syncInfo, error)
+        }
     }
 }

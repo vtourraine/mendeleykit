@@ -159,7 +159,7 @@
 @objc open class MendeleyFollowersParameters: MendeleySwiftQueryRequestParameters {
     @objc public var status: String?
     @objc public var follower: String?
-    @objc public var pmfollowedid: String?
+    @objc public var followed: String?
 }
 
 // MARK: - Recommendations
