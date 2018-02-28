@@ -183,3 +183,9 @@
     @objc public var skip_news_item_check: Bool = false
     @objc public var start_from: String?
 }
+
+// MARK: - Folders
+
+@objc open class MendeleyFolderParameters: MendeleySwiftQueryRequestParameters {
+    @objc public var profile_id: String?
+}

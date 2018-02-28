@@ -75,9 +75,9 @@
 @property (nonatomic, strong) NSString *document_id;
 @end
 
-@interface MendeleyFolderParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *profile_id;
-@end
+//@interface MendeleyFolderParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *profile_id;
+//@end
 
 @interface MendeleyAnnotationParameters : MendeleyQueryRequestParameters
 @property (nonatomic, strong) NSString *document_id;

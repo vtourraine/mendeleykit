@@ -237,8 +237,8 @@
 @implementation MendeleyFileParameters
 @end
 
-@implementation MendeleyFolderParameters
-@end
+//@implementation MendeleyFolderParameters
+//@end
 
 @implementation MendeleyAnnotationParameters
 @end
