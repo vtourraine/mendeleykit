@@ -151,7 +151,7 @@
                                   queryParameters: nil,
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
-                                    let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
+                                    let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
                                     let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                     
                                     if success == false || response?.rawResponseBody == nil {

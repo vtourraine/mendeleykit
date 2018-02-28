@@ -122,7 +122,7 @@ import UIKit
          task: MendeleyTask?,
          completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
-        let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
+        let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
         
         guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
             else { blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: nil); return }
@@ -196,7 +196,7 @@ import UIKit
          task: MendeleyTask?,
          completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
-        let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
+        let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
         
         guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
             else { blockExec?.execute(with: false, error: nil); return }
@@ -302,7 +302,7 @@ import UIKit
          task: MendeleyTask?,
          completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
-        let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
+        let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
         
         guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
             else { blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: nil); return }

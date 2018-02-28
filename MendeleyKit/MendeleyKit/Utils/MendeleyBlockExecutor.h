@@ -20,10 +20,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MendeleySyncInfo.h"
-#import "MendeleyModels.h"
 #import "MendeleyGlobals.h"
 
-@class MendeleySwiftSecureObject;
+@class MendeleySecureObject;
 
 @interface MendeleyBlockExecutor : NSObject
 
@@ -53,8 +52,6 @@
    @param objectCompletionBlock
  */
 - (instancetype)initWithObjectCompletionBlock:(MendeleyObjectCompletionBlock)objectCompletionBlock;
-- (instancetype)initWithSwiftObjectCompletionBlock:(MendeleyObjectCompletionBlock)objectCompletionBlock;
-
 
 /**
    @param dictionaryCompletionBlock
@@ -98,10 +95,6 @@
 - (void)executeWithMendeleyObject:(MendeleySecureObject *)mendeleyObject
                          syncInfo:(MendeleySyncInfo *)syncInfo
                             error:(NSError *)error;
-
-- (void)executeWithMendeleySwiftObject:(MendeleySwiftSecureObject *)mendeleyObject
-                              syncInfo:(MendeleySyncInfo *)syncInfo
-                                 error:(NSError *)error;
 
 /**
    executes the MendeleyDictionaryCompletionBlock on the main thread

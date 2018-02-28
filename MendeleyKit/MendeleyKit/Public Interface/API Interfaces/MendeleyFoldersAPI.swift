@@ -70,7 +70,27 @@
     @objc public func documentList(inFolderWithLinkedURL linkURL: URL,
                                    task: MendeleyTask?,
                                    completionBlock: @escaping MendeleyArrayCompletionBlock) {
-
+        networkProvider.invokeGET(linkURL,
+                                  api: nil,
+                                  additionalHeaders: defaultFolderDocumentIDsRequestHeaders,
+                                  queryParameters: nil,
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let blockExec = MendeleyBlockExececutor(withArrayCompletionBlock: completionBlock)
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                    
+                                    if success == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(withArray: nil, syncInfo: nil, error: error)
+                                    } else {
+                                        let decoder = JSONDecoder()
+                                        do {
+                                            arrayDict = try decoder.decode([String: [[String: Any]]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(withArray: arrayDict[kMendeleyJSONData], syncInfo: response.syncHeader, error: nil)
+                                        } catch {
+                                            blockExec?.execute(withArray: nil, syncInfo: nil, error: error)
+                                        }
+                                    }
+        }
     }
     
     /**
@@ -90,6 +110,19 @@
         
         do {
             let jsonData = try encoder.encode(mendeleyDocumentID)
+            networkProvider.invokePOST(baseAPIURL,
+                                       api: apiEndPoint,
+                                       additionalHeaders: defaultAddDocumentToFolderRequestHeaders,
+                                       jsonData: jsonData,
+                                       authenticationRequired: true,
+                                       task: task) { (response, error) in
+                                        let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                        if success == true {
+                                            blockExec?.execute(with: true, error, nil)
+                                        } else {
+                                            blockExec?.execute(with: false, error: combinedError)
+                                        }
+            }
         } catch {
             blockExec?.execute(with: false, error: error)
         }
@@ -104,7 +137,12 @@
     @objc public func create(folder mendeleyFolder: MendeleyFolder,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
-        
+        helper.create(mendeleyObect: mendeleyFolder,
+                      api: kMendeleyRESTAPIFolders,
+                      additionalHeaders: defaultUploadRequestHeaders,
+                      exepectedType: mendeleyFolder.self,
+                      task: task,
+                      completionBlock: completionBlock)
     }
     
     /**
@@ -118,7 +156,25 @@
     @objc public func folderList(withLinkedURL linkURL: URL,
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyArrayCompletionBlock) {
-        
+        networkProvider.invokeGET(link,
+                                  api: nil,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  queryParameters: nil,
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                    if success == false || response!.rawResponseBody {
+                                        blockExec?.execute(withArray: nil, syncInfo: nil, error: combinedError)
+                                    } else {
+                                        let decoder = JSONDecoder()
+                                        do {
+                                            let arrayDict = decoder.decode([String: [MendeleyFolder]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(withArray: arrayDict[kMendeleyJSONData], syncInfo: response.syncHeader, error: nil)
+                                        } catch {
+                                            blockExec?.execute(withArray: nil, syncInfo: nil, error: error)
+                                        }
+                                    }
+        }
     }
     
     /**
@@ -130,7 +186,16 @@
     @objc public func foldersList(withQueryParamenters queryParameters: MendeleyFolderParameters,
                                   taks: MendeleyTask?,
                                   completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        var mergedQuery = queryParameters.valueStringDictionary()
         
+        defaultQueryParameters.forEach { (key, value) in query[key] = value }
+        
+        helper.mendeleyObjectList(ofType: kMendeleyModelFolder,
+                                  api: kMendeleyRESTAPIFolders,
+                                  queryParameters: mergedQuery,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  task: task,
+                                  completionBlock: completionBlock)
     }
     
     /**
@@ -142,7 +207,14 @@
     @objc public func folder(withFolderID folderID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, folderID)
         
+        helper.mendeleyObject(ofType: MendeleyFolder.self,
+                              queryParameters: nil,
+                              api: apiEndPoint,
+                              additionalHeaders: defaultServiceRequestHeaders,
+                              task: task,
+                              completionBlock: completionBlock)
     }
     
     /**
@@ -154,7 +226,11 @@
     @objc public func delete(folderWithID folderID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, folderID)
         
+        helper.deleteMendeleyObject(withAPI: apiEndPoint,
+                                    task: task,
+                                    completionBlock: completionBlock)
     }
     
     /**
@@ -166,7 +242,13 @@
     @objc public func update(folder updatedFolder: MendeleyFolder,
                              task: MendeleyTask?,
                              completionBlock: MendeleyCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, updatedFolder.object_ID)
         
+        helper.update(mendeleyObject: updatedFolder,
+                      api: apiEndPoint,
+                      additionalHeaders: defaultUploadRequestHeaders,
+                      task: task,
+                      completionBlock: completionBlock)
     }
     
     /**
@@ -180,7 +262,10 @@
                              fromFolderWithID folderID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
+        let apiEndPoint = String(format: kMendeleyRESTAPIDocumentWithIDInFolderWithID, folderID, documentID)
         
+        helper.deleteMendeleyObject(withAPI: apiEndPoint,
+                                    task: task,
+                                    completionBlock: completionBlock)
     }
-
 }

@@ -117,7 +117,7 @@
      */
     @objc public func create(profile: MendeleyNewProfile, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         MendeleyKitConfiguration.sharedInstance().oauthProvider.authenticateClient() { (credentials, error) in
-            let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
+            let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
             
             if credentials == nil {
                 blockExec?.execute(with: nil, syncInfo: nil, error: error)
