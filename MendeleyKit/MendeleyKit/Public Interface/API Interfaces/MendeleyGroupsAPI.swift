@@ -200,7 +200,7 @@
                                       task: MendeleyTask?,
                                       completionBlock: @escaping MendeleyArrayCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIMembersInGroupWithID, groupID)
-        var query: [String: Any] = queryParameters.valueStringDictionary()!
+        var query: [String: Any] = queryParameters.valueStringDictionary()
         
         // Merge dictionaries
         defaultQueryParameters.forEach { (key, value) in query[key] = value }
@@ -224,7 +224,7 @@
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyArrayCompletionBlock) {
         
-        var query: [String: Any] = queryParameters.valueStringDictionary()!
+        var query: [String: Any] = queryParameters.valueStringDictionary()
         defaultQueryParameters.forEach { (key, value) in query[key] = value }
         
         networkProvider.invokeGET(baseAPIURL,

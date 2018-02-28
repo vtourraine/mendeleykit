@@ -49,9 +49,10 @@
 - (BOOL)hasQueryParameterWithName:(NSString *)queryParameterName;
 @end
 
-@interface MendeleySharesParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *news_id;
-@end
+//// THIS
+//@interface MendeleySharesParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *news_id;
+//@end
 
 @interface MendeleyShareDocumentParameters : MendeleyQueryRequestParameters
 @property (nonatomic, strong) NSString *document_id;
@@ -84,16 +85,17 @@
 @property (nonatomic, strong) NSDate *modified_since;
 @end
 
-@interface MendeleyMetadataParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *arxiv;
-@property (nonatomic, strong) NSString *doi;
-@property (nonatomic, strong) NSString *pmid;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *filehash;
-@property (nonatomic, strong) NSString *authors;
-@property (nonatomic, strong) NSString *year;
-@property (nonatomic, strong) NSString *source;
-@end
+// THIS
+//@interface MendeleyMetadataParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *arxiv;
+//@property (nonatomic, strong) NSString *doi;
+//@property (nonatomic, strong) NSString *pmid;
+//@property (nonatomic, strong) NSString *title;
+//@property (nonatomic, strong) NSString *filehash;
+//@property (nonatomic, strong) NSString *authors;
+//@property (nonatomic, strong) NSString *year;
+//@property (nonatomic, strong) NSString *source;
+//@end
 
 
 @interface MendeleyCatalogParameters : MendeleyQueryRequestParameters
@@ -107,36 +109,40 @@
 @property (nonatomic, strong) NSString *view;
 @end
 
-@interface MendeleyGroupParameters : MendeleyQueryRequestParameters
-@end
+// THIS
+//@interface MendeleyGroupParameters : MendeleyQueryRequestParameters
+//@end
 
 @interface MendeleyRecentlyReadParameters : MendeleyQueryRequestParameters
 @end
 
-@interface MendeleyFollowersParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *status;
-@property (nonatomic, strong) NSString *follower;
-@property (nonatomic, strong) NSString *followed;
-@end
+// THIS
+//@interface MendeleyFollowersParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *status;
+//@property (nonatomic, strong) NSString *follower;
+//@property (nonatomic, strong) NSString *followed;
+//@end
 
 @interface MendeleyDatasetParameters : MendeleyQueryRequestParameters
 @end
 
-@interface MendeleyRecommendationsParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *page_load_id;
-@property (nonatomic, strong) NSString *ref;
-@end
+// THIS
+//@interface MendeleyRecommendationsParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *page_load_id;
+//@property (nonatomic, strong) NSString *ref;
+//@end
 
-@interface MendeleyFeedsParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *profile_id;
-@property (nonatomic, strong) NSString *cut_off;
-@end
+// THIS
+//@interface MendeleyFeedsParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *profile_id;
+//@property (nonatomic, strong) NSString *cut_off;
+//@end
 
-@interface MendeleyExpandedCommentsParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *news_item_id;
-@property (nonatomic, strong) NSNumber *skip_news_item_check;
-@property (nonatomic, strong) NSString *start_from;
-@end
+//@interface MendeleyExpandedCommentsParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *news_item_id;
+//@property (nonatomic, strong) NSNumber *skip_news_item_check;
+//@property (nonatomic, strong) NSString *start_from;
+//@end
 
 
 
