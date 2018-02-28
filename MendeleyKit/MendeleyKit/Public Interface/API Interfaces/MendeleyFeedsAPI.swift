@@ -64,7 +64,7 @@ import Foundation
      @param task
      @param completionBlock
      */
-    @objc public func feed(withId feedId: String, task: MendeleyTask, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    @objc public func feed(withId feedId: String, task: MendeleyTask, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper?.mendeleyObject(ofType: MendeleyNewsFeed.self,
                                queryParameters: nil,
                                api: kMendeleyRESTAPIFeeds + "/" + feedId,

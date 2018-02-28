@@ -142,7 +142,7 @@
     @objc public func group(withGroupID groupID: String,
                             iconType: MendeleyIconType,
                             task: MendeleyTask?,
-                            completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                            completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIGroupWithID, groupID)
         
         networkProvider.invokeGET(baseAPIURL,
@@ -293,7 +293,7 @@
      */
     @objc public func group(withGroupID groupID: String,
                             task: MendeleyTask?,
-                            completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                            completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIGroupWithID, groupID)
         
         helper.mendeleyObject(ofType: MendeleyGroup.self,

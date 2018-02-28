@@ -20,7 +20,7 @@
 
 import Foundation
 
-open class MendeleyFeature : MendeleySwiftSecureObject, Codable {
+open class MendeleyFeature : MendeleySecureObject, Codable {
     public var name: String?
     
     private enum CodingKeys: String, CodingKey {

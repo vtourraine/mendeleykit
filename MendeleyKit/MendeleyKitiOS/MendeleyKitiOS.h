@@ -31,7 +31,6 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitiOSVersionString[];
 #import <MendeleyKitiOS/MendeleyCancellableRequest.h>
 #import <MendeleyKitiOS/MendeleySimpleNetworkTask.h>
 #import <MendeleyKitiOS/MendeleyOAuthTokenHelper.h>
-#import <MendeleyKitiOS/MendeleyObject.h>
 #import <MendeleyKitiOS/NSDictionary+Merge.h>
 #import <MendeleyKitiOS/MendeleyDocumentType.h>
 #import <MendeleyKitiOS/MendeleyQueryRequestParameters.h>

@@ -20,7 +20,7 @@
 
 import Foundation
 
-open class MendeleyDataset : MendeleySwiftObject {
+open class MendeleyDataset : MendeleyObject {
     public var name: String?
     public var doi: MendeleyDOI?
     public var object_version: Int?
@@ -109,7 +109,7 @@ open class MendeleyDataset : MendeleySwiftObject {
 }
 
 
-open class MendeleyDOI : MendeleySwiftObject {
+open class MendeleyDOI : MendeleyObject {
     public var status: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -134,7 +134,7 @@ open class MendeleyDOI : MendeleySwiftObject {
 }
 
 
-open class MendeleyPublicContributorDetails : MendeleySwiftObject {
+open class MendeleyPublicContributorDetails : MendeleyObject {
     public var contribution: String?
     public var institution: String?
     public var profile_id: String?
@@ -175,7 +175,7 @@ open class MendeleyPublicContributorDetails : MendeleySwiftObject {
 }
 
 
-open class MendeleyInstitution : MendeleySwiftObject {
+open class MendeleyInstitution : MendeleyObject {
     public var scival_id: Int?
     public var name: String?
     public var city: String?
@@ -232,7 +232,7 @@ open class MendeleyInstitution : MendeleySwiftObject {
 }
 
 
-open class MendeleyAlternativeName : MendeleySwiftObject {
+open class MendeleyAlternativeName : MendeleyObject {
     public var name: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -257,7 +257,7 @@ open class MendeleyAlternativeName : MendeleySwiftObject {
 }
 
 
-open class MendeleyVersionMetadata : MendeleySwiftObject {
+open class MendeleyVersionMetadata : MendeleyObject {
     public var object_version: Int?
     public var available: Bool?
     public var publish_date: Date?
@@ -294,7 +294,7 @@ open class MendeleyVersionMetadata : MendeleySwiftObject {
 }
 
 
-open class MendeleyFileMetadata : MendeleySwiftObject {
+open class MendeleyFileMetadata : MendeleyObject {
     public var filename: String?
     public var metrics: MendeleyFileMetrics?
     public var content_details: MendeleyFileData?
@@ -327,11 +327,11 @@ open class MendeleyFileMetadata : MendeleySwiftObject {
 }
 
 
-open class MendeleyContentTicket : MendeleySwiftObject {
+open class MendeleyContentTicket : MendeleyObject {
 }
 
 
-open class MendeleyFileMetrics : MendeleySwiftObject {
+open class MendeleyFileMetrics : MendeleyObject {
     public var downloads: Int?
     public var previews: Int?
     public var fileId: String?
@@ -364,7 +364,7 @@ open class MendeleyFileMetrics : MendeleySwiftObject {
 }
 
 
-open class MendeleyFileData : MendeleySwiftObject {
+open class MendeleyFileData : MendeleyObject {
     public var size: Int?
     public var content_type: String?
     public var download_url: String?
@@ -417,7 +417,7 @@ open class MendeleyFileData : MendeleySwiftObject {
 }
 
 
-open class MendeleyEmbeddedArticleView : MendeleySwiftObject {
+open class MendeleyEmbeddedArticleView : MendeleyObject {
     public var journal: MendeleyEmbeddedJournalView?
     public var title: String?
     public var doi: String?
@@ -450,7 +450,7 @@ open class MendeleyEmbeddedArticleView : MendeleySwiftObject {
 }
 
 
-open class MendeleyEmbeddedJournalView : MendeleySwiftObject {
+open class MendeleyEmbeddedJournalView : MendeleyObject {
     public var url: String?
     public var issn: String?
     public var name: String?
@@ -483,7 +483,7 @@ open class MendeleyEmbeddedJournalView : MendeleySwiftObject {
 }
 
 
-open class MendeleyCategory : MendeleySwiftObject {
+open class MendeleyCategory : MendeleyObject {
     public var label: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -508,7 +508,7 @@ open class MendeleyCategory : MendeleySwiftObject {
 }
 
 
-open class MendeleyDatasetMetrics : MendeleySwiftObject {
+open class MendeleyDatasetMetrics : MendeleyObject {
     public var views: Int?
     public var file_downloads: Int?
     public var file_previews: Int?
@@ -541,7 +541,7 @@ open class MendeleyDatasetMetrics : MendeleySwiftObject {
 }
 
 
-open class MendeleyRelatedLink : MendeleySwiftObject {
+open class MendeleyRelatedLink : MendeleyObject {
     public var type: String?
     public var rel: String?
     public var href: String?
@@ -574,7 +574,7 @@ open class MendeleyRelatedLink : MendeleySwiftObject {
 }
 
 
-open class MendeleyLicenceInfo : MendeleySwiftObject {
+open class MendeleyLicenceInfo : MendeleyObject {
     public var url: String?
     public var full_name: String?
     public var short_name: String?

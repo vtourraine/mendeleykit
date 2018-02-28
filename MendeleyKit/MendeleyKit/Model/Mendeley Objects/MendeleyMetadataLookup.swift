@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-open class MendeleyMetadataLookup: MendeleySwiftObject {
+open class MendeleyMetadataLookup: MendeleyObject {
     public var score: Int?
     public var catalog_id: String?
     

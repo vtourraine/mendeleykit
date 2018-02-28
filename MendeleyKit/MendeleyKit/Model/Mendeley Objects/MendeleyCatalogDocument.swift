@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-open class MendeleyCatalogDocument: MendeleySwiftObject {
+open class MendeleyCatalogDocument: MendeleyObject {
     public var link: String?
     public var reader_count: Int?
     public var reader_count_by_academic_status: [String: Int]?

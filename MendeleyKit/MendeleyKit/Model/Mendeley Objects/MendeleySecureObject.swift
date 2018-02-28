@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleySwiftSecureObject: NSObject {
+@objc open class MendeleySecureObject: NSObject {
 
     override init() {
         super.init()
@@ -41,7 +41,7 @@
     }
 }
 
-extension MendeleySwiftSecureObject: NSSecureCoding {
+extension MendeleySecureObject: NSSecureCoding {
     public func encode(with aCoder: NSCoder) {
         guard let propertyNames = MendeleyObjectHelper.propertyNames(forModel: self) as? [String]
             else { return }

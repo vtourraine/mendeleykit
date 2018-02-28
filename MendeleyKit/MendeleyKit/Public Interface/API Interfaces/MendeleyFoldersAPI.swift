@@ -103,7 +103,7 @@
      */
     @objc public func create(folder mendeleyFolder: MendeleyFolder,
                              task: MendeleyTask?,
-                             completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                             completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
     }
     
@@ -141,7 +141,7 @@
      */
     @objc public func folder(withFolderID folderID: String,
                              task: MendeleyTask?,
-                             completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                             completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
     }
     

@@ -20,7 +20,7 @@
 
 import Foundation
 
-open class MendeleyDocument : MendeleySwiftObject {
+open class MendeleyDocument : MendeleyObject {
     /*
      NSNumber types (integer)
      */

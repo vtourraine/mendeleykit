@@ -26,7 +26,7 @@ import AppKit
 
 import Foundation
 
-open class MendeleyAnnotation : MendeleySwiftObject {
+open class MendeleyAnnotation : MendeleyObject {
     public var created: Date?
 #if os(iOS)
     public var color: UIColor?
@@ -146,7 +146,7 @@ open class MendeleyAnnotation : MendeleySwiftObject {
 }
     
     
-open class MendeleyHighlightBox : MendeleySwiftSecureObject, Codable {
+open class MendeleyHighlightBox : MendeleySecureObject, Codable {
     public var box: CGRect?
     public var page: Int?
     

@@ -20,7 +20,7 @@
 
 import Foundation
 
-open class MendeleyDocumentType : MendeleySwiftObject {
+open class MendeleyDocumentType : MendeleyObject {
     public var name: String?
     
     private enum CodingKeys: String, CodingKey {

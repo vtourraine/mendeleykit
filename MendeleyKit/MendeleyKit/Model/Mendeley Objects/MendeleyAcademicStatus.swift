@@ -29,7 +29,7 @@ import Foundation
  MendeleyAcademicStatus
  */
 
-open class MendeleyAcademicStatus : MendeleySwiftSecureObject, Codable {
+open class MendeleyAcademicStatus : MendeleySecureObject, Codable {
     public var objectDescription: String?
     
     private enum CodingKeys: String, CodingKey {

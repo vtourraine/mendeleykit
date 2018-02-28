@@ -33,7 +33,7 @@
      @param completionBlock
      */
     @objc public func pullMyProfile(withTask task: MendeleyTask?,
-                                    completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                                    completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.mendeleyObject(ofType: MendeleyUserProfile.self,
             queryParameters: nil,
             api: kMendeleyRESTAPIProfilesMe,
@@ -50,7 +50,7 @@
      */
     @objc public func pull(profile profileID: String,
                            task: MendeleyTask?,
-                           completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                           completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.mendeleyObject(ofType: MendeleyProfile.self,
                               queryParameters: nil,
                               api: String(format: kMendeleyRESTAPIProfilesWithID, profileID),
@@ -115,7 +115,7 @@
      @param task
      @param completionBlock - the completionHandler.
      */
-    @objc public func create(profile: MendeleyNewProfile, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    @objc public func create(profile: MendeleyNewProfile, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         MendeleyKitConfiguration.sharedInstance().oauthProvider.authenticateClient() { (credentials, error) in
             let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
             
@@ -164,7 +164,7 @@
      @param task
      @param completionBlock - the completionHandler.
      */
-    @objc public func update(myProfile: MendeleyAmendmentProfile, task: MendeleyTask?, completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+    @objc public func update(myProfile: MendeleyAmendmentProfile, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.update(mendeleyObject: myProfile,
                       api: kMendeleyRESTAPIProfilesMe,
                       additionalHeaders: updateProfileRequestHeader(),

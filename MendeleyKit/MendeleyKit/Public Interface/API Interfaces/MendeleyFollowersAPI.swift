@@ -151,7 +151,7 @@
      */
     @objc public func followUser(withID followedID: String,
                                  task: MendeleyTask?,
-                                 completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                                 completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let followRequest = MendeleyFollowRequest()
         followRequest.followed = follewedID
 
@@ -209,7 +209,7 @@
     @objc public func followRelationship(betweenFollower followerID: String,
                                          followed followedID: String,
                                          task: MendeleyTask?,
-                                         completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                                         completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let queryParameters = MendeleyFollowersParameters()
         
         helper.mendeleyObjectList(ofType: MendeleyFollow.self,

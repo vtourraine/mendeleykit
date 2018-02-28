@@ -20,7 +20,7 @@
 
 // MARK: - Mendeley File
 
-open class MendeleyFile: MendeleySwiftObject {
+open class MendeleyFile: MendeleyObject {
     public var file_name: String?
     public var mime_type: String?
     public var document_id: String?
@@ -65,7 +65,7 @@ open class MendeleyFile: MendeleySwiftObject {
 
 // MARK: - Mendeley Recently Read
 
-open class MendeleyRecentlyRead: MendeleySwiftObject {
+open class MendeleyRecentlyRead: MendeleyObject {
     public var file_id: String?
     public var page: Int?
     public var vertical_position: Double?

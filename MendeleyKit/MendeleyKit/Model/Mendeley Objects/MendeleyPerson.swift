@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-open class MendeleyPerson: MendeleySwiftObject {
+open class MendeleyPerson: MendeleyObject {
     public var first_name: String?
     public var last_name: String?
     

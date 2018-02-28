@@ -42,7 +42,7 @@ import UIKit
     
     // MARK: - Get Object List
     
-    func mendeleyObjectList<T: MendeleySwiftSecureObject & Decodable>
+    func mendeleyObjectList<T: MendeleySecureObject & Decodable>
         (ofType type: T.Type,
          api: String,
          queryParameters: [String: Any]?,
@@ -114,13 +114,13 @@ import UIKit
     
     // MARK: - Get single Mendeley Object
     
-    func mendeleyObject<T: MendeleySwiftSecureObject & Decodable>
+    func mendeleyObject<T: MendeleySecureObject & Decodable>
         (ofType type: T.Type,
          queryParameters: [String: Any]?,
          api: String,
          additionalHeaders: [String: Any]?,
          task: MendeleyTask?,
-         completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+         completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -153,7 +153,7 @@ import UIKit
     
     // MARK: - Create Mendeley Object
     
-    func create<T: MendeleySwiftSecureObject & Encodable>
+    func create<T: MendeleySecureObject & Encodable>
         (mendeleyObject: T,
          api: String,
          task: MendeleyTask?,
@@ -188,13 +188,13 @@ import UIKit
         }
     }
     
-    func create<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>
+    func create<T: MendeleySecureObject & Encodable, U: MendeleySecureObject & Decodable>
         (mendeleyObject: T,
          api: String,
          additionalHeaders: [String: Any]?,
          expectedType: U.Type,
          task: MendeleyTask?,
-         completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+         completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         
@@ -258,7 +258,7 @@ import UIKit
     
     // MARK: - Update Mendeley Object
     
-    func update<T: MendeleySwiftSecureObject & Encodable>
+    func update<T: MendeleySecureObject & Encodable>
         (mendeleyObject: T,
          api: String,
          additionalHeaders: [String: Any]?,
@@ -294,13 +294,13 @@ import UIKit
         }
     }
     
-    func update<T: MendeleySwiftSecureObject & Encodable, U: MendeleySwiftSecureObject & Decodable>
+    func update<T: MendeleySecureObject & Encodable, U: MendeleySecureObject & Decodable>
         (mendeleyObject: T,
          api: String,
          additionalHeaders: [String: Any]?,
          expectedType: U.Type,
          task: MendeleyTask?,
-         completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+         completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
         let blockExec = MendeleyBlockExecutor(swiftObjectCompletionBlock: completionBlock)
         

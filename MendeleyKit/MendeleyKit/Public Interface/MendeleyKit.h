@@ -1044,7 +1044,7 @@
  */
 
 - (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
-                 completionBlock:(MendeleySwiftObjectCompletionBlock)completionBlock;
+                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
  Deletes a user post.
@@ -1062,7 +1062,7 @@
  @param completionBlock
  */
 - (MendeleyTask *)createGroupPost:(MendeleyNewGroupPost *)groupPost
-                  completionBlock:(MendeleySwiftObjectCompletionBlock)completionBlock;
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
  Deletes a group post.

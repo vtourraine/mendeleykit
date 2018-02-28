@@ -1649,7 +1649,7 @@
 #pragma mark - User Posts
 
 - (MendeleyTask *)createUserPost:(MendeleyNewUserPost *)newPost
-                 completionBlock:(MendeleySwiftObjectCompletionBlock)completionBlock
+                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
     
@@ -1676,7 +1676,7 @@
 }
 
 - (MendeleyTask *)createGroupPost:(MendeleyNewGroupPost *)groupPost
-                  completionBlock:(MendeleySwiftObjectCompletionBlock)completionBlock
+                  completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
     [self checkAuthenticationThenRefreshTokenThenPerform:^{

@@ -36,7 +36,7 @@
      */
     @objc public func metadataLookup(withQueryParameters: MendeleyMetadataParameters,
                                      task: MendeleyTask?,
-                                     completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                                     completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let query = withQueryParameters.valueStringDictionaryWithNoLimit()
         
         helper.mendeleyObject(ofType: MendeleyMetadataLookup.self,

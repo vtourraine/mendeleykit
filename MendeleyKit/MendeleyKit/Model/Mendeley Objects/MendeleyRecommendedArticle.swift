@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-open class MendeleyRecommendedArticle: MendeleySwiftObject {
+open class MendeleyRecommendedArticle: MendeleyObject {
     public var catalogue_document: MendeleyCatalogDocument?
     public var rank: Int?
     public var trace: String?

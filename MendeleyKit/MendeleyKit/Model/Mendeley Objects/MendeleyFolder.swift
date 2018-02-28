@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-open class MendeleyFolder: MendeleySwiftObject {
+open class MendeleyFolder: MendeleyObject {
     public var name: String?
     public var parent_id: String?
     public var group_id: String?

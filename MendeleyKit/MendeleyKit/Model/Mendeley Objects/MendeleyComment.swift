@@ -20,7 +20,7 @@
 
 // MARK: - MendeleyComment
 
-open class MendeleyComment: MendeleySwiftObject {
+open class MendeleyComment: MendeleyObject {
     public var news_item_id: String?
     public var profile_id: String?
     public var text: String?
@@ -96,7 +96,7 @@ open class MendeleyExpandedComment: MendeleyComment {
 
 // MARK: - MendeleyCommentUpdate
 
-open class MendeleyCommentUpdate: MendeleySwiftSecureObject, Codable {
+open class MendeleyCommentUpdate: MendeleySecureObject, Codable {
     public var text: String?
     public var tagged_users: [String]?
     

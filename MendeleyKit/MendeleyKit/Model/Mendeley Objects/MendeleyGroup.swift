@@ -20,7 +20,7 @@
 
 // MARK: - Mendeley Group
 
-open class MendeleyGroup: MendeleySwiftObject {
+open class MendeleyGroup: MendeleyObject {
     public var created: Date?
     public var owning_profile_id: String?
     public var link: String?
@@ -82,7 +82,7 @@ open class MendeleyGroup: MendeleySwiftObject {
 
 // MARK: - Mendeley Photo
 
-open class MendeleyPhoto: MendeleySwiftObject {
+open class MendeleyPhoto: MendeleyObject {
     public var original: String?
     public var square: String?
     public var standard: String?

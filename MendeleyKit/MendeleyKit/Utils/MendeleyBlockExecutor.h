@@ -53,7 +53,7 @@
    @param objectCompletionBlock
  */
 - (instancetype)initWithObjectCompletionBlock:(MendeleyObjectCompletionBlock)objectCompletionBlock;
-- (instancetype)initWithSwiftObjectCompletionBlock:(MendeleySwiftObjectCompletionBlock)objectCompletionBlock;
+- (instancetype)initWithSwiftObjectCompletionBlock:(MendeleyObjectCompletionBlock)objectCompletionBlock;
 
 
 /**

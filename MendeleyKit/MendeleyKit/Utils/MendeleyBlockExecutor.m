@@ -26,7 +26,7 @@
 @property (nonatomic, copy) MendeleyArrayCompletionBlock arrayCompletionBlock;
 @property (nonatomic, copy) MendeleyCompletionBlock completionBlock;
 @property (nonatomic, copy) MendeleyObjectCompletionBlock objectCompletionBlock;
-@property (nonatomic, copy) MendeleySwiftObjectCompletionBlock swiftObjectCompletionBlock;
+@property (nonatomic, copy) MendeleyObjectCompletionBlock swiftObjectCompletionBlock;
 @property (nonatomic, copy) MendeleyDictionaryResponseBlock dictionaryCompletionBlock;
 @property (nonatomic, copy) MendeleyStringArrayCompletionBlock stringArrayCompletionBlock;
 @property (nonatomic, copy) MendeleyBinaryDataCompletionBlock binaryDataCompletionBlock;
@@ -84,7 +84,7 @@
 
 }
 
-- (instancetype)initWithSwiftObjectCompletionBlock:(MendeleySwiftObjectCompletionBlock)objectCompletionBlock
+- (instancetype)initWithSwiftObjectCompletionBlock:(MendeleyObjectCompletionBlock)objectCompletionBlock
 {
     self = [super init];
     if (nil != self)

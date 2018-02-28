@@ -20,7 +20,7 @@
 
 // MARK: - MendeleyFollow
 
-open class MendeleyFollow: MendeleySwiftObject {
+open class MendeleyFollow: MendeleyObject {
     public var follower_id: String?
     public var followed_id: String?
     public var status: String?
@@ -53,7 +53,7 @@ open class MendeleyFollow: MendeleySwiftObject {
 }
 // MARK: - MendeleyFollowRequest
 
-open class MendeleyFollowRequest: MendeleySwiftSecureObject, Codable {
+open class MendeleyFollowRequest: MendeleySecureObject, Codable {
     public var followed: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -78,7 +78,7 @@ open class MendeleyFollowRequest: MendeleySwiftSecureObject, Codable {
 
 // MARK: - MendeleyFollowAcceptance
 
-open class MendeleyFollowAcceptance: MendeleySwiftSecureObject, Codable {
+open class MendeleyFollowAcceptance: MendeleySecureObject, Codable {
     public var status: String?
     
     private enum CodingKeys: String, CodingKey {

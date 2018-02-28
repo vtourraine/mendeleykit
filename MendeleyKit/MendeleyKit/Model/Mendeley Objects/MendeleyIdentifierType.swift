@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-class MendeleyIdentifierType: MendeleySwiftObject {
+class MendeleyIdentifierType: MendeleyObject {
     public var name: String?
     
     private enum CodingKeys: String, CodingKey {

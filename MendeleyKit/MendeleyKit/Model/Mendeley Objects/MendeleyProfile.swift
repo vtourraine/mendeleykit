@@ -20,7 +20,7 @@
 
 // MARK: - Mendeley Location
 
-open class MendeleyLocation: MendeleySwiftSecureObject, Codable {
+open class MendeleyLocation: MendeleySecureObject, Codable {
     public var name: String?
     public var latitude: Double?
     public var longitude: Double?
@@ -53,7 +53,7 @@ open class MendeleyLocation: MendeleySwiftSecureObject, Codable {
 
 // MARK: - Mendeley Employment
 
-open class MendeleyEmployment: MendeleySwiftSecureObject, Codable {
+open class MendeleyEmployment: MendeleySecureObject, Codable {
     public var classes: [String]?
     public var position: String?
     public var is_main_employment: Bool?
@@ -102,7 +102,7 @@ open class MendeleyEmployment: MendeleySwiftSecureObject, Codable {
 
 // MARK: - Mendeley Education
 
-open class MendeleyEducation: MendeleySwiftSecureObject, Codable {
+open class MendeleyEducation: MendeleySecureObject, Codable {
     public var institution: String?
     public var start_date: Date?
     public var end_date: Date?
@@ -149,7 +149,7 @@ open class MendeleyEducation: MendeleySwiftSecureObject, Codable {
  However, the return values are exactly as before. Therefore the model class remains
  MendeleyMendeleyDiscipline
  */
-open class MendeleyDiscipline: MendeleySwiftSecureObject, Codable {
+open class MendeleyDiscipline: MendeleySecureObject, Codable {
     public var name: String?
     public var subdisciplines: [String]?
     
@@ -178,7 +178,7 @@ open class MendeleyDiscipline: MendeleySwiftSecureObject, Codable {
 
 // MARK: - Mendeley Image
 
-open class MendeleyImage: MendeleySwiftSecureObject, Codable {
+open class MendeleyImage: MendeleySecureObject, Codable {
     public var width: Double?
     public var height: Double?
     /**
@@ -220,7 +220,7 @@ open class MendeleyImage: MendeleySwiftSecureObject, Codable {
 
 // MARK: - Mendeley Profile
 
-open class MendeleyProfile: MendeleySwiftObject {
+open class MendeleyProfile: MendeleyObject {
     public var first_name: String?
     public var last_name: String?
     public var display_name: String?
@@ -336,7 +336,7 @@ open class MendeleyUserProfile: MendeleyProfile {
 
 // MARK: - Mendeley New Profile
 
-open class MendeleyNewProfile: MendeleySwiftSecureObject, Codable {
+open class MendeleyNewProfile: MendeleySecureObject, Codable {
     public var first_name: String?
     public var last_name: String?
     public var email: String?
@@ -388,7 +388,7 @@ open class MendeleyNewProfile: MendeleySwiftSecureObject, Codable {
 }
 // MARK: - Mendeley Amendment Profile
 
-open class MendeleyAmendmentProfile: MendeleySwiftSecureObject, Codable {
+open class MendeleyAmendmentProfile: MendeleySecureObject, Codable {
     public var email: String?
     public var title: String?
     public var password: String?

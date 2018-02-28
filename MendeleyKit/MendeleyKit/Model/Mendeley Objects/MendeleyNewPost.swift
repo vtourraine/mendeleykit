@@ -20,7 +20,7 @@
 
 // MARK: - MendeleyNewPost
 
-open class MendeleyNewPost: MendeleySwiftSecureObject, Codable {
+open class MendeleyNewPost: MendeleySecureObject, Codable {
     public var text: String?
     public var document_ids: [String]?
     public var tagged_users: [String]?
@@ -93,7 +93,7 @@ open class MendeleyNewGroupPost: MendeleyNewPost {
 
 // MARK: - MendeleyUserPost
 
-open class MendeleyUserPost: MendeleySwiftObject {
+open class MendeleyUserPost: MendeleyObject {
     public var text: String?
     public var post_id: String?
     public var tagged_users: [MendeleyProfileLink]?
@@ -153,7 +153,7 @@ open class MendeleyUserPost: MendeleySwiftObject {
 
 // MARK: - MendeleyProfileLink
 
-open class MendeleyProfileLink: MendeleySwiftObject {
+open class MendeleyProfileLink: MendeleyObject {
     public var first_name: String?
     public var last_name: String?
     public var link: String?
@@ -191,7 +191,7 @@ open class MendeleyProfileLink: MendeleySwiftObject {
 
 // MARK: - MendeleySocialDocument
 
-open class MendeleySocialDocument: MendeleySwiftObject {
+open class MendeleySocialDocument: MendeleyObject {
     public var title: String?
     public var year: Int?
     public var link: String?
@@ -257,7 +257,7 @@ open class MendeleySocialDocument: MendeleySwiftObject {
 
 // MARK: - MendeleySocialAuthor
 
-open class MendeleySocialAuthor: MendeleySwiftObject {
+open class MendeleySocialAuthor: MendeleyObject {
     public var first_name: String?
     public var last_name: String?
     public var scopus_author_id: String?
@@ -297,7 +297,7 @@ open class MendeleyUserPostImage: MendeleyObject {
 
 // MARK: - MendeleyFilesSummary
 
-open class MendeleyFilesSummary: MendeleySwiftObject {
+open class MendeleyFilesSummary: MendeleyObject {
     public var first_files: [MendeleyFileSummary]?
     public var file_count: Int?
     
@@ -327,7 +327,7 @@ open class MendeleyFilesSummary: MendeleySwiftObject {
 
 // MARK: - MendeleyFileSummary
 
-open class MendeleyFileSummary: MendeleySwiftObject {
+open class MendeleyFileSummary: MendeleyObject {
     
 }
 

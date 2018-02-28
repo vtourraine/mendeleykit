@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-open class MendeleyNewsFeed : MendeleySwiftObject {
+open class MendeleyNewsFeed : MendeleyObject {
     public var likeable: Bool?
     public var commentable: Bool?
     public var sharable: Bool?
@@ -74,7 +74,7 @@ open class MendeleyNewsFeed : MendeleySwiftObject {
     }
 }
 
-open class MendeleyNewsFeedSource : MendeleySwiftSecureObject, Codable {
+open class MendeleyNewsFeedSource : MendeleySecureObject, Codable {
     public var type: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -145,7 +145,7 @@ open class MendeleyNewsFeedRSSSource : MendeleyNewsFeedSource {
     }
 }
 
-open class MendeleyFeedRSSFeed : MendeleySwiftSecureObject, Codable {
+open class MendeleyFeedRSSFeed : MendeleySecureObject, Codable {
     public var name: String?
     public var link: String?
     
@@ -172,7 +172,7 @@ open class MendeleyFeedRSSFeed : MendeleySwiftSecureObject, Codable {
     }
 }
 
-open class MendeleyJsonNode : MendeleySwiftSecureObject, Codable {
+open class MendeleyJsonNode : MendeleySecureObject, Codable {
     public var type: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -335,7 +335,7 @@ open class MendeleyGroupDocAddedJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyFeedGroup : MendeleySwiftObject {
+open class MendeleyFeedGroup : MendeleyObject {
     public var link: String?
     public var access_level: String?
     public var name: String?
@@ -559,7 +559,7 @@ open class MendeleyRSSJsonNode : MendeleyJsonNode {
     }
 }
 
-open class MendeleyShare : MendeleySwiftSecureObject, Codable {
+open class MendeleyShare : MendeleySecureObject, Codable {
     public var total_count: Int?
     public var shared_by_me: Bool?
     public var originating_sharer_profile: MendeleySocialProfile?
@@ -594,7 +594,7 @@ open class MendeleyShare : MendeleySwiftSecureObject, Codable {
     }
 }
 
-open class MendeleyLike : MendeleySwiftSecureObject, Codable {
+open class MendeleyLike : MendeleySecureObject, Codable {
     public var total_count: Int?
     public var liked_by_me: Bool?
     
@@ -621,7 +621,7 @@ open class MendeleyLike : MendeleySwiftSecureObject, Codable {
     }
 }
 
-open class MendeleyExpandedComments : MendeleySwiftSecureObject, Codable {
+open class MendeleyExpandedComments : MendeleySecureObject, Codable {
     public var total_count: Int?
     public var latest: [MendeleyExpandedComment]?
     
@@ -648,7 +648,7 @@ open class MendeleyExpandedComments : MendeleySwiftSecureObject, Codable {
     }
 }
 
-open class MendeleyPost : MendeleySwiftObject {
+open class MendeleyPost : MendeleyObject {
     public var text: String?
     public var document: MendeleyFeedDocument?
     public var documents: [MendeleyFeedDocument]?
@@ -724,7 +724,7 @@ open class MendeleyGroupPost : MendeleyPost {
     }
 }
 
-open class MendeleyFeedDocument : MendeleySwiftObject {
+open class MendeleyFeedDocument : MendeleyObject {
     public var title: String?
     public var year: Int?
     public var link: String?
@@ -768,7 +768,7 @@ open class MendeleyFeedDocument : MendeleySwiftObject {
     }
 }
 
-open class MendeleyAddedDocument : MendeleySwiftObject {
+open class MendeleyAddedDocument : MendeleyObject {
     public var title: String?
     public var year: Int?
     public var link: String?
@@ -892,7 +892,7 @@ open class MendeleyCataloguePubDocument : MendeleyPublishedDocument {
     }
 }
 
-open class MendeleyUserDocument : MendeleySwiftSecureObject, Codable {
+open class MendeleyUserDocument : MendeleySecureObject, Codable {
     public var title: String?
     public var type: String?
     public var year: Int?
@@ -935,7 +935,7 @@ open class MendeleyUserDocument : MendeleySwiftSecureObject, Codable {
     }
 }
 
-open class MendeleySimpleAuthor : MendeleySwiftSecureObject, Codable {
+open class MendeleySimpleAuthor : MendeleySecureObject, Codable {
     public var first_name: String?
     public var last_name: String?
 
@@ -986,7 +986,7 @@ open class MendeleyFeedAuthor : MendeleySimpleAuthor {
     }
 }
 
-open class MendeleySocialProfile : MendeleySwiftObject {
+open class MendeleySocialProfile : MendeleyObject {
     public var first_name: String?
     public var last_name: String?
     public var link: String?
@@ -1050,7 +1050,7 @@ open class MendeleyFollowerProfile : MendeleySocialProfile {
     }
 }
 
-open class MendeleySocialProfilePhoto : MendeleySwiftSecureObject, Codable {
+open class MendeleySocialProfilePhoto : MendeleySecureObject, Codable {
     public var width: Float?
     public var height: Float?
     public var url: String?

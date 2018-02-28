@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-open class MendeleyUserRole: MendeleySwiftObject {
+open class MendeleyUserRole: MendeleyObject {
     public var role: String?
     public var joined: String?
     public var profile_id: String?

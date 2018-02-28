@@ -16,7 +16,7 @@ import UIKit
     
     @objc public func create(userPost newPost: MendeleyNewUserPost,
                 task: MendeleyTask?,
-                completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.create(mendeleyObject: newPost,
                       api: kMendeleyRESTAPICreateUserPost,
                       additionalHeaders: newUserPostServiceHeaders,
@@ -35,7 +35,7 @@ import UIKit
     
     @objc public func create(groupPost: MendeleyNewGroupPost,
                 task: MendeleyTask?,
-                completionBlock: @escaping MendeleySwiftObjectCompletionBlock) {
+                completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.create(mendeleyObject: groupPost,
                       api: kMendeleyRESTAPICreateGroupPost,
                       additionalHeaders: groupUserPostServiceHeaders,
