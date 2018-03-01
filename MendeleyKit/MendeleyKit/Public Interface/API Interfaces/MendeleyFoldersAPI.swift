@@ -76,18 +76,18 @@
                                   queryParameters: nil,
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
-                                    let blockExec = MendeleyBlockExececutor(withArrayCompletionBlock: completionBlock)
+                                    let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
                                     let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                     
                                     if success == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(withArray: nil, syncInfo: nil, error: error)
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
-                                            arrayDict = try decoder.decode([String: [[String: Any]]].self, from: response!.rawResponseBody)
-                                            blockExec?.execute(withArray: arrayDict[kMendeleyJSONData], syncInfo: response.syncHeader, error: nil)
+                                            let arrayDict = try decoder.decode([String: [[String: Any]]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(with: arrayDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                         } catch {
-                                            blockExec?.execute(withArray: nil, syncInfo: nil, error: error)
+                                            blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                         }
                                     }
         }
@@ -118,7 +118,7 @@
                                        task: task) { (response, error) in
                                         let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                         if success == true {
-                                            blockExec?.execute(with: true, error, nil)
+                                            blockExec?.execute(with: true, error: nil)
                                         } else {
                                             blockExec?.execute(with: false, error: combinedError)
                                         }
@@ -137,10 +137,11 @@
     @objc public func create(folder mendeleyFolder: MendeleyFolder,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
-        helper.create(mendeleyObect: mendeleyFolder,
+        
+        helper.create(mendeleyObject: mendeleyFolder,
                       api: kMendeleyRESTAPIFolders,
                       additionalHeaders: defaultUploadRequestHeaders,
-                      exepectedType: mendeleyFolder.self,
+                      expectedType: MendeleyFolder.self,
                       task: task,
                       completionBlock: completionBlock)
     }
@@ -156,22 +157,23 @@
     @objc public func folderList(withLinkedURL linkURL: URL,
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyArrayCompletionBlock) {
-        networkProvider.invokeGET(link,
+        networkProvider.invokeGET(linkURL,
                                   api: nil,
                                   additionalHeaders: defaultServiceRequestHeaders,
                                   queryParameters: nil,
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
+                                    let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
                                     let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                    if success == false || response!.rawResponseBody {
-                                        blockExec?.execute(withArray: nil, syncInfo: nil, error: combinedError)
+                                    if success == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
-                                            let arrayDict = decoder.decode([String: [MendeleyFolder]].self, from: response!.rawResponseBody)
-                                            blockExec?.execute(withArray: arrayDict[kMendeleyJSONData], syncInfo: response.syncHeader, error: nil)
+                                            let arrayDict = try decoder.decode([String: [MendeleyFolder]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(with: arrayDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                         } catch {
-                                            blockExec?.execute(withArray: nil, syncInfo: nil, error: error)
+                                            blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                         }
                                     }
         }
@@ -184,13 +186,13 @@
      @param completionBlock
      */
     @objc public func foldersList(withQueryParamenters queryParameters: MendeleyFolderParameters,
-                                  taks: MendeleyTask?,
+                                  task: MendeleyTask?,
                                   completionBlock: @escaping MendeleyArrayCompletionBlock) {
         var mergedQuery = queryParameters.valueStringDictionary()
         
-        defaultQueryParameters.forEach { (key, value) in query[key] = value }
+        defaultQueryParameters.forEach { (key, value) in mergedQuery[key] = value }
         
-        helper.mendeleyObjectList(ofType: kMendeleyModelFolder,
+        helper.mendeleyObjectList(ofType: MendeleyFolder.self,
                                   api: kMendeleyRESTAPIFolders,
                                   queryParameters: mergedQuery,
                                   additionalHeaders: defaultServiceRequestHeaders,
@@ -242,7 +244,7 @@
     @objc public func update(folder updatedFolder: MendeleyFolder,
                              task: MendeleyTask?,
                              completionBlock: MendeleyCompletionBlock) {
-        let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, updatedFolder.object_ID)
+        let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, updatedFolder.object_ID ?? "")
         
         helper.update(mendeleyObject: updatedFolder,
                       api: apiEndPoint,

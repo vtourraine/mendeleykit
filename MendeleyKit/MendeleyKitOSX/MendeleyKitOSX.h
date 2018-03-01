@@ -50,7 +50,6 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitOSXVersionString[];
 #import <MendeleyKitOSX/MendeleyGroup.h>
 #import <MendeleyKitOSX/MendeleyDefaultNetworkProvider.h>
 #import <MendeleyKitOSX/MendeleyConnectionReachability.h>
-#import <MendeleyKitOSX/MendeleyFolder.h>
 #import <MendeleyKitOSX/MendeleyError.h>
 #import <MendeleyKitOSX/MendeleyMetadataLookup.h>
 #import <MendeleyKitOSX/MendeleyReachability.h>
@@ -78,7 +77,6 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitOSXVersionString[];
 #import <MendeleyKitOSX/MendeleyFollow.h>
 #import <MendeleyKitOSX/MendeleyPerformanceMeterSession.h>
 #import <MendeleyKitOSX/NSError+MendeleyError.h>
-#import <MendeleyKitOSX/MendeleyFile.h>
 #import <MendeleyKitOSX/NSError+Exceptions.h>
 #import <MendeleyKitOSX/MendeleyTaskProvider.h>
 #import <MendeleyKitOSX/MendeleyOAuthProvider.h>

@@ -70,6 +70,10 @@ open class MendeleyFollowRequest: MendeleySecureObject, Codable {
         super.init(coder: aDecoder)
     }
     
+    public override init() {
+        super.init()
+    }
+    
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(followed, forKey: .followed)
@@ -93,6 +97,10 @@ open class MendeleyFollowAcceptance: MendeleySecureObject, Codable {
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    public override init() {
+        super.init()
     }
     
     open func encode(to encoder: Encoder) throws {

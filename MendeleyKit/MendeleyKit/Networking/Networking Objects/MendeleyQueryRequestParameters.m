@@ -234,8 +234,8 @@
 @end
 
 
-@implementation MendeleyFileParameters
-@end
+//@implementation MendeleyFileParameters
+//@end
 
 //@implementation MendeleyFolderParameters
 //@end
@@ -262,8 +262,8 @@
 }
 @end
 
-@implementation MendeleyRecentlyReadParameters
-@end
+//@implementation MendeleyRecentlyReadParameters
+//@end
 
 //@implementation MendeleyFollowersParameters
 //@end

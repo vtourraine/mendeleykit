@@ -19,7 +19,7 @@
  */
 
 #import "MendeleyObjectAPI.h"
-#import "MendeleyDataset.h"
+#import "MendeleyKit-Swift.h"
 
 @class MendeleyDatasetParameters;
 

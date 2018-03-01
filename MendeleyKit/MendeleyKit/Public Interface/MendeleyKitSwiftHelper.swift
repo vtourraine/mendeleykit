@@ -142,7 +142,7 @@ import UIKit
                                             let decoder = JSONDecoder()
                                             let objectDict = try decoder.decode([String: T].self, from: response!.rawResponseBody)
                                             
-                                            blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                            blockExec?.execute(withMendeleyObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                         } catch {
                                             print(error)
                                             blockExec?.execute(withMendeleyObject: nil, syncInfo: response?.syncHeader, error: error)
@@ -215,20 +215,20 @@ import UIKit
                                         let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
                                         
                                         if isSuccess == false || response?.rawResponseBody == nil {
-                                            blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: combinedError)
+                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
                                         } else {
                                             let decoder = JSONDecoder()
                                             do {
                                                 let objectDict = try decoder.decode([String: U].self, from: response!.rawResponseBody)
                                                 
-                                                blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                                blockExec?.execute(withMendeleyObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                             } catch {
-                                                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+                                                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                             }
                                         }
             }
         } catch {
-            blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
         }
     }
     
@@ -328,7 +328,7 @@ import UIKit
                                                 do {
                                                     let objectDict = try decoder.decode([String: U].self, from: response!.rawResponseBody)
                                                     
-                                                    blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                                    blockExec?.execute(withMendeleyObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                                 } catch {
                                                     blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                                 }

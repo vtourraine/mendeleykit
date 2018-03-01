@@ -189,3 +189,15 @@
 @objc open class MendeleyFolderParameters: MendeleySwiftQueryRequestParameters {
     @objc public var profile_id: String?
 }
+
+// MARK: - Files
+
+@objc open class MendeleyFileParameters: MendeleySwiftQueryRequestParameters {
+    @objc public var added_since: Date?
+    @objc public var document_id: String?
+}
+
+// MARK: - Recently Read
+
+@objc open class MendeleyRecentlyReadParameters: MendeleySwiftQueryRequestParameters {
+}

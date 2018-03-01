@@ -70,10 +70,10 @@
 @property (nonatomic, strong) NSString *authored;
 @end
 
-@interface MendeleyFileParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSDate *added_since;
-@property (nonatomic, strong) NSString *document_id;
-@end
+//@interface MendeleyFileParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSDate *added_since;
+//@property (nonatomic, strong) NSString *document_id;
+//@end
 
 //@interface MendeleyFolderParameters : MendeleyQueryRequestParameters
 //@property (nonatomic, strong) NSString *profile_id;
@@ -113,8 +113,8 @@
 //@interface MendeleyGroupParameters : MendeleyQueryRequestParameters
 //@end
 
-@interface MendeleyRecentlyReadParameters : MendeleyQueryRequestParameters
-@end
+//@interface MendeleyRecentlyReadParameters : MendeleyQueryRequestParameters
+//@end
 
 // THIS
 //@interface MendeleyFollowersParameters : MendeleyQueryRequestParameters

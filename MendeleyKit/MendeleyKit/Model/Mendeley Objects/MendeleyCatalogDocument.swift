@@ -33,8 +33,8 @@ open class MendeleyCatalogDocument: MendeleyObject {
     public var file_attached: Bool?
     
     // Person
-    public var authors: [MendeleySwiftPerson]?
-    public var editors: [MendeleySwiftPerson]?
+    public var authors: [MendeleyPerson]?
+    public var editors: [MendeleyPerson]?
     public var websites: [String]?
     public var keywords: [String]?
     
@@ -107,8 +107,8 @@ open class MendeleyCatalogDocument: MendeleyObject {
         
         file_attached = try container.decodeIfPresent(Bool.self, forKey: .file_attached)
         
-        authors = try container.decodeIfPresent([MendeleySwiftPerson].self, forKey: .authors)
-        editors = try container.decodeIfPresent([MendeleySwiftPerson].self, forKey: .editors)
+        authors = try container.decodeIfPresent([MendeleyPerson].self, forKey: .authors)
+        editors = try container.decodeIfPresent([MendeleyPerson].self, forKey: .editors)
         websites = try container.decodeIfPresent([String].self, forKey: .websites)
         keywords = try container.decodeIfPresent([String].self, forKey: .keywords)
         

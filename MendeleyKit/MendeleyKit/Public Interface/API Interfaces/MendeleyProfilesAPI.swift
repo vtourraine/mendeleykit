@@ -138,19 +138,19 @@
                                             let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                             
                                             if isSuccess == false || response?.rawResponseBody == nil {
-                                                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: combinedError)
+                                                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
                                             } else {
                                                 let decoder = JSONDecoder()
                                                 do {
                                                     let objectDict = try decoder.decode([String: MendeleyProfile].self, from: response!.rawResponseBody)
-                                                    blockExec?.execute(withMendeleySwiftObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                                    blockExec?.execute(withMendeleyObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                                 } catch {
-                                                    blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+                                                    blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                                 }
                                             }
                 }
             } catch {
-                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
             }
         }
     }

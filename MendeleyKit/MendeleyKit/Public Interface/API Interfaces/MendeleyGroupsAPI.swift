@@ -155,7 +155,7 @@
                                     let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
                                     
                                     if success == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: combinedError)
+                                        blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
                                     } else {
                                         let decoder = JSONDecoder()
                                         
@@ -175,15 +175,15 @@
                                                                         group.photo?.originalImageData = binaryData
                                                                     }
                                                                 }
-                                                                blockExec?.execute(withMendeleySwiftObject: group, syncInfo: response?.syncHeader, error: nil)
+                                                                blockExec?.execute(withMendeleyObject: group, syncInfo: response?.syncHeader, error: nil)
                                                 }
                                                 
                                             } else {
-                                                blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: nil)
+                                                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: nil)
                                             }
                                             
                                         } catch {
-                                            blockExec?.execute(withMendeleySwiftObject: nil, syncInfo: nil, error: error)
+                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                         }
                                     }
         }
