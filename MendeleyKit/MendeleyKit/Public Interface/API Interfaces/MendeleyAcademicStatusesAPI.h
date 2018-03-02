@@ -18,24 +18,25 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+//#import "MendeleyObjectAPI.h"
+//
+//
+//@interface MendeleyAcademicStatusesAPI : MendeleyObjectAPI
+///**
+//   This method gets all registered Mendeley academic statuses
+//   @param task the cancellable MendeleyTask
+//   @param completionBlock will return an array of MendeleyAcademicStatus objects
+// */
+//- (void)academicStatusesWithTask:(MendeleyTask *)task
+//                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated));
+//
+///**
+// This method gets all registered Elsevier user roles.
+// @param task the cancellable MendeleyTask
+// @param completionBlock will return an array of MendeleyAcademicStatus objects
+// */
+//- (void)userRolesWithTask:(MendeleyTask *)task
+//          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+//
+//@end
 
-
-@interface MendeleyAcademicStatusesAPI : MendeleyObjectAPI
-/**
-   This method gets all registered Mendeley academic statuses
-   @param task the cancellable MendeleyTask
-   @param completionBlock will return an array of MendeleyAcademicStatus objects
- */
-- (void)academicStatusesWithTask:(MendeleyTask *)task
-                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated));
-
-/**
- This method gets all registered Elsevier user roles.
- @param task the cancellable MendeleyTask
- @param completionBlock will return an array of MendeleyAcademicStatus objects
- */
-- (void)userRolesWithTask:(MendeleyTask *)task
-          completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
-
-@end

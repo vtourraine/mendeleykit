@@ -18,144 +18,145 @@
  *****************************************************************************
  */
 
-#import "MendeleyAcademicStatusesAPI.h"
-#import "MendeleyKitConfiguration.h"
-#import "MendeleyOAuthCredentials.h"
-#import "NSError+Exceptions.h"
+//#import "MendeleyAcademicStatusesAPI.h"
+//#import "MendeleyKitConfiguration.h"
+//#import "MendeleyOAuthCredentials.h"
+//#import "NSError+Exceptions.h"
+//
+//@implementation MendeleyAcademicStatusesAPI
+//- (NSDictionary *)defaultServiceRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials __attribute__((deprecated))
+//{
+//    NSDictionary *authenticationHeader = [credentials authenticationHeader];
+//    NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
+//
+//    [requestHeader setObject:kMendeleyRESTRequestJSONAcademicStatuses forKey:kMendeleyRESTRequestAccept];
+//    return requestHeader;
+//}
+//
+//- (NSDictionary *)defaultRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials
+//{
+//    NSDictionary *authenticationHeader = [credentials authenticationHeader];
+//    NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
+//    
+//    [requestHeader setObject:kMendeleyRESTRequestJSONUserRole forKey:kMendeleyRESTRequestAccept];
+//    return requestHeader;
+//}
+//
+//
+//- (void)academicStatusesWithTask:(MendeleyTask *)task
+//                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated))
+//{
+//    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+//
+//    [[MendeleyKitConfiguration sharedInstance].oauthProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
+//
+//         if (nil == credentials)
+//         {
+//             completionBlock(nil, nil, error);
+//         }
+//         else
+//         {
+//             NSDictionary *requestHeader = [self defaultServiceRequestHeadersFromCredentials:credentials];
+//
+//             MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+//
+//             id <MendeleyNetworkProvider> networkProvider = [self provider];
+//             [networkProvider invokeGET:self.baseURL
+//                                    api:kMendeleyRESTAPIAcademicStatuses
+//                      additionalHeaders:requestHeader
+//                        queryParameters:nil
+//                 authenticationRequired:NO
+//                                   task:task
+//                        completionBlock: ^(MendeleyResponse *response, NSError *error) {
+//                  if (![self.helper isSuccessForResponse:response error:&error])
+//                  {
+//                      [blockExec executeWithArray:nil
+//                                         syncInfo:nil
+//                                            error:error];
+//                  }
+//                  else
+//                  {
+//                      MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+//                      [jsonModeller parseJSONData:response.responseBody
+//                                     expectedType:kMendeleyModelAcademicStatus
+//                                  completionBlock: ^(NSArray *disciplines, NSError *parseError) {
+//                           if (nil != parseError)
+//                           {
+//                               [blockExec executeWithArray:nil
+//                                                  syncInfo:nil
+//                                                     error:parseError];
+//                           }
+//                           else
+//                           {
+//                               [blockExec executeWithArray:disciplines
+//                                                  syncInfo:response.syncHeader
+//                                                     error:nil];
+//                           }
+//                       }];
+//                  }
+//              }];
+//
+//         }
+//     }];
+//
+//
+//}
+//
+//- (void)userRolesWithTask:(MendeleyTask *)task completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+//{
+//    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+//    
+//    [[MendeleyKitConfiguration sharedInstance].oauthProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
+//        
+//        if (nil == credentials)
+//        {
+//            completionBlock(nil, nil, error);
+//        }
+//        else
+//        {
+//            NSDictionary *requestHeader = [self defaultRequestHeadersFromCredentials:credentials];
+//            
+//            MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
+//            
+//            id <MendeleyNetworkProvider> networkProvider = [self provider];
+//            [networkProvider invokeGET:self.baseURL
+//                                   api:kMendeleyRESTAPIUserRoles
+//                     additionalHeaders:requestHeader
+//                       queryParameters:nil
+//                authenticationRequired:NO
+//                                  task:task
+//                       completionBlock: ^(MendeleyResponse *response, NSError *error) {
+//                           if (![self.helper isSuccessForResponse:response error:&error])
+//                           {
+//                               [blockExec executeWithArray:nil
+//                                                  syncInfo:nil
+//                                                     error:error];
+//                           }
+//                           else
+//                           {
+//                               MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
+//                               [jsonModeller parseJSONData:response.responseBody
+//                                              expectedType:kMendeleyModelAcademicStatus
+//                                           completionBlock: ^(NSArray *disciplines, NSError *parseError) {
+//                                               if (nil != parseError)
+//                                               {
+//                                                   [blockExec executeWithArray:nil
+//                                                                      syncInfo:nil
+//                                                                         error:parseError];
+//                                               }
+//                                               else
+//                                               {
+//                                                   [blockExec executeWithArray:disciplines
+//                                                                      syncInfo:response.syncHeader
+//                                                                         error:nil];
+//                                               }
+//                                           }];
+//                           }
+//                       }];
+//            
+//        }
+//    }];
+//}
+//
+//@end
 
-@implementation MendeleyAcademicStatusesAPI
-- (NSDictionary *)defaultServiceRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials __attribute__((deprecated))
-{
-    NSDictionary *authenticationHeader = [credentials authenticationHeader];
-    NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
-
-    [requestHeader setObject:kMendeleyRESTRequestJSONAcademicStatuses forKey:kMendeleyRESTRequestAccept];
-    return requestHeader;
-}
-
-- (NSDictionary *)defaultRequestHeadersFromCredentials:(MendeleyOAuthCredentials *)credentials
-{
-    NSDictionary *authenticationHeader = [credentials authenticationHeader];
-    NSMutableDictionary *requestHeader = [NSMutableDictionary dictionaryWithDictionary:authenticationHeader];
-    
-    [requestHeader setObject:kMendeleyRESTRequestJSONUserRole forKey:kMendeleyRESTRequestAccept];
-    return requestHeader;
-}
-
-
-- (void)academicStatusesWithTask:(MendeleyTask *)task
-                 completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated))
-{
-    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-
-    [[MendeleyKitConfiguration sharedInstance].oauthProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
-
-         if (nil == credentials)
-         {
-             completionBlock(nil, nil, error);
-         }
-         else
-         {
-             NSDictionary *requestHeader = [self defaultServiceRequestHeadersFromCredentials:credentials];
-
-             MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
-
-             id <MendeleyNetworkProvider> networkProvider = [self provider];
-             [networkProvider invokeGET:self.baseURL
-                                    api:kMendeleyRESTAPIAcademicStatuses
-                      additionalHeaders:requestHeader
-                        queryParameters:nil
-                 authenticationRequired:NO
-                                   task:task
-                        completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                  if (![self.helper isSuccessForResponse:response error:&error])
-                  {
-                      [blockExec executeWithArray:nil
-                                         syncInfo:nil
-                                            error:error];
-                  }
-                  else
-                  {
-                      MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
-                      [jsonModeller parseJSONData:response.responseBody
-                                     expectedType:kMendeleyModelAcademicStatus
-                                  completionBlock: ^(NSArray *disciplines, NSError *parseError) {
-                           if (nil != parseError)
-                           {
-                               [blockExec executeWithArray:nil
-                                                  syncInfo:nil
-                                                     error:parseError];
-                           }
-                           else
-                           {
-                               [blockExec executeWithArray:disciplines
-                                                  syncInfo:response.syncHeader
-                                                     error:nil];
-                           }
-                       }];
-                  }
-              }];
-
-         }
-     }];
-
-
-}
-
-- (void)userRolesWithTask:(MendeleyTask *)task completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    
-    [[MendeleyKitConfiguration sharedInstance].oauthProvider authenticateClientWithCompletionBlock:^(MendeleyOAuthCredentials *credentials, NSError *error){
-        
-        if (nil == credentials)
-        {
-            completionBlock(nil, nil, error);
-        }
-        else
-        {
-            NSDictionary *requestHeader = [self defaultRequestHeadersFromCredentials:credentials];
-            
-            MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc] initWithArrayCompletionBlock:completionBlock];
-            
-            id <MendeleyNetworkProvider> networkProvider = [self provider];
-            [networkProvider invokeGET:self.baseURL
-                                   api:kMendeleyRESTAPIUserRoles
-                     additionalHeaders:requestHeader
-                       queryParameters:nil
-                authenticationRequired:NO
-                                  task:task
-                       completionBlock: ^(MendeleyResponse *response, NSError *error) {
-                           if (![self.helper isSuccessForResponse:response error:&error])
-                           {
-                               [blockExec executeWithArray:nil
-                                                  syncInfo:nil
-                                                     error:error];
-                           }
-                           else
-                           {
-                               MendeleyModeller *jsonModeller = [MendeleyModeller sharedInstance];
-                               [jsonModeller parseJSONData:response.responseBody
-                                              expectedType:kMendeleyModelAcademicStatus
-                                           completionBlock: ^(NSArray *disciplines, NSError *parseError) {
-                                               if (nil != parseError)
-                                               {
-                                                   [blockExec executeWithArray:nil
-                                                                      syncInfo:nil
-                                                                         error:parseError];
-                                               }
-                                               else
-                                               {
-                                                   [blockExec executeWithArray:disciplines
-                                                                      syncInfo:response.syncHeader
-                                                                         error:nil];
-                                               }
-                                           }];
-                           }
-                       }];
-            
-        }
-    }];
-}
-
-@end
