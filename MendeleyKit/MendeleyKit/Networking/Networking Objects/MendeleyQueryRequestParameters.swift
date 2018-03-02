@@ -201,3 +201,76 @@
 
 @objc open class MendeleyRecentlyReadParameters: MendeleySwiftQueryRequestParameters {
 }
+
+// MARK: - Documents
+
+@objc open class MendeleyDocumentParameters: MendeleySwiftQueryRequestParameters {
+    @objc public var modified_since: Date?
+    @objc public var reverse: Bool = false
+    @objc public var profile_id: String?
+    @objc public var authored: String?
+    @objc public var sort: String? {
+        didSet {
+            if sort == nil {
+                sort = oldValue
+            }
+            
+            if sort != kMendeleyRESTAPIQuerySortAsc && sort != kMendeleyRESTAPIQuerySortDesc {
+                sort = nil
+            }
+        }
+    }
+    @objc public var order: String?  {
+        didSet {
+            if order == nil {
+                order = oldValue
+            }
+            
+            if order != kMendeleyRESTAPIQueryOrderByCreated && order != kMendeleyRESTAPIQueryOrderByTitle {
+                sort = nil
+            }
+        }
+    }
+    @objc public var view: String? {
+        didSet {
+            let supportedValues = [kMendeleyDocumentViewTypeBibliography,
+                                   kMendeleyDocumentViewTypeClient,
+                                   kMendeleyDocumentViewTypeTags,
+                                   kMendeleyDocumentViewTypeAll]
+            
+            if view != nil && supportedValues.contains(view!) == false {
+                view = nil
+            }
+        }
+    }
+    
+    public override init() {
+        super.init()
+        if let viewType = MendeleyKitConfiguration.sharedInstance().documentViewType {
+            if viewType.length > 0 {
+                view = String(viewType)
+            }
+        }
+    }
+}
+
+@objc open class MendeleyCatalogParameters: MendeleySwiftQueryRequestParameters {
+    @objc public var arxiv: String?
+    @objc public var doi: String?
+    @objc public var isbn: String?
+    @objc public var issn: String?
+    @objc public var pmid: String?
+    @objc public var scopus: String?
+    @objc public var filehash: String?
+    @objc public var view: String?
+    
+    public override init() {
+        super.init()
+        if let viewType = MendeleyKitConfiguration.sharedInstance().documentViewType {
+            if viewType.length > 0 {
+                view = String(viewType)
+            }
+        }
+    }
+}
+

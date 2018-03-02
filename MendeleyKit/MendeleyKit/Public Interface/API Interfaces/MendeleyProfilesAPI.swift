@@ -92,10 +92,9 @@
                                   authenticationRequired: false,
                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(binaryDataCompletionBlock: completionBlock)
-                                    let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                    
-                                    if isSuccess == false {
-                                        blockExec?.execute(withBinaryData: nil, error: combinedError)
+                                    var error = error
+                                    if self.helper.isSuccess(forResponse: response, error: &error) == false {
+                                        blockExec?.execute(withBinaryData: nil, error: error)
                                     } else {
                                         if let bodyData = response?.responseBody as? Data {
                                             blockExec?.execute(withBinaryData: bodyData, error: nil)
@@ -135,10 +134,9 @@
                                            jsonData: jsonData,
                                            authenticationRequired: false,
                                            task: task) { (response, error) in
-                                            let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                            
-                                            if isSuccess == false || response?.rawResponseBody == nil {
-                                                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
+                                            var error = error
+                                            if self.helper.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                             } else {
                                                 let decoder = JSONDecoder()
                                                 do {

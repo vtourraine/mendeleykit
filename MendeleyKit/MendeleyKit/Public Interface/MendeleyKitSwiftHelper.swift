@@ -20,24 +20,22 @@ import UIKit
         self.delegate = delegate
     }
     
-    func isSuccess(forResponse response: MendeleyResponse?, error: Error?) -> (Bool, Error?) {
-        var returnedError = error
-        
+    func isSuccess(forResponse response: MendeleyResponse?, error: inout Error?) -> Bool {
         if response == nil {
             if error == nil {
-                returnedError = NSError(code: MendeleyErrorCode(rawValue: MendeleyErrorCode.dataNotAvailableErrorCode.rawValue)!)
+                error = NSError(code: MendeleyErrorCode(rawValue: MendeleyErrorCode.dataNotAvailableErrorCode.rawValue)!)
             }
-            return (false, returnedError)
+            return false
         } else if (error as NSError?)?.code == NSURLErrorCancelled {
-            return (false, returnedError)
+            return false
         } else if response!.isSuccess == false {
             if error == nil {
-                returnedError = NSError(code: MendeleyErrorCode(rawValue: MendeleyErrorCode.responseTypeUnknownErrorCode.rawValue)!, localizedDescription: response?.responseMessage)
+                error = NSError(code: MendeleyErrorCode(rawValue: MendeleyErrorCode.responseTypeUnknownErrorCode.rawValue)!, localizedDescription: response?.responseMessage)
             }
-            return (false, returnedError)
+            return false
         }
         
-        return (true, returnedError)
+        return true
     }
     
     // MARK: - Get Object List
@@ -61,10 +59,9 @@ import UIKit
                                   queryParameters: queryParameters,
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
-                                    let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                    
-                                    if isSuccess == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    var error = error
+                                    if self.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                     } else {
                                         do {
                                             let decoder = JSONDecoder()
@@ -95,10 +92,9 @@ import UIKit
                                   queryParameters: queryParameters,
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
-                                    let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                    
-                                    if isSuccess == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    var error = error
+                                    if self.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                     } else {
                                         let decoder = JSONDecoder()
                                         
@@ -133,10 +129,9 @@ import UIKit
                                   queryParameters: queryParameters,
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
-                                    let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                    
-                                    if isSuccess == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
+                                    var error = error
+                                    if self.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                     } else {
                                         do {
                                             let decoder = JSONDecoder()
@@ -175,10 +170,9 @@ import UIKit
                                        jsonData: jsonData,
                                        authenticationRequired: true,
                                        task: task) { (response, error) in
-                                        let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                        
-                                        if isSuccess == false {
-                                            blockExec?.execute(with: false, error: combinedError)
+                                        var error = error
+                                        if self.isSuccess(forResponse: response, error: &error) == false {
+                                            blockExec?.execute(with: false, error: error)
                                         } else {
                                             blockExec?.execute(with: true, error: nil)
                                         }
@@ -212,10 +206,9 @@ import UIKit
                                        jsonData: jsonData,
                                        authenticationRequired: true,
                                        task: task) { (response, error) in
-                                        let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                        
-                                        if isSuccess == false || response?.rawResponseBody == nil {
-                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
+                                        var error = error
+                                        if self.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                         } else {
                                             let decoder = JSONDecoder()
                                             do {
@@ -246,10 +239,9 @@ import UIKit
                                    jsonData: nil,
                                    authenticationRequired: true,
                                    task: task) { (response, error) in
-                                    let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                    
-                                    if isSuccess == false {
-                                        blockExec?.execute(with: false, error: combinedError)
+                                    var error = error
+                                    if self.isSuccess(forResponse: response, error: &error) == false {
+                                        blockExec?.execute(with: false, error: error)
                                     } else {
                                         blockExec?.execute(with: true, error: nil)
                                     }
@@ -281,10 +273,9 @@ import UIKit
                                         jsonData: jsonData,
                                         authenticationRequired: true,
                                         task: task) { (response, error) in
-                                            let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                            
-                                            if isSuccess == false {
-                                                blockExec?.execute(with: false, error: combinedError)
+                                            var error = error
+                                            if self.isSuccess(forResponse: response, error: &error) == false {
+                                                blockExec?.execute(with: false, error: error)
                                             } else {
                                                 blockExec?.execute(with: true, error: nil)
                                             }
@@ -318,10 +309,9 @@ import UIKit
                                         jsonData: jsonData,
                                         authenticationRequired: true,
                                         task: task) { (response, error) in
-                                            let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-
-                                            if isSuccess == false {
-                                                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
+                                            var error = error
+                                            if self.isSuccess(forResponse: response, error: &error) == false {
+                                                blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                             } else {
                                                 let decoder = JSONDecoder()
                                                 
@@ -355,9 +345,9 @@ import UIKit
                                      bodyParameters: nil,
                                      authenticationRequired: true,
                                      task: task) { (response, error) in
-                                        let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                        if isSuccess == false {
-                                            blockExec?.execute(with: false, error: combinedError)
+                                        var error = error
+                                        if self.isSuccess(forResponse: response, error: &error) == false {
+                                            blockExec?.execute(with: false, error: error)
                                         } else {
                                             blockExec?.execute(with: true, error: nil)
                                         }
@@ -385,12 +375,11 @@ import UIKit
                                        authenticationRequired: true,
                                        task: task,
                                        progressBlock: progressBlock) { (response, error) in
-                                        let (isSuccess, combinedError) = self.isSuccess(forResponse: response, error: error)
-                                        
-                                        if isSuccess == false {
+                                        var error = error
+                                        if self.isSuccess(forResponse: response, error: &error) == false {
                                             do {
                                             try response?.parseFailureResponse(fromFileDownloadURL: fileURL)
-                                                blockExec?.execute(with: false, error: combinedError)
+                                                blockExec?.execute(with: false, error: error)
                                             } catch {
                                                 blockExec?.execute(with: false, error: error)
                                             }

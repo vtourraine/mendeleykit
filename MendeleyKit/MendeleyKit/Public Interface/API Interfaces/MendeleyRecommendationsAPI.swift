@@ -8,31 +8,29 @@
 
 import UIKit
 
-@objc public class MendeleyRecommendationsAPI: MendeleyObjectAPI {
+@objc open class MendeleyRecommendationsAPI: MendeleySwiftObjectAPI {
     @objc public func recommendationsBasedOnLibraryArticles(withParameters parameters: MendeleyRecommendationsParameters?, task: MendeleyTask?, completionBlock:  MendeleyArrayCompletionBlock?) {
-      
-        provider.invokeGET(baseURL,
-                           api: kMendeleyRESTAPIRecommendationsBasedOnLibrary,
-                           additionalHeaders: defaultServiceRequestHeaders,
-                           queryParameters: parameters?.valueStringDictionary(),
-                           authenticationRequired: true,
-                           task: task) { (response, error) in
-                            let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
-                            
-                            if (try? self.helper.isSuccess(for: response)) == nil {
-                                blockExec?.execute(with: nil, syncInfo: nil, error: error)
-                            } else {
-                                if let jsonData = response?.rawResponseBody {
-                                    do {
-                                        let decoder = JSONDecoder()
-                                        let recommendedArticlesDict = try decoder.decode([String: [MendeleyRecommendedArticle]].self, from: jsonData)
-                                        blockExec?.execute(with: recommendedArticlesDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
-                                    } catch {
-                                        print(error)
+        
+        networkProvider.invokeGET(baseAPIURL,
+                                  api: kMendeleyRESTAPIRecommendationsBasedOnLibrary,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  queryParameters: parameters?.valueStringDictionary(),
+                                  authenticationRequired: true,
+                                  task: task) { (response, error) in
+                                    let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
+                                    
+                                    var error = error
+                                    if self.helper.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
                                         blockExec?.execute(with: nil, syncInfo: nil, error: error)
+                                    } else {
+                                        let decoder = JSONDecoder()
+                                        do {
+                                            let recommendedArticlesDict = try decoder.decode([String: [MendeleyRecommendedArticle]].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(with: recommendedArticlesDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                        } catch {
+                                            blockExec?.execute(with: nil, syncInfo: nil, error: error)
+                                        }
                                     }
-                                }
-                            }
         }
     }
     
@@ -40,20 +38,20 @@ import UIKit
         
         let bodyParameters = feedbackBodyParamaters(withTrace: trace, position: position, userAction: userAction, carousel: carousel)
         
-        provider.invokePOST( baseURL,
-                            api: kMendeleyRESTAPIRecommendationFeedback,
-                            additionalHeaders: feedbackServiceRequestHeaders,
-                            bodyParameters: bodyParameters,
-                            isJSON: true,
-                            authenticationRequired: true,
-                            task: task) { (response, error) in
-                                let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
-
-                                if (try? self.helper.isSuccess(for: response)) == nil {
-                                    blockExec?.execute(with: false, error: error)
-                                } else {
-                                    blockExec?.execute(with: true, error: nil)
-                                }
+        networkProvider.invokePOST( baseAPIURL,
+                                    api: kMendeleyRESTAPIRecommendationFeedback,
+                                    additionalHeaders: feedbackServiceRequestHeaders,
+                                    bodyParameters: bodyParameters,
+                                    isJSON: true,
+                                    authenticationRequired: true,
+                                    task: task) { (response, error) in
+                                        let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
+                                        var error = error
+                                        if self.helper.isSuccess(forResponse: response, error: &error) == false {
+                                            blockExec?.execute(with: false, error: error)
+                                        } else {
+                                            blockExec?.execute(with: true, error: nil)
+                                        }
         }
     }
     

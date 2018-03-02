@@ -125,9 +125,9 @@
                                      task: task,
                                      progressBlock: progressBlock) { (response, error) in
                                         let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
-                                        let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                        if success == false || response?.rawResponseBody == nil {
-                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
+                                        var error = error
+                                        if self.helper.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                         } else {
                                             let decoder = JSONDecoder()
                                             do {
@@ -173,9 +173,9 @@
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
-                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                    if success == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    var error = error
+                                    if self.helper.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
@@ -215,10 +215,9 @@
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
-                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                    
-                                    if success == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    var error = error
+                                    if self.helper.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
@@ -251,10 +250,9 @@
                                   authenticationRequired: true,
                                   task: task) { (response, error) in
                                     let blockExec = MendeleyBlockExecutor(arrayCompletionBlock: completionBlock)
-                                    let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                    
-                                    if success == false || response?.rawResponseBody == nil {
-                                        blockExec?.execute(with: nil, syncInfo: nil, error: combinedError)
+                                    var error = error
+                                    if self.helper.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                        blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                     } else {
                                         let decoder = JSONDecoder()
                                         do {
@@ -290,10 +288,9 @@
                                        jsonData: jsonData,
                                        authenticationRequired: true,
                                        task: task) { (response, error) in
-                                        let (success, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
-                                        
-                                        if success == false || response?.rawResponseBody == nil {
-                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: combinedError)
+                                        var error = error
+                                        if self.helper.isSuccess(forResponse: response, error: &error) == false || response?.rawResponseBody == nil {
+                                            blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                         } else {
                                             let decoder = JSONDecoder()
                                             do {

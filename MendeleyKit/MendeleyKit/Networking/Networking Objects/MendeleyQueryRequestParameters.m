@@ -249,18 +249,18 @@
 //@implementation MendeleyMetadataParameters
 //@end
 
-@implementation MendeleyCatalogParameters
-- (id)init
-{
-    self = [super init];
-    if (nil != self)
-    {
-        NSString *viewType = [[MendeleyKitConfiguration sharedInstance] documentViewType];
-        _view = viewType.length == 0 ? nil : viewType;
-    }
-    return self;
-}
-@end
+//@implementation MendeleyCatalogParameters
+//- (id)init
+//{
+//    self = [super init];
+//    if (nil != self)
+//    {
+//        NSString *viewType = [[MendeleyKitConfiguration sharedInstance] documentViewType];
+//        _view = viewType.length == 0 ? nil : viewType;
+//    }
+//    return self;
+//}
+//@end
 
 //@implementation MendeleyRecentlyReadParameters
 //@end

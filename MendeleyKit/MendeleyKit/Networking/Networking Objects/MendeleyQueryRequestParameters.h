@@ -60,15 +60,15 @@
 @property (nonatomic, strong) NSString *scopus;
 @end
 
-@interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSDate *modified_since;
-@property (nonatomic, strong) NSString *sort;
-@property (nonatomic, strong) NSString *order;
-@property (nonatomic, strong) NSNumber *reverse;
-@property (nonatomic, strong) NSString *view;
-@property (nonatomic, strong) NSString *profile_id;
-@property (nonatomic, strong) NSString *authored;
-@end
+//@interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSDate *modified_since;
+//@property (nonatomic, strong) NSString *sort;
+//@property (nonatomic, strong) NSString *order;
+//@property (nonatomic, strong) NSNumber *reverse;
+//@property (nonatomic, strong) NSString *view;
+//@property (nonatomic, strong) NSString *profile_id;
+//@property (nonatomic, strong) NSString *authored;
+//@end
 
 //@interface MendeleyFileParameters : MendeleyQueryRequestParameters
 //@property (nonatomic, strong) NSDate *added_since;
@@ -97,17 +97,17 @@
 //@property (nonatomic, strong) NSString *source;
 //@end
 
-
-@interface MendeleyCatalogParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *arxiv;
-@property (nonatomic, strong) NSString *doi;
-@property (nonatomic, strong) NSString *isbn;
-@property (nonatomic, strong) NSString *issn;
-@property (nonatomic, strong) NSString *pmid;
-@property (nonatomic, strong) NSString *scopus;
-@property (nonatomic, strong) NSString *filehash;
-@property (nonatomic, strong) NSString *view;
-@end
+//
+//@interface MendeleyCatalogParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *arxiv;
+//@property (nonatomic, strong) NSString *doi;
+//@property (nonatomic, strong) NSString *isbn;
+//@property (nonatomic, strong) NSString *issn;
+//@property (nonatomic, strong) NSString *pmid;
+//@property (nonatomic, strong) NSString *scopus;
+//@property (nonatomic, strong) NSString *filehash;
+//@property (nonatomic, strong) NSString *view;
+//@end
 
 // THIS
 //@interface MendeleyGroupParameters : MendeleyQueryRequestParameters

@@ -35,9 +35,10 @@
                                      task: task,
                                      progressBlock: progressBlock) { (response, error) in
                                         let blockExec = MendeleyBlockExecutor(completionBlock: completionBlock)
-                                        let (isSuccess, combinedError) = self.helper.isSuccess(forResponse: response, error: error)
+                                        var error = error
+                                        let success = self.helper.isSuccess(forResponse: response, error: &error)
                                         
-                                        blockExec?.execute(with: isSuccess, error: combinedError)
+                                        blockExec?.execute(with: success, error: error)
         }
     }
     

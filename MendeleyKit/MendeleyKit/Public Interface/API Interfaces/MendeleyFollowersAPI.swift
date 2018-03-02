@@ -153,7 +153,7 @@
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let followRequest = MendeleyFollowRequest()
-        followRequest.followed = followedID
+        followRequest.followed = follewedID
 
         helper.create(mendeleyObject: followRequest,
                       api: kMendeleyRESTAPIFollowers,
