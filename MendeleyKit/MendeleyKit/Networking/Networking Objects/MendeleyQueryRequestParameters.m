@@ -240,8 +240,8 @@
 //@implementation MendeleyFolderParameters
 //@end
 
-@implementation MendeleyAnnotationParameters
-@end
+//@implementation MendeleyAnnotationParameters
+//@end
 
 //@implementation MendeleyGroupParameters
 //@end

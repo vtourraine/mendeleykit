@@ -79,11 +79,11 @@
 //@property (nonatomic, strong) NSString *profile_id;
 //@end
 
-@interface MendeleyAnnotationParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *document_id;
-@property (nonatomic, strong) NSString *profile_id;
-@property (nonatomic, strong) NSDate *modified_since;
-@end
+//@interface MendeleyAnnotationParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *document_id;
+//@property (nonatomic, strong) NSString *profile_id;
+//@property (nonatomic, strong) NSDate *modified_since;
+//@end
 
 // THIS
 //@interface MendeleyMetadataParameters : MendeleyQueryRequestParameters

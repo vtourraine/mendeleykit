@@ -274,3 +274,11 @@
     }
 }
 
+// MARK: - Annotations
+
+@objc open class MendeleyAnnotationParameters: MendeleySwiftQueryRequestParameters {
+    @objc public var document_id: String?
+    @objc public var profile_id: String?
+    @objc public var modified_since: Date?
+}
+
