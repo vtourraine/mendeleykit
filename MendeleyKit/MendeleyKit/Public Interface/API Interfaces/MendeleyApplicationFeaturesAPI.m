@@ -18,26 +18,27 @@
  *****************************************************************************
  */
 
-#import "MendeleyApplicationFeaturesAPI.h"
-#import "MendeleyModels.h"
-#import "NSDictionary+Merge.h"
-#import "NSError+Exceptions.h"
+//#import "MendeleyApplicationFeaturesAPI.h"
+//#import "MendeleyModels.h"
+//#import "NSDictionary+Merge.h"
+//#import "NSError+Exceptions.h"
+//
+//@implementation MendeleyApplicationFeaturesAPI
+//- (NSDictionary *)defaultServiceRequestHeaders
+//{
+//    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONApplicationFeaturesType };
+//}
+//
+//- (void)applicationFeaturesWithTask:(MendeleyTask *)task
+//                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
+//{
+//    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
+//    [self.helper mendeleyObjectListOfType:kMendeleyModelApplicationFeature
+//                                      api:kMendeleyRESTAPIApplicationFeatures
+//                               parameters:nil
+//                        additionalHeaders:[self defaultServiceRequestHeaders]
+//                                     task:task
+//                          completionBlock:completionBlock];
+//}
+//@end
 
-@implementation MendeleyApplicationFeaturesAPI
-- (NSDictionary *)defaultServiceRequestHeaders
-{
-    return @{ kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONApplicationFeaturesType };
-}
-
-- (void)applicationFeaturesWithTask:(MendeleyTask *)task
-                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock
-{
-    [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
-    [self.helper mendeleyObjectListOfType:kMendeleyModelApplicationFeature
-                                      api:kMendeleyRESTAPIApplicationFeatures
-                               parameters:nil
-                        additionalHeaders:[self defaultServiceRequestHeaders]
-                                     task:task
-                          completionBlock:completionBlock];
-}
-@end

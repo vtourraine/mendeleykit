@@ -18,12 +18,16 @@
  *****************************************************************************
  */
 
-
-//#import "MendeleyObjectAPI.h"
-//
-//@interface MendeleyApplicationFeaturesAPI : MendeleyObjectAPI
-//- (void)applicationFeaturesWithTask:(MendeleyTask *)task
-//                    completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
-//
-//@end
-
+@objc open class MendeleyApplicationFeaturesAPI: MendeleySwiftObjectAPI {
+    private let defaultServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONApplicationFeaturesType]
+    
+    @objc public func applicationFeatures(withTask task: MendeleyTask?,
+                                          completionBlock: MendeleyArrayCompletionBlock) {
+        helper.mendeleyObjectList(ofType: MendeleyFeature.self,
+                                  api: kMendeleyRESTAPIApplicationFeatures,
+                                  queryParameters: nil,
+                                  additionalHeaders: defaultServiceRequestHeaders,
+                                  task: task,
+                                  completionBlock: completionBlock)
+    }
+}
