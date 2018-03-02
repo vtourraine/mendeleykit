@@ -18,27 +18,28 @@
  *****************************************************************************
  */
 
-#import "MendeleyObjectAPI.h"
+//#import "MendeleyObjectAPI.h"
+//
+//@interface MendeleyDisciplinesAPI : MendeleyObjectAPI
+///**
+//   This method is deprecated. It returns data from a new endpoint. See method below.
+//   This method gets all registered Mendeley disciplines (and their subdisciplines)
+//   @param task the cancellable MendeleyTask
+//   @param completionBlock will return an array of MendeleyDiscipline objects
+// */
+//- (void)disciplinesWithTask:(MendeleyTask *)task
+//            completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated));
+//
+///**
+// NOTE: this method uses the new and preferred API for obtaining "disciplines" or
+// "subject areas". The other method returns the same value, but uses a server side
+// redirect to the new API.
+// This method gets all registered Elsevier subject areas.
+// @param task the cancellable MendeleyTask
+// @param completionBlock will return an array of MendeleyDiscipline objects
+// */
+//- (void)subjectAreasWithTask:(MendeleyTask *)task
+//             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
+//
+//@end
 
-@interface MendeleyDisciplinesAPI : MendeleyObjectAPI
-/**
-   This method is deprecated. It returns data from a new endpoint. See method below.
-   This method gets all registered Mendeley disciplines (and their subdisciplines)
-   @param task the cancellable MendeleyTask
-   @param completionBlock will return an array of MendeleyDiscipline objects
- */
-- (void)disciplinesWithTask:(MendeleyTask *)task
-            completionBlock:(MendeleyArrayCompletionBlock)completionBlock __attribute__((deprecated));
-
-/**
- NOTE: this method uses the new and preferred API for obtaining "disciplines" or
- "subject areas". The other method returns the same value, but uses a server side
- redirect to the new API.
- This method gets all registered Elsevier subject areas.
- @param task the cancellable MendeleyTask
- @param completionBlock will return an array of MendeleyDiscipline objects
- */
-- (void)subjectAreasWithTask:(MendeleyTask *)task
-             completionBlock:(MendeleyArrayCompletionBlock)completionBlock;
-
-@end
