@@ -18,47 +18,47 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
-
-@interface MendeleyQueryRequestParameters : NSObject
-
-@property (nonatomic, strong) NSNumber *limit;
-@property (nonatomic, strong) NSDate *deleted_since;
-@property (nonatomic, strong) NSNumber *include_trashed;
-@property (nonatomic, strong) NSString *group_id;
-/**
-   This method convers parameters defined in the request parameter objects into a
-   string-key/value based map - for use as query parameters in API calls.
-
-   NOTE: this method will return limit as a parameter.
- */
-- (NSDictionary<NSString *, NSObject *>*)valueStringDictionary;
-
-/**
-   As above, this method returns a map of string-key objects and non-nil values to be used
-   as query parameters in API calls.
-   NOTE: this method will NOT contain limit as a parameter
- */
-- (NSDictionary<NSString *, NSObject *>*)valueStringDictionaryWithNoLimit;
-
-/**
-   checks if a property with the provided name exists in the MendeleyQueryRequestParameters object
-   and the subclass calling it
-   @param propertyName
- */
-- (BOOL)hasQueryParameterWithName:(NSString *)queryParameterName;
-@end
+//#import <Foundation/Foundation.h>
+//
+//@interface MendeleyQueryRequestParameters : NSObject
+//
+//@property (nonatomic, strong) NSNumber *limit;
+//@property (nonatomic, strong) NSDate *deleted_since;
+//@property (nonatomic, strong) NSNumber *include_trashed;
+//@property (nonatomic, strong) NSString *group_id;
+///**
+//   This method convers parameters defined in the request parameter objects into a
+//   string-key/value based map - for use as query parameters in API calls.
+//
+//   NOTE: this method will return limit as a parameter.
+// */
+//- (NSDictionary<NSString *, NSObject *>*)valueStringDictionary;
+//
+///**
+//   As above, this method returns a map of string-key objects and non-nil values to be used
+//   as query parameters in API calls.
+//   NOTE: this method will NOT contain limit as a parameter
+// */
+//- (NSDictionary<NSString *, NSObject *>*)valueStringDictionaryWithNoLimit;
+//
+///**
+//   checks if a property with the provided name exists in the MendeleyQueryRequestParameters object
+//   and the subclass calling it
+//   @param propertyName
+// */
+//- (BOOL)hasQueryParameterWithName:(NSString *)queryParameterName;
+//@end
 
 //// THIS
 //@interface MendeleySharesParameters : MendeleyQueryRequestParameters
 //@property (nonatomic, strong) NSString *news_id;
 //@end
 
-@interface MendeleyShareDocumentParameters : MendeleyQueryRequestParameters
-@property (nonatomic, strong) NSString *document_id;
-@property (nonatomic, strong) NSString *doi;
-@property (nonatomic, strong) NSString *scopus;
-@end
+//@interface MendeleyShareDocumentParameters : MendeleyQueryRequestParameters
+//@property (nonatomic, strong) NSString *document_id;
+//@property (nonatomic, strong) NSString *doi;
+//@property (nonatomic, strong) NSString *scopus;
+//@end
 
 //@interface MendeleyDocumentParameters : MendeleyQueryRequestParameters
 //@property (nonatomic, strong) NSDate *modified_since;
@@ -123,8 +123,8 @@
 //@property (nonatomic, strong) NSString *followed;
 //@end
 
-@interface MendeleyDatasetParameters : MendeleyQueryRequestParameters
-@end
+//@interface MendeleyDatasetParameters : MendeleyQueryRequestParameters
+//@end
 
 // THIS
 //@interface MendeleyRecommendationsParameters : MendeleyQueryRequestParameters

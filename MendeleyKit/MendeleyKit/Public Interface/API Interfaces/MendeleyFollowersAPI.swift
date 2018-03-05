@@ -153,7 +153,7 @@
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let followRequest = MendeleyFollowRequest()
-        followRequest.followed = follewedID
+        followRequest.followed = followedID
 
         helper.create(mendeleyObject: followRequest,
                       api: kMendeleyRESTAPIFollowers,
@@ -211,13 +211,21 @@
                                          task: MendeleyTask?,
                                          completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let queryParameters = MendeleyFollowersParameters()
-        
+        queryParameters.status = kMendeleyRESTAPIQueryFollowersTypeFollowing
+        queryParameters.follower = followerID
+        queryParameters.followed = followedID
+        let query = queryParameters.valueStringDictionary()
+
         helper.mendeleyObjectList(ofType: MendeleyFollow.self,
                                   api: kMendeleyRESTAPIFollowers,
-                                  queryParameters: queryParameters,
+                                  queryParameters: query,
                                   additionalHeaders: defaultServiceRequestHeaders,
-                                  task: task) { (array, syncInfo, error) in
-                                    completionBlock(array.firstObject, syncInfo, error)
+                                  task: task) { (array, syncInfo, error ) in
+                                    if let mendeleyObject = array?.first as? MendeleyObject {
+                                        completionBlock(mendeleyObject, syncInfo, nil)
+                                    } else {
+                                        completionBlock(nil, nil, error)
+                                    }
         }
     }
 }

@@ -243,7 +243,7 @@
      */
     @objc public func update(folder updatedFolder: MendeleyFolder,
                              task: MendeleyTask?,
-                             completionBlock: MendeleyCompletionBlock) {
+                             completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, updatedFolder.object_ID ?? "")
         
         helper.update(mendeleyObject: updatedFolder,

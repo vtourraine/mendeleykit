@@ -136,6 +136,14 @@
     @objc public var news_id: String?
 }
 
+// MARK: - Share Documents
+
+@objc open class MendeleyShareDocumentParameters: MendeleySwiftQueryRequestParameters {
+    @objc public var document_id: String?
+    @objc public var doi: String?
+    @objc public var scopus: String?
+}
+
 // MARK: - Metadata
 
 @objc open class MendeleyMetadataParameters: MendeleySwiftQueryRequestParameters {
@@ -282,3 +290,8 @@
     @objc public var modified_since: Date?
 }
 
+
+// MARK: - Datasets
+
+@objc open class MendeleyDatasetParameters: MendeleySwiftQueryRequestParameters {
+}

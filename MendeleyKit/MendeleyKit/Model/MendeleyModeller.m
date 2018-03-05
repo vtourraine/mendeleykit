@@ -22,7 +22,6 @@
 #import "MendeleyOAuthCredentials.h"
 #import "MendeleyObjectHelper.h"
 #import "NSError+MendeleyError.h"
-#import "MendeleyModels.h"
 #import "MendeleyObject.h"
 
 @implementation MendeleyModeller

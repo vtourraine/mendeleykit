@@ -207,7 +207,7 @@
 //                              }
 //                          }];
 //}
-//
+
 //- (void)isCurrentUserFollowedByUserWithID:(NSString *)userID
 //                                     task:(MendeleyTask *)task
 //                          completionBlock:(MendeleyCompletionBlock)completionBlock

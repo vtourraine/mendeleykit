@@ -292,17 +292,17 @@ import UIKit
          expectedType: U.Type,
          task: MendeleyTask?,
          completionBlock: @escaping MendeleyObjectCompletionBlock) {
-        
+
         let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
-        
+
         guard let networkProvider = delegate?.networkProvider, let baseURL = delegate?.baseAPIURL
             else { blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: nil); return }
-        
+
         let encoder = JSONEncoder()
-        
+
         do {
             let jsonData = try encoder.encode(mendeleyObject)
-            
+
             networkProvider.invokePATCH(baseURL,
                                         api: api,
                                         additionalHeaders: additionalHeaders,
@@ -314,10 +314,10 @@ import UIKit
                                                 blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)
                                             } else {
                                                 let decoder = JSONDecoder()
-                                                
+
                                                 do {
                                                     let objectDict = try decoder.decode([String: U].self, from: response!.rawResponseBody)
-                                                    
+
                                                     blockExec?.execute(withMendeleyObject: objectDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
                                                 } catch {
                                                     blockExec?.execute(withMendeleyObject: nil, syncInfo: nil, error: error)

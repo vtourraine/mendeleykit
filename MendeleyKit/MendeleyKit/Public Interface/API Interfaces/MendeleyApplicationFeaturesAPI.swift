@@ -22,7 +22,8 @@
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONApplicationFeaturesType]
     
     @objc public func applicationFeatures(withTask task: MendeleyTask?,
-                                          completionBlock: MendeleyArrayCompletionBlock) {
+                                          completionBlock: @escaping MendeleyArrayCompletionBlock) {
+        
         helper.mendeleyObjectList(ofType: MendeleyFeature.self,
                                   api: kMendeleyRESTAPIApplicationFeatures,
                                   queryParameters: nil,

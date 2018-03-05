@@ -172,9 +172,9 @@
      */
     @objc public func catalogDocument(withCatalogID catalogID: String,
                                       task: MendeleyTask?,
-                                      completionBlock: MendeleyObjectCompletionBlock) {
+                                      completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPICatalogWithID, catalogID)
-        
+
         helper.mendeleyObject(ofType: MendeleyCatalogDocument.self,
                               queryParameters: defaultCatalogViewQueryParameters,
                               api: apiEndPoint,
