@@ -48,7 +48,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func pull(profile profileID: String,
+    @objc (pullProfile:task:completionBlock:)
+    public func pull(profile profileID: String,
                            task: MendeleyTask?,
                            completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.mendeleyObject(ofType: MendeleyProfile.self,
@@ -114,7 +115,8 @@
      @param task
      @param completionBlock - the completionHandler.
      */
-    @objc public func create(profile: MendeleyNewProfile, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
+    @objc (createProfile:task:completionBlock:)
+    public func create(profile: MendeleyNewProfile, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         MendeleyKitConfiguration.sharedInstance().oauthProvider.authenticateClient() { (credentials, error) in
             let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)
             
@@ -162,7 +164,8 @@
      @param task
      @param completionBlock - the completionHandler.
      */
-    @objc public func update(myProfile: MendeleyAmendmentProfile, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
+    @objc (updateMyProfile:task:completionBlock:)
+    public func update(myProfile: MendeleyAmendmentProfile, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.update(mendeleyObject: myProfile,
                       api: kMendeleyRESTAPIProfilesMe,
                       additionalHeaders: updateProfileRequestHeader(),

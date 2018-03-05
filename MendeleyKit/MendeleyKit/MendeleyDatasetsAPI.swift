@@ -117,7 +117,8 @@
      @param task The networking task
      @param completionBlock The completion block
      */
-    @objc public func create(dataset mendeleyDataset: MendeleyDataset,
+    @objc (createDataset:task:completionBlock:)
+    public func create(dataset mendeleyDataset: MendeleyDataset,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let header = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONDatasetCreationRequestType]
@@ -139,7 +140,8 @@
      @param progressBlock The progress block
      @param completionBlock The completion block
      */
-    @objc public func create(datasetFile fileURL: URL,
+    @objc (createDatasetFile:filename:contentType:task:progressBlock:completionBlock:)
+    public func create(datasetFile fileURL: URL,
                              filename: String?,
                              contentType: String?,
                              task: MendeleyTask?,
@@ -185,7 +187,7 @@
      @param task
      @param completionBlock
      */
-    @objc public func datasetLicensesList(withTask task: MendeleyTask?,
+    @objc public func datasetLicencesList(withTask task: MendeleyTask?,
                                           completionBlock: @escaping MendeleyArrayCompletionBlock) {
         helper.mendeleyObjectList(ofType: MendeleyLicenceInfo.self,
                                   api: kMendeleyRESTAPIDatasetsLicences,

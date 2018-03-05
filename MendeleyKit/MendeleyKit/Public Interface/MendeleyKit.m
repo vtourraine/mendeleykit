@@ -20,7 +20,6 @@
 
 #import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
 #import "MendeleyKit.h"
-#import "MendeleyModels.h"
 #import "MendeleyOAuthStore.h"
 #import "MendeleyOAuthCredentials.h"
 #import "MendeleyDefaultNetworkProvider.h"
@@ -30,21 +29,8 @@
 #import "MendeleySyncInfo.h"
 #import "MendeleyQueryRequestParameters.h"
 #import "MendeleyBlockExecutor.h"
-#import "MendeleyAcademicStatusesAPI.h"
-#import "MendeleyAnnotationsAPI.h"
-#import "MendeleyDocumentsAPI.h"
-#import "MendeleyFilesAPI.h"
-#import "MendeleyFoldersAPI.h"
-#import "MendeleyGroupsAPI.h"
-#import "MendeleyMetadataAPI.h"
-#import "MendeleyDatasetsAPI.h"
 #import "NSError+MendeleyError.h"
-#import "MendeleyProfilesAPI.h"
-#import "MendeleyDisciplinesAPI.h"
-#import "MendeleyFollowersAPI.h"
-#import "MendeleyApplicationFeaturesAPI.h"
 #import "MendeleyErrorManager.h"
-#import "MendeleyPhotosMeAPI.h"
 
 @interface MendeleyKit ()
 

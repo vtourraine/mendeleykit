@@ -16,6 +16,10 @@ import UIKit
 @objc public class MendeleyKitSwiftHelper: NSObject {
     private var delegate: MendeleyKitSwiftHelperDelegate?
 
+    public override init() {
+        super.init()
+    }
+    
     init(withDelegate delegate: MendeleyKitSwiftHelperDelegate) {
         self.delegate = delegate
     }

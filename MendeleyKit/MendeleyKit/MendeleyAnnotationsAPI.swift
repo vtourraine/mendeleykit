@@ -58,7 +58,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func delete(annotationWithID annotationID: String,
+    @objc (deleteAnnotationWithID:task:completionBlock:)
+    public func delete(annotationWithID annotationID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIAnnotationWithID, annotationID)
@@ -73,7 +74,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func update(annotation updatedMendeleyAnnotation: MendeleyAnnotation,
+    @objc (updateAnnotation:task:completionBlock:)
+    public func update(annotation updatedMendeleyAnnotation: MendeleyAnnotation,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIAnnotationWithID, updatedMendeleyAnnotation.object_ID ?? "")
@@ -91,7 +93,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func create(annotation mendeleyAnnotation: MendeleyAnnotation,
+    @objc (createAnnotation:task:completionBlock:)
+    public func create(annotation mendeleyAnnotation: MendeleyAnnotation,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.create(mendeleyObject: mendeleyAnnotation,

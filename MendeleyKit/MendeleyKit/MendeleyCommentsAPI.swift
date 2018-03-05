@@ -68,7 +68,8 @@ import UIKit
      @param task
      @param completionBlock
      */
-    @objc public func create(comment: MendeleyComment, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
+    @objc (createComment:task:completionBlock:)
+    public func create(comment: MendeleyComment, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.create(mendeleyObject: comment,
                       api: kMendeleyRESTAPIComments,
                       additionalHeaders: postCommentRequestHeaders,
@@ -83,7 +84,7 @@ import UIKit
      @param task
      @param completionBlock
      */
-    @objc public func updatingComment(withCommentID commentID: String, update: MendeleyCommentUpdate, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
+    @objc public func updateComment(withCommentID commentID: String, update: MendeleyCommentUpdate, task: MendeleyTask?, completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.update(mendeleyObject: update,
                       api: String(format: kMendeleyRESTAPICommentsWithCommentID, commentID),
                       additionalHeaders: updateCommentRequestHeaders,

@@ -20,9 +20,9 @@
 
 import Foundation
 
-open class MendeleyAnalyticsEvent: MendeleySecureObject
+open class MendeleyAnalyticsEvent: MendeleySecureObject, Encodable
 {
-    open var name:String!
+    open var name: String!
     open var timestamp = Date()
     open var profileID: String!
     open var session_ID: String!
@@ -39,6 +39,16 @@ open class MendeleyAnalyticsEvent: MendeleySecureObject
             properties[kMendeleyAnalyticsJSONDuration] = newValue
         }
     }
+    
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case timestamp
+        case profileID
+        case session_ID
+        case profile_uuid
+        case origin
+        case properties
+    }
 
     public init(name: String) {
         super.init()
@@ -47,5 +57,16 @@ open class MendeleyAnalyticsEvent: MendeleySecureObject
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    open func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode(profileID, forKey: .profileID)
+        try container.encode(session_ID, forKey: .session_ID)
+        try container.encode(profile_uuid, forKey: .profile_uuid)
+        try container.encode(origin, forKey: .origin)
+        try container.encode(properties, forKey: .properties)
     }
 }

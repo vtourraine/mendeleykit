@@ -438,6 +438,10 @@ open class MendeleyAmendmentProfile: MendeleySecureObject, Codable {
         super.init(coder: aDecoder)
     }
     
+    override init() {
+        super.init()
+    }
+    
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(email, forKey: .email)

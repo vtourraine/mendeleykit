@@ -98,46 +98,30 @@ open class MendeleyAnalyticsCacheManager: NSObject
                     let kit = MendeleyKitConfiguration.sharedInstance()
                     let baseURL = kit?.baseAPIURL
                     let provider = kit?.networkProvider
-                    let modeller = MendeleyModeller.sharedInstance()
                     let task = MendeleyTask()
-                    do{
-                        let data = try modeller.jsonObject(fromModelOrModels: events) as Data!
+                    let encoder = JSONEncoder()
+                    do {
+                        let data = try encoder.encode(events)
                         
-                        
-                        provider?.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
-                            if nil != response
-                            {
-                                do{
-                                    let helper = MendeleyKitHelper()
-                                    try helper.isSuccess(for: response!)
-                                    self.clearCache()
-                                    blockExecutor?.execute(with: true, error: nil)
-                                }catch let responseFault as NSError
-                                {
-                                    blockExecutor?.execute(with: false, error: responseFault)
-                                }
-                                catch{
-                                    let innerError = NSError(code: MendeleyErrorCode.responseTypeUnknownErrorCode)
-                                    blockExecutor?.execute(with: false, error: innerError)
-                                }
+                        provider?.invokePOST(baseURL,
+                                             api: kMendeleyAnalyticsAPIEventsBatch,
+                                             additionalHeaders: self.eventHeader,
+                                             jsonData: data,
+                                             authenticationRequired: true,
+                                             task: task) { (response, responseError ) -> Void in
+                            let helper = MendeleyKitSwiftHelper()
+                            var error = responseError
+                            if helper.isSuccess(forResponse: response, error: &error) == true {
+                                self.clearCache()
+                                blockExecutor?.execute(with: true, error: nil)
+                            } else {
+                                blockExecutor?.execute(with: false, error: error)
                             }
-                            else
-                            {
-                                blockExecutor?.execute(with: false, error: responseError!)
-                            }
-                            
-                        })
-                    }catch let jsonError as NSError
-                    {
-                        blockExecutor?.execute(with: false, error: jsonError)
+                        }
+                    } catch {
+                        blockExecutor?.execute(with: false, error: error)
                     }
-                    catch{
-                        let jsonError = NSError(code: MendeleyErrorCode.jsonTypeNotMappedToModelErrorCode)
-                        blockExecutor?.execute(with: false, error: jsonError)
-                    }
-                }
-                else
-                {
+                } else {
                     blockExecutor?.execute(with: false, error: error)
                 }
             })

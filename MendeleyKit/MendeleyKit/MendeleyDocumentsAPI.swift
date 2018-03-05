@@ -209,7 +209,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func create(document mendeleyDocument: MendeleyDocument,
+    @objc (createDocument:task:completionBlock:)
+    public func create(document mendeleyDocument: MendeleyDocument,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.create(mendeleyObject: mendeleyDocument,
@@ -226,7 +227,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func update(document updatedMendeleyDocument: MendeleyDocument,
+    @objc (updateDocument:task:completionBlock:)
+    public func update(document updatedMendeleyDocument: MendeleyDocument,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIDocumentWithID, updatedMendeleyDocument.object_ID ?? "")
@@ -246,7 +248,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func delete(documentWithID documentID: String,
+    @objc (deleteDocumentWithID:task:completionBlock:)
+    public func delete(documentWithID documentID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIDocumentWithID, documentID)
@@ -263,7 +266,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func trash(documentWithID documentID: String,
+    @objc (trashDocumentWithID:task:completionBlock:)
+    public func trash(documentWithID documentID: String,
                             task: MendeleyTask?,
                             completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIDocumentWithIDToTrash, documentID)
@@ -391,7 +395,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func delete(trashedDocumentWithID documentID: String,
+    @objc (deleteTrashedDocumentWithID:task:completionBlock:)
+    public func delete(trashedDocumentWithID documentID: String,
                             task: MendeleyTask?,
                             completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPITrashedDocumentWithID, documentID)
@@ -408,7 +413,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func restore(trashedDocumentWithID documentID: String,
+    @objc (restoreTrashedDocumentWithID:task:completionBlock:)
+    public func restore(trashedDocumentWithID documentID: String,
                               task: MendeleyTask?,
                               completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIRestoreTrashedDocumentWithID, documentID)
@@ -532,7 +538,8 @@
      @param profileID must be provided if the groupID is nil (this means clone to user library). Otherwise values are ignored
      @param completionBlock
      */
-    @objc public func clone(documentWithID documentID: String,
+    @objc (cloneDocumentWithID:groupID:folderID:profileID:task:completionBlock:)
+    public func clone(documentWithID documentID: String,
                             groupID: String?,
                             folderID: String?,
                             profileID: String?,
@@ -601,7 +608,8 @@
      @param toDocument the target document ID
      @param completionBlock
      */
-    @objc public func clone(documentFiles sourceDocumentID: String,
+    @objc (cloneDocumentFiles:targetDocumentID:task:completionBlock:)
+    public func clone(documentFiles sourceDocumentID: String,
                             targetDocumentID: String,
                             task: MendeleyTask?,
                             completionBlock: @escaping MendeleyCompletionBlock) {
@@ -638,7 +646,8 @@
      @param profileID must be provided if the groupID is nil (this means clone to user library). Otherwise values are ignored
      @param completionBlock
      */
-    @objc public func clone(documentAndFiles documentID: String,
+    @objc (cloneDocumentAndFiles:groupID:folderID:profileID:task:completionBlock:)
+    public func clone(documentAndFiles documentID: String,
                             groupID: String?,
                             folderID: String?,
                             profileID: String?,

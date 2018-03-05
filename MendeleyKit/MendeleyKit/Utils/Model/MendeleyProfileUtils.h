@@ -18,13 +18,14 @@
  *****************************************************************************
  */
 
-#import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
+//
+//@class MendeleyAmendmentProfile;
+//@class MendeleyProfile;
+//
+//@interface MendeleyProfileUtils : NSObject
+//
+//+ (MendeleyAmendmentProfile *)amendmentProfileFromProfile:(MendeleyProfile *)profile;
+//
+//@end
 
-@class MendeleyAmendmentProfile;
-@class MendeleyProfile;
-
-@interface MendeleyProfileUtils : NSObject
-
-+ (MendeleyAmendmentProfile *)amendmentProfileFromProfile:(MendeleyProfile *)profile;
-
-@end

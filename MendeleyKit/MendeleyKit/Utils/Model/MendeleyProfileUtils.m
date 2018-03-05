@@ -18,30 +18,30 @@
  *****************************************************************************
  */
 
-#import "MendeleyProfileUtils.h"
-#import "MendeleyProfile.h"
-#import "MendeleyKit-Swift.h"
+//#import "MendeleyProfileUtils.h"
+//#import "MendeleyKit-Swift.h"
+//
+//@implementation MendeleyProfileUtils
+//
+//+ (MendeleyAmendmentProfile *)amendmentProfileFromProfile:(MendeleyProfile *)profile
+//{
+//    MendeleyAmendmentProfile *amendmentProfile = [MendeleyAmendmentProfile new];
+//    
+//    amendmentProfile.email = profile.email;
+//    amendmentProfile.title = profile.title;
+//    amendmentProfile.password = nil;
+//    amendmentProfile.old_password = nil;
+//    amendmentProfile.first_name = profile.first_name;
+//    amendmentProfile.last_name = profile.last_name;
+//    amendmentProfile.academic_status = profile.academic_status;
+//    amendmentProfile.institution = profile.institution;
+//    amendmentProfile.biography = profile.biography;
+//    amendmentProfile.marketing = profile.marketing;
+//    amendmentProfile.disciplines = profile.disciplines;
+//    amendmentProfile.research_interests_list = profile.research_interests_list;
+//    
+//    return amendmentProfile;
+//}
+//
+//@end
 
-@implementation MendeleyProfileUtils
-
-+ (MendeleyAmendmentProfile *)amendmentProfileFromProfile:(MendeleyProfile *)profile
-{
-    MendeleyAmendmentProfile *amendmentProfile = [MendeleyAmendmentProfile new];
-    
-    amendmentProfile.email = profile.email;
-    amendmentProfile.title = profile.title;
-    amendmentProfile.password = nil;
-    amendmentProfile.old_password = nil;
-    amendmentProfile.first_name = profile.first_name;
-    amendmentProfile.last_name = profile.last_name;
-    amendmentProfile.academic_status = profile.academic_status;
-    amendmentProfile.institution = profile.institution;
-    amendmentProfile.biography = profile.biography;
-    amendmentProfile.marketing = profile.marketing;
-    amendmentProfile.disciplines = profile.disciplines;
-    amendmentProfile.research_interests_list = profile.research_interests_list;
-    
-    return amendmentProfile;
-}
-
-@end

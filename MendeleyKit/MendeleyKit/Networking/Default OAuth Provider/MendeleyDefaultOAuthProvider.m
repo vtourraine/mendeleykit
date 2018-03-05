@@ -28,7 +28,7 @@
 #import "NSError+Exceptions.h"
 #import "MendeleyURLBuilder.h"
 #import "MendeleyBlockExecutor.h"
-#import "MendeleyKitHelper.h"
+#import "MendeleyKit-Swift.h"
 #import "MendeleyKit-Umbrella.h"
 
 

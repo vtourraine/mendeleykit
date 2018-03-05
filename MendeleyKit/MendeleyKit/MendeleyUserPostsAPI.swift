@@ -33,7 +33,8 @@ import UIKit
                                     completionBlock: completionBlock)
     }
     
-    @objc public func create(groupPost: MendeleyNewGroupPost,
+    @objc (createGroupPost:task:completionBlock:)
+    public func create(groupPost: MendeleyNewGroupPost,
                 task: MendeleyTask?,
                 completionBlock: @escaping MendeleyObjectCompletionBlock) {
         helper.create(mendeleyObject: groupPost,

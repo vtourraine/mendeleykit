@@ -46,7 +46,8 @@
      @param task
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
-    @objc public func followers(forUserWithID profileID: String,
+    @objc (followersForUserWithID:parameters:task:completionBlock:)
+    public func followers(forUserWithID profileID: String,
                                 queryParameters: MendeleyFollowersParameters?,
                                 task: MendeleyTask?,
                                 completionBlock: @escaping MendeleyArrayCompletionBlock) {
@@ -72,7 +73,8 @@
      @param task
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
-    @objc public func followedBy(userWithID profileID: String,
+    @objc (followedByUserWithID:parameters:task:completionBlock:)
+    public func followedBy(userWithID profileID: String,
                                  queryParameters: MendeleyFollowersParameters?,
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyArrayCompletionBlock) {
@@ -98,7 +100,8 @@
      @param task
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
-    @objc public func pendingFollowers(forUserWithID profileID: String,
+    @objc (pendingFollowersForUserWithID:parameters:task:completionBlock:)
+    public func pendingFollowers(forUserWithID profileID: String,
                                        queryParameters: MendeleyFollowersParameters?,
                                        task: MendeleyTask?,
                                        completionBlock: @escaping MendeleyArrayCompletionBlock) {
@@ -124,7 +127,8 @@
      @param task
      @param completionBlock - the array contained in the completionBlock will be an array of MendeleyFollow objects
      */
-    @objc public func pendingFollowedBy(userWithID profileID: String,
+    @objc (pendingFollowedByUserWithID:parameters:task:completionBlock:)
+    public func pendingFollowedBy(userWithID profileID: String,
                                         queryParameters: MendeleyFollowersParameters?,
                                         task: MendeleyTask?,
                                         completionBlock: @escaping MendeleyArrayCompletionBlock) {
@@ -189,7 +193,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func stopOrDeny(relationshipWithID relationshipID: String,
+    @objc (stopOrDenyRelationshipWithID:task:completionBlock:)
+    public func stopOrDeny(relationshipWithID relationshipID: String,
                                  task: MendeleyTask?,
                                  completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIFollowersWithID, relationshipID)
@@ -206,7 +211,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func followRelationship(betweenFollower followerID: String,
+    @objc (followRelationshipBetweenFollower:followed:task:completionBlock:)
+    public func followRelationship(betweenFollower followerID: String,
                                          followed followedID: String,
                                          task: MendeleyTask?,
                                          completionBlock: @escaping MendeleyObjectCompletionBlock) {

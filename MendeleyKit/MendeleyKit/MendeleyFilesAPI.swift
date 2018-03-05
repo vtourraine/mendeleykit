@@ -105,7 +105,8 @@
      @param progressBlock
      @param completionBlock
      */
-    @objc public func create(file fileURL: URL,
+    @objc (createFile:filename:contentType:relativeToDocumentURLPath:task:progressBlock:completionBlock:)
+    public func create(file fileURL: URL,
                              filename: String,
                              contentType: String,
                              relativeToDocumentURLPath documentURLPath: String,
@@ -148,7 +149,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func delete(fileWithID fileID: String,
+    @objc (deleteFileWithID:task:completionBlock:)
+    public func delete(fileWithID fileID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIFileWithID, fileID)
@@ -274,7 +276,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func add(recentlyRead: MendeleyRecentlyRead,
+    @objc (addRecentlyRead:task:completionBlock:)
+    public func add(recentlyRead: MendeleyRecentlyRead,
                           task: MendeleyTask?,
                           completionBlock: @escaping MendeleyObjectCompletionBlock) {
         let blockExec = MendeleyBlockExecutor(objectCompletionBlock: completionBlock)

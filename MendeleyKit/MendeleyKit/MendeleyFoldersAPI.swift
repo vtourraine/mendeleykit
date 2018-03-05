@@ -99,7 +99,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func add(document mendeleyDocumentID: String,
+    @objc (addDocument:folderID:task:completionBlock:)
+    public func add(document mendeleyDocumentID: String,
                           folderID: String,
                           task: MendeleyTask?,
                           completionBlock: @escaping MendeleyCompletionBlock) {
@@ -134,7 +135,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func create(folder mendeleyFolder: MendeleyFolder,
+    @objc (createFolder:task:completionBlock:)
+    public func create(folder mendeleyFolder: MendeleyFolder,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyObjectCompletionBlock) {
         
@@ -185,7 +187,7 @@
      @param task
      @param completionBlock
      */
-    @objc public func foldersList(withQueryParamenters queryParameters: MendeleyFolderParameters,
+    @objc public func folderList(withQueryParameters queryParameters: MendeleyFolderParameters,
                                   task: MendeleyTask?,
                                   completionBlock: @escaping MendeleyArrayCompletionBlock) {
         var mergedQuery = queryParameters.valueStringDictionary()
@@ -225,7 +227,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func delete(folderWithID folderID: String,
+    @objc (deleteFolderWithID:task:completionBlock:)
+    public func delete(folderWithID folderID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, folderID)
@@ -241,7 +244,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func update(folder updatedFolder: MendeleyFolder,
+    @objc (updateFolder:task:completionBlock:)
+    public func update(folder updatedFolder: MendeleyFolder,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
         let apiEndPoint = String(format: kMendeleyRESTAPIFolderWithID, updatedFolder.object_ID ?? "")
@@ -260,7 +264,8 @@
      @param task
      @param completionBlock
      */
-    @objc public func delete(documentWithID documentID: String,
+    @objc (deleteDocumentWithID:fromFolderWithID:task:completionBlock:)
+    public func delete(documentWithID documentID: String,
                              fromFolderWithID folderID: String,
                              task: MendeleyTask?,
                              completionBlock: @escaping MendeleyCompletionBlock) {
