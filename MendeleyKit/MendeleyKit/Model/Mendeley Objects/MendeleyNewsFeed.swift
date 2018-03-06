@@ -18,16 +18,16 @@
  *****************************************************************************
  */
 
-open class MendeleyNewsFeed : MendeleyObject {
-    public var likeable: Bool?
-    public var commentable: Bool?
-    public var sharable: Bool?
-    public var source: MendeleyNewsFeedSource?
-    public var content: MendeleyJsonNode?
-    public var created: String?
-    public var share: MendeleyShare?
-    public var like: MendeleyLike?
-    public var comments: MendeleyExpandedComments?
+@objc open class MendeleyNewsFeed : MendeleyObject {
+    @objc public var likeable: NSNumber?
+    @objc public var commentable: NSNumber?
+    @objc public var sharable: NSNumber?
+    @objc public var source: MendeleyNewsFeedSource?
+    @objc public var content: MendeleyJsonNode?
+    @objc public var created: String?
+    @objc public var share: MendeleyShare?
+    @objc public var like: MendeleyLike?
+    @objc public var comments: MendeleyExpandedComments?
     
     private enum CodingKeys: String, CodingKey {
         case likeable
@@ -43,9 +43,15 @@ open class MendeleyNewsFeed : MendeleyObject {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        likeable = try container.decodeIfPresent(Bool.self, forKey: .likeable)
-        commentable = try container.decodeIfPresent(Bool.self, forKey: .commentable)
-        sharable = try container.decodeIfPresent(Bool.self, forKey: .sharable)
+        if let likeableBool = try container.decodeIfPresent(Bool.self, forKey: .likeable) {
+            likeable = NSNumber(value: likeableBool)
+        }
+        if let commentableBool = try container.decodeIfPresent(Bool.self, forKey: .commentable) {
+            commentable = NSNumber(value: commentableBool)
+        }
+        if let sharableBool = try container.decodeIfPresent(Bool.self, forKey: .sharable) {
+            sharable = NSNumber(value: sharableBool)
+        }
         source = try container.decodeIfPresent(MendeleyNewsFeedSource.self, forKey: .source)
         content = try container.decodeIfPresent(MendeleyJsonNode.self, forKey: .content)
         created = try container.decodeIfPresent(String.self, forKey: .created)
@@ -62,9 +68,9 @@ open class MendeleyNewsFeed : MendeleyObject {
     override open func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(likeable, forKey: .likeable)
-        try container.encodeIfPresent(commentable, forKey: .commentable)
-        try container.encodeIfPresent(sharable, forKey: .sharable)
+        try container.encodeIfPresent(likeable?.boolValue, forKey: .likeable)
+        try container.encodeIfPresent(commentable?.boolValue, forKey: .commentable)
+        try container.encodeIfPresent(sharable?.boolValue, forKey: .sharable)
         try container.encodeIfPresent(source, forKey: .source)
         try container.encodeIfPresent(content, forKey: .content)
         try container.encodeIfPresent(created, forKey: .created)
@@ -74,8 +80,8 @@ open class MendeleyNewsFeed : MendeleyObject {
     }
 }
 
-open class MendeleyNewsFeedSource : MendeleySecureObject, Codable {
-    public var type: String?
+@objc open class MendeleyNewsFeedSource : MendeleySecureObject, Codable {
+    @objc public var type: String?
     
     private enum CodingKeys: String, CodingKey {
         case type
@@ -97,8 +103,8 @@ open class MendeleyNewsFeedSource : MendeleySecureObject, Codable {
     }
 }
 
-open class MendeleyNewsFeedProfileSource : MendeleyNewsFeedSource {
-    public var profile: MendeleySocialProfile?
+@objc open class MendeleyNewsFeedProfileSource : MendeleyNewsFeedSource {
+    @objc public var profile: MendeleySocialProfile?
     
     private enum CodingKeys: String, CodingKey {
         case profile
@@ -121,8 +127,8 @@ open class MendeleyNewsFeedProfileSource : MendeleyNewsFeedSource {
     }
 }
 
-open class MendeleyNewsFeedRSSSource : MendeleyNewsFeedSource {
-    public var rss_feed: MendeleyFeedRSSFeed?
+@objc open class MendeleyNewsFeedRSSSource : MendeleyNewsFeedSource {
+    @objc public var rss_feed: MendeleyFeedRSSFeed?
     
     private enum CodingKeys: String, CodingKey {
         case rss_feed
@@ -145,9 +151,9 @@ open class MendeleyNewsFeedRSSSource : MendeleyNewsFeedSource {
     }
 }
 
-open class MendeleyFeedRSSFeed : MendeleySecureObject, Codable {
-    public var name: String?
-    public var link: String?
+@objc open class MendeleyFeedRSSFeed : MendeleySecureObject, Codable {
+    @objc public var name: String?
+    @objc public var link: String?
     
     private enum CodingKeys: String, CodingKey {
         case name
@@ -172,8 +178,8 @@ open class MendeleyFeedRSSFeed : MendeleySecureObject, Codable {
     }
 }
 
-open class MendeleyJsonNode : MendeleySecureObject, Codable {
-    public var type: String?
+@objc open class MendeleyJsonNode : MendeleySecureObject, Codable {
+    @objc public var type: String?
     
     private enum CodingKeys: String, CodingKey {
         case type
@@ -195,8 +201,8 @@ open class MendeleyJsonNode : MendeleySecureObject, Codable {
     }
 }
 
-open class MendeleyCountableJsonNode : MendeleyJsonNode {
-    public var total_count: Int?
+@objc open class MendeleyCountableJsonNode : MendeleyJsonNode {
+    @objc public var total_count: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case total_count
@@ -204,7 +210,9 @@ open class MendeleyCountableJsonNode : MendeleyJsonNode {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        total_count = try container.decodeIfPresent(Int.self, forKey: .total_count)
+        if let total_countInt = try container.decodeIfPresent(Int.self, forKey: .total_count) {
+            total_count = NSNumber(value: total_countInt)
+        }
         try super.init(from: decoder)
     }
     
@@ -215,14 +223,14 @@ open class MendeleyCountableJsonNode : MendeleyJsonNode {
     override open func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(total_count, forKey: .total_count)
+        try container.encodeIfPresent(total_count?.boolValue, forKey: .total_count)
     }
 }
 
-open class MendeleyDocumentRecommendationJsonNode : MendeleyCountableJsonNode {
-    public var subtype: String?
-    public var user_document: MendeleyUserDocument?
-    public var recommendations: [MendeleyRecommendedDocument]?
+@objc open class MendeleyDocumentRecommendationJsonNode : MendeleyCountableJsonNode {
+    @objc public var subtype: String?
+    @objc public var user_document: MendeleyUserDocument?
+    @objc public var recommendations: [MendeleyRecommendedDocument]?
     
     private enum CodingKeys: String, CodingKey {
         case subtype
@@ -251,9 +259,9 @@ open class MendeleyDocumentRecommendationJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyEmploymentUpdateJsonNode : MendeleyCountableJsonNode {
-    public var institution: String?
-    public var position: String?
+@objc open class MendeleyEmploymentUpdateJsonNode : MendeleyCountableJsonNode {
+    @objc public var institution: String?
+    @objc public var position: String?
     
     private enum CodingKeys: String, CodingKey {
         case institution
@@ -279,9 +287,9 @@ open class MendeleyEmploymentUpdateJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyEducationUpdateJsonNode : MendeleyCountableJsonNode {
-    public var institution: String?
-    public var degree: String?
+@objc open class MendeleyEducationUpdateJsonNode : MendeleyCountableJsonNode {
+    @objc public var institution: String?
+    @objc public var degree: String?
     
     private enum CodingKeys: String, CodingKey {
         case institution
@@ -307,9 +315,9 @@ open class MendeleyEducationUpdateJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyGroupDocAddedJsonNode : MendeleyCountableJsonNode {
-    public var group: MendeleyFeedGroup?
-    public var documents: [MendeleyAddedDocument]?
+@objc open class MendeleyGroupDocAddedJsonNode : MendeleyCountableJsonNode {
+    @objc public var group: MendeleyFeedGroup?
+    @objc public var documents: [MendeleyAddedDocument]?
     
     private enum CodingKeys: String, CodingKey {
         case group
@@ -335,10 +343,10 @@ open class MendeleyGroupDocAddedJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyFeedGroup : MendeleyObject {
-    public var link: String?
-    public var access_level: String?
-    public var name: String?
+@objc open class MendeleyFeedGroup : MendeleyObject {
+    @objc public var link: String?
+    @objc public var access_level: String?
+    @objc public var name: String?
     
     private enum CodingKeys: String, CodingKey {
         case link
@@ -367,8 +375,8 @@ open class MendeleyFeedGroup : MendeleyObject {
     }
 }
 
-open class MendeleyNewFollowerJsonNode : MendeleyCountableJsonNode {
-    public var followings: [MendeleyFollowerProfile]?
+@objc open class MendeleyNewFollowerJsonNode : MendeleyCountableJsonNode {
+    @objc public var followings: [MendeleyFollowerProfile]?
     
     private enum CodingKeys: String, CodingKey {
         case followings
@@ -391,9 +399,9 @@ open class MendeleyNewFollowerJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyNewPublicationJsonNode : MendeleyCountableJsonNode {
-    public var documents: [MendeleyPublishedDocument]?
-    public var co_authors: [MendeleyFeedAuthor]?
+@objc open class MendeleyNewPublicationJsonNode : MendeleyCountableJsonNode {
+    @objc public var documents: [MendeleyPublishedDocument]?
+    @objc public var co_authors: [MendeleyFeedAuthor]?
     
     private enum CodingKeys: String, CodingKey {
         case documents
@@ -419,8 +427,8 @@ open class MendeleyNewPublicationJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyNewStatusJsonNode : MendeleyJsonNode {
-    public var post: MendeleyPost?
+@objc open class MendeleyNewStatusJsonNode : MendeleyJsonNode {
+    @objc public var post: MendeleyPost?
     
     private enum CodingKeys: String, CodingKey {
         case post
@@ -443,9 +451,9 @@ open class MendeleyNewStatusJsonNode : MendeleyJsonNode {
     }
 }
 
-open class MendeleyGroupStatusJsonNode: MendeleyJsonNode {
-    public var group: MendeleyGroup?
-    public var post: MendeleyGroupPost?
+@objc open class MendeleyGroupStatusJsonNode: MendeleyJsonNode {
+    @objc public var group: MendeleyGroup?
+    @objc public var post: MendeleyGroupPost?
     
     private enum CodingKeys: String, CodingKey {
         case group
@@ -471,8 +479,8 @@ open class MendeleyGroupStatusJsonNode: MendeleyJsonNode {
     }
 }
 
-open class MendeleyPostedCataloguePublicationJsonNode : MendeleyCountableJsonNode {
-    public var documents: [MendeleyCataloguePubDocument]?
+@objc open class MendeleyPostedCataloguePublicationJsonNode : MendeleyCountableJsonNode {
+    @objc public var documents: [MendeleyCataloguePubDocument]?
     
     private enum CodingKeys: String, CodingKey {
         case documents
@@ -495,8 +503,8 @@ open class MendeleyPostedCataloguePublicationJsonNode : MendeleyCountableJsonNod
     }
 }
 
-open class MendeleyPostedPublicationJsonNode : MendeleyCountableJsonNode {
-    public var documents: [MendeleyCataloguePubDocument]?
+@objc open class MendeleyPostedPublicationJsonNode : MendeleyCountableJsonNode {
+    @objc public var documents: [MendeleyCataloguePubDocument]?
     
     private enum CodingKeys: String, CodingKey {
         case documents
@@ -519,12 +527,12 @@ open class MendeleyPostedPublicationJsonNode : MendeleyCountableJsonNode {
     }
 }
 
-open class MendeleyRSSJsonNode : MendeleyJsonNode {
-    public var title: String?
-    public var summary: String?
-    public var link: String?
-    public var publish_date: String?
-    public var image_url: String?
+@objc open class MendeleyRSSJsonNode : MendeleyJsonNode {
+    @objc public var title: String?
+    @objc public var summary: String?
+    @objc public var link: String?
+    @objc public var publish_date: String?
+    @objc public var image_url: String?
     
     private enum CodingKeys: String, CodingKey {
         case title
@@ -559,11 +567,11 @@ open class MendeleyRSSJsonNode : MendeleyJsonNode {
     }
 }
 
-open class MendeleyShare : MendeleySecureObject, Codable {
-    public var total_count: Int?
-    public var shared_by_me: Bool?
-    public var originating_sharer_profile: MendeleySocialProfile?
-    public var most_recent_sharer_profiles: [MendeleySocialProfile]?
+@objc open class MendeleyShare : MendeleySecureObject, Codable {
+    @objc public var total_count: NSNumber?
+    @objc public var shared_by_me: NSNumber?
+    @objc public var originating_sharer_profile: MendeleySocialProfile?
+    @objc public var most_recent_sharer_profiles: [MendeleySocialProfile]?
 
     private enum CodingKeys: String, CodingKey {
         case total_count
@@ -574,8 +582,12 @@ open class MendeleyShare : MendeleySecureObject, Codable {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        total_count = try container.decodeIfPresent(Int.self, forKey: .total_count)
-        shared_by_me = try container.decodeIfPresent(Bool.self, forKey: .shared_by_me)
+        if let total_countInt = try container.decodeIfPresent(Int.self, forKey: .total_count) {
+            total_count = NSNumber(value: total_countInt)
+        }
+        if let shared_by_meBool = try container.decodeIfPresent(Bool.self, forKey: .shared_by_me) {
+            shared_by_me = NSNumber(value: shared_by_meBool)
+        }
         originating_sharer_profile = try container.decodeIfPresent(MendeleySocialProfile.self, forKey: .originating_sharer_profile)
         most_recent_sharer_profiles = try container.decodeIfPresent([MendeleySocialProfile].self, forKey: .most_recent_sharer_profiles)
         super.init()
@@ -587,16 +599,16 @@ open class MendeleyShare : MendeleySecureObject, Codable {
     
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(total_count, forKey: .total_count)
-        try container.encodeIfPresent(shared_by_me, forKey: .shared_by_me)
+        try container.encodeIfPresent(total_count?.intValue, forKey: .total_count)
+        try container.encodeIfPresent(shared_by_me?.boolValue, forKey: .shared_by_me)
         try container.encodeIfPresent(originating_sharer_profile, forKey: .originating_sharer_profile)
         try container.encodeIfPresent(most_recent_sharer_profiles, forKey: .most_recent_sharer_profiles)
     }
 }
 
-open class MendeleyLike : MendeleySecureObject, Codable {
-    public var total_count: Int?
-    public var liked_by_me: Bool?
+@objc open class MendeleyLike : MendeleySecureObject, Codable {
+    @objc public var total_count: NSNumber?
+    @objc public var liked_by_me: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case total_count
@@ -605,8 +617,12 @@ open class MendeleyLike : MendeleySecureObject, Codable {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        total_count = try container.decodeIfPresent(Int.self, forKey: .total_count)
-        liked_by_me = try container.decodeIfPresent(Bool.self, forKey: .liked_by_me)
+        if let total_countInt = try container.decodeIfPresent(Int.self, forKey: .total_count) {
+            total_count = NSNumber(value: total_countInt)
+        }
+        if let liked_by_meBool = try container.decodeIfPresent(Bool.self, forKey: .liked_by_me) {
+            liked_by_me = NSNumber(value: liked_by_meBool)
+        }
         super.init()
     }
     
@@ -616,14 +632,14 @@ open class MendeleyLike : MendeleySecureObject, Codable {
     
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(total_count, forKey: .total_count)
-        try container.encodeIfPresent(liked_by_me, forKey: .liked_by_me)
+        try container.encodeIfPresent(total_count?.intValue, forKey: .total_count)
+        try container.encodeIfPresent(liked_by_me?.boolValue, forKey: .liked_by_me)
     }
 }
 
-open class MendeleyExpandedComments : MendeleySecureObject, Codable {
-    public var total_count: Int?
-    public var latest: [MendeleyExpandedComment]?
+@objc open class MendeleyExpandedComments : MendeleySecureObject, Codable {
+    @objc public var total_count: NSNumber?
+    @objc public var latest: [MendeleyExpandedComment]?
     
     private enum CodingKeys: String, CodingKey {
         case total_count
@@ -632,7 +648,9 @@ open class MendeleyExpandedComments : MendeleySecureObject, Codable {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        total_count = try container.decodeIfPresent(Int.self, forKey: .total_count)
+        if let total_countInt = try container.decodeIfPresent(Int.self, forKey: .total_count) {
+            total_count = NSNumber(value: total_countInt)
+        }
         latest = try container.decodeIfPresent([MendeleyExpandedComment].self, forKey: .latest)
         super.init()
     }
@@ -643,16 +661,16 @@ open class MendeleyExpandedComments : MendeleySecureObject, Codable {
     
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(total_count, forKey: .total_count)
+        try container.encodeIfPresent(total_count?.intValue, forKey: .total_count)
         try container.encodeIfPresent(latest, forKey: .latest)
     }
 }
 
-open class MendeleyPost : MendeleyObject {
-    public var text: String?
-    public var document: MendeleyFeedDocument?
-    public var documents: [MendeleyFeedDocument]?
-    public var tagged_users: [MendeleySocialProfile]?
+@objc open class MendeleyPost : MendeleyObject {
+    @objc public var text: String?
+    @objc public var document: MendeleyFeedDocument?
+    @objc public var documents: [MendeleyFeedDocument]?
+    @objc public var tagged_users: [MendeleySocialProfile]?
     
     private enum CodingKeys: String, CodingKey {
         case text
@@ -684,12 +702,12 @@ open class MendeleyPost : MendeleyObject {
     }
 }
 
-open class MendeleyGroupPost : MendeleyPost {
-    public var group_id: String?
-    public var visibility: String?
-    public var poster_id: String?
-    public var created_date_time: String?
-    public var hide_link_snippet: Bool?
+@objc open class MendeleyGroupPost : MendeleyPost {
+    @objc public var group_id: String?
+    @objc public var visibility: String?
+    @objc public var poster_id: String?
+    @objc public var created_date_time: String?
+    @objc public var hide_link_snippet: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case group_id
@@ -705,7 +723,9 @@ open class MendeleyGroupPost : MendeleyPost {
         visibility = try container.decodeIfPresent(String.self, forKey: .visibility)
         poster_id = try container.decodeIfPresent(String.self, forKey: .poster_id)
         created_date_time = try container.decodeIfPresent(String.self, forKey: .created_date_time)
-        hide_link_snippet = try container.decodeIfPresent(Bool.self, forKey: .hide_link_snippet)
+        if let hide_link_snippetBool = try container.decodeIfPresent(Bool.self, forKey: .hide_link_snippet) {
+            hide_link_snippet = NSNumber(value: hide_link_snippetBool)
+        }
         try super.init(from: decoder)
     }
     
@@ -720,17 +740,17 @@ open class MendeleyGroupPost : MendeleyPost {
         try container.encodeIfPresent(visibility, forKey: .visibility)
         try container.encodeIfPresent(poster_id, forKey: .poster_id)
         try container.encodeIfPresent(created_date_time, forKey: .created_date_time)
-        try container.encodeIfPresent(hide_link_snippet, forKey: .hide_link_snippet)
+        try container.encodeIfPresent(hide_link_snippet?.boolValue, forKey: .hide_link_snippet)
     }
 }
 
-open class MendeleyFeedDocument : MendeleyObject {
-    public var title: String?
-    public var year: Int?
-    public var link: String?
-    public var type: String?
-    public var authors: [MendeleyFeedAuthor]?
-    public var doi: String?
+@objc open class MendeleyFeedDocument : MendeleyObject {
+    @objc public var title: String?
+    @objc public var year: NSNumber?
+    @objc public var link: String?
+    @objc public var type: String?
+    @objc public var authors: [MendeleyFeedAuthor]?
+    @objc public var doi: String?
     
     private enum CodingKeys: String, CodingKey {
         case title
@@ -744,7 +764,9 @@ open class MendeleyFeedDocument : MendeleyObject {
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decodeIfPresent(String.self, forKey: .title)
-        year = try container.decodeIfPresent(Int.self, forKey: .year)
+        if let yearInt = try container.decodeIfPresent(Int.self, forKey: .year) {
+            year = NSNumber(value: yearInt)
+        }
         link = try container.decodeIfPresent(String.self, forKey: .link)
         type = try container.decodeIfPresent(String.self, forKey: .type)
         authors = try container.decodeIfPresent([MendeleyFeedAuthor].self, forKey: .authors)
@@ -760,7 +782,7 @@ open class MendeleyFeedDocument : MendeleyObject {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(title, forKey: .title)
-        try container.encodeIfPresent(year, forKey: .year)
+        try container.encodeIfPresent(year?.intValue, forKey: .year)
         try container.encodeIfPresent(link, forKey: .link)
         try container.encodeIfPresent(type, forKey: .type)
         try container.encodeIfPresent(authors, forKey: .authors)
@@ -768,12 +790,12 @@ open class MendeleyFeedDocument : MendeleyObject {
     }
 }
 
-open class MendeleyAddedDocument : MendeleyObject {
-    public var title: String?
-    public var year: Int?
-    public var link: String?
-    public var type: String?
-    public var authors: [MendeleySimpleAuthor]?
+@objc open class MendeleyAddedDocument : MendeleyObject {
+    @objc public var title: String?
+    @objc public var year: NSNumber?
+    @objc public var link: String?
+    @objc public var type: String?
+    @objc public var authors: [MendeleySimpleAuthor]?
     
     private enum CodingKeys: String, CodingKey {
         case title
@@ -786,7 +808,9 @@ open class MendeleyAddedDocument : MendeleyObject {
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decodeIfPresent(String.self, forKey: .title)
-        year = try container.decodeIfPresent(Int.self, forKey: .year)
+        if let yearInt = try container.decodeIfPresent(Int.self, forKey: .year) {
+            year = NSNumber(value: yearInt)
+        }
         link = try container.decodeIfPresent(String.self, forKey: .link)
         type = try container.decodeIfPresent(String.self, forKey: .type)
         authors = try container.decodeIfPresent([MendeleyFeedAuthor].self, forKey: .authors)
@@ -801,15 +825,15 @@ open class MendeleyAddedDocument : MendeleyObject {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(title, forKey: .title)
-        try container.encodeIfPresent(year, forKey: .year)
+        try container.encodeIfPresent(year?.intValue, forKey: .year)
         try container.encodeIfPresent(link, forKey: .link)
         try container.encodeIfPresent(type, forKey: .type)
         try container.encodeIfPresent(authors, forKey: .authors)
     }
 }
 
-open class MendeleyPublishedDocument : MendeleyAddedDocument {
-    public var source: String?
+@objc open class MendeleyPublishedDocument : MendeleyAddedDocument {
+    @objc public var source: String?
     
     private enum CodingKeys: String, CodingKey {
         case source
@@ -832,11 +856,11 @@ open class MendeleyPublishedDocument : MendeleyAddedDocument {
     }
 }
 
-open class MendeleyRecommendedDocument : MendeleyPublishedDocument {
-    public var doi: String?
-    public var trace: String?
-    public var reader_count: Int?
-    public var abstract: String?
+@objc open class MendeleyRecommendedDocument : MendeleyPublishedDocument {
+    @objc public var doi: String?
+    @objc public var trace: String?
+    @objc public var reader_count: NSNumber?
+    @objc public var abstract: String?
     
     private enum CodingKeys: String, CodingKey {
         case doi
@@ -849,7 +873,9 @@ open class MendeleyRecommendedDocument : MendeleyPublishedDocument {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         doi = try container.decodeIfPresent(String.self, forKey: .doi)
         trace = try container.decodeIfPresent(String.self, forKey: .trace)
-        reader_count = try container.decodeIfPresent(Int.self, forKey: .reader_count)
+        if let reader_countInt = try container.decodeIfPresent(Int.self, forKey: .reader_count) {
+            reader_count = NSNumber(value: reader_countInt)
+        }
         abstract = try container.decodeIfPresent(String.self, forKey: .abstract)
         try super.init(from: decoder)
     }
@@ -863,13 +889,13 @@ open class MendeleyRecommendedDocument : MendeleyPublishedDocument {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(source, forKey: .doi)
         try container.encodeIfPresent(trace, forKey: .trace)
-        try container.encodeIfPresent(reader_count, forKey: .reader_count)
+        try container.encodeIfPresent(reader_count?.intValue, forKey: .reader_count)
         try container.encodeIfPresent(abstract, forKey: .abstract)
     }
 }
 
-open class MendeleyCataloguePubDocument : MendeleyPublishedDocument {
-    public var doi: String?
+@objc open class MendeleyCataloguePubDocument : MendeleyPublishedDocument {
+    @objc public var doi: String?
     
     private enum CodingKeys: String, CodingKey {
         case doi
@@ -892,13 +918,13 @@ open class MendeleyCataloguePubDocument : MendeleyPublishedDocument {
     }
 }
 
-open class MendeleyUserDocument : MendeleySecureObject, Codable {
-    public var title: String?
-    public var type: String?
-    public var year: Int?
-    public var source: String?
-    public var authors: [MendeleySimpleAuthor]?
-    public var identifiers: [NSDictionary]?
+@objc open class MendeleyUserDocument : MendeleySecureObject, Codable {
+    @objc public var title: String?
+    @objc public var type: String?
+    @objc public var year: NSNumber?
+    @objc public var source: String?
+    @objc public var authors: [MendeleySimpleAuthor]?
+    @objc public var identifiers: [NSDictionary]?
     
     private enum CodingKeys: String, CodingKey {
         case title
@@ -913,7 +939,9 @@ open class MendeleyUserDocument : MendeleySecureObject, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decodeIfPresent(String.self, forKey: .title)
         type = try container.decodeIfPresent(String.self, forKey: .type)
-        year = try container.decodeIfPresent(Int.self, forKey: .year)
+        if let yearInt = try container.decodeIfPresent(Int.self, forKey: .year) {
+            year = NSNumber(value: yearInt)
+        }
         source = try container.decodeIfPresent(String.self, forKey: .source)
         authors = try container.decodeIfPresent([MendeleySimpleAuthor].self, forKey: .authors)
         identifiers = try container.decodeIfPresent([NSDictionary].self, forKey: .identifiers)
@@ -928,16 +956,16 @@ open class MendeleyUserDocument : MendeleySecureObject, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(title, forKey: .title)
         try container.encodeIfPresent(type, forKey: .type)
-        try container.encodeIfPresent(year, forKey: .year)
+        try container.encodeIfPresent(year?.intValue, forKey: .year)
         try container.encodeIfPresent(source, forKey: .source)
         try container.encodeIfPresent(authors, forKey: .authors)
         try container.encodeIfPresent(identifiers, forKey: .identifiers)
     }
 }
 
-open class MendeleySimpleAuthor : MendeleySecureObject, Codable {
-    public var first_name: String?
-    public var last_name: String?
+@objc open class MendeleySimpleAuthor : MendeleySecureObject, Codable {
+    @objc public var first_name: String?
+    @objc public var last_name: String?
 
     private enum CodingKeys: String, CodingKey {
         case first_name
@@ -962,8 +990,8 @@ open class MendeleySimpleAuthor : MendeleySecureObject, Codable {
     }
 }
 
-open class MendeleyFeedAuthor : MendeleySimpleAuthor {
-    public var scopus_author_id: String?
+@objc open class MendeleyFeedAuthor : MendeleySimpleAuthor {
+    @objc public var scopus_author_id: String?
     
     private enum CodingKeys: String, CodingKey {
         case scopus_author_id
@@ -986,11 +1014,11 @@ open class MendeleyFeedAuthor : MendeleySimpleAuthor {
     }
 }
 
-open class MendeleySocialProfile : MendeleyObject {
-    public var first_name: String?
-    public var last_name: String?
-    public var link: String?
-    public var photos: [MendeleySocialProfilePhoto]?
+@objc open class MendeleySocialProfile : MendeleyObject {
+    @objc public var first_name: String?
+    @objc public var last_name: String?
+    @objc public var link: String?
+    @objc public var photos: [MendeleySocialProfilePhoto]?
     
     private enum CodingKeys: String, CodingKey {
         case first_name
@@ -1022,9 +1050,9 @@ open class MendeleySocialProfile : MendeleyObject {
     }
 }
 
-open class MendeleyFollowerProfile : MendeleySocialProfile {
-    public var profile_id: String?
-    public var institution: String?
+@objc open class MendeleyFollowerProfile : MendeleySocialProfile {
+    @objc public var profile_id: String?
+    @objc public var institution: String?
     
     private enum CodingKeys: String, CodingKey {
         case profile_id
@@ -1050,11 +1078,11 @@ open class MendeleyFollowerProfile : MendeleySocialProfile {
     }
 }
 
-open class MendeleySocialProfilePhoto : MendeleySecureObject, Codable {
-    public var width: Float?
-    public var height: Float?
-    public var url: String?
-    public var original: Bool?
+@objc open class MendeleySocialProfilePhoto : MendeleySecureObject, Codable {
+    @objc public var width: NSNumber?
+    @objc public var height: NSNumber?
+    @objc public var url: String?
+    @objc public var original: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case width
@@ -1065,10 +1093,16 @@ open class MendeleySocialProfilePhoto : MendeleySecureObject, Codable {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        width = try container.decodeIfPresent(Float.self, forKey: .width)
-        height = try container.decodeIfPresent(Float.self, forKey: .height)
+        if let widthDouble = try container.decodeIfPresent(Double.self, forKey: .width) {
+            width = NSNumber(value: widthDouble)
+        }
+        if let heightDouble = try container.decodeIfPresent(Double.self, forKey: .height) {
+            height = NSNumber(value: heightDouble)
+        }
         url = try container.decodeIfPresent(String.self, forKey: .url)
-        original = try container.decodeIfPresent(Bool.self, forKey: .original)
+        if let originalBool = try container.decodeIfPresent(Bool.self, forKey: .original) {
+            original = NSNumber(value: originalBool)
+        }
         super.init()
     }
     
@@ -1078,9 +1112,9 @@ open class MendeleySocialProfilePhoto : MendeleySecureObject, Codable {
     
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(width, forKey: .width)
-        try container.encodeIfPresent(height, forKey: .height)
+        try container.encodeIfPresent(width?.doubleValue, forKey: .width)
+        try container.encodeIfPresent(height?.doubleValue, forKey: .height)
         try container.encodeIfPresent(url, forKey: .url)
-        try container.encodeIfPresent(original, forKey: .original)
+        try container.encodeIfPresent(original?.boolValue, forKey: .original)
     }
 }

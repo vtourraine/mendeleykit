@@ -20,7 +20,7 @@
 
 @objc open class MendeleySecureObject: NSObject {
 
-    override init() {
+    @objc public override init() {
         super.init()
     }
     

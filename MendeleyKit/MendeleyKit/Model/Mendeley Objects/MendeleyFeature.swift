@@ -20,8 +20,8 @@
 
 import Foundation
 
-open class MendeleyFeature : MendeleySecureObject, Codable {
-    public var name: String?
+@objc open class MendeleyFeature : MendeleySecureObject, Codable {
+    @objc public var name: String?
     
     private enum CodingKeys: String, CodingKey {
         case name

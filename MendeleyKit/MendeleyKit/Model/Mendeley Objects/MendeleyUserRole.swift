@@ -18,10 +18,10 @@
  *****************************************************************************
  */
 
-open class MendeleyUserRole: MendeleyObject {
-    public var role: String?
-    public var joined: String?
-    public var profile_id: String?
+@objc open class MendeleyUserRole: MendeleyObject {
+    @objc public var role: String?
+    @objc public var joined: String?
+    @objc public var profile_id: String?
     
     private enum CodingKeys: String, CodingKey {
         case role

@@ -18,9 +18,9 @@
  *****************************************************************************
  */
 
-open class MendeleyObject: MendeleySecureObject, Codable {
-    public var object_ID: String?
-    public var objectDescription: String?
+@objc open class MendeleyObject: MendeleySecureObject, Codable {
+    @objc public var object_ID: String?
+    @objc public var objectDescription: String?
     
     private enum CodingKeys: String, CodingKey {
         case object_ID = "id"
@@ -31,6 +31,10 @@ open class MendeleyObject: MendeleySecureObject, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         object_ID = try container.decodeIfPresent(String.self, forKey: .object_ID)
         objectDescription = try container.decodeIfPresent(String.self, forKey: .objectDescription)
+        super.init()
+    }
+    
+    @objc public override init() {
         super.init()
     }
     

@@ -18,9 +18,9 @@
  *****************************************************************************
  */
 
-open class MendeleyMetadataLookup: MendeleyObject {
-    public var score: Int?
-    public var catalog_id: String?
+@objc open class MendeleyMetadataLookup: MendeleyObject {
+    @objc public var score: NSNumber?
+    @objc public var catalog_id: String?
     
     private enum CodingKeys: String, CodingKey {
         case score
@@ -29,7 +29,9 @@ open class MendeleyMetadataLookup: MendeleyObject {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        score = try container.decodeIfPresent(Int.self, forKey: .score)
+        if let scoreInt = try container.decodeIfPresent(Int.self, forKey: .score) {
+            score = NSNumber(value: scoreInt)
+        }
         catalog_id = try container.decodeIfPresent(String.self, forKey: .catalog_id)
         try super.init(from: decoder)
     }
@@ -41,7 +43,7 @@ open class MendeleyMetadataLookup: MendeleyObject {
     override open func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(score, forKey: .score)
+        try container.encodeIfPresent(score?.intValue, forKey: .score)
         try container.encodeIfPresent(catalog_id, forKey: .catalog_id)
     }
 }

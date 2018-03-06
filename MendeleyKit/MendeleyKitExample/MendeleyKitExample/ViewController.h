@@ -25,9 +25,9 @@
  Any pull requests containing any real values for the defines below will be rejected
  and/or removed.
  */
-#define kMyClientSecret      @"<YOUR CLIENT SECRET>"
-#define kMyClientID          @"<YOUR CLIENT ID>"
-#define kMyClientRedirectURI @"<YOUR REDIRECT URI>"
+#define kMyClientSecret      @"42FJEXdZ8q4wbQJnMpw7"
+#define kMyClientID          @"7"
+#define kMyClientRedirectURI @"http://localhost/auth_return"
 
 
 @interface ViewController : UITableViewController

@@ -18,8 +18,8 @@
  *****************************************************************************
  */
 
-class MendeleyIdentifierType: MendeleyObject {
-    public var name: String?
+@objc class MendeleyIdentifierType: MendeleyObject {
+    @objc public var name: String?
     
     private enum CodingKeys: String, CodingKey {
         case name

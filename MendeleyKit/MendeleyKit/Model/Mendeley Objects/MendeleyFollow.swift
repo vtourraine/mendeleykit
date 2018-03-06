@@ -20,10 +20,10 @@
 
 // MARK: - MendeleyFollow
 
-open class MendeleyFollow: MendeleyObject {
-    public var follower_id: String?
-    public var followed_id: String?
-    public var status: String?
+@objc open class MendeleyFollow: MendeleyObject {
+    @objc public var follower_id: String?
+    @objc public var followed_id: String?
+    @objc public var status: String?
     
     private enum CodingKeys: String, CodingKey {
         case follower_id
@@ -53,8 +53,8 @@ open class MendeleyFollow: MendeleyObject {
 }
 // MARK: - MendeleyFollowRequest
 
-open class MendeleyFollowRequest: MendeleySecureObject, Codable {
-    public var followed: String?
+@objc open class MendeleyFollowRequest: MendeleySecureObject, Codable {
+    @objc public var followed: String?
     
     private enum CodingKeys: String, CodingKey {
         case followed
@@ -82,8 +82,8 @@ open class MendeleyFollowRequest: MendeleySecureObject, Codable {
 
 // MARK: - MendeleyFollowAcceptance
 
-open class MendeleyFollowAcceptance: MendeleySecureObject, Codable {
-    public var status: String?
+@objc open class MendeleyFollowAcceptance: MendeleySecureObject, Codable {
+    @objc public var status: String?
     
     private enum CodingKeys: String, CodingKey {
         case status

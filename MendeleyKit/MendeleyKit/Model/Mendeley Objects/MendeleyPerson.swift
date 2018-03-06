@@ -18,9 +18,9 @@
  *****************************************************************************
  */
 
-open class MendeleyPerson: MendeleyObject {
-    public var first_name: String?
-    public var last_name: String?
+@objc open class MendeleyPerson: MendeleyObject {
+    @objc public var first_name: String?
+    @objc public var last_name: String?
     
     private enum CodingKeys: String, CodingKey {
         case first_name

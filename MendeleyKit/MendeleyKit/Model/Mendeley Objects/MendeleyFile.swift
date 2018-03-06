@@ -20,13 +20,13 @@
 
 // MARK: - Mendeley File
 
-open class MendeleyFile: MendeleyObject {
-    public var file_name: String?
-    public var mime_type: String?
-    public var document_id: String?
-    public var filehash: String?
-    public var catalog_id: String?
-    public var size: Int?
+@objc open class MendeleyFile: MendeleyObject {
+    @objc public var file_name: String?
+    @objc public var mime_type: String?
+    @objc public var document_id: String?
+    @objc public var filehash: String?
+    @objc public var catalog_id: String?
+    @objc public var size: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case file_name
@@ -44,7 +44,9 @@ open class MendeleyFile: MendeleyObject {
            document_id = try container.decodeIfPresent(String.self, forKey: .document_id)
            filehash = try container.decodeIfPresent(String.self, forKey: .filehash)
            catalog_id = try container.decodeIfPresent(String.self, forKey: .catalog_id)
-           size = try container.decodeIfPresent(Int.self, forKey: .size)
+        if let sizeInt = try container.decodeIfPresent(Int.self, forKey: .size) {
+            size = NSNumber(value: sizeInt)
+        }
         try super.init(from: decoder)
     }
     
@@ -60,16 +62,17 @@ open class MendeleyFile: MendeleyObject {
         try container.encodeIfPresent(document_id, forKey: .document_id)
         try container.encodeIfPresent(filehash, forKey: .filehash)
         try container.encodeIfPresent(catalog_id, forKey: .catalog_id)
+        try container.encodeIfPresent(size?.intValue, forKey: .size)
     }
 }
 
 // MARK: - Mendeley Recently Read
 
-open class MendeleyRecentlyRead: MendeleyObject {
-    public var file_id: String?
-    public var page: Int?
-    public var vertical_position: Double?
-    public var date: Data?
+@objc open class MendeleyRecentlyRead: MendeleyObject {
+    @objc public var file_id: String?
+    @objc public var page: NSNumber?
+    @objc public var vertical_position: NSNumber?
+    @objc public var date: Data?
     
     private enum CodingKeys: String, CodingKey {
         case file_id
@@ -80,10 +83,14 @@ open class MendeleyRecentlyRead: MendeleyObject {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-           file_id = try container.decodeIfPresent(String.self, forKey: .file_id)
-           page = try container.decodeIfPresent(Int.self, forKey: .page)
-           vertical_position = try container.decodeIfPresent(Double.self, forKey: .vertical_position)
-           date = try container.decodeIfPresent(Data.self, forKey: .date)
+        file_id = try container.decodeIfPresent(String.self, forKey: .file_id)
+        if let pageInt = try container.decodeIfPresent(Int.self, forKey: .page) {
+            page = NSNumber(value: pageInt)
+        }
+        if let vertical_positionDouble = try container.decodeIfPresent(Double.self, forKey: .vertical_position) {
+            vertical_position = NSNumber(value: vertical_positionDouble)
+        }
+        date = try container.decodeIfPresent(Data.self, forKey: .date)
         try super.init(from: decoder)
     }
     
@@ -95,8 +102,8 @@ open class MendeleyRecentlyRead: MendeleyObject {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(file_id, forKey: .file_id)
-        try container.encodeIfPresent(page, forKey: .page)
-        try container.encodeIfPresent(vertical_position, forKey: .vertical_position)
+        try container.encodeIfPresent(page?.intValue, forKey: .page)
+        try container.encodeIfPresent(vertical_position?.doubleValue, forKey: .vertical_position)
         try container.encodeIfPresent(date, forKey: .date)
     }
 }

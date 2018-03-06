@@ -20,8 +20,8 @@
 
 import Foundation
 
-open class MendeleyDocumentType : MendeleyObject {
-    public var name: String?
+@objc open class MendeleyDocumentType : MendeleyObject {
+    @objc public var name: String?
     
     private enum CodingKeys: String, CodingKey {
         case name

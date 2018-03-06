@@ -26,22 +26,22 @@ import AppKit
 
 import Foundation
 
-open class MendeleyAnnotation : MendeleyObject {
-    public var created: Date?
+@objc open class MendeleyAnnotation : MendeleyObject {
+    @objc public var created: Date?
 #if os(iOS)
-    public var color: UIColor?
+    @objc public var color: UIColor?
 #elseif os(OSX)
-    public var color: NSColor?
+    @objc public var color: NSColor?
 #endif
 
-    public var document_id: String?
-    public var filehash: String?
-    public var last_modified: Date?
-    public var positions: [MendeleyHighlightBox]?
-    public var privacy_level: String?
-    public var profile_id: String?
-    public var text: String?
-    public var type: String?
+    @objc public var document_id: String?
+    @objc public var filehash: String?
+    @objc public var last_modified: Date?
+    @objc public var positions: [MendeleyHighlightBox]?
+    @objc public var privacy_level: String?
+    @objc public var profile_id: String?
+    @objc public var text: String?
+    @objc public var type: String?
     
     private enum CodingKeys: String, CodingKey {
         case created
@@ -146,9 +146,9 @@ open class MendeleyAnnotation : MendeleyObject {
 }
     
     
-open class MendeleyHighlightBox : MendeleySecureObject, Codable {
-    public var box: CGRect?
-    public var page: Int?
+@objc open class MendeleyHighlightBox : MendeleySecureObject, Codable {
+    @objc public var box: NSValue?
+    @objc public var page: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case box
@@ -157,8 +157,12 @@ open class MendeleyHighlightBox : MendeleySecureObject, Codable {
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        box = try container.decodeIfPresent(CGRect.self, forKey: .box)
-        page = try container.decodeIfPresent(Int.self, forKey: .page)
+        if let boxRect = try container.decodeIfPresent(CGRect.self, forKey: .box) {
+            box = NSValue(cgRect: boxRect)
+        }
+        if let pageInt = try container.decodeIfPresent(Int.self, forKey: .page) {
+            page = NSNumber(value: pageInt)
+        }
         super.init()
     }
     
@@ -172,8 +176,8 @@ open class MendeleyHighlightBox : MendeleySecureObject, Codable {
     
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(box, forKey: .box)
-        try container.encodeIfPresent(page, forKey: .page)
+        try container.encodeIfPresent(box?.cgRectValue, forKey: .box)
+        try container.encodeIfPresent(page?.intValue, forKey: .page)
     }
     
     /**
@@ -200,10 +204,11 @@ open class MendeleyHighlightBox : MendeleySecureObject, Codable {
         let width = botX - topX
         let height = botY - topY
         
-        box.box = CGRect(x: topX, y: topY, width: width, height: height)
+        let boxRect = CGRect(x: topX, y: topY, width: width, height: height)
+        box.box = NSValue(cgRect: boxRect)
         
         if let page = boxParameters[kMendeleyJSONPage] as? Int {
-            box.page = page
+            box.page = NSNumber(value: page)
         }
         
         return box
@@ -218,7 +223,7 @@ open class MendeleyHighlightBox : MendeleySecureObject, Codable {
     public class func jsonBox(fromHighlightBox box: MendeleyHighlightBox) throws -> [String: Any] {
         var boxDictionary = [String: Any]()
         
-        guard let frame = box.box
+        guard let frame = box.box?.cgRectValue
             else { return boxDictionary }
         
         let botX = frame.origin.x + frame.size.width

@@ -20,17 +20,17 @@
 
 // MARK: - Mendeley Group
 
-open class MendeleyGroup: MendeleyObject {
-    public var created: Date?
-    public var owning_profile_id: String?
-    public var link: String?
-    public var access_level: String?
-    public var name: String?
-    public var role: String?
-    public var photo: MendeleyPhoto?
-    public var webpage: String?
-    public var disciplines: [MendeleyDiscipline]?
-    public var tags: [String]?
+@objc open class MendeleyGroup: MendeleyObject {
+    @objc public var created: Date?
+    @objc public var owning_profile_id: String?
+    @objc public var link: String?
+    @objc public var access_level: String?
+    @objc public var name: String?
+    @objc public var role: String?
+    @objc public var photo: MendeleyPhoto?
+    @objc public var webpage: String?
+    @objc public var disciplines: [MendeleyDiscipline]?
+    @objc public var tags: [String]?
     
     private enum CodingKeys: String, CodingKey {
         case created
@@ -82,13 +82,13 @@ open class MendeleyGroup: MendeleyObject {
 
 // MARK: - Mendeley Photo
 
-open class MendeleyPhoto: MendeleyObject {
-    public var original: String?
-    public var square: String?
-    public var standard: String?
-    public var originalImageData: Data?
-    public var squareImageData: Data?
-    public var standardImageData: Data?
+@objc open class MendeleyPhoto: MendeleyObject {
+    @objc public var original: String?
+    @objc public var square: String?
+    @objc public var standard: String?
+    @objc public var originalImageData: Data?
+    @objc public var squareImageData: Data?
+    @objc public var standardImageData: Data?
     
     private enum CodingKeys: String, CodingKey {
         case original

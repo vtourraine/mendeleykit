@@ -20,14 +20,14 @@
 
 // MARK: - MendeleyComment
 
-open class MendeleyComment: MendeleyObject {
-    public var news_item_id: String?
-    public var profile_id: String?
-    public var text: String?
-    public var created: String?
-    public var last_modified: String?
-    public var news_item_owner: Int?
-    public var tagged_users: [MendeleySocialProfile]?
+@objc open class MendeleyComment: MendeleyObject {
+    @objc public var news_item_id: String?
+    @objc public var profile_id: String?
+    @objc public var text: String?
+    @objc public var created: String?
+    @objc public var last_modified: String?
+    @objc public var news_item_owner: NSNumber?
+    @objc public var tagged_users: [MendeleySocialProfile]?
     
     private enum CodingKeys: String, CodingKey {
         case news_item_id
@@ -46,7 +46,9 @@ open class MendeleyComment: MendeleyObject {
         text = try container.decodeIfPresent(String.self, forKey: .text)
         created = try container.decodeIfPresent(String.self, forKey: .created)
         last_modified = try container.decodeIfPresent(String.self, forKey: .last_modified)
-        news_item_owner = try container.decodeIfPresent(Int.self, forKey: .news_item_owner)
+        if let news_item_ownerInt = try container.decodeIfPresent(Int.self, forKey: .news_item_owner) {
+            news_item_owner = NSNumber(value: news_item_ownerInt)
+        }
         tagged_users = try container.decodeIfPresent([MendeleySocialProfile].self, forKey: .text)
         try super.init(from: decoder)
     }
@@ -63,15 +65,15 @@ open class MendeleyComment: MendeleyObject {
         try container.encodeIfPresent(text, forKey: .text)
         try container.encodeIfPresent(created, forKey: .created)
         try container.encodeIfPresent(last_modified, forKey: .last_modified)
-        try container.encodeIfPresent(news_item_owner, forKey: .news_item_owner)
+        try container.encodeIfPresent(news_item_owner?.intValue, forKey: .news_item_owner)
         try container.encodeIfPresent(tagged_users, forKey: .tagged_users)
     }
 }
 
 // MARK: - MendeleyExpandedComment
 
-open class MendeleyExpandedComment: MendeleyComment {
-    public var profile: MendeleySocialProfile?
+@objc open class MendeleyExpandedComment: MendeleyComment {
+    @objc public var profile: MendeleySocialProfile?
     
     private enum CodingKeys: String, CodingKey {
         case profile
@@ -96,9 +98,9 @@ open class MendeleyExpandedComment: MendeleyComment {
 
 // MARK: - MendeleyCommentUpdate
 
-open class MendeleyCommentUpdate: MendeleySecureObject, Codable {
-    public var text: String?
-    public var tagged_users: [String]?
+@objc open class MendeleyCommentUpdate: MendeleySecureObject, Codable {
+    @objc public var text: String?
+    @objc public var tagged_users: [String]?
     
     private enum CodingKeys: String, CodingKey {
         case text

@@ -18,48 +18,48 @@
  *****************************************************************************
  */
 
-open class MendeleyCatalogDocument: MendeleyObject {
-    public var link: String?
-    public var reader_count: Int?
-    public var reader_count_by_academic_status: [String: Int]?
-    public var reader_count_by_subdiscipline: [String: Int]?
+@objc open class MendeleyCatalogDocument: MendeleyObject {
+    @objc public var link: String?
+    @objc public var reader_count: NSNumber?
+    @objc public var reader_count_by_academic_status: [String: Int]?
+    @objc public var reader_count_by_subdiscipline: [String: Int]?
     
     // Ints
-    public var month: Int?
-    public var year: Int?
-    public var day: Int?
+    @objc public var month: NSNumber?
+    @objc public var year: NSNumber?
+    @objc public var day: NSNumber?
     
     // Booleans
-    public var file_attached: Bool?
+    @objc public var file_attached: NSNumber?
     
     // Person
-    public var authors: [MendeleyPerson]?
-    public var editors: [MendeleyPerson]?
-    public var websites: [String]?
-    public var keywords: [String]?
+    @objc public var authors: [MendeleyPerson]?
+    @objc public var editors: [MendeleyPerson]?
+    @objc public var websites: [String]?
+    @objc public var keywords: [String]?
     
     // Indentifiers (e.g. arxiv)
-    public var identifiers: [String: String]?
+    @objc public var identifiers: [String: String]?
     
     // Dates
-    public var created: Date?
+    @objc public var created: Date?
     
     // Strings
-    public var type: String?
-    public var source: String?
-    public var title: String?
-    public var revision: String?
-    public var abstract: String?
-    public var pages: String?
-    public var volume: String?
-    public var issue: String?
-    public var publisher: String?
-    public var city: String?
-    public var edition: String?
-    public var institution: String?
-    public var series: String?
-    public var chapter: String?
-    public var accessed: String?
+    @objc public var type: String?
+    @objc public var source: String?
+    @objc public var title: String?
+    @objc public var revision: String?
+    @objc public var abstract: String?
+    @objc public var pages: String?
+    @objc public var volume: String?
+    @objc public var issue: String?
+    @objc public var publisher: String?
+    @objc public var city: String?
+    @objc public var edition: String?
+    @objc public var institution: String?
+    @objc public var series: String?
+    @objc public var chapter: String?
+    @objc public var accessed: String?
     
     private enum CodingKeys: String, CodingKey {
         case link
@@ -97,15 +97,25 @@ open class MendeleyCatalogDocument: MendeleyObject {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         link = try container.decodeIfPresent(String.self, forKey: .link)
-        reader_count = try container.decodeIfPresent(Int.self, forKey: .reader_count)
+        if let reader_countInt = try container.decodeIfPresent(Int.self, forKey: .reader_count) {
+            reader_count = NSNumber(value: reader_countInt)
+        }
         reader_count_by_academic_status = try container.decodeIfPresent([String: Int].self, forKey: .reader_count_by_academic_status)
         reader_count_by_subdiscipline = try container.decodeIfPresent([String: Int].self, forKey: .reader_count_by_subdiscipline)
         
-        month = try container.decodeIfPresent(Int.self, forKey: .month)
-        year = try container.decodeIfPresent(Int.self, forKey: .year)
-        day = try container.decodeIfPresent(Int.self, forKey: .day)
+        if let monthInt = try container.decodeIfPresent(Int.self, forKey: .month) {
+            month = NSNumber(value: monthInt)
+        }
+        if let yearInt = try container.decodeIfPresent(Int.self, forKey: .year) {
+            year = NSNumber(value: yearInt)
+        }
+        if let dayInt = try container.decodeIfPresent(Int.self, forKey: .day) {
+            day = NSNumber(value: dayInt)
+        }
         
-        file_attached = try container.decodeIfPresent(Bool.self, forKey: .file_attached)
+        if let file_attachedBool = try container.decodeIfPresent(Bool.self, forKey: .file_attached) {
+            file_attached = NSNumber(value: file_attachedBool)
+        }
         
         authors = try container.decodeIfPresent([MendeleyPerson].self, forKey: .authors)
         editors = try container.decodeIfPresent([MendeleyPerson].self, forKey: .editors)
@@ -144,15 +154,15 @@ open class MendeleyCatalogDocument: MendeleyObject {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encodeIfPresent(link, forKey: .link)
-        try container.encodeIfPresent(reader_count, forKey: .reader_count)
+        try container.encodeIfPresent(reader_count?.intValue, forKey: .reader_count)
         try container.encodeIfPresent(reader_count_by_academic_status, forKey: .reader_count_by_academic_status)
         try container.encodeIfPresent(reader_count_by_subdiscipline, forKey: .reader_count_by_subdiscipline)
         
-        try container.encodeIfPresent(month, forKey: .month)
-        try container.encodeIfPresent(year, forKey: .year)
-        try container.encodeIfPresent(day, forKey: .day)
+        try container.encodeIfPresent(month?.intValue, forKey: .month)
+        try container.encodeIfPresent(year?.intValue, forKey: .year)
+        try container.encodeIfPresent(day?.intValue, forKey: .day)
         
-        try container.encodeIfPresent(file_attached, forKey: .file_attached)
+        try container.encodeIfPresent(file_attached?.boolValue, forKey: .file_attached)
         
         try container.encodeIfPresent(authors, forKey: .authors)
         try container.encodeIfPresent(editors, forKey: .editors)

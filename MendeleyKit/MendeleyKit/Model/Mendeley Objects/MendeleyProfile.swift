@@ -20,10 +20,10 @@
 
 // MARK: - Mendeley Location
 
-open class MendeleyLocation: MendeleySecureObject, Codable {
-    public var name: String?
-    public var latitude: Double?
-    public var longitude: Double?
+@objc open class MendeleyLocation: MendeleySecureObject, Codable {
+    @objc public var name: String?
+    @objc public var latitude: NSNumber?
+    @objc public var longitude: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case name
@@ -34,8 +34,12 @@ open class MendeleyLocation: MendeleySecureObject, Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decodeIfPresent(String.self, forKey: .name)
-        latitude = try container.decodeIfPresent(Double.self, forKey: .latitude)
-        longitude = try container.decodeIfPresent(Double.self, forKey: .longitude)
+        if let latitudeDouble = try container.decodeIfPresent(Double.self, forKey: .latitude) {
+            latitude = NSNumber(value: latitudeDouble)
+        }
+        if let longitudeDouble = try container.decodeIfPresent(Double.self, forKey: .longitude) {
+            longitude = NSNumber(value: longitudeDouble)
+        }
         super.init()
     }
     
@@ -46,21 +50,21 @@ open class MendeleyLocation: MendeleySecureObject, Codable {
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(name, forKey: .name)
-        try container.encodeIfPresent(latitude, forKey: .latitude)
-        try container.encodeIfPresent(longitude, forKey: .longitude)
+        try container.encodeIfPresent(latitude?.doubleValue, forKey: .latitude)
+        try container.encodeIfPresent(longitude?.doubleValue, forKey: .longitude)
     }
 }
 
 // MARK: - Mendeley Employment
 
-open class MendeleyEmployment: MendeleySecureObject, Codable {
-    public var classes: [String]?
-    public var position: String?
-    public var is_main_employment: Bool?
-    public var institution: String?
-    public var start_date: Date?
-    public var end_date: Date?
-    public var website: String?
+@objc open class MendeleyEmployment: MendeleySecureObject, Codable {
+    @objc public var classes: [String]?
+    @objc public var position: String?
+    @objc public var is_main_employment: NSNumber?
+    @objc public var institution: String?
+    @objc public var start_date: Date?
+    @objc public var end_date: Date?
+    @objc public var website: String?
     
     private enum CodingKeys: String, CodingKey {
         case classes
@@ -76,7 +80,9 @@ open class MendeleyEmployment: MendeleySecureObject, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         classes = try container.decodeIfPresent([String].self, forKey: .classes)
         position = try container.decodeIfPresent(String.self, forKey: .position)
-        is_main_employment = try container.decodeIfPresent(Bool.self, forKey: .is_main_employment)
+        if let is_main_employmentBool = try container.decodeIfPresent(Bool.self, forKey: .is_main_employment) {
+            is_main_employment = NSNumber(value: is_main_employmentBool)
+        }
         institution = try container.decodeIfPresent(String.self, forKey: .institution)
         start_date = try container.decodeIfPresent(Date.self, forKey: .start_date)
         end_date = try container.decodeIfPresent(Date.self, forKey: .end_date)
@@ -92,7 +98,7 @@ open class MendeleyEmployment: MendeleySecureObject, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(classes, forKey: .classes)
         try container.encodeIfPresent(position, forKey: .position)
-        try container.encodeIfPresent(is_main_employment, forKey: .is_main_employment)
+        try container.encodeIfPresent(is_main_employment?.boolValue, forKey: .is_main_employment)
         try container.encodeIfPresent(institution, forKey: .institution)
         try container.encodeIfPresent(start_date, forKey: .start_date)
         try container.encodeIfPresent(end_date, forKey: .end_date)
@@ -102,12 +108,12 @@ open class MendeleyEmployment: MendeleySecureObject, Codable {
 
 // MARK: - Mendeley Education
 
-open class MendeleyEducation: MendeleySecureObject, Codable {
-    public var institution: String?
-    public var start_date: Date?
-    public var end_date: Date?
-    public var website: String?
-    public var degree: String?
+@objc open class MendeleyEducation: MendeleySecureObject, Codable {
+    @objc public var institution: String?
+    @objc public var start_date: Date?
+    @objc public var end_date: Date?
+    @objc public var website: String?
+    @objc public var degree: String?
     
     private enum CodingKeys: String, CodingKey {
         case institution
@@ -149,9 +155,9 @@ open class MendeleyEducation: MendeleySecureObject, Codable {
  However, the return values are exactly as before. Therefore the model class remains
  MendeleyMendeleyDiscipline
  */
-open class MendeleyDiscipline: MendeleySecureObject, Codable {
-    public var name: String?
-    public var subdisciplines: [String]?
+@objc open class MendeleyDiscipline: MendeleySecureObject, Codable {
+    @objc public var name: String?
+    @objc public var subdisciplines: [String]?
     
     private enum CodingKeys: String, CodingKey {
         case name
@@ -178,16 +184,16 @@ open class MendeleyDiscipline: MendeleySecureObject, Codable {
 
 // MARK: - Mendeley Image
 
-open class MendeleyImage: MendeleySecureObject, Codable {
-    public var width: Double?
-    public var height: Double?
+@objc open class MendeleyImage: MendeleySecureObject, Codable {
+    @objc public var width: NSNumber?
+    @objc public var height: NSNumber?
     /**
      a boolean flag indicating whether this is the original image
      not to be confused with a property of the same name in
      MendeleyPhoto
      */
-    public var original: Bool?
-    public var url: String?
+    @objc public var original: NSNumber?
+    @objc public var url: String?
     
     private enum CodingKeys: String, CodingKey {
         case width
@@ -198,9 +204,15 @@ open class MendeleyImage: MendeleySecureObject, Codable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        width = try container.decodeIfPresent(Double.self, forKey: .width)
-        height = try container.decodeIfPresent(Double.self, forKey: .height)
-        original = try container.decodeIfPresent(Bool.self, forKey: .original)
+        if let widthDouble = try container.decodeIfPresent(Double.self, forKey: .width) {
+            width = NSNumber(value: widthDouble)
+        }
+        if let heightDouble = try container.decodeIfPresent(Double.self, forKey: .height) {
+            height = NSNumber(value: heightDouble)
+        }
+        if let originalBool = try container.decodeIfPresent(Bool.self, forKey: .original) {
+            original = NSNumber(value: originalBool)
+        }
         url = try container.decodeIfPresent(String.self, forKey: .url)
         super.init()
     }
@@ -211,38 +223,38 @@ open class MendeleyImage: MendeleySecureObject, Codable {
     
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(width, forKey: .width)
-        try container.encodeIfPresent(height, forKey: .height)
-        try container.encodeIfPresent(original, forKey: .original)
+        try container.encodeIfPresent(width?.doubleValue, forKey: .width)
+        try container.encodeIfPresent(height?.doubleValue, forKey: .height)
+        try container.encodeIfPresent(original?.boolValue, forKey: .original)
         try container.encodeIfPresent(url, forKey: .url)
     }
 }
 
 // MARK: - Mendeley Profile
 
-open class MendeleyProfile: MendeleyObject {
-    public var first_name: String?
-    public var last_name: String?
-    public var display_name: String?
-    public var email: String?
-    public var link: String?
-    public var institution: String?
-    public var research_interests: String?
-    public var research_interests_list: [String]?
-    public var academic_status: String?
-    public var discipline: MendeleyDiscipline?
-    public var disciplines: [MendeleyDiscipline]?
-    public var photo: MendeleyPhoto?
-    public var photos: [MendeleyImage]?
-    public var verified: Bool?
-    public var marketing: Bool?
-    public var user_type: String?
-    public var location: MendeleyLocation?
-    public var created: Date?
-    public var education: [MendeleyEducation]?
-    public var employment: [MendeleyEmployment]?
-    public var title: String?
-    public var biography: String?
+@objc open class MendeleyProfile: MendeleyObject {
+    @objc public var first_name: String?
+    @objc public var last_name: String?
+    @objc public var display_name: String?
+    @objc public var email: String?
+    @objc public var link: String?
+    @objc public var institution: String?
+    @objc public var research_interests: String?
+    @objc public var research_interests_list: [String]?
+    @objc public var academic_status: String?
+    @objc public var discipline: MendeleyDiscipline?
+    @objc public var disciplines: [MendeleyDiscipline]?
+    @objc public var photo: MendeleyPhoto?
+    @objc public var photos: [MendeleyImage]?
+    @objc public var verified: NSNumber?
+    @objc public var marketing: NSNumber?
+    @objc public var user_type: String?
+    @objc public var location: MendeleyLocation?
+    @objc public var created: Date?
+    @objc public var education: [MendeleyEducation]?
+    @objc public var employment: [MendeleyEmployment]?
+    @objc public var title: String?
+    @objc public var biography: String?
     
     private enum CodingKeys: String, CodingKey {
         case first_name
@@ -284,8 +296,12 @@ open class MendeleyProfile: MendeleyObject {
         disciplines = try container.decodeIfPresent([MendeleyDiscipline].self, forKey: .disciplines)
         photo = try container.decodeIfPresent(MendeleyPhoto.self, forKey: .photo)
         photos = try container.decodeIfPresent([MendeleyImage].self, forKey: .photos)
-        verified = try container.decodeIfPresent(Bool.self, forKey: .verified)
-        marketing = try container.decodeIfPresent(Bool.self, forKey: .marketing)
+        if let verifiedBool = try container.decodeIfPresent(Bool.self, forKey: .verified) {
+            verified = NSNumber(value: verifiedBool)
+        }
+        if let marketingBool = try container.decodeIfPresent(Bool.self, forKey: .marketing) {
+            marketing = NSNumber(value: marketingBool)
+        }
         user_type = try container.decodeIfPresent(String.self, forKey: .user_type)
         location = try container.decodeIfPresent(MendeleyLocation.self, forKey: .location)
         created = try container.decodeIfPresent(Date.self, forKey: .created)
@@ -316,8 +332,8 @@ open class MendeleyProfile: MendeleyObject {
         try container.encodeIfPresent(disciplines, forKey: .disciplines)
         try container.encodeIfPresent(photo, forKey: .photo)
         try container.encodeIfPresent(photos, forKey: .photos)
-        try container.encodeIfPresent(verified, forKey: .verified)
-        try container.encodeIfPresent(marketing, forKey: .marketing)
+        try container.encodeIfPresent(verified?.boolValue, forKey: .verified)
+        try container.encodeIfPresent(marketing?.boolValue, forKey: .marketing)
         try container.encodeIfPresent(user_type, forKey: .user_type)
         try container.encodeIfPresent(location, forKey: .location)
         try container.encodeIfPresent(created, forKey: .created)
@@ -330,21 +346,19 @@ open class MendeleyProfile: MendeleyObject {
 
 // MARK: - Mendeley User Profile
 
-open class MendeleyUserProfile: MendeleyProfile {
-    
-}
+@objc open class MendeleyUserProfile: MendeleyProfile {}
 
 // MARK: - Mendeley New Profile
 
-open class MendeleyNewProfile: MendeleySecureObject, Codable {
-    public var first_name: String?
-    public var last_name: String?
-    public var email: String?
-    public var password: String?
-    public var discipline: String?
-    public var academic_status: String?
-    public var institution: String?
-    public var marketing: Bool?
+@objc open class MendeleyNewProfile: MendeleySecureObject, Codable {
+    @objc public var first_name: String?
+    @objc public var last_name: String?
+    @objc public var email: String?
+    @objc public var password: String?
+    @objc public var discipline: String?
+    @objc public var academic_status: String?
+    @objc public var institution: String?
+    @objc public var marketing: NSNumber?
     
     private enum CodingKeys: String, CodingKey {
         case first_name
@@ -366,7 +380,9 @@ open class MendeleyNewProfile: MendeleySecureObject, Codable {
         discipline = try container.decodeIfPresent(String.self, forKey: .discipline)
         academic_status = try container.decodeIfPresent(String.self, forKey: .academic_status)
         institution = try container.decodeIfPresent(String.self, forKey: .institution)
-        marketing = try container.decodeIfPresent(Bool.self, forKey: .marketing)
+        if let marketingBool = try container.decodeIfPresent(Bool.self, forKey: .marketing) {
+            marketing = NSNumber(value: marketingBool)
+        }
         super.init()
     }
     
@@ -383,24 +399,24 @@ open class MendeleyNewProfile: MendeleySecureObject, Codable {
         try container.encodeIfPresent(discipline, forKey: .discipline)
         try container.encodeIfPresent(academic_status, forKey: .academic_status)
         try container.encodeIfPresent(institution, forKey: .institution)
-        try container.encodeIfPresent(marketing, forKey: .marketing)
+        try container.encodeIfPresent(marketing?.boolValue, forKey: .marketing)
     }
 }
 // MARK: - Mendeley Amendment Profile
 
-open class MendeleyAmendmentProfile: MendeleySecureObject, Codable {
-    public var email: String?
-    public var title: String?
-    public var password: String?
-    public var old_password: String?
-    public var first_name: String?
-    public var last_name: String?
-    public var academic_status: String?
-    public var institution: String?
-    public var biography: String?
-    public var marketing: Bool?
-    public var disciplines: [MendeleyDiscipline]?
-    public var research_interests_list: [String]?
+@objc open class MendeleyAmendmentProfile: MendeleySecureObject, Codable {
+    @objc public var email: String?
+    @objc public var title: String?
+    @objc public var password: String?
+    @objc public var old_password: String?
+    @objc public var first_name: String?
+    @objc public var last_name: String?
+    @objc public var academic_status: String?
+    @objc public var institution: String?
+    @objc public var biography: String?
+    @objc public var marketing: NSNumber?
+    @objc public var disciplines: [MendeleyDiscipline]?
+    @objc public var research_interests_list: [String]?
     
     private enum CodingKeys: String, CodingKey {
         case email
@@ -428,7 +444,9 @@ open class MendeleyAmendmentProfile: MendeleySecureObject, Codable {
         academic_status = try container.decodeIfPresent(String.self, forKey: .academic_status)
         institution = try container.decodeIfPresent(String.self, forKey: .institution)
         biography = try container.decodeIfPresent(String.self, forKey: .biography)
-        marketing = try container.decodeIfPresent(Bool.self, forKey: .marketing)
+        if let marketingBool = try container.decodeIfPresent(Bool.self, forKey: .marketing) {
+            marketing = NSNumber(value: marketingBool)
+        }
         disciplines = try container.decodeIfPresent([MendeleyDiscipline].self, forKey: .disciplines)
         research_interests_list = try container.decodeIfPresent([String].self, forKey: .research_interests_list)
         super.init()
@@ -453,7 +471,7 @@ open class MendeleyAmendmentProfile: MendeleySecureObject, Codable {
         try container.encodeIfPresent(academic_status, forKey: .academic_status)
         try container.encodeIfPresent(institution, forKey: .institution)
         try container.encodeIfPresent(biography, forKey: .biography)
-        try container.encodeIfPresent(marketing, forKey: .marketing)
+        try container.encodeIfPresent(marketing?.boolValue, forKey: .marketing)
         try container.encodeIfPresent(disciplines, forKey: .disciplines)
         try container.encodeIfPresent(research_interests_list, forKey: .research_interests_list)
     }

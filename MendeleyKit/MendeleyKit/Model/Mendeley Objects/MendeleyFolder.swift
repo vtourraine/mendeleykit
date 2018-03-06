@@ -18,12 +18,12 @@
  *****************************************************************************
  */
 
-open class MendeleyFolder: MendeleyObject {
-    public var name: String?
-    public var parent_id: String?
-    public var group_id: String?
-    public var created: Date?
-    public var modified: Date?
+@objc open class MendeleyFolder: MendeleyObject {
+    @objc public var name: String?
+    @objc public var parent_id: String?
+    @objc public var group_id: String?
+    @objc public var created: Date?
+    @objc public var modified: Date?
     
     private enum CodingKeys: String, CodingKey {
         case name

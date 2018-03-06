@@ -18,10 +18,10 @@
  *****************************************************************************
  */
 
-open class MendeleyRecommendedArticle: MendeleyObject {
-    public var catalogue_document: MendeleyCatalogDocument?
-    public var rank: Int?
-    public var trace: String?
+@objc open class MendeleyRecommendedArticle: MendeleyObject {
+    @objc public var catalogue_document: MendeleyCatalogDocument?
+    @objc public var rank: NSNumber?
+    @objc public var trace: String?
     
     private enum CodingKeys: String, CodingKey {
         case catalogue_document
@@ -32,7 +32,9 @@ open class MendeleyRecommendedArticle: MendeleyObject {
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         catalogue_document = try container.decodeIfPresent(MendeleyCatalogDocument.self, forKey: .catalogue_document)
-        rank = try container.decodeIfPresent(Int.self, forKey: .rank)
+        if let rankInt = try container.decodeIfPresent(Int.self, forKey: .rank) {
+            rank = NSNumber(value: rankInt)
+        }
         trace = try container.decodeIfPresent(String.self, forKey: .trace)
         try super.init(from: decoder)
     }
@@ -45,7 +47,7 @@ open class MendeleyRecommendedArticle: MendeleyObject {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(catalogue_document, forKey: .catalogue_document)
-        try container.encodeIfPresent(rank, forKey: .rank)
+        try container.encodeIfPresent(rank?.intValue, forKey: .rank)
         try container.encodeIfPresent(trace, forKey: .trace)
     }
 }
