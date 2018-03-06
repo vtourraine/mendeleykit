@@ -154,6 +154,7 @@ import Foundation
     }
     
     required public init(from decoder: Decoder) throws {
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let monthInt = try container.decodeIfPresent(Int.self, forKey: .month) {
             month = NSNumber(value: monthInt)
@@ -187,9 +188,9 @@ import Foundation
         translators = try container.decodeIfPresent([MendeleyPerson].self, forKey: .translators)
         websites = try container.decodeIfPresent([String].self, forKey: .websites)
         keywords = try container.decodeIfPresent([String].self, forKey: .keywords)
-        tags = try container.decodeIfPresent([String].self, forKey: .keywords)
-        identifiers = try container.decodeIfPresent([String: String].self, forKey: .keywords)
-        last_modified = try container.decodeIfPresent(Date.self, forKey: .keywords)
+        tags = try container.decodeIfPresent([String].self, forKey: .tags)
+        identifiers = try container.decodeIfPresent([String: String].self, forKey: .identifiers)
+        last_modified = try container.decodeIfPresent(Date.self, forKey: .last_modified)
         created = try container.decodeIfPresent(Date.self, forKey: .created)
         type = try container.decodeIfPresent(String.self, forKey: .type)
         group_id = try container.decodeIfPresent(String.self, forKey: .group_id)

@@ -91,9 +91,15 @@
                                         blockExec?.execute(with: nil, syncInfo: nil, error: error)
                                     } else {
                                         do {
+                                            if let data = String(data: response!.rawResponseBody, encoding: .utf8) {
+                                                print(data)
+                                            }
+                                            
                                             let decoder = JSONDecoder()
-                                            let arrayDict = try decoder.decode([String: [T]].self, from: response!.rawResponseBody)
-                                            blockExec?.execute(with: arrayDict[kMendeleyJSONData], syncInfo: response?.syncHeader, error: nil)
+                                            decoder.dateDecodingStrategy = .formatted(MendeleyObjectHelper.jsonDateFormatter())
+                                            
+                                            let array = try decoder.decode([T].self, from: response!.rawResponseBody)
+                                            blockExec?.execute(with: array, syncInfo: response?.syncHeader, error: nil)
                                         } catch {
                                             print(error)
                                             blockExec?.execute(with: nil, syncInfo: response?.syncHeader, error: error)
