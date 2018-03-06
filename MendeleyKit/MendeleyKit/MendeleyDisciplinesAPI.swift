@@ -20,7 +20,7 @@
 
 import UIKit
 
-@objc open class MendeleyDisciplinesAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyDisciplinesAPI: MendeleyObjectAPI {
     /**
      This method is deprecated. It returns data from a new endpoint. See method below.
      This method gets all registered Mendeley disciplines (and their subdisciplines)

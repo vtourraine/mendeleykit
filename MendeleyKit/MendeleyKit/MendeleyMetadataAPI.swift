@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyMetadataAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyMetadataAPI: MendeleyObjectAPI {
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONMetadataLookupType]
     
     /**

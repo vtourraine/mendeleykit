@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyAcademicStatusesAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyAcademicStatusesAPI: MendeleyObjectAPI {
     
     @available(*, deprecated, message: "Use defaultRequestHeaders(fromCredentials:) instead")
     private func defaultServiceRequestHeaders(fromCredentials credentials: MendeleyOAuthCredentials) -> [String: String] {

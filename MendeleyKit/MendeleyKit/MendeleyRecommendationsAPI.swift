@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc open class MendeleyRecommendationsAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyRecommendationsAPI: MendeleyObjectAPI {
     @objc public func recommendationsBasedOnLibraryArticles(withParameters parameters: MendeleyRecommendationsParameters?, task: MendeleyTask?, completionBlock:  MendeleyArrayCompletionBlock?) {
         
         networkProvider.invokeGET(baseAPIURL,

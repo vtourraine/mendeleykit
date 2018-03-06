@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyFollowersAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyFollowersAPI: MendeleyObjectAPI {
     /**
      @name MendeleyFollowersAPI
      This class provides access methods to the REST followers API

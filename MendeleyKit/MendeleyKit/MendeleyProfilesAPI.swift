@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyProfilesAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyProfilesAPI: MendeleyObjectAPI {
     
     /**
      @name MendeleyProfilesAPI

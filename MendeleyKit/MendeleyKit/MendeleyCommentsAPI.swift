@@ -20,7 +20,7 @@
 
 import UIKit
 
-@objc public class MendeleyCommentsAPI: MendeleySwiftObjectAPI {
+@objc public class MendeleyCommentsAPI: MendeleyObjectAPI {
     
     private let defaultCommentRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONCommentType]
     private let expandedCommentsListRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONExpandedCommentsType]

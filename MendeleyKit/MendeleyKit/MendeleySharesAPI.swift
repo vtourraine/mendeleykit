@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc public class MendeleySharesAPI: MendeleySwiftObjectAPI {
+@objc public class MendeleySharesAPI: MendeleyObjectAPI {
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewsItemsShareType]
     private let shareDocumentServiceRequestHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONDocumentShareType]
     

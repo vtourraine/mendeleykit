@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyApplicationFeaturesAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyApplicationFeaturesAPI: MendeleyObjectAPI {
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONApplicationFeaturesType]
     
     @objc public func applicationFeatures(withTask task: MendeleyTask?,

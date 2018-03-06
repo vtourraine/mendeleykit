@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyFoldersAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyFoldersAPI: MendeleyObjectAPI {
     /**
      @name MendeleyFoldersAPI
      This class provides access methods to the REST folders API

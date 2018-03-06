@@ -20,7 +20,7 @@
 
 import Foundation
 
-@objc public class MendeleyFeedsAPI: MendeleySwiftObjectAPI {
+@objc public class MendeleyFeedsAPI: MendeleyObjectAPI {
     
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemListType]
     private let singleFeedServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONNewsItemType]

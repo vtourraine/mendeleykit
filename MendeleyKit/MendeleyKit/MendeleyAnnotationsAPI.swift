@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyAnnotationsAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyAnnotationsAPI: MendeleyObjectAPI {
     /**
      @name MendeleyAnnotationsAPI
      This class provides access methods to the REST annotations API

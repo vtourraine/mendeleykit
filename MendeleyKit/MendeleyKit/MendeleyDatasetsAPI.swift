@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyDatasetsAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyDatasetsAPI: MendeleyObjectAPI {
     /**
      @name MendeleyDatasetsAPI
      This class provides access methods to the REST datasets API

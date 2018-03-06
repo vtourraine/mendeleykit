@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyFilesAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyFilesAPI: MendeleyObjectAPI {
     /**
      @name MendeleyFilesAPI
      This class provides access methods to the REST file API

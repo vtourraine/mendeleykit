@@ -109,7 +109,7 @@ open class MendeleyAnalyticsCacheManager: NSObject
                                              jsonData: data,
                                              authenticationRequired: true,
                                              task: task) { (response, responseError ) -> Void in
-                            let helper = MendeleyKitSwiftHelper()
+                            let helper = MendeleyKitHelper()
                             var error = responseError
                             if helper.isSuccess(forResponse: response, error: &error) == true {
                                 self.clearCache()

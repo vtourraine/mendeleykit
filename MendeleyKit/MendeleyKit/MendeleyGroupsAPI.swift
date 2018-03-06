@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyGroupsAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyGroupsAPI: MendeleyObjectAPI {
     private let defaultServiceRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONGroupType]
     private let membersRequestHeaders = [kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONUserRoleType]
     

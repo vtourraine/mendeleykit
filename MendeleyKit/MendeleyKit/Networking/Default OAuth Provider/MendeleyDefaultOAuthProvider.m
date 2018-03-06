@@ -29,7 +29,6 @@
 #import "MendeleyURLBuilder.h"
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKit-Swift.h"
-#import "MendeleyKit-Umbrella.h"
 
 
 @interface MendeleyDefaultOAuthProvider ()

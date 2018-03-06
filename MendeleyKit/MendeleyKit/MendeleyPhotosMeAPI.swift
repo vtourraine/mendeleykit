@@ -18,7 +18,7 @@
  *****************************************************************************
  */
 
-@objc open class MendeleyPhotosMeAPI: MendeleySwiftObjectAPI {
+@objc open class MendeleyPhotosMeAPI: MendeleyObjectAPI {
     
     @objc public func uploadPhoto(withFile fileURL: URL,
                                   contentType: String,

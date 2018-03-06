@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc public class MendeleyUserPostsAPI: MendeleySwiftObjectAPI {
+@objc public class MendeleyUserPostsAPI: MendeleyObjectAPI {
     let newUserPostServiceHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewUserPostType,
                                      kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONUserPostType]
     let groupUserPostServiceHeaders = [kMendeleyRESTRequestContentType: kMendeleyRESTRequestJSONNewGroupPostType,
