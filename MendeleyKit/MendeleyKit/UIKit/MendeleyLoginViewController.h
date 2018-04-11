@@ -20,7 +20,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MendeleyOAuthProvider.h"
-#import "MendeleyIdPlusAuthProvider.h"
+#import "MendeleyIDPlusAuthProvider.h"
 
 @interface MendeleyLoginViewController : UIViewController
 /**
