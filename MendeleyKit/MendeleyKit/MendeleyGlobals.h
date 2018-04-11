@@ -152,6 +152,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTRequestJSONFollowRequestType               @"application/vnd.mendeley-follow-request.1+json"
 #define kMendeleyRESTRequestJSONFollowAcceptancesRequestType    @"application/vnd.mendeley-follow-acceptance.1+json"
 #define kMendeleyRESTRequestJSONDatasetType                     @"application/vnd.mendeley-public-dataset.1+json"
+#define kMendeleyRESTRequestJSONDatasetCreationRequestType      @"application/vnd.mendeley-dataset-creation-request.1+json"
 #define kMendeleyRESTRequestJSONLicenceInfoType                 @"application/vnd.mendeley-licence-info.1+json"
 #define kMendeleyRESTRequestJSONApplicationFeaturesType         @"application/vnd.mendeley-features.1+json"
 #define kMendeleyRESTRequestJSONRecommendationsType             @"application/vnd.mendeley-article-rec.1+json"
@@ -240,7 +241,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyRESTAPIFollowersWithID                   @"followers/%@"
 #define kMendeleyRESTAPIDatasets                          @"datasets"
 #define kMendeleyRESTAPIDatasetWithID                     @"datasets/%@"
+#define kMendeleyRESTAPIDatasetsDrafts                    @"datasets/drafts"
 #define kMendeleyRESTAPIDatasetsLicences                  @"datasets/licences"
+#define kMendeleyRESTAPIFileContents                      @"file_contents"
 #define kMendeleyRESTAPIApplicationFeatures               @"application_features"
 #define kMendeleyRESTAPIPhotosMe                          @"photos/me"
 #define kMendeleyRESTAPIRecommendationsBasedOnLibrary     @"recommendations/based_on_library_articles"
@@ -308,6 +311,7 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyModelRecentlyRead                        @"MendeleyRecentlyRead"
 #define kMendeleyModelFollow                              @"MendeleyFollow"
 #define kMendeleyModelDataset                             @"MendeleyDataset"
+#define kMendeleyModelContentTicket                       @"MendeleyContentTicket"
 #define kMendeleyModelLicenceInfo                         @"MendeleyLicenceInfo"
 #define kMendeleyModelApplicationFeature                  @"MendeleyFeature"
 #define kMendeleyModelWebsites                            @"NSArray"
@@ -495,6 +499,9 @@ typedef void (^ __nullable MendeleyStringArrayCompletionBlock)(NSArray * __nulla
 #define kMendeleyJSONCategories                           @"categories"
 #define kMendeleyJSONInstitutions                         @"institutions"
 #define kMendeleyJSONRelatedLinks                         @"related_links"
+#define kMendeleyJSONRelatedLinksRel                      @"rel"
+#define kMendeleyJSONRelatedLinksType                     @"type"
+#define kMendeleyJSONRelatedLinksHref                     @"href"
 
 /***********************************************
  @name JSON keys File metadata

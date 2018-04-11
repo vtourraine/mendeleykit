@@ -18,36 +18,12 @@
  *****************************************************************************
  */
 
-#import "MendeleyKitTestBaseClass.h"
-
-#ifndef MendeleyKitiOSFramework
-#import "MendeleyKit.h"
+#if __has_include(<MendeleyKitiOS/MendeleyKitiOS-Swift.h>) && TARGET_OS_IPHONE
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
 #endif
 
-@interface MendeleyKitTests : MendeleyKitTestBaseClass
+#if __has_include(<MendeleyKitOSX/MendeleyKitOSX-Swift.h>) && !TARGET_OS_IPHONE
+#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
+#endif
 
-@property(nonatomic, strong) MendeleyKit *sdk;
-
-@end
-
-@implementation MendeleyKitTests
-
-- (void)setUp
-{
-    [super setUp];
-    self.sdk = [MendeleyKit sharedInstance];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-// - (void)testDocumentTypes
-// {
-//    XCTFail(@"not implemented");
-// }
-
-@end
+#include "MendeleyKit.h"

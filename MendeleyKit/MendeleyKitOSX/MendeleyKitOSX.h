@@ -94,4 +94,11 @@ FOUNDATION_EXPORT const unsigned char MendeleyKitOSXVersionString[];
 #import <MendeleyKitOSX/MendeleyAnalyticsRegistry.h>
 #import <MendeleyKitOSX/MendeleyProfilesAPI.h>
 #import <MendeleyKitOSX/MendeleyLoginAPI.h>
-
+#import <MendeleyKitOSX/MendeleyDatasetsAPI.h>
+#import <MendeleyKitOSX/MendeleyApplicationFeaturesAPI.h>
+#import <MendeleyKitOSX/MendeleyCommentsAPI.h>
+#import <MendeleyKitOSX/MendeleyFeedsAPI.h>
+#import <MendeleyKitOSX/MendeleyKit-Umbrella.h>
+#import <MendeleyKitOSX/MendeleyPhotosMeAPI.h>
+#import <MendeleyKitOSX/MendeleySharesAPI.h>
+#import <MendeleyKitOSX/MendeleyUserPostsAPI.h>

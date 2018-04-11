@@ -1,15 +1,14 @@
 # MendeleyKit — the Mendeley SDK for Objective-C/Swift #
 
-Latest Release: May 2017 (3.1.3)
-
+Latest Release: January 2018 (3.3.0)
 
 ## About MendeleyKit 3.x ##
 MendeleyKit is a standalone framework providing convenience methods
 and classes for using the [Mendeley API](http://dev.mendeley.com) in iOS and
-OS X applications.
+macOS applications.
 
 Since its launch in October 2014, MendeleyKit has gone through a number of changes and improvements.
-Version 3 of the SDK no longer provides static libraries. Instead we provide builds for OSX and iOS dynamic frameworks.
+Version 3 of the SDK no longer provides static libraries. Instead we provide builds for OSX and macOS dynamic frameworks.
 In addition to that, some API additions were introduced (e.g. Mendeley features API enabling remote feature enabling).
 
 Much of the code in the SDK is still based on Objective C. However, over the coming months we will be gradually migrating
@@ -23,8 +22,8 @@ OS X 10.9 or higher
 
 ## Installation (CocoaPods) ##
 The easiest way to include MendeleyKit in your project is to use CocoaPods. In order to support both
-dynamic frameworks for both OSX and iOS we provide two separate Podspec files
-- `MendeleyKitiOS.podspec`: the iOS dynamic framework. Requires iOS 9.1 min and Xcode 8.x
+dynamic frameworks for both macOS and macOS we provide two separate Podspec files
+- `MendeleyKitiOS.podspec`: the macOS dynamic framework. Requires iOS 9.1 min and Xcode 8.x
 - `MendeleyKitOSX.podspec`: the OS X framework.
 
 ### CocoaPods for frameworks ###
@@ -33,7 +32,7 @@ dynamic frameworks for both OSX and iOS we provide two separate Podspec files
 Use this in your Podfile:
 ```ruby
 use_frameworks!
-pod 'MendeleyKitiOS', :git => 'https://github.com/Mendeley/mendeleykit.git'
+pod 'MendeleyKitiOS'
 ```
 
 post_install do |installer|

@@ -29,12 +29,7 @@
 #import "MendeleyURLBuilder.h"
 #import "MendeleyBlockExecutor.h"
 #import "MendeleyKitHelper.h"
-
-#ifdef MendeleyKitiOSFramework
-#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
-#else
-#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
-#endif
+#import "MendeleyKit-Umbrella.h"
 
 
 @interface MendeleyDefaultOAuthProvider ()

@@ -25,7 +25,7 @@
 #import "MendeleyOAuthStore.h"
 #import "NSError+MendeleyError.h"
 #import "MendeleyGlobals.h"
-#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#import "MendeleyKit-Umbrella.h"
 
 @interface MendeleyLoginViewController ()
 @property (nonatomic, strong) UIWebView *webView;

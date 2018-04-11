@@ -41,6 +41,9 @@
 @implementation MendeleyFileMetadata
 @end
 
+@implementation MendeleyContentTicket
+@end
+
 @implementation MendeleyFileMetrics
 @end
 

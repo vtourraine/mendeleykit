@@ -118,6 +118,11 @@
 @end
 
 
+@interface MendeleyContentTicket : MendeleyObject
+
+@end
+
+
 @interface MendeleyFileMetrics : MendeleyObject
 
 @property (nonatomic, strong, nullable) NSNumber *downloads;
