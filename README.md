@@ -21,7 +21,7 @@ towards Swift (3 or later).
 
 ## Installation (CocoaPods) ##
 The easiest way to include MendeleyKit in your project is to use CocoaPods. There are 3 pods: one is cross-platform and can be used as a static library; the others are platform-specific and can be used as dynamic frameworks:
-- `MendeleyKit.podspec`: iOS/macOS static framework
+- `MendeleyKit.podspec`: iOS/macOS static library (requires Xcode 9 and CocoaPods 1.5)
 - `MendeleyKitiOS.podspec`: iOS dynamic framework
 - `MendeleyKitOSX.podspec`: macOS dynamic framework
 
