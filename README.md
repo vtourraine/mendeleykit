@@ -15,16 +15,15 @@ Much of the code in the SDK is still based on Objective C. However, over the com
 towards Swift (3 or later).
 
 ## Minimum Requirements ##
-
-Xcode 8
-iOS 8.0 or higher
-OS X 10.9 or higher
+- Xcode 8
+- iOS 8.0 or higher
+- macOS 10.9 or higher
 
 ## Installation (CocoaPods) ##
-The easiest way to include MendeleyKit in your project is to use CocoaPods. In order to support both
-dynamic frameworks for both macOS and macOS we provide two separate Podspec files
-- `MendeleyKitiOS.podspec`: the macOS dynamic framework. Requires iOS 9.1 min and Xcode 8.x
-- `MendeleyKitOSX.podspec`: the OS X framework.
+The easiest way to include MendeleyKit in your project is to use CocoaPods. There are 3 pods: one is cross-platform and can be used as a static library; the others are platform-specific and can be used as dynamic frameworks:
+- `MendeleyKit.podspec`: iOS/macOS static framework
+- `MendeleyKitiOS.podspec`: iOS dynamic framework
+- `MendeleyKitOSX.podspec`: macOS dynamic framework
 
 ### CocoaPods for frameworks ###
 

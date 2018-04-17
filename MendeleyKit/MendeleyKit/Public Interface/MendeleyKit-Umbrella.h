@@ -26,4 +26,8 @@
 #import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
 #endif
 
+#if __has_include("MendeleyKit-Swift.h")
+#import "MendeleyKit-Swift.h"
+#endif
+
 #include "MendeleyKit.h"
