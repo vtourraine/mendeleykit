@@ -8,13 +8,12 @@ and classes for using the [Mendeley API](http://dev.mendeley.com) in iOS and
 macOS applications.
 
 Since its launch in October 2014, MendeleyKit has gone through a number of changes and improvements.
-Version 3 of the SDK no longer provides static libraries. Instead we provide builds for OSX and macOS dynamic frameworks.
+Version 3 of the SDK provides builds for iOS and macOS dynamic frameworks. The latest release also supports static libraries (requires Xcode 9).
 In addition to that, some API additions were introduced (e.g. Mendeley features API enabling remote feature enabling).
 
-Much of the code in the SDK is still based on Objective C. However, over the coming months we will be gradually migrating
-towards Swift (3 or later).
+Much of the code in the SDK is still based on Objective-C. However, over the coming months we will be gradually migrating towards Swift (3 or later).
 
-## Minimum Requirements ##
+## Minimum requirements ##
 - Xcode 8
 - iOS 8.0 or higher
 - macOS 10.9 or higher
@@ -32,7 +31,6 @@ Use this in your Podfile:
 ```ruby
 use_frameworks!
 pod 'MendeleyKitiOS'
-```
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
@@ -43,14 +41,13 @@ post_install do |installer|
   end
 end
 ```
+
 (for CocoaPods versions earlier than 0.38, use `installer.project.targets.each` instead of `installer.pods_project.targets.each`)
 
 *Note*: Using `use_frameworks!` means that all included dependencies will be interpreted as frameworks. At this stage, there is no provision in CocoaPods to selectively mark some pods as frameworks and others as static libraries.
 
-Once done do a 
-```bash
 Once done, do a:
-```
+```bash
 pod install
 ```
 
@@ -74,10 +71,9 @@ post_install do |installer|
 end
 ```
 
+Alternatively, you may clone the public MendeleyKit from our GitHub repository.
 
-Alternatively, you may clone the public MendeleyKit from our github repository.
-
-## Upgrading from Previous versions of MendeleyKit ##
+## Upgrading from previous versions of MendeleyKit ##
 
 ### Upgrading the headers/import in Objective-C code for Framework ###
 Using the MendeleyKitiOS framework means you will need to change your headers.
@@ -87,12 +83,12 @@ Please, replace all explicit MendeleyKit imports in your code with this one head
 ```objc
 #import <MendeleyKitiOS/MendeleyKitiOS.h>
 ```
-You may want to use the more modern syntax
-```objc
+
 You may want to use the more modern syntax:
-```
+```objc
 @import MendeleyKitiOS;
 ```
+
 ### Upgrading the headers/import for use of static library ###
 *Note*: if you are using the static library version of MendeleyKit, you will need to use the following syntax
 (as the workspace has now modules enabled in the build sittings):
@@ -105,8 +101,7 @@ You may want to use the more modern syntax:
 - client should have `Enable modules` set to `Yes`
 - MendeleyKit currently has bitcode generation disabled in its settings for backward compatibility reasons. You may need to do the same in the client using the MendeleyKit framework/library.
 
-
-## Getting Started ##
+## Getting started ##
 The MendeleyKit Xcode workspace includes a MendeleyKitExample project. This demonstrates
 basic functionality such as authenticating with the Mendeley server, 
 obtaining a list of documents, files and groups.
@@ -126,7 +121,7 @@ Note: code containing client IDs, client secrets, redirect URI will not be accep
 
 [Mendeley API](http://dev.mendeley.com) has links to create your app client ID, key and redirect URIs.
 
-## Registering a Client with the Mendeley Dev Portal ##
+## Registering a client with the Mendeley Dev Portal ##
 Every client communicating with the server needs to be registered with the Mendeley developer portal [Mendeley API](http://dev.mendeley.com).
 
 Registration is quick, painless and free. It will give you the 3 essential ingredients you will need to supply when using MendeleyKit in your app:
@@ -137,19 +132,17 @@ Registration is quick, painless and free. It will give you the 3 essential ingre
 These values need to match *exactly* the ones from the dev portal.
 The redirect URI should be a fully formed URL, such as `http://localhost/myredirect` (rather than just `localhost/myredirect`). This avoids any pitfalls or 'Frame load interrupted' messages in UIWebView.
 
-
-## How to Submit Code ##
-This is an early-bird version of MendeleyKit. We welcome your thoughts and suggestions. If you would like to make active contributions, e.g. code changes/additions:
+## How to submit code ##
+We welcome your thoughts and suggestions. If you would like to make active contributions, e.g. code changes/additions:
 
 - code submissions should only be made to `Development` branch via pull requests.
 - you may create your own subbranches from `Development` and submit to it at will. However, if you want to merge it into `Development` then you would need to create a pull request.
 - **Note**: code containing client IDs, client secrets, redirect URI will not be accepted in pull requests!
 
-
-## Software Releases ##
+## Software releases ##
 All official releases of MendeleyKit are tagged versions on `master`. Mendeley reserves the rights to merge changes made to `Development` into `master`.
 Each release will contain a `RELEASE` text file outlining changes made.
 
-## Reporting Issues ##
+## Reporting issues ##
 Please use the Issues feature on GitHub to report any problems you encounter with MendeleyKit.
 For feedback/suggestions, please contact: api@mendeley.com
