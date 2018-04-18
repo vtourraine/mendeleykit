@@ -20,9 +20,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MendeleyGlobals.h"
+#import "MendeleyKit.h"
 
-@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment,
-    MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost;
+@class MendeleySyncInfo, MendeleyDocumentParameters, MendeleyFileParameters, MendeleyFolderParameters, MendeleyAnnotationParameters, MendeleyDocument, MendeleyFile, MendeleyFolder, MendeleyDocumentId, MendeleyAnnotation, MendeleyMetadataParameters, MendeleyGroupParameters, MendeleyTask, MendeleyCatalogParameters, MendeleyGroup, MendeleyProfile, MendeleyAmendmentProfile, MendeleyNewProfile, MendeleyRecentlyReadParameters, MendeleyRecentlyRead, MendeleyFollowersParameters, MendeleyDatasetParameters, MendeleyRecommendationsParameters, MendeleyFeedsParameters, MendeleySharesParameters, MendeleyShareDocumentParameters, MendeleyComment, MendeleyCommentUpdate, MendeleyNewUserPost, MendeleyGroupPost, MendeleyNewGroupPost, MendeleyDataset;
 
 @protocol MendeleyNetworkProvider;
 
@@ -1061,11 +1061,11 @@
 
 /**
  Creates a new group post.
- @param groupPost
+ @param newGroupPost
  @param task
  @param completionBlock
  */
-- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+- (MendeleyTask *)createGroupPost:(MendeleyNewGroupPost *)groupPost
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
@@ -1177,6 +1177,31 @@
  */
 - (MendeleyTask *)datasetWithDatasetID:(NSString *)datasetID
                        completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ creates a dataset based on the mendeley object model provided in the argument.
+ The server will respond with the JSON data structure for the new object
+ @param mendeleyDataset the dataset to be created
+ @param completionBlock returns the dataset created on the server with the UUID
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)createDataset:(MendeleyDataset *)mendeleyDataset
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
+
+/**
+ creates a dataset file by uploading a file, and configuring the file metadata object with the uploaded file ticket (you can then use these file metadata objects to create or update a dataset)
+ @param fileURL The local URL of the file to upload
+ @param filename The file name for the uploaded file (optional)
+ @param contentType The file MIME type (optional)
+ @param progressBlock The progress block
+ @param completionBlock The completion block with a new `MendeleyFileMetadata` instance
+ @return a MendeleyTask object used for cancelling the operation
+ */
+- (MendeleyTask *)createDatasetFile:(NSURL *)fileURL
+                           filename:(NSString *)filename
+                        contentType:(NSString *)contentType
+                      progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
  obtains a list of licences that can be applied to datasets

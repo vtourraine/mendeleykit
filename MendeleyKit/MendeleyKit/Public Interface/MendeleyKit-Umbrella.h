@@ -18,29 +18,16 @@
  *****************************************************************************
  */
 
+#if __has_include(<MendeleyKitiOS/MendeleyKitiOS-Swift.h>) && TARGET_OS_IPHONE
+#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
+#endif
 
-#import "MendeleyNewUserPost.h"
+#if __has_include(<MendeleyKitOSX/MendeleyKitOSX-Swift.h>) && !TARGET_OS_IPHONE
+#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
+#endif
 
-@implementation MendeleyNewUserPost
-@end
+#if __has_include("MendeleyKit-Swift.h")
+#import "MendeleyKit-Swift.h"
+#endif
 
-@implementation MendeleyUserPost
-@end
-
-@implementation MendeleyProfileLink
-@end
-
-@implementation MendeleySocialDocument
-@end
-
-@implementation MendeleySocialAuthor
-@end
-
-@implementation MendeleyUserPostImage
-@end
-
-@implementation MendeleyFilesSummary
-@end
-
-@implementation MendeleyFileSummary
-@end
+#include "MendeleyKit.h"

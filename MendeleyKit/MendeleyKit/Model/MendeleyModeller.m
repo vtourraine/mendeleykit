@@ -172,7 +172,7 @@
     }
 }
 
-- (NSDictionary *)dictionaryFromModel:(id)model error:(NSError **)error
+- (NSDictionary *)dictionaryFromModel:(id)model error:(NSError *__autoreleasing*)error
 {
     __block NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     NSArray *propertyNames = [MendeleyObjectHelper propertyNamesForModel:model];
@@ -184,7 +184,11 @@
              NSString *matchedName = [MendeleyObjectHelper matchedJSONKeyForKey:name];
              if ([MendeleyObjectHelper isCustomizableModelObject:model forPropertyName:name error:error])
              {
-                 [properties setObject:[MendeleyObjectHelper rawValueFromCustomObject:value modelObject:model propertyName:name error:error] forKey:matchedName];
+                 id rawValue = [MendeleyObjectHelper rawValueFromCustomObject:value modelObject:model propertyName:name error:error];
+                 if (rawValue != nil)
+                 {
+                     [properties setObject:rawValue forKey:matchedName];
+                 }
              }
 
              else if ([value isKindOfClass:[NSDate class]])
@@ -209,7 +213,7 @@
     return properties;
 }
 
-- (nonnull NSArray *)arrayFromModelArray:(nonnull NSArray *)modelArray error:(NSError * __nullable * __nullable)error
+- (nonnull NSArray *)arrayFromModelArray:(nonnull NSArray *)modelArray error:(NSError * __autoreleasing __nullable * __nullable)error
 {
     __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:modelArray.count];
 

@@ -41,7 +41,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         let request: URLRequest = helper.getOAuthRequest(redirectURI, clientID: clientID)
         _ = webView?.load(request)
     }
-    
+
     public func configureWebView(_ controller: UIViewController)
     {
         let configuration = WKWebViewConfiguration()
@@ -52,7 +52,6 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
         webView = newWebView
     }
-    
 
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         if let requestURL = webView.url {
@@ -61,11 +60,9 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
             {
                 oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
             }
-            
         }
-        
     }
-    
+
     @nonobjc public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
     {
         let baseURL = MendeleyKitConfiguration.sharedInstance().baseAPIURL.absoluteString
@@ -87,7 +84,7 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
 
         decisionHandler(.cancel)
     }
-    
+
     @nonobjc public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: NSError) {
         let userInfo = error.userInfo
         if let failingURLString = userInfo[NSURLErrorFailingURLStringErrorKey] as? String
@@ -101,6 +98,21 @@ public class MendeleyLoginWebKitHandler: NSObject, WKNavigationDelegate, Mendele
         if let unwrappedCompletionBlock = completionBlock
         {
             unwrappedCompletionBlock(false, error)
+        }
+    }
+
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error)
+    {
+        // Redirecting to a custom URL scheme is treated as an error.
+        // Therefore we need to look for OAuth authentication codes here as well.
+        // GitHub Issue: https://github.com/Mendeley/mendeleykit/issues/80
+        if let failingURL = (error as NSError).userInfo[NSURLErrorFailingURLErrorKey] as? URL
+        {
+            let helper = MendeleyKitLoginHelper()
+            if let code = helper.getAuthenticationCode(failingURL)
+            {
+                oAuthProvider?.authenticate(withAuthenticationCode: code, completionBlock: oAuthCompletionBlock!)
+            }
         }
     }
 }

@@ -195,4 +195,74 @@
     }];
 }
 
+- (void)testParseFileContentsObject
+{
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *jsonArrayPath = [bundle pathForResource:@"file_contents" ofType:@"json"];
+    NSData *jsonArrayData = [NSData dataWithContentsOfFile:jsonArrayPath];
+    XCTAssertTrue(jsonArrayData);
+
+    NSError *parseError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonArrayData options:NSJSONReadingAllowFragments error:&parseError];
+    XCTAssertNotNil(jsonObject, @"we expected the JSON data to be parsed without error (error: %@)", parseError);
+
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+    [modeller parseJSONData:jsonObject expectedType:kMendeleyModelContentTicket completionBlock:^(id parsedObject, NSError *error) {
+        XCTAssertNotNil(parsedObject, @"We expected the parsing to return without error (error: %@)", error);
+
+        XCTAssertTrue([parsedObject isKindOfClass:[MendeleyContentTicket class]]);
+        XCTAssertEqualObjects(((MendeleyContentTicket *)parsedObject).object_ID, @"r39wcjmm2m");
+    }];
+}
+
+- (void)testSerializationForNewDataset {
+    MendeleyFileMetadata *fileMetadata = [[MendeleyFileMetadata alloc] init];
+    fileMetadata.filename = @"test.pdf";
+
+    MendeleyFileData *fileData = [[MendeleyFileData alloc] init];
+    fileData.object_ID = @"#123#";
+    fileMetadata.content_details = fileData;
+
+    MendeleyDataset *dataset = [[MendeleyDataset alloc] init];
+    dataset.name = @"Name";
+    dataset.objectDescription = @"Test Desc";
+    dataset.files = @[fileMetadata];
+
+    MendeleyCategory *category = [[MendeleyCategory alloc] init];
+    category.object_ID = @"#cat#";
+    dataset.categories = @[category];
+
+    MendeleyRelatedLink *link = [[MendeleyRelatedLink alloc] init];
+    link.rel = @"source_of";
+    link.type = @"other";
+    link.href = @"https://www.mendeley.com";
+    dataset.related_links = @[link];
+
+    MendeleyLicenceInfo *licenceInfo = [[MendeleyLicenceInfo alloc] init];
+    licenceInfo.object_ID = @"#lic#";
+    dataset.data_licence = licenceInfo;
+
+    MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
+    NSError *error = nil;
+    NSDictionary *datasetDictionary = [modeller dictionaryFromModel:dataset error:&error];
+
+    XCTAssertNotNil(datasetDictionary);
+    XCTAssertNil(error);
+
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONName], @"Name");
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONDescription], @"Test Desc");
+
+    NSArray *expectedFiles = @[@{@"filename": @"test.pdf", kMendeleyJSONContentDetails: @{kMendeleyJSONID: @"#123#"}}];
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONFiles], expectedFiles);
+
+    NSArray *expectedCategories = @[@{kMendeleyJSONID: @"#cat#"}];
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONCategories], expectedCategories);
+
+    NSArray *expectedLinks = @[@{kMendeleyJSONRelatedLinksRel: @"source_of", kMendeleyJSONRelatedLinksType: @"other", kMendeleyJSONRelatedLinksHref: @"https://www.mendeley.com"}];
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONRelatedLinks], expectedLinks);
+
+    NSDictionary *expectedLicenceInfo = @{kMendeleyJSONID: @"#lic#"};
+    XCTAssertEqualObjects(datasetDictionary[kMendeleyJSONDataLicence], expectedLicenceInfo);
+}
+
 @end

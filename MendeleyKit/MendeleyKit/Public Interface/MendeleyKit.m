@@ -330,7 +330,7 @@
 
 #pragma mark - Authentication helper
 
-- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)())operationBlock completionBlock:(MendeleyCompletionBlock)completionBlock
+- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)(void))operationBlock completionBlock:(MendeleyCompletionBlock)completionBlock
 {
     if (self.isAuthenticated)
     {
@@ -352,7 +352,7 @@
     }
 }
 
-- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)())operationBlock objectCompletionBlock:(MendeleyObjectCompletionBlock)completionBlock
+- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)(void))operationBlock objectCompletionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     if (self.isAuthenticated)
     {
@@ -374,7 +374,7 @@
     }
 }
 
-- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)())operationBlock arrayCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
+- (void)checkAuthenticationThenRefreshTokenThenPerform:(void(^)(void))operationBlock arrayCompletionBlock:(MendeleyArrayCompletionBlock)completionBlock
 {
     if (self.isAuthenticated)
     {
@@ -1681,7 +1681,7 @@
     return task;
 }
 
-- (MendeleyTask *)createGroupPost:(MendeleyGroupPost *)groupPost
+- (MendeleyTask *)createGroupPost:(MendeleyNewGroupPost *)groupPost
                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
     MendeleyTask *task = [MendeleyTask new];
@@ -1878,6 +1878,40 @@
         [self.datasetsAPI datasetWithDatasetID:datasetID
                                           task:task
                                completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+
+    return task;
+}
+
+- (MendeleyTask *)createDataset:(MendeleyDataset *)mendeleyDataset
+                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI createDataset:mendeleyDataset
+                                   task:task
+                        completionBlock:completionBlock];
+    } objectCompletionBlock:completionBlock];
+
+    return task;
+}
+
+- (MendeleyTask *)createDatasetFile:(NSURL *)fileURL
+                           filename:(NSString *)filename
+                        contentType:(NSString *)contentType
+                      progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                    completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.datasetsAPI createDatasetFile:fileURL
+                                   filename:filename
+                                contentType:contentType
+                                       task:task
+                              progressBlock:progressBlock
+                            completionBlock:completionBlock];
     } objectCompletionBlock:completionBlock];
 
     return task;

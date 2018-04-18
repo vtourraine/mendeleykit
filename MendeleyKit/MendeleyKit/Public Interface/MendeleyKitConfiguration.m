@@ -39,6 +39,9 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 @property (nonatomic, strong, readwrite) id<MendeleyNetworkProvider> networkProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthProvider> oauthProvider;
 @property (nonatomic, strong, readwrite) id<MendeleyOAuthStoreProvider> storeProvider;
+@property (nonatomic, strong, readwrite) NSString *clientId;
+@property (nonatomic, strong, readwrite) NSString *secret;
+@property (nonatomic, strong, readwrite) NSString *redirectURI;
 @end
 
 @implementation MendeleyKitConfiguration
@@ -69,6 +72,10 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 
 - (void)configureOAuthWithParameters:(NSDictionary *)parameters
 {
+    self.clientId = parameters[kMendeleyOAuth2ClientIDKey];
+    self.secret = parameters[kMendeleyOAuth2ClientSecretKey];
+    self.redirectURI = parameters[kMendeleyOAuth2RedirectURLKey];
+    
     if (nil != self.oauthProvider &&
         [self.oauthProvider respondsToSelector:@selector(configureOAuthWithParameters:)])
     {
@@ -148,12 +155,12 @@ typedef NS_ENUM(int, MendeleyCustomClassType)
 
 - (void)resetToDefault
 {
-    _networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
-    _oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
-    _storeProvider = [MendeleyOAuthStore new];
-    _isTrustedSSLServer = NO;
-    _documentViewType = kMendeleyDocumentViewTypeDefault;
-    _baseAPIURL = [NSURL URLWithString:kMendeleyKitURL];
+    self.networkProvider = [MendeleyDefaultNetworkProvider sharedInstance];
+    self.oauthProvider = [MendeleyDefaultOAuthProvider sharedInstance];
+    self.storeProvider = [MendeleyOAuthStore new];
+    self.isTrustedSSLServer = NO;
+    self.documentViewType = kMendeleyDocumentViewTypeDefault;
+    self.baseAPIURL = [NSURL URLWithString:kMendeleyKitURL];
 }
 
 

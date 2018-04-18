@@ -20,12 +20,7 @@
 
 #import "MendeleyAnnotation.h"
 #import "NSError+MendeleyError.h"
-
-#ifdef MendeleyKitiOSFramework
-#import <MendeleyKitiOS/MendeleyKitiOS-Swift.h>
-#else
-#import <MendeleyKitOSX/MendeleyKitOSX-Swift.h>
-#endif
+#import "MendeleyKit-Umbrella.h"
 
 @implementation MendeleyAnnotation
 + (id)colorFromParameters:(NSDictionary *)colorParameters error:(NSError **)error
@@ -53,33 +48,21 @@
 
 + (NSDictionary *)jsonColorFromColor:(id)color error:(NSError **)error
 {
-
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
 #if TARGET_OS_IPHONE
-    UIColor *uiColor = nil;
-    if (nil != color && [color isKindOfClass:[UIColor class]])
+    UIColor *nativeColor = nil;
+    if ([color isKindOfClass:[UIColor class]])
     {
-        uiColor = (UIColor *) color;
+        nativeColor = (UIColor *) color;
     }
-    else
-    {
-        if (NULL != error)
-        {
-            *error = [NSError errorWithCode:kMendeleyUnknownDataTypeErrorCode
-                       localizedDescription      :@"The color object is either nil or it is neither UIColor nor NSColor"];
-        }
-        return nil;
-    }
-    [dictionary setObject:[NSNumber numberWithInt:uiColor.redComponentInt] forKey:kMendeleyJSONColorRed];
-    [dictionary setObject:[NSNumber numberWithInt:uiColor.greenComponentInt] forKey:kMendeleyJSONColorGreen];
-    [dictionary setObject:[NSNumber numberWithInt:uiColor.blueComponentInt] forKey:kMendeleyJSONColorBlue];
 #else
-    NSColor *nsColor = nil;
-    if (nil != color && [color isKindOfClass:[NSColor class]])
+    NSColor *nativeColor = nil;
+    if ([color isKindOfClass:[NSColor class]])
     {
-        nsColor = (NSColor *) color;
+        nativeColor = (NSColor *) color;
     }
+#endif
     else
     {
         if (NULL != error)
@@ -89,10 +72,11 @@
         }
         return nil;
     }
-    [dictionary setObject:[NSNumber numberWithInt:nsColor.redComponentInt] forKey:kMendeleyJSONColorRed];
-    [dictionary setObject:[NSNumber numberWithInt:nsColor.greenComponentInt] forKey:kMendeleyJSONColorGreen];
-    [dictionary setObject:[NSNumber numberWithInt:nsColor.blueComponentInt] forKey:kMendeleyJSONColorBlue];
-#endif /* if TARGET_OS_IPHONE */
+
+    [dictionary setObject:[NSNumber numberWithInt:nativeColor.redComponentInt] forKey:kMendeleyJSONColorRed];
+    [dictionary setObject:[NSNumber numberWithInt:nativeColor.greenComponentInt] forKey:kMendeleyJSONColorGreen];
+    [dictionary setObject:[NSNumber numberWithInt:nativeColor.blueComponentInt] forKey:kMendeleyJSONColorBlue];
+
     return dictionary;
 }
 @end

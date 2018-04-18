@@ -658,7 +658,7 @@
 + (id)customObjectFromRawValue:(id)rawValue
                    modelObject:(id)modelObject
                   propertyName:(NSString *)propertyName
-                         error:(NSError **)error
+                         error:(NSError *__autoreleasing*)error
 {
     if (nil == propertyName)
     {
@@ -1157,7 +1157,7 @@
 + (id)rawValueFromCustomObject:(id)customObject
                    modelObject:(id)modelObject
                   propertyName:(NSString *)propertyName
-                         error:(NSError **)error
+                         error:(NSError *__autoreleasing*)error
 {
     if (nil == propertyName)
     {
@@ -1329,6 +1329,82 @@
                  }];
                 return positionDicts;
             }
+        }
+    }
+
+    NSString *fileMetadata = NSStringFromClass([MendeleyFileMetadata class]);
+    if ([modelName isEqualToString:fileMetadata])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONContentDetails] && ((MendeleyFileData *)customObject).object_ID)
+        {
+            return @{kMendeleyJSONID: ((MendeleyFileData *)customObject).object_ID};
+        }
+    }
+
+    NSString *dataset = NSStringFromClass([MendeleyDataset class]);
+    if ([modelName isEqualToString:dataset])
+    {
+        if ([propertyName isEqualToString:kMendeleyJSONFiles] && [customObject isKindOfClass:[NSArray class]])
+        {
+            NSArray *filesMetadata = (NSArray *)customObject;
+            NSMutableArray *filesDicts = [NSMutableArray arrayWithCapacity:filesMetadata.count];
+            for (MendeleyFileMetadata *metadata in filesMetadata)
+            {
+                NSMutableDictionary *fileDict = [NSMutableDictionary dictionary];
+                if (metadata.filename)
+                {
+                    fileDict[NSStringFromSelector(@selector(filename))] = metadata.filename;
+                }
+                if (metadata.content_details)
+                {
+                    fileDict[kMendeleyJSONContentDetails] = [self rawValueFromCustomObject:metadata.content_details modelObject:metadata propertyName:kMendeleyJSONContentDetails error:nil];
+                }
+                [filesDicts addObject:fileDict];
+            }
+
+            return filesDicts;
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONCategories] && [customObject isKindOfClass:[NSArray class]])
+        {
+            NSArray *categories = (NSArray *)customObject;
+            NSMutableArray *categoriesDicts = [NSMutableArray arrayWithCapacity:categories.count];
+            for (MendeleyCategory *category in categories)
+            {
+                if (category.object_ID)
+                {
+                    [categoriesDicts addObject:@{kMendeleyJSONID: category.object_ID}];
+                }
+            }
+
+            return categoriesDicts;
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONRelatedLinks] && [customObject isKindOfClass:[NSArray class]])
+        {
+            NSArray *relatedLinks = (NSArray *)customObject;
+            NSMutableArray *relatedLinksDicts = [NSMutableArray arrayWithCapacity:relatedLinks.count];
+            for (MendeleyRelatedLink *relatedLink in relatedLinks)
+            {
+                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+                if (relatedLink.rel != nil)
+                {
+                    dictionary[kMendeleyJSONRelatedLinksRel] = relatedLink.rel;
+                }
+                if (relatedLink.type != nil)
+                {
+                    dictionary[kMendeleyJSONRelatedLinksType] = relatedLink.type;
+                }
+                if (relatedLink.href != nil)
+                {
+                    dictionary[kMendeleyJSONRelatedLinksHref] = relatedLink.href;
+                }
+                [relatedLinksDicts addObject:dictionary];
+            }
+
+            return relatedLinksDicts;
+        }
+        else if ([propertyName isEqualToString:kMendeleyJSONDataLicence] && [customObject isKindOfClass:[MendeleyLicenceInfo class]] && ((MendeleyLicenceInfo *)customObject).object_ID)
+        {
+            return @{kMendeleyJSONID: ((MendeleyLicenceInfo *)customObject).object_ID};
         }
     }
 
