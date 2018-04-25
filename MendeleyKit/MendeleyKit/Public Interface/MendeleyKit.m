@@ -758,6 +758,28 @@
     return task;
 }
 
+- (MendeleyTask *)documentFromFileWithURL:(NSURL *)fileURL
+                                  groupID:(NSString *)groupID
+                                 folderID:(NSString *)folderID
+                                 mimeType:(NSString *)mimeType
+                            progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                          completionBlock:(MendeleyObjectCompletionBlock)completionBlock
+{
+    MendeleyTask *task = [MendeleyTask new];
+
+    [self checkAuthenticationThenRefreshTokenThenPerform:^{
+        [self.documentsAPI documentFromFileWithURL:(NSURL *)fileURL
+                                           groupID:(NSString *)groupID
+                                          folderID:(NSString *)folderID
+                                          mimeType:(NSString *)mimeType
+                                              task:(MendeleyTask *)task
+                                     progressBlock:(MendeleyResponseProgressBlock)progressBlock
+                                   completionBlock:(MendeleyObjectCompletionBlock)completionBlock];
+    } objectCompletionBlock:completionBlock];
+
+    return task;
+}
+
 - (MendeleyTask *)cloneDocumentWithID:(NSString *)documentID
                               groupID:(NSString *)groupID
                              folderID:(NSString *)folderID
