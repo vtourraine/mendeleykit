@@ -239,24 +239,6 @@
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
 
 /**
- uploads a file from a location and returns a Mendeley Document in the completion handler
- @param fileURL the location of the file
- @param groupID destination group
- @param folderID destination folder
- @param mimeType e.g. 'application/pdf'
- @param task
- @param progressBlock
- @param completionBlock
- */
-- (void)documentFromFileWithURL:(NSURL *)fileURL
-                        groupID:(NSString *)groupID
-                       folderID:(NSString *)folderID
-                       mimeType:(NSString *)mimeType
-                           task:(MendeleyTask *)task
-                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                completionBlock:(MendeleyObjectCompletionBlock)completionBlock;
-
-/**
  Method clones document metadata to a new group/lib. The returned metadata contain the user document metadata including the document ID for the cloned document
  @param document the document to be cloned
  @param toGroup the target group ID. Use nil if you want to clone to the users' library. In this case the profile ID must be provided

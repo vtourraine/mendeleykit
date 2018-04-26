@@ -461,25 +461,7 @@
                   progressBlock:(MendeleyResponseProgressBlock)progressBlock
                 completionBlock:(MendeleyObjectCompletionBlock)completionBlock
 {
-    [self documentFromFileWithURL:fileURL
-                          groupID:nil
-                         folderID:nil
-                         mimeType:mimeType
-                             task:task
-                    progressBlock:progressBlock
-                  completionBlock:completionBlock];
-}
-
-- (void)documentFromFileWithURL:(NSURL *)fileURL
-                        groupID:(NSString *)groupID
-                       folderID:(NSString *)folderID
-                       mimeType:(NSString *)mimeType
-                           task:(MendeleyTask *)task
-                  progressBlock:(MendeleyResponseProgressBlock)progressBlock
-                completionBlock:(MendeleyObjectCompletionBlock)completionBlock
-{
     [NSError assertArgumentNotNil:fileURL argumentName:@"fileURL"];
-
     if (nil == mimeType)
     {
         mimeType = kMendeleyRESTRequestValuePDF;
@@ -488,19 +470,9 @@
     NSString *filename = [fileURL lastPathComponent];
     NSString *contentDisposition = [NSString stringWithFormat:@"%@; filename=\"%@\"", kMendeleyRESTRequestValueAttachment, filename];
 
-    NSMutableDictionary *header = @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
-                                      kMendeleyRESTRequestContentType: mimeType,
-                                      kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType }.mutableCopy;
-
-    if (nil != groupID)
-    {
-        [header setObject:groupID forKey:kMendeleyJSONGroupID];
-    }
-
-    if (nil != folderID)
-    {
-        [header setObject:folderID forKey:kMendeleyJSONFolderID];
-    }
+    NSDictionary *header = @{ kMendeleyRESTRequestContentDisposition: contentDisposition,
+                              kMendeleyRESTRequestContentType: mimeType,
+                              kMendeleyRESTRequestAccept: kMendeleyRESTRequestJSONDocumentType };
 
     [self.provider invokeUploadForFileURL:fileURL
                                   baseURL:self.baseURL
