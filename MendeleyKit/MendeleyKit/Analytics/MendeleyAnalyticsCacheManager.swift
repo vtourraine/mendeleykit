@@ -101,8 +101,7 @@ open class MendeleyAnalyticsCacheManager: NSObject
                     let modeller = MendeleyModeller.sharedInstance()
                     let task = MendeleyTask()
                     do{
-                        let data = try modeller.jsonObject(fromModelOrModels: events) as Data!
-                        
+                        let data = try modeller.jsonObject(fromModelOrModels: events) as Data
                         
                         provider?.invokePOST(baseURL, api: kMendeleyAnalyticsAPIEventsBatch, additionalHeaders: self.eventHeader, jsonData: data, authenticationRequired: true, task: task, completionBlock: { (response, responseError ) -> Void in
                             if nil != response
