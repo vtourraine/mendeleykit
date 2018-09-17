@@ -61,8 +61,8 @@ class MendeleyAnalyticsTests: XCTestCase {
         if 1 == events.count
         {
             let returnedEvent = events[0]
-            XCTAssertTrue(returnedEvent.profile_uuid == profileID, "expected profile ID\(profileID) but got \(returnedEvent.profile_uuid)")
-            XCTAssertTrue(returnedEvent.name == "TestPDFEvent", "Expected name 'TestPDFEvent' but got \(returnedEvent.name)")
+            XCTAssertTrue(returnedEvent.profile_uuid == profileID, "expected profile ID\(profileID) but got \(returnedEvent.profile_uuid ?? "nil")")
+            XCTAssertTrue(returnedEvent.name == "TestPDFEvent", "Expected name 'TestPDFEvent' but got \(returnedEvent.name ?? "nil")")
         }
     }
     
@@ -84,8 +84,8 @@ class MendeleyAnalyticsTests: XCTestCase {
         {
             let name = "TestPDFEvent\(index)"
             let profile = "ProfileID_\(index)"
-            XCTAssertTrue(name == event.name,"expected name \(name) but got \(event.name)")
-            XCTAssertTrue(profile == event.profile_uuid,"expected name \(profile) but got \(event.profile_uuid)")
+            XCTAssertTrue(name == event.name,"expected name \(name) but got \(event.name ?? "nil")")
+            XCTAssertTrue(profile == event.profile_uuid,"expected name \(profile) but got \(event.profile_uuid ?? "nil")")
         }
     }
     
@@ -102,8 +102,8 @@ class MendeleyAnalyticsTests: XCTestCase {
         if 1 == cachedEvents.count
         {
             let returnedEvent = cachedEvents[0]
-            XCTAssertTrue(returnedEvent.profile_uuid == profileID, "expected profile ID\(profileID) but got \(returnedEvent.profile_uuid)")
-            XCTAssertTrue(returnedEvent.name == "TestPDFEvent", "Expected name 'TestPDFEvent' but got \(returnedEvent.name)")
+            XCTAssertTrue(returnedEvent.profile_uuid == profileID, "expected profile ID\(profileID) but got \(returnedEvent.profile_uuid ?? "nil")")
+            XCTAssertTrue(returnedEvent.name == "TestPDFEvent", "Expected name 'TestPDFEvent' but got \(returnedEvent.name ?? "nil")")
         }
     }
     
