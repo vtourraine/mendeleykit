@@ -790,7 +790,7 @@
     [self.downloadHelper URLSession:session
                        downloadTask:(MendeleyNetworkDownloadTask *) [self networkTaskWithNetworkTaskID:@(downloadTask.taskIdentifier)]
           didFinishDownloadingToURL:location];
-}
+} 
 
 #warning needs implementing
 - (void)    URLSession:(NSURLSession *)session
