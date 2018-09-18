@@ -25,6 +25,7 @@
 #import "MendeleyOAuthStore.h"
 #import "MendeleyDefaultOAuthProvider.h"
 #import "NSError+MendeleyError.h"
+#import "MendeleyObject.h"
 #import "MendeleyKit-Umbrella.h"
 
 @interface MendeleyLoginViewController ()

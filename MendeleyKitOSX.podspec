@@ -24,4 +24,5 @@ DESC
   s.source_files      = "MendeleyKit/MendeleyKitOSX/MendeleyKitOSX.h", "MendeleyKit/MendeleyKitOSX/AppKit", "MendeleyKit/MendeleyKit/*.h", "MendeleyKit/MendeleyKit/**/*.{h,m,swift}"
   s.frameworks        = 'Foundation', 'CoreFoundation', 'AppKit', 'Security', 'WebKit', 'CoreServices'
   s.osx.exclude_files     = 'MendeleyKit/MendeleyKit/UIKit/*.{h,m,swift}'
+  s.swift_version = '3.2'
 end
