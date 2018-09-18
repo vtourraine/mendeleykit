@@ -19,4 +19,4 @@ MendeleyKit/Pods/
 
 *.xcscmblueprint
 Carthage/Build
-/MendeleyKit/MendeleyKit.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+IDEWorkspaceChecks.plist
