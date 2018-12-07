@@ -309,6 +309,11 @@
     [NSError assertArgumentNotNil:completionBlock argumentName:@"completionBlock"];
     [NSError assertArgumentNotNil:recentlyRead argumentName:@"recentlyRead"];
 
+    // Vertical position must have a value
+    if (!recentlyRead.vertical_position) {
+        recentlyRead.vertical_position = 0;
+    }
+
     MendeleyBlockExecutor *blockExec = [[MendeleyBlockExecutor alloc]
                                         initWithObjectCompletionBlock:completionBlock];
     MendeleyModeller *modeller = [MendeleyModeller sharedInstance];
