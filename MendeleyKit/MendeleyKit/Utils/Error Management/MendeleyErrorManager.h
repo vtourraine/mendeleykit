@@ -20,8 +20,8 @@
 
 #import <Foundation/Foundation.h>
 
-static const NSString *MendeleyErrorDomainMultiple = @"*.error";
-static const NSString *MendeleyDetailedErrorsKey = @"KMendeleyDetailedErrors";
+static NSString * const MendeleyErrorDomainMultiple = @"*.error";
+static NSString * const MendeleyDetailedErrorsKey = @"KMendeleyDetailedErrors";
 
 
 typedef NS_ENUM (NSInteger, MendeleyReservedErrorCode) {
