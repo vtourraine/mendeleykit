@@ -1,5 +1,11 @@
 RELEASE NOTES
 
+Date: June 2019 (3.4.2)
+- upgrade to Swift 5.0
+
+Date: September 2018 (3.4.0)
+- upgrade to Swift 4.2
+
 Date: January 2018 (3.3.0)
 - added dataset API
 
